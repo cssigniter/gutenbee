@@ -1,0 +1,34 @@
+.wp-block-guten-spacer {
+  border: 1px solid #0085ba;
+  min-height: 10px;
+  position: relative;
+  z-index: 10;
+}
+
+.wp-block-gutenbee-divider {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.wp-block-gutenbee-divider.align-left {
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+}
+
+.wp-block-gutenbee-divider.align-right {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.wp-block-gutenbee-divider {
+  min-height: 20px;
+}
