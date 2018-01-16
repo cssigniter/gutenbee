@@ -1,7 +1,6 @@
 <?php
 /*
  * Plugin Name: GutenBee
- * Plugin URI: https://www.cssigniter.com/
  * Description: Premium Blocks for WordPress
  * Author: The CSSIgniter Team
  * Author URI: https://www.cssigniter.com/
