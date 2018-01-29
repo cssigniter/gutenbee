@@ -12,7 +12,6 @@ const { __, sprintf } = wp.i18n;
 const {
   registerBlockType,
   InspectorControls,
-  BlockDescription,
   AlignmentToolbar,
   Editable,
 } = wp.blocks;
@@ -22,6 +21,7 @@ const {
 
 registerBlockType('gutenbee/image-box', {
   title: __('GutenBee Image Box'),
+  description: __('An image box with title, description, and optional link.'),
   icon: 'format-image',
   category: 'common',
   keywords: [
@@ -97,10 +97,6 @@ registerBlockType('gutenbee/image-box', {
       </div>,
       focus && (
         <InspectorControls key="inspector">
-          <BlockDescription>
-            <p>{__('An image box with title, description, and optional link.')}</p>
-          </BlockDescription>
-
           <p>{__('Title size')}</p>
           <Toolbar
             controls={

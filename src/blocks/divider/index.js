@@ -10,7 +10,6 @@ const { __, sprintf } = wp.i18n;
 const {
   registerBlockType,
   InspectorControls,
-  BlockDescription,
   AlignmentToolbar,
   ColorPalette,
 } = wp.blocks;
@@ -56,6 +55,7 @@ const Divider = ({
 
 registerBlockType('gutenbee/divider', {
   title: __('GutenBee Divider'),
+  description: __('A divider to indicate a thematic change in the content in style.'),
   icon: 'minus',
   category: 'layout',
   keywords: [
@@ -106,10 +106,6 @@ registerBlockType('gutenbee/divider', {
       />,
       focus && (
         <InspectorControls key="inspector">
-          <BlockDescription>
-            <p>{__('A divider to indicate a thematic change in the content in style.')}</p>
-          </BlockDescription>
-
           <p>{__('Style')}</p>
           <Toolbar
             // TODO: figure out a way to add custom icons

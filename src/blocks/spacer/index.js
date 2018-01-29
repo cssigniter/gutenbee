@@ -11,11 +11,11 @@ const { __ } = wp.i18n;
 const {
   registerBlockType,
   InspectorControls,
-  BlockDescription,
 } = wp.blocks;
 
 registerBlockType('gutenbee/spacer', {
   title: __('GutenBee Spacer'),
+  description: __('Easily add vertical spacing between elements.'),
   icon: 'minus',
   category: 'layout',
   keywords: [
@@ -44,10 +44,6 @@ registerBlockType('gutenbee/spacer', {
       />,
       focus && (
         <InspectorControls key="inspector">
-          <BlockDescription>
-            <p>{__('Easily add vertical spacing between elements.')}</p>
-          </BlockDescription>
-
           <InspectorControls.RangeControl
             label="Height"
             min={10}
