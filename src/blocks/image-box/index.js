@@ -1,23 +1,19 @@
-/* global wp */
-
 /**
  * Image Box
  *
  * Image with title, description, and link
  */
 
-import Image from './Image';
-
-const { __, sprintf } = wp.i18n;
-const {
+import { __, sprintf } from 'wp.i18n';
+import { Toolbar } from 'wp.components';
+import {
   registerBlockType,
   InspectorControls,
   AlignmentToolbar,
   Editable,
-} = wp.blocks;
-const {
-  Toolbar,
-} = wp.components;
+} from 'wp.blocks';
+
+import Image from './Image';
 
 registerBlockType('gutenbee/image-box', {
   title: __('GutenBee Image Box'),

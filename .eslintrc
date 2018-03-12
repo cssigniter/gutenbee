@@ -25,7 +25,9 @@
   "globals": {
     "wp": true,
     "window": true,
-    "document": true
+    "document": true,
+    "jQuery": true,
+    "$": true
   },
   "rules": {
     "eqeqeq": "error",

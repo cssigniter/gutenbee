@@ -7,7 +7,6 @@
  * Version: 1.0.0
  */
 
-
 if ( ! defined( 'GUTENBEE_PLUGIN_VERSION' ) ) {
 	define( 'GUTENBEE_PLUGIN_VERSION', '1.0.0' );
 }
@@ -24,9 +23,11 @@ add_action( 'enqueue_block_editor_assets', 'gutenbee_enqueue_editor_assets' );
 
 function gutenbee_enqueue_editor_assets() {
 	wp_enqueue_script( 'gutenbee', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.build.js', array(
+		'wp-components',
 		'wp-blocks',
 		'wp-element',
-		'wp-components',
+		'wp-data',
+		'wp-date',
 		'wp-utils',
 		'wp-i18n',
 	), GUTENBEE_PLUGIN_VERSION );
@@ -36,10 +37,14 @@ function gutenbee_enqueue_editor_assets() {
 	), GUTENBEE_PLUGIN_VERSION );
 }
 
-add_action( 'enqueue_block_assets', 'gutenbee_enqueue_block_assets' );
+add_action( 'wp_enqueue_scripts', 'gutenbee_enqueue_frontend_block_assets' );
 
-function gutenbee_enqueue_block_assets() {
+function gutenbee_enqueue_frontend_block_assets() {
 	wp_enqueue_style( 'gutenbee', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.style.css', array(
 		'wp-blocks',
+	), GUTENBEE_PLUGIN_VERSION );
+
+	wp_enqueue_script( 'gutenbee-scripts', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.scripts.js', array(
+		'jquery',
 	), GUTENBEE_PLUGIN_VERSION );
 }

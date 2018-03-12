@@ -33,12 +33,40 @@ const styleLoader = {
   ],
 };
 
+const wplib = [
+  'blocks',
+  'components',
+  'date',
+  'editor',
+  'element',
+  'i18n',
+  'utils',
+  'data',
+];
+
 const webpackConfig = {
-  entry: './src/index.js',
+  entry: {
+    'gutenbee.build': './src/index.js',
+    'gutenbee.scripts': './src/frontend.js',
+  },
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'gutenbee.build.js',
+    filename: '[name].js',
+    library: ['wp', '[name]'],
+    libraryTarget: 'window',
   },
+  // Define WordPress external libraries loaded globally
+  // as separate scripts so that we can use them as ES modules
+  externals: wplib.reduce((externals, lib) => {
+    externals[`wp.${lib}`] = {
+      window: ['wp', lib],
+    };
+
+    return externals;
+  }, {
+    // Initial externals (non WP libraries)
+    jquery: 'jQuery',
+  }),
   module: {
     rules: [
       {

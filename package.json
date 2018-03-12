@@ -27,5 +27,9 @@
   "scripts": {
     "build": "cross-env BABEL_ENV=default NODE_ENV=production webpack",
     "start": "cross-env BABEL_ENV=default webpack --watch"
+  },
+  "dependencies": {
+    "classnames": "2.2.5",
+    "slick-carousel": "1.8.1"
   }
 }

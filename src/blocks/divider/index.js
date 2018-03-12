@@ -1,22 +1,17 @@
-/* global wp */
-
 /**
  * Divider Block
  *
  * Provide thematic content spacing with a fancy divider
  */
 
-const { __, sprintf } = wp.i18n;
-const {
+import { __, sprintf } from 'wp.i18n';
+import { PanelBody, Toolbar } from 'wp.components';
+import {
   registerBlockType,
   InspectorControls,
   AlignmentToolbar,
   ColorPalette,
-} = wp.blocks;
-const {
-  PanelBody,
-  Toolbar,
-} = wp.components;
+} from 'wp.blocks';
 
 const BORDER_STYLES = {
   SOLID: 'solid',

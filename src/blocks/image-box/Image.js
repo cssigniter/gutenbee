@@ -1,16 +1,8 @@
-/* global wp */
-
-const { __ } = wp.i18n;
-const { Component } = wp.element;
-const {
-  MediaUploadButton,
-} = wp.blocks;
-const {
-  DropZone,
-  FormFileUpload,
-  Placeholder,
-} = wp.components;
-const { mediaUpload } = wp.utils;
+import { __ } from 'wp.i18n';
+import { Component } from 'wp.element';
+import { MediaUploadButton } from 'wp.blocks';
+import { DropZone, FormFileUpload, Placeholder } from 'wp.components';
+import { mediaUpload } from 'wp.utils';
 
 class Image extends Component {
   onSelectImage = media =>

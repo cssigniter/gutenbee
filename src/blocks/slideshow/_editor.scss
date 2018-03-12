@@ -1,0 +1,38 @@
+.wp-block-gutenbee-slideshow {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: -8px;
+}
+
+.gutenbee-gallery-item {
+  padding: 8px;
+  width: 33.333333%;
+  position: relative;
+  flex-grow: 1;
+  justify-content: center;
+
+  figure {
+    margin: 0;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  &.is-selected {
+    outline: 4px solid $blue; // TODO figure out a way to obtain WP native Sass variables
+    outline-offset: -4px;
+  }
+
+  img {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .blocks-gallery-item__inline-menu {
+    top: 8px;
+    right: 8px;
+  }
+}

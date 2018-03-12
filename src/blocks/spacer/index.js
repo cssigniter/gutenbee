@@ -1,5 +1,3 @@
-/* global wp */
-
 /**
  * Spacer Block
  *
@@ -7,11 +5,8 @@
  * with a range control input setting
  */
 
-const { __ } = wp.i18n;
-const {
-  registerBlockType,
-  InspectorControls,
-} = wp.blocks;
+import { __ } from 'wp.i18n';
+import { registerBlockType, InspectorControls } from 'wp.blocks';
 
 registerBlockType('gutenbee/spacer', {
   title: __('GutenBee Spacer'),
