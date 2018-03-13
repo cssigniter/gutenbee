@@ -188,6 +188,7 @@ class GalleryBlock extends Component {
               onChange={(value) => {
                 setAttributes({ speed: value });
               }}
+              step={10}
             />
             <RangeControl
               label="Autoplay Speed (ms)"
@@ -197,6 +198,7 @@ class GalleryBlock extends Component {
               onChange={(value) => {
                 setAttributes({ autoplaySpeed: value });
               }}
+              step={10}
             />
             <ToggleControl
               label={__('Infinite Slide')}
