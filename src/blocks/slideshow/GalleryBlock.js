@@ -7,6 +7,7 @@ import {
   FormFileUpload,
   ToggleControl,
   RangeControl,
+  RadioControl,
   Toolbar,
 } from 'wp.components';
 import {
@@ -107,7 +108,7 @@ class GalleryBlock extends Component {
       arrowNav,
       dotNav,
       autoplay,
-      fade,
+      animationStyle,
       infinite,
       speed,
       autoplaySpeed,
@@ -174,33 +175,6 @@ class GalleryBlock extends Component {
               }}
             />
             <ToggleControl
-              label={__('Fade Animation')}
-              checked={fade}
-              onChange={() => {
-                setAttributes({ fade: !fade });
-              }}
-            />
-            <RangeControl
-              label="Fade/Slide Animation Speed (ms)"
-              min={50}
-              max={5000}
-              value={speed}
-              onChange={(value) => {
-                setAttributes({ speed: value });
-              }}
-              step={10}
-            />
-            <RangeControl
-              label="Autoplay Speed (ms)"
-              min={500}
-              max={10000}
-              value={autoplaySpeed}
-              onChange={(value) => {
-                setAttributes({ autoplaySpeed: value });
-              }}
-              step={10}
-            />
-            <ToggleControl
               label={__('Infinite Slide')}
               checked={infinite}
               onChange={() => {
@@ -220,6 +194,39 @@ class GalleryBlock extends Component {
               onChange={() => {
                 setAttributes({ dotNav: !dotNav });
               }}
+            />
+
+            <h2>{__('Animation Settings')}</h2>
+            <RadioControl
+              label="Animation Style"
+              selected={animationStyle}
+              options={[
+                { label: 'Fade', value: 'fade' },
+                { label: 'Slide', value: 'slide' },
+              ]}
+              onChange={(value) => {
+                setAttributes({ animationStyle: value });
+              }}
+            />
+            <RangeControl
+              label="Animation Speed (ms)"
+              min={50}
+              max={5000}
+              value={speed}
+              onChange={(value) => {
+                setAttributes({ speed: value });
+              }}
+              step={10}
+            />
+            <RangeControl
+              label="Autoplay Speed (ms)"
+              min={500}
+              max={10000}
+              value={autoplaySpeed}
+              onChange={(value) => {
+                setAttributes({ autoplaySpeed: value });
+              }}
+              step={10}
             />
           </InspectorControls>
         )}

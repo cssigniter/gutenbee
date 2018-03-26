@@ -48,9 +48,9 @@ registerBlockType('gutenbee/slideshow', {
         },
       },
     },
-    fade: {
-      type: 'boolean',
-      default: true,
+    animationStyle: {
+      type: 'string',
+      default: 'fade',
     },
     arrowNav: {
       type: 'boolean',
@@ -81,7 +81,7 @@ registerBlockType('gutenbee/slideshow', {
   save({ className, attributes }) {
     const {
       images,
-      fade,
+      animationStyle,
       autoplay,
       arrowNav,
       dotNav,
@@ -93,7 +93,7 @@ registerBlockType('gutenbee/slideshow', {
     return (
       <div
         className={className}
-        data-fade={fade}
+        data-fade={animationStyle === 'fade'}
         data-autoplay={autoplay}
         data-arrows={arrowNav}
         data-dots={dotNav}
