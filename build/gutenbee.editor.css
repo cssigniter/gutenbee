@@ -46,6 +46,7 @@
 .gutenbee-gallery-item {
   padding: 8px;
   width: 33.333333%;
+  max-width: 33.333333%;
   position: relative;
   -webkit-box-flex: 1;
   -ms-flex-positive: 1;

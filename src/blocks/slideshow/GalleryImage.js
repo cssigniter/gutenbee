@@ -1,8 +1,9 @@
 import classnames from 'classnames';
 import { Component } from 'wp.element';
-import { IconButton, withAPIData, Spinner } from 'wp.components';
+import { IconButton, Spinner } from 'wp.components';
 import { __ } from 'wp.i18n';
 import { keycodes } from 'wp.utils';
+import { withSelect } from 'wp.data';
 
 const { BACKSPACE, DELETE } = keycodes;
 
@@ -24,11 +25,11 @@ class GalleryImage extends Component {
     }
   };
 
-  componentWillReceiveProps({ image }) {
-    if (image && image.data && !this.props.url) {
+  componentWillReceiveProps({ image, url }) {
+    if (image && !url) {
       this.props.setAttributes({
-        url: image.data.source_url,
-        alt: image.data.alt_text,
+        url: image.source_url,
+        alt: image.alt_text,
       });
     }
   }
@@ -91,6 +92,11 @@ class GalleryImage extends Component {
   }
 }
 
-export default withAPIData(({ id }) => ({
-  image: id ? `/wp/v2/media/${id}` : {},
-}))(GalleryImage);
+export default withSelect((select, ownProps) => {
+  const { getMedia } = select('core');
+  const { id } = ownProps;
+
+  return {
+    image: id ? getMedia(id) : null,
+  };
+})(GalleryImage);

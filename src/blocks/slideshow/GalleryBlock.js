@@ -3,8 +3,6 @@ import { __ } from 'wp.i18n';
 import { mediaUpload } from 'wp.utils';
 import {
   IconButton,
-  DropZone,
-  FormFileUpload,
   ToggleControl,
   RangeControl,
   RadioControl,
@@ -12,11 +10,11 @@ import {
 } from 'wp.components';
 import {
   MediaUpload,
-  ImagePlaceholder,
   InspectorControls,
   BlockControls,
 } from 'wp.blocks';
 
+import ImagePlaceholder from '../../components/image-placeholder/ImagePlaceholder';
 import GalleryImage from './GalleryImage';
 
 class GalleryBlock extends Component {
@@ -69,10 +67,6 @@ class GalleryBlock extends Component {
     });
   };
 
-  uploadFromFiles = (event) => {
-    this.addFiles(event.target.files);
-  };
-
   addFiles = (files) => {
     const currentImages = this.props.attributes.images || [];
     const { setAttributes } = this.props;
@@ -81,7 +75,7 @@ class GalleryBlock extends Component {
       files,
       (images) => {
         setAttributes({
-          images: currentImages.concat(images),
+          images: [...currentImages, ...images],
         });
       },
     );
@@ -113,12 +107,6 @@ class GalleryBlock extends Component {
       speed,
       autoplaySpeed,
     } = attributes;
-
-    const dropZone = (
-      <DropZone
-        onFilesDrop={this.addFiles}
-      />
-    );
 
     const controls = (
       isSelected && (
@@ -232,7 +220,6 @@ class GalleryBlock extends Component {
         )}
 
         <div className={className}>
-          {dropZone}
           {images.map((img, index) => (
             <div
               key={img.id || img.url}
@@ -250,19 +237,6 @@ class GalleryBlock extends Component {
               />
             </div>
           ))}
-
-          {isSelected && (
-            <div className="gutenbee-gallery-item blocks-gallery-item">
-              <FormFileUpload
-                multiple
-                isLarge
-                className="blocks-gallery-add-item-button"
-                onChange={this.uploadFromFiles}
-                accept="image/*"
-                icon="insert"
-              />
-            </div>
-          )}
         </div>
       </Fragment>
     );
