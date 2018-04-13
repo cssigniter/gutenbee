@@ -88,6 +88,13 @@ const webpackConfig = {
         test: /style.scss$/,
         use: extractStyles.extract(styleLoader),
       },
+      {
+        test: /\.(ttf|eot|woff|woff2)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'fonts/[name].[ext]',
+        },
+      },
     ],
   },
   plugins: [

@@ -4,6 +4,7 @@ import { IconButton, Spinner } from 'wp.components';
 import { __ } from 'wp.i18n';
 import { keycodes } from 'wp.utils';
 import { withSelect } from 'wp.data';
+import { LINKTO } from './constants';
 
 const { BACKSPACE, DELETE } = keycodes;
 
@@ -48,14 +49,14 @@ class GalleryImage extends Component {
     let href;
 
     switch (linkTo) {
-    case 'media':
-      href = url;
-      break;
-    case 'attachment':
-      href = link;
-      break;
-    default:
-      break;
+      case LINKTO.MEDIA:
+        href = url;
+        break;
+      case LINKTO.ATTACHMENT:
+        href = link;
+        break;
+      default:
+        break;
     }
 
     const img = url

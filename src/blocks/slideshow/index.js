@@ -8,6 +8,7 @@ import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 
 import GalleryBlock from './GalleryBlock';
+import { LINKTO } from './constants';
 
 registerBlockType('gutenbee/slideshow', {
   title: __('GutenBee Slideshow'),
@@ -40,6 +41,11 @@ registerBlockType('gutenbee/slideshow', {
           source: 'attribute',
           selector: 'img',
           attribute: 'data-id',
+        },
+        link: {
+          source: 'attribute',
+          selector: 'img',
+          attribute: 'data-link',
         },
         caption: {
           type: 'array',
@@ -76,6 +82,18 @@ registerBlockType('gutenbee/slideshow', {
       type: 'number',
       default: 3000,
     },
+    linkTo: {
+      type: 'string',
+      default: LINKTO.NONE,
+    },
+    color: {
+      type: 'string',
+      default: '#FFFFFF',
+    },
+    size: {
+      type: 'string',
+      default: 'full',
+    },
   },
   edit: GalleryBlock,
   save({ className, attributes }) {
@@ -88,6 +106,8 @@ registerBlockType('gutenbee/slideshow', {
       infinite,
       speed,
       autoplaySpeed,
+      color,
+      linkTo,
     } = attributes;
 
     return (
@@ -100,12 +120,39 @@ registerBlockType('gutenbee/slideshow', {
         data-infinite={infinite}
         data-speed={speed}
         data-autoplay-speed={autoplaySpeed}
+        style={{ color }}
       >
-        {images.map((image, index) => (
-          <div key={image.id || index} className="gutenbee-slideshow-item">
-            <img src={image.url} alt={image.alt || ''} />
-          </div>
-        ))}
+        {images.map((image, index) => {
+          let href;
+
+          switch (linkTo) {
+            case LINKTO.MEDIA:
+              href = image.url;
+              break;
+            case LINKTO.ATTACHMENT:
+              href = image.link;
+              break;
+            default:
+              break;
+          }
+
+          const img = (
+            <img
+              src={image.url}
+              alt={image.alt || ''}
+              data-id={image.id}
+              data-link={image.link}
+            />
+          );
+
+          return (
+            <div key={image.id || index} className="gutenbee-slideshow-item">
+              {href
+                ? <a className="gutenbee-slideshow-item-link" href={href}>{img}</a>
+                : img}
+            </div>
+          );
+        })}
       </div>
     );
   },

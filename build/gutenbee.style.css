@@ -1,3 +1,29 @@
+@font-face {
+  font-family: "gutenbee";
+  src: url(fonts/gutenbee.eot);
+  src: url(fonts/gutenbee.eot?#iefix) format("eot"), url(fonts/gutenbee.woff2) format("woff2"), url(fonts/gutenbee.woff) format("woff"), url(fonts/gutenbee.ttf) format("truetype");
+}
+
+.gutenbee:before {
+  font-family: "gutenbee";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  /* speak: none; only necessary if not using the private unicode range (firstGlyph option) */
+  text-decoration: none;
+  text-transform: none;
+}
+
+.gutenbee-angle-left:before {
+  content: "\E001";
+}
+
+.gutenbee-angle-right:before {
+  content: "\E002";
+}
+
 .wp-block-gutenbee-divider {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -133,16 +159,48 @@
   top: 50%;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
-  z-index: 1001;
+  z-index: 99;
   line-height: normal;
+  background: none;
+  color: currentColor;
+  width: auto;
+  height: auto;
+  border: 0;
+  min-width: auto;
+  padding: 10px;
+  font-size: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.wp-block-gutenbee-slideshow .slick-arrow::before {
+  font-family: "gutenbee";
+  font-size: 24px;
+}
+
+.wp-block-gutenbee-slideshow .slick-arrow:hover, .wp-block-gutenbee-slideshow .slick-arrow:active, .wp-block-gutenbee-slideshow .slick-arrow:focus {
+  outline: none;
+  border: 0;
+  background: none;
+  color: currentColor;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 .wp-block-gutenbee-slideshow .slick-next {
   right: 15px;
 }
 
+.wp-block-gutenbee-slideshow .slick-next::before {
+  content: "\E002";
+}
+
 .wp-block-gutenbee-slideshow .slick-prev {
   left: 15px;
+}
+
+.wp-block-gutenbee-slideshow .slick-prev::before {
+  content: "\E001";
 }
 
 .wp-block-gutenbee-slideshow .slick-dots {
@@ -168,6 +226,28 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: #fff;
+  color: inherit;
+  background-color: currentColor;
   border: 0;
+  opacity: 0.5;
+  -webkit-transition: opacity .18s ease;
+  transition: opacity .18s ease;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.wp-block-gutenbee-slideshow .slick-dots button:hover, .wp-block-gutenbee-slideshow .slick-dots button:focus, .wp-block-gutenbee-slideshow .slick-dots button:active {
+  background-color: currentColor;
+  opacity: 1;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 0;
+}
+
+.wp-block-gutenbee-slideshow .slick-dots .slick-active button {
+  opacity: 1;
+}
+
+.wp-block-gutenbee-slideshow .gutenbee-slideshow-item img {
+  width: 100%;
 }

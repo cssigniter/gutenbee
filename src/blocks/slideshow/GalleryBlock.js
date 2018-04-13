@@ -1,21 +1,26 @@
 import { Component, Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
-import { mediaUpload } from 'wp.utils';
 import {
   IconButton,
   ToggleControl,
   RangeControl,
   RadioControl,
   Toolbar,
+  PanelBody,
+  SelectControl,
 } from 'wp.components';
 import {
   MediaUpload,
   InspectorControls,
   BlockControls,
+  ColorPalette,
 } from 'wp.blocks';
+import { withSelect } from 'wp.data';
+import startCase from 'lodash.startcase';
 
 import ImagePlaceholder from '../../components/image-placeholder/ImagePlaceholder';
 import GalleryImage from './GalleryImage';
+import { LINKTO } from './constants';
 
 class GalleryBlock extends Component {
   state = {
@@ -67,20 +72,6 @@ class GalleryBlock extends Component {
     });
   };
 
-  addFiles = (files) => {
-    const currentImages = this.props.attributes.images || [];
-    const { setAttributes } = this.props;
-
-    mediaUpload(
-      files,
-      (images) => {
-        setAttributes({
-          images: [...currentImages, ...images],
-        });
-      },
-    );
-  };
-
   componentWillReceiveProps(nextProps) {
     // Deselect images when deselecting the block
     if (!nextProps.isSelected && this.props.isSelected) {
@@ -90,12 +81,30 @@ class GalleryBlock extends Component {
     }
   }
 
+  updateImageURLs = (newSize) => {
+    const {
+      setAttributes,
+      attributes,
+      images: propImages,
+    } = this.props;
+    const { images } = attributes;
+
+    setAttributes({
+      size: newSize,
+      images: images.map(image => ({
+        ...image,
+        url: propImages.find(({ id }) => image.id === id).sizes[newSize].source_url,
+      })),
+    });
+  };
+
   render() {
     const {
       attributes,
       isSelected,
       className,
       setAttributes,
+      images: propImages,
     } = this.props;
     const {
       images,
@@ -106,7 +115,12 @@ class GalleryBlock extends Component {
       infinite,
       speed,
       autoplaySpeed,
+      color,
+      linkTo,
+      size,
     } = attributes;
+
+    const [availableSizes] = propImages || [];
 
     const controls = (
       isSelected && (
@@ -183,6 +197,30 @@ class GalleryBlock extends Component {
                 setAttributes({ dotNav: !dotNav });
               }}
             />
+            <SelectControl
+              label={__('Link to')}
+              value={linkTo}
+              onChange={(value) => {
+                setAttributes({ linkTo: value });
+              }}
+              options={[
+                { value: LINKTO.ATTACHMENT, label: __('Attachment Page') },
+                { value: LINKTO.MEDIA, label: __('Media File') },
+                { value: LINKTO.NONE, label: __('None') },
+              ]}
+            />
+
+            {availableSizes && availableSizes.sizes && (
+              <SelectControl
+                label={__('Image Size')}
+                value={size}
+                options={Object.keys(availableSizes.sizes).map(name => ({
+                  value: name,
+                  label: startCase(name),
+                }))}
+                onChange={this.updateImageURLs}
+              />
+            )}
 
             <h2>{__('Animation Settings')}</h2>
             <RadioControl
@@ -216,6 +254,13 @@ class GalleryBlock extends Component {
               }}
               step={10}
             />
+
+            <PanelBody title={__('Arrow and Dots Color')}>
+              <ColorPalette
+                value={color}
+                onChange={value => setAttributes({ color: value })}
+              />
+            </PanelBody>
           </InspectorControls>
         )}
 
@@ -243,4 +288,20 @@ class GalleryBlock extends Component {
   }
 }
 
-export default GalleryBlock;
+export default withSelect((select, props) => {
+  const { getMedia } = select('core');
+  const imageIds = props.attributes.images.map(({ id }) => id);
+
+  return {
+    images: imageIds.length
+      ? imageIds.map((id) => {
+        const image = getMedia(id);
+
+        return {
+          id,
+          sizes: image && image.media_details.sizes,
+        };
+      })
+      : null,
+  };
+})(GalleryBlock);

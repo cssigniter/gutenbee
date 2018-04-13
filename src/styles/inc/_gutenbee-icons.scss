@@ -1,0 +1,28 @@
+@font-face {
+  font-family: "gutenbee";
+  src: url('../fonts/gutenbee.eot');
+  src: url('../fonts/gutenbee.eot?#iefix') format('eot'),
+  url('../fonts/gutenbee.woff2') format('woff2'),
+  url('../fonts/gutenbee.woff') format('woff'),
+  url('../fonts/gutenbee.ttf') format('truetype')
+}
+
+.gutenbee:before {
+  font-family: "gutenbee";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  /* speak: none; only necessary if not using the private unicode range (firstGlyph option) */
+  text-decoration: none;
+  text-transform: none;
+}
+
+.gutenbee-angle-left:before {
+  content: "\E001";
+}
+
+.gutenbee-angle-right:before {
+  content: "\E002";
+}
