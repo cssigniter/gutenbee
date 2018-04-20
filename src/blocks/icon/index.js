@@ -14,86 +14,15 @@ import {
   PanelBody,
   RangeControl,
   SelectControl,
+  BaseControl,
 } from 'wp.components';
-import classNames from 'classnames';
 import startCase from 'lodash.startcase';
+import ReactSelect from 'react-select';
 
+import { VIEWS, SHAPES } from './constants';
 import icons from './icons';
-
-const VIEWS = {
-  DEFAULT: 'default',
-  STACKED: 'stacked',
-  FRAMED: 'framed',
-};
-
-const SHAPES = {
-  CIRCLE: 'circle',
-  SQUARE: 'square',
-};
-
-const Icon = ({
-  className,
-  view,
-  shape,
-  icon,
-  size,
-  padding,
-  borderWidth,
-  align,
-  colorPrimary,
-  colorSecondary,
-}) => {
-  const wrapperClasses = classNames({
-    [className]: !!className,
-    [`align-${align}`]: !!align,
-    [`${className}-${view}`]: !!view,
-    [`${className}-shape-${shape}`]: !!shape && view !== VIEWS.DEFAULT, // Ignore shape if we are on the default view
-  });
-
-  const iconClasses = classNames({
-    'ep-icon-module': true,
-    [`${className}-icon`]: !!className,
-    [`ep-icon-module-${icon}`]: !!icon,
-  });
-
-  let color = colorPrimary;
-  let backgroundColor = 'transparent';
-  let borderColor = 'transparent';
-  let pad;
-
-  if (view === VIEWS.STACKED) {
-    color = colorSecondary;
-    backgroundColor = colorPrimary;
-    pad = padding;
-  }
-
-  if (view === VIEWS.FRAMED) {
-    backgroundColor = colorSecondary;
-    borderColor = colorPrimary;
-    pad = padding;
-  }
-
-  return (
-    <div className={wrapperClasses}>
-      <span
-        className={`${className}-icon-wrap`}
-        style={{
-          fontSize: `${size}px`,
-          color,
-          backgroundColor,
-          borderColor,
-          width: pad ? `${pad}em` : 'auto',
-          height: pad ? `${pad}em` : 'auto',
-          borderWidth,
-        }}
-      >
-        <span
-          className={iconClasses}
-        />
-      </span>
-    </div>
-  );
-};
+import Icon from './Icon';
+import IconSelectValue from './IconSelectValue';
 
 registerBlockType('gutenbee/icon', {
   title: __('GutenBee Icon'),
@@ -162,12 +91,32 @@ registerBlockType('gutenbee/icon', {
         />
         {focus && (
           <InspectorControls key="inspector">
-            <SelectControl
+            <BaseControl
+              id="icon-select"
               label={__('Icon')}
-              value={icon}
-              onChange={value => setAttributes({ icon: value })}
-              options={icons.map(value => ({ value, label: startCase(value) }))}
-            />
+            >
+              <ReactSelect
+                aria-labelledby="icon-select"
+                onChange={value => setAttributes({ icon: value })}
+                value={icon}
+                options={icons.map(value => ({ value, label: startCase(value) }))}
+                simpleValue
+                valueRenderer={({ value, label }) => (
+                  <IconSelectValue
+                    value={value}
+                    label={label}
+                    className={className}
+                  />
+                )}
+                optionRenderer={({ value, label }) => (
+                  <IconSelectValue
+                    value={value}
+                    label={label}
+                    className={className}
+                  />
+                )}
+              />
+            </BaseControl>
 
             <SelectControl
               label={__('View')}

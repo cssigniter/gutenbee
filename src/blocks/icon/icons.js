@@ -1,3 +1,7 @@
+/**
+ * Icon Block available icons array
+ */
+
 const icons = [
   'add-bag',
   'air-conditioning',

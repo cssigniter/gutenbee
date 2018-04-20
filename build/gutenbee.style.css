@@ -668,6 +668,7 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+  line-height: 1;
 }
 
 .wp-block-gutenbee-icon.align-left {
