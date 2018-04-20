@@ -16,6 +16,9 @@ import {
   SelectControl,
 } from 'wp.components';
 import classNames from 'classnames';
+import startCase from 'lodash.startcase';
+
+import icons from './icons';
 
 const VIEWS = {
   DEFAULT: 'default',
@@ -111,8 +114,7 @@ registerBlockType('gutenbee/icon', {
     },
     icon: {
       type: 'string',
-      // TODO Change the default
-      default: 'polaroid',
+      default: icons[0],
     },
     size: {
       type: 'number',
@@ -164,15 +166,7 @@ registerBlockType('gutenbee/icon', {
               label={__('Icon')}
               value={icon}
               onChange={value => setAttributes({ icon: value })}
-              options={[
-                { value: 'polaroid', label: __('Polaroid') },
-                { value: 'rollers', label: __('Rollers') },
-                { value: 'timer', label: __('Timer') },
-                { value: 'airplane-landing', label: __('Airplane Landing') },
-                { value: 'auto', label: __('Auto') },
-                { value: 'bus', label: __('Bus') },
-                { value: 'video-camera-3', label: __('Video Camera 3') },
-              ]}
+              options={icons.map(value => ({ value, label: startCase(value) }))}
             />
 
             <SelectControl
