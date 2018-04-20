@@ -1,4 +1,4 @@
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { Component } from 'wp.element';
 import { IconButton, Spinner } from 'wp.components';
 import { __ } from 'wp.i18n';
@@ -63,7 +63,7 @@ class GalleryImage extends Component {
       ? <img src={url} alt={alt} data-id={id} onClick={this.onImageClick} />
       : <Spinner />;
 
-    const className = classnames({
+    const className = classNames({
       'is-selected': isSelected,
       'is-transient': url && url.indexOf('blob:') === 0,
     });

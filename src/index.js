@@ -9,3 +9,4 @@ import './styles/editor.scss';
 import './blocks/spacer';
 import './blocks/divider';
 import './blocks/slideshow';
+import './blocks/icon';

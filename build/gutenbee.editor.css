@@ -112,3 +112,125 @@
   top: 8px;
   right: 8px;
 }
+
+@font-face {
+  font-family: "ep-icon-module";
+  src: url(fonts/ep-icon-module.eot);
+  src: url(fonts/ep-icon-module.eot?#iefix) format("eot"), url(fonts/ep-icon-module.woff2) format("woff2"), url(fonts/ep-icon-module.woff) format("woff"), url(fonts/ep-icon-module.ttf) format("truetype");
+}
+
+.ep-icon-module:before {
+  font-family: "ep-icon-module";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  /* speak: none; only necessary if not using the private unicode range (firstGlyph option) */
+  text-decoration: none;
+  text-transform: none;
+}
+
+.ep-icon-module-airplane-landing:before {
+  content: "\E001";
+}
+
+.ep-icon-module-auto:before {
+  content: "\E002";
+}
+
+.ep-icon-module-bus:before {
+  content: "\E003";
+}
+
+.ep-icon-module-camera-2:before {
+  content: "\E004";
+}
+
+.ep-icon-module-cricket:before {
+  content: "\E005";
+}
+
+.ep-icon-module-evaluative:before {
+  content: "\E006";
+}
+
+.ep-icon-module-golf-ball:before {
+  content: "\E007";
+}
+
+.ep-icon-module-helicopter:before {
+  content: "\E008";
+}
+
+.ep-icon-module-ping-pong:before {
+  content: "\E009";
+}
+
+.ep-icon-module-polaroid:before {
+  content: "\E00A";
+}
+
+.ep-icon-module-rollers:before {
+  content: "\E00B";
+}
+
+.ep-icon-module-ship:before {
+  content: "\E00C";
+}
+
+.ep-icon-module-timer:before {
+  content: "\E00D";
+}
+
+.ep-icon-module-video-camera-3:before {
+  content: "\E00E";
+}
+
+.wp-block-gutenbee-icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.wp-block-gutenbee-icon.align-left {
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+}
+
+.wp-block-gutenbee-icon.align-right {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.wp-block-gutenbee-icon-stacked .wp-block-gutenbee-icon-icon-wrap,
+.wp-block-gutenbee-icon-framed .wp-block-gutenbee-icon-icon-wrap {
+  width: 2em;
+  height: 2em;
+  text-align: center;
+  border: 3px solid transparent;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  justify-items: center;
+}
+
+.wp-block-gutenbee-icon-shape-circle .wp-block-gutenbee-icon-icon-wrap {
+  border-radius: 50%;
+}
