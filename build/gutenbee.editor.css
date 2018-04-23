@@ -1087,3 +1087,7 @@
   min-width: 17px;
   font-size: 16px;
 }
+
+.is-open .Select-control .wp-block-gutenbee-icon-select-value {
+  opacity: .4;
+}
