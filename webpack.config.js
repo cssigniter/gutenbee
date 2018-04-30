@@ -66,6 +66,8 @@ const webpackConfig = {
   }, {
     // Initial externals (non WP libraries)
     jquery: 'jQuery',
+    react: 'React',
+    'react-dom': 'ReactDOM',
   }),
   module: {
     rules: [

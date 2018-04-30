@@ -9,8 +9,8 @@ const propTypes = {
   className: PropTypes.string,
 };
 
-const IconSelectValue = ({ value, label, className }) => (
-  <div className={`${className}-select-value`}>
+const IconSelectValue = ({ value, label }) => (
+  <div className="gutenbee-icon-block-select-value">
     <span className={`ep-icon-module ep-icon-module-${value}`} />
     {label}
   </div>

@@ -1,6 +1,6 @@
 @import 'icon-block-icons';
 
-.wp-block-gutenbee-icon {
+.gutenbee-icon-block {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,9 +15,9 @@
   }
 }
 
-.wp-block-gutenbee-icon-stacked,
-.wp-block-gutenbee-icon-framed {
-  .wp-block-gutenbee-icon-icon-wrap {
+.gutenbee-icon-block-stacked,
+.gutenbee-icon-block-framed {
+  .gutenbee-icon-block-icon-wrap {
     width: 2em;
     height: 2em;
     text-align: center;
@@ -30,8 +30,8 @@
   }
 }
 
-.wp-block-gutenbee-icon-shape-circle {
-  .wp-block-gutenbee-icon-icon-wrap {
+.gutenbee-icon-block-shape-circle {
+  .gutenbee-icon-block-icon-wrap {
     border-radius: 50%;
   }
 }

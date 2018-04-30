@@ -63,6 +63,7 @@
     }],
     "lines-around-comment": "off",
     "no-invalid-this": "off",
+    "no-undefined": "off",
     "no-unused-vars": ["error", { "varsIgnorePattern": "React" }],
     "react/jsx-closing-bracket-location": ["error", "line-aligned"],
     "react/jsx-closing-tag-location": "error",

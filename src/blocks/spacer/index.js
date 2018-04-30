@@ -7,6 +7,7 @@
 
 import { __ } from 'wp.i18n';
 import { registerBlockType, InspectorControls } from 'wp.blocks';
+import { RangeControl } from 'wp.components';
 
 registerBlockType('gutenbee/spacer', {
   title: __('GutenBee Spacer'),
@@ -24,7 +25,7 @@ registerBlockType('gutenbee/spacer', {
       default: 10,
     },
   },
-  edit({ className, attributes, setAttributes, focus }) {
+  edit({ className, attributes, setAttributes, isSelected }) {
     const updateSpacerHeight = (value) => {
       setAttributes({ height: value });
     };
@@ -37,9 +38,9 @@ registerBlockType('gutenbee/spacer', {
           height: attributes.height,
         }}
       />,
-      focus && (
+      isSelected && (
         <InspectorControls key="inspector">
-          <InspectorControls.RangeControl
+          <RangeControl
             label="Height"
             min={10}
             max={1000}

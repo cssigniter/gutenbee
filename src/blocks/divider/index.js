@@ -5,7 +5,11 @@
  */
 
 import { __, sprintf } from 'wp.i18n';
-import { PanelBody, Toolbar } from 'wp.components';
+import {
+  PanelBody,
+  Toolbar,
+  RangeControl,
+} from 'wp.components';
 import {
   registerBlockType,
   InspectorControls,
@@ -84,7 +88,7 @@ registerBlockType('gutenbee/divider', {
       default: '#000000',
     },
   },
-  edit({ className, attributes, setAttributes, focus }) {
+  edit({ className, attributes, setAttributes, isSelected }) {
     const {
       style,
       weight,
@@ -99,7 +103,7 @@ registerBlockType('gutenbee/divider', {
         className={className}
         {...attributes}
       />,
-      focus && (
+      isSelected && (
         <InspectorControls key="inspector">
           <p>{__('Style')}</p>
           <Toolbar
@@ -115,7 +119,7 @@ registerBlockType('gutenbee/divider', {
             }
           />
 
-          <InspectorControls.RangeControl
+          <RangeControl
             label="Weight (thickness)"
             min={1}
             max={50}
@@ -123,7 +127,7 @@ registerBlockType('gutenbee/divider', {
             onChange={value => setAttributes({ weight: value })}
           />
 
-          <InspectorControls.RangeControl
+          <RangeControl
             label="Width"
             min={1}
             max={100}
@@ -131,7 +135,7 @@ registerBlockType('gutenbee/divider', {
             onChange={value => setAttributes({ width: value })}
           />
 
-          <InspectorControls.RangeControl
+          <RangeControl
             label="Height"
             min={10}
             max={100}

@@ -1,0 +1,49 @@
+.wp-block-gutenbee-iconbox {
+  display: flex;
+  // Default alignment: 'left'
+  text-align: left;
+
+  .gutenbee-icon-block {
+    margin-right: 15px;
+    display: block;
+  }
+}
+
+.wp-block-gutenbee-iconbox-align-left {
+  text-align: left;
+
+  .gutenbee-icon-block {
+    margin-right: 15px;
+  }
+}
+
+.wp-block-gutenbee-iconbox-align-center {
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+
+  .gutenbee-icon-block {
+    margin-bottom: 15px;
+  }
+}
+
+.wp-block-gutenbee-iconbox-align-right {
+  text-align: right;
+
+  .gutenbee-icon-block {
+    margin-left: 15px;
+    order: 2;
+  }
+}
+
+.wp-block-gutenbee-iconbox-content-align-left {
+  text-align: left;
+}
+
+.wp-block-gutenbee-iconbox-content-align-center {
+  text-align: center;
+}
+
+.wp-block-gutenbee-iconbox-content-align-right {
+  text-align: right;
+}

@@ -63,7 +63,7 @@ registerBlockType('gutenbee/image-box', {
       default: 'center',
     },
   },
-  edit({ className, attributes, setAttributes, focus, setFocus }) {
+  edit({ className, attributes, setAttributes, isSelected, setFocus }) {
     const {
       titleTag,
       titleText,
@@ -91,7 +91,7 @@ registerBlockType('gutenbee/image-box', {
           placeholder={__('Description')}
         />
       </div>,
-      focus && (
+      isSelected && (
         <InspectorControls key="inspector">
           <p>{__('Title size')}</p>
           <Toolbar

@@ -19,10 +19,11 @@ const Icon = ({
   colorSecondary,
 }) => {
   const wrapperClasses = classNames({
-    [className]: !!className,
+    'gutenbee-icon-block': true,
     [`align-${align}`]: !!align,
-    [`${className}-${view}`]: !!view,
-    [`${className}-shape-${shape}`]: !!shape && view !== VIEWS.DEFAULT, // Ignore shape if we are on the default view
+    [`gutenbee-icon-block-${view}`]: !!view,
+    [`gutenbee-icon-block-shape-${shape}`]: !!shape && view !== VIEWS.DEFAULT, // Ignore shape if we are on the default view
+    [className]: !!className,
   });
 
   const iconClasses = classNames({
@@ -51,7 +52,7 @@ const Icon = ({
   return (
     <div className={wrapperClasses}>
       <span
-        className={`${className}-icon-wrap`}
+        className="gutenbee-icon-block-icon-wrap"
         style={{
           fontSize: `${size}px`,
           color,
