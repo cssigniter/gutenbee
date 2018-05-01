@@ -4,20 +4,232 @@
  * Image with title, description, and link
  */
 
+import { Fragment } from 'wp.element';
 import { __, sprintf } from 'wp.i18n';
 import { Toolbar } from 'wp.components';
 import {
   registerBlockType,
   InspectorControls,
+  BlockControls,
   AlignmentToolbar,
-  Editable,
+  RichText,
+  MediaUpload,
 } from 'wp.blocks';
+import {
+  PanelBody,
+  IconButton,
+  withState,
+} from 'wp.components';
+import classNames from 'classnames';
 
-import Image from './Image';
+import TextControls from '../../components/controls/TextControls';
+import ImagePlaceholder from '../../components/image-placeholder/ImagePlaceholder';
 
-registerBlockType('gutenbee/image-box', {
+const ImageBox = ({ className, attributes }) => {
+  const {
+    titleContent,
+    titleNodeName,
+    titleFontSize,
+    textContent,
+    textFontSize,
+    url,
+    alt,
+    imageAlign,
+    contentAlign,
+  } = attributes;
+
+  return (
+    <div
+      className={classNames({
+        [className]: true,
+        [`${className}-align-${imageAlign}`]: true,
+        [`${className}-content-align-${contentAlign}`]: true,
+      })}
+    >
+      <figure className={`${className}-figure`}>
+        <img src={url} alt={alt} />
+      </figure>
+
+      <div className={`${className}-content`}>
+        <RichText.Content
+          tagName={titleNodeName.toLowerCase()}
+          value={titleContent}
+          className={`${className}-title`}
+          style={{
+            fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
+          }}
+        />
+
+        <RichText.Content
+          tagName="p"
+          value={textContent}
+          className={`${className}-text`}
+          style={{
+            fontSize: textFontSize ? `${textFontSize}px` : undefined,
+          }}
+        />
+      </div>
+    </div>
+  );
+};
+
+const ImageBoxEditBlock = ({
+  className,
+  attributes,
+  setAttributes,
+  isSelected,
+  editable,
+  setState,
+}) => {
+  const {
+    titleContent,
+    titleNodeName,
+    titleFontSize,
+    textContent,
+    textFontSize,
+    url,
+    alt,
+    id,
+    imageAlign,
+    contentAlign,
+  } = attributes;
+  const setActiveEditable = newEditable =>
+    setState({ editable: newEditable });
+
+  return (
+    <Fragment>
+      {!url ? (
+        <ImagePlaceholder
+          icon="format-image"
+          label={__('Image')}
+          onSelectImage={(image) => {
+            setAttributes({
+              url: image.url,
+              alt: image.alt,
+            });
+          }}
+        />
+      ) : (
+        <div
+          className={classNames({
+            [className]: true,
+            [`${className}-align-${imageAlign}`]: true,
+            [`${className}-content-align-${contentAlign}`]: true,
+          })}
+        >
+          <figure className={`${className}-figure`}>
+            <img src={url} alt={alt} />
+          </figure>
+
+          <div className={`${className}-content`}>
+            <RichText
+              tagName={titleNodeName.toLowerCase()}
+              value={titleContent}
+              onChange={value => setAttributes({ titleContent: value })}
+              className={`${className}-title`}
+              placeholder={__('Write heading…')}
+              isSelected={isSelected && editable === 'title'}
+              onFocus={() => setActiveEditable('title')}
+              style={{
+                fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
+              }}
+            />
+
+            <RichText
+              tagName="p"
+              value={textContent}
+              onChange={value => setAttributes({ textContent: value })}
+              className={`${className}-text`}
+              placeholder={__('Write content…')}
+              multiline="p"
+              isSelected={isSelected && editable === 'text'}
+              onFocus={() => setActiveEditable('text')}
+              style={{
+                fontSize: textFontSize ? `${textFontSize}px` : undefined,
+              }}
+            />
+          </div>
+        </div>
+      )}
+
+      {isSelected && url && (
+        <Fragment>
+          <BlockControls>
+            <MediaUpload
+              onSelect={(image) => {
+                setAttributes({
+                  url: image.url,
+                  alt: image.alt,
+                });
+              }}
+              type="image"
+              value={id}
+              render={({ open }) => (
+                <IconButton
+                  className="components-toolbar__control"
+                  label={__('Edit Image')}
+                  icon="edit"
+                  onClick={open}
+                />
+              )}
+            />
+          </BlockControls>
+          <InspectorControls>
+            <PanelBody title={__('Image Settings')} initialOpen={false}>
+              <p>{__('Alignment')}</p>
+              <AlignmentToolbar
+                value={imageAlign}
+                onChange={value => setAttributes({ imageAlign: value })}
+              />
+            </PanelBody>
+
+            <PanelBody title={__('Title Settings')} initialOpen={false}>
+              <p>{__('Heading element')}</p>
+              <Toolbar
+                controls={
+                  '23456'.split('').map(level => ({
+                    icon: 'heading',
+                    title: sprintf(__('Heading %s'), level),
+                    isActive: `H${level}` === titleNodeName,
+                    onClick: () => setAttributes({ titleNodeName: `H${level}` }),
+                    subscript: level,
+                  }))
+                }
+              />
+
+              <TextControls
+                setAttributes={setAttributes}
+                attributeKey="title"
+                attributes={attributes}
+                defaultFontSize={null}
+              />
+            </PanelBody>
+
+            <PanelBody title={__('Text Settings')} initialOpen={false}>
+              <TextControls
+                setAttributes={setAttributes}
+                attributeKey="text"
+                attributes={attributes}
+              />
+            </PanelBody>
+
+            <PanelBody title={__('Content Settings')} initialOpen={false}>
+              <p>{__('Alignment')}</p>
+              <AlignmentToolbar
+                value={contentAlign}
+                onChange={value => setAttributes({ contentAlign: value })}
+              />
+            </PanelBody>
+          </InspectorControls>
+        </Fragment>
+      )}
+    </Fragment>
+  );
+};
+
+registerBlockType('gutenbee/imagebox', {
   title: __('GutenBee Image Box'),
-  description: __('An image box with title, description, and optional link.'),
+  description: __('An image box with a title and a description.'),
   icon: 'format-image',
   category: 'common',
   keywords: [
@@ -26,17 +238,32 @@ registerBlockType('gutenbee/image-box', {
     __('media'),
   ],
   attributes: {
-    titleTag: {
-      type: 'string',
-      source: 'prop',
-      selector: 'h1, h2, h3, h4, h5, h6',
-      prop: 'nodeName',
-      default: 'H3',
-    },
-    titleText: {
+    titleContent: {
       type: 'array',
       source: 'children',
-      selector: 'h1, h2, h3, h4, h5, h6',
+      selector: 'h1,h2,h3,h4,h5,h6',
+      default: [],
+    },
+    titleNodeName: {
+      type: 'string',
+      source: 'property',
+      selector: 'h1,h2,h3,h4,h5,h6',
+      property: 'nodeName',
+      default: 'H3',
+    },
+    titleFontSize: {
+      type: 'number',
+      default: null,
+    },
+    textContent: {
+      type: 'array',
+      source: 'children',
+      selector: 'p',
+      default: [],
+    },
+    textFontSize: {
+      type: 'number',
+      default: 16,
     },
     url: {
       type: 'string',
@@ -54,92 +281,22 @@ registerBlockType('gutenbee/image-box', {
     id: {
       type: 'number',
     },
-    description: {
-      source: 'children',
-      selector: 'p',
-    },
-    align: {
+    imageAlign: {
       type: 'string',
-      default: 'center',
+      default: 'left',
+    },
+    contentAlign: {
+      type: 'string',
+      default: null,
     },
   },
-  edit({ className, attributes, setAttributes, isSelected, setFocus }) {
-    const {
-      titleTag,
-      titleText,
-      align,
-      description,
-    } = attributes;
-
-    return [
-      <div key="image-box" className={className}>
-        <Editable
-          tagName={titleTag.toLowerCase()}
-          value={titleText}
-          onFocus={setFocus}
-          onChange={value => setAttributes({ titleText: value })}
-          placeholder={__('Title')}
-        />
-
-        <Image {...arguments[0]} />
-
-        <Editable
-          tagName="p"
-          value={description}
-          onFocus={setFocus}
-          onChange={value => setAttributes({ description: value })}
-          placeholder={__('Description')}
-        />
-      </div>,
-      isSelected && (
-        <InspectorControls key="inspector">
-          <p>{__('Title size')}</p>
-          <Toolbar
-            controls={
-              [1, 2, 3, 4, 5, 6].map(level => ({
-                icon: 'heading',
-                title: sprintf(__('Heading %s'), level),
-                isActive: `H${level}` === titleTag,
-                onClick: () => setAttributes({ titleTag: `H${level}` }),
-                subscript: level,
-              }))
-            }
-          />
-
-          <p>{__('Alignment')}</p>
-          <AlignmentToolbar
-            value={align}
-            onChange={value => setAttributes({ align: value })}
-          />
-        </InspectorControls>
-      ),
-    ];
-  },
-  save({ className, attributes: {
-    titleTag,
-    titleText,
-    description,
-    url,
-    alt,
-  } }) {
-    const HeadingTag = titleTag.toLowerCase();
-
+  edit: withState({ editable: null })(ImageBoxEditBlock),
+  save({ className, attributes }) {
     return (
-      <div className={className}>
-        {titleText && (
-          <HeadingTag>
-            {titleText}
-          </HeadingTag>
-        )}
-
-        <figure>
-          <img src={url} alt={alt || ''} />
-        </figure>
-
-        {description && (
-          <p>{description}</p>
-        )}
-      </div>
+      <ImageBox
+        className={className}
+        attributes={attributes}
+      />
     );
   },
 });

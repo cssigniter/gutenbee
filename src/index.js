@@ -11,3 +11,4 @@ import './blocks/divider';
 import './blocks/slideshow';
 import './blocks/icon';
 import './blocks/icon-box';
+import './blocks/image-box';

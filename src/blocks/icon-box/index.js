@@ -81,8 +81,8 @@ const IconBoxEditBlock = ({
     align,
     contentAlign,
   } = attributes;
-
-  const setActiveEditable = newEditable => setState({ editable: newEditable });
+  const setActiveEditable = newEditable =>
+    setState({ editable: newEditable });
 
   return (
     <Fragment>
