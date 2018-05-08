@@ -6,10 +6,12 @@ import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import {
   registerBlockType,
+} from 'wp.blocks';
+import {
   InspectorControls,
   AlignmentToolbar,
   ColorPalette,
-} from 'wp.blocks';
+} from 'wp.editor';
 import {
   PanelBody,
   RangeControl,

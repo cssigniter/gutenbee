@@ -6,7 +6,7 @@ import FontSizeControls from './FontSizeControl';
 const propTypes = {
   setAttributes: PropTypes.func.isRequired,
   attributeKey: PropTypes.string.isRequired,
-  attributes: PropTypes.shape,
+  attributes: PropTypes.object,
   defaultFontSize: PropTypes.number,
 };
 

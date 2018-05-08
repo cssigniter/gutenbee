@@ -14,7 +14,7 @@ import {
   InspectorControls,
   BlockControls,
   ColorPalette,
-} from 'wp.blocks';
+} from 'wp.editor';
 import { withSelect } from 'wp.data';
 import startCase from 'lodash.startcase';
 

@@ -8,10 +8,10 @@
   margin: 0;
   padding: 0;
   flex: none;
+}
 
-  img {
-    max-width: 160px; // TODO: temp
-  }
+.wp-block-gutenbee-imagebox-content {
+  flex: auto;
 }
 
 .wp-block-gutenbee-imagebox-align-left {

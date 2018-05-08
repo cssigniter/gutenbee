@@ -1100,8 +1100,13 @@
 }
 
 .wp-block-gutenbee-iconbox .gutenbee-icon-block {
-  margin-right: 15px;
   display: block;
+}
+
+.wp-block-gutenbee-iconbox-content {
+  -webkit-box-flex: 1;
+  -ms-flex: auto;
+  flex: auto;
 }
 
 .wp-block-gutenbee-iconbox-align-left {
@@ -1165,8 +1170,10 @@
   flex: none;
 }
 
-.wp-block-gutenbee-imagebox-figure img {
-  max-width: 160px;
+.wp-block-gutenbee-imagebox-content {
+  -webkit-box-flex: 1;
+  -ms-flex: auto;
+  flex: auto;
 }
 
 .wp-block-gutenbee-imagebox-align-left {
@@ -1213,4 +1220,9 @@
 
 .wp-block-gutenbee-imagebox-content-align-right {
   text-align: right;
+}
+
+.range-control-size .components-range-control__slider + .dashicon {
+  width: 26px;
+  height: 26px;
 }

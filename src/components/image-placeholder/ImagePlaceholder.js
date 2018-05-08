@@ -1,9 +1,6 @@
-import {
-  Placeholder,
-  Button,
-} from 'wp.components';
 import { __ } from 'wp.i18n';
-import { MediaUpload } from 'wp.blocks';
+import { Placeholder, Button } from 'wp.components';
+import { MediaUpload } from 'wp.editor';
 
 const ImagePlaceholder = ({
   className,

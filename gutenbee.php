@@ -40,9 +40,7 @@ function gutenbee_enqueue_editor_assets() {
 add_action( 'wp_enqueue_scripts', 'gutenbee_enqueue_frontend_block_assets' );
 
 function gutenbee_enqueue_frontend_block_assets() {
-	wp_enqueue_style( 'gutenbee', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.style.css', array(
-		'wp-blocks',
-	), GUTENBEE_PLUGIN_VERSION );
+	wp_enqueue_style( 'gutenbee', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.style.css', array(), GUTENBEE_PLUGIN_VERSION );
 
 	wp_enqueue_script( 'gutenbee-scripts', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.scripts.js', array(
 		'jquery',

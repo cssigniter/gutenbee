@@ -6,7 +6,8 @@
  */
 
 import { __ } from 'wp.i18n';
-import { registerBlockType, InspectorControls } from 'wp.blocks';
+import { registerBlockType } from 'wp.blocks';
+import { InspectorControls } from 'wp.editor';
 import { RangeControl } from 'wp.components';
 
 registerBlockType('gutenbee/spacer', {

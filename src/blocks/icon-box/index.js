@@ -4,12 +4,12 @@
 
 import { Fragment } from 'wp.element';
 import { __, sprintf } from 'wp.i18n';
+import { registerBlockType } from 'wp.blocks';
 import {
-  registerBlockType,
-  InspectorControls,
   RichText,
+  InspectorControls,
   AlignmentToolbar,
-} from 'wp.blocks';
+} from 'wp.editor';
 import {
   PanelBody,
   Toolbar,
@@ -184,7 +184,7 @@ const IconBoxEditBlock = ({
 };
 
 registerBlockType('gutenbee/iconbox', {
-  title: __('GutenBee Iconbox'),
+  title: __('GutenBee Icon Box'),
   description: __('A flexible icon box block'),
   icon: 'star-filled',
   category: 'layout',

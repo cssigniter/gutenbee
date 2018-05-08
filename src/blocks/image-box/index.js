@@ -4,26 +4,12 @@
  * Image with title, description, and link
  */
 
-import { Fragment } from 'wp.element';
-import { __, sprintf } from 'wp.i18n';
-import { Toolbar } from 'wp.components';
-import {
-  registerBlockType,
-  InspectorControls,
-  BlockControls,
-  AlignmentToolbar,
-  RichText,
-  MediaUpload,
-} from 'wp.blocks';
-import {
-  PanelBody,
-  IconButton,
-  withState,
-} from 'wp.components';
+import { __ } from 'wp.i18n';
+import { registerBlockType } from 'wp.blocks';
+import { RichText } from 'wp.editor';
 import classNames from 'classnames';
 
-import TextControls from '../../components/controls/TextControls';
-import ImagePlaceholder from '../../components/image-placeholder/ImagePlaceholder';
+import ImageBoxEditBlock from './ImageBoxEditBlock';
 
 const ImageBox = ({ className, attributes }) => {
   const {
@@ -35,6 +21,7 @@ const ImageBox = ({ className, attributes }) => {
     url,
     alt,
     imageAlign,
+    imageWidth,
     contentAlign,
   } = attributes;
 
@@ -47,7 +34,13 @@ const ImageBox = ({ className, attributes }) => {
       })}
     >
       <figure className={`${className}-figure`}>
-        <img src={url} alt={alt} />
+        <img
+          src={url}
+          alt={alt}
+          style={{
+            width: imageWidth ? `${imageWidth}px` : undefined,
+          }}
+        />
       </figure>
 
       <div className={`${className}-content`}>
@@ -70,160 +63,6 @@ const ImageBox = ({ className, attributes }) => {
         />
       </div>
     </div>
-  );
-};
-
-const ImageBoxEditBlock = ({
-  className,
-  attributes,
-  setAttributes,
-  isSelected,
-  editable,
-  setState,
-}) => {
-  const {
-    titleContent,
-    titleNodeName,
-    titleFontSize,
-    textContent,
-    textFontSize,
-    url,
-    alt,
-    id,
-    imageAlign,
-    contentAlign,
-  } = attributes;
-  const setActiveEditable = newEditable =>
-    setState({ editable: newEditable });
-
-  return (
-    <Fragment>
-      {!url ? (
-        <ImagePlaceholder
-          icon="format-image"
-          label={__('Image')}
-          onSelectImage={(image) => {
-            setAttributes({
-              url: image.url,
-              alt: image.alt,
-            });
-          }}
-        />
-      ) : (
-        <div
-          className={classNames({
-            [className]: true,
-            [`${className}-align-${imageAlign}`]: true,
-            [`${className}-content-align-${contentAlign}`]: true,
-          })}
-        >
-          <figure className={`${className}-figure`}>
-            <img src={url} alt={alt} />
-          </figure>
-
-          <div className={`${className}-content`}>
-            <RichText
-              tagName={titleNodeName.toLowerCase()}
-              value={titleContent}
-              onChange={value => setAttributes({ titleContent: value })}
-              className={`${className}-title`}
-              placeholder={__('Write heading…')}
-              isSelected={isSelected && editable === 'title'}
-              onFocus={() => setActiveEditable('title')}
-              style={{
-                fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
-              }}
-            />
-
-            <RichText
-              tagName="p"
-              value={textContent}
-              onChange={value => setAttributes({ textContent: value })}
-              className={`${className}-text`}
-              placeholder={__('Write content…')}
-              multiline="p"
-              isSelected={isSelected && editable === 'text'}
-              onFocus={() => setActiveEditable('text')}
-              style={{
-                fontSize: textFontSize ? `${textFontSize}px` : undefined,
-              }}
-            />
-          </div>
-        </div>
-      )}
-
-      {isSelected && url && (
-        <Fragment>
-          <BlockControls>
-            <MediaUpload
-              onSelect={(image) => {
-                setAttributes({
-                  url: image.url,
-                  alt: image.alt,
-                });
-              }}
-              type="image"
-              value={id}
-              render={({ open }) => (
-                <IconButton
-                  className="components-toolbar__control"
-                  label={__('Edit Image')}
-                  icon="edit"
-                  onClick={open}
-                />
-              )}
-            />
-          </BlockControls>
-          <InspectorControls>
-            <PanelBody title={__('Image Settings')} initialOpen={false}>
-              <p>{__('Alignment')}</p>
-              <AlignmentToolbar
-                value={imageAlign}
-                onChange={value => setAttributes({ imageAlign: value })}
-              />
-            </PanelBody>
-
-            <PanelBody title={__('Title Settings')} initialOpen={false}>
-              <p>{__('Heading element')}</p>
-              <Toolbar
-                controls={
-                  '23456'.split('').map(level => ({
-                    icon: 'heading',
-                    title: sprintf(__('Heading %s'), level),
-                    isActive: `H${level}` === titleNodeName,
-                    onClick: () => setAttributes({ titleNodeName: `H${level}` }),
-                    subscript: level,
-                  }))
-                }
-              />
-
-              <TextControls
-                setAttributes={setAttributes}
-                attributeKey="title"
-                attributes={attributes}
-                defaultFontSize={null}
-              />
-            </PanelBody>
-
-            <PanelBody title={__('Text Settings')} initialOpen={false}>
-              <TextControls
-                setAttributes={setAttributes}
-                attributeKey="text"
-                attributes={attributes}
-              />
-            </PanelBody>
-
-            <PanelBody title={__('Content Settings')} initialOpen={false}>
-              <p>{__('Alignment')}</p>
-              <AlignmentToolbar
-                value={contentAlign}
-                onChange={value => setAttributes({ contentAlign: value })}
-              />
-            </PanelBody>
-          </InspectorControls>
-        </Fragment>
-      )}
-    </Fragment>
   );
 };
 
@@ -285,12 +124,16 @@ registerBlockType('gutenbee/imagebox', {
       type: 'string',
       default: 'left',
     },
+    imageWidth: {
+      type: 'number',
+      default: 160,
+    },
     contentAlign: {
       type: 'string',
       default: null,
     },
   },
-  edit: withState({ editable: null })(ImageBoxEditBlock),
+  edit: ImageBoxEditBlock,
   save({ className, attributes }) {
     return (
       <ImageBox

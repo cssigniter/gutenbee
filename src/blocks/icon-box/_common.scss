@@ -4,9 +4,12 @@
   text-align: left;
 
   .gutenbee-icon-block {
-    margin-right: 15px;
     display: block;
   }
+}
+
+.wp-block-gutenbee-iconbox-content {
+  flex: auto;
 }
 
 .wp-block-gutenbee-iconbox-align-left {

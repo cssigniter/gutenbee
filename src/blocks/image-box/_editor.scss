@@ -1,1 +1,10 @@
 @import 'common';
+
+.range-control-size  {
+  .components-range-control__slider {
+    + .dashicon {
+      width: 26px;
+      height: 26px;
+    }
+  }
+}
