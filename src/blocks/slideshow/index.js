@@ -56,7 +56,7 @@ registerBlockType('gutenbee/slideshow', {
     },
     animationStyle: {
       type: 'string',
-      default: 'fade',
+      default: 'slide',
     },
     arrowNav: {
       type: 'boolean',
