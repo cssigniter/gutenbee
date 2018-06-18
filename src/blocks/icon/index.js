@@ -131,7 +131,7 @@ export const IconSettings = ({
     )}
 
     <RangeControl
-      label="Icon Size"
+      label={__('Icon Size')}
       min={1}
       max={100}
       value={size}
@@ -140,7 +140,7 @@ export const IconSettings = ({
 
     {view !== VIEWS.DEFAULT && (
       <RangeControl
-        label="Padding"
+        label={__('Padding')}
         min={1}
         max={10}
         step={0.1}
@@ -151,7 +151,7 @@ export const IconSettings = ({
 
     {view === VIEWS.FRAMED && (
       <RangeControl
-        label="Border Size"
+        label={__('Border Size')}
         min={1}
         max={50}
         step={1}

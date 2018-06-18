@@ -1,4 +1,4 @@
-.wp-block-gutenbee-slideshow {
+.gutenbee-gallery-component {
   display: flex;
   flex-wrap: wrap;
   padding: 0;
@@ -18,10 +18,11 @@
     height: 100%;
     display: flex;
     align-items: flex-end;
+    position: relative;
   }
 
-  &.is-selected {
-    outline: 4px solid $blue; // TODO figure out a way to obtain WP native Sass variables
+  .is-selected {
+    outline: 4px solid $blue;
     outline-offset: -4px;
   }
 
@@ -31,9 +32,23 @@
     height: 100%;
     object-fit: cover;
   }
+}
 
-  .blocks-gallery-item__inline-menu {
-    top: 8px;
-    right: 8px;
+.gutenbee-gallery-item-inline-menu {
+  padding: 2px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: $blue;
+  display: inline-flex;
+  z-index: 20;
+
+  .components-button,
+  .gutenbee-button {
+    color: $white;
   }
+}
+
+.gutenbee-gallery-item-remove {
+  padding: 0;
 }

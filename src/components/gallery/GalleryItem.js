@@ -4,11 +4,12 @@ import { IconButton, Spinner } from 'wp.components';
 import { __ } from 'wp.i18n';
 import { keycodes } from 'wp.utils';
 import { withSelect } from 'wp.data';
+
 import { LINKTO } from './constants';
 
 const { BACKSPACE, DELETE } = keycodes;
 
-class GalleryImage extends Component {
+class GalleryItem extends Component {
   onImageClick = () => {
     if (!this.props.isSelected) {
       this.props.onSelect();
@@ -78,11 +79,11 @@ class GalleryImage extends Component {
         }}
       >
         {isSelected && (
-          <div className="blocks-gallery-item__inline-menu">
+          <div className="gutenbee-gallery-item-inline-menu">
             <IconButton
               icon="no-alt"
               onClick={onRemove}
-              className="blocks-gallery-item__remove"
+              className="gutenbee-gallery-item-remove"
               label={__('Remove Image')}
             />
           </div>
@@ -100,4 +101,4 @@ export default withSelect((select, ownProps) => {
   return {
     image: id ? getMedia(id) : null,
   };
-})(GalleryImage);
+})(GalleryItem);

@@ -1,0 +1,18 @@
+@import './common';
+
+.wp-block-gutenbee-progress-bar-inner {
+  .editor-rich-text__tinymce {
+    &.mce-content-body {
+      line-height: 1.2;
+    }
+  }
+
+  .editor-rich-text {
+    overflow: hidden;
+  }
+
+  .components-autocomplete {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

@@ -1,10 +1,8 @@
 import { Component, Fragment } from 'wp.element';
-import { __ } from 'wp.i18n';
+import PropTypes from 'prop-types';
+import { __, sprintf } from 'wp.i18n';
 import {
   IconButton,
-  ToggleControl,
-  RangeControl,
-  RadioControl,
   Toolbar,
   PanelBody,
   SelectControl,
@@ -13,16 +11,33 @@ import {
   MediaUpload,
   InspectorControls,
   BlockControls,
-  ColorPalette,
 } from 'wp.editor';
 import { withSelect } from 'wp.data';
 import startCase from 'lodash.startcase';
+import classNames from 'classnames';
 
 import ImagePlaceholder from '../../components/image-placeholder/ImagePlaceholder';
-import GalleryImage from './GalleryImage';
+import GalleryItem from './GalleryItem';
 import { LINKTO } from './constants';
 
-class GalleryBlock extends Component {
+class Gallery extends Component {
+  static propTypes = {
+    attributes: PropTypes.shape({
+      size: PropTypes.string,
+      linkTo: PropTypes.string,
+      images: PropTypes.array.isRequired,
+    }).isRequired,
+    setAttributes: PropTypes.func.isRequired,
+    isSelected: PropTypes.bool.isRequired,
+    className: PropTypes.string,
+    images: PropTypes.array,
+    children: PropTypes.oneOfType([
+      PropTypes.node,
+      PropTypes.arrayOf(PropTypes.node),
+    ]),
+    label: PropTypes.string.isRequired,
+  };
+
   state = {
     selectedImage: null,
   };
@@ -105,22 +120,20 @@ class GalleryBlock extends Component {
       className,
       setAttributes,
       images: propImages,
+      children,
+      label,
     } = this.props;
     const {
       images,
-      arrowNav,
-      dotNav,
-      autoplay,
-      animationStyle,
-      infinite,
-      speed,
-      autoplaySpeed,
-      color,
       linkTo,
       size,
     } = attributes;
 
     const [availableSizes] = propImages || [];
+    const galleryComponentClasses = classNames({
+      'gutenbee-gallery-component': true,
+      [className]: true,
+    });
 
     const controls = (
       isSelected && (
@@ -136,7 +149,7 @@ class GalleryBlock extends Component {
                 render={({ open }) => (
                   <IconButton
                     className="components-toolbar__control"
-                    label={__('Edit Slideshow')}
+                    label={sprintf(__('Edit %s'), label)}
                     icon="edit"
                     onClick={open}
                   />
@@ -155,7 +168,7 @@ class GalleryBlock extends Component {
           <ImagePlaceholder
             className={className}
             icon="format-gallery"
-            label={__('Slideshow')}
+            label={label}
             onSelectImage={this.onSelectImages}
             multiple
           />
@@ -166,111 +179,49 @@ class GalleryBlock extends Component {
     return (
       <Fragment>
         {controls}
+        {children}
         {isSelected && (
           <InspectorControls>
-            <h2>{__('Slideshow Settings')}</h2>
-            <ToggleControl
-              label={__('Autoplay')}
-              checked={autoplay}
-              onChange={() => {
-                setAttributes({ autoplay: !autoplay });
-              }}
-            />
-            <ToggleControl
-              label={__('Infinite Slide')}
-              checked={infinite}
-              onChange={() => {
-                setAttributes({ infinite: !infinite });
-              }}
-            />
-            <ToggleControl
-              label={__('Arrow Navigation')}
-              checked={arrowNav}
-              onChange={() => {
-                setAttributes({ arrowNav: !arrowNav });
-              }}
-            />
-            <ToggleControl
-              label={__('Dot Navigation')}
-              checked={dotNav}
-              onChange={() => {
-                setAttributes({ dotNav: !dotNav });
-              }}
-            />
-            <SelectControl
-              label={__('Link to')}
-              value={linkTo}
-              onChange={(value) => {
-                setAttributes({ linkTo: value });
-              }}
-              options={[
-                { value: LINKTO.ATTACHMENT, label: __('Attachment Page') },
-                { value: LINKTO.MEDIA, label: __('Media File') },
-                { value: LINKTO.NONE, label: __('None') },
-              ]}
-            />
+            {(linkTo || size) && (
+              <PanelBody title={__('Image Settings')}>
+                {linkTo && (
+                  <SelectControl
+                    label={__('Link to')}
+                    value={linkTo}
+                    onChange={(value) => {
+                      setAttributes({ linkTo: value });
+                    }}
+                    options={[
+                      { value: LINKTO.ATTACHMENT, label: __('Attachment Page') },
+                      { value: LINKTO.MEDIA, label: __('Media File') },
+                      { value: LINKTO.NONE, label: __('None') },
+                    ]}
+                  />
+                )}
 
-            {availableSizes && availableSizes.sizes && (
-              <SelectControl
-                label={__('Image Size')}
-                value={size}
-                options={Object.keys(availableSizes.sizes).map(name => ({
-                  value: name,
-                  label: startCase(name),
-                }))}
-                onChange={this.updateImageURLs}
-              />
+                {availableSizes && availableSizes.sizes && (
+                  <SelectControl
+                    label={__('Image Size')}
+                    value={size}
+                    options={Object.keys(availableSizes.sizes).map(name => ({
+                      value: name,
+                      label: startCase(name),
+                    }))}
+                    onChange={this.updateImageURLs}
+                  />
+                )}
+              </PanelBody>
             )}
-
-            <h2>{__('Animation Settings')}</h2>
-            <RadioControl
-              label="Animation Style"
-              selected={animationStyle}
-              options={[
-                { label: 'Fade', value: 'fade' },
-                { label: 'Slide', value: 'slide' },
-              ]}
-              onChange={(value) => {
-                setAttributes({ animationStyle: value });
-              }}
-            />
-            <RangeControl
-              label="Animation Speed (ms)"
-              min={50}
-              max={5000}
-              value={speed}
-              onChange={(value) => {
-                setAttributes({ speed: value });
-              }}
-              step={10}
-            />
-            <RangeControl
-              label="Autoplay Speed (ms)"
-              min={500}
-              max={10000}
-              value={autoplaySpeed}
-              onChange={(value) => {
-                setAttributes({ autoplaySpeed: value });
-              }}
-              step={10}
-            />
-
-            <PanelBody title={__('Arrow and Dots Color')}>
-              <ColorPalette
-                value={color}
-                onChange={value => setAttributes({ color: value })}
-              />
-            </PanelBody>
           </InspectorControls>
         )}
 
-        <div className={className}>
+        <div className={galleryComponentClasses}>
           {images.map((img, index) => (
             <div
               key={img.id || img.url}
-              className="gutenbee-gallery-item blocks-gallery-item"
+              className="gutenbee-gallery-item"
             >
-              <GalleryImage
+              <GalleryItem
                 url={img.url}
                 alt={img.alt}
                 id={img.id}
@@ -304,4 +255,4 @@ export default withSelect((select, props) => {
       })
       : null,
   };
-})(GalleryBlock);
+})(Gallery);

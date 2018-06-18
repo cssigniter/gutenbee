@@ -2,9 +2,7 @@ import PropTypes from 'prop-types';
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import {
-  ButtonGroup,
-  Button,
-  RangeControl,
+  FontSizePicker,
 } from 'wp.components';
 
 const propTypes = {
@@ -20,63 +18,40 @@ const FontSizeControls = ({
   attributes,
   defaultFontSize = 16,
 }) => {
-  const FONT_SIZES = {
-    small: 14,
-    regular: 16,
-    large: 20,
-    larger: 24,
-  };
-
-  const FONT_SIZE_OPTIONS = {
-    S: 'small',
-    M: 'regular',
-    L: 'large',
-    XL: 'larger',
-  };
+  const FONT_SIZES = [
+    {
+      name: 'small',
+      shortName: 'S',
+      size: 14,
+    },
+    {
+      name: 'regular',
+      shortName: 'M',
+      size: 16,
+    },
+    {
+      name: 'small',
+      shortName: 'L',
+      size: 20,
+    },
+    {
+      name: 'small',
+      shortName: 'XL',
+      size: 24,
+    },
+  ];
 
   const fontSizeKey = [`${attributeKey}FontSize`];
   const fontSize = attributes[fontSizeKey];
 
   return (
     <Fragment>
-      <p>{__('Font size')}</p>
-      <div className="blocks-font-size__main">
-        <ButtonGroup aria-label={__('Font Size')}>
-          {Object.keys(FONT_SIZE_OPTIONS).map((label) => {
-            const size = FONT_SIZES[FONT_SIZE_OPTIONS[label]];
-
-            return (
-              <Button
-                key={label}
-                isLarge
-                isPrimary={fontSize === size}
-                aria-pressed={fontSize === size}
-                onClick={() => setAttributes({ [fontSizeKey]: size })}
-              >
-                {label}
-              </Button>
-            );
-          })}
-        </ButtonGroup>
-        <Button
-          isLarge
-          onClick={() => setAttributes({ [fontSizeKey]: defaultFontSize })}
-        >
-          {__('Reset')}
-        </Button>
-      </div>
-      <RangeControl
-        className="blocks-paragraph__custom-size-slider"
-        label={__('Custom size')}
-        value={fontSize || ''}
-        initialPosition={defaultFontSize}
-        onChange={(value) => {
-          setAttributes({ [fontSizeKey]: value });
-        }}
-        min={12}
-        max={72}
-        beforeIcon="editor-textcolor"
-        afterIcon="editor-textcolor"
+      <p>{__('Font Size')}</p>
+      <FontSizePicker
+        fontSizes={FONT_SIZES}
+        fallbackFontSize={defaultFontSize}
+        value={fontSize}
+        onChange={value => setAttributes({ [fontSizeKey]: value })}
       />
     </Fragment>
   );

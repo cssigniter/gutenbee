@@ -4,7 +4,7 @@
  * Description: Premium Blocks for WordPress
  * Author: The CSSIgniter Team
  * Author URI: https://www.cssigniter.com/
- * Version: 1.0.0
+ * Version: 2.0.0
  */
 
 if ( ! defined( 'GUTENBEE_PLUGIN_VERSION' ) ) {
@@ -46,3 +46,6 @@ function gutenbee_enqueue_frontend_block_assets() {
 		'jquery',
 	), GUTENBEE_PLUGIN_VERSION );
 }
+
+// Dynamic block partials
+// require_once dirname( __FILE__ ) . '/src/blocks/index.php';

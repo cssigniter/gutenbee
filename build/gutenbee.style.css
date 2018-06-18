@@ -836,3 +836,55 @@
 .wp-block-gutenbee-imagebox-content-align-right {
   text-align: right;
 }
+
+.wp-block-gutenbee-progress-bar-outer {
+  position: relative;
+  display: block;
+  border-radius: 3px;
+  background-color: #f8f8f8;
+  height: 30px;
+  line-height: 1;
+  font-size: 14px;
+}
+
+.wp-block-gutenbee-progress-bar-inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #0085ba;
+  color: #fff;
+  height: 100%;
+  padding: 0;
+  border-radius: 3px;
+  max-width: 100%;
+}
+
+.wp-block-gutenbee-progress-bar-title {
+  margin-bottom: 10px;
+}
+
+.wp-block-gutenbee-progress-bar-inner-title {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-right: 5px;
+  padding-left: 10px;
+}
+
+.wp-block-gutenbee-progress-bar-percentage {
+  margin-left: auto;
+  padding-right: 10px;
+}
+
+.wp-block-gutenbee-progress-bar {
+  margin: 20px 0;
+}

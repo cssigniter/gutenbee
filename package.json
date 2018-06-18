@@ -32,7 +32,13 @@
   },
   "dependencies": {
     "classnames": "2.2.5",
+    "countup": "1.8.2",
+    "justifiedGallery": "3.7.0",
+    "lodash.get": "4.4.2",
+    "lodash.pickby": "4.6.0",
     "lodash.startcase": "4.4.0",
+    "moment": "2.22.2",
+    "querystringify": "2.0.0",
     "react-select": "1.2.1",
     "slick-carousel": "1.8.1"
   }

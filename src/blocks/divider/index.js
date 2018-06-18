@@ -120,7 +120,7 @@ registerBlockType('gutenbee/divider', {
           />
 
           <RangeControl
-            label="Weight (thickness)"
+            label={__('Weight (thickness)')}
             min={1}
             max={50}
             value={weight}
@@ -128,7 +128,7 @@ registerBlockType('gutenbee/divider', {
           />
 
           <RangeControl
-            label="Width"
+            label={__('Width')}
             min={1}
             max={100}
             value={width}
@@ -136,7 +136,7 @@ registerBlockType('gutenbee/divider', {
           />
 
           <RangeControl
-            label="Height"
+            label={__('Height')}
             min={10}
             max={100}
             onChange={value => setAttributes({ height: value })}

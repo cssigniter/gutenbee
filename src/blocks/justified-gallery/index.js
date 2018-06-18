@@ -1,22 +1,21 @@
 /**
- * Slideshow block
- *
- * A basic image gallery slideshow
+ * Justified Gallery block
  */
 
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 
-import SlideshowEdit from './edit';
+import JustifiedGalleryEdit from './edit';
 import { LINKTO } from '../../components/gallery/constants';
+import { LAST_ROW } from './constants';
 
-registerBlockType('gutenbee/slideshow', {
-  title: __('GutenBee Slideshow'),
-  description: __('A slideshow block'),
-  icon: 'slides',
+registerBlockType('gutenbee/justified-gallery', {
+  title: __('GutenBee Justified Gallery'),
+  description: __('Create high quality justified image galleries'),
+  icon: 'format-gallery',
   category: 'common',
   keywords: [
-    __('slideshow'),
+    __('justified'),
     __('gallery'),
   ],
   attributes: {
@@ -24,7 +23,7 @@ registerBlockType('gutenbee/slideshow', {
       type: 'array',
       default: [],
       source: 'query',
-      selector: '.wp-block-gutenbee-slideshow .gutenbee-slideshow-item',
+      selector: '.wp-block-gutenbee-justified-gallery .gutenbee-justified-gallery-item',
       query: {
         url: {
           source: 'attribute',
@@ -54,75 +53,51 @@ registerBlockType('gutenbee/slideshow', {
         },
       },
     },
-    animationStyle: {
+    rowHeight: {
+      type: 'number',
+      default: 120,
+    },
+    margins: {
+      type: 'number',
+      default: 1,
+    },
+    lastRow: {
       type: 'string',
-      default: 'fade',
+      default: LAST_ROW.NO_JUSTIFY,
     },
-    arrowNav: {
+    randomize: {
       type: 'boolean',
-      default: true,
-    },
-    dotNav: {
-      type: 'boolean',
-      default: true,
-    },
-    autoplay: {
-      type: 'boolean',
-      default: true,
-    },
-    infinite: {
-      type: 'boolean',
-      default: true,
-    },
-    speed: {
-      type: 'number',
-      default: 300,
-    },
-    autoplaySpeed: {
-      type: 'number',
-      default: 3000,
+      default: false,
     },
     linkTo: {
       type: 'string',
       default: LINKTO.NONE,
-    },
-    color: {
-      type: 'string',
-      default: '#FFFFFF',
     },
     size: {
       type: 'string',
       default: 'full',
     },
   },
-  edit: SlideshowEdit,
+  edit: JustifiedGalleryEdit,
   save({ className, attributes }) {
     const {
       images,
-      animationStyle,
-      autoplay,
-      arrowNav,
-      dotNav,
-      infinite,
-      speed,
-      autoplaySpeed,
-      color,
+      rowHeight,
+      margins,
+      lastRow,
+      randomize,
       linkTo,
     } = attributes;
 
     return (
       <div
         className={className}
-        data-fade={animationStyle === 'fade'}
-        data-autoplay={autoplay}
-        data-arrows={arrowNav}
-        data-dots={dotNav}
-        data-infinite={infinite}
-        data-speed={speed}
-        data-autoplay-speed={autoplaySpeed}
-        style={{ color }}
+        data-row-height={rowHeight}
+        data-margins={margins}
+        data-last-row={lastRow}
+        data-randomize={randomize}
       >
-        {images.map((image, index) => {
+        {images.map((image) => {
           let href;
 
           switch (linkTo) {
@@ -142,14 +117,17 @@ registerBlockType('gutenbee/slideshow', {
               alt={image.alt || ''}
               data-id={image.id}
               data-link={image.link}
+              className="gutenbee-justified-gallery-item-image"
             />
           );
 
-          return (
-            <div key={image.id || index} className="gutenbee-slideshow-item">
-              {href
-                ? <a className="gutenbee-slideshow-item-link" href={href}>{img}</a>
-                : img}
+          return href ? (
+            <a className="gutenbee-justified-gallery-item" href={href}>
+              {img}
+            </a>
+          ) : (
+            <div className="gutenbee-justified-gallery-item">
+              {img}
             </div>
           );
         })}

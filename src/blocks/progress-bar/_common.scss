@@ -1,0 +1,41 @@
+.wp-block-gutenbee-progress-bar-outer {
+  position: relative;
+  display: block;
+  border-radius: 3px;
+  background-color: $grey-light;
+  height: 30px;
+  line-height: 1;
+  font-size: 14px;
+}
+
+.wp-block-gutenbee-progress-bar-inner {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: $blue;
+  color: $white;
+  height: 100%;
+  padding: 0;
+  border-radius: 3px;
+  max-width: 100%;
+}
+
+.wp-block-gutenbee-progress-bar-title {
+  margin-bottom: 10px;
+}
+
+.wp-block-gutenbee-progress-bar-inner-title {
+  flex-grow: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-right: 5px;
+  padding-left: 10px;
+}
+
+.wp-block-gutenbee-progress-bar-percentage {
+  margin-left: auto;
+  padding-right: 10px;
+}

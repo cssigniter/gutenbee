@@ -24,42 +24,7 @@
   content: "\E002";
 }
 
-.wp-block-guten-spacer {
-  border: 1px solid #0085ba;
-  min-height: 10px;
-  position: relative;
-  z-index: 10;
-}
-
-.wp-block-gutenbee-divider {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.wp-block-gutenbee-divider.align-left {
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-}
-
-.wp-block-gutenbee-divider.align-right {
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-}
-
-.wp-block-gutenbee-divider {
-  min-height: 20px;
-}
-
-.wp-block-gutenbee-slideshow {
+.gutenbee-gallery-component {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -91,9 +56,10 @@
   -webkit-box-align: end;
   -ms-flex-align: end;
   align-items: flex-end;
+  position: relative;
 }
 
-.gutenbee-gallery-item.is-selected {
+.gutenbee-gallery-item .is-selected {
   outline: 4px solid #0085ba;
   outline-offset: -4px;
 }
@@ -108,9 +74,53 @@
   object-fit: cover;
 }
 
-.gutenbee-gallery-item .blocks-gallery-item__inline-menu {
-  top: 8px;
-  right: 8px;
+.gutenbee-gallery-item-inline-menu {
+  padding: 2px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #0085ba;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  z-index: 20;
+}
+
+.gutenbee-gallery-item-inline-menu .components-button,
+.gutenbee-gallery-item-inline-menu .gutenbee-button {
+  color: #fff;
+}
+
+.gutenbee-gallery-item-remove {
+  padding: 0;
+}
+
+.wp-block-gutenbee-divider {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.wp-block-gutenbee-divider.align-left {
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+}
+
+.wp-block-gutenbee-divider.align-right {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.wp-block-gutenbee-divider {
+  min-height: 20px;
 }
 
 @font-face {
@@ -1225,4 +1235,102 @@
 .range-control-size .components-range-control__slider + .dashicon {
   width: 26px;
   height: 26px;
+}
+
+.wp-block-gutenbee-progress-bar-outer {
+  position: relative;
+  display: block;
+  border-radius: 3px;
+  background-color: #f8f8f8;
+  height: 30px;
+  line-height: 1;
+  font-size: 14px;
+}
+
+.wp-block-gutenbee-progress-bar-inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #0085ba;
+  color: #fff;
+  height: 100%;
+  padding: 0;
+  border-radius: 3px;
+  max-width: 100%;
+}
+
+.wp-block-gutenbee-progress-bar-title {
+  margin-bottom: 10px;
+}
+
+.wp-block-gutenbee-progress-bar-inner-title {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-right: 5px;
+  padding-left: 10px;
+}
+
+.wp-block-gutenbee-progress-bar-percentage {
+  margin-left: auto;
+  padding-right: 10px;
+}
+
+.wp-block-gutenbee-progress-bar-inner .editor-rich-text__tinymce.mce-content-body {
+  line-height: 1.2;
+}
+
+.wp-block-gutenbee-progress-bar-inner .editor-rich-text {
+  overflow: hidden;
+}
+
+.wp-block-gutenbee-progress-bar-inner .components-autocomplete {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wp-block-gutenbee-image-comparison {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.wp-block-gutenbee-image-comparison-pane {
+  width: 50%;
+  height: 300px;
+  border: 1px solid #e2e4e7;
+}
+
+.wp-block-gutenbee-image-comparison-pane .components-placeholder {
+  height: 100%;
+}
+
+.wp-block-gutenbee-image-comparison-figure {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+}
+
+.wp-block-gutenbee-image-comparison-figure img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.wp-block-gutenbee-image-comparison-figure .components-toolbar__control {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #fff;
 }

@@ -30,7 +30,11 @@
     "$": true
   },
   "rules": {
-    "eqeqeq": "error",
+    "eqeqeq": ["error", "always",
+      {
+        "null": "ignore"
+      }
+    ],
     "comma-spacing": "error",
     "quotes": ["error", "single"],
     "indent": ["error", 2,
