@@ -1,4 +1,5 @@
 import { Component } from 'wp.element';
+import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import {
   ToggleControl,
@@ -14,6 +15,25 @@ import {
 import Gallery from '../../components/gallery/Gallery';
 
 class SlideshowEdit extends Component {
+  static propTypes = {
+    attributes: PropTypes.shape({
+      arrowNav: PropTypes.bool,
+      dotNav: PropTypes.bool,
+      autoplay: PropTypes.bool,
+      animationStyle: PropTypes.string,
+      infinite: PropTypes.bool,
+      speed: PropTypes.number,
+      autoplaySpeed: PropTypes.number,
+      color: PropTypes.string,
+      slidesToShow: PropTypes.number,
+      slidesToScroll: PropTypes.number,
+      pauseOnHover: PropTypes.bool,
+    }).isRequired,
+    isSelected: PropTypes.bool.isRequired,
+    className: PropTypes.string.isRequired,
+    setAttributes: PropTypes.func.isRequired,
+  };
+
   render() {
     const {
       attributes,
@@ -30,6 +50,9 @@ class SlideshowEdit extends Component {
       speed,
       autoplaySpeed,
       color,
+      slidesToShow,
+      slidesToScroll,
+      pauseOnHover,
     } = attributes;
 
     return (
@@ -71,6 +94,26 @@ class SlideshowEdit extends Component {
                   setAttributes({ dotNav: !dotNav });
                 }}
               />
+              <RangeControl
+                label={__('Slides to Show')}
+                min={1}
+                max={10}
+                value={slidesToShow}
+                onChange={(value) => {
+                  setAttributes({ slidesToShow: value });
+                }}
+                step={1}
+              />
+              <RangeControl
+                label={__('Slides to Scroll')}
+                min={1}
+                max={10}
+                value={slidesToScroll}
+                onChange={(value) => {
+                  setAttributes({ slidesToScroll: value });
+                }}
+                step={1}
+              />
 
               <h2>{__('Animation Settings')}</h2>
               <RadioControl
@@ -103,6 +146,13 @@ class SlideshowEdit extends Component {
                   setAttributes({ autoplaySpeed: value });
                 }}
                 step={10}
+              />
+              <ToggleControl
+                label={__('Pause on Hover')}
+                checked={pauseOnHover}
+                onChange={(value) => {
+                  setAttributes({ pauseOnHover: value });
+                }}
               />
 
               <PanelBody title={__('Arrow and Dots Color')}>

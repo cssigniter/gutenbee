@@ -82,6 +82,18 @@ registerBlockType('gutenbee/slideshow', {
       type: 'number',
       default: 3000,
     },
+    slidesToShow: {
+      type: 'number',
+      default: 1,
+    },
+    slidesToScroll: {
+      type: 'number',
+      default: 1,
+    },
+    pauseOnHover: {
+      type: 'boolean',
+      default: true,
+    },
     linkTo: {
       type: 'string',
       default: LINKTO.NONE,
@@ -108,6 +120,9 @@ registerBlockType('gutenbee/slideshow', {
       autoplaySpeed,
       color,
       linkTo,
+      slidesToShow,
+      slidesToScroll,
+      pauseOnHover,
     } = attributes;
 
     return (
@@ -120,6 +135,9 @@ registerBlockType('gutenbee/slideshow', {
         data-infinite={infinite}
         data-speed={speed}
         data-autoplay-speed={autoplaySpeed}
+        data-slides-to-show={slidesToShow}
+        data-slides-to-scroll={slidesToScroll}
+        data-pause-on-hover={pauseOnHover}
         style={{ color }}
       >
         {images.map((image, index) => {

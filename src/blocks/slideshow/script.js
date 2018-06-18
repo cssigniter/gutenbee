@@ -15,6 +15,9 @@ jQuery(($) => {
       infinite: $this.data('infinite'),
       speed: $this.data('speed'),
       autoplaySpeed: $this.data('autoplay-speed'),
+      slidesToScroll: $this.data('slides-to-scroll'),
+      slidesToShow: $this.data('slides-to-show'),
+      pauseOnHover: $this.data('pause-on-hover'),
     });
   });
 });
