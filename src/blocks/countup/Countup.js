@@ -9,7 +9,6 @@ const propTypes = {
   endNumber: PropTypes.number.isRequired,
   animationDuration: PropTypes.number.isRequired,
   separator: PropTypes.string.isRequired,
-  decimal: PropTypes.string.isRequired,
   textFontSize: PropTypes.number,
   textColor: PropTypes.string.isRequired,
   prefix: PropTypes.string,
@@ -21,7 +20,6 @@ const Countup = ({
   endNumber,
   animationDuration,
   separator,
-  decimal,
   textFontSize,
   textColor,
   customTextColor,
@@ -46,10 +44,9 @@ const Countup = ({
       data-end={endNumber}
       data-animation-duration={animationDuration}
       data-separator={separator}
-      data-decimal={decimal}
       data-prefix={prefix}
     >
-      {formatNumber(startNumber, separator, decimal, prefix, suffix)}
+      {formatNumber(startNumber, separator, prefix, suffix)}
     </span>
   );
 };

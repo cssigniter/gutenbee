@@ -1,14 +1,13 @@
 import CountUp from 'countup';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const elements = document.getElementsByClassName('wp-block-gutenbee-countup');
+  const elements = document.getElementsByClassName('wp-block-gutenbee-countup-number');
 
   [...elements].forEach((element) => {
     const separator = element.dataset.separator;
     const options = {
       useGrouping: !!separator,
       separator,
-      decimal: element.dataset.decimal,
       prefix: element.dataset.prefix,
     };
 

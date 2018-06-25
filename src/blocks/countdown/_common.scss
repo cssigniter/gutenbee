@@ -1,0 +1,38 @@
+
+.wp-block-gutenbee-countdown-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: $white;
+
+  .wp-block-gutenbee-countdown-item {
+    text-align: center;
+    background-color: $blue;
+    padding: 10px 15px;
+    border-radius: 2px;
+    color: currentColor;
+    line-height: normal;
+    margin: 0 3px;
+    max-width: 20%;
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+
+  .gutenbee-countdown-number {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin: 0 0 5px;
+    line-height: normal;
+
+    &:only-child {
+      margin: 0;
+    }
+  }
+
+  .gutenbee-countdown-label {
+    font-weight: normal;
+    font-size: .8rem;
+    margin: 0;
+  }
+}

@@ -6,9 +6,43 @@
 
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
+import classNames from 'classnames';
+import { RichText } from 'wp.editor';
 
 import edit from './edit';
 import Countup from './Countup';
+
+const CountupRender = ({
+  attributes,
+  className,
+}) => {
+  const {
+    titleContent,
+    align,
+  } = attributes;
+
+  return (
+    <div
+      className={classNames({
+        [className]: true,
+        [`${className}-align-${align}`]: !!align,
+      })}
+    >
+      <Countup
+        {...attributes}
+        className={`${className}-number`}
+      />
+
+      {!!titleContent && (
+        <RichText.Content
+          tagName="p"
+          value={titleContent}
+          className={`${className}-title`}
+        />
+      )}
+    </div>
+  );
+};
 
 registerBlockType('gutenbee/countup', {
   title: __('GutenBee Countup'),
@@ -37,10 +71,6 @@ registerBlockType('gutenbee/countup', {
       type: 'string',
       default: ',',
     },
-    decimal: {
-      type: 'string',
-      default: '.',
-    },
     prefix: {
       type: 'string',
     },
@@ -57,12 +87,21 @@ registerBlockType('gutenbee/countup', {
     customTextColor: {
       type: 'string',
     },
+    titleContent: {
+      type: 'array',
+      source: 'children',
+      selector: 'p',
+    },
+    align: {
+      type: 'string',
+      default: 'left',
+    },
   },
   edit,
   save({ attributes, className }) {
     return (
-      <Countup
-        {...attributes}
+      <CountupRender
+        attributes={attributes}
         className={className}
       />
     );

@@ -888,3 +888,78 @@
 .wp-block-gutenbee-progress-bar {
   margin: 20px 0;
 }
+
+.wp-block-gutenbee-countup-align-left {
+  text-align: left;
+}
+
+.wp-block-gutenbee-countup-align-center {
+  text-align: center;
+}
+
+.wp-block-gutenbee-countup-align-right {
+  text-align: right;
+}
+
+.wp-block-gutenbee-countup {
+  margin-bottom: 30px;
+}
+
+.wp-block-gutenbee-countup-title {
+  margin: 0;
+}
+
+.wp-block-gutenbee-google-maps {
+  margin: 30px 0;
+}
+
+.wp-block-gutenbee-countdown-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+}
+
+.wp-block-gutenbee-countdown-wrap .wp-block-gutenbee-countdown-item {
+  text-align: center;
+  background-color: #0085ba;
+  padding: 10px 15px;
+  border-radius: 2px;
+  color: currentColor;
+  line-height: normal;
+  margin: 0 3px;
+  max-width: 20%;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
+}
+
+.wp-block-gutenbee-countdown-wrap .gutenbee-countdown-number {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin: 0 0 5px;
+  line-height: normal;
+}
+
+.wp-block-gutenbee-countdown-wrap .gutenbee-countdown-number:only-child {
+  margin: 0;
+}
+
+.wp-block-gutenbee-countdown-wrap .gutenbee-countdown-label {
+  font-weight: normal;
+  font-size: .8rem;
+  margin: 0;
+}
+
+.wp-block-gutenbee-countdown-wrap {
+  margin: 30px 0;
+}

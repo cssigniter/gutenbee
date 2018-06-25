@@ -5,17 +5,17 @@
  */
 
 import { __, sprintf } from 'wp.i18n';
+import { registerBlockType } from 'wp.blocks';
 import {
   PanelBody,
   Toolbar,
   RangeControl,
 } from 'wp.components';
 import {
-  registerBlockType,
   InspectorControls,
   AlignmentToolbar,
   ColorPalette,
-} from 'wp.blocks';
+} from 'wp.editor';
 
 const BORDER_STYLES = {
   SOLID: 'solid',

@@ -32,6 +32,12 @@ function gutenbee_enqueue_editor_assets() {
 		'wp-i18n',
 	), GUTENBEE_PLUGIN_VERSION );
 
+	// TODO: Remove this once we find a way to get options from within Gutenberg
+	$maps_api_key = get_option('google_maps_api_key');
+	if ($maps_api_key) {
+		wp_localize_script( 'gutenbee', 'mapsApiKey', $maps_api_key );
+	}
+
 	wp_enqueue_style( 'gutenbee-editor', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.editor.css', array(
 		'wp-edit-blocks',
 	), GUTENBEE_PLUGIN_VERSION );
@@ -40,7 +46,14 @@ function gutenbee_enqueue_editor_assets() {
 add_action( 'wp_enqueue_scripts', 'gutenbee_enqueue_frontend_block_assets' );
 
 function gutenbee_enqueue_frontend_block_assets() {
+	// TODO sanitize?
+	$maps_api_key = get_option('google_maps_api_key');
+
 	wp_enqueue_style( 'gutenbee', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.style.css', array(), GUTENBEE_PLUGIN_VERSION );
+
+	if ($maps_api_key) {
+		wp_enqueue_script( 'gutenbee-google-maps', 'https://maps.googleapis.com/maps/api/js?key=' . $maps_api_key );
+	}
 
 	wp_enqueue_script( 'gutenbee-scripts', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.scripts.js', array(
 		'jquery',
@@ -49,3 +62,6 @@ function gutenbee_enqueue_frontend_block_assets() {
 
 // Dynamic block partials
 // require_once dirname( __FILE__ ) . '/src/blocks/index.php';
+
+// Settings Page
+require_once dirname( __FILE__ ) . '/options.php';

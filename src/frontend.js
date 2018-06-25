@@ -9,3 +9,5 @@ import './styles/style.scss';
 import './blocks/slideshow/script';
 import './blocks/countup/script';
 import './blocks/justified-gallery/script';
+import './blocks/google-maps/script';
+import './blocks/countdown/script';

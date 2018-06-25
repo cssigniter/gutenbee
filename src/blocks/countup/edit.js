@@ -5,6 +5,8 @@ import {
   InspectorControls,
   withColors,
   PanelColor,
+  RichText,
+  AlignmentToolbar,
 } from 'wp.editor';
 import {
   RangeControl,
@@ -12,6 +14,8 @@ import {
   TextControl,
   PanelBody,
 } from 'wp.components';
+import classNames from 'classnames';
+
 import TextControls from '../../components/controls/TextControls';
 import Countup from './Countup';
 
@@ -22,7 +26,6 @@ class CountupEdit extends Component {
       endNumber: PropTypes.number.isRequired,
       animationDuration: PropTypes.number.isRequired,
       separator: PropTypes.string.isRequired,
-      decimal: PropTypes.string.isRequired,
       textFontSize: PropTypes.number,
       textColor: PropTypes.string,
       customTextColor: PropTypes.string,
@@ -49,18 +52,34 @@ class CountupEdit extends Component {
       endNumber,
       animationDuration,
       separator,
-      decimal,
       textFontSize,
       prefix,
       suffix,
+      titleContent,
+      align,
     } = attributes;
 
     return (
       <Fragment>
-        <Countup
-          {...attributes}
-          className={className}
-        />
+        <div
+          className={classNames({
+            [className]: true,
+            [`${className}-align-${align}`]: !!align,
+          })}
+        >
+          <Countup
+            {...attributes}
+            className={`${className}-number`}
+          />
+
+          <RichText
+            tagName="p"
+            value={titleContent}
+            onChange={value => setAttributes({ titleContent: value })}
+            className={`${className}-title`}
+            placeholder={__('Write a title…')}
+          />
+        </div>
 
         {isSelected && (
           <InspectorControls>
@@ -112,16 +131,6 @@ class CountupEdit extends Component {
                 ]}
               />
 
-              <SelectControl
-                label={__('Decimal')}
-                value={decimal}
-                onChange={value => setAttributes({ decimal: value })}
-                options={[
-                  { value: '.', label: __('Dot .') },
-                  { value: ',', label: __('Comma ,') },
-                ]}
-              />
-
               <TextControls
                 setAttributes={setAttributes}
                 attributeKey="text"
@@ -129,6 +138,12 @@ class CountupEdit extends Component {
                   textFontSize,
                 }}
                 defaultFontSize={textFontSize}
+              />
+
+              <p>{__('Alignment')}</p>
+              <AlignmentToolbar
+                value={align}
+                onChange={value => setAttributes({ align: value })}
               />
             </PanelBody>
 
