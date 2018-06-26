@@ -41,6 +41,7 @@
     "querystringify": "2.0.0",
     "react-google-maps": "9.4.5",
     "react-select": "1.2.1",
-    "slick-carousel": "1.8.1"
+    "slick-carousel": "1.8.1",
+    "zurb-twentytwenty": "https://github.com/zurb/twentytwenty"
   }
 }

@@ -4870,3 +4870,7 @@ yargs@~3.10.0:
     cliui "^2.1.0"
     decamelize "^1.0.0"
     window-size "0.1.0"
+
+"zurb-twentytwenty@https://github.com/zurb/twentytwenty":
+  version "0.1.0"
+  resolved "https://github.com/zurb/twentytwenty#f053de58f06a42f78de40e377a3a8a88e0676cec"
