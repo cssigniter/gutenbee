@@ -65,27 +65,15 @@ class ImageBoxEditBlock extends Component {
 
     return (
       <Fragment>
-        {!url ? (
-          <ImagePlaceholder
-            icon="format-image"
-            label={__('Image')}
-            onSelectImage={(uploadedImage) => {
-              setAttributes({
-                id: uploadedImage.id,
-                url: uploadedImage.url,
-                alt: uploadedImage.alt,
-              });
-            }}
-          />
-        ) : (
-          <div
-            className={classNames({
-              [className]: true,
-              [`${className}-align-${imageAlign}`]: true,
-              [`${className}-content-align-${contentAlign}`]: true,
-            })}
-          >
-            <figure className={`${className}-figure`}>
+        <div
+          className={classNames({
+            [className]: true,
+            [`${className}-align-${imageAlign}`]: true,
+            [`${className}-content-align-${contentAlign}`]: true,
+          })}
+        >
+          <figure className={`${className}-figure`}>
+            {url ? (
               <img
                 src={url}
                 alt={alt}
@@ -93,40 +81,55 @@ class ImageBoxEditBlock extends Component {
                   width: imageWidth ? `${imageWidth}px` : undefined,
                 }}
               />
-            </figure>
-
-            <div className={`${className}-content`}>
-              <RichText
-                tagName={titleNodeName.toLowerCase()}
-                value={titleContent}
-                onChange={value => setAttributes({ titleContent: value })}
-                className={`${className}-title`}
-                placeholder={__('Write heading…')}
-                isSelected={isSelected && editable === 'title'}
-                onFocus={() => this.setActiveEditable('title')}
+            ) : (
+              <ImagePlaceholder
+                icon="format-image"
+                label={__('Image')}
+                onSelectImage={(uploadedImage) => {
+                  setAttributes({
+                    id: uploadedImage.id,
+                    url: uploadedImage.url,
+                    alt: uploadedImage.alt,
+                  });
+                }}
                 style={{
-                  fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
+                  width: imageWidth ? `${imageWidth}px` : undefined,
                 }}
               />
+            )}
+          </figure>
 
-              <RichText
-                tagName="p"
-                value={textContent}
-                onChange={value => setAttributes({ textContent: value })}
-                className={`${className}-text`}
-                placeholder={__('Write content…')}
-                multiline="p"
-                isSelected={isSelected && editable === 'text'}
-                onFocus={() => this.setActiveEditable('text')}
-                style={{
-                  fontSize: textFontSize ? `${textFontSize}px` : undefined,
-                }}
-              />
-            </div>
+          <div className={`${className}-content`}>
+            <RichText
+              tagName={titleNodeName.toLowerCase()}
+              value={titleContent}
+              onChange={value => setAttributes({ titleContent: value })}
+              className={`${className}-title`}
+              placeholder={__('Write heading…')}
+              isSelected={isSelected && editable === 'title'}
+              onFocus={() => this.setActiveEditable('title')}
+              style={{
+                fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
+              }}
+            />
+
+            <RichText
+              tagName="p"
+              value={textContent}
+              onChange={value => setAttributes({ textContent: value })}
+              className={`${className}-text`}
+              placeholder={__('Write content…')}
+              multiline="p"
+              isSelected={isSelected && editable === 'text'}
+              onFocus={() => this.setActiveEditable('text')}
+              style={{
+                fontSize: textFontSize ? `${textFontSize}px` : undefined,
+              }}
+            />
           </div>
-        )}
+        </div>
 
-        {isSelected && url && (
+        {isSelected && (
           <Fragment>
             <BlockControls>
               <MediaUpload

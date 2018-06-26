@@ -8,6 +8,7 @@ const ImagePlaceholder = ({
   label,
   onSelectImage,
   multiple = false,
+  ...props
 }) => (
   <Placeholder
     className={className}
@@ -16,6 +17,7 @@ const ImagePlaceholder = ({
       : __('Add image from media library')}
     icon={icon}
     label={label}
+    {...props}
   >
     <MediaUpload
       gallery={multiple}

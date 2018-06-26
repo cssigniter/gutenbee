@@ -9,7 +9,7 @@ import { registerBlockType } from 'wp.blocks';
 import { RichText } from 'wp.editor';
 import classNames from 'classnames';
 
-import ImageBoxEditBlock from './ImageBoxEditBlock';
+import ImageBoxEditBlock from './edit';
 
 const ImageBox = ({ className, attributes }) => {
   const {
