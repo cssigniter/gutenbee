@@ -63,5 +63,22 @@ function gutenbee_enqueue_frontend_block_assets() {
 // Dynamic block partials
 // require_once dirname( __FILE__ ) . '/src/blocks/index.php';
 
+// GutenBee's block category
+add_filter( 'block_categories', function( $categories, $post ) {
+	if ( $post->post_type !== 'post' ) {
+		return $categories;
+	}
+
+	return array_merge(
+		$categories,
+		array(
+			array(
+				'slug' => 'gutenbee',
+				'title' => __( 'GutenBee', 'gutenbee' ),
+			),
+		)
+	);
+}, 10, 2 );
+
 // Settings Page
 require_once dirname( __FILE__ ) . '/options.php';

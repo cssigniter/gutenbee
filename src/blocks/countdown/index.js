@@ -9,6 +9,7 @@ import { RichText } from 'wp.editor';
 
 import CountdownEdit from './edit';
 import { capitalize } from '../../util/text';
+import CountdownBlockIcon from './block-icon';
 
 const CountDown = ({
   attributes,
@@ -67,8 +68,8 @@ const CountDown = ({
 registerBlockType('gutenbee/countdown', {
   title: __('GutenBee Countdown'),
   description: __('Display awesome countdowns'),
-  category: 'common',
-  icon: 'sort',
+  category: 'gutenbee',
+  icon: CountdownBlockIcon,
   keywords: [
     __('counter'),
     __('numbers'),

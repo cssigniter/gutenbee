@@ -11,6 +11,7 @@ import { RichText } from 'wp.editor';
 
 import edit from './edit';
 import Countup from './Countup';
+import CountupBlockIcon from './block-icon';
 
 const CountupRender = ({
   attributes,
@@ -47,8 +48,8 @@ const CountupRender = ({
 registerBlockType('gutenbee/countup', {
   title: __('GutenBee Countup'),
   description: __('Animate a numerical value by counting to it.'),
-  category: 'common',
-  icon: 'sort',
+  category: 'gutenbee',
+  icon: CountupBlockIcon,
   keywords: [
     __('counter'),
     __('numbers'),

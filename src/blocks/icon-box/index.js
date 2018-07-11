@@ -20,6 +20,7 @@ import classNames from 'classnames';
 import { iconAttributes, IconSettings } from '../icon';
 import Icon from '../icon/Icon';
 import TextControls from '../../components/controls/TextControls';
+import IconBoxBlockIcon from './block-icon';
 
 const IconBox = ({ className, attributes }) => {
   const {
@@ -186,8 +187,8 @@ const IconBoxEditBlock = ({
 registerBlockType('gutenbee/iconbox', {
   title: __('GutenBee Icon Box'),
   description: __('A flexible icon box block'),
-  icon: 'star-filled',
-  category: 'layout',
+  icon: IconBoxBlockIcon,
+  category: 'gutenbee',
   keywords: [
     __('icon'),
   ],

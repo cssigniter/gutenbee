@@ -10,6 +10,7 @@ import { RichText } from 'wp.editor';
 import classNames from 'classnames';
 
 import ImageBoxEditBlock from './edit';
+import ImageBoxBlockIcon from './block-icon';
 
 const ImageBox = ({ className, attributes }) => {
   const {
@@ -69,8 +70,8 @@ const ImageBox = ({ className, attributes }) => {
 registerBlockType('gutenbee/imagebox', {
   title: __('GutenBee Image Box'),
   description: __('An image box with a title and a description.'),
-  icon: 'format-image',
-  category: 'common',
+  icon: ImageBoxBlockIcon,
+  category: 'gutenbee',
   keywords: [
     __('image'),
     __('image box'),

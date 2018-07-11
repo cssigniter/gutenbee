@@ -6,12 +6,13 @@ import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 
 import ImageComparisonEdit from './edit';
+import ImageComparisonBlockIcon from './block-icon';
 
 registerBlockType('gutenbee/image-comparison', {
   title: __('GutenBee Image Comparison'),
   description: __('Highlight the differences between two images.'),
-  icon: 'editor-code',
-  category: 'common',
+  icon: ImageComparisonBlockIcon,
+  category: 'gutenbee',
   keywords: [
     __('image comparison'),
     __('comparison'),

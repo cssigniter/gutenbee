@@ -25,6 +25,7 @@ import { VIEWS, SHAPES } from './constants';
 import icons from './icons';
 import Icon from './Icon';
 import IconSelectValue from './IconSelectValue';
+import IconBlockIcon from './block-icon';
 
 export const iconAttributes = {
   view: {
@@ -193,8 +194,8 @@ export const IconSettings = ({
 registerBlockType('gutenbee/icon', {
   title: __('GutenBee Icon'),
   description: __('A flexible icon block'),
-  icon: 'star-empty',
-  category: 'layout',
+  icon: IconBlockIcon,
+  category: 'gutenbee',
   keywords: [
     __('icons'),
   ],

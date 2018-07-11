@@ -9,6 +9,7 @@ import {
 } from 'wp.editor';
 
 import ProgressBarEdit from './edit';
+import ProgressBarBlockIcon from './block-icon';
 
 const ProgressBar = ({
   className,
@@ -60,8 +61,8 @@ const ProgressBar = ({
 registerBlockType('gutenbee/progress-bar', {
   title: __('GutenBee Progress Bar'),
   description: __('Create fancy progress bars'),
-  icon: 'minus',
-  category: 'common',
+  icon: ProgressBarBlockIcon,
+  category: 'gutenbee',
   keywords: [
     __('progress'),
     __('progress bar'),

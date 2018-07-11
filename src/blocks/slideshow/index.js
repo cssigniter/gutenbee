@@ -9,12 +9,13 @@ import { registerBlockType } from 'wp.blocks';
 
 import SlideshowEdit from './edit';
 import { LINKTO } from '../../components/gallery/constants';
+import SlideshowBlockIcon from './block-icon';
 
 registerBlockType('gutenbee/slideshow', {
   title: __('GutenBee Slideshow'),
   description: __('A slideshow block'),
-  icon: 'slides',
-  category: 'common',
+  icon: SlideshowBlockIcon,
+  category: 'gutenbee',
   keywords: [
     __('slideshow'),
     __('gallery'),

@@ -1210,3 +1210,31 @@
 .wp-block-gutenbee-countdown-wrap {
   margin: 30px 0;
 }
+
+.wp-block-gutenbee-accordion {
+  margin: 30px 0;
+}
+
+.wp-block-gutenbee-accordion-item-title {
+  line-height: normal;
+  font-size: 16px;
+  margin: -1px 0 0;
+  padding: 15px;
+  border: 1px solid #e2e4e7;
+  cursor: pointer;
+}
+
+.wp-block-gutenbee-accordion-item-content-wrap {
+  overflow: hidden;
+  display: none;
+}
+
+.wp-block-gutenbee-accordion-item-content {
+  padding: 15px;
+  border: 1px solid #e2e4e7;
+  border-top: 0;
+}
+
+.wp-block-gutenbee-accordion-item-content p:last-child {
+  margin-bottom: 0;
+}

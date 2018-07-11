@@ -8,12 +8,13 @@ import { registerBlockType } from 'wp.blocks';
 import JustifiedGalleryEdit from './edit';
 import { LINKTO } from '../../components/gallery/constants';
 import { LAST_ROW } from './constants';
+import JustifiedGalleryBlockIcon from './block-icon';
 
 registerBlockType('gutenbee/justified-gallery', {
   title: __('GutenBee Justified Gallery'),
   description: __('Create high quality justified image galleries'),
-  icon: 'format-gallery',
-  category: 'common',
+  icon: JustifiedGalleryBlockIcon,
+  category: 'gutenbee',
   keywords: [
     __('justified'),
     __('gallery'),

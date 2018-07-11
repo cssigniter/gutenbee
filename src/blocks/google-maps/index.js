@@ -8,12 +8,13 @@ import { registerBlockType } from 'wp.blocks';
 import GoogleMapsEdit from './edit';
 import mapStyles from './map-styles';
 import get from 'lodash.get';
+import GoogleMapsBlockIcon from './block-icon';
 
 registerBlockType('gutenbee/google-maps', {
   title: __('GutenBee Google Maps'),
   description: __('Create fancy Google Maps'),
-  icon: 'location',
-  category: 'common',
+  icon: GoogleMapsBlockIcon,
+  category: 'gutenbee',
   keywords: [
     __('maps'),
     __('google'),
