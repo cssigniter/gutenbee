@@ -1,6 +1,6 @@
 {
   "name": "gutenbee",
-  "version": "1.0.0",
+  "version": "2.1.0",
   "devDependencies": {
     "autoprefixer": "7.2.1",
     "babel-core": "^6.25.0",

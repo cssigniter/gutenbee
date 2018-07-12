@@ -1,15 +1,14 @@
 const ProgressBarBlockIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20">
-    <g>
-      <rect width="20" height="1.33333" style={{ fill: '#333' }} />
-      <rect y="5.33333" width="17.33333" height="1.33333" style={{ fill: '#333' }} />
-      <rect y="10.66667" width="14.66667" height="1.33333" style={{ fill: '#333' }} />
-      <rect y="16" width="12" height="1.33333" style={{ fill: '#333' }} />
-      <rect y="1.33333" width="18.66667" height="2.66667" style={{ fill: '#ffd400' }} />
-      <rect y="6.66667" width="16" height="2.66667" style={{ fill: '#ffd400' }} />
-      <rect y="12" width="13.33333" height="2.66667" style={{ fill: '#ffd400' }} />
-      <rect y="17.33333" width="10.66667" height="2.66667" style={{ fill: '#ffd400' }} />
+    <g fill="#333">
+      <path d="m0 0v2h18 2v-2z" />
+      <path d="m0 8h16 2v-2h-18z" />
+      <path d="m0 14h14 2v-2h-16z" />
+      <path d="m0 18h14v2h-14z" />
     </g>
+    <path d="m0 2h18v2h-18z" fill="#ffd400" />
+    <path d="m0 8h16v2h-16z" fill="#ffd400" />
+    <path d="m0 14h14v2h-14z" fill="#ffd400" />
   </svg>
 );
 
