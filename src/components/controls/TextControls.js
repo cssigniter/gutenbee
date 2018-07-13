@@ -8,6 +8,7 @@ const propTypes = {
   attributeKey: PropTypes.string.isRequired,
   attributes: PropTypes.object,
   defaultFontSize: PropTypes.number,
+  fontSizeLabel: PropTypes.string,
 };
 
 const TextControls = ({
@@ -15,6 +16,7 @@ const TextControls = ({
   attributeKey,
   attributes,
   defaultFontSize,
+  fontSizeLabel,
 }) => (
   <Fragment>
     <FontSizeControls
@@ -22,6 +24,7 @@ const TextControls = ({
       attributeKey={attributeKey}
       attributes={attributes}
       defaultFontSize={defaultFontSize}
+      label={fontSizeLabel}
     />
   </Fragment>
 );

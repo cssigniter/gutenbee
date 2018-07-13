@@ -15,6 +15,7 @@ const propTypes = {
   scrollwheel: PropTypes.bool.isRequired,
   styles: PropTypes.array,
   infoWindow: PropTypes.string,
+  icon: PropTypes.string,
 };
 
 const Map = ({
@@ -24,6 +25,7 @@ const Map = ({
   preventScroll,
   styles,
   infoWindow,
+  icon,
 }) => {
   const position = {
     lat: parseFloat(latitude),
@@ -41,6 +43,7 @@ const Map = ({
     >
       <Marker
         position={position}
+        icon={icon}
       >
         {infoWindow && (
           <InfoWindow>

@@ -10,6 +10,11 @@ const propTypes = {
   attributeKey: PropTypes.string.isRequired,
   attributes: PropTypes.object,
   defaultFontSize: PropTypes.number,
+  label: PropTypes.string,
+};
+
+const defaultProps = {
+  label: __('Font Size'),
 };
 
 const FontSizeControls = ({
@@ -17,6 +22,7 @@ const FontSizeControls = ({
   attributeKey,
   attributes,
   defaultFontSize = 16,
+  label,
 }) => {
   const FONT_SIZES = [
     {
@@ -46,7 +52,7 @@ const FontSizeControls = ({
 
   return (
     <Fragment>
-      <p>{__('Font Size')}</p>
+      <p>{label}</p>
       <FontSizePicker
         fontSizes={FONT_SIZES}
         fallbackFontSize={defaultFontSize}
@@ -58,5 +64,6 @@ const FontSizeControls = ({
 };
 
 FontSizeControls.propTypes = propTypes;
+FontSizeControls.defaultProps = defaultProps;
 
 export default FontSizeControls;

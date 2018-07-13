@@ -10,12 +10,14 @@ import {
   TextareaControl,
   Spinner,
   Notice,
+  Button,
 } from 'wp.components';
-import { InspectorControls } from 'wp.editor';
+import { InspectorControls, MediaUpload } from 'wp.editor';
 import get from 'lodash.get';
 
 import Map from './Map';
 import mapStyles from './map-styles';
+import ImagePreview from '../../components/image-preview/ImagePreview';
 
 class GoogleMapsEdit extends Component {
   static propTypes = {
@@ -28,6 +30,8 @@ class GoogleMapsEdit extends Component {
       styleId: PropTypes.array,
       infoWindow: PropTypes.string,
       customStyles: PropTypes.string,
+      markerImageUrl: PropTypes.string,
+      markerImageId: PropTypes.number,
     }).isRequired,
     isSelected: PropTypes.bool.isRequired,
     className: PropTypes.string.isRequired,
@@ -86,6 +90,8 @@ class GoogleMapsEdit extends Component {
       styleId,
       infoWindow,
       customStyles,
+      markerImageUrl,
+      markerImageId,
     } = attributes;
 
     const predefinedMapStyle = mapStyles.find(({ id }) => id === styleId);
@@ -116,6 +122,7 @@ class GoogleMapsEdit extends Component {
               preventScroll={preventScroll}
               styles={mapStyle}
               infoWindow={infoWindow}
+              icon={markerImageUrl}
             />
           ) : (
             <Notice
@@ -179,6 +186,39 @@ class GoogleMapsEdit extends Component {
                     label: style.label,
                   })),
                 ]}
+              />
+
+              <p>{__('Custom Marker')}</p>
+              {markerImageUrl && (
+                <ImagePreview
+                  src={markerImageUrl}
+                  onDismiss={() => setAttributes({
+                    markerImageId: null,
+                    markerImageUrl: '',
+                  })}
+                />
+              )}
+
+              <MediaUpload
+                onSelect={(uploadedImage) => {
+                  setAttributes({
+                    markerImageId: uploadedImage.id,
+                    markerImageUrl: uploadedImage.url,
+                  });
+                }}
+                type="image"
+                value={markerImageId}
+                render={({ open }) => (
+                  <p>
+                    <Button
+                      onClick={open}
+                      isDefault
+                      style={{ width: '100%', display: 'block' }}
+                    >
+                      Upload Custom Marker
+                    </Button>
+                  </p>
+                )}
               />
 
               <TextareaControl

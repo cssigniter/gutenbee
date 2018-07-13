@@ -26,9 +26,9 @@ const AccordionItem = ({ attributes, className }) => {
         [`${className}-expanded`]: defaultExpanded,
       })}
     >
-      <h4 className={`${className}-title`}>
+      <p className={`${className}-title`}>
         {title}
-      </h4>
+      </p>
       <div className={`${className}-content-wrap`}>
         <div className={`${className}-content`}>
           <RichText.Content
@@ -55,12 +55,12 @@ registerBlockType('gutenbee/accordion-item', {
   attributes: {
     title: {
       source: 'text',
-      selector: 'h4',
+      selector: '.wp-block-gutenbee-accordion-item-title',
     },
     text: {
       type: 'array',
       source: 'children',
-      selector: 'p',
+      selector: '.wp-block-gutenbee-accordion-item-content p',
       default: [],
     },
     defaultExpanded: {

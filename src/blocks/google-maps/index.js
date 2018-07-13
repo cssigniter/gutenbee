@@ -52,6 +52,13 @@ registerBlockType('gutenbee/google-maps', {
       type: 'string',
       default: '',
     },
+    markerImageUrl: {
+      type: 'string',
+      default: '',
+    },
+    markerImageId: {
+      type: 'number',
+    },
   },
   edit: GoogleMapsEdit,
   save: ({ className, attributes }) => {
@@ -64,6 +71,7 @@ registerBlockType('gutenbee/google-maps', {
       styleId,
       infoWindow,
       customStyles,
+      markerImageUrl,
     } = attributes;
 
     const getCustomStyles = () => {
@@ -88,6 +96,7 @@ registerBlockType('gutenbee/google-maps', {
         data-prevent-scroll={preventScroll}
         data-map-style={mapStyle && JSON.stringify(mapStyle)}
         data-info-window={infoWindow}
+        data-marker-icon={markerImageUrl}
         style={{
           height: `${height}px`,
         }}

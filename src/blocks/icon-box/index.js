@@ -24,7 +24,7 @@ import IconBoxBlockIcon from './block-icon';
 
 const IconBox = ({ className, attributes }) => {
   const {
-    titleNodeName,
+    titleNodeLevel,
     titleContent,
     titleFontSize,
     textContent,
@@ -44,7 +44,7 @@ const IconBox = ({ className, attributes }) => {
       <Icon {...attributes} />
       <div className={`${className}-content`}>
         <RichText.Content
-          tagName={titleNodeName.toLowerCase()}
+          tagName={`h${titleNodeLevel}`}
           value={titleContent}
           className={`${className}-title`}
           style={{
@@ -75,7 +75,7 @@ const IconBoxEditBlock = ({
 }) => {
   const {
     titleContent,
-    titleNodeName,
+    titleNodeLevel,
     titleFontSize,
     textContent,
     textFontSize,
@@ -97,7 +97,7 @@ const IconBoxEditBlock = ({
         <Icon {...attributes} />
         <div className={`${className}-content`}>
           <RichText
-            tagName={titleNodeName.toLowerCase()}
+            tagName={`h${titleNodeLevel}`}
             value={titleContent}
             onChange={value => setAttributes({ titleContent: value })}
             className={`${className}-title`}
@@ -145,12 +145,12 @@ const IconBoxEditBlock = ({
             <p>{__('Heading element')}</p>
             <Toolbar
               controls={
-                '23456'.split('').map(level => ({
+                '23456'.split('').map(Number).map(controlLevel => ({
                   icon: 'heading',
-                  title: sprintf(__('Heading %s'), level),
-                  isActive: `H${level}` === titleNodeName,
-                  onClick: () => setAttributes({ titleNodeName: `H${level}` }),
-                  subscript: level,
+                  title: sprintf(__('Heading %s'), controlLevel),
+                  isActive: titleNodeLevel === controlLevel,
+                  onClick: () => setAttributes({ titleNodeLevel: controlLevel }),
+                  subscript: controlLevel,
                 }))
               }
             />
@@ -200,12 +200,9 @@ registerBlockType('gutenbee/iconbox', {
       selector: 'h1,h2,h3,h4,h5,h6',
       default: [],
     },
-    titleNodeName: {
-      type: 'string',
-      source: 'property',
-      selector: 'h1,h2,h3,h4,h5,h6',
-      property: 'nodeName',
-      default: 'H3',
+    titleNodeLevel: {
+      type: 'number',
+      default: 3,
     },
     titleFontSize: {
       type: 'number',

@@ -11,6 +11,7 @@ import {
   PanelColor,
   ContrastChecker,
 } from 'wp.editor';
+import TextControls from '../../components/controls/TextControls';
 
 class ProgressBarEdit extends Component {
   state = {
@@ -36,20 +37,24 @@ class ProgressBarEdit extends Component {
       displayPercentage,
       backgroundColor,
       textColor,
+      titleFontSize,
+      innerTitleFontSize,
     } = attributes;
 
     return (
       <Fragment>
         <div className={className}>
-          <RichText
-            tagName="p"
-            value={title}
-            onChange={value => setAttributes({ title: value })}
-            className={`${className}-title`}
-            placeholder={__('Write title…')}
-            isSelected={isSelected && editable === 'title'}
-            onFocus={() => this.setActiveEditable('title')}
-          />
+          <div style={{ fontSize: titleFontSize }}>
+            <RichText
+              tagName="p"
+              value={title}
+              onChange={value => setAttributes({ title: value })}
+              className={`${className}-title`}
+              placeholder={__('Write title…')}
+              isSelected={isSelected && editable === 'title'}
+              onFocus={() => this.setActiveEditable('title')}
+            />
+          </div>
 
           <div className={`${className}-outer`}>
             <div
@@ -58,6 +63,7 @@ class ProgressBarEdit extends Component {
                 width: `${percentage}%`,
                 backgroundColor,
                 color: textColor,
+                fontSize: innerTitleFontSize,
               }}
             >
               <RichText
@@ -95,6 +101,22 @@ class ProgressBarEdit extends Component {
                 label={__('Display percentage')}
                 checked={displayPercentage}
                 onChange={value => setAttributes({ displayPercentage: value })}
+              />
+
+              <TextControls
+                setAttributes={setAttributes}
+                attributeKey="title"
+                attributes={attributes}
+                defaultFontSize={titleFontSize}
+                fontSizeLabel={__('Title Font Size')}
+              />
+
+              <TextControls
+                setAttributes={setAttributes}
+                attributeKey="innerTitle"
+                attributes={attributes}
+                defaultFontSize={innerTitleFontSize}
+                fontSizeLabel={__('Progress Bar Font Size')}
               />
             </PanelBody>
 

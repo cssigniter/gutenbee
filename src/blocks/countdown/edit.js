@@ -14,6 +14,7 @@ import {
 
 import { capitalize } from '../../util/text';
 import CountdownTimer from '../../util/CountdownTimer';
+import TextControls from '../../components/controls/TextControls';
 
 class CountdownEdit extends Component {
   static propTypes = {
@@ -30,6 +31,8 @@ class CountdownEdit extends Component {
       labelSeconds: PropTypes.string.isRequired,
       textColor: PropTypes.string,
       backgroundColor: PropTypes.string,
+      numberFontSize: PropTypes.number.isRequired,
+      labelFontSize: PropTypes.number.isRequired,
     }).isRequired,
     isSelected: PropTypes.bool.isRequired,
     className: PropTypes.string.isRequired,
@@ -63,7 +66,12 @@ class CountdownEdit extends Component {
       attributes,
       setAttributes,
     } = this.props;
-    const { displayLabels, backgroundColor } = attributes;
+    const {
+      displayLabels,
+      backgroundColor,
+      numberFontSize,
+      labelFontSize,
+    } = attributes;
     const displayAttributeKey = `display${[capitalize(key)]}`;
     const labelAttributeKey = `label${[capitalize(key)]}`;
 
@@ -75,14 +83,25 @@ class CountdownEdit extends Component {
           backgroundColor: backgroundColor || undefined,
         }}
       >
-        <p className={`gutenbee-countdown-number gutenbee-countdown-${key}`} />
+        <p
+          className={`gutenbee-countdown-number gutenbee-countdown-${key}`}
+          style={{
+            fontSize: numberFontSize,
+          }}
+        />
         {displayLabels && (
-          <RichText
-            tagName="p"
-            className={`gutenbee-countdown-label gutenbee-countdown-label-${key}`}
-            value={attributes[labelAttributeKey]}
-            onChange={value => setAttributes({ [labelAttributeKey]: value })}
-          />
+          <div
+            style={{
+              fontSize: labelFontSize,
+            }}
+          >
+            <RichText
+              tagName="p"
+              className={`gutenbee-countdown-label gutenbee-countdown-label-${key}`}
+              value={attributes[labelAttributeKey]}
+              onChange={value => setAttributes({ [labelAttributeKey]: value })}
+            />
+          </div>
         )}
       </div>
     );
@@ -105,6 +124,8 @@ class CountdownEdit extends Component {
       displayLabels,
       textColor,
       backgroundColor,
+      numberFontSize,
+      labelFontSize,
     } = attributes;
 
     const items = ['days', 'hours', 'minutes', 'seconds'];
@@ -164,6 +185,24 @@ class CountdownEdit extends Component {
                 label={__('Show Labels')}
                 checked={displayLabels}
                 onChange={value => setAttributes({ displayLabels: value })}
+              />
+            </PanelBody>
+
+            <PanelBody title={__('Font Sizes')} initialOpen={false}>
+              <TextControls
+                setAttributes={setAttributes}
+                attributeKey="number"
+                attributes={attributes}
+                defaultFontSize={numberFontSize}
+                fontSizeLabel={__('Number Font Size')}
+              />
+
+              <TextControls
+                setAttributes={setAttributes}
+                attributeKey="label"
+                attributes={attributes}
+                defaultFontSize={labelFontSize}
+                fontSizeLabel={__('Label Font Size')}
               />
             </PanelBody>
 

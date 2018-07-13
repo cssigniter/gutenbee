@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
       useGrouping: !!separator,
       separator,
       prefix: element.dataset.prefix,
+      suffix: element.dataset.suffix,
     };
 
     const countup = new CountUp(

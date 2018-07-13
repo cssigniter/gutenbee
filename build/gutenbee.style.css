@@ -1,3 +1,105 @@
+/*!
+ * justifiedGallery - v3.7.0
+ * http://miromannino.github.io/Justified-Gallery/
+ * Copyright (c) 2018 Miro Mannino
+ * Licensed under the MIT license.
+ */
+.justified-gallery {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.justified-gallery > a,
+.justified-gallery > div,
+.justified-gallery > figure {
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  /* background: #888888; To have gray placeholders while the gallery is loading with waitThumbnailsLoad = false */
+  filter: "alpha(opacity=10)";
+  opacity: 0.1;
+  margin: 0;
+  padding: 0;
+}
+.justified-gallery > a > img,
+.justified-gallery > div > img,
+.justified-gallery > figure > img,
+.justified-gallery > a > a > img,
+.justified-gallery > div > a > img,
+.justified-gallery > figure > a > img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  filter: "alpha(opacity=0)";
+  opacity: 0;
+}
+.justified-gallery > a > .caption,
+.justified-gallery > div > .caption,
+.justified-gallery > figure > .caption {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  padding: 5px;
+  background-color: #000000;
+  left: 0;
+  right: 0;
+  margin: 0;
+  color: white;
+  font-size: 12px;
+  font-weight: 300;
+  font-family: sans-serif;
+}
+.justified-gallery > a > .caption.caption-visible,
+.justified-gallery > div > .caption.caption-visible,
+.justified-gallery > figure > .caption.caption-visible {
+  display: initial;
+  filter: "alpha(opacity=70)";
+  opacity: 0.7;
+  -webkit-transition: opacity 500ms ease-in;
+  -moz-transition: opacity 500ms ease-in;
+  -o-transition: opacity 500ms ease-in;
+  transition: opacity 500ms ease-in;
+}
+.justified-gallery > .entry-visible {
+  filter: "alpha(opacity=100)";
+  opacity: 1;
+  background: none;
+}
+.justified-gallery > .entry-visible > img,
+.justified-gallery > .entry-visible > a > img {
+  filter: "alpha(opacity=100)";
+  opacity: 1;
+  -webkit-transition: opacity 500ms ease-in;
+  -moz-transition: opacity 500ms ease-in;
+  -o-transition: opacity 500ms ease-in;
+  transition: opacity 500ms ease-in;
+}
+.justified-gallery > .jg-filtered {
+  display: none;
+}
+.justified-gallery > .spinner {
+  position: absolute;
+  bottom: 0;
+  margin-left: -24px;
+  padding: 10px 0 10px 0;
+  left: 50%;
+  filter: "alpha(opacity=100)";
+  opacity: 1;
+  overflow: initial;
+}
+.justified-gallery > .spinner > span {
+  display: inline-block;
+  filter: "alpha(opacity=0)";
+  opacity: 0;
+  width: 8px;
+  height: 8px;
+  margin: 0 4px 0 4px;
+  background-color: #000;
+  border-radius: 6px;
+}
 @font-face {
   font-family: "gutenbee";
   src: url(fonts/gutenbee.eot);
@@ -151,10 +253,18 @@
 }
 
 .wp-block-gutenbee-slideshow {
-  margin-bottom: 1.5rem;
+  margin-bottom: 30px;
 }
 
-.wp-block-gutenbee-slideshow .slick-arrow {
+.wp-block-gutenbee-slideshow:not(.slick-initialized) > div {
+  display: none;
+}
+
+.wp-block-gutenbee-slideshow:not(.slick-initialized) > div:first-child {
+  display: block;
+}
+
+.wp-block-gutenbee-slideshow button.slick-arrow {
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -168,17 +278,18 @@
   border: 0;
   min-width: auto;
   padding: 10px;
+  margin: 0;
   font-size: 0;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
 
-.wp-block-gutenbee-slideshow .slick-arrow::before {
+.wp-block-gutenbee-slideshow button.slick-arrow::before {
   font-family: "gutenbee";
   font-size: 24px;
 }
 
-.wp-block-gutenbee-slideshow .slick-arrow:hover, .wp-block-gutenbee-slideshow .slick-arrow:active, .wp-block-gutenbee-slideshow .slick-arrow:focus {
+.wp-block-gutenbee-slideshow button.slick-arrow:hover, .wp-block-gutenbee-slideshow button.slick-arrow:active, .wp-block-gutenbee-slideshow button.slick-arrow:focus {
   outline: none;
   border: 0;
   background: none;
@@ -187,19 +298,33 @@
   box-shadow: none;
 }
 
-.wp-block-gutenbee-slideshow .slick-next {
+.wp-block-gutenbee-slideshow button.slick-arrow.slick-next {
   right: 15px;
+  left: auto;
 }
 
-.wp-block-gutenbee-slideshow .slick-next::before {
+.wp-block-gutenbee-slideshow button.slick-arrow.slick-next::before {
   content: "\E002";
+  position: relative;
+  top: auto;
+  right: auto;
+  left: auto;
+  font-size: initial;
+  bottom: auto;
 }
 
-.wp-block-gutenbee-slideshow .slick-prev {
+.wp-block-gutenbee-slideshow button.slick-arrow.slick-prev {
   left: 15px;
+  right: auto;
 }
 
-.wp-block-gutenbee-slideshow .slick-prev::before {
+.wp-block-gutenbee-slideshow button.slick-arrow.slick-prev::before {
+  position: relative;
+  top: auto;
+  right: auto;
+  left: auto;
+  bottom: auto;
+  font-size: initial;
   content: "\E001";
 }
 
@@ -1192,9 +1317,9 @@
 
 .wp-block-gutenbee-countdown-wrap .gutenbee-countdown-number {
   font-weight: bold;
-  font-size: 1.5rem;
   margin: 0 0 5px;
   line-height: normal;
+  color: currentColor;
 }
 
 .wp-block-gutenbee-countdown-wrap .gutenbee-countdown-number:only-child {
@@ -1203,8 +1328,9 @@
 
 .wp-block-gutenbee-countdown-wrap .gutenbee-countdown-label {
   font-weight: normal;
-  font-size: .8rem;
   margin: 0;
+  font-size: inherit;
+  color: currentColor;
 }
 
 .wp-block-gutenbee-countdown-wrap {
@@ -1237,4 +1363,12 @@
 
 .wp-block-gutenbee-accordion-item-content p:last-child {
   margin-bottom: 0;
+}
+
+.wp-block-gutenbee-justified-gallery {
+  display: none;
+}
+
+.wp-block-gutenbee-justified-gallery.justified-gallery {
+  display: block;
 }

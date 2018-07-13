@@ -159,7 +159,4 @@ class CountupEdit extends Component {
   }
 }
 
-export default withColors((getColor, setColor, { attributes }) => ({
-  textColor: getColor(attributes.textColor, attributes.customTextColor, 'color'),
-  setTextColor: setColor('textColor', 'customTextColor'),
-}))(CountupEdit);
+export default withColors({ textColor: 'color' })(CountupEdit);

@@ -49,7 +49,7 @@ class ImageBoxEditBlock extends Component {
     } = this.props;
     const {
       titleContent,
-      titleNodeName,
+      titleNodeLevel,
       titleFontSize,
       textContent,
       textFontSize,
@@ -101,7 +101,7 @@ class ImageBoxEditBlock extends Component {
 
           <div className={`${className}-content`}>
             <RichText
-              tagName={titleNodeName.toLowerCase()}
+              tagName={`h${titleNodeLevel}`}
               value={titleContent}
               onChange={value => setAttributes({ titleContent: value })}
               className={`${className}-title`}
@@ -193,12 +193,12 @@ class ImageBoxEditBlock extends Component {
                 <p>{__('Heading element')}</p>
                 <Toolbar
                   controls={
-                    '23456'.split('').map(level => ({
+                    '23456'.split('').map(Number).map(controlLevel => ({
                       icon: 'heading',
-                      title: sprintf(__('Heading %s'), level),
-                      isActive: `H${level}` === titleNodeName,
-                      onClick: () => setAttributes({ titleNodeName: `H${level}` }),
-                      subscript: level,
+                      title: sprintf(__('Heading %s'), controlLevel),
+                      isActive: controlLevel === titleNodeLevel,
+                      onClick: () => setAttributes({ titleNodeLevel: controlLevel }),
+                      subscript: controlLevel,
                     }))
                   }
                 />

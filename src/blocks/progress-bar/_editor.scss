@@ -16,3 +16,9 @@
     text-overflow: ellipsis;
   }
 }
+
+.wp-block-gutenbee-progress-bar-title {
+  &.mce-content-body {
+    font-size: inherit;
+  }
+}

@@ -1,0 +1,26 @@
+.gutenbee-image-preview {
+  @include checker-pattern;
+  padding: 10px;
+  margin-bottom: 5px;
+  width: 100%;
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 2px solid $border-color;
+}
+
+.gutenbee-image-preview-dismiss {
+  @include button-reset;
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  background-color: $blue;
+  color: $white;
+}

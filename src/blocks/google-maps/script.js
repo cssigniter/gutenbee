@@ -26,6 +26,7 @@ jQuery(($) => {
 
     const marker = new google.maps.Marker({
       position: location,
+      icon: $this.data('marker-icon'),
       map,
     });
 

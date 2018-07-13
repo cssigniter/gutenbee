@@ -1,0 +1,9 @@
+@import "~justifiedGallery/dist/css/justifiedGallery.css";
+
+.wp-block-gutenbee-justified-gallery {
+  display: none;
+
+  &.justified-gallery {
+    display: block;
+  }
+}

@@ -122,13 +122,13 @@ registerBlockType('gutenbee/justified-gallery', {
             />
           );
 
-          return href ? (
-            <a className="gutenbee-justified-gallery-item" href={href}>
-              {img}
-            </a>
-          ) : (
+          return (
             <div className="gutenbee-justified-gallery-item">
-              {img}
+              {href ? (
+                <a className="gutenbee-justified-gallery-item" href={href}>
+                  {img}
+                </a>
+              ) : img}
             </div>
           );
         })}

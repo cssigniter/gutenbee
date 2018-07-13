@@ -95,6 +95,65 @@
   padding: 0;
 }
 
+.gutenbee-image-preview {
+  background-image: linear-gradient(45deg, #f8f8f8 25%, transparent 25%), linear-gradient(-45deg, #f8f8f8 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f8f8f8 75%), linear-gradient(-45deg, transparent 75%, #f8f8f8 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+  padding: 10px;
+  margin-bottom: 5px;
+  width: 100%;
+  min-height: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: relative;
+  border: 2px solid #e2e4e7;
+}
+
+.gutenbee-image-preview-dismiss {
+  display: inline-block;
+  font-weight: normal;
+  margin: 0;
+  line-height: normal;
+  border: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius: 0;
+  width: auto;
+  height: auto;
+  background: none;
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  background-color: #0085ba;
+  color: #fff;
+}
+
 .wp-block-gutenbee-divider {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1298,6 +1357,10 @@
   text-overflow: ellipsis;
 }
 
+.wp-block-gutenbee-progress-bar-title.mce-content-body {
+  font-size: inherit;
+}
+
 .wp-block-gutenbee-image-comparison {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1391,9 +1454,9 @@
 
 .wp-block-gutenbee-countdown-wrap .gutenbee-countdown-number {
   font-weight: bold;
-  font-size: 1.5rem;
   margin: 0 0 5px;
   line-height: normal;
+  color: currentColor;
 }
 
 .wp-block-gutenbee-countdown-wrap .gutenbee-countdown-number:only-child {
@@ -1402,8 +1465,9 @@
 
 .wp-block-gutenbee-countdown-wrap .gutenbee-countdown-label {
   font-weight: normal;
-  font-size: .8rem;
   margin: 0;
+  font-size: inherit;
+  color: currentColor;
 }
 
 .wp-block-gutenbee-accordion {

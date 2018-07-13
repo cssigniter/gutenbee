@@ -21,9 +21,9 @@
 
   .gutenbee-countdown-number {
     font-weight: bold;
-    font-size: 1.5rem;
     margin: 0 0 5px;
     line-height: normal;
+    color: currentColor;
 
     &:only-child {
       margin: 0;
@@ -32,7 +32,8 @@
 
   .gutenbee-countdown-label {
     font-weight: normal;
-    font-size: .8rem;
     margin: 0;
+    font-size: inherit;
+    color: currentColor;
   }
 }

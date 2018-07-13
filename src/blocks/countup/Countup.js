@@ -45,6 +45,7 @@ const Countup = ({
       data-animation-duration={animationDuration}
       data-separator={separator}
       data-prefix={prefix}
+      data-suffix={suffix}
     >
       {formatNumber(startNumber, separator, prefix, suffix)}
     </span>

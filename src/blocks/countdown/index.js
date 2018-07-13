@@ -20,6 +20,8 @@ const CountDown = ({
     textColor,
     backgroundColor,
     displayLabels,
+    numberFontSize,
+    labelFontSize,
   } = attributes;
 
   const renderItem = (key) => {
@@ -37,12 +39,16 @@ const CountDown = ({
           backgroundColor: backgroundColor || undefined,
         }}
       >
-        <p className={`gutenbee-countdown-number gutenbee-countdown-${key}`} />
+        <p
+          className={`gutenbee-countdown-number gutenbee-countdown-${key}`}
+          style={{ fontSize: numberFontSize }}
+        />
         {displayLabels && (
           <RichText.Content
             tagName="p"
             className={`gutenbee-countdown-label gutenbee-countdown-label-${key}`}
             value={attributes[labelAttributeKey]}
+            style={{ fontSize: labelFontSize }}
           />
         )}
       </div>
@@ -131,6 +137,14 @@ registerBlockType('gutenbee/countdown', {
     backgroundColor: {
       type: 'string',
       default: '',
+    },
+    numberFontSize: {
+      type: 'number',
+      default: 24,
+    },
+    labelFontSize: {
+      type: 'number',
+      default: 13,
     },
   },
   edit: CountdownEdit,

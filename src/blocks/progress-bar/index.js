@@ -22,6 +22,8 @@ const ProgressBar = ({
     displayPercentage,
     textColor,
     backgroundColor,
+    titleFontSize,
+    innerTitleFontSize,
   } = attributes;
 
   return (
@@ -30,6 +32,7 @@ const ProgressBar = ({
         tagName="p"
         value={title}
         className={`${className}-title`}
+        style={{ fontSize: titleFontSize }}
       />
 
       <div className={`${className}-outer`}>
@@ -45,6 +48,7 @@ const ProgressBar = ({
             tagName="span"
             value={innerTitle}
             className={`${className}-inner-title`}
+            style={{ fontSize: innerTitleFontSize }}
           />
 
           {displayPercentage && (
@@ -91,6 +95,14 @@ registerBlockType('gutenbee/progress-bar', {
     },
     backgroundColor: {
       type: 'string',
+    },
+    titleFontSize: {
+      type: 'number',
+      default: 16,
+    },
+    innerTitleFontSize: {
+      type: 'number',
+      default: 14,
     },
   },
   edit: ProgressBarEdit,

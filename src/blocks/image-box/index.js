@@ -15,7 +15,7 @@ import ImageBoxBlockIcon from './block-icon';
 const ImageBox = ({ className, attributes }) => {
   const {
     titleContent,
-    titleNodeName,
+    titleNodeLevel,
     titleFontSize,
     textContent,
     textFontSize,
@@ -46,7 +46,7 @@ const ImageBox = ({ className, attributes }) => {
 
       <div className={`${className}-content`}>
         <RichText.Content
-          tagName={titleNodeName.toLowerCase()}
+          tagName={`h${titleNodeLevel}`}
           value={titleContent}
           className={`${className}-title`}
           style={{
@@ -84,12 +84,9 @@ registerBlockType('gutenbee/imagebox', {
       selector: 'h1,h2,h3,h4,h5,h6',
       default: [],
     },
-    titleNodeName: {
-      type: 'string',
-      source: 'property',
-      selector: 'h1,h2,h3,h4,h5,h6',
-      property: 'nodeName',
-      default: 'H3',
+    titleNodeLevel: {
+      type: 'number',
+      default: 3,
     },
     titleFontSize: {
       type: 'number',

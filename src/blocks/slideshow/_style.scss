@@ -1,55 +1,82 @@
 @import '~slick-carousel/slick/slick';
 
 .wp-block-gutenbee-slideshow {
-  margin-bottom: 1.5rem;
+  margin-bottom: 30px;
 
-  .slick-arrow {
- 		position: absolute;
- 		top: 50%;
- 		transform: translateY(-50%);
- 		z-index: 99;
- 		line-height: normal;
-    background: none;
-    color: currentColor;
-    width: auto;
-    height: auto;
-    border: 0;
-    min-width: auto;
-    padding: 10px;
-    font-size: 0;
-    box-shadow: none;
+  &:not(.slick-initialized) {
+    > div {
+      display: none;
 
-    &::before {
-      font-family: "gutenbee";
-      font-size: 24px;
+      &:first-child {
+        display: block;
+      }
     }
+  }
 
-    &:hover,
-    &:active,
-    &:focus {
-      outline: none;
-      border: 0;
+  button {
+    &.slick-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 99;
+      line-height: normal;
       background: none;
       color: currentColor;
+      width: auto;
+      height: auto;
+      border: 0;
+      min-width: auto;
+      padding: 10px;
+      margin: 0;
+      font-size: 0;
       box-shadow: none;
+
+      &::before {
+        font-family: "gutenbee";
+        font-size: 24px;
+      }
+
+      &:hover,
+      &:active,
+      &:focus {
+        outline: none;
+        border: 0;
+        background: none;
+        color: currentColor;
+        box-shadow: none;
+      }
+
+      &.slick-next {
+        right: 15px;
+        left: auto;
+
+        &::before {
+          content: "\E002";
+          position: relative;
+          top: auto;
+          right: auto;
+          left: auto;
+          font-size: initial;
+          bottom: auto;
+        }
+      }
+
+      &.slick-prev {
+        left: 15px;
+        right: auto;
+
+        &::before {
+          position: relative;
+          top: auto;
+          right: auto;
+          left: auto;
+          bottom: auto;
+          font-size: initial;
+          content: "\E001";
+        }
+      }
     }
- 	}
-
- 	.slick-next {
- 		right: 15px;
-
-    &::before {
-      content: "\E002";
-    }
- 	}
-
- 	.slick-prev {
- 		left: 15px;
-
-    &::before {
-      content: "\E001";
-    }
- 	}
+  }
 
   .slick-dots {
     position: absolute;
