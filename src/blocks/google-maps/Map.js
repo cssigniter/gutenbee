@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { compose } from 'wp.element';
+import { compose } from 'wp.compose';
 import {
   withScriptjs,
   withGoogleMap,

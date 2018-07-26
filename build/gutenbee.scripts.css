@@ -100,6 +100,7 @@
   background-color: #000;
   border-radius: 6px;
 }
+
 @font-face {
   font-family: "gutenbee";
   src: url(fonts/gutenbee.eot);
@@ -1115,7 +1116,7 @@
 
 .twentytwenty-container.active .twentytwenty-overlay,
 .twentytwenty-container.active :hover.twentytwenty-overlay {
-  background: transparent;
+  background: rgba(0, 0, 0, 0);
 }
 
 .twentytwenty-container.active .twentytwenty-overlay .twentytwenty-before-label,
@@ -1165,7 +1166,7 @@
 .twentytwenty-overlay {
   -webkit-transition-property: background;
   transition-property: background;
-  background: transparent;
+  background: rgba(0, 0, 0, 0);
   z-index: 25;
 }
 
@@ -1372,3 +1373,4 @@
 .wp-block-gutenbee-justified-gallery.justified-gallery {
   display: block;
 }
+

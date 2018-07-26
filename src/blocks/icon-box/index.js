@@ -13,8 +13,8 @@ import {
 import {
   PanelBody,
   Toolbar,
-  withState,
 } from 'wp.components';
+import { withState } from 'wp.compose';
 import classNames from 'classnames';
 
 import { iconAttributes, IconSettings } from '../icon';

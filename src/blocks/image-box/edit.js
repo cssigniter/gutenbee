@@ -1,5 +1,6 @@
-import { Component, Fragment, compose } from 'wp.element';
+import { Component, Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
+import { compose } from 'wp.compose';
 import { __, sprintf } from 'wp.i18n';
 import { Toolbar } from 'wp.components';
 import classNames from 'classnames';
