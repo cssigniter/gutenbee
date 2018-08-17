@@ -2,12 +2,10 @@ import classNames from 'classnames';
 import { Component } from 'wp.element';
 import { IconButton, Spinner } from 'wp.components';
 import { __ } from 'wp.i18n';
-import { keycodes } from 'wp.utils';
+import { BACKSPACE, DELETE } from 'wp.keycodes';
 import { withSelect } from 'wp.data';
 
 import { LINKTO } from './constants';
-
-const { BACKSPACE, DELETE } = keycodes;
 
 class GalleryItem extends Component {
   onImageClick = () => {

@@ -25,6 +25,7 @@ const wplib = [
   'utils',
   'data',
   'compose',
+  'keycodes',
 ];
 
 const webpackConfig = {
