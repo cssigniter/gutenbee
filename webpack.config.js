@@ -22,10 +22,10 @@ const wplib = [
   'editor',
   'element',
   'i18n',
-  'utils',
   'data',
   'compose',
   'keycodes',
+  'html-entities',
 ];
 
 const webpackConfig = {

@@ -28,10 +28,10 @@ function gutenbee_enqueue_editor_assets() {
 		'wp-element',
 		'wp-data',
 		'wp-date',
-		'wp-utils',
 		'wp-i18n',
 		'wp-compose',
 		'wp-keycodes',
+		'wp-html-entities',
 	), GUTENBEE_PLUGIN_VERSION );
 
 	// TODO: Remove this once we find a way to get options from within Gutenberg

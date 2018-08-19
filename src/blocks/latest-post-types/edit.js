@@ -13,7 +13,7 @@ import {
   withAPIData,
 } from 'wp.components';
 import { __ } from 'wp.i18n';
-import { decodeEntities } from 'wp.utils';
+import { decodeEntities } from 'wp.html-entities';
 import {
   InspectorControls,
 } from 'wp.editor';
