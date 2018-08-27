@@ -13,3 +13,4 @@ import './blocks/google-maps/script';
 import './blocks/countdown/script';
 import './blocks/image-comparison/script';
 import './blocks/accordion/script';
+import './blocks/tabs/script';

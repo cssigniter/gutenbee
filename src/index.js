@@ -19,5 +19,7 @@ import './blocks/google-maps';
 import './blocks/countdown';
 import './blocks/accordion';
 import './blocks/accordion/accordion-item';
+import './blocks/tabs';
+import './blocks/tabs/tabs-item';
 // import './blocks/icon-box-test/test-icon';
 // import './blocks/latest-post-types';

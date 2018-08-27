@@ -1,0 +1,34 @@
+.wp-block-gutenbee-tabs-item {
+  .wp-block-gutenbee-tabs-item-title {
+    display: none;
+  }
+
+  &:not(.wp-block-gutenbee-tabs-item-active) {
+    display: none;
+  }
+}
+
+.wp-block-gutenbee-tabs-titles {
+  display: flex;
+  margin-bottom: -1px;
+}
+
+.wp-block-gutenbee-tabs-item-title {
+  margin: 0;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.wp-block-gutenbee-tabs-item-title-active {
+  background-color: $blue;
+  color: $white;
+}
+
+.wp-block-gutenbee-tabs-item-content {
+  padding: 15px;
+  border: 1px solid $border-color;
+}
+
+.wp-block-gutenbee-tabs-item-text {
+  margin: 0;
+}
