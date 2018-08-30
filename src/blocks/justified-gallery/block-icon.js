@@ -1,5 +1,5 @@
 const JustifiedGalleryBlockIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
     <path fill="none" d="M13 16H18V18H13z" />
     <path d="M0 0v12h20V0zm5.59 10H2V2h15.59l-.3.29L14 5.59l-1.29-1.3-.71-.7-.71.7zM18 10H7l5-5 2 2 4-4z" fill="#333" />
     <path fill="#fff" d="M12 5L7 10 18 10 18 3 14 7 12 5z" />

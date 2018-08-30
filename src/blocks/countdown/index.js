@@ -22,6 +22,7 @@ const CountDown = ({
     displayLabels,
     numberFontSize,
     labelFontSize,
+    maxWidth,
   } = attributes;
 
   const renderItem = (key) => {
@@ -37,6 +38,7 @@ const CountDown = ({
         className={`${className}-item`}
         style={{
           backgroundColor: backgroundColor || undefined,
+          maxWidth: maxWidth ? `${maxWidth}%` : undefined,
         }}
       >
         <p
@@ -145,6 +147,9 @@ registerBlockType('gutenbee/countdown', {
     labelFontSize: {
       type: 'number',
       default: 13,
+    },
+    maxWidth: {
+      type: 'number',
     },
   },
   edit: CountdownEdit,

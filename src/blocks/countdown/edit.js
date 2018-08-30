@@ -5,6 +5,7 @@ import {
   PanelBody,
   ToggleControl,
   DateTimePicker,
+  RangeControl,
 } from 'wp.components';
 import {
   InspectorControls,
@@ -33,6 +34,7 @@ class CountdownEdit extends Component {
       backgroundColor: PropTypes.string,
       numberFontSize: PropTypes.number.isRequired,
       labelFontSize: PropTypes.number.isRequired,
+      maxWidth: PropTypes.number,
     }).isRequired,
     isSelected: PropTypes.bool.isRequired,
     className: PropTypes.string.isRequired,
@@ -71,6 +73,7 @@ class CountdownEdit extends Component {
       backgroundColor,
       numberFontSize,
       labelFontSize,
+      maxWidth,
     } = attributes;
     const displayAttributeKey = `display${[capitalize(key)]}`;
     const labelAttributeKey = `label${[capitalize(key)]}`;
@@ -81,6 +84,7 @@ class CountdownEdit extends Component {
         style={{
           display: attributes[displayAttributeKey] ? 'block' : 'none',
           backgroundColor: backgroundColor || undefined,
+          maxWidth: maxWidth ? `${maxWidth}%` : undefined,
         }}
       >
         <p
@@ -126,6 +130,7 @@ class CountdownEdit extends Component {
       backgroundColor,
       numberFontSize,
       labelFontSize,
+      maxWidth,
     } = attributes;
 
     const items = ['days', 'hours', 'minutes', 'seconds'];
@@ -188,7 +193,7 @@ class CountdownEdit extends Component {
               />
             </PanelBody>
 
-            <PanelBody title={__('Font Sizes')} initialOpen={false}>
+            <PanelBody title={__('Appearance')} initialOpen={false}>
               <TextControls
                 setAttributes={setAttributes}
                 attributeKey="number"
@@ -203,6 +208,14 @@ class CountdownEdit extends Component {
                 attributes={attributes}
                 defaultFontSize={labelFontSize}
                 fontSizeLabel={__('Label Font Size')}
+              />
+
+              <RangeControl
+                label={__('Box max width (%)')}
+                min={0}
+                max={100}
+                value={maxWidth}
+                onChange={value => setAttributes({ maxWidth: value })}
               />
             </PanelBody>
 

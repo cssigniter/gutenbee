@@ -1,5 +1,5 @@
 const ImageBoxBlockIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
     <path
       d="m0 0v12h20v-12zm5.59 10h-3.59v-8h15.59l-.3.29-3.29 3.3-1.29-1.3-.71-.7-.71.7zm12.41 0h-11l5-5 2 2 4-4z"
       fill="#333"

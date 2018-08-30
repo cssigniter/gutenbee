@@ -26,9 +26,9 @@ const AccordionItem = ({ attributes, className }) => {
         [`${className}-expanded`]: defaultExpanded,
       })}
     >
-      <p className={`${className}-title`}>
+      <div className={`${className}-title`}>
         {title}
-      </p>
+      </div>
       <div className={`${className}-content-wrap`}>
         <div className={`${className}-content`}>
           <RichText.Content

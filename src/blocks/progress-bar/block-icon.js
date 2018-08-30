@@ -1,5 +1,5 @@
 const ProgressBarBlockIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
     <g fill="#333">
       <path d="m0 0v2h18 2v-2z" />
       <path d="m0 8h16 2v-2h-18z" />

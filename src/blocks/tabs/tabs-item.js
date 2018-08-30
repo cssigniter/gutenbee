@@ -24,9 +24,9 @@ const TabsItem = ({ attributes, className }) => {
         [className]: true,
       })}
     >
-      <p className={`${className}-title`}>
+      <div className={`${className}-title`}>
         {title}
-      </p>
+      </div>
       <div className={`${className}-content-wrap`}>
         <div className={`${className}-content`}>
           <RichText.Content

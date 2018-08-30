@@ -1,1 +1,24 @@
 @import 'common';
+
+.wp-block-gutenbee-imagebox {
+  margin: $base-block-vertical-spacing 0;
+
+  .wp-block-gutenbee-imagebox-title {
+    margin: 0 0 15px;
+  }
+
+  p {
+    margin: 0 0 15px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  img {
+    background: none;
+    box-shadow: none;
+    margin: 0;
+  }
+}
+

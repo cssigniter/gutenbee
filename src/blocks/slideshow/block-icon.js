@@ -1,5 +1,5 @@
 const SlideshowBlockIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
     <path
       d="m20 0v12h-14v-12zm-2 10v-7l-4 4-2-2-4 4v1zm-.71-7.71.3-.29h-9.59v5.59l3.29-3.3.71-.7.71.7 1.29 1.3z"
       fill="#333"
