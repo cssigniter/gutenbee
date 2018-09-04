@@ -9,6 +9,7 @@ import JustifiedGalleryEdit from './edit';
 import { LINKTO } from '../../components/gallery/constants';
 import { LAST_ROW } from './constants';
 import JustifiedGalleryBlockIcon from './block-icon';
+import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 
 registerBlockType('gutenbee/justified-gallery', {
   title: __('GutenBee Justified Gallery'),
@@ -78,6 +79,10 @@ registerBlockType('gutenbee/justified-gallery', {
       type: 'string',
       default: 'full',
     },
+    blockMargin: {
+      type: 'object',
+      default: {},
+    },
   },
   edit: JustifiedGalleryEdit,
   save({ className, attributes }) {
@@ -88,6 +93,7 @@ registerBlockType('gutenbee/justified-gallery', {
       lastRow,
       randomize,
       linkTo,
+      blockMargin,
     } = attributes;
 
     return (
@@ -97,6 +103,9 @@ registerBlockType('gutenbee/justified-gallery', {
         data-margins={margins}
         data-last-row={lastRow}
         data-randomize={randomize}
+        style={{
+          margin: getMarginSettingStyles(blockMargin),
+        }}
       >
         {images.map((image) => {
           let href;

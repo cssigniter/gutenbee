@@ -9,6 +9,7 @@ import GoogleMapsEdit from './edit';
 import mapStyles from './map-styles';
 import get from 'lodash.get';
 import GoogleMapsBlockIcon from './block-icon';
+import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 
 registerBlockType('gutenbee/google-maps', {
   title: __('GutenBee Google Maps'),
@@ -59,6 +60,10 @@ registerBlockType('gutenbee/google-maps', {
     markerImageId: {
       type: 'number',
     },
+    blockMargin: {
+      type: 'object',
+      default: {},
+    },
   },
   edit: GoogleMapsEdit,
   save: ({ className, attributes }) => {
@@ -72,6 +77,7 @@ registerBlockType('gutenbee/google-maps', {
       infoWindow,
       customStyles,
       markerImageUrl,
+      blockMargin,
     } = attributes;
 
     const getCustomStyles = () => {
@@ -99,6 +105,7 @@ registerBlockType('gutenbee/google-maps', {
         data-marker-icon={markerImageUrl}
         style={{
           height: `${height}px`,
+          margin: getMarginSettingStyles(blockMargin),
         }}
       />
     );

@@ -12,6 +12,7 @@ import { RichText } from 'wp.editor';
 import edit from './edit';
 import Countup from './Countup';
 import CountupBlockIcon from './block-icon';
+import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 
 const CountupRender = ({
   attributes,
@@ -20,6 +21,7 @@ const CountupRender = ({
   const {
     titleContent,
     align,
+    blockMargin,
   } = attributes;
 
   return (
@@ -28,6 +30,9 @@ const CountupRender = ({
         [className]: true,
         [`${className}-align-${align}`]: !!align,
       })}
+      style={{
+        margin: getMarginSettingStyles(blockMargin),
+      }}
     >
       <Countup
         {...attributes}
@@ -96,6 +101,10 @@ registerBlockType('gutenbee/countup', {
     align: {
       type: 'string',
       default: 'left',
+    },
+    blockMargin: {
+      type: 'object',
+      default: {},
     },
   },
   edit,

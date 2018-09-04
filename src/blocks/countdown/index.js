@@ -10,6 +10,7 @@ import { RichText } from 'wp.editor';
 import CountdownEdit from './edit';
 import { capitalize } from '../../util/text';
 import CountdownBlockIcon from './block-icon';
+import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 
 const CountDown = ({
   attributes,
@@ -23,6 +24,7 @@ const CountDown = ({
     numberFontSize,
     labelFontSize,
     maxWidth,
+    blockMargin,
   } = attributes;
 
   const renderItem = (key) => {
@@ -45,6 +47,7 @@ const CountDown = ({
           className={`gutenbee-countdown-number gutenbee-countdown-${key}`}
           style={{ fontSize: numberFontSize }}
         />
+
         {displayLabels && (
           <RichText.Content
             tagName="p"
@@ -60,7 +63,13 @@ const CountDown = ({
   const items = ['days', 'hours', 'minutes', 'seconds'];
 
   return (
-    <div className={className} data-date={date}>
+    <div
+      className={className}
+      data-date={date}
+      style={{
+        margin: getMarginSettingStyles(blockMargin),
+      }}
+    >
       <div
         className={`${className}-wrap`}
         style={{
@@ -150,6 +159,10 @@ registerBlockType('gutenbee/countdown', {
     },
     maxWidth: {
       type: 'number',
+    },
+    blockMargin: {
+      type: 'object',
+      default: {},
     },
   },
   edit: CountdownEdit,

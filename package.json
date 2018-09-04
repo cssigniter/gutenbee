@@ -37,6 +37,7 @@
     "countup": "1.8.2",
     "justifiedGallery": "3.7.0",
     "lodash.get": "4.4.2",
+    "lodash.omit": "4.5.0",
     "lodash.pickby": "4.6.0",
     "lodash.startcase": "4.4.0",
     "moment": "2.22.2",

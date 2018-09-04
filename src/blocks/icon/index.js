@@ -26,6 +26,7 @@ import icons from './icons';
 import Icon from './Icon';
 import IconSelectValue from './IconSelectValue';
 import IconBlockIcon from './block-icon';
+import MarginControls from '../../components/controls/margin-controls';
 
 export const iconAttributes = {
   view: {
@@ -64,6 +65,10 @@ export const iconAttributes = {
     type: 'string',
     default: '#FFFFFF',
   },
+  blockMargin: {
+    type: 'object',
+    default: {},
+  },
 };
 
 export const IconSettings = ({
@@ -80,6 +85,7 @@ export const IconSettings = ({
   colorSecondary,
   excludeAlignment,
   children,
+  blockMargin,
 }) => (
   <Fragment>
     <BaseControl
@@ -185,6 +191,18 @@ export const IconSettings = ({
         <ColorPalette
           value={colorSecondary}
           onChange={value => setAttributes({ colorSecondary: value })}
+        />
+      </PanelBody>
+    )}
+
+    {blockMargin && (
+      <PanelBody title={__('Block Appearance')} initialOpen={false}>
+        <MarginControls
+          attributeKey="blockMargin"
+          attributes={{
+            blockMargin,
+          }}
+          setAttributes={setAttributes}
         />
       </PanelBody>
     )}

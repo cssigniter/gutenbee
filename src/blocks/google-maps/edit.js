@@ -18,6 +18,8 @@ import get from 'lodash.get';
 import Map from './Map';
 import mapStyles from './map-styles';
 import ImagePreview from '../../components/image-preview/ImagePreview';
+import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
+import MarginControls from '../../components/controls/margin-controls';
 
 class GoogleMapsEdit extends Component {
   static propTypes = {
@@ -32,6 +34,12 @@ class GoogleMapsEdit extends Component {
       customStyles: PropTypes.string,
       markerImageUrl: PropTypes.string,
       markerImageId: PropTypes.number,
+      blockMargin: PropTypes.shape({
+        top: PropTypes.number,
+        right: PropTypes.number,
+        bottom: PropTypes.number,
+        left: PropTypes.number,
+      }),
     }).isRequired,
     isSelected: PropTypes.bool.isRequired,
     className: PropTypes.string.isRequired,
@@ -92,6 +100,7 @@ class GoogleMapsEdit extends Component {
       customStyles,
       markerImageUrl,
       markerImageId,
+      blockMargin,
     } = attributes;
 
     const predefinedMapStyle = mapStyles.find(({ id }) => id === styleId);
@@ -102,7 +111,12 @@ class GoogleMapsEdit extends Component {
 
     return (
       <Fragment>
-        <div className={className}>
+        <div
+          className={className}
+          style={{
+            margin: getMarginSettingStyles(blockMargin),
+          }}
+        >
           {apiKey ? (
             <Map
               googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${apiKey}`}
@@ -229,7 +243,7 @@ class GoogleMapsEdit extends Component {
               />
             </PanelBody>
 
-            <PanelBody title={__('Custom Styles')}>
+            <PanelBody title={__('Appearance')} initialOpen={false}>
               {customStylesError && (
                 <Notice status="error" isDismissible={false}>
                   {customStylesError}
@@ -241,6 +255,12 @@ class GoogleMapsEdit extends Component {
                 value={customStyles}
                 onChange={this.onSetCustomStyles}
                 help={__('This will override any predefined map styles selected above.')}
+              />
+
+              <MarginControls
+                attributeKey="blockMargin"
+                attributes={attributes}
+                setAttributes={setAttributes}
               />
             </PanelBody>
           </InspectorControls>

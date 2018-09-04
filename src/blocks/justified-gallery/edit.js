@@ -15,6 +15,8 @@ import startCase from 'lodash.startcase';
 import Gallery from '../../components/gallery/Gallery';
 import { LAST_ROW } from './constants';
 import { capitalizeSentence } from '../../util/text';
+import MarginControls from '../../components/controls/margin-controls';
+import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 
 class JustifiedGalleryEdit extends Component {
   static propTypes = {
@@ -23,6 +25,12 @@ class JustifiedGalleryEdit extends Component {
       margins: PropTypes.number,
       lastRow: PropTypes.oneOf(Object.values(LAST_ROW)),
       randomize: PropTypes.bool,
+      blockMargin: PropTypes.shape({
+        top: PropTypes.number,
+        right: PropTypes.number,
+        bottom: PropTypes.number,
+        left: PropTypes.number,
+      }),
     }),
     isSelected: PropTypes.bool.isRequired,
     className: PropTypes.string,
@@ -41,6 +49,7 @@ class JustifiedGalleryEdit extends Component {
       margins,
       lastRow,
       randomize,
+      blockMargin,
     } = attributes;
 
     return (
@@ -50,6 +59,9 @@ class JustifiedGalleryEdit extends Component {
         isSelected={isSelected}
         setAttributes={setAttributes}
         label={__('Justified Gallery')}
+        style={{
+          margin: getMarginSettingStyles(blockMargin),
+        }}
       >
         {isSelected && (
           <InspectorControls>
@@ -86,6 +98,14 @@ class JustifiedGalleryEdit extends Component {
                 label={__('Randomize')}
                 checked={randomize}
                 onChange={value => setAttributes({ randomize: value })}
+              />
+            </PanelBody>
+
+            <PanelBody title={__('Appearance')} initialOpen={false}>
+              <MarginControls
+                attributeKey="blockMargin"
+                attributes={attributes}
+                setAttributes={setAttributes}
               />
             </PanelBody>
           </InspectorControls>

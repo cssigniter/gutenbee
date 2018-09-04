@@ -13,6 +13,8 @@ import {
 } from 'wp.editor';
 
 import Gallery from '../../components/gallery/Gallery';
+import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
+import MarginControls from '../../components/controls/margin-controls';
 
 class SlideshowEdit extends Component {
   static propTypes = {
@@ -28,6 +30,12 @@ class SlideshowEdit extends Component {
       slidesToShow: PropTypes.number,
       slidesToScroll: PropTypes.number,
       pauseOnHover: PropTypes.bool,
+      blockMargin: PropTypes.shape({
+        top: PropTypes.number,
+        right: PropTypes.number,
+        bottom: PropTypes.number,
+        left: PropTypes.number,
+      }),
     }).isRequired,
     isSelected: PropTypes.bool.isRequired,
     className: PropTypes.string.isRequired,
@@ -53,6 +61,7 @@ class SlideshowEdit extends Component {
       slidesToShow,
       slidesToScroll,
       pauseOnHover,
+      blockMargin,
     } = attributes;
 
     return (
@@ -62,6 +71,9 @@ class SlideshowEdit extends Component {
         isSelected={isSelected}
         setAttributes={setAttributes}
         label={__('Slideshow')}
+        style={{
+          margin: getMarginSettingStyles(blockMargin),
+        }}
       >
         {isSelected && (
           <InspectorControls>
@@ -161,6 +173,14 @@ class SlideshowEdit extends Component {
                   onChange={value => setAttributes({ color: value })}
                 />
               </PanelBody>
+            </PanelBody>
+
+            <PanelBody title={__('Appearance')} initialOpen={false}>
+              <MarginControls
+                attributeKey="blockMargin"
+                attributes={attributes}
+                setAttributes={setAttributes}
+              />
             </PanelBody>
           </InspectorControls>
         )}

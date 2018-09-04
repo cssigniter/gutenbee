@@ -16,11 +16,14 @@ import {
 } from 'wp.components';
 import { withState } from 'wp.compose';
 import classNames from 'classnames';
+import omit from 'lodash.omit';
 
 import { iconAttributes, IconSettings } from '../icon';
 import Icon from '../icon/Icon';
 import TextControls from '../../components/controls/TextControls';
 import IconBoxBlockIcon from './block-icon';
+import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
+import MarginControls from '../../components/controls/margin-controls';
 
 const IconBox = ({ className, attributes }) => {
   const {
@@ -31,6 +34,7 @@ const IconBox = ({ className, attributes }) => {
     textFontSize,
     align,
     contentAlign,
+    blockMargin,
   } = attributes;
 
   return (
@@ -40,6 +44,9 @@ const IconBox = ({ className, attributes }) => {
         [`${className}-align-${align}`]: true,
         [`${className}-content-align-${contentAlign}`]: true,
       })}
+      style={{
+        blockMargin: getMarginSettingStyles(blockMargin),
+      }}
     >
       <Icon {...attributes} />
       <div className={`${className}-content`}>
@@ -81,6 +88,7 @@ const IconBoxEditBlock = ({
     textFontSize,
     align,
     contentAlign,
+    blockMargin,
   } = attributes;
   const setActiveEditable = newEditable =>
     setState({ editable: newEditable });
@@ -93,8 +101,11 @@ const IconBoxEditBlock = ({
           [`${className}-align-${align}`]: true,
           [`${className}-content-align-${contentAlign}`]: true,
         })}
+        style={{
+          margin: getMarginSettingStyles(blockMargin),
+        }}
       >
-        <Icon {...attributes} />
+        <Icon {...omit(attributes, ['blockMargin'])} />
         <div className={`${className}-content`}>
           <RichText
             tagName={`h${titleNodeLevel}`}
@@ -124,6 +135,7 @@ const IconBoxEditBlock = ({
           />
         </div>
       </div>
+
       {isSelected && (
         <InspectorControls>
           <PanelBody title={__('Icon Settings')} initialOpen={false}>
@@ -131,7 +143,7 @@ const IconBoxEditBlock = ({
               className={className}
               setAttributes={setAttributes}
               excludeAlignment
-              {...attributes}
+              {...omit(attributes, ['blockMargin'])}
             >
               <p>{__('Alignment')}</p>
               <AlignmentToolbar
@@ -176,6 +188,14 @@ const IconBoxEditBlock = ({
             <AlignmentToolbar
               value={contentAlign}
               onChange={value => setAttributes({ contentAlign: value })}
+            />
+          </PanelBody>
+
+          <PanelBody title={__('Appearance')} initialOpen={false}>
+            <MarginControls
+              attributeKey="blockMargin"
+              attributes={attributes}
+              setAttributes={setAttributes}
             />
           </PanelBody>
         </InspectorControls>
@@ -225,6 +245,10 @@ registerBlockType('gutenbee/iconbox', {
     contentAlign: {
       type: 'string',
       default: null,
+    },
+    blockMargin: {
+      type: 'object',
+      default: {},
     },
   },
   edit: withState({ editable: null })(IconBoxEditBlock),

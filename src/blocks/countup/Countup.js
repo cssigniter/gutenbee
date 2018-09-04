@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { getColorClass } from 'wp.editor';
+import { getColorClassName } from 'wp.editor';
 import classNames from 'classnames';
 
 import formatNumber from '../../util/formatNumber';
@@ -27,7 +27,7 @@ const Countup = ({
   suffix,
   className,
 }) => {
-  const textClass = getColorClass('color', textColor);
+  const textClass = getColorClassName('color', textColor);
   const classes = classNames({
     [className]: true,
     [textClass]: !!textClass,

@@ -12,6 +12,8 @@ import {
 } from 'wp.components';
 
 import ImagePlaceholder from '../../components/image-placeholder/ImagePlaceholder';
+import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
+import MarginControls from '../../components/controls/margin-controls';
 
 class ImageComparisonEdit extends Component {
   static propTypes = {
@@ -21,6 +23,12 @@ class ImageComparisonEdit extends Component {
       idB: PropTypes.number,
       urlB: PropTypes.string,
       offset: PropTypes.number,
+      blockMargin: PropTypes.shape({
+        top: PropTypes.number,
+        right: PropTypes.number,
+        bottom: PropTypes.number,
+        left: PropTypes.number,
+      }),
     }),
     className: PropTypes.string.isRequired,
     setAttributes: PropTypes.func.isRequired,
@@ -41,11 +49,17 @@ class ImageComparisonEdit extends Component {
       urlB,
       idB,
       offset,
+      blockMargin,
     } = attributes;
 
     return (
       <Fragment>
-        <div className={className}>
+        <div
+          className={className}
+          style={{
+            margin: getMarginSettingStyles(blockMargin),
+          }}
+        >
           <div className={`${className}-pane`}>
             {urlA && idA ? (
               <figure className={`${className}-figure`}>
@@ -125,13 +139,21 @@ class ImageComparisonEdit extends Component {
 
         {isSelected && (
           <InspectorControls>
-            <PanelBody>
+            <PanelBody title={__('Settings')} initialOpen>
               <RangeControl
                 label={__('Default Offset')}
                 min={1}
                 max={100}
                 value={offset}
                 onChange={value => setAttributes({ offset: value })}
+              />
+            </PanelBody>
+
+            <PanelBody title={__('Appearance')} initialOpen={false}>
+              <MarginControls
+                attributeKey="blockMargin"
+                attributes={attributes}
+                setAttributes={setAttributes}
               />
             </PanelBody>
           </InspectorControls>

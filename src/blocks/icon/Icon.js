@@ -5,6 +5,7 @@
 import classNames from 'classnames';
 
 import { VIEWS } from './constants';
+import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 
 const Icon = ({
   className,
@@ -17,6 +18,7 @@ const Icon = ({
   align,
   colorPrimary,
   colorSecondary,
+  blockMargin,
 }) => {
   const wrapperClasses = classNames({
     'gutenbee-icon-block': true,
@@ -50,7 +52,12 @@ const Icon = ({
   }
 
   return (
-    <div className={wrapperClasses}>
+    <div
+      className={wrapperClasses}
+      style={{
+        margin: getMarginSettingStyles(blockMargin),
+      }}
+    >
       <span
         className="gutenbee-icon-block-icon-wrap"
         style={{

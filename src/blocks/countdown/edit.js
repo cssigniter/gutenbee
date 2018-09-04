@@ -16,6 +16,8 @@ import {
 import { capitalize } from '../../util/text';
 import CountdownTimer from '../../util/CountdownTimer';
 import TextControls from '../../components/controls/TextControls';
+import MarginControls from '../../components/controls/margin-controls';
+import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 
 class CountdownEdit extends Component {
   static propTypes = {
@@ -35,6 +37,12 @@ class CountdownEdit extends Component {
       numberFontSize: PropTypes.number.isRequired,
       labelFontSize: PropTypes.number.isRequired,
       maxWidth: PropTypes.number,
+      blockMargin: PropTypes.shape({
+        top: PropTypes.number,
+        right: PropTypes.number,
+        bottom: PropTypes.number,
+        left: PropTypes.number,
+      }),
     }).isRequired,
     isSelected: PropTypes.bool.isRequired,
     className: PropTypes.string.isRequired,
@@ -93,6 +101,7 @@ class CountdownEdit extends Component {
             fontSize: numberFontSize,
           }}
         />
+
         {displayLabels && (
           <div
             style={{
@@ -131,6 +140,7 @@ class CountdownEdit extends Component {
       numberFontSize,
       labelFontSize,
       maxWidth,
+      blockMargin,
     } = attributes;
 
     const items = ['days', 'hours', 'minutes', 'seconds'];
@@ -139,6 +149,9 @@ class CountdownEdit extends Component {
       <Fragment>
         <div
           className={className}
+          style={{
+            margin: getMarginSettingStyles(blockMargin),
+          }}
           ref={(ref) => {
             this.clock = ref;
           }}
@@ -201,7 +214,6 @@ class CountdownEdit extends Component {
                 defaultFontSize={numberFontSize}
                 fontSizeLabel={__('Number Font Size')}
               />
-
               <TextControls
                 setAttributes={setAttributes}
                 attributeKey="label"
@@ -209,13 +221,17 @@ class CountdownEdit extends Component {
                 defaultFontSize={labelFontSize}
                 fontSizeLabel={__('Label Font Size')}
               />
-
               <RangeControl
                 label={__('Box max width (%)')}
                 min={0}
                 max={100}
                 value={maxWidth}
                 onChange={value => setAttributes({ maxWidth: value })}
+              />
+              <MarginControls
+                setAttributes={setAttributes}
+                attributes={attributes}
+                attributeKey="blockMargin"
               />
             </PanelBody>
 

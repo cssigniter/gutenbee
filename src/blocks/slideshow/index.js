@@ -10,6 +10,7 @@ import { registerBlockType } from 'wp.blocks';
 import SlideshowEdit from './edit';
 import { LINKTO } from '../../components/gallery/constants';
 import SlideshowBlockIcon from './block-icon';
+import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 
 registerBlockType('gutenbee/slideshow', {
   title: __('GutenBee Slideshow'),
@@ -107,6 +108,10 @@ registerBlockType('gutenbee/slideshow', {
       type: 'string',
       default: 'full',
     },
+    blockMargin: {
+      type: 'object',
+      default: {},
+    },
   },
   edit: SlideshowEdit,
   save({ className, attributes }) {
@@ -124,6 +129,7 @@ registerBlockType('gutenbee/slideshow', {
       slidesToShow,
       slidesToScroll,
       pauseOnHover,
+      blockMargin,
     } = attributes;
 
     return (
@@ -139,7 +145,10 @@ registerBlockType('gutenbee/slideshow', {
         data-slides-to-show={slidesToShow}
         data-slides-to-scroll={slidesToScroll}
         data-pause-on-hover={pauseOnHover}
-        style={{ color }}
+        style={{
+          color,
+          margin: getMarginSettingStyles(blockMargin),
+        }}
       >
         {images.map((image, index) => {
           let href;

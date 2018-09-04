@@ -10,6 +10,7 @@ import {
 
 import ProgressBarEdit from './edit';
 import ProgressBarBlockIcon from './block-icon';
+import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 
 const ProgressBar = ({
   className,
@@ -24,10 +25,16 @@ const ProgressBar = ({
     backgroundColor,
     titleFontSize,
     innerTitleFontSize,
+    blockMargin,
   } = attributes;
 
   return (
-    <div className={className}>
+    <div
+      className={className}
+      style={{
+        margin: getMarginSettingStyles(blockMargin),
+      }}
+    >
       <RichText.Content
         tagName="p"
         value={title}
@@ -103,6 +110,10 @@ registerBlockType('gutenbee/progress-bar', {
     innerTitleFontSize: {
       type: 'number',
       default: 14,
+    },
+    blockMargin: {
+      type: 'object',
+      default: {},
     },
   },
   edit: ProgressBarEdit,

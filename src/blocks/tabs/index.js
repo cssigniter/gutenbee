@@ -5,7 +5,13 @@
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 import { InnerBlocks } from 'wp.editor';
+import { Fragment } from 'wp.element';
+import { PanelBody } from 'wp.components';
+import { InspectorControls } from 'wp.editor';
+
 import TabsBlockIcon from './block-icon';
+import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
+import MarginControls from '../../components/controls/margin-controls';
 
 registerBlockType('gutenbee/tabs', {
   title: __('GutenBee Tabs'),
@@ -15,16 +21,54 @@ registerBlockType('gutenbee/tabs', {
   keywords: [
     __('tabs'),
   ],
-  edit({ className }) {
+  attributes: {
+    blockMargin: {
+      type: 'object',
+      default: {},
+    },
+  },
+  edit({ attributes, className, isSelected, setAttributes }) {
+    const {
+      blockMargin,
+    } = attributes;
+
     return (
-      <div className={className}>
-        <InnerBlocks />
-      </div>
+      <Fragment>
+        <div
+          className={className}
+          style={{
+            margin: getMarginSettingStyles(blockMargin),
+          }}
+        >
+          <InnerBlocks allowedBlocks={['gutenbee/tabs-item'] } />
+        </div>
+
+        {isSelected && (
+          <InspectorControls>
+            <PanelBody title={__('Appearance')} initialOpen={false}>
+              <MarginControls
+                attributeKey="blockMargin"
+                attributes={attributes}
+                setAttributes={setAttributes}
+              />
+            </PanelBody>
+          </InspectorControls>
+        )}
+      </Fragment>
     );
   },
-  save({ className }) {
+  save({ attributes, className }) {
+    const {
+      blockMargin,
+    } = attributes;
+
     return (
-      <div className={className}>
+      <div
+        className={className}
+        style={{
+          margin: getMarginSettingStyles(blockMargin),
+        }}
+      >
         <InnerBlocks.Content />
       </div>
     );

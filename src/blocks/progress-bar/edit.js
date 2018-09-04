@@ -12,6 +12,8 @@ import {
   ContrastChecker,
 } from 'wp.editor';
 import TextControls from '../../components/controls/TextControls';
+import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
+import MarginControls from '../../components/controls/margin-controls';
 
 class ProgressBarEdit extends Component {
   state = {
@@ -39,11 +41,17 @@ class ProgressBarEdit extends Component {
       textColor,
       titleFontSize,
       innerTitleFontSize,
+      blockMargin,
     } = attributes;
 
     return (
       <Fragment>
-        <div className={className}>
+        <div
+          className={className}
+          style={{
+            margin: getMarginSettingStyles(blockMargin),
+          }}
+        >
           <div style={{ fontSize: titleFontSize }}>
             <RichText
               tagName="p"
@@ -136,6 +144,14 @@ class ProgressBarEdit extends Component {
               textColor={textColor}
               backgroundColor={backgroundColor}
             />
+
+            <PanelBody title={__('Appearance')} initialOpen={false}>
+              <MarginControls
+                attributeKey="blockMargin"
+                attributes={attributes}
+                setAttributes={setAttributes}
+              />
+            </PanelBody>
           </InspectorControls>
         )}
       </Fragment>

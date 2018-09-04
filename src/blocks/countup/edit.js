@@ -18,6 +18,8 @@ import classNames from 'classnames';
 
 import TextControls from '../../components/controls/TextControls';
 import Countup from './Countup';
+import MarginControls from '../../components/controls/margin-controls';
+import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 
 class CountupEdit extends Component {
   static propTypes = {
@@ -31,6 +33,12 @@ class CountupEdit extends Component {
       customTextColor: PropTypes.string,
       prefix: PropTypes.string,
       suffix: PropTypes.string,
+      blockMargin: PropTypes.shape({
+        top: PropTypes.number,
+        right: PropTypes.number,
+        bottom: PropTypes.number,
+        left: PropTypes.number,
+      }),
     }).isRequired,
     setAttributes: PropTypes.func.isRequired,
     className: PropTypes.string.isRequired,
@@ -57,6 +65,7 @@ class CountupEdit extends Component {
       suffix,
       titleContent,
       align,
+      blockMargin,
     } = attributes;
 
     return (
@@ -66,6 +75,9 @@ class CountupEdit extends Component {
             [className]: true,
             [`${className}-align-${align}`]: !!align,
           })}
+          style={{
+            margin: getMarginSettingStyles(blockMargin),
+          }}
         >
           <Countup
             {...attributes}
@@ -83,7 +95,7 @@ class CountupEdit extends Component {
 
         {isSelected && (
           <InspectorControls>
-            <PanelBody>
+            <PanelBody title={__('Settings')} initialOpen>
               <TextControl
                 type="number"
                 label={__('Start Number')}
@@ -144,6 +156,14 @@ class CountupEdit extends Component {
               <AlignmentToolbar
                 value={align}
                 onChange={value => setAttributes({ align: value })}
+              />
+            </PanelBody>
+
+            <PanelBody title={__('Block Appearance')} initialOpen={false}>
+              <MarginControls
+                attributeKey="blockMargin"
+                attributes={attributes}
+                setAttributes={setAttributes}
               />
             </PanelBody>
 

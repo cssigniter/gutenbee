@@ -1,0 +1,37 @@
+//
+// Margin controls styles
+//
+
+.gutenbee-control-margins {
+  margin: 1em 0 0;
+}
+
+.gutenbee-control-margins-label {
+  font-weight: bold;
+}
+
+.gutenbee-control-spacing-controls {
+  display: flex;
+
+  .components-base-control {
+    &:first-child {
+      .components-text-control__input {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+
+    &:last-child {
+      .components-text-control__input {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+
+    &:not(:first-child):not(:last-child) {
+      .components-text-control__input {
+        border-radius: 0;
+      }
+    }
+  }
+}

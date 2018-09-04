@@ -11,6 +11,7 @@ import classNames from 'classnames';
 
 import ImageBoxEditBlock from './edit';
 import ImageBoxBlockIcon from './block-icon';
+import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 
 const ImageBox = ({ className, attributes }) => {
   const {
@@ -24,6 +25,7 @@ const ImageBox = ({ className, attributes }) => {
     imageAlign,
     imageWidth,
     contentAlign,
+    blockMargin,
   } = attributes;
 
   return (
@@ -33,6 +35,9 @@ const ImageBox = ({ className, attributes }) => {
         [`${className}-align-${imageAlign}`]: true,
         [`${className}-content-align-${contentAlign}`]: true,
       })}
+      style={{
+        margin: getMarginSettingStyles(blockMargin),
+      }}
     >
       <figure className={`${className}-figure`}>
         <img
@@ -129,6 +134,10 @@ registerBlockType('gutenbee/imagebox', {
     contentAlign: {
       type: 'string',
       default: null,
+    },
+    blockMargin: {
+      type: 'object',
+      default: {},
     },
   },
   edit: ImageBoxEditBlock,

@@ -22,6 +22,8 @@ import startCase from 'lodash.startcase';
 
 import ImagePlaceholder from '../../components/image-placeholder/ImagePlaceholder';
 import TextControls from '../../components/controls/TextControls';
+import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
+import MarginControls from '../../components/controls/margin-controls';
 
 class ImageBoxEditBlock extends Component {
   static propTypes = {
@@ -60,6 +62,7 @@ class ImageBoxEditBlock extends Component {
       imageAlign,
       imageWidth,
       contentAlign,
+      blockMargin,
     } = attributes;
 
     const availableSizes = image && image.media_details.sizes;
@@ -72,6 +75,9 @@ class ImageBoxEditBlock extends Component {
             [`${className}-align-${imageAlign}`]: true,
             [`${className}-content-align-${contentAlign}`]: true,
           })}
+          style={{
+            margin: getMarginSettingStyles(blockMargin),
+          }}
         >
           <figure className={`${className}-figure`}>
             {url ? (
@@ -225,6 +231,14 @@ class ImageBoxEditBlock extends Component {
                 <AlignmentToolbar
                   value={contentAlign}
                   onChange={value => setAttributes({ contentAlign: value })}
+                />
+              </PanelBody>
+
+              <PanelBody title={__('Appearance')} initialOpen={false}>
+                <MarginControls
+                  attributeKey="blockMargin"
+                  attributes={attributes}
+                  setAttributes={setAttributes}
                 />
               </PanelBody>
             </InspectorControls>

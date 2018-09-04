@@ -7,6 +7,7 @@ import { registerBlockType } from 'wp.blocks';
 
 import ImageComparisonEdit from './edit';
 import ImageComparisonBlockIcon from './block-icon';
+import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 
 registerBlockType('gutenbee/image-comparison', {
   title: __('GutenBee Image Comparison'),
@@ -41,6 +42,10 @@ registerBlockType('gutenbee/image-comparison', {
       type: 'number',
       default: 50,
     },
+    blockMargin: {
+      type: 'object',
+      default: {},
+    },
   },
   edit: ImageComparisonEdit,
   save: ({ className, attributes }) => {
@@ -48,10 +53,17 @@ registerBlockType('gutenbee/image-comparison', {
       urlA,
       urlB,
       offset,
+      blockMargin,
     } = attributes;
 
     return (
-      <div className={className} data-offset={offset}>
+      <div
+        className={className}
+        data-offset={offset}
+        style={{
+          margin: getMarginSettingStyles(blockMargin),
+        }}
+      >
         {urlA && <img className="img-1" src={urlA} alt="" />}
         {urlB && <img className="img-2" src={urlB} alt="" />}
       </div>

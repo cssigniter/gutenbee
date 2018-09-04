@@ -122,6 +122,7 @@ class Gallery extends Component {
       images: propImages,
       children,
       label,
+      style,
     } = this.props;
     const {
       images,
@@ -165,13 +166,15 @@ class Gallery extends Component {
       return (
         <Fragment>
           {controls}
-          <ImagePlaceholder
-            className={className}
-            icon="format-gallery"
-            label={label}
-            onSelectImage={this.onSelectImages}
-            multiple
-          />
+          <div style={style}>
+            <ImagePlaceholder
+              className={className}
+              icon="format-gallery"
+              label={label}
+              onSelectImage={this.onSelectImages}
+              multiple
+            />
+          </div>
         </Fragment>
       );
     }
@@ -183,7 +186,7 @@ class Gallery extends Component {
         {isSelected && (
           <InspectorControls>
             {(linkTo || size) && (
-              <PanelBody title={__('Image Settings')}>
+              <PanelBody title={__('Image Settings')} initialOpen={false}>
                 {linkTo && (
                   <SelectControl
                     label={__('Link to')}
@@ -215,7 +218,10 @@ class Gallery extends Component {
           </InspectorControls>
         )}
 
-        <div className={galleryComponentClasses}>
+        <div
+          className={galleryComponentClasses}
+          style={style}
+        >
           {images.map((img, index) => (
             <div
               key={img.id || img.url}
