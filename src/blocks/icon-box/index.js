@@ -45,7 +45,7 @@ const IconBox = ({ className, attributes }) => {
         [`${className}-content-align-${contentAlign}`]: true,
       })}
       style={{
-        blockMargin: getMarginSettingStyles(blockMargin),
+        margin: getMarginSettingStyles(blockMargin),
       }}
     >
       <Icon {...attributes} />
