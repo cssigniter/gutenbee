@@ -63,6 +63,7 @@ class ImageBoxEditBlock extends Component {
       imageWidth,
       contentAlign,
       blockMargin,
+      imageMargin,
     } = attributes;
 
     const availableSizes = image && image.media_details.sizes;
@@ -79,7 +80,10 @@ class ImageBoxEditBlock extends Component {
             margin: getMarginSettingStyles(blockMargin),
           }}
         >
-          <figure className={`${className}-figure`}>
+          <figure
+            className={`${className}-figure`}
+            style={{ margin: getMarginSettingStyles(imageMargin) }}
+          >
             {url ? (
               <img
                 src={url}
@@ -193,6 +197,13 @@ class ImageBoxEditBlock extends Component {
                   max={1000}
                   beforeIcon="format-image"
                   afterIcon="format-image"
+                />
+
+                <MarginControls
+                  attributeKey="imageMargin"
+                  attributes={attributes}
+                  setAttributes={setAttributes}
+                  label={__('Image Margin')}
                 />
               </PanelBody>
 

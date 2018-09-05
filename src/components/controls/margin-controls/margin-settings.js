@@ -14,7 +14,8 @@ const hasMarginSettings = (margins) => {
     return false;
   }
 
-  return Object.values(margins).reduce((acc, value) => value != null, false);
+  return Object.values(margins)
+    .some(value => value != null && value !== '');
 };
 
 /**

@@ -26,6 +26,7 @@ const ImageBox = ({ className, attributes }) => {
     imageWidth,
     contentAlign,
     blockMargin,
+    imageMargin,
   } = attributes;
 
   return (
@@ -39,7 +40,12 @@ const ImageBox = ({ className, attributes }) => {
         margin: getMarginSettingStyles(blockMargin),
       }}
     >
-      <figure className={`${className}-figure`}>
+      <figure
+        className={`${className}-figure`}
+        style={{
+          margin: getMarginSettingStyles(imageMargin),
+        }}
+      >
         <img
           src={url}
           alt={alt}
@@ -136,6 +142,10 @@ registerBlockType('gutenbee/imagebox', {
       default: null,
     },
     blockMargin: {
+      type: 'object',
+      default: {},
+    },
+    imageMargin: {
       type: 'object',
       default: {},
     },

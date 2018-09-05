@@ -27,7 +27,7 @@ const MarginControls = ({
     setAttributes({
       [attributeKey]: {
         ...margins,
-        [position]: parseInt(value, 10),
+        [position]: value,
       },
     });
   };
