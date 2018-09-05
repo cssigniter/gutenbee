@@ -35,6 +35,7 @@ const IconBox = ({ className, attributes }) => {
     align,
     contentAlign,
     blockMargin,
+    iconMargin,
   } = attributes;
 
   return (
@@ -48,7 +49,12 @@ const IconBox = ({ className, attributes }) => {
         margin: getMarginSettingStyles(blockMargin),
       }}
     >
-      <Icon {...attributes} />
+      <Icon
+        {...{
+          ...attributes,
+          blockMargin: iconMargin,
+        }}
+      />
       <div className={`${className}-content`}>
         <RichText.Content
           tagName={`h${titleNodeLevel}`}
@@ -89,6 +95,7 @@ const IconBoxEditBlock = ({
     align,
     contentAlign,
     blockMargin,
+    iconMargin,
   } = attributes;
   const setActiveEditable = newEditable =>
     setState({ editable: newEditable });
@@ -105,7 +112,12 @@ const IconBoxEditBlock = ({
           margin: getMarginSettingStyles(blockMargin),
         }}
       >
-        <Icon {...omit(attributes, ['blockMargin'])} />
+        <Icon
+          {...{
+            ...attributes,
+            blockMargin: iconMargin,
+          }}
+        />
         <div className={`${className}-content`}>
           <RichText
             tagName={`h${titleNodeLevel}`}
@@ -149,6 +161,13 @@ const IconBoxEditBlock = ({
               <AlignmentToolbar
                 value={align}
                 onChange={value => setAttributes({ align: value })}
+              />
+
+              <MarginControls
+                attributeKey="iconMargin"
+                attributes={attributes}
+                setAttributes={setAttributes}
+                label={__('Icon Margin')}
               />
             </IconSettings>
           </PanelBody>
@@ -247,6 +266,10 @@ registerBlockType('gutenbee/iconbox', {
       default: null,
     },
     blockMargin: {
+      type: 'object',
+      default: {},
+    },
+    iconMargin: {
       type: 'object',
       default: {},
     },
