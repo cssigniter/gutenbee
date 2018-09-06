@@ -14,7 +14,7 @@ jQuery(($) => {
     $titleWrap.append($tabTitles);
     $this.prepend($titleWrap);
 
-    const $titles = $('.wp-block-gutenbee-tabs-titles')
+    const $titles = $this.find('.wp-block-gutenbee-tabs-titles')
       .find('.wp-block-gutenbee-tabs-item-title');
 
     $titles

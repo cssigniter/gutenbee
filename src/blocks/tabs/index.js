@@ -40,7 +40,7 @@ registerBlockType('gutenbee/tabs', {
             margin: getMarginSettingStyles(blockMargin),
           }}
         >
-          <InnerBlocks allowedBlocks={['gutenbee/tabs-item'] } />
+          <InnerBlocks />
         </div>
 
         {isSelected && (

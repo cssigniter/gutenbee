@@ -46,7 +46,7 @@ registerBlockType('gutenbee/accordion', {
             margin: getMarginSettingStyles(blockMargin),
           }}
         >
-          <InnerBlocks allowedBlocks={['gutenbee/accordion-item']} />
+          <InnerBlocks />
         </div>
 
         {isSelected && (
