@@ -21,5 +21,6 @@ import './blocks/accordion/accordion-item';
 import './blocks/accordion';
 import './blocks/tabs/tabs-item';
 import './blocks/tabs';
+import './blocks/newtabs';
 // import './blocks/icon-box-test/test-icon';
 // import './blocks/latest-post-types';

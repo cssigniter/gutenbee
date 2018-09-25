@@ -88,7 +88,7 @@ class SlideshowEdit extends Component {
               <ToggleControl
                 label={__('Infinite Slide')}
                 checked={infinite}
-                onChange={() => {
+                onC hange={() => {
                   setAttributes({ infinite: !infinite });
                 }}
               />

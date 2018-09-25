@@ -1541,3 +1541,40 @@
   border-top: 0;
 }
 
+.wp-block-gutenbee-tabs-2-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.wp-block-gutenbee-tabs-2-nav-item {
+  padding: 10px 12px 5px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.wp-block-gutenbee-tabs-2-nav-item .editor-plain-text,
+.wp-block-gutenbee-tabs-2-nav-item .editor-plain-text:focus {
+  background: transparent;
+  color: currentColor;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.wp-block-gutenbee-tabs-2-nav-item-active {
+  background-color: #0085ba;
+  color: #fff;
+  border-radius: 3px 3px 0 0;
+}
+
+.wp-block-gutenbee-tabs-2-tab-content-wrap {
+  padding: 15px;
+  border: 1px solid #e2e4e7;
+}
+
