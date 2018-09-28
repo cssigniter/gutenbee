@@ -1578,3 +1578,26 @@
   border: 1px solid #e2e4e7;
 }
 
+.wp-block-gutenbee-accordion-2 {
+  min-height: 120px;
+}
+
+.wp-block-gutenbee-accordion-2-item-title {
+  padding: 15px 15px 5px;
+  margin-bottom: 0;
+  background-color: rgba(226, 228, 231, 0.5);
+  font-size: 18px;
+  line-height: 1.5;
+  border: 1px solid rgba(226, 228, 231, 0.5);
+}
+
+.wp-block-gutenbee-accordion-2-item-title textarea {
+  background-color: transparent;
+}
+
+.wp-block-gutenbee-accordion-2-item-content {
+  padding: 15px;
+  border: 1px solid rgba(226, 228, 231, 0.5);
+  border-top: 0;
+}
+
