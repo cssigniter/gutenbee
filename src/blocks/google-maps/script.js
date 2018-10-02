@@ -32,6 +32,7 @@ jQuery(($) => {
 
     const infoWindow = new google.maps.InfoWindow({
       content: info,
+      maxWidth: 350,
     });
 
     if (info) {

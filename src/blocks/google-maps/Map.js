@@ -46,7 +46,11 @@ const Map = ({
         icon={icon}
       >
         {infoWindow && (
-          <InfoWindow>
+          <InfoWindow
+            options={{
+              maxWidth: 350,
+            }}
+          >
             <span>{infoWindow}</span>
           </InfoWindow>
         )}
