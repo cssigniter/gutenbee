@@ -1507,6 +1507,7 @@
   background-color: rgba(226, 228, 231, 0.5);
   font-size: 18px;
   line-height: 1.5;
+  border: 1px solid rgba(226, 228, 231, 0.5);
 }
 
 .wp-block-gutenbee-accordion-item-title textarea {
@@ -1519,29 +1520,7 @@
   border-top: 0;
 }
 
-.wp-block-gutenbee-tabs {
-  min-height: 120px;
-}
-
-.wp-block-gutenbee-tabs-item-title {
-  padding: 15px 15px 5px;
-  margin-bottom: 0;
-  background-color: rgba(226, 228, 231, 0.5);
-  font-size: 18px;
-  line-height: 1.5;
-}
-
-.wp-block-gutenbee-tabs-item-title textarea {
-  background-color: transparent;
-}
-
-.wp-block-gutenbee-tabs-item-content {
-  padding: 15px;
-  border: 1px solid rgba(226, 228, 231, 0.5);
-  border-top: 0;
-}
-
-.wp-block-gutenbee-tabs-2-nav {
+.wp-block-gutenbee-tabs-nav {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -1553,51 +1532,28 @@
   align-items: center;
 }
 
-.wp-block-gutenbee-tabs-2-nav-item {
+.wp-block-gutenbee-tabs-nav-item {
   padding: 10px 12px 5px;
   background-color: #fff;
   cursor: pointer;
 }
 
-.wp-block-gutenbee-tabs-2-nav-item .editor-plain-text,
-.wp-block-gutenbee-tabs-2-nav-item .editor-plain-text:focus {
+.wp-block-gutenbee-tabs-nav-item .editor-plain-text,
+.wp-block-gutenbee-tabs-nav-item .editor-plain-text:focus {
   background: transparent;
   color: currentColor;
   line-height: 1;
   white-space: nowrap;
 }
 
-.wp-block-gutenbee-tabs-2-nav-item-active {
+.wp-block-gutenbee-tabs-nav-item-active {
   background-color: #0085ba;
   color: #fff;
   border-radius: 3px 3px 0 0;
 }
 
-.wp-block-gutenbee-tabs-2-tab-content-wrap {
+.wp-block-gutenbee-tabs-tab-content-wrap {
   padding: 15px;
   border: 1px solid #e2e4e7;
-}
-
-.wp-block-gutenbee-accordion-2 {
-  min-height: 120px;
-}
-
-.wp-block-gutenbee-accordion-2-item-title {
-  padding: 15px 15px 5px;
-  margin-bottom: 0;
-  background-color: rgba(226, 228, 231, 0.5);
-  font-size: 18px;
-  line-height: 1.5;
-  border: 1px solid rgba(226, 228, 231, 0.5);
-}
-
-.wp-block-gutenbee-accordion-2-item-title textarea {
-  background-color: transparent;
-}
-
-.wp-block-gutenbee-accordion-2-item-content {
-  padding: 15px;
-  border: 1px solid rgba(226, 228, 231, 0.5);
-  border-top: 0;
 }
 

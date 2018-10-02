@@ -1,36 +1,25 @@
 import jQuery from 'jquery';
 
 jQuery(($) => {
-  const $tabs = $('.wp-block-gutenbee-tabs');
+  const prefix = 'wp-block-gutenbee-tabs';
+  const $tabs = $(`.${prefix}`);
 
   $tabs.each(function () {
     const $this = $(this);
-    const $tabTitles = $this.find('.wp-block-gutenbee-tabs-item-title');
-    const $tabContents = $this.find('.wp-block-gutenbee-tabs-item');
-    const $titleWrap = $('<div />', {
-      class: 'wp-block-gutenbee-tabs-titles',
-    });
+    const $titles = $this.find(`.${prefix}-nav-item`);
+    const $tabContents = $this.find(`.${prefix}-tab-content`);
 
-    $titleWrap.append($tabTitles);
-    $this.prepend($titleWrap);
+    $titles.on('click', function (event) {
+      event.preventDefault();
+      const $title = $(this);
+      const index = $title.index();
 
-    const $titles = $this.find('.wp-block-gutenbee-tabs-titles')
-      .find('.wp-block-gutenbee-tabs-item-title');
-
-    $titles
-      .eq(0)
-      .addClass('wp-block-gutenbee-tabs-item-title-active');
-    $tabContents
-      .eq(0)
-      .addClass('wp-block-gutenbee-tabs-item-active');
-
-    $titles.on('click', function () {
-      const $that = $(this);
-
-      $titles.removeClass('wp-block-gutenbee-tabs-item-title-active');
-      $that.addClass('wp-block-gutenbee-tabs-item-title-active');
-      $tabContents.removeClass('wp-block-gutenbee-tabs-item-active');
-      $tabContents.eq($that.index()).addClass('wp-block-gutenbee-tabs-item-active');
+      $title
+        .addClass(`${prefix}-nav-item-active`)
+        .siblings()
+        .removeClass(`${prefix}-nav-item-active`);
+      $tabContents.hide();
+      $tabContents.eq(index).fadeIn('fast');
     });
   });
 });

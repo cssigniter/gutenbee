@@ -14,5 +14,3 @@ import './blocks/countdown/script';
 import './blocks/image-comparison/script';
 import './blocks/accordion/script';
 import './blocks/tabs/script';
-import './blocks/newtabs/script';
-import './blocks/newaccordion/script';

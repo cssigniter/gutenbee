@@ -1,6 +1,6 @@
 import { Component, Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
-import { __, sprintf } from 'wp.i18n';
+import { __ } from 'wp.i18n';
 import {
   RichText,
   PlainText,
@@ -106,7 +106,7 @@ class TabsEdit extends Component {
     }
 
     const tabItem = {
-      title: sprintf(__('Tab Title %s'), number),
+      title: '',
       content: '',
     };
 

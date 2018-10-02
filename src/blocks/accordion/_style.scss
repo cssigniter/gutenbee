@@ -1,29 +1,29 @@
 .wp-block-gutenbee-accordion {
   margin: $base-block-vertical-spacing 0;
-}
 
-.wp-block-gutenbee-accordion-item-title {
-  line-height: normal;
-  font-size: 16px;
-  margin: -1px 0 0;
-  padding: 15px;
-  border: 1px solid $border-color;
-  cursor: pointer;
-}
+  &-item-title {
+    line-height: normal;
+    font-size: 16px;
+    margin: -1px 0 0;
+    padding: 15px;
+    border: 1px solid $border-color;
+    cursor: pointer;
+  }
 
-.wp-block-gutenbee-accordion-item-content-wrap {
-  overflow: hidden;
-  display: none;
-}
+  &-item-content-wrap {
+    overflow: hidden;
+    display: none;
+  }
 
-.wp-block-gutenbee-accordion-item-content {
-  padding: 15px;
-  border: 1px solid $border-color;
-  border-top: 0;
+  &-item-content {
+    padding: 15px;
+    border: 1px solid $border-color;
+    border-top: 0;
 
-  p {
-    &:last-child {
-      margin-bottom: 0;
+    p {
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 }
