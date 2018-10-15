@@ -39,7 +39,7 @@ const CountupRender = ({
         className={`${className}-number`}
       />
 
-      {!!titleContent && (
+      {!RichText.isEmpty(titleContent) && (
         <RichText.Content
           tagName="p"
           value={titleContent}
@@ -94,8 +94,7 @@ registerBlockType('gutenbee/countup', {
       type: 'string',
     },
     titleContent: {
-      type: 'array',
-      source: 'children',
+      source: 'html',
       selector: 'p',
     },
     align: {

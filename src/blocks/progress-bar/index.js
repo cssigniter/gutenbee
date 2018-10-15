@@ -35,12 +35,14 @@ const ProgressBar = ({
         margin: getMarginSettingStyles(blockMargin),
       }}
     >
-      <RichText.Content
-        tagName="p"
-        value={title}
-        className={`${className}-title`}
-        style={{ fontSize: titleFontSize }}
-      />
+      {!RichText.isEmpty(title) && (
+        <RichText.Content
+          tagName="p"
+          value={title}
+          className={`${className}-title`}
+          style={{ fontSize: titleFontSize }}
+        />
+      )}
 
       <div className={`${className}-outer`}>
         <div
@@ -51,12 +53,14 @@ const ProgressBar = ({
             color: textColor,
           }}
         >
-          <RichText.Content
-            tagName="span"
-            value={innerTitle}
-            className={`${className}-inner-title`}
-            style={{ fontSize: innerTitleFontSize }}
-          />
+          {!RichText.isEmpty(innerTitle) && (
+            <RichText.Content
+              tagName="span"
+              value={innerTitle}
+              className={`${className}-inner-title`}
+              style={{ fontSize: innerTitleFontSize }}
+            />
+          )}
 
           {displayPercentage && (
             <span className={`${className}-percentage`}>
