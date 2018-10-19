@@ -4,7 +4,8 @@ $content-spacing-base: 30px !default;
 // Probably all Gutenberg blocks needs a 30px spacing top/bottom
 // Maybe expect buttons or when we don't have alignment options
 
-.entry-content {
+.entry-content,
+.wp-block-column {
   > [class^="wp-block-"] {
     margin-bottom: $content-spacing-base;
   }
@@ -62,4 +63,15 @@ $content-spacing-base: 30px !default;
 // Latest comments block
 .wp-block-latest-comments {
   padding-left: 0;
+}
+
+// Columns block
+.wp-block-columns {
+  margin-left: -$content-spacing-base / 2;
+  margin-right: -$content-spacing-base / 2;
+}
+
+.wp-block-column {
+  padding-left: $content-spacing-base / 2;
+  padding-right: $content-spacing-base / 2;
 }

@@ -127,7 +127,8 @@
   content: "\E002";
 }
 
-.entry-content > [class^="wp-block-"] {
+.entry-content > [class^="wp-block-"],
+.wp-block-column > [class^="wp-block-"] {
   margin-bottom: 30px;
 }
 
@@ -160,6 +161,16 @@
 
 .wp-block-latest-comments {
   padding-left: 0;
+}
+
+.wp-block-columns {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.wp-block-column {
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .wp-block-gutenbee-divider {
