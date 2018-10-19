@@ -15,13 +15,6 @@ $content-spacing-base: 30px !default;
 // https://d.pr/i/zT34fH
 
 // Reset fitvids from blocks that take care of aspect ratio responsiveness
-// Q: What are we going to do here with
-.wp-block-embed {
-  .fluid-width-video-wrapper {
-    position: relative;
-    padding: 0 !important;
-  }
-}
 
 .entry-content {
 
