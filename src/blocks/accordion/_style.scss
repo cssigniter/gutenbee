@@ -1,6 +1,10 @@
 .wp-block-gutenbee-accordion {
   margin: $base-block-vertical-spacing 0;
 
+  &-item {
+    margin-bottom: 0;
+  }
+
   &-item-title {
     line-height: normal;
     font-size: 16px;

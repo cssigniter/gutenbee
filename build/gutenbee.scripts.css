@@ -127,6 +127,41 @@
   content: "\E002";
 }
 
+.entry-content > [class^="wp-block-"] {
+  margin-bottom: 30px;
+}
+
+.wp-block-embed .fluid-width-video-wrapper {
+  position: relative;
+  padding: 0 !important;
+}
+
+.entry-content .wp-block-audio {
+  margin-bottom: 1.5em;
+}
+
+.entry-content .wp-block-audio audio {
+  width: 100%;
+  margin: 0;
+}
+
+.entry-content .wp-block-video {
+  margin-bottom: 1.5em;
+}
+
+.entry-content .wp-block-video video {
+  width: 100%;
+  margin: 0;
+}
+
+.wp-block-separator {
+  margin: 30px 0;
+}
+
+.wp-block-latest-comments {
+  padding-left: 0;
+}
+
 .wp-block-gutenbee-divider {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1450,6 +1485,10 @@
 
 .wp-block-gutenbee-accordion {
   margin: 30px 0;
+}
+
+.wp-block-gutenbee-accordion-item {
+  margin-bottom: 0;
 }
 
 .wp-block-gutenbee-accordion-item-title {
