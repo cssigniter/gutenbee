@@ -5,6 +5,7 @@ $content-spacing-base: 30px !default;
 // Maybe expect buttons or when we don't have alignment options
 
 .entry-content,
+.entry,
 .wp-block-column {
   > [class^="wp-block-"] {
     margin-bottom: $content-spacing-base;
@@ -17,7 +18,6 @@ $content-spacing-base: 30px !default;
 // Reset fitvids from blocks that take care of aspect ratio responsiveness
 
 .entry-content {
-
   // Audio embed with caption https://d.pr/i/8fTL6y
   .wp-block-audio {
     margin-bottom: 1.5em;
@@ -25,6 +25,11 @@ $content-spacing-base: 30px !default;
     audio {
       width: 100%;
       margin: 0;
+    }
+
+    figcaption {
+      color: inherit;
+      opacity: .7;
     }
   }
 
@@ -35,6 +40,11 @@ $content-spacing-base: 30px !default;
     video {
       width: 100%;
       margin: 0;
+    }
+
+    figcaption {
+      color: inherit;
+      opacity: .7;
     }
   }
 }
@@ -47,6 +57,24 @@ $content-spacing-base: 30px !default;
 // Nullify all bottom margins from their iframes
 // Add top and bottom margin
 // Remove fitvids from them with ignore option (.wp-block-embed)
+.wp-block-embed {
+  iframe {
+    margin: 0;
+  }
+
+  figcaption {
+    color: inherit;
+    opacity: .7;
+  }
+}
+
+// Image block
+.wp-block-image {
+  figcaption {
+    color: inherit;
+    opacity: .7;
+  }
+}
 
 // Separator block
 .wp-block-separator {
@@ -56,9 +84,51 @@ $content-spacing-base: 30px !default;
 // Latest comments block
 .wp-block-latest-comments {
   padding-left: 0;
+
+  .wp-block-latest-comments__comment-avatar {
+    padding: 0;
+  }
+
+  .wp-block-latest-comments__comment-date {
+    color: inherit;
+    opacity: .7;
+  }
+}
+
+// Latest posts block
+.wp-block-latest-posts {
+  .wp-block-latest-posts__post-date {
+    color: inherit;
+    opacity: .7;
+  }
+}
+
+// Gallery block
+.wp-block-gallery {
+  li {
+    &::before {
+      display: none;
+    }
+
+    a {
+      border: 0;
+      box-shadow: none;
+    }
+  }
+}
+
+// Latest posts block
+.wp-block-latest-posts {
+  list-style: none;
+  padding: 0;
+
+  li {
+    margin-bottom: 15px;
+  }
 }
 
 // Columns block
+// TODO: nullify bottom margins of last element in column content?
 .wp-block-columns {
   margin-left: -$content-spacing-base / 2;
   margin-right: -$content-spacing-base / 2;

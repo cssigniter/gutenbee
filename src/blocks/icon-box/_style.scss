@@ -5,6 +5,13 @@
 
   .wp-block-gutenbee-iconbox-title {
     margin: 0 0 15px;
+    border: 0;
+    padding: 0;
+
+    &::before,
+    &::after {
+      display: none;
+    }
   }
 
   p {

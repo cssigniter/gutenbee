@@ -128,6 +128,7 @@
 }
 
 .entry-content > [class^="wp-block-"],
+.entry > [class^="wp-block-"],
 .wp-block-column > [class^="wp-block-"] {
   margin-bottom: 30px;
 }
@@ -141,6 +142,11 @@
   margin: 0;
 }
 
+.entry-content .wp-block-audio figcaption {
+  color: inherit;
+  opacity: .7;
+}
+
 .entry-content .wp-block-video {
   margin-bottom: 1.5em;
 }
@@ -150,12 +156,64 @@
   margin: 0;
 }
 
+.entry-content .wp-block-video figcaption {
+  color: inherit;
+  opacity: .7;
+}
+
+.wp-block-embed iframe {
+  margin: 0;
+}
+
+.wp-block-embed figcaption {
+  color: inherit;
+  opacity: .7;
+}
+
+.wp-block-image figcaption {
+  color: inherit;
+  opacity: .7;
+}
+
 .wp-block-separator {
   margin: 30px 0;
 }
 
 .wp-block-latest-comments {
   padding-left: 0;
+}
+
+.wp-block-latest-comments .wp-block-latest-comments__comment-avatar {
+  padding: 0;
+}
+
+.wp-block-latest-comments .wp-block-latest-comments__comment-date {
+  color: inherit;
+  opacity: .7;
+}
+
+.wp-block-latest-posts .wp-block-latest-posts__post-date {
+  color: inherit;
+  opacity: .7;
+}
+
+.wp-block-gallery li::before {
+  display: none;
+}
+
+.wp-block-gallery li a {
+  border: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.wp-block-latest-posts {
+  list-style: none;
+  padding: 0;
+}
+
+.wp-block-latest-posts li {
+  margin-bottom: 15px;
 }
 
 .wp-block-columns {
@@ -326,6 +384,7 @@
   -webkit-box-shadow: none;
   box-shadow: none;
   cursor: pointer;
+  font-style: normal;
 }
 
 .wp-block-gutenbee-slideshow button.slick-arrow::before {
@@ -966,6 +1025,12 @@
 
 .wp-block-gutenbee-iconbox .wp-block-gutenbee-iconbox-title {
   margin: 0 0 15px;
+  border: 0;
+  padding: 0;
+}
+
+.wp-block-gutenbee-iconbox .wp-block-gutenbee-iconbox-title::before, .wp-block-gutenbee-iconbox .wp-block-gutenbee-iconbox-title::after {
+  display: none;
 }
 
 .wp-block-gutenbee-iconbox p {
@@ -1049,6 +1114,12 @@
 
 .wp-block-gutenbee-imagebox .wp-block-gutenbee-imagebox-title {
   margin: 0 0 15px;
+  border: 0;
+  padding: 0;
+}
+
+.wp-block-gutenbee-imagebox .wp-block-gutenbee-imagebox-title::before, .wp-block-gutenbee-imagebox .wp-block-gutenbee-imagebox-title::after {
+  display: none;
 }
 
 .wp-block-gutenbee-imagebox p {
@@ -1069,7 +1140,7 @@
 .wp-block-gutenbee-progress-bar-outer {
   position: relative;
   display: block;
-  border-radius: 3px;
+  border-radius: 4px;
   background-color: #f8f8f8;
   height: 30px;
   line-height: 1;
@@ -1499,7 +1570,6 @@
 
 .wp-block-gutenbee-accordion-item-title {
   line-height: normal;
-  font-size: 16px;
   margin: -1px 0 0;
   padding: 15px;
   border: 1px solid #e2e4e7;
@@ -1538,9 +1608,9 @@
 }
 
 .wp-block-gutenbee-tabs-nav-item {
-  padding: 10px 12px 5px;
-  background-color: #fff;
+  padding: 10px 12px;
   cursor: pointer;
+  line-height: normal;
 }
 
 .wp-block-gutenbee-tabs-nav-item-active {

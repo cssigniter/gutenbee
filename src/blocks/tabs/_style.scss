@@ -10,9 +10,9 @@
   }
 
   &-nav-item {
-    padding: 10px 12px 5px;
-    background-color: $white;
+    padding: 10px 12px;
     cursor: pointer;
+    line-height: normal;
   }
 
   &-nav-item-active {
