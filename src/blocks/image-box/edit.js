@@ -151,7 +151,7 @@ class ImageBoxEditBlock extends Component {
                     alt: uploadedImage.alt,
                   });
                 }}
-                type="image"
+                allowedTypes={['image']}
                 value={id}
                 render={({ open }) => (
                   <IconButton

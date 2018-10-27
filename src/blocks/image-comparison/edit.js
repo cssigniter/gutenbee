@@ -72,7 +72,7 @@ class ImageComparisonEdit extends Component {
                       urlA: uploadedImage.url,
                     });
                   }}
-                  type="image"
+                  allowedTypes={['image']}
                   value={idA}
                   render={({ open }) => (
                     <IconButton
@@ -110,7 +110,7 @@ class ImageComparisonEdit extends Component {
                       urlB: uploadedImage.url,
                     });
                   }}
-                  type="image"
+                  allowedTypes={['image']}
                   value={idB}
                   render={({ open }) => (
                     <IconButton

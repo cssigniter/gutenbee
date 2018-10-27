@@ -143,7 +143,7 @@ class Gallery extends Component {
             <Toolbar>
               <MediaUpload
                 onSelect={this.onSelectImages}
-                type="image"
+                allowedTypes={['image']}
                 multiple
                 gallery
                 value={images.map(img => img.id)}

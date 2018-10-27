@@ -220,7 +220,7 @@ class GoogleMapsEdit extends Component {
                     markerImageUrl: uploadedImage.url,
                   });
                 }}
-                type="image"
+                allowedTypes={['image']}
                 value={markerImageId}
                 render={({ open }) => (
                   <p>

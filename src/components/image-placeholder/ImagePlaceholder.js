@@ -23,7 +23,7 @@ const ImagePlaceholder = ({
       gallery={multiple}
       multiple={multiple}
       onSelect={onSelectImage}
-      type="image"
+      allowedTypes={['image']}
       render={({ open }) => (
         <Button isLarge onClick={open}>
           {multiple
