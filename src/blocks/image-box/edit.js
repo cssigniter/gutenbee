@@ -130,7 +130,6 @@ class ImageBoxEditBlock extends Component {
               onChange={value => setAttributes({ textContent: value })}
               className={`${className}-text`}
               placeholder={__('Write content…')}
-              multiline="p"
               isSelected={isSelected && editable === 'text'}
               onFocus={() => this.setActiveEditable('text')}
               style={{

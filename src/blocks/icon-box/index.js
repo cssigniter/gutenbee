@@ -56,23 +56,27 @@ const IconBox = ({ className, attributes }) => {
         }}
       />
       <div className={`${className}-content`}>
-        <RichText.Content
-          tagName={`h${titleNodeLevel}`}
-          value={titleContent}
-          className={`${className}-title`}
-          style={{
-            fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
-          }}
-        />
+        {!RichText.isEmpty(titleContent) && (
+          <RichText.Content
+            tagName={`h${titleNodeLevel}`}
+            value={titleContent}
+            className={`${className}-title`}
+            style={{
+              fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
+            }}
+          />
+        )}
 
-        <RichText.Content
-          tagName="p"
-          value={textContent}
-          className={`${className}-text`}
-          style={{
-            fontSize: textFontSize ? `${textFontSize}px` : undefined,
-          }}
-        />
+        {!RichText.isEmpty(textContent) && (
+          <RichText.Content
+            tagName="p"
+            value={textContent}
+            className={`${className}-text`}
+            style={{
+              fontSize: textFontSize ? `${textFontSize}px` : undefined,
+            }}
+          />
+        )}
       </div>
     </div>
   );
@@ -138,7 +142,6 @@ const IconBoxEditBlock = ({
             onChange={value => setAttributes({ textContent: value })}
             className={`${className}-text`}
             placeholder={__('Write content…')}
-            multiline="p"
             isSelected={isSelected && editable === 'text'}
             onFocus={() => setActiveEditable('text')}
             style={{
@@ -234,10 +237,9 @@ registerBlockType('gutenbee/iconbox', {
   attributes: {
     ...iconAttributes,
     titleContent: {
-      type: 'array',
-      source: 'children',
+      source: 'html',
       selector: 'h1,h2,h3,h4,h5,h6',
-      default: [],
+      default: '',
     },
     titleNodeLevel: {
       type: 'number',
@@ -248,10 +250,9 @@ registerBlockType('gutenbee/iconbox', {
       default: null,
     },
     textContent: {
-      type: 'array',
-      source: 'children',
+      source: 'html',
       selector: 'p',
-      default: [],
+      default: '',
     },
     textFontSize: {
       type: 'number',

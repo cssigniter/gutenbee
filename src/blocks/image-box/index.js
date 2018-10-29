@@ -56,23 +56,27 @@ const ImageBox = ({ className, attributes }) => {
       </figure>
 
       <div className={`${className}-content`}>
-        <RichText.Content
-          tagName={`h${titleNodeLevel}`}
-          value={titleContent}
-          className={`${className}-title`}
-          style={{
-            fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
-          }}
-        />
+        {!RichText.isEmpty(titleContent) && (
+          <RichText.Content
+            tagName={`h${titleNodeLevel}`}
+            value={titleContent}
+            className={`${className}-title`}
+            style={{
+              fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
+            }}
+          />
+        )}
 
-        <RichText.Content
-          tagName="p"
-          value={textContent}
-          className={`${className}-text`}
-          style={{
-            fontSize: textFontSize ? `${textFontSize}px` : undefined,
-          }}
-        />
+        {!RichText.isEmpty(textContent) && (
+          <RichText.Content
+            tagName="p"
+            value={textContent}
+            className={`${className}-text`}
+            style={{
+              fontSize: textFontSize ? `${textFontSize}px` : undefined,
+            }}
+          />
+        )}
       </div>
     </div>
   );
@@ -90,10 +94,9 @@ registerBlockType('gutenbee/imagebox', {
   ],
   attributes: {
     titleContent: {
-      type: 'array',
-      source: 'children',
+      source: 'html',
       selector: 'h1,h2,h3,h4,h5,h6',
-      default: [],
+      default: '',
     },
     titleNodeLevel: {
       type: 'number',
@@ -104,10 +107,9 @@ registerBlockType('gutenbee/imagebox', {
       default: null,
     },
     textContent: {
-      type: 'array',
-      source: 'children',
+      source: 'html',
       selector: 'p',
-      default: [],
+      default: '',
     },
     textFontSize: {
       type: 'number',
