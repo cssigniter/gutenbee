@@ -26,6 +26,7 @@ function gutenbee_enqueue_editor_assets() {
 		'wp-components',
 		'wp-blocks',
 		'wp-element',
+		'wp-editor',
 		'wp-data',
 		'wp-date',
 		'wp-i18n',
