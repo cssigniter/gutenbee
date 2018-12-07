@@ -8,7 +8,7 @@ import {
 import {
   InspectorControls,
   RichText,
-  PanelColor,
+  PanelColorSettings,
   ContrastChecker,
 } from 'wp.editor';
 import TextControls from '../../components/controls/TextControls';
@@ -128,22 +128,28 @@ class ProgressBarEdit extends Component {
               />
             </PanelBody>
 
-            <PanelColor
-              colorValue={backgroundColor}
-              title={__('Background Color')}
+            <PanelColorSettings
+              title={__('Color Settings')}
+              colorSettings={[
+                {
+                  value: backgroundColor,
+                  onChange: value => setAttributes({ backgroundColor: value }),
+                  label: __('Background Color'),
+                },
+                {
+                  value: textColor,
+                  onChange: value => setAttributes({ textColor: value }),
+                  label: __('Text Color'),
+                },
+              ]}
               onChange={value => setAttributes({ backgroundColor: value })}
-            />
-
-            <PanelColor
-              colorValue={textColor}
-              title={__('Text Color')}
-              onChange={value => setAttributes({ textColor: value })}
-            />
-
-            <ContrastChecker
-              textColor={textColor}
-              backgroundColor={backgroundColor}
-            />
+            >
+              <ContrastChecker
+                isLargeText={false}
+                textColor={textColor}
+                backgroundColor={backgroundColor}
+              />
+            </PanelColorSettings>
 
             <PanelBody title={__('Appearance')} initialOpen={false}>
               <MarginControls

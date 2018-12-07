@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import {
   InspectorControls,
   withColors,
-  PanelColor,
   RichText,
   AlignmentToolbar,
+  PanelColorSettings,
 } from 'wp.editor';
 import {
   RangeControl,
@@ -167,10 +167,17 @@ class CountupEdit extends Component {
               />
             </PanelBody>
 
-            <PanelColor
+            <PanelColorSettings
               colorValue={textColor.value}
-              title={__('Text Color')}
+              title={__('Color Settings')}
               onChange={setTextColor}
+              colorSettings={[
+                {
+                  value: textColor.value,
+                  onChange: setTextColor,
+                  label: __('Text Color'),
+                },
+              ]}
             />
           </InspectorControls>
         )}

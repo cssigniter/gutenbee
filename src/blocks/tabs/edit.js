@@ -5,7 +5,7 @@ import {
   RichText,
   PlainText,
   InspectorControls,
-  ColorPalette,
+  PanelColorSettings,
 } from 'wp.editor';
 import {
   PanelBody,
@@ -221,32 +221,33 @@ class TabsEdit extends Component {
               />
             </PanelBody>
 
-            <PanelBody title={__('Active Tab Background Color')} initialOpen={false}>
-              <ColorPalette
-                value={activeTabBackgroundColor}
-                onChange={value => setAttributes({
-                  activeTabBackgroundColor: value,
-                })}
-              />
-            </PanelBody>
-
-            <PanelBody title={__('Active Tab Text Color')} initialOpen={false}>
-              <ColorPalette
-                value={activeTabTextColor}
-                onChange={value => setAttributes({
-                  activeTabTextColor: value,
-                })}
-              />
-            </PanelBody>
-
-            <PanelBody title={__('Border Color')} initialOpen={false}>
-              <ColorPalette
-                value={borderColor}
-                onChange={value => setAttributes({
-                  borderColor: value,
-                })}
-              />
-            </PanelBody>
+            <PanelColorSettings
+              title={__('Color Settings')}
+              initialOpen={false}
+              colorSettings={[
+                {
+                  value: activeTabBackgroundColor,
+                  onChange: value => setAttributes({
+                    activeTabBackgroundColor: value,
+                  }),
+                  label: __('Active Tab Background Color'),
+                },
+                {
+                  value: activeTabTextColor,
+                  onChange: value => setAttributes({
+                    activeTabTextColor: value,
+                  }),
+                  label: __('Active Tab Text Color'),
+                },
+                {
+                  value: borderColor,
+                  onChange: value => setAttributes({
+                    borderColor: value,
+                  }),
+                  label: __('Border Color'),
+                },
+              ]}
+            />
 
             <PanelBody title={__('Appearance')} initialOpen={false}>
               <MarginControls
