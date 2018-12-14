@@ -4,18 +4,13 @@
 
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import {
-  RichText,
-} from 'wp.editor';
+import { RichText } from 'wp.editor';
 
 import ProgressBarEdit from './edit';
 import ProgressBarBlockIcon from './block-icon';
 import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 
-const ProgressBar = ({
-  className,
-  attributes,
-}) => {
+const ProgressBar = ({ className, attributes }) => {
   const {
     title,
     innerTitle,
@@ -23,6 +18,7 @@ const ProgressBar = ({
     displayPercentage,
     textColor,
     backgroundColor,
+    titleTextColor,
     titleFontSize,
     innerTitleFontSize,
     blockMargin,
@@ -40,7 +36,10 @@ const ProgressBar = ({
           tagName="p"
           value={title}
           className={`${className}-title`}
-          style={{ fontSize: titleFontSize }}
+          style={{
+            fontSize: titleFontSize,
+            color: titleTextColor,
+          }}
         />
       )}
 
@@ -63,9 +62,7 @@ const ProgressBar = ({
           )}
 
           {displayPercentage && (
-            <span className={`${className}-percentage`}>
-              {percentage}%
-            </span>
+            <span className={`${className}-percentage`}>{percentage}%</span>
           )}
         </div>
       </div>
@@ -78,10 +75,7 @@ registerBlockType('gutenbee/progress-bar', {
   description: __('Create fancy progress bars'),
   icon: ProgressBarBlockIcon,
   category: 'gutenbee',
-  keywords: [
-    __('progress'),
-    __('progress bar'),
-  ],
+  keywords: [__('progress'), __('progress bar')],
   attributes: {
     title: {
       type: 'array',
@@ -107,6 +101,9 @@ registerBlockType('gutenbee/progress-bar', {
     backgroundColor: {
       type: 'string',
     },
+    titleTextColor: {
+      type: 'string',
+    },
     titleFontSize: {
       type: 'number',
       default: 16,
@@ -122,9 +119,6 @@ registerBlockType('gutenbee/progress-bar', {
   },
   edit: ProgressBarEdit,
   save: ({ className, attributes }) => (
-    <ProgressBar
-      className={className}
-      attributes={attributes}
-    />
+    <ProgressBar className={className} attributes={attributes} />
   ),
 });

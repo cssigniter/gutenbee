@@ -1,5 +1,10 @@
 const IconBoxBlockIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+  >
     <path fill="#333" d="M0 14H20V16H0z" />
     <path fill="#333" d="M0 18H20V20H0z" />
     <path

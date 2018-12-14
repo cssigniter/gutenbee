@@ -8,7 +8,7 @@
  * @param {string} postType The post type's slug
  * @returns {string} The WP API endpoint slug
  */
-const getPostTypeSlugToApi = (postType) => {
+const getPostTypeSlugToApi = postType => {
   if (postType === 'post') {
     return 'posts';
   }

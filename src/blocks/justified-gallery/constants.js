@@ -13,6 +13,4 @@ const LAST_ROW = {
   HIDE: 'hide',
 };
 
-export {
-  LAST_ROW,
-};
+export { LAST_ROW };

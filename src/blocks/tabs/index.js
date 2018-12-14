@@ -11,10 +11,7 @@ import TabsBlockIcon from './block-icon';
 import TabsEdit from './edit';
 import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 
-const Tabs = ({
-  attributes,
-  className,
-}) => {
+const Tabs = ({ attributes, className }) => {
   const {
     tabs,
     blockMargin,
@@ -56,21 +53,16 @@ const Tabs = ({
               display: index === 0 ? 'block' : 'none',
             }}
           >
-            <RichText.Content
-              tagName="p"
-              value={tab.content}
-            />
+            <RichText.Content tagName="p" value={tab.content} />
           </div>
         ))}
       </div>
 
       <style>
-        {
-          `.${className}-nav-item-active {
+        {`.${className}-nav-item-active {
             background-color: ${activeTabBackgroundColor};
             color: ${activeTabTextColor};
-          }`
-        }
+          }`}
       </style>
     </div>
   );
@@ -81,9 +73,7 @@ registerBlockType('gutenbee/tabs', {
   description: __('Display fancy tabs'),
   icon: TabsBlockIcon,
   category: 'gutenbee',
-  keywords: [
-    __('tabs'),
-  ],
+  keywords: [__('tabs')],
   attributes: {
     tabs: {
       type: 'array',
@@ -113,9 +103,6 @@ registerBlockType('gutenbee/tabs', {
   },
   edit: TabsEdit,
   save: ({ className, attributes }) => (
-    <Tabs
-      className={className}
-      attributes={attributes}
-    />
+    <Tabs className={className} attributes={attributes} />
   ),
 });

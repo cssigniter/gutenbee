@@ -24,7 +24,7 @@ const TextControls = ({
       attributeKey={attributeKey}
       attributes={attributes}
       defaultFontSize={defaultFontSize}
-      label={fontSizeLabel}
+      fontSizeLabel={fontSizeLabel}
     />
   </Fragment>
 );

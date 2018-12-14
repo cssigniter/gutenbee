@@ -66,10 +66,7 @@ registerBlockType('gutenbee/accordion', {
   description: __('Display fancy accordions'),
   icon: AccordionBlockIcon,
   category: 'gutenbee',
-  keywords: [
-    __('accordion'),
-    __('tabs'),
-  ],
+  keywords: [__('accordion'), __('tabs')],
   attributes: {
     tabs: {
       type: 'array',
@@ -103,9 +100,6 @@ registerBlockType('gutenbee/accordion', {
   },
   edit: AccordionsEdit,
   save: ({ className, attributes }) => (
-    <Accordion
-      className={className}
-      attributes={attributes}
-    />
+    <Accordion className={className} attributes={attributes} />
   ),
 });

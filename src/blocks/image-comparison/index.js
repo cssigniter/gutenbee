@@ -14,11 +14,7 @@ registerBlockType('gutenbee/image-comparison', {
   description: __('Highlight the differences between two images.'),
   icon: ImageComparisonBlockIcon,
   category: 'gutenbee',
-  keywords: [
-    __('image comparison'),
-    __('comparison'),
-    __('diff'),
-  ],
+  keywords: [__('image comparison'), __('comparison'), __('diff')],
   attributes: {
     urlA: {
       type: 'string',
@@ -46,15 +42,13 @@ registerBlockType('gutenbee/image-comparison', {
       type: 'object',
       default: {},
     },
+    imageSize: {
+      type: 'string',
+    },
   },
   edit: ImageComparisonEdit,
   save: ({ className, attributes }) => {
-    const {
-      urlA,
-      urlB,
-      offset,
-      blockMargin,
-    } = attributes;
+    const { urlA, urlB, offset, blockMargin } = attributes;
 
     return (
       <div

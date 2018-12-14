@@ -7,11 +7,7 @@ import {
   InspectorControls,
   PanelColorSettings,
 } from 'wp.editor';
-import {
-  PanelBody,
-  RangeControl,
-  ToggleControl,
-} from 'wp.components';
+import { PanelBody, RangeControl, ToggleControl } from 'wp.components';
 
 import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 import MarginControls from '../../components/controls/margin-controls';
@@ -19,10 +15,12 @@ import MarginControls from '../../components/controls/margin-controls';
 class AccordionsEdit extends Component {
   static propTypes = {
     attributes: PropTypes.shape({
-      accordions: PropTypes.arrayOf(PropTypes.shape({
-        title: PropTypes.string,
-        content: PropTypes.string,
-      })),
+      accordions: PropTypes.arrayOf(
+        PropTypes.shape({
+          title: PropTypes.string,
+          content: PropTypes.string,
+        }),
+      ),
       collapseOthers: PropTypes.bool,
       titleBackgroundColor: PropTypes.string,
       titleTextColor: PropTypes.string,
@@ -40,27 +38,41 @@ class AccordionsEdit extends Component {
   };
 
   state = {
-    selectedTabIndex: 0,
+    openTabs: [0],
   };
 
-  componentWillReceiveProps(nextProps) {
-    const { selectedTabIndex } = this.state;
-    const { attributes } = nextProps;
-    const { tabs } = attributes;
+  isTabExpanded = index => {
+    const { openTabs } = this.state;
 
-    if (selectedTabIndex > tabs.length - 1) {
+    return openTabs.includes(index);
+  };
+
+  onTabToggle = (index, focus) => {
+    const { attributes } = this.props;
+    const { collapseOthers } = attributes;
+    const isExpanded = this.isTabExpanded(index);
+
+    if (collapseOthers) {
       this.setState(() => ({
-        selectedTabIndex: 0,
+        openTabs: [index],
       }));
+      return;
     }
-  }
+
+    this.setState(({ openTabs }) => ({
+      openTabs:
+        isExpanded && !focus
+          ? openTabs.filter(i => i !== index)
+          : [...openTabs, index],
+    }));
+  };
 
   onTabTitleUpdate = (index, title) => {
     const { attributes, setAttributes } = this.props;
     const { tabs } = attributes;
 
     setAttributes({
-      tabs: tabs.map(((tab, i) => {
+      tabs: tabs.map((tab, i) => {
         if (i === index) {
           return {
             ...tab,
@@ -69,7 +81,7 @@ class AccordionsEdit extends Component {
         }
 
         return tab;
-      })),
+      }),
     });
   };
 
@@ -78,7 +90,7 @@ class AccordionsEdit extends Component {
     const { tabs } = attributes;
 
     setAttributes({
-      tabs: tabs.map(((tab, i) => {
+      tabs: tabs.map((tab, i) => {
         if (i === index) {
           return {
             ...tab,
@@ -87,18 +99,13 @@ class AccordionsEdit extends Component {
         }
 
         return tab;
-      })),
+      }),
     });
   };
 
-  onUpdateTabsNumber = (number) => {
-    const {
-      attributes,
-      setAttributes,
-    } = this.props;
-    const {
-      tabs,
-    } = attributes;
+  onUpdateTabsNumber = number => {
+    const { attributes, setAttributes } = this.props;
+    const { tabs } = attributes;
 
     // We don't allow less than 1 tab
     if (number === 0) {
@@ -124,13 +131,7 @@ class AccordionsEdit extends Component {
   };
 
   render() {
-    const { selectedTabIndex } = this.state;
-    const {
-      attributes,
-      isSelected,
-      className,
-      setAttributes,
-    } = this.props;
+    const { attributes, isSelected, className, setAttributes } = this.props;
     const {
       tabs,
       blockMargin,
@@ -152,11 +153,7 @@ class AccordionsEdit extends Component {
             <div className={`${className}-item`}>
               <div
                 className={`${className}-item-title`}
-                onClick={() => {
-                  this.setState(() => ({
-                    selectedTabIndex: index,
-                  }));
-                }}
+                onClick={() => this.onTabToggle(index)}
                 style={{
                   color: titleTextColor || undefined,
                   backgroundColor: titleBackgroundColor || undefined,
@@ -166,16 +163,23 @@ class AccordionsEdit extends Component {
                 <PlainText
                   value={tab.title}
                   onChange={value => this.onTabTitleUpdate(index, value)}
-                  onFocus={() => {
-                    this.setState(() => ({
-                      selectedTabIndex: index,
-                    }));
+                  onFocus={event => {
+                    if (isSelected) {
+                      event.stopPropagation();
+                      this.onTabToggle(index, 'focus');
+                    }
+                  }}
+                  onClick={event => {
+                    event.stopPropagation();
                   }}
                   placeholder={__('Write title…')}
+                  style={{
+                    color: titleTextColor || undefined,
+                  }}
                 />
               </div>
 
-              {index === selectedTabIndex && (
+              {this.isTabExpanded(index) && (
                 <div className={`${className}-item-content-wrap`}>
                   <div
                     className={`${className}-item-content`}
@@ -186,7 +190,9 @@ class AccordionsEdit extends Component {
                     <RichText
                       tagName="p"
                       value={tab.content}
-                      onChange={content => this.onTabContentUpdate(index, content)}
+                      onChange={content =>
+                        this.onTabContentUpdate(index, content)
+                      }
                       className={`${className}-item-text`}
                       placeholder={__('Write content…')}
                       keepPlaceholderOnFocus
@@ -223,23 +229,26 @@ class AccordionsEdit extends Component {
               colorSettings={[
                 {
                   value: titleBackgroundColor,
-                  onChange: value => setAttributes({
-                    titleBackgroundColor: value,
-                  }),
+                  onChange: value =>
+                    setAttributes({
+                      titleBackgroundColor: value,
+                    }),
                   label: __('Title Background Color'),
                 },
                 {
                   value: titleTextColor,
-                  onChange: value => setAttributes({
-                    titleTextColor: value,
-                  }),
+                  onChange: value =>
+                    setAttributes({
+                      titleTextColor: value,
+                    }),
                   label: __('Title Text Color'),
                 },
                 {
                   value: borderColor,
-                  onChange: value => setAttributes({
-                    borderColor: value,
-                  }),
+                  onChange: value =>
+                    setAttributes({
+                      borderColor: value,
+                    }),
                   label: __('Border Color'),
                 },
               ]}

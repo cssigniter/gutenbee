@@ -4,14 +4,8 @@
 
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
-import {
-  registerBlockType,
-} from 'wp.blocks';
-import {
-  InspectorControls,
-  AlignmentToolbar,
-  ColorPalette,
-} from 'wp.editor';
+import { registerBlockType } from 'wp.blocks';
+import { InspectorControls, AlignmentToolbar, ColorPalette } from 'wp.editor';
 import {
   PanelBody,
   RangeControl,
@@ -88,10 +82,7 @@ export const IconSettings = ({
   blockMargin,
 }) => (
   <Fragment>
-    <BaseControl
-      id="icon-select"
-      label={__('Icon')}
-    >
+    <BaseControl id="icon-select" label={__('Icon')}>
       <ReactSelect
         aria-labelledby="icon-select"
         onChange={value => setAttributes({ icon: value })}
@@ -99,17 +90,10 @@ export const IconSettings = ({
         options={icons.map(value => ({ value, label: startCase(value) }))}
         simpleValue
         valueRenderer={({ value, label }) => (
-          <IconSelectValue
-            value={value}
-            label={label}
-          />
+          <IconSelectValue value={value} label={label} />
         )}
         optionRenderer={({ value, label }) => (
-          <IconSelectValue
-            value={value}
-            label={label}
-            className={className}
-          />
+          <IconSelectValue value={value} label={label} className={className} />
         )}
       />
     </BaseControl>
@@ -138,7 +122,7 @@ export const IconSettings = ({
     )}
 
     <RangeControl
-      label={__('Icon Size')}
+      label={__('Icon Size (px)')}
       min={1}
       max={100}
       value={size}
@@ -147,7 +131,7 @@ export const IconSettings = ({
 
     {view !== VIEWS.DEFAULT && (
       <RangeControl
-        label={__('Padding')}
+        label={__('Padding (em)')}
         min={1}
         max={10}
         step={0.1}
@@ -158,7 +142,7 @@ export const IconSettings = ({
 
     {view === VIEWS.FRAMED && (
       <RangeControl
-        label={__('Border Size')}
+        label={__('Border Size (px)')}
         min={1}
         max={50}
         step={1}
@@ -214,17 +198,12 @@ registerBlockType('gutenbee/icon', {
   description: __('A flexible icon block'),
   icon: IconBlockIcon,
   category: 'gutenbee',
-  keywords: [
-    __('icons'),
-  ],
+  keywords: [__('icons')],
   attributes: iconAttributes,
   edit({ className, attributes, setAttributes, isSelected }) {
     return (
       <Fragment>
-        <Icon
-          className={className}
-          {...attributes}
-        />
+        <Icon className={className} {...attributes} />
         {isSelected && (
           <InspectorControls>
             <IconSettings
@@ -238,11 +217,6 @@ registerBlockType('gutenbee/icon', {
     );
   },
   save({ className, attributes }) {
-    return (
-      <Icon
-        className={className}
-        {...attributes}
-      />
-    );
+    return <Icon className={className} {...attributes} />;
   },
 });

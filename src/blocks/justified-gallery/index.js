@@ -16,16 +16,14 @@ registerBlockType('gutenbee/justified-gallery', {
   description: __('Create high quality justified image galleries'),
   icon: JustifiedGalleryBlockIcon,
   category: 'gutenbee',
-  keywords: [
-    __('justified'),
-    __('gallery'),
-  ],
+  keywords: [__('justified'), __('gallery')],
   attributes: {
     images: {
       type: 'array',
       default: [],
       source: 'query',
-      selector: '.wp-block-gutenbee-justified-gallery .gutenbee-justified-gallery-item',
+      selector:
+        '.wp-block-gutenbee-justified-gallery .gutenbee-justified-gallery-item',
       query: {
         url: {
           source: 'attribute',
@@ -107,7 +105,7 @@ registerBlockType('gutenbee/justified-gallery', {
           margin: getMarginSettingStyles(blockMargin),
         }}
       >
-        {images.map((image) => {
+        {images.map(image => {
           let href;
 
           switch (linkTo) {
@@ -137,7 +135,9 @@ registerBlockType('gutenbee/justified-gallery', {
                 <a className="gutenbee-justified-gallery-item" href={href}>
                   {img}
                 </a>
-              ) : img}
+              ) : (
+                img
+              )}
             </div>
           );
         })}

@@ -19,11 +19,7 @@ const numberWithCommas = (number, separator = ',') =>
  * @param {string} suffix The suffix that should follow the number
  * @returns {string} The resulting number (stringified, prefixed, and suffixed)
  */
-const formatNumber = (
-  number,
-  separator = ',',
-  prefix,
-  suffix,
-) => `${prefix || ''}${numberWithCommas(number, separator)}${suffix || ''}`;
+const formatNumber = (number, separator = ',', prefix, suffix) =>
+  `${prefix || ''}${numberWithCommas(number, separator)}${suffix || ''}`;
 
 export default formatNumber;

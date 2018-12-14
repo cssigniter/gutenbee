@@ -7,10 +7,7 @@ import {
   InspectorControls,
   PanelColorSettings,
 } from 'wp.editor';
-import {
-  PanelBody,
-  RangeControl,
-} from 'wp.components';
+import { PanelBody, RangeControl } from 'wp.components';
 import classNames from 'classnames';
 
 import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
@@ -19,10 +16,12 @@ import MarginControls from '../../components/controls/margin-controls';
 class TabsEdit extends Component {
   static propTypes = {
     attributes: PropTypes.shape({
-      tabs: PropTypes.arrayOf(PropTypes.shape({
-        title: PropTypes.string,
-        content: PropTypes.string,
-      })),
+      tabs: PropTypes.arrayOf(
+        PropTypes.shape({
+          title: PropTypes.string,
+          content: PropTypes.string,
+        }),
+      ),
       activeTabBackgroundColor: PropTypes.string,
       activeTabTextColor: PropTypes.string,
       borderColor: PropTypes.string,
@@ -59,7 +58,7 @@ class TabsEdit extends Component {
     const { tabs } = attributes;
 
     setAttributes({
-      tabs: tabs.map(((tab, i) => {
+      tabs: tabs.map((tab, i) => {
         if (i === index) {
           return {
             ...tab,
@@ -68,17 +67,17 @@ class TabsEdit extends Component {
         }
 
         return tab;
-      })),
+      }),
     });
   };
 
-  onTabContentUpdate = (content) => {
+  onTabContentUpdate = content => {
     const { selectedTabIndex } = this.state;
     const { setAttributes, attributes } = this.props;
     const { tabs } = attributes;
 
     setAttributes({
-      tabs: tabs.map(((tab, i) => {
+      tabs: tabs.map((tab, i) => {
         if (i === selectedTabIndex) {
           return {
             ...tab,
@@ -87,18 +86,13 @@ class TabsEdit extends Component {
         }
 
         return tab;
-      })),
+      }),
     });
   };
 
-  onUpdateTabsNumber = (number) => {
-    const {
-      attributes,
-      setAttributes,
-    } = this.props;
-    const {
-      tabs,
-    } = attributes;
+  onUpdateTabsNumber = number => {
+    const { attributes, setAttributes } = this.props;
+    const { tabs } = attributes;
 
     // We don't allow less than 1 tab
     if (number === 0) {
@@ -123,7 +117,7 @@ class TabsEdit extends Component {
     }
   };
 
-  isActiveTab = (index) => {
+  isActiveTab = index => {
     const { selectedTabIndex } = this.state;
 
     return index === selectedTabIndex;
@@ -131,12 +125,7 @@ class TabsEdit extends Component {
 
   render() {
     const { selectedTabIndex } = this.state;
-    const {
-      attributes,
-      isSelected,
-      className,
-      setAttributes,
-    } = this.props;
+    const { attributes, isSelected, className, setAttributes } = this.props;
     const {
       tabs,
       blockMargin,
@@ -169,8 +158,12 @@ class TabsEdit extends Component {
                 }}
                 style={{
                   fontSize: tabs.length > 4 ? '14px' : undefined,
-                  color: this.isActiveTab(index) ? activeTabTextColor : undefined,
-                  backgroundColor: this.isActiveTab(index) ? activeTabBackgroundColor : undefined,
+                  color: this.isActiveTab(index)
+                    ? activeTabTextColor
+                    : undefined,
+                  backgroundColor: this.isActiveTab(index)
+                    ? activeTabBackgroundColor
+                    : undefined,
                 }}
               >
                 <PlainText
@@ -227,23 +220,26 @@ class TabsEdit extends Component {
               colorSettings={[
                 {
                   value: activeTabBackgroundColor,
-                  onChange: value => setAttributes({
-                    activeTabBackgroundColor: value,
-                  }),
+                  onChange: value =>
+                    setAttributes({
+                      activeTabBackgroundColor: value,
+                    }),
                   label: __('Active Tab Background Color'),
                 },
                 {
                   value: activeTabTextColor,
-                  onChange: value => setAttributes({
-                    activeTabTextColor: value,
-                  }),
+                  onChange: value =>
+                    setAttributes({
+                      activeTabTextColor: value,
+                    }),
                   label: __('Active Tab Text Color'),
                 },
                 {
                   value: borderColor,
-                  onChange: value => setAttributes({
-                    borderColor: value,
-                  }),
+                  onChange: value =>
+                    setAttributes({
+                      borderColor: value,
+                    }),
                   label: __('Border Color'),
                 },
               ]}

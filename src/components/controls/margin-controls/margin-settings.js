@@ -9,13 +9,12 @@
  * @param {Object} margins - The margins as passed from the block's attributes
  * @returns {string} - Whether margins have been set or not
  */
-const hasMarginSettings = (margins) => {
+const hasMarginSettings = margins => {
   if (!margins) {
     return false;
   }
 
-  return Object.values(margins)
-    .some(value => value != null && value !== '');
+  return Object.values(margins).some(value => value != null && value !== '');
 };
 
 /**
@@ -25,7 +24,7 @@ const hasMarginSettings = (margins) => {
  * @param {Object} margins - The margins as passed from the block's attributes
  * @returns {Object} - The CSS object
  */
-const getMarginSettingStyles = (margins) => {
+const getMarginSettingStyles = margins => {
   if (!margins) {
     return undefined;
   }
@@ -39,7 +38,4 @@ const getMarginSettingStyles = (margins) => {
   return undefined;
 };
 
-export {
-  hasMarginSettings,
-  getMarginSettingStyles,
-};
+export { hasMarginSettings, getMarginSettingStyles };

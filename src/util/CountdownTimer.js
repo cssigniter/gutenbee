@@ -20,7 +20,7 @@ class CountdownTimer {
    * @param {string} endTime The end time
    * @returns {{total: number, days: number, hours: number, minutes: number, seconds: number}} Total time remaining
    */
-  static getRemainingTime = (endTime) => {
+  static getRemainingTime = endTime => {
     const t = Date.parse(endTime) - Date.parse(new Date());
     const seconds = Math.floor((t / 1000) % 60);
     const minutes = Math.floor((t / 1000 / 60) % 60);
@@ -55,15 +55,15 @@ class CountdownTimer {
     }
 
     if (hoursSpan) {
-      hoursSpan.innerHTML = (`0${t.hours}`).slice(-2);
+      hoursSpan.innerHTML = `0${t.hours}`.slice(-2);
     }
 
     if (minutesSpan) {
-      minutesSpan.innerHTML = (`0${t.minutes}`).slice(-2);
+      minutesSpan.innerHTML = `0${t.minutes}`.slice(-2);
     }
 
     if (secondsSpan) {
-      secondsSpan.innerHTML = (`0${t.seconds}`).slice(-2);
+      secondsSpan.innerHTML = `0${t.seconds}`.slice(-2);
     }
 
     if (t.total <= 0) {

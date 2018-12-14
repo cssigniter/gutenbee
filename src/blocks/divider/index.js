@@ -6,16 +6,8 @@
 
 import { __, sprintf } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import {
-  PanelBody,
-  Toolbar,
-  RangeControl,
-} from 'wp.components';
-import {
-  InspectorControls,
-  AlignmentToolbar,
-  ColorPalette,
-} from 'wp.editor';
+import { PanelBody, Toolbar, RangeControl } from 'wp.components';
+import { InspectorControls, AlignmentToolbar, ColorPalette } from 'wp.editor';
 
 const BORDER_STYLES = {
   SOLID: 'solid',
@@ -24,15 +16,7 @@ const BORDER_STYLES = {
   DOUBLE: 'double',
 };
 
-const Divider = ({
-  className,
-  height,
-  style,
-  weight,
-  width,
-  align,
-  color,
-}) => (
+const Divider = ({ className, height, style, weight, width, align, color }) => (
   <div
     key="divider"
     className={`${className} align-${align}`}
@@ -54,14 +38,12 @@ const Divider = ({
 
 registerBlockType('gutenbee/divider', {
   title: __('GutenBee Divider'),
-  description: __('A divider to indicate a thematic change in the content in style.'),
+  description: __(
+    'A divider to indicate a thematic change in the content in style.',
+  ),
   icon: 'minus',
   category: 'layout',
-  keywords: [
-    __('divider'),
-    __('horizontal-line'),
-    'hr',
-  ],
+  keywords: [__('divider'), __('horizontal-line'), 'hr'],
   attributes: {
     style: {
       type: 'string',
@@ -89,34 +71,24 @@ registerBlockType('gutenbee/divider', {
     },
   },
   edit({ className, attributes, setAttributes, isSelected }) {
-    const {
-      style,
-      weight,
-      width,
-      height,
-      align,
-      color,
-    } = attributes;
+    const { style, weight, width, height, align, color } = attributes;
 
     return [
-      <Divider
-        className={className}
-        {...attributes}
-      />,
+      <Divider className={className} {...attributes} />,
       isSelected && (
         <InspectorControls key="inspector">
           <p>{__('Style')}</p>
           <Toolbar
             // TODO: figure out a way to add custom icons
-            controls={
-              Object.values(BORDER_STYLES).map((borderStyle, index) => ({
+            controls={Object.values(BORDER_STYLES).map(
+              (borderStyle, index) => ({
                 icon: 'admin-appearance',
                 title: sprintf(__('Style %s'), borderStyle),
                 isActive: style === borderStyle,
                 onClick: () => setAttributes({ style: borderStyle }),
                 subscript: index + 1,
-              }))
-            }
+              }),
+            )}
           />
 
           <RangeControl
@@ -160,11 +132,6 @@ registerBlockType('gutenbee/divider', {
     ];
   },
   save({ className, attributes }) {
-    return (
-      <Divider
-        className={className}
-        {...attributes}
-      />
-    );
+    return <Divider className={className} {...attributes} />;
   },
 });

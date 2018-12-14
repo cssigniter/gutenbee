@@ -41,10 +41,7 @@ const Map = ({
         scrollwheel: !preventScroll,
       }}
     >
-      <Marker
-        position={position}
-        icon={icon}
-      >
+      <Marker position={position} icon={icon}>
         {infoWindow && (
           <InfoWindow
             options={{

@@ -14,10 +14,11 @@ class GalleryItem extends Component {
     }
   };
 
-  onKeyDown = (event) => {
+  onKeyDown = event => {
     if (
       this.container === document.activeElement &&
-      this.props.isSelected && [BACKSPACE, DELETE].includes(event.keyCode)
+      this.props.isSelected &&
+      [BACKSPACE, DELETE].includes(event.keyCode)
     ) {
       event.stopPropagation();
       event.preventDefault();
@@ -35,15 +36,7 @@ class GalleryItem extends Component {
   }
 
   render() {
-    const {
-      url,
-      alt,
-      id,
-      linkTo,
-      link,
-      isSelected,
-      onRemove,
-    } = this.props;
+    const { url, alt, id, linkTo, link, isSelected, onRemove } = this.props;
 
     let href;
 
@@ -58,9 +51,11 @@ class GalleryItem extends Component {
         break;
     }
 
-    const img = url
-      ? <img src={url} alt={alt} data-id={id} onClick={this.onImageClick} />
-      : <Spinner />;
+    const img = url ? (
+      <img src={url} alt={alt} data-id={id} onClick={this.onImageClick} />
+    ) : (
+      <Spinner />
+    );
 
     const className = classNames({
       'is-selected': isSelected,
@@ -72,7 +67,7 @@ class GalleryItem extends Component {
         className={className}
         tabIndex="-1"
         onKeyDown={this.onKeyDown}
-        ref={(ref) => {
+        ref={ref => {
           this.container = ref;
         }}
       >

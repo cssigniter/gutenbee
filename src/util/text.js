@@ -16,9 +16,9 @@ const capitalize = string =>
  * @returns {string} The capitalized sentene
  */
 const capitalizeSentence = sentence =>
-  sentence.split(' ').map(capitalize).join(' ');
+  sentence
+    .split(' ')
+    .map(capitalize)
+    .join(' ');
 
-export {
-  capitalize,
-  capitalizeSentence,
-};
+export { capitalize, capitalizeSentence };

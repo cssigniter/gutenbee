@@ -7,15 +7,11 @@ import {
   DateTimePicker,
   RangeControl,
 } from 'wp.components';
-import {
-  InspectorControls,
-  RichText,
-  ColorPalette,
-} from 'wp.editor';
+import { InspectorControls, RichText, ColorPalette } from 'wp.editor';
 
 import { capitalize } from '../../util/text';
 import CountdownTimer from '../../util/CountdownTimer';
-import TextControls from '../../components/controls/TextControls';
+import TextControls from '../../components/controls/text-controls/TextControls';
 import MarginControls from '../../components/controls/margin-controls';
 import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 
@@ -53,9 +49,7 @@ class CountdownEdit extends Component {
   clock = null;
 
   componentDidMount() {
-    const {
-      date,
-    } = this.props.attributes;
+    const { date } = this.props.attributes;
 
     this.countdown = new CountdownTimer(this.clock, date);
   }
@@ -70,12 +64,8 @@ class CountdownEdit extends Component {
     }
   }
 
-  renderItem = (key) => {
-    const {
-      className,
-      attributes,
-      setAttributes,
-    } = this.props;
+  renderItem = key => {
+    const { className, attributes, setAttributes } = this.props;
     const {
       displayLabels,
       backgroundColor,
@@ -121,12 +111,7 @@ class CountdownEdit extends Component {
   };
 
   render() {
-    const {
-      attributes,
-      isSelected,
-      className,
-      setAttributes,
-    } = this.props;
+    const { attributes, isSelected, className, setAttributes } = this.props;
 
     const {
       date,
@@ -152,7 +137,7 @@ class CountdownEdit extends Component {
           style={{
             margin: getMarginSettingStyles(blockMargin),
           }}
-          ref={(ref) => {
+          ref={ref => {
             this.clock = ref;
           }}
         >
@@ -171,7 +156,7 @@ class CountdownEdit extends Component {
             <PanelBody title={__('Date & Time')}>
               <DateTimePicker
                 currentDate={date}
-                onChange={(value) => {
+                onChange={value => {
                   setAttributes({ date: value });
                 }}
                 is12Hour={false}

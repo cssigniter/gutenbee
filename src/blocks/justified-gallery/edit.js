@@ -7,9 +7,7 @@ import {
   SelectControl,
   PanelBody,
 } from 'wp.components';
-import {
-  InspectorControls,
-} from 'wp.editor';
+import { InspectorControls } from 'wp.editor';
 import startCase from 'lodash.startcase';
 
 import Gallery from '../../components/gallery/Gallery';
@@ -38,19 +36,8 @@ class JustifiedGalleryEdit extends Component {
   };
 
   render() {
-    const {
-      attributes,
-      isSelected,
-      className,
-      setAttributes,
-    } = this.props;
-    const {
-      rowHeight,
-      margins,
-      lastRow,
-      randomize,
-      blockMargin,
-    } = attributes;
+    const { attributes, isSelected, className, setAttributes } = this.props;
+    const { rowHeight, margins, lastRow, randomize, blockMargin } = attributes;
 
     return (
       <Gallery

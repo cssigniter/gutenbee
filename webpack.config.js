@@ -5,7 +5,7 @@ const autoprefixer = require('autoprefixer');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
-const recursiveIssuer = (m) => {
+const recursiveIssuer = m => {
   if (m.issuer) {
     return recursiveIssuer(m.issuer);
   } else if (m.name) {
@@ -42,18 +42,21 @@ const webpackConfig = {
   },
   // Define WordPress external libraries loaded globally
   // as separate scripts so that we can use them as ES modules
-  externals: wplib.reduce((externals, lib) => {
-    externals[`wp.${lib}`] = {
-      window: ['wp', lib],
-    };
+  externals: wplib.reduce(
+    (externals, lib) => {
+      externals[`wp.${lib}`] = {
+        window: ['wp', lib],
+      };
 
-    return externals;
-  }, {
-    // Initial externals (non WP libraries)
-    jquery: 'jQuery',
-    react: 'React',
-    'react-dom': 'ReactDOM',
-  }),
+      return externals;
+    },
+    {
+      // Initial externals (non WP libraries)
+      jquery: 'jQuery',
+      react: 'React',
+      'react-dom': 'ReactDOM',
+    },
+  ),
   optimization: {
     // https://github.com/webpack-contrib/mini-css-extract-plugin#extracting-css-based-on-entry
     splitChunks: {

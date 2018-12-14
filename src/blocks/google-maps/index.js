@@ -16,10 +16,7 @@ registerBlockType('gutenbee/google-maps', {
   description: __('Create fancy Google Maps'),
   icon: GoogleMapsBlockIcon,
   category: 'gutenbee',
-  keywords: [
-    __('maps'),
-    __('google'),
-  ],
+  keywords: [__('maps'), __('google')],
   attributes: {
     latitude: {
       type: 'number',

@@ -1,9 +1,11 @@
 import CountUp from 'countup';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const elements = document.getElementsByClassName('wp-block-gutenbee-countup-number');
+  const elements = document.getElementsByClassName(
+    'wp-block-gutenbee-countup-number',
+  );
 
-  [...elements].forEach((element) => {
+  [...elements].forEach(element => {
     const separator = element.dataset.separator;
     const options = {
       useGrouping: !!separator,
@@ -26,5 +28,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
-
-

@@ -1,6 +1,6 @@
 import jQuery from 'jquery';
 
-jQuery(($) => {
+jQuery($ => {
   const google = window.google;
 
   if (typeof google === 'undefined') {
@@ -9,7 +9,7 @@ jQuery(($) => {
 
   const $maps = $('.wp-block-gutenbee-google-maps');
 
-  $maps.each(function () {
+  $maps.each(function() {
     const $this = $(this);
     const location = {
       lat: $this.data('latitude'),

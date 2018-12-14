@@ -70,9 +70,7 @@ const Icon = ({
           borderWidth,
         }}
       >
-        <span
-          className={iconClasses}
-        />
+        <span className={iconClasses} />
       </span>
     </div>
   );

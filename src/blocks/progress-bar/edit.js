@@ -1,17 +1,13 @@
 import { Component, Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
-import {
-  ToggleControl,
-  RangeControl,
-  PanelBody,
-} from 'wp.components';
+import { ToggleControl, RangeControl, PanelBody } from 'wp.components';
 import {
   InspectorControls,
   RichText,
   PanelColorSettings,
   ContrastChecker,
 } from 'wp.editor';
-import TextControls from '../../components/controls/TextControls';
+import TextControls from '../../components/controls/text-controls/TextControls';
 import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 import MarginControls from '../../components/controls/margin-controls';
 
@@ -20,18 +16,13 @@ class ProgressBarEdit extends Component {
     editable: '',
   };
 
-  setActiveEditable = (editable) => {
+  setActiveEditable = editable => {
     this.setState(() => ({ editable }));
   };
 
   render() {
     const { editable } = this.state;
-    const {
-      attributes,
-      isSelected,
-      className,
-      setAttributes,
-    } = this.props;
+    const { attributes, isSelected, className, setAttributes } = this.props;
     const {
       title,
       innerTitle,
@@ -40,6 +31,7 @@ class ProgressBarEdit extends Component {
       backgroundColor,
       textColor,
       titleFontSize,
+      titleTextColor,
       innerTitleFontSize,
       blockMargin,
     } = attributes;
@@ -61,6 +53,9 @@ class ProgressBarEdit extends Component {
               placeholder={__('Write title…')}
               isSelected={isSelected && editable === 'title'}
               onFocus={() => this.setActiveEditable('title')}
+              style={{
+                color: titleTextColor,
+              }}
             />
           </div>
 
@@ -85,9 +80,7 @@ class ProgressBarEdit extends Component {
               />
 
               {displayPercentage && (
-                <span className={`${className}-percentage`}>
-                  {percentage}%
-                </span>
+                <span className={`${className}-percentage`}>{percentage}%</span>
               )}
             </div>
           </div>
@@ -116,7 +109,7 @@ class ProgressBarEdit extends Component {
                 attributeKey="title"
                 attributes={attributes}
                 defaultFontSize={titleFontSize}
-                fontSizeLabel={__('Title Font Size')}
+                fontSizeLabel={__('Title font size')}
               />
 
               <TextControls
@@ -124,22 +117,28 @@ class ProgressBarEdit extends Component {
                 attributeKey="innerTitle"
                 attributes={attributes}
                 defaultFontSize={innerTitleFontSize}
-                fontSizeLabel={__('Progress Bar Font Size')}
+                fontSizeLabel={__('Text font size')}
               />
             </PanelBody>
 
             <PanelColorSettings
               title={__('Color Settings')}
+              initialOpen={false}
               colorSettings={[
+                {
+                  value: titleTextColor,
+                  onChange: value => setAttributes({ titleTextColor: value }),
+                  label: __('Title Text Color'),
+                },
                 {
                   value: backgroundColor,
                   onChange: value => setAttributes({ backgroundColor: value }),
-                  label: __('Background Color'),
+                  label: __('Bar Background Color'),
                 },
                 {
                   value: textColor,
                   onChange: value => setAttributes({ textColor: value }),
-                  label: __('Text Color'),
+                  label: __('Bar Text Color'),
                 },
               ]}
               onChange={value => setAttributes({ backgroundColor: value })}

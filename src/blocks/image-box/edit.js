@@ -21,7 +21,7 @@ import { withSelect } from 'wp.data';
 import startCase from 'lodash.startcase';
 
 import ImagePlaceholder from '../../components/image-placeholder/ImagePlaceholder';
-import TextControls from '../../components/controls/TextControls';
+import TextControls from '../../components/controls/text-controls/TextControls';
 import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 import MarginControls from '../../components/controls/margin-controls';
 
@@ -37,7 +37,7 @@ class ImageBoxEditBlock extends Component {
     editable: null,
   };
 
-  setActiveEditable = (editable) => {
+  setActiveEditable = editable => {
     this.setState(() => ({ editable }));
   };
 
@@ -96,7 +96,7 @@ class ImageBoxEditBlock extends Component {
               <ImagePlaceholder
                 icon="format-image"
                 label={__('Image')}
-                onSelectImage={(uploadedImage) => {
+                onSelectImage={uploadedImage => {
                   setAttributes({
                     id: uploadedImage.id,
                     url: uploadedImage.url,
@@ -143,7 +143,7 @@ class ImageBoxEditBlock extends Component {
           <Fragment>
             <BlockControls>
               <MediaUpload
-                onSelect={(uploadedImage) => {
+                onSelect={uploadedImage => {
                   setAttributes({
                     id: uploadedImage.id,
                     url: uploadedImage.url,
@@ -178,7 +178,7 @@ class ImageBoxEditBlock extends Component {
                       value: availableSizes[name].source_url,
                       label: startCase(name),
                     }))}
-                    onChange={(newImageUrl) => {
+                    onChange={newImageUrl => {
                       setAttributes({ url: newImageUrl });
                     }}
                   />
@@ -189,7 +189,7 @@ class ImageBoxEditBlock extends Component {
                   label={__('Image Width')}
                   value={imageWidth}
                   initialPosition={160}
-                  onChange={(value) => {
+                  onChange={value => {
                     setAttributes({ imageWidth: value });
                   }}
                   min={10}
@@ -209,15 +209,17 @@ class ImageBoxEditBlock extends Component {
               <PanelBody title={__('Title Settings')} initialOpen={false}>
                 <p>{__('Heading element')}</p>
                 <Toolbar
-                  controls={
-                    '23456'.split('').map(Number).map(controlLevel => ({
+                  controls={'23456'
+                    .split('')
+                    .map(Number)
+                    .map(controlLevel => ({
                       icon: 'heading',
                       title: sprintf(__('Heading %s'), controlLevel),
                       isActive: controlLevel === titleNodeLevel,
-                      onClick: () => setAttributes({ titleNodeLevel: controlLevel }),
+                      onClick: () =>
+                        setAttributes({ titleNodeLevel: controlLevel }),
                       subscript: controlLevel,
-                    }))
-                  }
+                    }))}
                 />
 
                 <TextControls

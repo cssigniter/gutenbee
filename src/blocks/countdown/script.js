@@ -2,10 +2,10 @@ import jQuery from 'jquery';
 
 import CountdownTimer from '../../util/CountdownTimer';
 
-jQuery(($) => {
+jQuery($ => {
   const $countdown = $('.wp-block-gutenbee-countdown');
 
-  $countdown.each(function () {
+  $countdown.each(function() {
     const $this = $(this);
     const date = $this.data('date');
 

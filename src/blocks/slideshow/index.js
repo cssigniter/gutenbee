@@ -17,10 +17,7 @@ registerBlockType('gutenbee/slideshow', {
   description: __('A slideshow block'),
   icon: SlideshowBlockIcon,
   category: 'gutenbee',
-  keywords: [
-    __('slideshow'),
-    __('gallery'),
-  ],
+  keywords: [__('slideshow'), __('gallery')],
   attributes: {
     images: {
       type: 'array',
@@ -58,7 +55,7 @@ registerBlockType('gutenbee/slideshow', {
     },
     animationStyle: {
       type: 'string',
-      default: 'slide',
+      default: 'fade',
     },
     arrowNav: {
       type: 'boolean',
@@ -100,7 +97,11 @@ registerBlockType('gutenbee/slideshow', {
       type: 'string',
       default: LINKTO.NONE,
     },
-    color: {
+    arrowsColor: {
+      type: 'string',
+      default: '#FFFFFF',
+    },
+    dotsColor: {
       type: 'string',
       default: '#FFFFFF',
     },
@@ -124,12 +125,13 @@ registerBlockType('gutenbee/slideshow', {
       infinite,
       speed,
       autoplaySpeed,
-      color,
       linkTo,
       slidesToShow,
       slidesToScroll,
       pauseOnHover,
       blockMargin,
+      arrowsColor,
+      dotsColor,
     } = attributes;
 
     return (
@@ -146,9 +148,11 @@ registerBlockType('gutenbee/slideshow', {
         data-slides-to-scroll={slidesToScroll}
         data-pause-on-hover={pauseOnHover}
         style={{
-          color,
+          color: arrowsColor,
           margin: getMarginSettingStyles(blockMargin),
         }}
+        data-dots-color={dotsColor}
+        data-arrows-color={arrowsColor}
       >
         {images.map((image, index) => {
           let href;
@@ -175,9 +179,13 @@ registerBlockType('gutenbee/slideshow', {
 
           return (
             <div key={image.id || index} className="gutenbee-slideshow-item">
-              {href
-                ? <a className="gutenbee-slideshow-item-link" href={href}>{img}</a>
-                : img}
+              {href ? (
+                <a className="gutenbee-slideshow-item-link" href={href}>
+                  {img}
+                </a>
+              ) : (
+                img
+              )}
             </div>
           );
         })}

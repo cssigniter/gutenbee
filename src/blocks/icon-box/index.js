@@ -5,22 +5,15 @@
 import { Fragment } from 'wp.element';
 import { __, sprintf } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import {
-  RichText,
-  InspectorControls,
-  AlignmentToolbar,
-} from 'wp.editor';
-import {
-  PanelBody,
-  Toolbar,
-} from 'wp.components';
+import { RichText, InspectorControls, AlignmentToolbar } from 'wp.editor';
+import { PanelBody, Toolbar } from 'wp.components';
 import { withState } from 'wp.compose';
 import classNames from 'classnames';
 import omit from 'lodash.omit';
 
 import { iconAttributes, IconSettings } from '../icon';
 import Icon from '../icon/Icon';
-import TextControls from '../../components/controls/TextControls';
+import TextControls from '../../components/controls/text-controls/TextControls';
 import IconBoxBlockIcon from './block-icon';
 import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 import MarginControls from '../../components/controls/margin-controls';
@@ -101,8 +94,7 @@ const IconBoxEditBlock = ({
     blockMargin,
     iconMargin,
   } = attributes;
-  const setActiveEditable = newEditable =>
-    setState({ editable: newEditable });
+  const setActiveEditable = newEditable => setState({ editable: newEditable });
 
   return (
     <Fragment>
@@ -178,15 +170,17 @@ const IconBoxEditBlock = ({
           <PanelBody title={__('Title Settings')} initialOpen={false}>
             <p>{__('Heading element')}</p>
             <Toolbar
-              controls={
-                '23456'.split('').map(Number).map(controlLevel => ({
+              controls={'23456'
+                .split('')
+                .map(Number)
+                .map(controlLevel => ({
                   icon: 'heading',
                   title: sprintf(__('Heading %s'), controlLevel),
                   isActive: titleNodeLevel === controlLevel,
-                  onClick: () => setAttributes({ titleNodeLevel: controlLevel }),
+                  onClick: () =>
+                    setAttributes({ titleNodeLevel: controlLevel }),
                   subscript: controlLevel,
-                }))
-              }
+                }))}
             />
 
             <TextControls
@@ -231,9 +225,7 @@ registerBlockType('gutenbee/iconbox', {
   description: __('A flexible icon box block'),
   icon: IconBoxBlockIcon,
   category: 'gutenbee',
-  keywords: [
-    __('icon'),
-  ],
+  keywords: [__('icon')],
   attributes: {
     ...iconAttributes,
     titleContent: {
@@ -277,11 +269,6 @@ registerBlockType('gutenbee/iconbox', {
   },
   edit: withState({ editable: null })(IconBoxEditBlock),
   save({ className, attributes }) {
-    return (
-      <IconBox
-        className={className}
-        attributes={attributes}
-      />
-    );
+    return <IconBox className={className} attributes={attributes} />;
   },
 });

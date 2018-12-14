@@ -1,10 +1,10 @@
 import jQuery from 'jquery';
 import 'justifiedGallery';
 
-jQuery(($) => {
+jQuery($ => {
   const $justifiedGallery = $('.wp-block-gutenbee-justified-gallery');
 
-  $justifiedGallery.each(function () {
+  $justifiedGallery.each(function() {
     const $this = $(this);
 
     $this.justifiedGallery({

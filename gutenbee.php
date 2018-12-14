@@ -8,7 +8,7 @@
  */
 
 if ( ! defined( 'GUTENBEE_PLUGIN_VERSION' ) ) {
-	define( 'GUTENBEE_PLUGIN_VERSION', '1.0.0' );
+	define( 'GUTENBEE_PLUGIN_VERSION', '2.0.0' );
 }
 
 if ( ! defined( 'GUTENBEE_PLUGIN_DIR' ) ) {
@@ -35,7 +35,7 @@ function gutenbee_enqueue_editor_assets() {
 		'wp-html-entities',
 	), GUTENBEE_PLUGIN_VERSION );
 
-	// TODO: Remove this once we find a way to get options from within Gutenberg
+	// TODO: Remove this once we have a way to get options from within Gutenberg
 	$maps_api_key = get_option('google_maps_api_key');
 	if ($maps_api_key) {
 		wp_localize_script( 'gutenbee', 'mapsApiKey', $maps_api_key );
@@ -62,9 +62,6 @@ function gutenbee_enqueue_frontend_block_assets() {
 		'jquery',
 	), GUTENBEE_PLUGIN_VERSION );
 }
-
-// Dynamic block partials
-// require_once dirname( __FILE__ ) . '/src/blocks/index.php';
 
 // GutenBee's block category
 add_filter( 'block_categories', function( $categories ) {

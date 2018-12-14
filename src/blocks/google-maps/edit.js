@@ -50,10 +50,8 @@ class GoogleMapsEdit extends Component {
     customStylesError: '',
   };
 
-  onSetCustomStyles = (customStyles) => {
-    const {
-      setAttributes,
-    } = this.props;
+  onSetCustomStyles = customStyles => {
+    const { setAttributes } = this.props;
 
     this.setState(() => ({ customStylesError: '' }));
     setAttributes({ customStyles });
@@ -62,16 +60,15 @@ class GoogleMapsEdit extends Component {
       JSON.parse(customStyles);
     } catch (error) {
       this.setState(() => ({
-        customStylesError: 'There was an error parsing your custom styles, please check them and try again.',
+        customStylesError:
+          'There was an error parsing your custom styles, please check them and try again.',
       }));
     }
   };
 
   getCustomStyles = () => {
     const {
-      attributes: {
-        customStyles,
-      },
+      attributes: { customStyles },
     } = this.props;
 
     try {
@@ -83,12 +80,7 @@ class GoogleMapsEdit extends Component {
 
   render() {
     const { customStylesError } = this.state;
-    const {
-      attributes,
-      isSelected,
-      className,
-      setAttributes,
-    } = this.props;
+    const { attributes, isSelected, className, setAttributes } = this.props;
     const {
       latitude,
       longitude,
@@ -120,14 +112,14 @@ class GoogleMapsEdit extends Component {
           {apiKey ? (
             <Map
               googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${apiKey}`}
-              loadingElement={(
+              loadingElement={
                 <div
                   className={`${className}-loading`}
                   style={{ height: `${height}px` }}
                 >
                   <Spinner />
                 </div>
-              )}
+              }
               containerElement={<div style={{ height: `${height}px` }} />}
               mapElement={<div style={{ height: '100%' }} />}
               latitude={latitude}
@@ -139,11 +131,10 @@ class GoogleMapsEdit extends Component {
               icon={markerImageUrl}
             />
           ) : (
-            <Notice
-              status="error"
-              isDismissible={false}
-            >
-              {__('The Google Maps block requires a valid Google Maps API key, please add one in GutenBee\'s settings page.')}
+            <Notice status="error" isDismissible={false}>
+              {__(
+                "The Google Maps block requires a valid Google Maps API key, please add one in GutenBee's settings page.",
+              )}
             </Notice>
           )}
         </div>
@@ -206,15 +197,17 @@ class GoogleMapsEdit extends Component {
               {markerImageUrl && (
                 <ImagePreview
                   src={markerImageUrl}
-                  onDismiss={() => setAttributes({
-                    markerImageId: null,
-                    markerImageUrl: '',
-                  })}
+                  onDismiss={() =>
+                    setAttributes({
+                      markerImageId: null,
+                      markerImageUrl: '',
+                    })
+                  }
                 />
               )}
 
               <MediaUpload
-                onSelect={(uploadedImage) => {
+                onSelect={uploadedImage => {
                   setAttributes({
                     markerImageId: uploadedImage.id,
                     markerImageUrl: uploadedImage.url,
@@ -254,7 +247,9 @@ class GoogleMapsEdit extends Component {
                 label={__('Custom Snazzy Maps Styles')}
                 value={customStyles}
                 onChange={this.onSetCustomStyles}
-                help={__('This will override any predefined map styles selected above.')}
+                help={__(
+                  'This will override any predefined map styles selected above.',
+                )}
               />
 
               <MarginControls

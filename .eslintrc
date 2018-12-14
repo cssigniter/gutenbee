@@ -1,6 +1,7 @@
 {
   "extends": [
-    "eslint"
+    "plugin:prettier/recommended",
+    "prettier/react"
   ],
   "parser": "babel-eslint",
   "parserOptions": {
@@ -36,12 +37,6 @@
       }
     ],
     "comma-spacing": "error",
-    "quotes": ["error", "single"],
-    "indent": ["error", 2,
-      {
-        "SwitchCase": 1
-      }
-    ],
     "comma-dangle": ["error",
       {
         "arrays": "always-multiline",
@@ -57,17 +52,8 @@
     "func-style": ["off", "expression"],
     "camelcase": ["error", { "properties": "never" }],
     "eol-last": ["error", "always"],
-    "space-before-function-paren": ["error", {
-      "anonymous": "always",
-      "named": "never",
-      "asyncArrow": "always"
-    }],
-    "arrow-parens": ["error", "as-needed", {
-      "requireForBlockBody": true
-    }],
     "lines-around-comment": "off",
     "no-invalid-this": "off",
-    "no-undefined": "off",
     "no-unused-vars": ["error", { "varsIgnorePattern": "React" }],
     "react/jsx-closing-bracket-location": ["error", "line-aligned"],
     "react/jsx-closing-tag-location": "error",

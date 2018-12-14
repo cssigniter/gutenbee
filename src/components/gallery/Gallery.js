@@ -1,17 +1,8 @@
 import { Component, Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __, sprintf } from 'wp.i18n';
-import {
-  IconButton,
-  Toolbar,
-  PanelBody,
-  SelectControl,
-} from 'wp.components';
-import {
-  MediaUpload,
-  InspectorControls,
-  BlockControls,
-} from 'wp.editor';
+import { IconButton, Toolbar, PanelBody, SelectControl } from 'wp.components';
+import { MediaUpload, InspectorControls, BlockControls } from 'wp.editor';
 import { withSelect } from 'wp.data';
 import startCase from 'lodash.startcase';
 import classNames from 'classnames';
@@ -59,7 +50,7 @@ class Gallery extends Component {
     });
   };
 
-  onSelectImages = (images) => {
+  onSelectImages = images => {
     this.props.setAttributes({
       images: images.map(attributes => ({
         ...attributes,
@@ -69,7 +60,10 @@ class Gallery extends Component {
   };
 
   setImageAttributes = (index, attributes) => {
-    const { attributes: { images }, setAttributes } = this.props;
+    const {
+      attributes: { images },
+      setAttributes,
+    } = this.props;
 
     if (!images[index]) {
       return;
@@ -96,19 +90,16 @@ class Gallery extends Component {
     }
   }
 
-  updateImageURLs = (newSize) => {
-    const {
-      setAttributes,
-      attributes,
-      images: propImages,
-    } = this.props;
+  updateImageURLs = newSize => {
+    const { setAttributes, attributes, images: propImages } = this.props;
     const { images } = attributes;
 
     setAttributes({
       size: newSize,
       images: images.map(image => ({
         ...image,
-        url: propImages.find(({ id }) => image.id === id).sizes[newSize].source_url,
+        url: propImages.find(({ id }) => image.id === id).sizes[newSize]
+          .source_url,
       })),
     });
   };
@@ -124,11 +115,7 @@ class Gallery extends Component {
       label,
       style,
     } = this.props;
-    const {
-      images,
-      linkTo,
-      size,
-    } = attributes;
+    const { images, linkTo, size } = attributes;
 
     const [availableSizes] = propImages || [];
     const galleryComponentClasses = classNames({
@@ -136,30 +123,28 @@ class Gallery extends Component {
       [className]: true,
     });
 
-    const controls = (
-      isSelected && (
-        <BlockControls key="controls">
-          {!!images.length && (
-            <Toolbar>
-              <MediaUpload
-                onSelect={this.onSelectImages}
-                allowedTypes={['image']}
-                multiple
-                gallery
-                value={images.map(img => img.id)}
-                render={({ open }) => (
-                  <IconButton
-                    className="components-toolbar__control"
-                    label={sprintf(__('Edit %s'), label)}
-                    icon="edit"
-                    onClick={open}
-                  />
-                )}
-              />
-            </Toolbar>
-          )}
-        </BlockControls>
-      )
+    const controls = isSelected && (
+      <BlockControls key="controls">
+        {!!images.length && (
+          <Toolbar>
+            <MediaUpload
+              onSelect={this.onSelectImages}
+              allowedTypes={['image']}
+              multiple
+              gallery
+              value={images.map(img => img.id)}
+              render={({ open }) => (
+                <IconButton
+                  className="components-toolbar__control"
+                  label={sprintf(__('Edit %s'), label)}
+                  icon="edit"
+                  onClick={open}
+                />
+              )}
+            />
+          </Toolbar>
+        )}
+      </BlockControls>
     );
 
     if (images.length === 0) {
@@ -191,11 +176,14 @@ class Gallery extends Component {
                   <SelectControl
                     label={__('Link to')}
                     value={linkTo}
-                    onChange={(value) => {
+                    onChange={value => {
                       setAttributes({ linkTo: value });
                     }}
                     options={[
-                      { value: LINKTO.ATTACHMENT, label: __('Attachment Page') },
+                      {
+                        value: LINKTO.ATTACHMENT,
+                        label: __('Attachment Page'),
+                      },
                       { value: LINKTO.MEDIA, label: __('Media File') },
                       { value: LINKTO.NONE, label: __('None') },
                     ]}
@@ -218,15 +206,9 @@ class Gallery extends Component {
           </InspectorControls>
         )}
 
-        <div
-          className={galleryComponentClasses}
-          style={style}
-        >
+        <div className={galleryComponentClasses} style={style}>
           {images.map((img, index) => (
-            <div
-              key={img.id || img.url}
-              className="gutenbee-gallery-item"
-            >
+            <div key={img.id || img.url} className="gutenbee-gallery-item">
               <GalleryItem
                 url={img.url}
                 alt={img.alt}
@@ -251,14 +233,14 @@ export default withSelect((select, props) => {
 
   return {
     images: imageIds.length
-      ? imageIds.map((id) => {
-        const image = getMedia(id);
+      ? imageIds.map(id => {
+          const image = getMedia(id);
 
-        return {
-          id,
-          sizes: image && image.media_details.sizes,
-        };
-      })
+          return {
+            id,
+            sizes: image && image.media_details.sizes,
+          };
+        })
       : null,
   };
 })(Gallery);

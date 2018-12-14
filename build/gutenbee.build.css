@@ -95,6 +95,261 @@
   padding: 0;
 }
 
+/* Slider */
+.slick-slider {
+  position: relative;
+  display: block;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -ms-touch-action: pan-y;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.slick-list {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.slick-list:focus {
+  outline: none;
+}
+
+.slick-list.dragging {
+  cursor: pointer;
+  cursor: hand;
+}
+
+.slick-slider .slick-track,
+.slick-slider .slick-list {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.slick-track {
+  position: relative;
+  left: 0;
+  top: 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.slick-track:before, .slick-track:after {
+  content: "";
+  display: table;
+}
+
+.slick-track:after {
+  clear: both;
+}
+
+.slick-loading .slick-track {
+  visibility: hidden;
+}
+
+.slick-slide {
+  float: left;
+  height: 100%;
+  min-height: 1px;
+  display: none;
+}
+
+[dir="rtl"] .slick-slide {
+  float: right;
+}
+
+.slick-slide img {
+  display: block;
+}
+
+.slick-slide.slick-loading img {
+  display: none;
+}
+
+.slick-slide.dragging img {
+  pointer-events: none;
+}
+
+.slick-initialized .slick-slide {
+  display: block;
+}
+
+.slick-loading .slick-slide {
+  visibility: hidden;
+}
+
+.slick-vertical .slick-slide {
+  display: block;
+  height: auto;
+  border: 1px solid transparent;
+}
+
+.slick-arrow.slick-hidden {
+  display: none;
+}
+
+.wp-block-gutenbee-slideshow {
+  margin: 0;
+}
+
+.wp-block-gutenbee-slideshow-slider {
+  margin: 0;
+}
+
+.wp-block-gutenbee-slideshow-slider:not(.slick-initialized) > div {
+  display: none;
+}
+
+.wp-block-gutenbee-slideshow-slider:not(.slick-initialized) > div:first-child {
+  display: block;
+}
+
+.wp-block-gutenbee-slideshow-slider button.slick-arrow {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  z-index: 99;
+  line-height: normal;
+  background: none;
+  color: currentColor;
+  width: auto;
+  height: auto;
+  border: 0;
+  min-width: auto;
+  max-width: 100%;
+  padding: 10px;
+  margin: 0;
+  font-size: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  cursor: pointer;
+  font-style: normal;
+}
+
+.wp-block-gutenbee-slideshow-slider button.slick-arrow::before {
+  font-family: "gutenbee";
+  font-size: 24px;
+}
+
+.wp-block-gutenbee-slideshow-slider button.slick-arrow:hover, .wp-block-gutenbee-slideshow-slider button.slick-arrow:active, .wp-block-gutenbee-slideshow-slider button.slick-arrow:focus {
+  outline: none;
+  border: 0;
+  background: none;
+  color: currentColor;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.wp-block-gutenbee-slideshow-slider button.slick-arrow.slick-next {
+  right: 15px;
+  left: auto;
+}
+
+.wp-block-gutenbee-slideshow-slider button.slick-arrow.slick-next::before {
+  content: "\E002";
+  position: relative;
+  top: auto;
+  right: auto;
+  left: auto;
+  font-size: initial;
+  bottom: auto;
+}
+
+.wp-block-gutenbee-slideshow-slider button.slick-arrow.slick-prev {
+  left: 15px;
+  right: auto;
+}
+
+.wp-block-gutenbee-slideshow-slider button.slick-arrow.slick-prev::before {
+  position: relative;
+  top: auto;
+  right: auto;
+  left: auto;
+  bottom: auto;
+  font-size: initial;
+  content: "\E001";
+}
+
+.wp-block-gutenbee-slideshow-slider .slick-dots {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  text-align: center;
+  width: 100%;
+  bottom: 20px;
+}
+
+.wp-block-gutenbee-slideshow-slider .slick-dots li {
+  display: inline-block;
+  margin: 0 3px;
+}
+
+.wp-block-gutenbee-slideshow-slider .slick-dots li::before, .wp-block-gutenbee-slideshow-slider .slick-dots li::after {
+  display: none !important;
+}
+
+.wp-block-gutenbee-slideshow-slider .slick-dots button {
+  position: relative;
+  text-indent: -999em;
+  padding: 0;
+  margin: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  color: inherit;
+  background-color: currentColor;
+  border: 0;
+  opacity: 0.5;
+  -webkit-transition: opacity .18s ease;
+  transition: opacity .18s ease;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  min-width: auto;
+  max-width: 100%;
+  cursor: pointer;
+}
+
+.wp-block-gutenbee-slideshow-slider .slick-dots button:hover, .wp-block-gutenbee-slideshow-slider .slick-dots button:focus, .wp-block-gutenbee-slideshow-slider .slick-dots button:active {
+  background-color: currentColor;
+  opacity: 1;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 0;
+}
+
+.wp-block-gutenbee-slideshow-slider .slick-dots button::before, .wp-block-gutenbee-slideshow-slider .slick-dots button::after {
+  display: none;
+}
+
+.wp-block-gutenbee-slideshow-slider .slick-dots .slick-active button {
+  opacity: 1;
+}
+
+.wp-block-gutenbee-slideshow-item img {
+  width: 100%;
+  border: 0;
+  background: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+}
+
+.components-panel__body .components-notice {
+  margin: 0 0 15px;
+}
+
 .gutenbee-image-preview {
   background-image: linear-gradient(45deg, #f8f8f8 25%, transparent 25%), linear-gradient(-45deg, #f8f8f8 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f8f8f8 75%), linear-gradient(-45deg, transparent 75%, #f8f8f8 75%);
   background-size: 20px 20px;
@@ -180,6 +435,14 @@
 
 .gutenbee-control-spacing-controls .components-base-control:not(:first-child):not(:last-child) .components-text-control__input {
   border-radius: 0;
+}
+
+.gutenbee-font-size-control .components-base-control__field .components-base-control__label {
+  display: none;
+}
+
+.gutenbee-font-size-control > .components-base-control__label {
+  margin-bottom: 4px;
 }
 
 .wp-block-gutenbee-divider {

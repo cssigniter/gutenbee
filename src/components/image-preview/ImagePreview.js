@@ -8,10 +8,7 @@ class ImagePreview extends Component {
   };
 
   render() {
-    const {
-      src,
-      onDismiss,
-    } = this.props;
+    const { src, onDismiss } = this.props;
 
     return src ? (
       <div className="gutenbee-image-preview">
@@ -24,11 +21,7 @@ class ImagePreview extends Component {
           </button>
         )}
 
-        <img
-          src={src}
-          alt=""
-          className="gutenbee-image-preview-img"
-        />
+        <img src={src} alt="" className="gutenbee-image-preview-img" />
       </div>
     ) : null;
   }

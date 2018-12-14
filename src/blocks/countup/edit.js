@@ -16,7 +16,7 @@ import {
 } from 'wp.components';
 import classNames from 'classnames';
 
-import TextControls from '../../components/controls/TextControls';
+import TextControls from '../../components/controls/text-controls/TextControls';
 import Countup from './Countup';
 import MarginControls from '../../components/controls/margin-controls';
 import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
@@ -79,10 +79,7 @@ class CountupEdit extends Component {
             margin: getMarginSettingStyles(blockMargin),
           }}
         >
-          <Countup
-            {...attributes}
-            className={`${className}-number`}
-          />
+          <Countup {...attributes} className={`${className}-number`} />
 
           <RichText
             tagName="p"

@@ -12,10 +12,7 @@ import { capitalize } from '../../util/text';
 import CountdownBlockIcon from './block-icon';
 import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 
-const CountDown = ({
-  attributes,
-  className,
-}) => {
+const CountDown = ({ attributes, className }) => {
   const {
     date,
     textColor,
@@ -27,7 +24,7 @@ const CountDown = ({
     blockMargin,
   } = attributes;
 
-  const renderItem = (key) => {
+  const renderItem = key => {
     const displayAttributeKey = `display${[capitalize(key)]}`;
     const labelAttributeKey = `label${[capitalize(key)]}`;
 
@@ -87,11 +84,7 @@ registerBlockType('gutenbee/countdown', {
   description: __('Display awesome countdowns'),
   category: 'gutenbee',
   icon: CountdownBlockIcon,
-  keywords: [
-    __('counter'),
-    __('numbers'),
-    __('countdown'),
-  ],
+  keywords: [__('counter'), __('numbers'), __('countdown')],
   attributes: {
     date: {
       type: 'string',
@@ -167,11 +160,6 @@ registerBlockType('gutenbee/countdown', {
   },
   edit: CountdownEdit,
   save({ attributes, className }) {
-    return (
-      <CountDown
-        attributes={attributes}
-        className={className}
-      />
-    );
+    return <CountDown attributes={attributes} className={className} />;
   },
 });

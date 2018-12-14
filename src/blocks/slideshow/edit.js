@@ -1,4 +1,4 @@
-import { Component } from 'wp.element';
+import { Component, Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import {
@@ -6,15 +6,13 @@ import {
   RangeControl,
   RadioControl,
   PanelBody,
+  Notice,
 } from 'wp.components';
-import {
-  InspectorControls,
-  ColorPalette,
-} from 'wp.editor';
+import { InspectorControls, PanelColorSettings } from 'wp.editor';
 
-import Gallery from '../../components/gallery/Gallery';
 import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 import MarginControls from '../../components/controls/margin-controls';
+import Slideshow from '../../components/slideshow/Slideshow';
 
 class SlideshowEdit extends Component {
   static propTypes = {
@@ -26,7 +24,6 @@ class SlideshowEdit extends Component {
       infinite: PropTypes.bool,
       speed: PropTypes.number,
       autoplaySpeed: PropTypes.number,
-      color: PropTypes.string,
       slidesToShow: PropTypes.number,
       slidesToScroll: PropTypes.number,
       pauseOnHover: PropTypes.bool,
@@ -36,6 +33,8 @@ class SlideshowEdit extends Component {
         bottom: PropTypes.number,
         left: PropTypes.number,
       }),
+      arrowsColor: PropTypes.string,
+      dotsColor: PropTypes.string,
     }).isRequired,
     isSelected: PropTypes.bool.isRequired,
     className: PropTypes.string.isRequired,
@@ -43,12 +42,7 @@ class SlideshowEdit extends Component {
   };
 
   render() {
-    const {
-      attributes,
-      isSelected,
-      className,
-      setAttributes,
-    } = this.props;
+    const { attributes, isSelected, className, setAttributes } = this.props;
     const {
       arrowNav,
       dotNav,
@@ -57,24 +51,26 @@ class SlideshowEdit extends Component {
       infinite,
       speed,
       autoplaySpeed,
-      color,
       slidesToShow,
       slidesToScroll,
       pauseOnHover,
       blockMargin,
+      arrowsColor,
+      dotsColor,
     } = attributes;
 
     return (
-      <Gallery
-        className={className}
-        attributes={attributes}
-        isSelected={isSelected}
-        setAttributes={setAttributes}
-        label={__('Slideshow')}
-        style={{
-          margin: getMarginSettingStyles(blockMargin),
-        }}
-      >
+      <Fragment>
+        <Slideshow
+          className={className}
+          attributes={attributes}
+          setAttributes={setAttributes}
+          isSelected={isSelected}
+          style={{
+            margin: getMarginSettingStyles(blockMargin),
+          }}
+        />
+
         {isSelected && (
           <InspectorControls>
             <PanelBody title={__('Slideshow Settings')}>
@@ -88,7 +84,7 @@ class SlideshowEdit extends Component {
               <ToggleControl
                 label={__('Infinite Slide')}
                 checked={infinite}
-                onC hange={() => {
+                onChange={() => {
                   setAttributes({ infinite: !infinite });
                 }}
               />
@@ -106,26 +102,6 @@ class SlideshowEdit extends Component {
                   setAttributes({ dotNav: !dotNav });
                 }}
               />
-              <RangeControl
-                label={__('Slides to Show')}
-                min={1}
-                max={10}
-                value={slidesToShow}
-                onChange={(value) => {
-                  setAttributes({ slidesToShow: value });
-                }}
-                step={1}
-              />
-              <RangeControl
-                label={__('Slides to Scroll')}
-                min={1}
-                max={10}
-                value={slidesToScroll}
-                onChange={(value) => {
-                  setAttributes({ slidesToScroll: value });
-                }}
-                step={1}
-              />
 
               <h2>{__('Animation Settings')}</h2>
               <RadioControl
@@ -135,16 +111,67 @@ class SlideshowEdit extends Component {
                   { label: 'Fade', value: 'fade' },
                   { label: 'Slide', value: 'slide' },
                 ]}
-                onChange={(value) => {
+                onChange={value => {
+                  if (value === 'fade') {
+                    setAttributes({
+                      animationStyle: value,
+                      slidesToScroll: 1,
+                      slidesToShow: 1,
+                    });
+                    return;
+                  }
+
                   setAttributes({ animationStyle: value });
                 }}
               />
+
+              {animationStyle === 'fade' &&
+                (slidesToShow > 1 || slidesToScroll > 1) && (
+                  <Notice
+                    status="info"
+                    isDismissible={false}
+                    style={{ margin: '0 0 15px' }}
+                  >
+                    {__(
+                      'The "fade" animation style works correctly only when displaying 1 slide at a time, please check your "Slides to show" and "Slides to scroll settings, they should be 1.',
+                    )}
+                  </Notice>
+                )}
+
+              {animationStyle === 'slide' && (
+                <Fragment>
+                  <RangeControl
+                    label={__('Slides to Show')}
+                    min={1}
+                    max={10}
+                    value={slidesToShow}
+                    onChange={value => {
+                      setAttributes({ slidesToShow: value });
+                    }}
+                    step={1}
+                    disabled={animationStyle === 'fade'}
+                  />
+
+                  <RangeControl
+                    label={__('Slides to Scroll')}
+                    min={1}
+                    max={10}
+                    value={slidesToScroll}
+                    onChange={value => {
+                      setAttributes({ slidesToScroll: value });
+                    }}
+                    step={1}
+                    disabled={animationStyle === 'fade'}
+                  />
+                </Fragment>
+              )}
+
               <RangeControl
                 label={__('Animation Speed (ms)')}
                 min={50}
                 max={5000}
                 value={speed}
-                onChange={(value) => {
+                onChange={value => {
                   setAttributes({ speed: value });
                 }}
                 step={10}
@@ -154,7 +181,7 @@ class SlideshowEdit extends Component {
                 min={500}
                 max={10000}
                 value={autoplaySpeed}
-                onChange={(value) => {
+                onChange={value => {
                   setAttributes({ autoplaySpeed: value });
                 }}
                 step={10}
@@ -162,17 +189,27 @@ class SlideshowEdit extends Component {
               <ToggleControl
                 label={__('Pause on Hover')}
                 checked={pauseOnHover}
-                onChange={(value) => {
+                onChange={value => {
                   setAttributes({ pauseOnHover: value });
                 }}
               />
 
-              <PanelBody title={__('Arrow and Dots Color')}>
-                <ColorPalette
-                  value={color}
-                  onChange={value => setAttributes({ color: value })}
-                />
-              </PanelBody>
+              <PanelColorSettings
+                initialOpen={false}
+                title={__('Colors')}
+                colorSettings={[
+                  {
+                    value: arrowsColor,
+                    onChange: color => setAttributes({ arrowsColor: color }),
+                    label: __('Arrow Navigation Color'),
+                  },
+                  {
+                    value: dotsColor,
+                    onChange: color => setAttributes({ dotsColor: color }),
+                    label: __('Dot Navigation Color'),
+                  },
+                ]}
+              />
             </PanelBody>
 
             <PanelBody title={__('Appearance')} initialOpen={false}>
@@ -184,7 +221,7 @@ class SlideshowEdit extends Component {
             </PanelBody>
           </InspectorControls>
         )}
-      </Gallery>
+      </Fragment>
     );
   }
 }

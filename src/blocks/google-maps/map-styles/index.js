@@ -8,7 +8,7 @@ export default [
   },
   {
     id: 'assassins-creed',
-    label: __('Assassin\'s Creed IV'),
+    label: __("Assassin's Creed IV"),
     style: require('./assassinsCreed').default,
   },
   {

@@ -14,15 +14,8 @@ import Countup from './Countup';
 import CountupBlockIcon from './block-icon';
 import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 
-const CountupRender = ({
-  attributes,
-  className,
-}) => {
-  const {
-    titleContent,
-    align,
-    blockMargin,
-  } = attributes;
+const CountupRender = ({ attributes, className }) => {
+  const { titleContent, align, blockMargin } = attributes;
 
   return (
     <div
@@ -34,10 +27,7 @@ const CountupRender = ({
         margin: getMarginSettingStyles(blockMargin),
       }}
     >
-      <Countup
-        {...attributes}
-        className={`${className}-number`}
-      />
+      <Countup {...attributes} className={`${className}-number`} />
 
       {!RichText.isEmpty(titleContent) && (
         <RichText.Content
@@ -55,11 +45,7 @@ registerBlockType('gutenbee/countup', {
   description: __('Animate a numerical value by counting to it.'),
   category: 'gutenbee',
   icon: CountupBlockIcon,
-  keywords: [
-    __('counter'),
-    __('numbers'),
-    __('animation'),
-  ],
+  keywords: [__('counter'), __('numbers'), __('animation')],
   attributes: {
     startNumber: {
       type: 'number',
@@ -108,11 +94,6 @@ registerBlockType('gutenbee/countup', {
   },
   edit,
   save({ attributes, className }) {
-    return (
-      <CountupRender
-        attributes={attributes}
-        className={className}
-      />
-    );
+    return <CountupRender attributes={attributes} className={className} />;
   },
 });

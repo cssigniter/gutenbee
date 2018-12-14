@@ -1,6 +1,6 @@
 /*
-* Icon block constants
-*/
+ * Icon block constants
+ */
 
 /**
  * View options enum for icon block

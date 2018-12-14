@@ -5,7 +5,7 @@ class Countdown {
     this.interval = setInterval(() => this.updateClock(endTime), 1000);
   }
 
-  static getRemainingTime = (endTime) => {
+  static getRemainingTime = endTime => {
     const t = Date.parse(endTime) - Date.parse(new Date());
     const seconds = Math.floor((t / 1000) % 60);
     const minutes = Math.floor((t / 1000 / 60) % 60);
@@ -29,9 +29,9 @@ class Countdown {
     const t = Countdown.getRemainingTime(endTime);
 
     daysSpan.innerHTML = t.days;
-    hoursSpan.innerHTML = (`0${t.hours}`).slice(-2);
-    minutesSpan.innerHTML = (`0${t.minutes}`).slice(-2);
-    secondsSpan.innerHTML = (`0${t.seconds}`).slice(-2);
+    hoursSpan.innerHTML = `0${t.hours}`.slice(-2);
+    minutesSpan.innerHTML = `0${t.minutes}`.slice(-2);
+    secondsSpan.innerHTML = `0${t.seconds}`.slice(-2);
 
     if (t.total <= 0) {
       clearInterval(this.interval);
