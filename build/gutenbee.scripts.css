@@ -1450,12 +1450,12 @@
 }
 
 .wp-block-gutenbee-google-maps img {
+  margin: 0;
   padding: 0 !important;
   background: none !important;
   border: 0 !important;
   -webkit-box-shadow: none;
   box-shadow: none;
-  position: static;
 }
 
 .wp-block-gutenbee-google-maps button {

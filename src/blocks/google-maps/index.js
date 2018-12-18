@@ -19,12 +19,12 @@ registerBlockType('gutenbee/google-maps', {
   keywords: [__('maps'), __('google')],
   attributes: {
     latitude: {
-      type: 'number',
-      default: 37.585636,
+      type: 'string',
+      default: '37.585636',
     },
     longitude: {
-      type: 'number',
-      default: 26.127548,
+      type: 'string',
+      default: '26.127548',
     },
     zoom: {
       type: 'number',
