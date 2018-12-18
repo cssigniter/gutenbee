@@ -9,6 +9,8 @@ import { registerBlockType } from 'wp.blocks';
 import { PanelBody, Toolbar, RangeControl } from 'wp.components';
 import { InspectorControls, AlignmentToolbar, ColorPalette } from 'wp.editor';
 
+import DividerBlockIcon from './block-icon';
+
 const BORDER_STYLES = {
   SOLID: 'solid',
   DOTTED: 'dotted',
@@ -41,7 +43,7 @@ registerBlockType('gutenbee/divider', {
   description: __(
     'A divider to indicate a thematic change in the content in style.',
   ),
-  icon: 'minus',
+  icon: DividerBlockIcon,
   category: 'gutenbee',
   keywords: [__('divider'), __('horizontal-line'), 'hr'],
   attributes: {
@@ -99,7 +101,7 @@ registerBlockType('gutenbee/divider', {
           />
 
           <RangeControl
-            label={__('Width')}
+            label={__('Width (%)')}
             min={1}
             max={100}
             value={width}
@@ -107,9 +109,9 @@ registerBlockType('gutenbee/divider', {
           />
 
           <RangeControl
-            label={__('Height')}
+            label={__('Height (px)')}
             min={10}
-            max={100}
+            max={500}
             onChange={value => setAttributes({ height: value })}
             value={height}
           />
@@ -117,7 +119,7 @@ registerBlockType('gutenbee/divider', {
           <p>{__('Alignment')}</p>
           <AlignmentToolbar
             value={align}
-            onChange={value => setAttributes({ align: value })}
+            onChange={value => setAttributes({ align: value || 'left' })}
           />
 
           <PanelBody title={__('Color')}>
