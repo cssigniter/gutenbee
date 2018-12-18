@@ -48,12 +48,12 @@ registerBlockType('gutenbee/countup', {
   keywords: [__('counter'), __('numbers'), __('animation')],
   attributes: {
     startNumber: {
-      type: 'number',
-      default: 0,
+      type: 'string',
+      default: '0',
     },
     endNumber: {
-      type: 'number',
-      default: 999,
+      type: 'string',
+      default: '999',
     },
     animationDuration: {
       type: 'number',

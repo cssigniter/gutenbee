@@ -152,7 +152,7 @@ class CountupEdit extends Component {
               <p>{__('Alignment')}</p>
               <AlignmentToolbar
                 value={align}
-                onChange={value => setAttributes({ align: value })}
+                onChange={value => setAttributes({ align: value || 'left' })}
               />
             </PanelBody>
 
