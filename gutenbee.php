@@ -79,7 +79,13 @@
 		) );
 	}
 
-	function gutenbee_get_block_names() {
+	/**
+	 * Returns a list of settings names and their corresponding labels.
+	 * Note that the list may not contain all blocks. E.g. google-maps
+	 *
+	 * @return array
+	 */
+	function gutenbee_get_setting_block_names() {
 		// Setting keys here for each block MUST be the same slugs
 		// used in the block's registration definition (check each block's
 		// index.js file, after `gutenbee/XYZ`, XYZ is the block's key).
@@ -109,10 +115,10 @@
 	 */
 	function gutenbee_validate_settings( $settings ) {
 		$defaults = array(
-			'active_google-maps'  => 0,
+			'active_google-maps'  => 1,
 			'google_maps_api_key' => '',
 		);
-		foreach ( gutenbee_get_block_names() as $id => $name ) {
+		foreach ( gutenbee_get_setting_block_names() as $id => $name ) {
 			$defaults[ 'active_' . $id ] = 1;
 		}
 

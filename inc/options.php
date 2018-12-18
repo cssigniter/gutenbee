@@ -23,7 +23,7 @@
 
 			$new_settings['active_google-maps']  = isset( $settings['active_google-maps'] ) && 1 === intval( $settings['active_google-maps'] );
 			$new_settings['google_maps_api_key'] = isset( $settings['google_maps_api_key'] ) ? sanitize_text_field( $settings['google_maps_api_key'] ) : '';
-			foreach ( gutenbee_get_block_names() as $id => $name ) {
+			foreach ( gutenbee_get_setting_block_names() as $id => $name ) {
 				$new_settings[ 'active_' . $id ] = isset( $settings[ 'active_' . $id ] ) && 1 === intval( $settings[ 'active_' . $id ] );
 			}
 
@@ -40,7 +40,7 @@
 				'gutenbee'
 			);
 
-			$simple_block_settings = gutenbee_get_block_names();
+			$simple_block_settings = gutenbee_get_setting_block_names();
 
 			// All checkboxes
 			foreach ( $simple_block_settings as $key => $label ) {
