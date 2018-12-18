@@ -1,53 +1,53 @@
 <?php
 	class Gutenbee_Settings {
+		protected $settings = false;
+
 		public function __construct() {
-			add_action( 'admin_menu', [ $this, 'add_admin_menu' ], 502 );
-			add_action( 'admin_init', [ $this, 'settings_init' ]);
+			add_action( 'init', array( $this, 'init' ) );
+
+			add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
+			add_action( 'admin_init', array( $this, 'settings_init' ) );
 		}
 
-		function add_admin_menu() {
-			add_submenu_page( 'options-general.php', 'GutenBee', __( 'GutenBee Settings', 'gutenbee' ), 'manage_options', 'gutenbee', [
-					$this,
-					'options_page'
-				] );
+		public function init() {
+			$this->settings = get_option( 'gutenbee_settings' );
+			$this->settings = gutenbee_validate_settings( $this->settings );
 		}
 
-		function settings_init() {
-			//TODO add sanitize_callback
-			$args = array();
-			register_setting( 'gutenbee', 'gutenbee_settings', $args );
+		public function add_admin_menu() {
+			add_submenu_page( 'options-general.php', esc_html__( 'GutenBee', 'gutenbee' ), esc_html__( 'GutenBee Settings', 'gutenbee' ), 'manage_options', 'gutenbee', array( $this, 'options_page' ) );
+		}
+
+		public function settings_sanitize( $settings ) {
+			$new_settings = $this->settings;
+
+			$new_settings['active_google-maps']  = isset( $settings['active_google-maps'] ) && 1 === intval( $settings['active_google-maps'] );
+			$new_settings['google_maps_api_key'] = isset( $settings['google_maps_api_key'] ) ? sanitize_text_field( $settings['google_maps_api_key'] ) : '';
+			foreach ( gutenbee_get_block_names() as $id => $name ) {
+				$new_settings[ 'active_' . $id ] = isset( $settings[ 'active_' . $id ] ) && 1 === intval( $settings[ 'active_' . $id ] );
+			}
+
+			return $new_settings;
+		}
+
+		public function settings_init() {
+			register_setting( 'gutenbee', 'gutenbee_settings', array( $this, 'settings_sanitize' ) );
 
 			add_settings_section(
 				'gutenbee_settings_section',
 				__( 'GutenBee Settings', 'gutenbee' ),
-				[ $this, 'settings_section_callback' ],
+				array( $this, 'settings_section_callback' ),
 				'gutenbee'
 			);
 
-			// Setting keys here for each block MUST be the same slugs
-			// used in the block's registration definition (check each block's
-			// index.js file, after `gutenbee/XYZ`, XYZ is the block's key).
-			$simple_block_settings = array(
-				'divider' => __('Divider Block', 'gutenbee'),
-				'slideshow' => __('Slideshow Block', 'gutenbee'),
-				'icon' => __('Icon Block', 'gutenbee'),
-				'iconbox' => __('Icon Box Block', 'gutenbee'),
-				'imagebox' => __('Image Box Block', 'gutenbee'),
-				'countup' => __('Countup Block', 'gutenbee'),
-				'justified-gallery' => __('Justified Gallery Block', 'gutenbee'),
-				'progress-bar' => __('Progress Bar Block', 'gutenbee'),
-				'image-comparison' => __('Image Comparison Block', 'gutenbee'),
-				'countdown' =>  __('Countdown Block', 'gutenbee'),
-				'accordion' => __('Accordion Block', 'gutenbee'),
-				'tabs' => __('Tabs Block', 'gutenbee'),
-			);
+			$simple_block_settings = gutenbee_get_block_names();
 
 			// All checkboxes
 			foreach ( $simple_block_settings as $key => $label ) {
 				add_settings_field(
 					'active_' . $key,
 					$label,
-					[ $this, 'checkbox_render' ],
+					array( $this, 'checkbox_render' ),
 					'gutenbee',
 					'gutenbee_settings_section',
 					array( 'id' => $key )
@@ -58,7 +58,7 @@
 			add_settings_field(
 				'active_google-maps',
 				__( 'Google Maps Block', 'gutenbee' ),
-				[ $this, 'checkbox_render' ],
+				array( $this, 'checkbox_render' ),
 				'gutenbee',
 				'gutenbee_settings_section',
 				array( 'id' => 'google-maps' )
@@ -67,40 +67,36 @@
 			add_settings_field(
 				'google_maps_api_key',
 				__( 'Google Maps API Key', 'gutenbee' ),
-				[ $this, 'api_maps_render' ],
+				array( $this, 'api_maps_render' ),
 				'gutenbee',
 				'gutenbee_settings_section'
 			);
 		}
 
-		function settings_section_callback() {
-			echo '<p>' . esc_html_e( 'Use the checkboxes below to enable or disable your new blocks.', 'gutenbee' ) . '</p>';
+		public function settings_section_callback() {
+			echo '<p>' . esc_html__( 'Use the checkboxes below to enable or disable your new blocks.', 'gutenbee' ) . '</p>';
 		}
 
-		function checkbox_render( $args ) {
-			// TODO Sanitize
-			$options = get_option( 'gutenbee_settings' );
+		public function checkbox_render( $args ) {
 			$id = $args['id'];
 			?>
 			<input
 				type="checkbox"
 				name="gutenbee_settings[active_<?php echo esc_attr( $id ); ?>]"
-				<?php checked( $options[ 'active_' . $id] ); ?>
+				<?php checked( $this->settings[ 'active_' . $id ] ); ?>
 				value="1"
 			>
 			<?php
 		}
 
-		function api_maps_render() {
-			$options = get_option( 'gutenbee_settings' );
-			$api_key = $options['google_maps_api_key'];
+		public function api_maps_render() {
 			?>
 			<p style="margin-bottom: 10px;">
 				<?php
 					/* translators: %s is a URL. */
 					echo wp_kses( sprintf( __( 'Paste your Google Maps API Key below. This is <strong>required</strong> in order to get the Google maps block working. For info on how to get an API key read <a href="%s" target="_blank">this article</a>.', 'gutenberg' ), 'https://www.cssigniter.com/kb/generate-a-google-maps-api-key/' ), array(
 						'strong' => array(),
-						'a' => array(
+						'a'      => array(
 							'href'   => true,
 							'target' => true,
 						),
@@ -111,12 +107,12 @@
 				type="text"
 				style="min-width: 350px;"
 				name="gutenbee_settings[google_maps_api_key]"
-				value="<?php echo esc_attr( $api_key ); ?>"
+				value="<?php echo esc_attr( $this->settings['google_maps_api_key'] ); ?>"
 			>
 			<?php
 		}
 
-		function options_page() {
+		public function options_page() {
 			?>
 			<div class="wrap">
 				<div class="gutenbee-settings-container">

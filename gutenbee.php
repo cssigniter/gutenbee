@@ -35,8 +35,8 @@
 			'wp-html-entities',
 		), GUTENBEE_PLUGIN_VERSION );
 
-		// TODO needs sanitization?
 		$gutenbee_settings = get_option( 'gutenbee_settings' );
+		$gutenbee_settings = gutenbee_validate_settings( $gutenbee_settings );
 		wp_localize_script( 'gutenbee', '__GUTENBEE_SETTINGS__', $gutenbee_settings );
 
 		wp_enqueue_style( 'gutenbee-editor', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.build.css', array(
@@ -47,36 +47,79 @@
 	add_action( 'wp_enqueue_scripts', 'gutenbee_enqueue_frontend_block_assets' );
 
 	function gutenbee_enqueue_frontend_block_assets() {
-		// TODO sanitize?
 		$gutenbee_settings = get_option( 'gutenbee_settings' );
+		$gutenbee_settings = gutenbee_validate_settings( $gutenbee_settings );
 		$maps_api_key      = $gutenbee_settings['google_maps_api_key'];
 
 		wp_enqueue_style( 'gutenbee', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.scripts.css', array(), GUTENBEE_PLUGIN_VERSION );
 
 		if ( $maps_api_key ) {
-			wp_enqueue_script( 'gutenbee-google-maps', 'https://maps.googleapis.com/maps/api/js?key=' . $maps_api_key );
+			wp_enqueue_script( 'gutenbee-google-maps', 'https://maps.googleapis.com/maps/api/js?key=' . $maps_api_key, array(), GUTENBEE_PLUGIN_VERSION, true );
 		}
 
 		wp_enqueue_script( 'gutenbee-scripts', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.scripts.js', array(
 			'jquery',
-		), GUTENBEE_PLUGIN_VERSION );
+		), GUTENBEE_PLUGIN_VERSION, true );
 	}
 
-	add_action( 'plugins_loaded', 'gutenbee_admin_styles' );
+	add_action( 'admin_enqueue_scripts', 'gutenbee_admin_styles' );
 
 	function gutenbee_admin_styles() {
-		wp_enqueue_style( 'gutenbee-admin-styles', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.admin.styles.css', GUTENBEE_PLUGIN_VERSION );		
+		wp_enqueue_style( 'gutenbee-admin-styles', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.admin.styles.css', array(), GUTENBEE_PLUGIN_VERSION );
 	}
 
 	// GutenBee's block category
-	add_filter( 'block_categories', function ( $categories ) {
+	add_filter( 'block_categories', 'gutenbee_block_categories', 10, 2 );
+	function gutenbee_block_categories( $categories, $post ) {
 		return array_merge( $categories, array(
-				array(
-					'slug'  => 'gutenbee',
-					'title' => __( 'GutenBee', 'gutenbee' ),
-				),
-			) );
-	}, 10, 2 );
+			array(
+				'slug'  => 'gutenbee',
+				'title' => __( 'GutenBee', 'gutenbee' ),
+			),
+		) );
+	}
+
+	function gutenbee_get_block_names() {
+		// Setting keys here for each block MUST be the same slugs
+		// used in the block's registration definition (check each block's
+		// index.js file, after `gutenbee/XYZ`, XYZ is the block's key).
+		return array(
+			'accordion'         => __( 'Accordion Block', 'gutenbee' ),
+			'countdown'         => __( 'Countdown Block', 'gutenbee' ),
+			'countup'           => __( 'Countup Block', 'gutenbee' ),
+			'divider'           => __( 'Divider Block', 'gutenbee' ),
+			'icon'              => __( 'Icon Block', 'gutenbee' ),
+			'iconbox'           => __( 'Icon Box Block', 'gutenbee' ),
+			'imagebox'          => __( 'Image Box Block', 'gutenbee' ),
+			'image-comparison'  => __( 'Image Comparison Block', 'gutenbee' ),
+			'justified-gallery' => __( 'Justified Gallery Block', 'gutenbee' ),
+			'progress-bar'      => __( 'Progress Bar Block', 'gutenbee' ),
+			'slideshow'         => __( 'Slideshow Block', 'gutenbee' ),
+			'tabs'              => __( 'Tabs Block', 'gutenbee' ),
+		);
+	}
+
+	/**
+	 * Makes sure there are no undefined indexes in the settings array.
+	 * Use before using a setting value. Eleminates the need for isset() before using.
+	 *
+	 * @param $settings
+	 *
+	 * @return array
+	 */
+	function gutenbee_validate_settings( $settings ) {
+		$defaults = array(
+			'active_google-maps'  => 0,
+			'google_maps_api_key' => '',
+		);
+		foreach ( gutenbee_get_block_names() as $id => $name ) {
+			$defaults[ 'active_' . $id ] = 1;
+		}
+
+		$settings = wp_parse_args( $settings, $defaults );
+
+		return $settings;
+	}
 
 	// Settings Page
 	require_once dirname( __FILE__ ) . '/inc/options.php';
