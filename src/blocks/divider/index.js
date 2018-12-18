@@ -42,7 +42,7 @@ registerBlockType('gutenbee/divider', {
     'A divider to indicate a thematic change in the content in style.',
   ),
   icon: 'minus',
-  category: 'layout',
+  category: 'gutenbee',
   keywords: [__('divider'), __('horizontal-line'), 'hr'],
   attributes: {
     style: {
@@ -79,7 +79,6 @@ registerBlockType('gutenbee/divider', {
         <InspectorControls key="inspector">
           <p>{__('Style')}</p>
           <Toolbar
-            // TODO: figure out a way to add custom icons
             controls={Object.values(BORDER_STYLES).map(
               (borderStyle, index) => ({
                 icon: 'admin-appearance',

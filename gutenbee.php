@@ -65,7 +65,7 @@
 	add_action( 'admin_enqueue_scripts', 'gutenbee_admin_styles' );
 
 	function gutenbee_admin_styles() {
-		wp_enqueue_style( 'gutenbee-admin-styles', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.admin.styles.css', array(), GUTENBEE_PLUGIN_VERSION );
+		wp_enqueue_style( 'gutenbee-admin-styles', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/assets/css/admin.css', array(), GUTENBEE_PLUGIN_VERSION );
 	}
 
 	// GutenBee's block category

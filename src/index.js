@@ -19,3 +19,8 @@ import './blocks/google-maps';
 import './blocks/countdown';
 import './blocks/accordion';
 import './blocks/tabs';
+
+//
+// Misc
+//
+import './options';

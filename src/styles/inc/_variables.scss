@@ -2,6 +2,16 @@
 // Global GutenBee variables
 //
 
+// Breakpoints / Responsive
+//
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+);
+
 // Colors
 //
 $blue: #0085ba !default;

@@ -45,7 +45,7 @@ const CountDown = ({ attributes, className }) => {
           style={{ fontSize: numberFontSize }}
         />
 
-        {displayLabels && (
+        {displayLabels && !RichText.isEmpty(attributes[labelAttributeKey]) && (
           <RichText.Content
             tagName="p"
             className={`gutenbee-countdown-label gutenbee-countdown-label-${key}`}

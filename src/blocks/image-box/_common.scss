@@ -20,6 +20,17 @@
   .wp-block-gutenbee-imagebox-figure {
     margin-right: 15px;
   }
+
+  @include media-breakpoint-down(sm) {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    .wp-block-gutenbee-imagebox-figure {
+      margin-right: 0;
+      margin-bottom: 15px;
+    }
+  }
 }
 
 .wp-block-gutenbee-imagebox-align-center {
@@ -38,6 +49,18 @@
   .wp-block-gutenbee-imagebox-figure {
     margin-left: 15px;
     order: 2;
+  }
+
+  @include media-breakpoint-down(sm) {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    .wp-block-gutenbee-imagebox-figure {
+      order: 0;
+      margin-left: 0;
+      margin-bottom: 15px;
+    }
   }
 }
 
