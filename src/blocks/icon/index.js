@@ -156,7 +156,7 @@ export const IconSettings = ({
         <p>{__('Alignment')}</p>
         <AlignmentToolbar
           value={align}
-          onChange={value => setAttributes({ align: value })}
+          onChange={value => setAttributes({ align: value || 'left' })}
         />
       </Fragment>
     )}

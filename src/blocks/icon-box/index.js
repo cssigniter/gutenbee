@@ -36,7 +36,7 @@ const IconBox = ({ className, attributes }) => {
       className={classNames({
         [className]: true,
         [`${className}-align-${align}`]: true,
-        [`${className}-content-align-${contentAlign}`]: true,
+        [`${className}-content-align-${contentAlign}`]: !!contentAlign,
       })}
       style={{
         margin: getMarginSettingStyles(blockMargin),
@@ -102,7 +102,7 @@ const IconBoxEditBlock = ({
         className={classNames({
           [className]: true,
           [`${className}-align-${align}`]: true,
-          [`${className}-content-align-${contentAlign}`]: true,
+          [`${className}-content-align-${contentAlign}`]: !!contentAlign,
         })}
         style={{
           margin: getMarginSettingStyles(blockMargin),
@@ -155,7 +155,7 @@ const IconBoxEditBlock = ({
               <p>{__('Alignment')}</p>
               <AlignmentToolbar
                 value={align}
-                onChange={value => setAttributes({ align: value })}
+                onChange={value => setAttributes({ align: value || 'left' })}
               />
 
               <MarginControls

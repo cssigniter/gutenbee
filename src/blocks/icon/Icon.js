@@ -22,7 +22,7 @@ const Icon = ({
 }) => {
   const wrapperClasses = classNames({
     'gutenbee-icon-block': true,
-    [`align-${align}`]: !!align,
+    [`align-${align || 'left'}`]: true,
     [`gutenbee-icon-block-${view}`]: !!view,
     [`gutenbee-icon-block-shape-${shape}`]: !!shape && view !== VIEWS.DEFAULT, // Ignore shape if we are on the default view
     [className]: !!className,
