@@ -1,20 +1,36 @@
 .gutenbee-settings-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.gutenbee-settings-content {
+  display: table-cell;
+  vertical-align: top;
+}
+
+.gutenbee-settings-form th em {
+  color: #0181A3;
+  font-style: normal;
 }
 
 .gutenbee-settings-sidebar {
-  -webkit-box-flex: 0;
-  -ms-flex: none;
-  flex: none;
-  margin-left: auto;
-  padding-left: 20px;
+  display: table-cell;
+  width: 270px;
+  padding: 20px 20px 0 20px;
 }
 
-@media (max-width: 767px) {
+.gutenbee-banner {
+  display: block;
+  margin-bottom: 15px;
+  border-radius: 3px;
+  box-shadow: 0 0 50px rgba(0,0,0,0.1);
+}
+
+
+@media (max-width: 768px) {
   .gutenbee-settings-sidebar {
     display: none;
-  }
+  } 
 }
 

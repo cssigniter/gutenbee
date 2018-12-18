@@ -132,9 +132,12 @@
 					</div>
 
 					<div class="gutenbee-settings-sidebar">
+						<a href="https://www.cssigniter.com/docs/gutenbee/"><img
+								src="<?php echo esc_url( GUTENBEE_PLUGIN_DIR_URL . 'assets/images/gutenbee-docs.jpg' ); ?>"
+								class="gutenbee-banner"/></a>
 						<a href="https://www.cssigniter.com/"><img
 								src="<?php echo esc_url( GUTENBEE_PLUGIN_DIR_URL . 'assets/images/gutenbee-cssigniter-banner.jpg' ); ?>"
-								class="gutenbee-settings-banner"/></a>
+								class="gutenbee-banner"/></a>
 					</div>
 				</div>
 			</div>
