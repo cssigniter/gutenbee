@@ -99,7 +99,7 @@ class GoogleMapsEdit extends Component {
     const mapStyle = customStyles
       ? this.getCustomStyles()
       : get(predefinedMapStyle, 'style');
-    const apiKey = window.mapsApiKey;
+    const apiKey = get(window, '__GUTENBEE_SETTINGS__.google_maps_api_key');
 
     return (
       <Fragment>

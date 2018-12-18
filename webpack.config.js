@@ -33,6 +33,7 @@ const webpackConfig = {
   entry: {
     'gutenbee.build': './src/index.js',
     'gutenbee.scripts': './src/frontend.js',
+    'gutenbee.admin.styles': './src/styles/admin.scss',
   },
   output: {
     path: path.resolve(__dirname, 'build'),
