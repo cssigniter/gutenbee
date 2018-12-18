@@ -119,7 +119,6 @@
 					<div class="gutenbee-settings-content">
 						<form action="options.php" method="post" class="gutenbee-settings-form">
 							<?php
-								settings_errors();
 								settings_fields( 'gutenbee' );
 								do_settings_sections( 'gutenbee' );
 								submit_button();
