@@ -34,7 +34,7 @@ const ImageBox = ({ className, attributes }) => {
       className={classNames({
         [className]: true,
         [`${className}-align-${imageAlign}`]: true,
-        [`${className}-content-align-${contentAlign}`]: true,
+        [`${className}-content-align-${contentAlign}`]: !!contentAlign,
       })}
       style={{
         margin: getMarginSettingStyles(blockMargin),

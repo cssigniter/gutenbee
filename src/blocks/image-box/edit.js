@@ -74,7 +74,7 @@ class ImageBoxEditBlock extends Component {
           className={classNames({
             [className]: true,
             [`${className}-align-${imageAlign}`]: true,
-            [`${className}-content-align-${contentAlign}`]: true,
+            [`${className}-content-align-${contentAlign}`]: !!contentAlign,
           })}
           style={{
             margin: getMarginSettingStyles(blockMargin),
@@ -167,7 +167,9 @@ class ImageBoxEditBlock extends Component {
                 <p>{__('Alignment')}</p>
                 <AlignmentToolbar
                   value={imageAlign}
-                  onChange={value => setAttributes({ imageAlign: value })}
+                  onChange={value =>
+                    setAttributes({ imageAlign: value || 'left' })
+                  }
                 />
 
                 {availableSizes && (
