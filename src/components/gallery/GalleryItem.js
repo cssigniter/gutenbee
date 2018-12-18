@@ -5,8 +5,6 @@ import { __ } from 'wp.i18n';
 import { BACKSPACE, DELETE } from 'wp.keycodes';
 import { withSelect } from 'wp.data';
 
-import { LINKTO } from './constants';
-
 class GalleryItem extends Component {
   onImageClick = () => {
     if (!this.props.isSelected) {
@@ -36,21 +34,7 @@ class GalleryItem extends Component {
   }
 
   render() {
-    const { url, alt, id, linkTo, link, isSelected, onRemove } = this.props;
-
-    let href;
-
-    switch (linkTo) {
-      case LINKTO.MEDIA:
-        href = url;
-        break;
-      case LINKTO.ATTACHMENT:
-        href = link;
-        break;
-      default:
-        break;
-    }
-
+    const { url, alt, id, isSelected, onRemove } = this.props;
     const img = url ? (
       <img src={url} alt={alt} data-id={id} onClick={this.onImageClick} />
     ) : (
@@ -81,7 +65,7 @@ class GalleryItem extends Component {
             />
           </div>
         )}
-        {href ? <a href={href}>{img}</a> : img}
+        {img}
       </figure>
     );
   }

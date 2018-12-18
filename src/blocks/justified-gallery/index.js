@@ -46,11 +46,6 @@ registerBlockType('gutenbee/justified-gallery', {
           selector: 'img',
           attribute: 'data-link',
         },
-        caption: {
-          type: 'array',
-          source: 'children',
-          selector: 'figcaption',
-        },
       },
     },
     rowHeight: {
@@ -130,9 +125,12 @@ registerBlockType('gutenbee/justified-gallery', {
           );
 
           return (
-            <div className="gutenbee-justified-gallery-item">
-              {href ? (
-                <a className="gutenbee-justified-gallery-item" href={href}>
+            <div
+              className="gutenbee-justified-gallery-item"
+              key={image.id || image.url}
+            >
+              {!!href ? (
+                <a className="gutenbee-justified-gallery-item-link" href={href}>
                   {img}
                 </a>
               ) : (
