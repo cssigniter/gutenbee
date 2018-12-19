@@ -78,13 +78,11 @@ registerBlockType('gutenbee/progress-bar', {
   keywords: [__('progress'), __('progress bar')],
   attributes: {
     title: {
-      type: 'array',
-      source: 'children',
+      source: 'html',
       selector: '.wp-block-gutenbee-progress-bar-title',
     },
     innerTitle: {
-      type: 'array',
-      source: 'children',
+      source: 'html',
       selector: '.wp-block-gutenbee-progress-bar-inner-title',
     },
     percentage: {

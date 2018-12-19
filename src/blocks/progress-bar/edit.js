@@ -46,6 +46,7 @@ class ProgressBarEdit extends Component {
         >
           <div style={{ fontSize: titleFontSize }}>
             <RichText
+              key="title"
               tagName="p"
               value={title}
               onChange={value => setAttributes({ title: value })}
@@ -70,6 +71,7 @@ class ProgressBarEdit extends Component {
               }}
             >
               <RichText
+                key="innerTitle"
                 tagName="span"
                 value={innerTitle}
                 onChange={value => setAttributes({ innerTitle: value })}
