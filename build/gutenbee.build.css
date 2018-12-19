@@ -1597,8 +1597,9 @@
     text-align: center;
   }
   .wp-block-gutenbee-imagebox-align-left .wp-block-gutenbee-imagebox-figure {
-    margin-right: 0;
     margin-bottom: 15px;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 }
 
@@ -1643,7 +1644,8 @@
     -webkit-box-ordinal-group: 1;
     -ms-flex-order: 0;
     order: 0;
-    margin-left: 0;
+    margin-left: auto !important;
+    margin-right: auto !important;
     margin-bottom: 15px;
   }
 }
@@ -1652,12 +1654,24 @@
   text-align: left;
 }
 
+@media (max-width: 767px) {
+  .wp-block-gutenbee-imagebox-content-align-left {
+    text-align: center;
+  }
+}
+
 .wp-block-gutenbee-imagebox-content-align-center {
   text-align: center;
 }
 
 .wp-block-gutenbee-imagebox-content-align-right {
   text-align: right;
+}
+
+@media (max-width: 767px) {
+  .wp-block-gutenbee-imagebox-content-align-right {
+    text-align: center;
+  }
 }
 
 .range-control-size .components-range-control__slider + .dashicon {

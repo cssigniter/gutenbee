@@ -27,8 +27,9 @@
     text-align: center;
 
     .wp-block-gutenbee-imagebox-figure {
-      margin-right: 0;
       margin-bottom: 15px;
+      margin-left: auto !important;
+      margin-right: auto !important;
     }
   }
 }
@@ -58,7 +59,8 @@
 
     .wp-block-gutenbee-imagebox-figure {
       order: 0;
-      margin-left: 0;
+      margin-left: auto !important;
+      margin-right: auto !important;
       margin-bottom: 15px;
     }
   }
@@ -66,6 +68,10 @@
 
 .wp-block-gutenbee-imagebox-content-align-left {
   text-align: left;
+
+  @include media-breakpoint-down(sm) {
+    text-align: center;
+  }
 }
 
 .wp-block-gutenbee-imagebox-content-align-center {
@@ -74,4 +80,8 @@
 
 .wp-block-gutenbee-imagebox-content-align-right {
   text-align: right;
+
+  @include media-breakpoint-down(sm) {
+    text-align: center;
+  }
 }
