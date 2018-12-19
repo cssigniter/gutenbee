@@ -53,11 +53,9 @@ export const iconAttributes = {
   },
   colorPrimary: {
     type: 'string',
-    default: '#0085ba',
   },
   colorSecondary: {
     type: 'string',
-    default: '#FFFFFF',
   },
   blockMargin: {
     type: 'object',
