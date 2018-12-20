@@ -45,10 +45,13 @@ From within WordPress' dashboard:
 Note that if you want to use the Google Maps block you will also need a Google Maps API Key. Instruction can be found in GutenBee's settings page.
 
 == Screenshots ==
-1.
-2.
-3.
-4.
+1. GutenBee's fancy new blocks.
+2. Display your photos in beautiful slideshows.
+3. Create awesome looking justified galleries.
+4. Compare any two images.
+5. Flexible Google Maps block with custom map styles.
+6. Over a hundred icons to choose from with more being added regularly.
+7. Tabs or Accordions, group your content the way you want.
 
 == Changelog ==
 = 2.0.7 =
