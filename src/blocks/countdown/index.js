@@ -4,7 +4,6 @@
 
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import moment from 'moment';
 import { RichText } from 'wp.editor';
 
 import CountdownEdit from './edit';
@@ -88,7 +87,6 @@ registerBlockType('gutenbee/countdown', {
   attributes: {
     date: {
       type: 'string',
-      default: moment().format(),
     },
     displayDays: {
       type: 'boolean',

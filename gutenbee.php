@@ -4,11 +4,11 @@
 	 * Description: Premium Blocks for WordPress
 	 * Author: The CSSIgniter Team
 	 * Author URI: https://www.cssigniter.com/
-	 * Version: 2.0.8
+	 * Version: 2.0.9
 	 */
 
 	if ( ! defined( 'GUTENBEE_PLUGIN_VERSION' ) ) {
-		define( 'GUTENBEE_PLUGIN_VERSION', '2.0.8' );
+		define( 'GUTENBEE_PLUGIN_VERSION', '2.0.9' );
 	}
 
 	if ( ! defined( 'GUTENBEE_PLUGIN_DIR' ) ) {

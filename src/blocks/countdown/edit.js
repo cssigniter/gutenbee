@@ -8,6 +8,7 @@ import {
   RangeControl,
 } from 'wp.components';
 import { InspectorControls, RichText, ColorPalette } from 'wp.editor';
+import moment from 'moment';
 
 import { capitalize } from '../../util/text';
 import CountdownTimer from '../../util/CountdownTimer';
@@ -47,15 +48,16 @@ class CountdownEdit extends Component {
 
   countdown = null;
   clock = null;
+  now = moment().format();
 
   componentDidMount() {
-    const { date } = this.props.attributes;
+    const { date = this.now } = this.props.attributes;
 
     this.countdown = new CountdownTimer(this.clock, date);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { date } = this.props.attributes;
+    const { date = this.now } = this.props.attributes;
     const { date: nextDate } = nextProps.attributes;
 
     if (date !== nextDate) {
@@ -155,7 +157,7 @@ class CountdownEdit extends Component {
           <InspectorControls>
             <PanelBody title={__('Date & Time')}>
               <DateTimePicker
-                currentDate={date}
+                currentDate={date || this.now}
                 onChange={value => {
                   setAttributes({ date: value });
                 }}
