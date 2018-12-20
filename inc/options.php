@@ -94,7 +94,7 @@
 			<p style="margin-bottom: 10px;">
 				<?php
 					/* translators: %s is a URL. */
-					echo wp_kses( sprintf( __( 'Paste your Google Maps API Key below. This is <strong>required</strong> in order to get the Google maps block working. For info on how to get an API key read <a href="%s" target="_blank">this article</a>.', 'gutenberg' ), 'https://www.cssigniter.com/kb/generate-a-google-maps-api-key/' ), array(
+					echo wp_kses( sprintf( __( 'Paste your Google Maps API Key below. This is <strong>required</strong> in order to get the Google maps block working. For info on how to get an API key read <a href="%s" target="_blank">this article</a>.', 'gutenbee' ), 'https://www.cssigniter.com/kb/generate-a-google-maps-api-key/' ), array(
 						'strong' => array(),
 						'a'      => array(
 							'href'   => true,

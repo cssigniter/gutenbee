@@ -1,12 +1,12 @@
 === GutenBee ===
-Contributors: cssigniterteam, nvourva, tsiger, anastis, silencerius
+Contributors: cssigniterteam, silencerius, nvourva, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 5.0
-Tested up to: 5.0
+Tested up to: 5.0.2
 Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
-Requires PHP: 5.
+Requires PHP: 5.6
 
 GutenBee enhances the Gutenberg editor with more blocks!
 
@@ -55,8 +55,8 @@ Note that if you want to use the Google Maps block you will also need a Google M
 
 == Changelog ==
 = 2.0.9 =
-* Added new blocks: Accordion, Countdown, CountUp, Google Maps, Icon, Icon Box, Image Box, Image Comparison, Justified Gallery, Progress Bar, Slideshow, Tabs
-* Removed the Spacer block
+* Added new blocks: Accordion, Countdown, CountUp, Google Maps, Icon, Icon Box, Image Box, Image Comparison, Justified Gallery, Progress Bar, Slideshow, Tabs.
+* Removed the Spacer block.
 
 = 1.0.0 =
 * Initial release.

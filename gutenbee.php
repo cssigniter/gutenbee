@@ -1,11 +1,28 @@
 <?php
-	/*
-	 * Plugin Name: GutenBee
-	 * Description: Premium Blocks for WordPress
-	 * Author: The CSSIgniter Team
-	 * Author URI: https://www.cssigniter.com/
-	 * Version: 2.0.9
-	 */
+/**
+ * Plugin Name: GutenBee
+ * Plugin URI: https://www.cssigniter.com/plugins/gutenbee/
+ * Description: Premium Blocks for WordPress
+ * Author: The CSSIgniter Team
+ * Author URI: https://www.cssigniter.com
+ * Version: 2.0.9
+ * Text Domain: gutenbee
+ * Domain Path: languages
+ *
+ * GutenBee is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * any later version.
+ *
+ * GutenBee is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with GutenBee. If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 	if ( ! defined( 'GUTENBEE_PLUGIN_VERSION' ) ) {
 		define( 'GUTENBEE_PLUGIN_VERSION', '2.0.9' );
@@ -17,6 +34,11 @@
 
 	if ( ! defined( 'GUTENBEE_PLUGIN_DIR_URL' ) ) {
 		define( 'GUTENBEE_PLUGIN_DIR_URL', plugin_dir_url( __FILE__ ) );
+	}
+
+	add_action( 'init', 'gutenbee_init' );
+	function gutenbee_init() {
+		load_plugin_textdomain( 'gutenbee', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 	}
 
 	add_action( 'enqueue_block_editor_assets', 'gutenbee_enqueue_editor_assets' );
