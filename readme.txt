@@ -5,8 +5,8 @@ Requires at least: 5.0
 Tested up to: 5.0
 Stable tag: 1.0.0
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires PHP: 5.2
+License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
+Requires PHP: 5.
 
 GutenBee enhances the Gutenberg editor with more blocks!
 
@@ -23,7 +23,7 @@ The plugin's documentation can be found [here](https://www.cssigniter.com/docs/g
 * **Countdown**: Have an upcoming event? Pick a date directly inside the editor screen, choose your layout, colors, and typography and you’re ready!
 * **CountUp**: Maybe not every block counts, but this one does! Pick a starting and ending number, add a suffix or prefix, style it and you’re done!
 * **Divider**: Provide thematic content spacing with a fancy divider, edit its style, colors, and margins.
-* **Google Maps**: Easy-peasy fancy maps with the Google Maps block. Just enter a location and save, it just works!
+* **Google Maps**: Easy-peasy fancy maps with the Google Maps block. Just enter a location and save, it just works! With support for beautiful predefined map styles and Snazzy custom map styles!
 * **Icon**: Display icons from a custom designed, curated list of over one hundred icons, with more icons being added in regular updates!
 * **Icon Box**: Your standard icon box block on steroids. Choose from over one hundred custom designed icons, style them any way and at any size you like, add some text and you’re good to go.
 * **Image Box**: A standard image box with title and text block on steroids. Adjust your spacing, layout, alignment, or colors and typography.
