@@ -4,6 +4,11 @@
 import './styles/style.scss';
 
 //
+// Control scripts
+//
+import './components/controls/background-controls/script';
+
+//
 // Block scripts
 //
 import './blocks/slideshow/script';

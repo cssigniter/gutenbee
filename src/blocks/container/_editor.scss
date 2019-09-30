@@ -1,0 +1,14 @@
+@import 'common';
+
+.wp-block-gutenbee-container-inner {
+  .editor-inner-blocks {
+    width: 100%;
+  }
+
+  &.is-selected {
+    .block-list-appender {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+}

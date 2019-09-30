@@ -1,0 +1,19 @@
+@import 'common';
+
+.wp-block-gutenbee-post-types {
+  a {
+    // Prevent clicking on links leading to articles
+    pointer-events: none;
+    text-decoration: none;
+  }
+}
+
+.ci-split-field {
+  display: flex;
+  margin: 0 -5px;
+
+  .components-base-control {
+    width: 50%;
+    padding: 0 5px;
+  }
+}

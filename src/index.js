@@ -19,6 +19,8 @@ import './blocks/google-maps';
 import './blocks/countdown';
 import './blocks/accordion';
 import './blocks/tabs';
+import './blocks/post-types';
+import './blocks/container';
 
 //
 // Misc

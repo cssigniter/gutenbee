@@ -1,0 +1,187 @@
+.gutenbee-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+
+  &.no-gutters {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+
+  [class*="columns-"] {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+
+@for $i from 1 to 12 {
+  @media (min-width: 1200px) {
+    [class*="columns-#{$i}"] {
+      flex: 0 0 percentage(1/$i);
+      max-width: percentage(1/$i);
+    }
+  }
+
+  @media (min-width: 767px) {
+    [class*="columns-#{$i}"] {
+      flex: 0 0 percentage(1/$i);
+      max-width: percentage(1/$i);
+    }
+  }
+}
+
+.gutenbee-post-types-item {
+  margin: 0 0 30px;
+  position: relative;
+}
+
+.gutenbee-post-types-item-media {
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 767px) {
+    align-items: flex-start;
+  }
+}
+
+.no-gutters {
+  .gutenbee-post-types-item {
+    margin-bottom: 0;
+  }
+
+  [class*="columns-"] {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.gutenbee-post-types-item-thumb {
+  margin: 0 0 15px;
+
+  img {
+    border-radius: 3px;
+  }
+
+  .gutenbee-post-types-item-media & {
+    width: 180px;
+    flex: none;
+    margin: 0 20px 0 0;
+
+    @media (max-width: 767px) {
+      width: 140px;
+    }
+  }
+}
+
+.gutenbee-post-types-item-title {
+  line-height: normal;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0 0 15px;
+  text-transform: none;
+  letter-spacing: 0;
+
+  a {
+    text-decoration: none;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .editor-styles-wrapper &,
+  .entry-content & {
+    font-weight: bold;
+    margin: 0 0 15px;
+    font-size: 20px;
+    line-height: normal;
+    letter-spacing: 0;
+
+    a {
+      text-decoration: none;
+      font-style: normal;
+      border: 0;
+      margin: 0;
+      padding: 0;
+      box-shadow: none;
+
+      &:hover,
+      &:focus {
+        text-decoration: none;
+        font-style: normal;
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+.gutenbee-post-types-item-meta {
+  font-size: 14px;
+  line-height: normal;
+  margin: -12px 0 20px;
+  display: block;
+  opacity: .75;
+}
+
+.ci-item-list-meta {
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+  line-height: normal;
+  font-size: 14px;
+}
+
+.ci-item-list-meta-item {
+  display: block;
+  padding: 3px 0;
+}
+
+.ci-item-excerpt {
+  font-size: 14px;
+  line-height: normal;
+}
+
+.onsale {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #000;
+  color: #fff;
+  padding: 3px 5px;
+  font-size: 12px;
+}
+
+.pagination {
+  width: 100%;
+  display: block;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.ci-item-filters {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.ci-item-filter {
+  background: none;
+  border: 1px solid $border-color;
+  border-radius: 2px;
+  margin: 0 5px 5px 0;
+  padding: 5px 13px;
+  box-shadow: none;
+  appearance: none;
+  pointer-events: none;
+}
+
+.filter-active {
+  background-color: $blue;
+  color: $white;
+  border-color: $blue;
+}

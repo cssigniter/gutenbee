@@ -1,0 +1,33 @@
+<article
+	id="gutenbee-post-types-<?php the_ID(); ?>"
+	<?php post_class( 'gutenbee-post-types-item gutenbee-post-types-item-media' ); ?>
+>
+	<?php if ( has_post_thumbnail() ) : ?>
+		<figure class="gutenbee-post-types-item-thumb">
+			<a href="<?php the_permalink(); ?>">
+				<?php /* TODO What image size to get? */ ?>
+				<?php the_post_thumbnail(); ?>
+			</a>
+		</figure>
+	<?php endif; ?>
+
+	<div class="gutenbee-post-types-item-content">
+		<h3 class="gutenbee-post-types-item-title">
+			<a href="<?php the_permalink(); ?>">
+				<?php the_title(); ?>
+			</a>
+		</h3>
+
+		<?php if ( get_post_type() === 'post' ) : ?>
+			<div class="gutenbee-post-types-item-meta">
+				<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>">
+					<?php echo get_the_date(); ?>
+				</time>
+			</div>
+		<?php endif; ?>
+
+		<a href="<?php the_permalink(); ?>" class="gutenbee-post-types-item-more">
+			<?php esc_html_e( 'Read More', 'gutenbee' ); ?>
+		</a>
+	</div>
+</article>

@@ -14,6 +14,7 @@
 @import '../components/image-preview/style';
 @import '../components/controls/margin-controls/style';
 @import '../components/controls/text-controls/style';
+@import '../components/controls/background-controls/style';
 
 // Block styles
 
@@ -28,3 +29,5 @@
 @import "../blocks/countdown/editor";
 @import "../blocks/accordion/editor";
 @import "../blocks/tabs/editor";
+@import "../blocks/post-types/editor";
+@import "../blocks/container/editor";

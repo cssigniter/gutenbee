@@ -5,7 +5,7 @@
  * Description: Premium Blocks for WordPress
  * Author: The CSSIgniter Team
  * Author URI: https://www.cssigniter.com
- * Version: 2.0.9
+ * Version: 2.1.0
  * Text Domain: gutenbee
  * Domain Path: languages
  *
@@ -151,3 +151,50 @@
 
 	// Settings Page
 	require_once dirname( __FILE__ ) . '/inc/options.php';
+
+
+
+	/**
+	 * Returns the appropriate page(d) query variable to use in custom loops (needed for pagination).
+	 *
+	 * @uses get_query_var()
+	 *
+	 * @param int $default_return The default page number to return, if no query vars are set.
+	 * @return int The appropriate paged value if found, else 0.
+	 */
+	function gutenbee_block_get_page_var( $default_return = 0 ) {
+		$paged = get_query_var( 'paged', false );
+		$page  = get_query_var( 'page', false );
+
+		if ( false === $paged && false === $page ) {
+			return $default_return;
+		}
+
+		return max( $paged, $page );
+	}
+
+
+	function gutenbee_get_columns_classes( $columns ) {
+		switch ( intval( $columns ) ) {
+			case 1:
+				$classes = 'columns-1';
+				break;
+			case 2:
+				$classes = 'columns-2';
+				break;
+			case 3:
+				$classes = 'columns-3';
+				break;
+			case 4:
+			default:
+				$classes = 'columns-4';
+				break;
+		}
+
+		return apply_filters( 'gutenbee_get_columns_classes', $classes, $columns );
+	}
+
+
+	// TODO clean this up?
+
+	require( 'src/blocks/post-types/block.php' );
