@@ -6,13 +6,12 @@ import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 
 import PostTypesEdit from './edit';
+import PostTypesBlockIcon from './block-icon';
 
 registerBlockType('gutenbee/post-types', {
   title: __('Post Types'),
-  // TODO add description
-  description: __('Display custom post types.'),
-  // TODO add icon
-  icon: 'minus',
+  description: __('Display a list of post type items.'),
+  icon: PostTypesBlockIcon,
   category: 'gutenbee',
   keywords: [__('custom post types')],
   attributes: {

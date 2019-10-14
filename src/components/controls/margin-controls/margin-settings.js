@@ -22,16 +22,19 @@ const hasMarginSettings = margins => {
  * generates the required CSS object
  *
  * @param {Object} margins - The margins as passed from the block's attributes
+ * @param {string} [breakpoint] - Optionally a breakpoint, i.e. desktop|tablet|mobile.
  * @returns {Object} - The CSS object
  */
-const getMarginSettingStyles = margins => {
+const getMarginSettingStyles = (margins, breakpoint) => {
   if (!margins) {
     return undefined;
   }
 
-  if (hasMarginSettings(margins)) {
+  if (hasMarginSettings(margins) || hasMarginSettings(margins[breakpoint])) {
+    const values = margins[breakpoint] || margins;
+
     return ['top', 'right', 'bottom', 'left']
-      .map(position => `${margins[position] || 0}px`)
+      .map(position => `${values[position] || 0}px`)
       .join(' ');
   }
 

@@ -1,0 +1,36 @@
+.gutenbee-responsive-control-wrap {
+  position: relative;
+}
+
+.gutenbee-responsive-control-wrap-buttons {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 0;
+}
+
+.gutenbee-responsive-control-wrap-button {
+  cursor: pointer;
+  background: 0 0;
+  border: none;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  border: 0;
+
+  &:focus,
+  &:active {
+    box-shadow: none;
+    outline: 0;
+  }
+
+  .dashicons {
+    font-size: 15px;
+  }
+
+  &.active {
+    .dashicons {
+      color: $blue;
+    }
+  }
+}

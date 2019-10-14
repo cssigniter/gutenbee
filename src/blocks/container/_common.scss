@@ -1,6 +1,7 @@
 .wp-block-gutenbee-container {
   display: flex;
   position: relative;
+  z-index: 1;
 
   &-description {
     display: block;

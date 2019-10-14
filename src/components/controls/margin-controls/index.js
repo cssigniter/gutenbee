@@ -8,15 +8,37 @@ const propTypes = {
   attributeKey: PropTypes.string.isRequired,
   attributes: PropTypes.object,
   label: PropTypes.string,
+  breakpoint: PropTypes.string,
 };
 
 const defaultProps = {
   label: __('Block Margin'),
 };
 
-const MarginControls = ({ setAttributes, attributeKey, attributes, label }) => {
+const MarginControls = ({
+  setAttributes,
+  attributeKey,
+  attributes,
+  label,
+  breakpoint,
+}) => {
   const margins = attributes[attributeKey];
   const onMarginsChange = (value, position) => {
+    // Accommodate for responsive changes.
+    if (breakpoint) {
+      setAttributes({
+        [attributeKey]: {
+          ...margins,
+          [breakpoint]: {
+            ...margins[breakpoint],
+            [position]: value,
+          },
+        },
+      });
+
+      return;
+    }
+
     setAttributes({
       [attributeKey]: {
         ...margins,
@@ -33,7 +55,9 @@ const MarginControls = ({ setAttributes, attributeKey, attributes, label }) => {
         {['top', 'right', 'bottom', 'left'].map(position => (
           <TextControl
             label={__(capitalize(position))}
-            value={margins[position]}
+            value={
+              breakpoint ? margins[breakpoint][position] : margins[position]
+            }
             type="number"
             min={-200}
             max={200}
