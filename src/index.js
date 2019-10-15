@@ -4,6 +4,11 @@
 import './styles/editor.scss';
 
 //
+// Stores
+//
+import './components/controls/responsive-control/store';
+
+//
 // Blocks
 //
 import './blocks/divider';

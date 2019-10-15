@@ -1,28 +1,28 @@
 <?php
-/**
- * Plugin Name: GutenBee
- * Plugin URI: https://www.cssigniter.com/plugins/gutenbee/
- * Description: Premium Blocks for WordPress
- * Author: The CSSIgniter Team
- * Author URI: https://www.cssigniter.com
- * Version: 2.1.0
- * Text Domain: gutenbee
- * Domain Path: languages
- *
- * GutenBee is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * any later version.
- *
- * GutenBee is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with GutenBee. If not, see <http://www.gnu.org/licenses/>.
- *
- */
+	/**
+	 * Plugin Name: GutenBee
+	 * Plugin URI: https://www.cssigniter.com/plugins/gutenbee/
+	 * Description: Premium Blocks for WordPress
+	 * Author: The CSSIgniter Team
+	 * Author URI: https://www.cssigniter.com
+	 * Version: 2.1.0
+	 * Text Domain: gutenbee
+	 * Domain Path: languages
+	 *
+	 * GutenBee is free software: you can redistribute it and/or modify
+	 * it under the terms of the GNU General Public License as published by
+	 * the Free Software Foundation, either version 2 of the License, or
+	 * any later version.
+	 *
+	 * GutenBee is distributed in the hope that it will be useful,
+	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+	 * GNU General Public License for more details.
+	 *
+	 * You should have received a copy of the GNU General Public License
+	 * along with GutenBee. If not, see <http://www.gnu.org/licenses/>.
+	 *
+	 */
 
 	if ( ! defined( 'GUTENBEE_PLUGIN_VERSION' ) ) {
 		define( 'GUTENBEE_PLUGIN_VERSION', '2.0.9' );
@@ -124,6 +124,8 @@
 			'progress-bar'      => __( 'Progress Bar Block', 'gutenbee' ),
 			'slideshow'         => __( 'Slideshow Block', 'gutenbee' ),
 			'tabs'              => __( 'Tabs Block', 'gutenbee' ),
+			'container'         => __( 'Container Block', 'gutenbee' ),
+			'post-types'        => __( 'Post Types Block', 'gutenbee' ),
 		);
 	}
 
@@ -153,13 +155,13 @@
 	require_once dirname( __FILE__ ) . '/inc/options.php';
 
 
-
 	/**
 	 * Returns the appropriate page(d) query variable to use in custom loops (needed for pagination).
 	 *
 	 * @uses get_query_var()
 	 *
 	 * @param int $default_return The default page number to return, if no query vars are set.
+	 *
 	 * @return int The appropriate paged value if found, else 0.
 	 */
 	function gutenbee_block_get_page_var( $default_return = 0 ) {

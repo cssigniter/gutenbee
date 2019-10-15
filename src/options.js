@@ -14,6 +14,8 @@ export const blocks = [
   'slideshow',
   'tabs',
   'google-maps',
+  'container',
+  'post-types',
 ];
 
 // Deactivate blocks based on user settings (GutenBee options page)

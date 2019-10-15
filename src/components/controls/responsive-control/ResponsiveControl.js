@@ -1,12 +1,19 @@
-import { useState } from 'wp.element';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { withSelect, withDispatch } from 'wp.data';
+import { compose } from 'wp.compose';
 
 const propTypes = {
   children: PropTypes.func.isRequired,
+  activeBreakpoint: PropTypes.string.isRequired,
+  setActiveBreakpoint: PropTypes.func.isRequired,
 };
 
-const ResponsiveControl = ({ children }) => {
+const ResponsiveControl = ({
+  activeBreakpoint,
+  setActiveBreakpoint,
+  children,
+}) => {
   const breakpoints = [
     {
       value: 'desktop',
@@ -21,14 +28,13 @@ const ResponsiveControl = ({ children }) => {
       icon: 'smartphone',
     },
   ];
-  const [activeBreakpoint, setActiveBreakpont] = useState(breakpoints[0].value);
 
   return (
     <div className="gutenbee-responsive-control-wrap">
       <div className="gutenbee-responsive-control-wrap-buttons">
         {breakpoints.map(breakpoint => (
           <button
-            onClick={() => setActiveBreakpont(breakpoint.value)}
+            onClick={() => setActiveBreakpoint(breakpoint.value)}
             className={classNames({
               'gutenbee-responsive-control-wrap-button': true,
               active: breakpoint.value === activeBreakpoint,
@@ -46,4 +52,19 @@ const ResponsiveControl = ({ children }) => {
 
 ResponsiveControl.propTypes = propTypes;
 
-export default ResponsiveControl;
+export default compose(
+  withSelect(select => {
+    const activeBreakpoint = select('gutenbee-breakpoints').getBreakpoint();
+
+    return {
+      activeBreakpoint,
+    };
+  }),
+  withDispatch(dispatch => {
+    const { onBreakpointSet } = dispatch('gutenbee-breakpoints');
+
+    return {
+      setActiveBreakpoint: onBreakpointSet,
+    };
+  }),
+)(ResponsiveControl);
