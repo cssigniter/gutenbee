@@ -12,3 +12,75 @@
     }
   }
 }
+
+.wp-block-gutenbee-container-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -10px;
+  margin-right: -10px;
+
+  .editor-block-list__layout {
+    margin-left: 0;
+    margin-right: 0;
+
+    .editor-block-list__block {
+   		max-width: none;
+   	}
+  }
+
+  > .editor-inner-blocks {
+    > .editor-block-list__layout {
+      display: flex;
+      flex-wrap: wrap;
+      flex: 1 1 auto;
+
+      > [data-type="gutenbee/column"],
+      .wp-block-gutenbee-column {
+        display: flex;
+        flex-direction: column;
+      }
+
+      > [data-type="gutenbee/column"] {
+        padding-left: 20px;
+        padding-right: 20px;
+        min-width: 0;
+        flex: auto;
+
+        > .editor-block-list__block-edit {
+     				margin-top: 0;
+     				margin-bottom: 0;
+
+     				// Remove Block "padding" so individual Column is flush with parent Columns
+     				&::before {
+     					left: 0;
+     					right: 0;
+     				}
+
+     				> .editor-block-contextual-toolbar {
+     					//margin-left: -$border-width;
+     				}
+
+     				// Zero out margins.
+     				> [data-block] {
+     					margin-top: 0;
+     					margin-bottom: 0;
+     				}
+
+     				// The Columns block is a flex-container, therefore it nullifies margin collapsing.
+     				// Therefore, blocks inside this will appear to create a double margin.
+     				// We compensate for this using negative margins.
+     				> div > .block-core-columns > .editor-inner-blocks {
+     					margin-top: -28px;
+     					margin-bottom: -28px;
+     				}
+     			}
+      }
+    }
+  }
+}
+
+.wp-block-gutenbee-column {
+  min-width: 0;
+  padding-left: 20px;
+  padding-right: 20px;
+}
