@@ -1,7 +1,11 @@
 import { Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
-import { InspectorControls, InnerBlocks, PanelColorSettings } from 'wp.editor';
+import {
+  InspectorControls,
+  PanelColorSettings,
+  InnerBlocks,
+} from 'wp.blockEditor';
 import { PanelBody, RangeControl } from 'wp.components';
 import { compose } from 'wp.compose';
 import { withSelect } from 'wp.data';
@@ -108,13 +112,6 @@ const ColumnBlockEdit = ({
               />
             )}
           </ResponsiveControl>
-
-          <BackgroundControls
-            label={__('Background Image')}
-            setAttributes={setAttributes}
-            attributes={attributes}
-            attributeKey="backgroundImage"
-          />
         </PanelBody>
 
         <PanelColorSettings
@@ -133,7 +130,14 @@ const ColumnBlockEdit = ({
             },
           ]}
           onChange={value => setAttributes({ backgroundColor: value })}
-        />
+        >
+          <BackgroundControls
+            label={__('Background Image')}
+            setAttributes={setAttributes}
+            attributes={attributes}
+            attributeKey="backgroundImage"
+          />
+        </PanelColorSettings>
       </InspectorControls>
     </Fragment>
   );

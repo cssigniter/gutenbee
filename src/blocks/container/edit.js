@@ -2,12 +2,8 @@ import { Fragment, useState, useEffect } from 'wp.element';
 import PropTypes from 'prop-types';
 import { compose } from 'wp.compose';
 import { __ } from 'wp.i18n';
-import {
-  InspectorControls,
-  PanelColorSettings,
-  ContrastChecker,
-  InnerBlocks,
-} from 'wp.editor';
+import { InspectorControls } from 'wp.editor';
+import { PanelColorSettings, InnerBlocks } from 'wp.blockEditor';
 import { PanelBody, SelectControl, RangeControl } from 'wp.components';
 import { withDispatch, useSelect } from 'wp.data';
 import { createBlock } from 'wp.blocks';
@@ -187,7 +183,7 @@ const ContainerBlockEdit = ({
       {!showTemplateSelector && (
         <Fragment>
           <InspectorControls>
-            <PanelBody>
+            <PanelBody title={__('Layout Settings')} initialOpen>
               <RangeControl
                 label={__('Columns')}
                 min={1}
@@ -305,14 +301,6 @@ const ContainerBlockEdit = ({
                   'The content alignment settings apply when Container Height and/or the Content Width are set.',
                 )}
               </span>
-
-              <BackgroundControls
-                label={__('Background Image')}
-                setAttributes={setAttributes}
-                attributes={attributes}
-                attributeKey="backgroundImage"
-                supportsParallax
-              />
             </PanelBody>
 
             <PanelColorSettings
@@ -332,10 +320,12 @@ const ContainerBlockEdit = ({
               ]}
               onChange={value => setAttributes({ backgroundColor: value })}
             >
-              <ContrastChecker
-                isLargeText={false}
-                textColor={textColor}
-                backgroundColor={backgroundColor}
+              <BackgroundControls
+                label={__('Background Image')}
+                setAttributes={setAttributes}
+                attributes={attributes}
+                attributeKey="backgroundImage"
+                supportsParallax
               />
             </PanelColorSettings>
           </InspectorControls>

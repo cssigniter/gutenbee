@@ -49,6 +49,7 @@
 			'wp-blocks',
 			'wp-element',
 			'wp-editor',
+			'wp-block-editor',
 			'wp-data',
 			'wp-date',
 			'wp-i18n',

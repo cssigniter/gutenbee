@@ -2,12 +2,15 @@
  * Column block
  */
 
+import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import { InnerBlocks } from 'wp.editor';
+import { InnerBlocks } from 'wp.blockEditor';
 
 import ColumnBlockEdit from './edit';
 import getBlockId from '../../../util/getBlockId';
+import ColumnStyle from './style';
+import { getBackgroundImageStyle } from '../../../components/controls/background-controls/helpers';
 
 registerBlockType('gutenbee/column', {
   title: __('Column'),
@@ -110,12 +113,34 @@ registerBlockType('gutenbee/column', {
   },
   edit: ColumnBlockEdit,
   save({ attributes }) {
-    const { uniqueId } = attributes;
+    const {
+      width,
+      uniqueId,
+      textColor,
+      backgroundColor,
+      backgroundImage,
+    } = attributes;
 
     return (
-      <div id={getBlockId(uniqueId)}>
-        <InnerBlocks.Content />
-      </div>
+      <Fragment>
+        <ColumnStyle attributes={attributes} />
+
+        <div
+          id={getBlockId(uniqueId)}
+          className="wp-block-gutenbee-column"
+          style={{
+            // TODO change this for responsive
+            width: width.desktop ? `${width.desktop}%` : undefined,
+            color: textColor,
+            backgroundColor,
+            ...getBackgroundImageStyle(backgroundImage),
+          }}
+        >
+          <div className="wp-block-gutenbee-column-content">
+            <InnerBlocks.Content />
+          </div>
+        </div>
+      </Fragment>
     );
   },
 });

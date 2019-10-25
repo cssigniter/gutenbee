@@ -5,13 +5,14 @@
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import { InnerBlocks } from 'wp.editor';
+import { InnerBlocks } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import ContainerBlockEdit from './edit';
 import { getBackgroundImageStyle } from '../../components/controls/background-controls/helpers';
 import ContainerStyle from './style';
 import ContainerBlockIcon from './block-icon';
+import getBlockId from '../../util/getBlockId';
 
 registerBlockType('gutenbee/container', {
   title: __('Container'),
@@ -135,14 +136,13 @@ registerBlockType('gutenbee/container', {
     } = attributes;
 
     const { parallax, parallaxSpeed } = backgroundImage;
-    const blockId = `block-${uniqueId}`;
 
     return (
       <Fragment>
         <ContainerStyle attributes={attributes} />
 
         <div
-          id={blockId}
+          id={getBlockId(uniqueId)}
           className="wp-block-gutenbee-container"
           style={{
             color: textColor,
@@ -151,7 +151,9 @@ registerBlockType('gutenbee/container', {
           }}
         >
           <div className="wp-block-gutenbee-container-inner">
-            <InnerBlocks.Content />
+            <div className="wp-block-gutenbee-container-row">
+              <InnerBlocks.Content />
+            </div>
           </div>
           <div
             className={classNames({

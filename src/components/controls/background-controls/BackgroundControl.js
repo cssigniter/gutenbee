@@ -1,7 +1,7 @@
 import { Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
-import { MediaUpload } from 'wp.editor';
+import { MediaUpload } from 'wp.blockEditor';
 import {
   SelectControl,
   Button,

@@ -10,3 +10,15 @@
     width: calc(100vw - 10px);
   }
 }
+
+.wp-block-gutenbee-container-row {
+  display: flex;
+  flex-wrap: nowrap;
+  margin: 0 -10px;
+}
+
+.wp-block-gutenbee-column {
+  flex-grow: 1;
+  min-width: 0;
+  padding: 0 10px;
+}
