@@ -56,6 +56,7 @@ const webpackConfig = {
       jquery: 'jQuery',
       react: 'React',
       'react-dom': 'ReactDOM',
+      lodash: 'lodash',
     },
   ),
   optimization: {

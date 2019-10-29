@@ -2057,7 +2057,73 @@
   display: flex;
   -ms-flex-wrap: nowrap;
   flex-wrap: nowrap;
-  margin: 0 -10px;
+}
+
+@media (max-width: 991px) {
+  .wp-block-gutenbee-container-row {
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+}
+
+.wp-block-gutenbee-container-none {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.wp-block-gutenbee-container-none .wp-block-gutenbee-column {
+  padding-left: 0;
+  padding-right: 0;
+  -ms-flex-preferred-size: 50%;
+  flex-basis: 50%;
+}
+
+.wp-block-gutenbee-container-sm {
+  margin-left: -5px;
+  margin-right: -5px;
+}
+
+.wp-block-gutenbee-container-sm .wp-block-gutenbee-column {
+  padding-left: 5px;
+  padding-right: 5px;
+  -ms-flex-preferred-size: calc(50% - 5px);
+  flex-basis: calc(50% - 5px);
+}
+
+.wp-block-gutenbee-container-md {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.wp-block-gutenbee-container-md .wp-block-gutenbee-column {
+  padding-left: 10px;
+  padding-right: 10px;
+  -ms-flex-preferred-size: calc(50% - 10px);
+  flex-basis: calc(50% - 10px);
+}
+
+.wp-block-gutenbee-container-lg {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.wp-block-gutenbee-container-lg .wp-block-gutenbee-column {
+  padding-left: 15px;
+  padding-right: 15px;
+  -ms-flex-preferred-size: calc(50% - 15px);
+  flex-basis: calc(50% - 15px);
+}
+
+.wp-block-gutenbee-container-xl {
+  margin-left: -20px;
+  margin-right: -20px;
+}
+
+.wp-block-gutenbee-container-xl .wp-block-gutenbee-column {
+  padding-left: 20px;
+  padding-right: 20px;
+  -ms-flex-preferred-size: calc(50% - 20px);
+  flex-basis: calc(50% - 20px);
 }
 
 .wp-block-gutenbee-column {
@@ -2065,6 +2131,20 @@
   -ms-flex-positive: 1;
   flex-grow: 1;
   min-width: 0;
-  padding: 0 10px;
+  overflow-wrap: break-word;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.wp-block-gutenbee-column-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
 }
 

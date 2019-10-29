@@ -5,7 +5,7 @@ import { __ } from 'wp.i18n';
 import { InspectorControls } from 'wp.editor';
 import { PanelColorSettings, InnerBlocks } from 'wp.blockEditor';
 import { PanelBody, SelectControl, RangeControl } from 'wp.components';
-import { withDispatch, useSelect } from 'wp.data';
+import { withDispatch, withSelect, useSelect } from 'wp.data';
 import { createBlock } from 'wp.blocks';
 import times from 'lodash.times';
 import dropRight from 'lodash.dropright';
@@ -25,7 +25,7 @@ import {
   TwoColumnsOneThirdTwoThirds,
   TwoColumnsTwoThirdsOneThird,
 } from './template-icons';
-import { getColumnsTemplate } from './utils';
+import { getColumnsTemplate, getMappedColumnWidths } from './utils';
 
 const propTypes = {
   className: PropTypes.string.isRequired,
@@ -107,6 +107,7 @@ const ContainerBlockEdit = ({
     containerHeight,
     verticalContentAlignment,
     horizontalContentAlignment,
+    gutter,
   } = attributes;
 
   const { count } = useSelect(select => {
@@ -187,10 +188,22 @@ const ContainerBlockEdit = ({
               <RangeControl
                 label={__('Columns')}
                 min={1}
-                max={12}
+                max={9}
                 value={count}
                 onChange={value => updateColumns(count, value)}
-                step={1}
+              />
+
+              <SelectControl
+                label={__('Gutter Width')}
+                value={gutter}
+                options={[
+                  { value: 'none', label: __('No gutter (0px)') },
+                  { value: 'sm', label: __('Small (10px)') },
+                  { value: 'md', label: __('Medium (20px)') },
+                  { value: 'lg', label: __('Large (30px)') },
+                  { value: 'xl', label: __('Extra Large (40px)') },
+                ]}
+                onChange={value => setAttributes({ gutter: value })}
               />
 
               <ResponsiveControl>
@@ -337,6 +350,14 @@ const ContainerBlockEdit = ({
 
 ContainerBlockEdit.propTypes = propTypes;
 
+const withActiveBreakpoint = withSelect(select => {
+  const activeBreakpoint = select('gutenbee-breakpoints').getBreakpoint();
+
+  return {
+    activeBreakpoint,
+  };
+});
+
 const withColumnControls = withDispatch((dispatch, ownProps, registry) => ({
   updateColumns: (previousColumns, newColumns) => {
     const { clientId } = ownProps;
@@ -350,7 +371,7 @@ const withColumnControls = withDispatch((dispatch, ownProps, registry) => ({
 
     if (isAddingColumn) {
       innerBlocks = [
-        ...innerBlocks,
+        ...getMappedColumnWidths(innerBlocks),
         ...times(newColumns - previousColumns, () => {
           return createBlock('gutenbee/column');
         }),
@@ -358,17 +379,14 @@ const withColumnControls = withDispatch((dispatch, ownProps, registry) => ({
     } else {
       // The removed column will be the last of the inner blocks.
       innerBlocks = dropRight(innerBlocks, previousColumns - newColumns);
-
-      // if (hasExplicitWidths) {
-      //   // Redistribute as if block is already removed.
-      //   const widths = getRedistributedColumnWidths(innerBlocks, 100);
-      //
-      //   innerBlocks = getMappedColumnWidths(innerBlocks, widths);
-      // }
+      innerBlocks = getMappedColumnWidths(innerBlocks);
     }
 
     replaceInnerBlocks(clientId, innerBlocks, false);
   },
 }));
 
-export default compose(withColumnControls)(ContainerBlockEdit);
+export default compose(
+  withActiveBreakpoint,
+  withColumnControls,
+)(ContainerBlockEdit);

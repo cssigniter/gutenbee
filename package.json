@@ -51,6 +51,7 @@
     "lodash.pickby": "4.6.0",
     "lodash.startcase": "4.4.0",
     "lodash.times": "^4.3.2",
+    "memize": "^1.0.5",
     "moment": "2.22.2",
     "querystringify": "2.0.0",
     "react-google-maps": "9.4.5",

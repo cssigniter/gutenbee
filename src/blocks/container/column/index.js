@@ -11,6 +11,7 @@ import ColumnBlockEdit from './edit';
 import getBlockId from '../../../util/getBlockId';
 import ColumnStyle from './style';
 import { getBackgroundImageStyle } from '../../../components/controls/background-controls/helpers';
+import Rule from '../../../components/stylesheet/Rule';
 
 registerBlockType('gutenbee/column', {
   title: __('Column'),
@@ -99,6 +100,14 @@ registerBlockType('gutenbee/column', {
         },
       },
     },
+    verticalContentAlignment: {
+      type: 'string',
+      default: '',
+    },
+    horizontalContentAlignment: {
+      type: 'string',
+      default: '',
+    },
   },
   getEditWrapperProps(attributes) {
     const { width } = attributes;
@@ -106,7 +115,7 @@ registerBlockType('gutenbee/column', {
     if (Number.isFinite(width.desktop)) {
       return {
         style: {
-          width: `${width.desktop}%`,
+          flexBasis: `${width.desktop}%`,
         },
       };
     }
@@ -123,20 +132,19 @@ registerBlockType('gutenbee/column', {
 
     return (
       <Fragment>
-        <ColumnStyle attributes={attributes} />
+        <ColumnStyle attributes={attributes}>
+          <Rule value={width} rule="{ flex-basis: %s; }" unit="%" />
+        </ColumnStyle>
 
-        <div
-          id={getBlockId(uniqueId)}
-          className="wp-block-gutenbee-column"
-          style={{
-            // TODO change this for responsive
-            width: width.desktop ? `${width.desktop}%` : undefined,
-            color: textColor,
-            backgroundColor,
-            ...getBackgroundImageStyle(backgroundImage),
-          }}
-        >
-          <div className="wp-block-gutenbee-column-content">
+        <div id={getBlockId(uniqueId)} className="wp-block-gutenbee-column">
+          <div
+            className="wp-block-gutenbee-column-content"
+            style={{
+              color: textColor,
+              backgroundColor,
+              ...getBackgroundImageStyle(backgroundImage),
+            }}
+          >
             <InnerBlocks.Content />
           </div>
         </div>

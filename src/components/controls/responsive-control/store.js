@@ -4,6 +4,10 @@ import { registerStore } from 'wp.data';
 
 const SET_BREAKPOINT = 'SET_BREAKPOINT';
 
+/**
+ * @enum BREAKPOINTS
+ * @type {{tablet: string, desktop: string, mobile: string}}
+ */
 const BREAKPOINTS = {
   desktop: 'desktop',
   tablet: 'tablet',

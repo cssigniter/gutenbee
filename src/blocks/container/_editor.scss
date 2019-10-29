@@ -1,86 +1,76 @@
 @import 'common';
 
-.wp-block-gutenbee-container-inner {
-  .editor-inner-blocks {
-    width: 100%;
-  }
-
-  &.is-selected {
-    .block-list-appender {
-      margin-left: 0;
-      margin-right: 0;
-    }
-  }
-}
-
 .wp-block-gutenbee-container-row {
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: -10px;
-  margin-right: -10px;
+  display: block;
 
-  .editor-block-list__layout {
-    margin-left: 0;
-    margin-right: 0;
-
-    .editor-block-list__block {
-   		max-width: none;
-   	}
+  .is-selected &,
+  .has-child-selected & {
+    > .editor-inner-blocks {
+      margin-left: $block-padding;
+      margin-right: $block-padding;
+    }
   }
 
   > .editor-inner-blocks {
     > .editor-block-list__layout {
       display: flex;
-      flex-wrap: wrap;
-      flex: 1 1 auto;
+      flex-wrap: nowrap;
 
+      // Set full heights on Columns to enable vertical alignment preview
       > [data-type="gutenbee/column"],
-      .wp-block-gutenbee-column {
+      > [data-type="gutenbee/column"] > .editor-block-list__block-edit,
+      > [data-type="gutenbee/column"] > .editor-block-list__block-edit > div[data-block],
+      > [data-type="gutenbee/column"] > .editor-block-list__block-edit .wp-block-gutenbee-column,
+      > [data-type="gutenbee/column"] > .editor-block-list__block-edit .wp-block-gutenbee-column-content {
         display: flex;
         flex-direction: column;
+
+        // This flex rule fixes an issue in IE11.
+        flex: 1 1 auto;
+
+        // IE11 does not support `position: sticky`, so we use it here to serve correct Flex rules to modern browsers.
+        @supports (position: sticky) {
+          flex: 1;
+        }
+      }
+
+      > [data-type="gutenbee/column"] > .editor-block-list__block-edit > div[data-block] {
+        margin-top: 0;
+        margin-bottom: 0;
       }
 
       > [data-type="gutenbee/column"] {
-        padding-left: 20px;
-        padding-right: 20px;
+        width: 100%;
         min-width: 0;
-        flex: auto;
+
+        // Prevent long unbroken words from overflowing.
+        word-break: break-word; // For back-compat.
+        overflow-wrap: break-word; // New standard.
+
+        .editor-inner-blocks {
+          //width: 100%;
+        }
 
         > .editor-block-list__block-edit {
-     				margin-top: 0;
-     				margin-bottom: 0;
+          margin-top: 0;
+          margin-bottom: 0;
 
-     				// Remove Block "padding" so individual Column is flush with parent Columns
-     				&::before {
-     					left: 0;
-     					right: 0;
-     				}
-
-     				> .editor-block-contextual-toolbar {
-     					//margin-left: -$border-width;
-     				}
-
-     				// Zero out margins.
-     				> [data-block] {
-     					margin-top: 0;
-     					margin-bottom: 0;
-     				}
-
-     				// The Columns block is a flex-container, therefore it nullifies margin collapsing.
-     				// Therefore, blocks inside this will appear to create a double margin.
-     				// We compensate for this using negative margins.
-     				> div > .block-core-columns > .editor-inner-blocks {
-     					margin-top: -28px;
-     					margin-bottom: -28px;
-     				}
-     			}
+          > .editor-block-contextual-toolbar {
+            margin-left: -$border-width;
+          }
+        }
       }
     }
   }
 }
 
-.wp-block-gutenbee-column {
-  min-width: 0;
-  padding-left: 20px;
-  padding-right: 20px;
+[data-type="gutenbee/column"] {
+  &.has-child-selected {
+    .wp-block-gutenbee-column-content {
+      > .block-editor-inner-blocks {
+        padding: $block-padding;
+      }
+    }
+  }
 }
+

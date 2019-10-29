@@ -6,9 +6,10 @@ import {
   PanelColorSettings,
   InnerBlocks,
 } from 'wp.blockEditor';
-import { PanelBody, RangeControl } from 'wp.components';
+import { PanelBody, RangeControl, SelectControl } from 'wp.components';
 import { compose } from 'wp.compose';
-import { withSelect } from 'wp.data';
+import { withSelect, withDispatch } from 'wp.data';
+import { forEach, find, difference } from 'lodash';
 
 import useUniqueId from '../../../hooks/useUniqueId';
 import ResponsiveControl from '../../../components/controls/responsive-control/ResponsiveControl';
@@ -17,6 +18,14 @@ import MarginControls from '../../../components/controls/margin-controls';
 import ColumnStyle from './style';
 import BackgroundControls from '../../../components/controls/background-controls';
 import getBlockId from '../../../util/getBlockId';
+import {
+  getAdjacentBlocks,
+  getColumnWidths,
+  getRedistributedColumnWidths,
+  getTotalColumnsWidth,
+  toWidthPrecision,
+} from '../utils';
+import { BREAKPOINT_NAMES } from '../../../components/stylesheet/StyleSheet';
 
 const propTypes = {
   className: PropTypes.string.isRequired,
@@ -24,6 +33,7 @@ const propTypes = {
   setAttributes: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
   hasInnerBlocks: PropTypes.bool.isRequired,
+  updateWidth: PropTypes.func.isRequired,
 };
 
 const ColumnBlockEdit = ({
@@ -32,6 +42,7 @@ const ColumnBlockEdit = ({
   setAttributes,
   hasInnerBlocks,
   clientId,
+  updateWidth,
 }) => {
   useUniqueId({ attributes, setAttributes, clientId });
   const {
@@ -40,15 +51,9 @@ const ColumnBlockEdit = ({
     textColor,
     backgroundColor,
     backgroundImage,
+    verticalContentAlignment,
+    horizontalContentAlignment,
   } = attributes;
-
-  const updateWidth = (value, breakpoint) =>
-    setAttributes({
-      width: {
-        ...width,
-        [breakpoint]: value,
-      },
-    });
 
   return (
     <Fragment>
@@ -83,6 +88,7 @@ const ColumnBlockEdit = ({
                 onChange={value => updateWidth(value, breakpoint)}
                 min={0}
                 max={100}
+                step={0.01}
                 required
                 allowReset
               />
@@ -112,6 +118,34 @@ const ColumnBlockEdit = ({
               />
             )}
           </ResponsiveControl>
+
+          <SelectControl
+            label={__('Vertical Content Alignment')}
+            value={verticalContentAlignment}
+            options={[
+              { value: '', label: __('') },
+              { value: 'flex-start', label: __('Top') },
+              { value: 'center', label: __('Middle') },
+              { value: 'flex-end', label: __('Bottom') },
+            ]}
+            onChange={value =>
+              setAttributes({ verticalContentAlignment: value })
+            }
+          />
+
+          <SelectControl
+            label={__('Horizontal Content Alignment')}
+            value={horizontalContentAlignment}
+            options={[
+              { value: '', label: '' },
+              { value: 'flex-start', label: __('Left') },
+              { value: 'center', label: __('Center') },
+              { value: 'flex-end', label: __('Right') },
+            ]}
+            onChange={value =>
+              setAttributes({ horizontalContentAlignment: value })
+            }
+          />
         </PanelBody>
 
         <PanelColorSettings
@@ -154,4 +188,75 @@ const withInnerBlocksCheck = withSelect((select, { clientId }) => {
   };
 });
 
-export default compose(withInnerBlocksCheck)(ColumnBlockEdit);
+const withColumnControls = withDispatch((dispatch, ownProps, registry) => {
+  return {
+    updateWidth(width, breakpoint) {
+      const { clientId } = ownProps;
+      const { updateBlockAttributes } = dispatch('core/block-editor');
+      const { getBlockRootClientId, getBlock, getBlocks } = registry.select(
+        'core/block-editor',
+      );
+
+      // Constrain or expand siblings to account for gain or loss of
+      // total columns area.
+      const block = getBlock(clientId);
+      const columns = getBlocks(getBlockRootClientId(clientId));
+      const adjacentColumns = getAdjacentBlocks(columns, clientId);
+
+      // Only adjust widths for desktop values.
+      if (breakpoint !== BREAKPOINT_NAMES.desktop) {
+        updateBlockAttributes(clientId, {
+          width: {
+            ...block.attributes.width,
+            [breakpoint]: toWidthPrecision(width),
+          },
+        });
+
+        return;
+      }
+
+      // The occupied width is calculated as the sum of the new width
+      // and the total width of blocks _not_ in the adjacent set.
+      const occupiedWidth =
+        width +
+        getTotalColumnsWidth({
+          blocks: difference(columns, [
+            find(columns, { clientId }),
+            ...adjacentColumns,
+          ]),
+          breakpoint,
+        });
+
+      // Compute _all_ next column widths, in case the updated column
+      // is in the middle of a set of columns which don't yet have
+      // any explicit widths assigned (include updates to those not
+      // part of the adjacent blocks).
+      const nextColumnWidths = {
+        ...getColumnWidths({
+          blocks: columns,
+          totalBlockCount: columns.length,
+          breakpoint,
+        }),
+        [clientId]: {
+          ...block.attributes.width,
+          [breakpoint]: toWidthPrecision(width),
+        },
+        ...getRedistributedColumnWidths({
+          blocks: adjacentColumns,
+          availableWidth: 100 - occupiedWidth,
+          totalBlockCount: columns.length,
+          breakpoint,
+        }),
+      };
+
+      forEach(nextColumnWidths, (nextColumnWidth, columnClientId) => {
+        updateBlockAttributes(columnClientId, { width: nextColumnWidth });
+      });
+    },
+  };
+});
+
+export default compose(
+  withInnerBlocksCheck,
+  withColumnControls,
+)(ColumnBlockEdit);

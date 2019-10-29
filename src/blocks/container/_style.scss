@@ -14,11 +14,77 @@
 .wp-block-gutenbee-container-row {
   display: flex;
   flex-wrap: nowrap;
-  margin: 0 -10px;
+
+  @include media-breakpoint-down(md) {
+    flex-wrap: wrap;
+  }
+}
+
+// Gutters
+.wp-block-gutenbee-container-none {
+  margin-left: 0;
+  margin-right: 0;
+
+  .wp-block-gutenbee-column {
+    padding-left: 0;
+    padding-right: 0;
+    flex-basis: 50%;
+  }
+}
+
+.wp-block-gutenbee-container-sm {
+  margin-left: -5px;
+  margin-right: -5px;
+
+  .wp-block-gutenbee-column {
+    padding-left: 5px;
+    padding-right: 5px;
+    flex-basis: calc(50% - 5px);
+  }
+}
+
+.wp-block-gutenbee-container-md {
+  margin-left: -10px;
+  margin-right: -10px;
+
+  .wp-block-gutenbee-column {
+    padding-left: 10px;
+    padding-right: 10px;
+    flex-basis: calc(50% - 10px);
+  }
+}
+
+.wp-block-gutenbee-container-lg {
+  margin-left: -15px;
+  margin-right: -15px;
+
+  .wp-block-gutenbee-column {
+    padding-left: 15px;
+    padding-right: 15px;
+    flex-basis: calc(50% - 15px);
+  }
+}
+
+.wp-block-gutenbee-container-xl {
+  margin-left: -20px;
+  margin-right: -20px;
+
+  .wp-block-gutenbee-column {
+    padding-left: 20px;
+    padding-right: 20px;
+    flex-basis: calc(50% - 20px);
+  }
 }
 
 .wp-block-gutenbee-column {
   flex-grow: 1;
   min-width: 0;
-  padding: 0 10px;
+  overflow-wrap: break-word;
+  display: flex;
+}
+
+.wp-block-gutenbee-column-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }

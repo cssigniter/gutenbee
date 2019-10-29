@@ -30,6 +30,10 @@ registerBlockType('gutenbee/container', {
     uniqueId: {
       type: 'string',
     },
+    gutter: {
+      type: 'string',
+      default: 'md',
+    },
     textColor: {
       type: 'string',
     },
@@ -110,7 +114,7 @@ registerBlockType('gutenbee/container', {
     innerContentWidth: {
       type: 'object',
       default: {
-        desktop: 900,
+        desktop: -1,
         tablet: -1,
         mobile: -1,
       },
@@ -133,6 +137,7 @@ registerBlockType('gutenbee/container', {
       backgroundImage,
       verticalContentAlignment,
       horizontalContentAlignment,
+      gutter,
     } = attributes;
 
     const { parallax, parallaxSpeed } = backgroundImage;
@@ -151,7 +156,12 @@ registerBlockType('gutenbee/container', {
           }}
         >
           <div className="wp-block-gutenbee-container-inner">
-            <div className="wp-block-gutenbee-container-row">
+            <div
+              className={classNames({
+                'wp-block-gutenbee-container-row': true,
+                [`wp-block-gutenbee-container-${gutter}`]: true,
+              })}
+            >
               <InnerBlocks.Content />
             </div>
           </div>

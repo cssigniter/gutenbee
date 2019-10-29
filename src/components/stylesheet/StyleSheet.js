@@ -9,10 +9,20 @@ const propTypes = {
   id: PropTypes.string,
 };
 
-const BREAKPOINTS = {
-  desktop: '',
-  tablet: 991,
-  mobile: 575,
+/**
+ * @enum BREAKPOINT_NAMES
+ * @type {{tablet: string, desktop: string, mobile: string}}
+ */
+export const BREAKPOINT_NAMES = {
+  desktop: 'desktop',
+  tablet: 'tablet',
+  mobile: 'mobile',
+};
+
+export const BREAKPOINTS = {
+  [BREAKPOINT_NAMES.desktop]: '',
+  [BREAKPOINT_NAMES.tablet]: 991,
+  [BREAKPOINT_NAMES.mobile]: 575,
 };
 
 /**
@@ -46,7 +56,7 @@ const getCSSRule = ({ id, value, rule, unit = '', edgeCase }) => {
   //
 
   // Handle edge cases
-  if (edgeCase.edge === value) {
+  if (edgeCase && edgeCase.edge === value) {
     return sprintf(base, edgeCase.value);
   }
 
@@ -98,7 +108,7 @@ const getStylesArrayFromChildren = (id, children) => {
   return Children.toArray(children).reduce((acc, child) => {
     const { value, rule, unit, edgeCase, breakpointLimit } = child.props;
 
-    if (!('desktop' in value)) {
+    if (typeof value !== 'object' || !('desktop' in value)) {
       // We don't have a responsive setting, add the rules in the
       // desktop breakpoint
       const desktopBreakpoint = acc.find(({ name }) => name === 'desktop');

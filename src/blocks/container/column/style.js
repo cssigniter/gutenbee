@@ -2,8 +2,14 @@ import StyleSheet from '../../../components/stylesheet';
 import Rule from '../../../components/stylesheet/Rule';
 import getBlockId from '../../../util/getBlockId';
 
-const ColumnStyle = ({ attributes }) => {
-  const { uniqueId, blockPadding, blockMargin } = attributes;
+const ColumnStyle = ({ attributes, children }) => {
+  const {
+    uniqueId,
+    blockPadding,
+    blockMargin,
+    verticalContentAlignment,
+    horizontalContentAlignment,
+  } = attributes;
   const blockId = getBlockId(uniqueId);
 
   return (
@@ -18,6 +24,15 @@ const ColumnStyle = ({ attributes }) => {
         rule=".wp-block-gutenbee-column-content { padding: %s; }"
         unit="px"
       />
+      <Rule
+        value={horizontalContentAlignment}
+        rule=".wp-block-gutenbee-column-content { align-items: %s; }"
+      />
+      <Rule
+        value={verticalContentAlignment}
+        rule=".wp-block-gutenbee-column-content { justify-content: %s; }"
+      />
+      {children}
     </StyleSheet>
   );
 };
