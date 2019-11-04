@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { getColorClassName } from 'wp.editor';
+import { getColorClassName } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import formatNumber from '../../util/formatNumber';

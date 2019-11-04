@@ -2,7 +2,7 @@ import { Fragment, useState, useEffect } from 'wp.element';
 import PropTypes from 'prop-types';
 import { compose } from 'wp.compose';
 import { __ } from 'wp.i18n';
-import { InspectorControls } from 'wp.editor';
+import { InspectorControls } from 'wp.blockEditor';
 import { PanelColorSettings, InnerBlocks } from 'wp.blockEditor';
 import { PanelBody, SelectControl, RangeControl } from 'wp.components';
 import { withDispatch, withSelect, useSelect } from 'wp.data';
@@ -26,6 +26,7 @@ import {
   TwoColumnsTwoThirdsOneThird,
 } from './template-icons';
 import { getColumnsTemplate, getMappedColumnWidths } from './utils';
+import Rule from '../../components/stylesheet/Rule';
 
 const propTypes = {
   className: PropTypes.string.isRequired,
@@ -108,6 +109,7 @@ const ContainerBlockEdit = ({
     verticalContentAlignment,
     horizontalContentAlignment,
     gutter,
+    columnDirection,
   } = attributes;
 
   const { count } = useSelect(select => {
@@ -142,7 +144,12 @@ const ContainerBlockEdit = ({
 
   return (
     <Fragment>
-      <ContainerStyle attributes={attributes} />
+      <ContainerStyle attributes={attributes}>
+        <Rule
+          value={columnDirection}
+          rule=".wp-block-gutenbee-container-row > .editor-inner-blocks > .editor-block-list__layout { flex-direction: %s; }"
+        />
+      </ContainerStyle>
 
       <div
         id={blockId}
@@ -192,6 +199,27 @@ const ContainerBlockEdit = ({
                 value={count}
                 onChange={value => updateColumns(count, value)}
               />
+
+              <ResponsiveControl>
+                {breakpoint => (
+                  <SelectControl
+                    label={__('Column Direction')}
+                    value={columnDirection[breakpoint]}
+                    options={[
+                      { value: 'row', label: __('Normal') },
+                      { value: 'row-reverse', label: __('Reverse') },
+                    ]}
+                    onChange={value =>
+                      setAttributes({
+                        columnDirection: {
+                          ...columnDirection,
+                          [breakpoint]: value,
+                        },
+                      })
+                    }
+                  />
+                )}
+              </ResponsiveControl>
 
               <SelectControl
                 label={__('Gutter Width')}

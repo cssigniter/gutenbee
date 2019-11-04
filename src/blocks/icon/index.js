@@ -5,7 +5,11 @@
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import { InspectorControls, AlignmentToolbar, ColorPalette } from 'wp.editor';
+import {
+  InspectorControls,
+  AlignmentToolbar,
+  ColorPalette,
+} from 'wp.blockEditor';
 import {
   PanelBody,
   RangeControl,
@@ -204,11 +208,13 @@ registerBlockType('gutenbee/icon', {
         <Icon className={className} {...attributes} />
         {isSelected && (
           <InspectorControls>
-            <IconSettings
-              className={className}
-              setAttributes={setAttributes}
-              {...attributes}
-            />
+            <PanelBody>
+              <IconSettings
+                className={className}
+                setAttributes={setAttributes}
+                {...attributes}
+              />
+            </PanelBody>
           </InspectorControls>
         )}
       </Fragment>

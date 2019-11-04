@@ -12,7 +12,7 @@ import {
   Notice,
   Button,
 } from 'wp.components';
-import { InspectorControls, MediaUpload } from 'wp.editor';
+import { InspectorControls, MediaUpload } from 'wp.blockEditor';
 import get from 'lodash.get';
 
 import Map from './Map';

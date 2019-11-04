@@ -10,7 +10,7 @@ import {
   RichText,
   MediaUpload,
   AlignmentToolbar,
-} from 'wp.editor';
+} from 'wp.blockEditor';
 import {
   PanelBody,
   IconButton,

@@ -6,7 +6,7 @@ import {
   PlainText,
   InspectorControls,
   PanelColorSettings,
-} from 'wp.editor';
+} from 'wp.blockEditor';
 import { PanelBody, RangeControl } from 'wp.components';
 import classNames from 'classnames';
 

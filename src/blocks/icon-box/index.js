@@ -5,7 +5,7 @@
 import { Fragment } from 'wp.element';
 import { __, sprintf } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import { RichText, InspectorControls, AlignmentToolbar } from 'wp.editor';
+import { RichText, InspectorControls, AlignmentToolbar } from 'wp.blockEditor';
 import { PanelBody, Toolbar } from 'wp.components';
 import { withState } from 'wp.compose';
 import classNames from 'classnames';

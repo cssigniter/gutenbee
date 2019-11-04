@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import { withSelect } from 'wp.data';
 import { IconButton, Toolbar, PanelBody, SelectControl } from 'wp.components';
-import { MediaUpload, InspectorControls, BlockControls } from 'wp.editor';
+import { MediaUpload, InspectorControls, BlockControls } from 'wp.blockEditor';
 import SlickSlider from 'react-slick';
 
 import ImagePlaceholder from '../image-placeholder/ImagePlaceholder';

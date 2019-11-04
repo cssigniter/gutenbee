@@ -6,7 +6,7 @@ import {
   PlainText,
   InspectorControls,
   PanelColorSettings,
-} from 'wp.editor';
+} from 'wp.blockEditor';
 import { PanelBody, RangeControl, ToggleControl } from 'wp.components';
 
 import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';

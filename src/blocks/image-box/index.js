@@ -6,7 +6,7 @@
 
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import { RichText } from 'wp.editor';
+import { RichText } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import ImageBoxEditBlock from './edit';

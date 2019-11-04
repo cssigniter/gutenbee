@@ -2,7 +2,7 @@ import { Component, Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __, sprintf } from 'wp.i18n';
 import { IconButton, Toolbar, PanelBody, SelectControl } from 'wp.components';
-import { MediaUpload, InspectorControls, BlockControls } from 'wp.editor';
+import { MediaUpload, InspectorControls, BlockControls } from 'wp.blockEditor';
 import { withSelect } from 'wp.data';
 import startCase from 'lodash.startcase';
 import classNames from 'classnames';

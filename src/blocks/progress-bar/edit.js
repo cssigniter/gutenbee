@@ -6,7 +6,7 @@ import {
   RichText,
   PanelColorSettings,
   ContrastChecker,
-} from 'wp.editor';
+} from 'wp.blockEditor';
 import TextControls from '../../components/controls/text-controls/TextControls';
 import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 import MarginControls from '../../components/controls/margin-controls';

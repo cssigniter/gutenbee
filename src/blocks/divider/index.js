@@ -7,7 +7,11 @@
 import { __, sprintf } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 import { PanelBody, Toolbar, RangeControl } from 'wp.components';
-import { InspectorControls, AlignmentToolbar, ColorPalette } from 'wp.editor';
+import {
+  InspectorControls,
+  AlignmentToolbar,
+  ColorPalette,
+} from 'wp.blockEditor';
 
 import DividerBlockIcon from './block-icon';
 
@@ -79,48 +83,50 @@ registerBlockType('gutenbee/divider', {
       <Divider className={className} {...attributes} />,
       isSelected && (
         <InspectorControls key="inspector">
-          <p>{__('Style')}</p>
-          <Toolbar
-            controls={Object.values(BORDER_STYLES).map(
-              (borderStyle, index) => ({
-                icon: 'admin-appearance',
-                title: sprintf(__('Style %s'), borderStyle),
-                isActive: style === borderStyle,
-                onClick: () => setAttributes({ style: borderStyle }),
-                subscript: index + 1,
-              }),
-            )}
-          />
+          <PanelBody>
+            <p>{__('Style')}</p>
+            <Toolbar
+              controls={Object.values(BORDER_STYLES).map(
+                (borderStyle, index) => ({
+                  icon: 'admin-appearance',
+                  title: sprintf(__('Style %s'), borderStyle),
+                  isActive: style === borderStyle,
+                  onClick: () => setAttributes({ style: borderStyle }),
+                  subscript: index + 1,
+                }),
+              )}
+            />
 
-          <RangeControl
-            label={__('Weight (thickness)')}
-            min={1}
-            max={50}
-            value={weight}
-            onChange={value => setAttributes({ weight: value })}
-          />
+            <RangeControl
+              label={__('Weight (thickness)')}
+              min={1}
+              max={50}
+              value={weight}
+              onChange={value => setAttributes({ weight: value })}
+            />
 
-          <RangeControl
-            label={__('Width (%)')}
-            min={1}
-            max={100}
-            value={width}
-            onChange={value => setAttributes({ width: value })}
-          />
+            <RangeControl
+              label={__('Width (%)')}
+              min={1}
+              max={100}
+              value={width}
+              onChange={value => setAttributes({ width: value })}
+            />
 
-          <RangeControl
-            label={__('Height (px)')}
-            min={10}
-            max={500}
-            onChange={value => setAttributes({ height: value })}
-            value={height}
-          />
+            <RangeControl
+              label={__('Height (px)')}
+              min={10}
+              max={500}
+              onChange={value => setAttributes({ height: value })}
+              value={height}
+            />
 
-          <p>{__('Alignment')}</p>
-          <AlignmentToolbar
-            value={align}
-            onChange={value => setAttributes({ align: value || 'left' })}
-          />
+            <p>{__('Alignment')}</p>
+            <AlignmentToolbar
+              value={align}
+              onChange={value => setAttributes({ align: value || 'left' })}
+            />
+          </PanelBody>
 
           <PanelBody title={__('Color')}>
             <ColorPalette

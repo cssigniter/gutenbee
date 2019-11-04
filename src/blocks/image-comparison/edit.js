@@ -2,7 +2,7 @@ import { Component, Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { compose } from 'wp.compose';
 import { __ } from 'wp.i18n';
-import { InspectorControls, MediaUpload } from 'wp.editor';
+import { InspectorControls, MediaUpload } from 'wp.blockEditor';
 import {
   IconButton,
   RangeControl,

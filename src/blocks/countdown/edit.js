@@ -7,7 +7,7 @@ import {
   DateTimePicker,
   RangeControl,
 } from 'wp.components';
-import { InspectorControls, RichText, ColorPalette } from 'wp.editor';
+import { InspectorControls, RichText, ColorPalette } from 'wp.blockEditor';
 import moment from 'moment';
 
 import { capitalize } from '../../util/text';

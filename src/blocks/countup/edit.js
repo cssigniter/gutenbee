@@ -7,7 +7,7 @@ import {
   RichText,
   AlignmentToolbar,
   PanelColorSettings,
-} from 'wp.editor';
+} from 'wp.blockEditor';
 import {
   RangeControl,
   SelectControl,

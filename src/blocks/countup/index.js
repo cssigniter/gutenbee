@@ -7,7 +7,7 @@
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 import classNames from 'classnames';
-import { RichText } from 'wp.editor';
+import { RichText } from 'wp.blockEditor';
 
 import edit from './edit';
 import Countup from './Countup';

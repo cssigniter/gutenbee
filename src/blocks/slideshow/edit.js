@@ -8,7 +8,7 @@ import {
   PanelBody,
   Notice,
 } from 'wp.components';
-import { InspectorControls, PanelColorSettings } from 'wp.editor';
+import { InspectorControls, PanelColorSettings } from 'wp.blockEditor';
 
 import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 import MarginControls from '../../components/controls/margin-controls';
@@ -192,24 +192,24 @@ class SlideshowEdit extends Component {
                     setAttributes({ pauseOnHover: value });
                   }}
                 />
-
-                <PanelColorSettings
-                  initialOpen={false}
-                  title={__('Colors')}
-                  colorSettings={[
-                    {
-                      value: arrowsColor,
-                      onChange: color => setAttributes({ arrowsColor: color }),
-                      label: __('Arrow Navigation Color'),
-                    },
-                    {
-                      value: dotsColor,
-                      onChange: color => setAttributes({ dotsColor: color }),
-                      label: __('Dot Navigation Color'),
-                    },
-                  ]}
-                />
               </PanelBody>
+
+              <PanelColorSettings
+                initialOpen={false}
+                title={__('Colors')}
+                colorSettings={[
+                  {
+                    value: arrowsColor,
+                    onChange: color => setAttributes({ arrowsColor: color }),
+                    label: __('Arrow Navigation Color'),
+                  },
+                  {
+                    value: dotsColor,
+                    onChange: color => setAttributes({ dotsColor: color }),
+                    label: __('Dot Navigation Color'),
+                  },
+                ]}
+              />
 
               <PanelBody title={__('Appearance')} initialOpen={false}>
                 <MarginControls

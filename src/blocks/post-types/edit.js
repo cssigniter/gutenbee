@@ -4,13 +4,13 @@ import { __ } from 'wp.i18n';
 import { compose } from 'wp.compose';
 import { withSelect } from 'wp.data';
 import {
-  ServerSideRender,
   SelectControl,
   RangeControl,
   PanelBody,
   ToggleControl,
 } from 'wp.components';
-import { InspectorControls } from 'wp.editor';
+import { InspectorControls } from 'wp.blockEditor';
+import ServerSideRender from 'wp.serverSideRender';
 
 const propTypes = {
   attributes: PropTypes.shape({

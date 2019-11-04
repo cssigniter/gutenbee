@@ -7,7 +7,7 @@ import {
   SelectControl,
   PanelBody,
 } from 'wp.components';
-import { InspectorControls } from 'wp.editor';
+import { InspectorControls } from 'wp.blockEditor';
 import startCase from 'lodash.startcase';
 
 import Gallery from '../../components/gallery/Gallery';

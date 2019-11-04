@@ -15,6 +15,7 @@
     > .editor-block-list__layout {
       display: flex;
       flex-wrap: nowrap;
+      flex-direction: inherit;
 
       // Set full heights on Columns to enable vertical alignment preview
       > [data-type="gutenbee/column"],

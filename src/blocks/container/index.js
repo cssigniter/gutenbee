@@ -34,6 +34,14 @@ registerBlockType('gutenbee/container', {
       type: 'string',
       default: 'md',
     },
+    columnDirection: {
+      type: 'object',
+      default: {
+        desktop: 'row',
+        tablet: 'row',
+        mobile: 'row',
+      },
+    },
     textColor: {
       type: 'string',
     },

@@ -4,7 +4,7 @@
 
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import { RichText } from 'wp.editor';
+import { RichText } from 'wp.blockEditor';
 
 import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 import AccordionBlockIcon from './block-icon';

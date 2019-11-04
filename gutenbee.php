@@ -56,6 +56,7 @@
 			'wp-compose',
 			'wp-keycodes',
 			'wp-html-entities',
+			'wp-server-side-render',
 		), GUTENBEE_PLUGIN_VERSION );
 
 		$gutenbee_settings = get_option( 'gutenbee_settings' );

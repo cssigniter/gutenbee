@@ -27,6 +27,7 @@ const wplib = [
   'compose',
   'keycodes',
   'html-entities',
+  'serverSideRender',
 ];
 
 const webpackConfig = {

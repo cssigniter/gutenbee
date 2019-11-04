@@ -1,19 +1,31 @@
+import PropTypes from 'prop-types';
+
 import StyleSheet from '../../components/stylesheet';
 import Rule from '../../components/stylesheet/Rule';
 import getBlockId from '../../util/getBlockId';
 
-const ContainerStyle = ({ attributes }) => {
+const propTypes = {
+  attributes: PropTypes.object.isRequired,
+  children: PropTypes.node,
+};
+
+const ContainerStyle = ({ attributes, children }) => {
   const {
     uniqueId,
     containerHeight,
     innerContentWidth,
     blockPadding,
     blockMargin,
+    columnDirection,
   } = attributes;
   const blockId = getBlockId(uniqueId);
 
   return (
     <StyleSheet id={blockId}>
+      <Rule
+        value={columnDirection}
+        rule=".wp-block-gutenbee-container-row { flex-direction: %s; }"
+      />
       <Rule
         value={containerHeight}
         rule="{ height: %s; }"
@@ -36,8 +48,11 @@ const ContainerStyle = ({ attributes }) => {
           value: '100%',
         }}
       />
+      {children}
     </StyleSheet>
   );
 };
+
+ContainerStyle.propTypes = propTypes;
 
 export default ContainerStyle;
