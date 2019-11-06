@@ -3,12 +3,13 @@
 .wp-block-gutenbee-container-row {
   display: block;
 
-  .is-selected &,
-  .has-child-selected & {
-    > .editor-inner-blocks {
-      margin-left: $block-padding;
-      margin-right: $block-padding;
-    }
+  .editor-block-list__layout {
+  	margin-left: 0;
+  	margin-right: 0;
+
+  	.editor-block-list__block {
+  		max-width: none;
+  	}
   }
 
   > .editor-inner-blocks {
@@ -35,29 +36,49 @@
         }
       }
 
-      > [data-type="gutenbee/column"] > .editor-block-list__block-edit > div[data-block] {
-        margin-top: 0;
-        margin-bottom: 0;
-      }
-
       > [data-type="gutenbee/column"] {
         width: 100%;
         min-width: 0;
+        padding-left: 0;
+        padding-right: 0;
+        flex-basis: calc(50% - 44px);
+        flex-grow: 0;
+        margin-left: 14px;
+        margin-right: 14px;
 
         // Prevent long unbroken words from overflowing.
         word-break: break-word; // For back-compat.
         overflow-wrap: break-word; // New standard.
 
-        .editor-inner-blocks {
-          //width: 100%;
+        &:nth-child(even) {
+          margin-left: calc(#{$grid-size-large * 2} + #{$block-padding});
+        }
+
+        &:not(:first-child) {
+          margin-left: calc(#{$grid-size-large * 2} + #{$block-padding});
         }
 
         > .editor-block-list__block-edit {
           margin-top: 0;
           margin-bottom: 0;
 
+          &::before {
+            left: 0;
+            right: 0;
+          }
+
+          > [data-block] {
+            margin-top: 0;
+            margin-bottom: 0;
+          }
+
           > .editor-block-contextual-toolbar {
             margin-left: -$border-width;
+          }
+
+          .wp-block-gutenbee-column-content > .editor-inner-blocks {
+            margin-top: -$default-block-margin;
+            margin-bottom: -$default-block-margin;
           }
         }
       }
@@ -65,13 +86,35 @@
   }
 }
 
-[data-type="gutenbee/column"] {
-  &.has-child-selected {
-    .wp-block-gutenbee-column-content {
-      > .block-editor-inner-blocks {
-        padding: $block-padding;
-      }
-    }
+[data-type="gutenbee/container"] {
+  .block-list-appender {
+    margin-top: $block-padding*2;
+    margin-bottom: $block-padding*2;
+  }
+
+  [data-type="gutenbee/column"].is-selected .block-list-appender {
+    margin: $block-padding 0;
   }
 }
 
+/**
+ * Add extra padding when the parent block is selected, for easier interaction.
+ */
+[data-type="gutenbee/container"].is-selected > .block-editor-block-list__block-edit > [data-block] .wp-block-gutenbee-container-row > .block-editor-inner-blocks,
+[data-type="gutenbee/container"].has-child-selected > .block-editor-block-list__block-edit > [data-block] .wp-block-gutenbee-container-row > .block-editor-inner-blocks,
+[data-type="gutenbee/column"].is-selected > .block-editor-block-list__block-edit > [data-block] .wp-block-gutenbee-column-content > .block-editor-inner-blocks,
+[data-type="gutenbee/column"].has-child-selected > .block-editor-block-list__block-edit > [data-block] .wp-block-gutenbee-column-content > .block-editor-inner-blocks {
+	padding: $block-padding;
+
+	// Negate this padding for the placeholder.
+	> .components-placeholder {
+		margin: -$block-padding;
+		width: calc(100% + #{$block-padding * 2});
+	}
+}
+
+[data-type="gutenbee/container"].is-selected .wp-block-gutenbee-column,
+[data-type="gutenbee/container"].has-child-selected .wp-block-gutenbee-column {
+  //margin-left: $block-padding;
+  //margin-right: $block-padding;
+}

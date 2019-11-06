@@ -41,12 +41,20 @@ const TEMPLATE_OPTIONS = [
   {
     title: __('One column'),
     icon: <OneColumn />,
-    template: [['gutenbee/column']],
+    template: [
+      [
+        'gutenbee/column',
+        { width: { desktop: 100, tablet: 100, mobile: 100 } },
+      ],
+    ],
   },
   {
     title: __('Two columns; equal split'),
     icon: <TwoColumnsEqual />,
-    template: [['gutenbee/column'], ['gutenbee/column']],
+    template: [
+      ['gutenbee/column', { width: { desktop: 50, tablet: 100, mobile: 100 } }],
+      ['gutenbee/column', { width: { desktop: 50, tablet: 100, mobile: 100 } }],
+    ],
   },
   {
     title: __('Two columns; one-third, two-thirds split'),

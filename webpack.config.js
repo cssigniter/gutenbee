@@ -26,7 +26,7 @@ const wplib = [
   'data',
   'compose',
   'keycodes',
-  'html-entities',
+  'htmlEntities',
   'serverSideRender',
 ];
 

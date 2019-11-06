@@ -2480,10 +2480,13 @@
   display: block;
 }
 
-.is-selected .wp-block-gutenbee-container-row > .editor-inner-blocks,
-.has-child-selected .wp-block-gutenbee-container-row > .editor-inner-blocks {
-  margin-left: 14px;
-  margin-right: 14px;
+.wp-block-gutenbee-container-row .editor-block-list__layout {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.wp-block-gutenbee-container-row .editor-block-list__layout .editor-block-list__block {
+  max-width: none;
 }
 
 .wp-block-gutenbee-container-row > .editor-inner-blocks > .editor-block-list__layout {
@@ -2527,19 +2530,41 @@
   }
 }
 
-.wp-block-gutenbee-container-row > .editor-inner-blocks > .editor-block-list__layout > [data-type="gutenbee/column"] > .editor-block-list__block-edit > div[data-block] {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
 .wp-block-gutenbee-container-row > .editor-inner-blocks > .editor-block-list__layout > [data-type="gutenbee/column"] {
   width: 100%;
   min-width: 0;
+  padding-left: 0;
+  padding-right: 0;
+  -ms-flex-preferred-size: calc(50% - 44px);
+  flex-basis: calc(50% - 44px);
+  -webkit-box-flex: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  margin-left: 14px;
+  margin-right: 14px;
   word-break: break-word;
   overflow-wrap: break-word;
 }
 
+.wp-block-gutenbee-container-row > .editor-inner-blocks > .editor-block-list__layout > [data-type="gutenbee/column"]:nth-child(even) {
+  margin-left: calc(32px + 14px);
+}
+
+.wp-block-gutenbee-container-row > .editor-inner-blocks > .editor-block-list__layout > [data-type="gutenbee/column"]:not(:first-child) {
+  margin-left: calc(32px + 14px);
+}
+
 .wp-block-gutenbee-container-row > .editor-inner-blocks > .editor-block-list__layout > [data-type="gutenbee/column"] > .editor-block-list__block-edit {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.wp-block-gutenbee-container-row > .editor-inner-blocks > .editor-block-list__layout > [data-type="gutenbee/column"] > .editor-block-list__block-edit::before {
+  left: 0;
+  right: 0;
+}
+
+.wp-block-gutenbee-container-row > .editor-inner-blocks > .editor-block-list__layout > [data-type="gutenbee/column"] > .editor-block-list__block-edit > [data-block] {
   margin-top: 0;
   margin-bottom: 0;
 }
@@ -2548,7 +2573,35 @@
   margin-left: -1px;
 }
 
-[data-type="gutenbee/column"].has-child-selected .wp-block-gutenbee-column-content > .block-editor-inner-blocks {
+.wp-block-gutenbee-container-row > .editor-inner-blocks > .editor-block-list__layout > [data-type="gutenbee/column"] > .editor-block-list__block-edit .wp-block-gutenbee-column-content > .editor-inner-blocks {
+  margin-top: -28px;
+  margin-bottom: -28px;
+}
+
+[data-type="gutenbee/container"] .block-list-appender {
+  margin-top: 28px;
+  margin-bottom: 28px;
+}
+
+[data-type="gutenbee/container"] [data-type="gutenbee/column"].is-selected .block-list-appender {
+  margin: 14px 0;
+}
+
+/**
+ * Add extra padding when the parent block is selected, for easier interaction.
+ */
+[data-type="gutenbee/container"].is-selected > .block-editor-block-list__block-edit > [data-block] .wp-block-gutenbee-container-row > .block-editor-inner-blocks,
+[data-type="gutenbee/container"].has-child-selected > .block-editor-block-list__block-edit > [data-block] .wp-block-gutenbee-container-row > .block-editor-inner-blocks,
+[data-type="gutenbee/column"].is-selected > .block-editor-block-list__block-edit > [data-block] .wp-block-gutenbee-column-content > .block-editor-inner-blocks,
+[data-type="gutenbee/column"].has-child-selected > .block-editor-block-list__block-edit > [data-block] .wp-block-gutenbee-column-content > .block-editor-inner-blocks {
   padding: 14px;
+}
+
+[data-type="gutenbee/container"].is-selected > .block-editor-block-list__block-edit > [data-block] .wp-block-gutenbee-container-row > .block-editor-inner-blocks > .components-placeholder,
+[data-type="gutenbee/container"].has-child-selected > .block-editor-block-list__block-edit > [data-block] .wp-block-gutenbee-container-row > .block-editor-inner-blocks > .components-placeholder,
+[data-type="gutenbee/column"].is-selected > .block-editor-block-list__block-edit > [data-block] .wp-block-gutenbee-column-content > .block-editor-inner-blocks > .components-placeholder,
+[data-type="gutenbee/column"].has-child-selected > .block-editor-block-list__block-edit > [data-block] .wp-block-gutenbee-column-content > .block-editor-inner-blocks > .components-placeholder {
+  margin: -14px;
+  width: calc(100% + 28px);
 }
 
