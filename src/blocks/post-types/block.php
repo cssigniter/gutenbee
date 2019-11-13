@@ -3,24 +3,40 @@
 	 * Custom Post Type dynamic block
 	 */
 
-	// TODO: Theme should declare support for the block's features, and the block should show the related options depending on said declared support.
-	/*
-	add_theme_support( 'block/gutenbee/cpt', array(
-		'categoryFilters' => true,
-		'masonry'         => true,
-		'gridEffect'      => true,
-	) );
-	*/
 
-	// TODO: Theme should handle enqueueing of scripts. E.g. in gutenbee/inc/scripts-styles.php before wp_register_script( 'ci-theme-front-scripts'...
-	/*
-	if ( has_block( 'gutenbee/cpt' ) ) {
-		$main_dependencies = array_merge( $main_dependencies, array(
-			'anim-on-scroll',
-			'isotope',
-		) );
+	function gutenbee_get_block_post_type_theme_support_defaults() {
+		return array(
+			'gridEffect'      => false,
+			'gridSpacing'     => false,
+			'masonry'         => false,
+			'categoryFilters' => false,
+		);
 	}
-	*/
+	/**
+	 * Returns whether the active theme supports a specific feature.
+	 *
+	 * @param string $feature The feature name you wish to check support for. Pass an empty string to return an array of all features.
+	 *
+	 * @return mixed The support state for the passed feature. Array of all features if $feature is empty.
+	 */
+	function gutenbee_get_block_post_type_theme_support( $feature = '' ) {
+		$support = get_theme_support( 'block/gutenbee/post-types' );
+		if ( ! is_array( $support ) ) {
+			return $support;
+		}
+
+		$support = $support[0];
+
+		$support = wp_parse_args( $support, gutenbee_get_block_post_type_theme_support_defaults() );
+
+		if ( empty( $feature ) ) {
+			return $support;
+		} elseif ( array_key_exists( $feature, $support ) ) {
+			return $support[ $feature ];
+		}
+
+		return false;
+	}
 
 	/**
 	 * Initializes the CPT block.
@@ -104,10 +120,12 @@
 			<button class="ci-item-filter filter-active" data-filter="*">
 				<?php echo esc_html( _x( 'All', 'all categories', 'ci-theme' ) ); ?>
 			</button>
-			<?php foreach ( $terms as $term ) : ?>
-				<button class="ci-item-filter"
-				        data-filter=".term-<?php echo esc_attr( $term->term_id ); ?>"><?php echo esc_html( $term->name ); ?></button>
-			<?php endforeach; ?>
+
+			<?php if ( is_array( $terms ) ) : ?>
+				<?php foreach ( $terms as $term ) : ?>
+					<button class="ci-item-filter" data-filter=".term-<?php echo esc_attr( $term->term_id ); ?>"><?php echo esc_html( $term->name ); ?></button>
+				<?php endforeach; ?>
+			<?php endif; ?>
 		</div>
 		<?php
 	}
@@ -206,23 +224,28 @@
 		$grid_effect  = $attributes['gridEffect'];
 		$grid_spacing = $attributes['gridSpacing'];
 
-		$container_classes = array();
 		// TODO this is not applicable and needs changing
 		$columns           = gutenbee_get_columns_classes( $attributes['columns'] );
+
+		$container_classes = array(
+			'gutenbee-row',
+			'gutenbee-row-items',
+		);
 
 		if ( $masonry ) {
 			$container_classes[] = 'row-isotope';
 		}
 
-		if ( $grid_effect && $grid_effect !== 'none' ) {
+		if ( $grid_effect && 'none' !== $grid_effect ) {
 			$container_classes[] = 'row-effect';
 			$container_classes[] = "row-effect-{$grid_effect}";
 		}
 
-		if ( $grid_spacing && $grid_spacing === 'no-gutters' ) {
+		if ( $grid_spacing && 'no-gutters' === $grid_spacing ) {
 			$container_classes[] = 'no-gutters';
 		}
 
+		$container_classes = apply_filters( 'gutenbee/post-types/container-classes', $container_classes, $attributes );
 		$container_classes = array_unique( array_filter( $container_classes ) );
 
 		if ( $q->have_posts() ) {
@@ -232,10 +255,8 @@
 				gutenbee_cpt_get_category_filters( $get_terms_args );
 			}
 
-			// TODO add a filter to the following classes so our themes
-			// can override them and make them `row` + `row-items` as is our default?
 			?>
-			<div class="gutenbee-row gutenbee-row-items <?php echo esc_attr( implode( ' ', $container_classes ) ); ?>"><?php
+			<div class="<?php echo esc_attr( implode( ' ', $container_classes ) ); ?>"><?php
 
 			while ( $q->have_posts() ) {
 				$q->the_post();
@@ -292,7 +313,7 @@
 			$response = ob_get_clean();
 
 		} else {
-			$response = 'No posts found.';
+			$response = __( 'No posts found.', 'gutenbee' );
 		}
 
 		return $response;
