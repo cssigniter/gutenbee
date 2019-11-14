@@ -105,6 +105,8 @@ const PostTypesEdit = ({
     [postType],
   );
 
+  const supports = window.__GUTENBEE_SETTINGS__.theme_supports['post-types'];
+
   return (
     <Fragment>
       <div className={className}>
@@ -240,20 +242,22 @@ const PostTypesEdit = ({
               onChange={value => setAttributes({ columns: value })}
             />
 
-            <SelectControl
-              label={__('Grid Effect')}
-              value={gridEffect}
-              options={[
-                { label: 'None', value: 'none' },
-                { label: 'Fade In', value: 'fade-in' },
-                { label: 'Move Up', value: 'move-up' },
-                { label: 'Scale Up', value: 'scale-up' },
-                { label: 'Fall Perspective', value: 'fall-perspective' },
-                { label: 'Flip', value: 'flip' },
-                { label: 'Pop Up', value: 'pop-up' },
-              ]}
-              onChange={value => setAttributes({ gridEffect: value })}
-            />
+            {supports.gridEffect && (
+              <SelectControl
+                label={__('Grid Effect')}
+                value={gridEffect}
+                options={[
+                  { label: 'None', value: 'none' },
+                  { label: 'Fade In', value: 'fade-in' },
+                  { label: 'Move Up', value: 'move-up' },
+                  { label: 'Scale Up', value: 'scale-up' },
+                  { label: 'Fall Perspective', value: 'fall-perspective' },
+                  { label: 'Flip', value: 'flip' },
+                  { label: 'Pop Up', value: 'pop-up' },
+                ]}
+                onChange={value => setAttributes({ gridEffect: value })}
+              />
+            )}
 
             <SelectControl
               label={__('Grid Spacing')}
@@ -265,20 +269,24 @@ const PostTypesEdit = ({
               onChange={value => setAttributes({ gridSpacing: value })}
             />
 
-            <ToggleControl
-              label={__('Masonry')}
-              checked={masonry}
-              onChange={value => setAttributes({ masonry: value })}
-            />
+            {supports.masonry && (
+              <ToggleControl
+                label={__('Masonry')}
+                checked={masonry}
+                onChange={value => setAttributes({ masonry: value })}
+              />
+            )}
 
-            <ToggleControl
-              label={__('Category Filters')}
-              checked={categoryFilters}
-              help={__(
-                'When enabled, ignores the "Items Per Page" and "Pagination" setting.',
-              )}
-              onChange={value => setAttributes({ categoryFilters: value })}
-            />
+            {supports.categoryFilters && (
+              <ToggleControl
+                label={__('Category Filters')}
+                checked={categoryFilters}
+                help={__(
+                  'When enabled, ignores the "Items Per Page" and "Pagination" setting.',
+                )}
+                onChange={value => setAttributes({ categoryFilters: value })}
+              />
+            )}
           </PanelBody>
         </InspectorControls>
       )}
