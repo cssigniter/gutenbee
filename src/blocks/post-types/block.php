@@ -139,7 +139,7 @@
 	function gutenbee_cpt_render_callback( $attributes ) {
 		$post_type         = $attributes['postType'];
 		$posts_per_page    = $attributes['postsPerPage'];
-		$pagination        = $attributes['pagination'];
+		$pagination        = (bool) $attributes['pagination'];
 		$offset            = $attributes['offset'];
 		$order             = $attributes['order'];
 		$order_by          = $attributes['orderBy'];
@@ -147,7 +147,13 @@
 		$author_id         = intval( $attributes['authorId'] );
 		$taxonomy_slug     = $attributes['taxonomySlug'];
 		$term_id           = intval( $attributes['termId'] );
-		$category_filters  = boolval( $attributes['categoryFilters'] );
+		$columns           = $attributes['columns'];
+		$grid_spacing      = $attributes['gridSpacing'];
+
+		$masonry          = (bool) $attributes['masonry'];
+		$grid_effect      = (bool) $attributes['gridEffect'];
+		$category_filters = (bool) $attributes['categoryFilters'];
+
 
 		$post_type_taxonomies = get_object_taxonomies( $post_type, 'objects' );
 		if ( $post_type_taxonomies ) {
@@ -164,7 +170,7 @@
 
 		$args = array(
 			'post_type'           => $post_type,
-			'ignore_sticky_posts' => 1,
+			'ignore_sticky_posts' => true,
 			'posts_per_page'      => $posts_per_page,
 			'order'               => $order,
 			'post__not_in'        => $excluded_post_ids,
@@ -176,6 +182,11 @@
 
 		if ( $pagination ) {
 			$args['paged'] = gutenbee_block_get_page_var();
+		}
+
+		if ( $category_filters ) {
+			$args['posts_per_page'] = -1;
+			unset( $args['paged'] );
 		}
 
 		$query_args_tax = array(
@@ -219,13 +230,6 @@
 
 		$q = new WP_Query( $query_args );
 
-		$masonry      = $attributes['masonry'];
-		$grid_effect  = $attributes['gridEffect'];
-		$grid_spacing = $attributes['gridSpacing'];
-
-		// TODO this is not applicable and needs changing
-		$columns           = gutenbee_get_columns_classes( $attributes['columns'] );
-
 		$container_classes = array(
 			'gutenbee-row',
 			'gutenbee-row-items',
@@ -244,7 +248,7 @@
 			$container_classes[] = 'no-gutters';
 		}
 
-		$container_classes = apply_filters( 'gutenbee/post-types/container-classes', $container_classes, $attributes );
+		$container_classes = apply_filters( 'gutenbee_post_types_container_classes', $container_classes, $attributes );
 		$container_classes = array_unique( array_filter( $container_classes ) );
 
 		if ( $q->have_posts() ) {
@@ -272,22 +276,15 @@
 					}
 				}
 
-				$classes[] = $columns;
+				$classes[] = gutenbee_get_columns_classes( $columns );
 
 				?>
 				<div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>"><?php
 
-				// TODO dev: Based on the "pagination" setting display different templates.
-				// Pagination: true means it's a listing page, otherwise it should be considered
-				// a "widget" block (like homepage widget blocks).
-				// Note: Think about renaming "pagination" to something else (like "Layout: widget / listing") and consolidate whether to display pagination based on
-				// that (listing layout means pagination always).
 				if ( 1 === $attributes['columns'] ) {
-					// TODO Add filter here so that themes can override
-					// the templates
-					require( 'templates/article-media.php' );
+					gutenbee_get_template_part( 'post-types', 'article-media', get_post_type() );
 				} else {
-					require( 'templates/article-default.php' );
+					gutenbee_get_template_part( 'post-types', 'article-default', get_post_type() );
 				}
 
 				?></div><?php
@@ -298,7 +295,7 @@
 
 			wp_reset_postdata();
 
-			if ( $pagination ) {
+			if ( $pagination && ! $category_filters ) {
 				global $wp_query;
 
 				$old_wp_query = $wp_query;

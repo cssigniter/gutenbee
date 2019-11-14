@@ -155,10 +155,6 @@
 		return $settings;
 	}
 
-	// Settings Page
-	require_once dirname( __FILE__ ) . '/inc/options.php';
-
-
 	/**
 	 * Returns the appropriate page(d) query variable to use in custom loops (needed for pagination).
 	 *
@@ -200,7 +196,52 @@
 		return apply_filters( 'gutenbee_get_columns_classes', $classes, $columns );
 	}
 
+	function gutenbee_get_template_part( $block, $slug, $name = '', $template_vars = array() ) {
+		$templates = array();
+		$name      = (string) $name;
+		if ( '' !== $name ) {
+			$templates[] = "{$slug}-{$name}.php";
+		}
 
-	// TODO clean this up?
+		$templates[] = "{$slug}.php";
 
-	require( 'src/blocks/post-types/block.php' );
+		$located = gutenbee_locate_template( $block, $templates );
+
+		if ( ! empty( $located ) ) {
+			include $located;
+		}
+	}
+
+	function gutenbee_locate_template( $block, $templates ) {
+		$plugin_path = plugin_dir_path( __FILE__ );
+
+		// The templates path in the plugin, i.e.defaults/fallback. E.g. src/blocks/post-types/templates/
+		$default_path = trailingslashit( trailingslashit( $plugin_path ) . "src/blocks/{$block}/templates" );
+
+		// The templates path in the theme. E.g. gutenbee/
+		$theme_path = apply_filters( 'gutenbee_locate_template_theme_path', "gutenbee/{$block}", $block );
+		$theme_path = trailingslashit( $theme_path );
+
+		$theme_templates = array();
+		foreach ( $templates as $template ) {
+			$theme_templates[] = $theme_path . $template;
+		}
+
+		// Try to find a theme-overriden template.
+		$located = locate_template( $theme_templates, false );
+
+		if ( empty( $located ) ) {
+			// Nope. Try the plugin templates instead.
+			foreach ( $templates as $template ) {
+				if ( file_exists( $default_path . $template ) ) {
+					$located = $default_path . $template;
+					break;
+				}
+			}
+		}
+
+		return $located;
+	}
+
+	require_once untrailingslashit( dirname( __FILE__ ) ) . '/inc/options.php';
+	require_once untrailingslashit( dirname( __FILE__ ) ) . '/src/blocks/post-types/block.php';
