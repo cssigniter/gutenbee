@@ -7,7 +7,6 @@
 	function gutenbee_get_block_post_type_theme_support_defaults() {
 		return array(
 			'gridEffect'      => false,
-			'gridSpacing'     => false,
 			'masonry'         => false,
 			'categoryFilters' => false,
 		);

@@ -143,9 +143,6 @@
 		$defaults = array(
 			'active_google-maps'  => 1,
 			'google_maps_api_key' => '',
-			'theme_supports'      => array(
-				'post-types' => gutenbee_get_block_post_type_theme_support_defaults(),
-			),
 		);
 		foreach ( gutenbee_get_setting_block_names() as $id => $name ) {
 			$defaults[ 'active_' . $id ] = 1;
@@ -153,13 +150,7 @@
 
 		$settings = wp_parse_args( $settings, $defaults );
 
-		foreach ( $defaults['theme_supports'] as $block => $supports ) {
-			if ( ! array_key_exists( $block, $settings['theme_supports'] ) ) {
-				$settings['theme_supports'][ $block ] = array();
-			}
-
-			$settings['theme_supports'][ $block ] = wp_parse_args( $settings['theme_supports'][ $block ], $defaults['theme_supports'][ $block ] );
-		}
+		$settings['theme_supports']['post-types'] = gutenbee_get_block_post_type_theme_support();
 
 		return $settings;
 	}
