@@ -150,7 +150,7 @@
 
 		$settings = wp_parse_args( $settings, $defaults );
 
-		$settings['theme_supports']['post-types'] = gutenbee_get_block_post_type_theme_support();
+		$settings['theme_supports']['post-types'] = gutenbee_block_post_types_get_theme_support();
 
 		return $settings;
 	}
@@ -164,7 +164,7 @@
 	 *
 	 * @return int The appropriate paged value if found, else 0.
 	 */
-	function gutenbee_block_get_page_var( $default_return = 0 ) {
+	function gutenbee_get_page_var( $default_return = 0 ) {
 		$paged = get_query_var( 'paged', false );
 		$page  = get_query_var( 'page', false );
 

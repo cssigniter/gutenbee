@@ -4,7 +4,7 @@
 	 */
 
 
-	function gutenbee_get_block_post_type_theme_support_defaults() {
+	function gutenbee_block_post_types_get_theme_support_defaults() {
 		return array(
 			'gridEffect'      => false,
 			'masonry'         => false,
@@ -18,7 +18,7 @@
 	 *
 	 * @return mixed The support state for the passed feature. Array of all features if $feature is empty.
 	 */
-	function gutenbee_get_block_post_type_theme_support( $feature = '' ) {
+	function gutenbee_block_post_types_get_theme_support( $feature = '' ) {
 		$support = get_theme_support( 'block/gutenbee/post-types' );
 		if ( ! is_array( $support ) ) {
 			return $support;
@@ -26,7 +26,7 @@
 
 		$support = $support[0];
 
-		$support = wp_parse_args( $support, gutenbee_get_block_post_type_theme_support_defaults() );
+		$support = wp_parse_args( $support, gutenbee_block_post_types_get_theme_support_defaults() );
 
 		if ( empty( $feature ) ) {
 			return $support;
@@ -37,10 +37,11 @@
 		return false;
 	}
 
+	add_action( 'init', 'gutenbee_block_post_types_init' );
 	/**
 	 * Initializes the CPT block.
 	 */
-	function gutenbee_cpt_block_init() {
+	function gutenbee_block_post_types_init() {
 		register_block_type( 'gutenbee/post-types', array(
 			'attributes'      => array(
 				'postType'        => array(
@@ -104,11 +105,11 @@
 					'default' => false,
 				),
 			),
-			'render_callback' => 'gutenbee_cpt_render_callback',
+			'render_callback' => 'gutenbee_block_post_types_render_callback',
 		) );
 	}
 
-	function gutenbee_cpt_get_category_filters( $args ) {
+	function gutenbee_block_post_types_get_category_filters( $args ) {
 		$terms = array();
 		if ( $args['taxonomy'] ) {
 			$terms = get_terms( $args );
@@ -117,7 +118,7 @@
 		?>
 		<div class="ci-item-filters">
 			<button class="ci-item-filter filter-active" data-filter="*">
-				<?php echo esc_html( _x( 'All', 'all categories', 'ci-theme' ) ); ?>
+				<?php echo esc_html( _x( 'All', 'all categories', 'gutenbee' ) ); ?>
 			</button>
 
 			<?php if ( is_array( $terms ) ) : ?>
@@ -136,7 +137,7 @@
 	 *
 	 * @return string
 	 */
-	function gutenbee_cpt_render_callback( $attributes ) {
+	function gutenbee_block_post_types_render_callback( $attributes ) {
 		$post_type         = $attributes['postType'];
 		$posts_per_page    = $attributes['postsPerPage'];
 		$pagination        = (bool) $attributes['pagination'];
@@ -181,7 +182,7 @@
 		}
 
 		if ( $pagination ) {
-			$args['paged'] = gutenbee_block_get_page_var();
+			$args['paged'] = gutenbee_get_page_var();
 		}
 
 		if ( $category_filters ) {
@@ -239,14 +240,16 @@
 			$container_classes[] = 'row-isotope';
 		}
 
-		if ( $grid_effect && 'none' !== $grid_effect ) {
+		if ( $grid_effect && ! in_array( $grid_effect, array( '', 'none' ), true ) ) {
 			$container_classes[] = 'row-effect';
 			$container_classes[] = "row-effect-{$grid_effect}";
 		}
 
-		if ( $grid_spacing && 'no-gutters' === $grid_spacing ) {
+		if ( 'no-gutters' === $grid_spacing ) {
 			$container_classes[] = 'no-gutters';
 		}
+
+		$container_classes[] = "gutenbee-row-columns-{$columns}";
 
 		$container_classes = apply_filters( 'gutenbee_post_types_container_classes', $container_classes, $attributes );
 		$container_classes = array_unique( array_filter( $container_classes ) );
@@ -255,15 +258,13 @@
 			ob_start();
 
 			if ( $category_filters ) {
-				gutenbee_cpt_get_category_filters( $get_terms_args );
+				gutenbee_block_post_types_get_category_filters( $get_terms_args );
 			}
 
-			?>
-			<div class="<?php echo esc_attr( implode( ' ', $container_classes ) ); ?>"><?php
+			?><div class="<?php echo esc_attr( implode( ' ', $container_classes ) ); ?>"><?php
 
 			while ( $q->have_posts() ) {
 				$q->the_post();
-
 
 				$classes = array();
 				if ( $taxonomy_slug ) {
@@ -315,4 +316,3 @@
 		return $response;
 	}
 
-	add_action( 'init', 'gutenbee_cpt_block_init' );
