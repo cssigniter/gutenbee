@@ -227,7 +227,7 @@
 			$theme_templates[] = $theme_path . $template;
 		}
 
-		// Try to find a theme-overriden template.
+		// Try to find a theme-overridden template.
 		$located = locate_template( $theme_templates, false );
 
 		if ( empty( $located ) ) {
