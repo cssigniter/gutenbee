@@ -25,7 +25,7 @@
 	 */
 
 	if ( ! defined( 'GUTENBEE_PLUGIN_VERSION' ) ) {
-		define( 'GUTENBEE_PLUGIN_VERSION', '2.0.9' );
+		define( 'GUTENBEE_PLUGIN_VERSION', '2.1.0' );
 	}
 
 	if ( ! defined( 'GUTENBEE_PLUGIN_DIR' ) ) {

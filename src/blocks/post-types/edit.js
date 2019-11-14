@@ -106,6 +106,7 @@ const PostTypesEdit = ({
   );
 
   const supports = window.__GUTENBEE_SETTINGS__.theme_supports['post-types'];
+  console.log(__GUTENBEE_SETTINGS__.theme_supports);
 
   return (
     <Fragment>
