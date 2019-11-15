@@ -45,6 +45,7 @@
     "classnames": "2.2.5",
     "countup": "1.8.2",
     "justifiedGallery": "3.7.0",
+    "lodash": "^4.17.15",
     "lodash.dropright": "^4.1.1",
     "lodash.get": "4.4.2",
     "lodash.omit": "4.5.0",

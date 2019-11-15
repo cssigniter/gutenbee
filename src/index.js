@@ -27,6 +27,7 @@ import './blocks/tabs';
 import './blocks/post-types';
 import './blocks/container';
 import './blocks/container/column';
+import './blocks/heading';
 
 //
 // Misc
