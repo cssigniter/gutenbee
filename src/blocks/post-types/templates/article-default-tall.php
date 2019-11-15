@@ -1,11 +1,11 @@
 <article
 	id="gutenbee-post-types-<?php the_ID(); ?>"
-	<?php post_class( 'gutenbee-post-types-item gutenbee-post-types-item-media' ); ?>
+	<?php post_class( 'gutenbee-post-types-item' ); ?>
 >
 	<?php if ( has_post_thumbnail() ) : ?>
 		<figure class="gutenbee-post-types-item-thumb">
 			<a href="<?php the_permalink(); ?>">
-				<?php the_post_thumbnail(); ?>
+				<?php the_post_thumbnail( 'large' ); ?>
 			</a>
 		</figure>
 	<?php endif; ?>

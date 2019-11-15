@@ -5,7 +5,6 @@
 	<?php if ( has_post_thumbnail() ) : ?>
 		<figure class="gutenbee-post-types-item-thumb">
 			<a href="<?php the_permalink(); ?>">
-				<?php /* TODO What image size to get? */ ?>
 				<?php the_post_thumbnail(); ?>
 			</a>
 		</figure>

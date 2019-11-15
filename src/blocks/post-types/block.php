@@ -285,7 +285,11 @@
 				if ( 1 === $columns ) {
 					gutenbee_get_template_part( 'post-types', 'article-media', get_post_type() );
 				} else {
-					gutenbee_get_template_part( 'post-types', 'article-default', get_post_type() );
+					if ( $masonry ) {
+						gutenbee_get_template_part( 'post-types', 'article-default-tall', get_post_type() );
+					} else {
+						gutenbee_get_template_part( 'post-types', 'article-default', get_post_type() );
+					}
 				}
 
 				?></div><?php
