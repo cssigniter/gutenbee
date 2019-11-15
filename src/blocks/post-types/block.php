@@ -152,7 +152,7 @@
 		$grid_spacing      = $attributes['gridSpacing'];
 
 		$masonry          = (bool) $attributes['masonry'];
-		$grid_effect      = (bool) $attributes['gridEffect'];
+		$grid_effect      = $attributes['gridEffect'];
 		$category_filters = (bool) $attributes['categoryFilters'];
 
 
@@ -282,7 +282,7 @@
 				?>
 				<div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>"><?php
 
-				if ( 1 === $attributes['columns'] ) {
+				if ( 1 === $columns ) {
 					gutenbee_get_template_part( 'post-types', 'article-media', get_post_type() );
 				} else {
 					gutenbee_get_template_part( 'post-types', 'article-default', get_post_type() );
