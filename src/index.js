@@ -28,6 +28,8 @@ import './blocks/post-types';
 import './blocks/container';
 import './blocks/container/column';
 import './blocks/heading';
+import './blocks/paragraph';
+// import './blocks/image';
 
 //
 // Misc

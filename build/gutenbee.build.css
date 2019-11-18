@@ -534,7 +534,10 @@
 
 .gutenbee-responsive-control-wrap {
   position: relative;
-  margin-bottom: 24px;
+}
+
+.gutenbee-responsive-control-wrap .components-base-control {
+  margin-bottom: 0 !important;
 }
 
 .gutenbee-responsive-control-wrap-buttons {
@@ -2603,5 +2606,14 @@
 [data-type="gutenbee/column"].has-child-selected > .block-editor-block-list__block-edit > [data-block] .wp-block-gutenbee-column-content > .block-editor-inner-blocks > .components-placeholder {
   margin: -14px;
   width: calc(100% + 28px);
+}
+
+.gutenbee-heading-wrap h1, .gutenbee-heading-wrap h2, .gutenbee-heading-wrap h3, .gutenbee-heading-wrap h4, .gutenbee-heading-wrap h5, .gutenbee-heading-wrap h6 {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.gutenbee-block-paragraph p {
+  margin: 0 !important;
 }
 

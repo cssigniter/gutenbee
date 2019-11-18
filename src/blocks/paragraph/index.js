@@ -1,29 +1,30 @@
 import { Fragment } from 'wp.element';
 import { registerBlockType } from 'wp.blocks';
 import { __ } from 'wp.i18n';
-import { RichText } from 'wp.blockEditor';
+import { RichText, getColorClassName } from 'wp.blockEditor';
 import classNames from 'classnames';
 
-import HeadingEdit from './edit';
 import getBlockId from '../../util/getBlockId';
-import HeadingStyle from './style';
+import ParagraphEdit from './edit';
+import ParagraphStyle from './style';
 
-registerBlockType('gutenbee/heading', {
-  title: __('Heading'),
-  description: __(
-    'Introduce new sections and organize content to help visitors (and search engines) understand the structure of your content.',
-  ),
-  icon: 'H',
+registerBlockType('gutenbee/paragraph', {
+  title: __('Paragraph'),
+  description: __('Start with the building block of all narrative.'),
+  icon: 'P',
   category: 'gutenbee',
-  keywords: [__('title'), __('subtitle'), __('heading')],
+  keywords: [__('text'), __('content'), __('paragraph')],
   supports: {
     className: false,
     anchor: true,
   },
   example: {
     attributes: {
-      content: __('Code is Poetry'),
-      level: 2,
+      content: __(
+        'It was a bright cold day in April, and the clocks were striking thirteen.',
+      ),
+      fontSize: 16,
+      dropCap: false,
     },
   },
   attributes: {
@@ -36,12 +37,12 @@ registerBlockType('gutenbee/heading', {
     content: {
       type: 'string',
       source: 'html',
-      selector: 'h1,h2,h3,h4,h5,h6',
+      selector: 'p',
       default: '',
     },
-    level: {
-      type: 'number',
-      default: 2,
+    dropCap: {
+      type: 'boolean',
+      default: false,
     },
     placeholder: {
       type: 'string',
@@ -49,8 +50,22 @@ registerBlockType('gutenbee/heading', {
     textColor: {
       type: 'string',
     },
+    customTextColor: {
+      type: 'string',
+    },
     backgroundColor: {
       type: 'string',
+    },
+    customBackgroundColor: {
+      type: 'string',
+    },
+    fontSize: {
+      type: 'object',
+      default: {
+        desktop: '',
+        tablet: '',
+        mobile: '',
+      },
     },
     blockPadding: {
       type: 'object',
@@ -99,38 +114,49 @@ registerBlockType('gutenbee/heading', {
       },
     },
   },
-  edit: HeadingEdit,
+  edit: ParagraphEdit,
   save: ({ attributes }) => {
     const {
       uniqueId,
       align,
       content,
-      level,
-      textColor,
+      dropCap,
       backgroundColor,
+      textColor,
+      customBackgroundColor,
+      customTextColor,
     } = attributes;
-    const tagName = 'h' + level;
-
-    const className = classNames({
-      'has-text-color': !!textColor,
-      'has-background-color': !!backgroundColor,
-      [`has-text-align-${align}`]: align,
-    });
 
     const blockId = getBlockId(uniqueId);
 
+    const textClass = getColorClassName('color', textColor);
+    const backgroundClass = getColorClassName(
+      'background-color',
+      backgroundColor,
+    );
+
+    const className = classNames({
+      'has-text-color': textColor || customTextColor,
+      'has-drop-cap': dropCap,
+      [`has-text-align-${align}`]: align,
+      [textClass]: textClass,
+      [backgroundClass]: backgroundClass,
+    });
+
+    const styles = {
+      backgroundColor: backgroundClass ? undefined : customBackgroundColor,
+      color: textClass ? undefined : customTextColor,
+    };
+
     return (
       <Fragment>
-        <HeadingStyle attributes={attributes} />
+        <ParagraphStyle attributes={attributes} />
 
         <RichText.Content
           id={blockId}
+          tagName="p"
+          style={styles}
           className={className ? className : undefined}
-          tagName={tagName}
-          style={{
-            color: textColor ? textColor : undefined,
-            backgroundColor: backgroundColor ? backgroundColor : undefined,
-          }}
           value={content}
         />
       </Fragment>

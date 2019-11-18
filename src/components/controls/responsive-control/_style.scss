@@ -1,6 +1,9 @@
 .gutenbee-responsive-control-wrap {
   position: relative;
-  margin-bottom: 24px;
+
+  .components-base-control {
+    margin-bottom: 0 !important;
+  }
 }
 
 .gutenbee-responsive-control-wrap-buttons {

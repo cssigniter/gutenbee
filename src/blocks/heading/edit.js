@@ -1,4 +1,5 @@
-import classnames from 'classnames';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { PanelBody } from 'wp.components';
@@ -7,6 +8,7 @@ import {
   BlockControls,
   InspectorControls,
   RichText,
+  PanelColorSettings,
 } from 'wp.blockEditor';
 
 import HeadingToolbar from './heading-toolbar';
@@ -16,6 +18,14 @@ import MarginControls from '../../components/controls/margin-controls';
 import HeadingStyle from './style';
 import getBlockId from '../../util/getBlockId';
 
+const propTypes = {
+  attribute: PropTypes.object.isRequired,
+  setAttributes: PropTypes.func.isRequired,
+  onReplace: PropTypes.func,
+  className: PropTypes.string,
+  clientId: PropTypes.string.isRequired,
+};
+
 function HeadingEdit({
   attributes,
   setAttributes,
@@ -24,7 +34,15 @@ function HeadingEdit({
   className,
   clientId,
 }) {
-  const { align, content, level, placeholder, uniqueId } = attributes;
+  const {
+    align,
+    content,
+    level,
+    placeholder,
+    uniqueId,
+    textColor,
+    backgroundColor,
+  } = attributes;
   const tagName = 'h' + level;
 
   useUniqueId({
@@ -62,36 +80,61 @@ function HeadingEdit({
             selectedLevel={level}
             onChange={newLevel => setAttributes({ level: newLevel })}
           />
+
+          <ResponsiveControl>
+            {breakpoint => (
+              <MarginControls
+                label={__('Padding (px)')}
+                attributeKey="blockPadding"
+                attributes={attributes}
+                setAttributes={setAttributes}
+                breakpoint={breakpoint}
+              />
+            )}
+          </ResponsiveControl>
+
+          <ResponsiveControl>
+            {breakpoint => (
+              <MarginControls
+                label={__('Margin (px)')}
+                attributeKey="blockMargin"
+                attributes={attributes}
+                setAttributes={setAttributes}
+                breakpoint={breakpoint}
+              />
+            )}
+          </ResponsiveControl>
         </PanelBody>
 
-        <ResponsiveControl>
-          {breakpoint => (
-            <MarginControls
-              label={__('Padding (px)')}
-              attributeKey="blockPadding"
-              attributes={attributes}
-              setAttributes={setAttributes}
-              breakpoint={breakpoint}
-            />
-          )}
-        </ResponsiveControl>
-
-        <ResponsiveControl>
-          {breakpoint => (
-            <MarginControls
-              label={__('Margin (px)')}
-              attributeKey="blockMargin"
-              attributes={attributes}
-              setAttributes={setAttributes}
-              breakpoint={breakpoint}
-            />
-          )}
-        </ResponsiveControl>
+        <PanelColorSettings
+          title={__('Color Settings')}
+          initialOpen={false}
+          colorSettings={[
+            {
+              value: backgroundColor,
+              onChange: value => setAttributes({ backgroundColor: value }),
+              label: __('Background Color'),
+            },
+            {
+              value: textColor,
+              onChange: value => setAttributes({ textColor: value }),
+              label: __('Text Color'),
+            },
+          ]}
+          onChange={value => setAttributes({ backgroundColor: value })}
+        />
       </InspectorControls>
 
       <HeadingStyle attributes={attributes} />
 
-      <div id={blockId}>
+      <div
+        id={blockId}
+        style={{
+          color: textColor ? textColor : undefined,
+          backgroundColor: backgroundColor ? backgroundColor : undefined,
+        }}
+        className="gutenbee-heading-wrap"
+      >
         <RichText
           identifier="content"
           tagName={tagName}
@@ -100,7 +143,7 @@ function HeadingEdit({
           onMerge={mergeBlocks}
           onReplace={onReplace}
           onRemove={() => onReplace([])}
-          className={classnames(className, {
+          className={classNames(className, {
             [`has-text-align-${align}`]: align,
           })}
           placeholder={placeholder || __('Write heading…')}
@@ -109,5 +152,7 @@ function HeadingEdit({
     </Fragment>
   );
 }
+
+HeadingEdit.propTypes = propTypes;
 
 export default HeadingEdit;
