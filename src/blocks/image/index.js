@@ -1,7 +1,17 @@
+import { Fragment } from 'wp.element';
 import { __, _x } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
+import { RichText } from 'wp.blockEditor';
+import classNames from 'classnames';
+import { isEmpty } from 'lodash';
 
 import ImageEdit from './edit';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../components/controls/responsive-control/default-values';
+import getBlockId from '../../util/getBlockId';
+import ImageStyle from './style';
 
 registerBlockType('gutenbee/image', {
   title: __('Image'),
@@ -73,10 +83,8 @@ registerBlockType('gutenbee/image', {
       type: 'number',
     },
     width: {
-      type: 'number',
-    },
-    height: {
-      type: 'number',
+      object: 'number',
+      default: getDefaultResponsiveValue(),
     },
     sizeSlug: {
       type: 'string',
@@ -93,49 +101,11 @@ registerBlockType('gutenbee/image', {
     },
     blockPadding: {
       type: 'object',
-      default: {
-        desktop: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-        tablet: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-        mobile: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-      },
+      default: getDefaultSpacingValue(),
     },
     blockMargin: {
       type: 'object',
-      default: {
-        desktop: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-        tablet: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-        mobile: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-      },
+      default: getDefaultSpacingValue(),
     },
   },
   getEditWrapperProps(attributes) {
@@ -151,5 +121,73 @@ registerBlockType('gutenbee/image', {
     }
   },
   edit: ImageEdit,
-  save: () => {},
+  save: ({ attributes }) => {
+    const {
+      uniqueId,
+      url,
+      alt,
+      caption,
+      align,
+      href,
+      rel,
+      linkClass,
+      id,
+      linkTarget,
+      sizeSlug,
+      title,
+    } = attributes;
+
+    const newRel = isEmpty(rel) ? undefined : rel;
+
+    const classes = classNames({
+      [`align${align}`]: align,
+      [`size-${sizeSlug}`]: sizeSlug,
+    });
+
+    const blockId = getBlockId(uniqueId);
+
+    const image = (
+      <img
+        src={url}
+        alt={alt}
+        className={id ? `wp-image-${id}` : null}
+        title={title}
+      />
+    );
+
+    const figure = (
+      <Fragment>
+        {href ? (
+          <a className={linkClass} href={href} target={linkTarget} rel={newRel}>
+            {image}
+          </a>
+        ) : (
+          image
+        )}
+        {!RichText.isEmpty(caption) && (
+          <RichText.Content tagName="figcaption" value={caption} />
+        )}
+      </Fragment>
+    );
+
+    if ('left' === align || 'right' === align || 'center' === align) {
+      return (
+        <Fragment>
+          <ImageStyle attributes={attributes} />
+          <div id={blockId}>
+            <figure className={classes}>{figure}</figure>
+          </div>
+        </Fragment>
+      );
+    }
+
+    return (
+      <Fragment>
+        <ImageStyle attributes={attributes} />
+        <figure id={blockId} className={classes}>
+          {figure}
+        </figure>
+      </Fragment>
+    );
+  },
 });
