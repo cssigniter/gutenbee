@@ -18,6 +18,8 @@
   display: flex;
 
   .components-base-control {
+    margin-bottom: 0 !important;
+
     &:first-child {
       .components-text-control__input {
         border-top-right-radius: 0;

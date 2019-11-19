@@ -119,33 +119,51 @@ const ColumnBlockEdit = ({
             )}
           </ResponsiveControl>
 
-          <SelectControl
-            label={__('Vertical Content Alignment')}
-            value={verticalContentAlignment}
-            options={[
-              { value: '', label: __('') },
-              { value: 'flex-start', label: __('Top') },
-              { value: 'center', label: __('Middle') },
-              { value: 'flex-end', label: __('Bottom') },
-            ]}
-            onChange={value =>
-              setAttributes({ verticalContentAlignment: value })
-            }
-          />
+          <ResponsiveControl>
+            {breakpoint => (
+              <SelectControl
+                label={__('Vertical Content Alignment')}
+                value={verticalContentAlignment[breakpoint]}
+                options={[
+                  { value: '', label: __('') },
+                  { value: 'flex-start', label: __('Top') },
+                  { value: 'center', label: __('Middle') },
+                  { value: 'flex-end', label: __('Bottom') },
+                ]}
+                onChange={value =>
+                  setAttributes({
+                    verticalContentAlignment: {
+                      ...verticalContentAlignment,
+                      [breakpoint]: value,
+                    },
+                  })
+                }
+              />
+            )}
+          </ResponsiveControl>
 
-          <SelectControl
-            label={__('Horizontal Content Alignment')}
-            value={horizontalContentAlignment}
-            options={[
-              { value: '', label: '' },
-              { value: 'flex-start', label: __('Left') },
-              { value: 'center', label: __('Center') },
-              { value: 'flex-end', label: __('Right') },
-            ]}
-            onChange={value =>
-              setAttributes({ horizontalContentAlignment: value })
-            }
-          />
+          <ResponsiveControl>
+            {breakpoint => (
+              <SelectControl
+                label={__('Horizontal Content Alignment')}
+                value={horizontalContentAlignment[breakpoint]}
+                options={[
+                  { value: '', label: '' },
+                  { value: 'flex-start', label: __('Left') },
+                  { value: 'center', label: __('Center') },
+                  { value: 'flex-end', label: __('Right') },
+                ]}
+                onChange={value =>
+                  setAttributes({
+                    horizontalContentAlignment: {
+                      ...horizontalContentAlignment,
+                      [breakpoint]: value,
+                    },
+                  })
+                }
+              />
+            )}
+          </ResponsiveControl>
         </PanelBody>
 
         <PanelColorSettings

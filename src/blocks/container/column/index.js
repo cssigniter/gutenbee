@@ -12,6 +12,10 @@ import getBlockId from '../../../util/getBlockId';
 import ColumnStyle from './style';
 import { getBackgroundImageStyle } from '../../../components/controls/background-controls/helpers';
 import Rule from '../../../components/stylesheet/Rule';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../../components/controls/responsive-control/default-values';
 
 registerBlockType('gutenbee/column', {
   title: __('GutenBee Column'),
@@ -56,57 +60,19 @@ registerBlockType('gutenbee/column', {
     },
     blockPadding: {
       type: 'object',
-      default: {
-        desktop: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-        tablet: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-        mobile: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-      },
+      default: getDefaultSpacingValue(),
     },
     blockMargin: {
       type: 'object',
-      default: {
-        desktop: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-        tablet: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-        mobile: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-      },
+      default: getDefaultSpacingValue(),
     },
     verticalContentAlignment: {
-      type: 'string',
-      default: '',
+      type: 'object',
+      default: getDefaultResponsiveValue(),
     },
     horizontalContentAlignment: {
-      type: 'string',
-      default: '',
+      type: 'object',
+      default: getDefaultResponsiveValue(),
     },
   },
   getEditWrapperProps(attributes) {

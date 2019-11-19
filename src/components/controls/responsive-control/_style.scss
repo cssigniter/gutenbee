@@ -1,8 +1,13 @@
 .gutenbee-responsive-control-wrap {
   position: relative;
+  margin-bottom: $default-block-margin;
 
   .components-base-control {
     margin-bottom: 0 !important;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
   }
 }
 
@@ -10,7 +15,7 @@
   display: flex;
   align-items: center;
   position: absolute;
-  right: 0;
+  right: -6px;
 }
 
 .gutenbee-responsive-control-wrap-button {

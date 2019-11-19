@@ -442,6 +442,10 @@
   display: flex;
 }
 
+.gutenbee-control-spacing-controls .components-base-control {
+  margin-bottom: 0 !important;
+}
+
 .gutenbee-control-spacing-controls .components-base-control:first-child .components-text-control__input {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
@@ -534,10 +538,15 @@
 
 .gutenbee-responsive-control-wrap {
   position: relative;
+  margin-bottom: 28px;
 }
 
 .gutenbee-responsive-control-wrap .components-base-control {
   margin-bottom: 0 !important;
+}
+
+.gutenbee-responsive-control-wrap:last-child {
+  margin-bottom: 0;
 }
 
 .gutenbee-responsive-control-wrap-buttons {
@@ -548,7 +557,7 @@
   -ms-flex-align: center;
   align-items: center;
   position: absolute;
-  right: 0;
+  right: -6px;
 }
 
 .gutenbee-responsive-control-wrap-button {

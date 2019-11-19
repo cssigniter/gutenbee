@@ -17,6 +17,8 @@ const ContainerStyle = ({ attributes, children }) => {
     blockPadding,
     blockMargin,
     columnDirection,
+    verticalContentAlignment,
+    horizontalContentAlignment,
   } = attributes;
   const blockId = getBlockId(uniqueId);
 
@@ -47,6 +49,11 @@ const ContainerStyle = ({ attributes, children }) => {
           edge: -1,
           value: '100%',
         }}
+      />
+      <Rule value={verticalContentAlignment} rule="{ align-items: %s; }" />
+      <Rule
+        value={horizontalContentAlignment}
+        rule="{ justify-content: %s; }"
       />
       {children}
     </StyleSheet>

@@ -13,6 +13,10 @@ import { getBackgroundImageStyle } from '../../components/controls/background-co
 import ContainerStyle from './style';
 import ContainerBlockIcon from './block-icon';
 import getBlockId from '../../util/getBlockId';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../components/controls/responsive-control/default-values';
 
 registerBlockType('gutenbee/container', {
   title: __('GutenBee Container'),
@@ -37,9 +41,9 @@ registerBlockType('gutenbee/container', {
     columnDirection: {
       type: 'object',
       default: {
-        desktop: 'row',
-        tablet: 'row',
-        mobile: 'row',
+        desktop: '',
+        tablet: '',
+        mobile: '',
       },
     },
     textColor: {
@@ -63,49 +67,11 @@ registerBlockType('gutenbee/container', {
     },
     blockPadding: {
       type: 'object',
-      default: {
-        desktop: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-        tablet: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-        mobile: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-      },
+      default: getDefaultSpacingValue(),
     },
     blockMargin: {
       type: 'object',
-      default: {
-        desktop: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-        tablet: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-        mobile: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-      },
+      default: getDefaultSpacingValue(),
     },
     wideAlign: {
       type: 'boolean',
@@ -113,27 +79,23 @@ registerBlockType('gutenbee/container', {
     },
     containerHeight: {
       type: 'object',
-      default: {
-        desktop: '',
-        tablet: '',
-        mobile: '',
-      },
+      default: getDefaultResponsiveValue(),
     },
     innerContentWidth: {
       type: 'object',
-      default: {
+      default: getDefaultResponsiveValue({
         desktop: -1,
         tablet: -1,
         mobile: -1,
-      },
+      }),
     },
     verticalContentAlignment: {
-      type: 'string',
-      default: 'center',
+      type: 'object',
+      default: getDefaultResponsiveValue(),
     },
     horizontalContentAlignment: {
-      type: 'string',
-      default: 'flex-start',
+      type: 'object',
+      default: getDefaultResponsiveValue(),
     },
   },
   edit: ContainerBlockEdit,
@@ -143,8 +105,6 @@ registerBlockType('gutenbee/container', {
       textColor,
       backgroundColor,
       backgroundImage,
-      verticalContentAlignment,
-      horizontalContentAlignment,
       gutter,
     } = attributes;
 
@@ -159,8 +119,6 @@ registerBlockType('gutenbee/container', {
           className="wp-block-gutenbee-container"
           style={{
             color: textColor,
-            justifyContent: horizontalContentAlignment,
-            alignItems: verticalContentAlignment,
           }}
         >
           <div className="wp-block-gutenbee-container-inner">

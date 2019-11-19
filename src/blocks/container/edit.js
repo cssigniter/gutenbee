@@ -164,8 +164,6 @@ const ContainerBlockEdit = ({
         className={className}
         style={{
           color: textColor,
-          justifyContent: horizontalContentAlignment,
-          alignItems: verticalContentAlignment,
         }}
       >
         <div className={`${className}-inner`}>
@@ -214,7 +212,7 @@ const ContainerBlockEdit = ({
                     label={__('Column Direction')}
                     value={columnDirection[breakpoint]}
                     options={[
-                      { value: 'row', label: __('Normal') },
+                      { value: '', label: __('Normal') },
                       { value: 'row-reverse', label: __('Reverse') },
                     ]}
                     onChange={value =>
@@ -259,12 +257,10 @@ const ContainerBlockEdit = ({
                         })
                       }
                       step={10}
-                    />
-                    <span className={`${className}-description`}>
-                      {__(
+                      help={__(
                         'Leave blank for auto height or set to -1 for full viewport height.',
                       )}
-                    </span>
+                    />
                   </Fragment>
                 )}
               </ResponsiveControl>
@@ -286,11 +282,8 @@ const ContainerBlockEdit = ({
                         })
                       }
                       step={1}
+                      help={__('Set to -1 for 100% width.')}
                     />
-
-                    <span className={`${className}-description`}>
-                      {__('Set to -1 for 100% width.')}
-                    </span>
                   </Fragment>
                 )}
               </ResponsiveControl>
@@ -319,37 +312,54 @@ const ContainerBlockEdit = ({
                 )}
               </ResponsiveControl>
 
-              <SelectControl
-                label={__('Vertical Content Alignment')}
-                value={verticalContentAlignment}
-                options={[
-                  { value: 'flex-start', label: __('Top') },
-                  { value: 'center', label: __('Middle') },
-                  { value: 'flex-end', label: __('Bottom') },
-                ]}
-                onChange={value =>
-                  setAttributes({ verticalContentAlignment: value })
-                }
-              />
-
-              <SelectControl
-                label={__('Horizontal Content Alignment')}
-                value={horizontalContentAlignment}
-                options={[
-                  { value: 'flex-start', label: __('Left') },
-                  { value: 'center', label: __('Center') },
-                  { value: 'flex-end', label: __('Right') },
-                ]}
-                onChange={value =>
-                  setAttributes({ horizontalContentAlignment: value })
-                }
-              />
-
-              <span className={`${className}-description`}>
-                {__(
-                  'The content alignment settings apply when Container Height and/or the Content Width are set.',
+              <ResponsiveControl>
+                {breakpoint => (
+                  <SelectControl
+                    label={__('Vertical Content Alignment')}
+                    value={verticalContentAlignment[breakpoint]}
+                    options={[
+                      { value: '', label: '' },
+                      { value: 'flex-start', label: __('Top') },
+                      { value: 'center', label: __('Middle') },
+                      { value: 'flex-end', label: __('Bottom') },
+                    ]}
+                    onChange={value =>
+                      setAttributes({
+                        verticalContentAlignment: {
+                          ...verticalContentAlignment,
+                          [breakpoint]: value,
+                        },
+                      })
+                    }
+                  />
                 )}
-              </span>
+              </ResponsiveControl>
+
+              <ResponsiveControl>
+                {breakpoint => (
+                  <SelectControl
+                    label={__('Horizontal Content Alignment')}
+                    value={horizontalContentAlignment[breakpoint]}
+                    options={[
+                      { value: '', label: '' },
+                      { value: 'flex-start', label: __('Left') },
+                      { value: 'center', label: __('Center') },
+                      { value: 'flex-end', label: __('Right') },
+                    ]}
+                    onChange={value =>
+                      setAttributes({
+                        horizontalContentAlignment: {
+                          ...horizontalContentAlignment,
+                          [breakpoint]: value,
+                        },
+                      })
+                    }
+                    help={__(
+                      'The content alignment settings apply when Container Height and/or the Content Width are set.',
+                    )}
+                  />
+                )}
+              </ResponsiveControl>
             </PanelBody>
 
             <PanelColorSettings
@@ -357,14 +367,14 @@ const ContainerBlockEdit = ({
               initialOpen={false}
               colorSettings={[
                 {
-                  value: backgroundColor,
-                  onChange: value => setAttributes({ backgroundColor: value }),
-                  label: __('Background Color'),
-                },
-                {
                   value: textColor,
                   onChange: value => setAttributes({ textColor: value }),
                   label: __('Text Color'),
+                },
+                {
+                  value: backgroundColor,
+                  onChange: value => setAttributes({ backgroundColor: value }),
+                  label: __('Background Color'),
                 },
               ]}
               onChange={value => setAttributes({ backgroundColor: value })}
