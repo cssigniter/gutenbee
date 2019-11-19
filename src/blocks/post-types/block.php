@@ -148,7 +148,7 @@
 		$author_id         = intval( $attributes['authorId'] );
 		$taxonomy_slug     = $attributes['taxonomySlug'];
 		$term_id           = intval( $attributes['termId'] );
-		$columns           = $attributes['columns'];
+		$columns           = intval( $attributes['columns'] );
 		$grid_spacing      = $attributes['gridSpacing'];
 
 		$masonry          = (bool) $attributes['masonry'];
