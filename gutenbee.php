@@ -128,6 +128,10 @@
 			'tabs'              => __( 'Tabs Block', 'gutenbee' ),
 			'container'         => __( 'Container Block', 'gutenbee' ),
 			'post-types'        => __( 'Post Types Block', 'gutenbee' ),
+			'heading'           => __( 'Heading Block', 'gutenbee' ),
+			'paragraph'         => __( 'Paragraph Block', 'gutenbee' ),
+			'image'             => __( 'Image Block', 'gutenbee' ),
+			'spacer'            => __( 'Spacer Block', 'gutenbee' ),
 		);
 	}
 
