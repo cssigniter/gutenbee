@@ -15,7 +15,7 @@ import ContainerBlockIcon from './block-icon';
 import getBlockId from '../../util/getBlockId';
 
 registerBlockType('gutenbee/container', {
-  title: __('Container'),
+  title: __('GutenBee Container'),
   description: __('A versatile container for your blocks.'),
   icon: ContainerBlockIcon,
   category: 'gutenbee',

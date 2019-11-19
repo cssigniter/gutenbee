@@ -1,7 +1,11 @@
-export const getDefaultResponsiveValue = () => ({
-  desktop: '',
-  tablet: '',
-  mobile: '',
+export const getDefaultResponsiveValue = ({
+  desktop = '',
+  tablet = '',
+  mobile = '',
+} = {}) => ({
+  desktop,
+  tablet,
+  mobile,
 });
 
 export const getDefaultSpacingValue = () => ({

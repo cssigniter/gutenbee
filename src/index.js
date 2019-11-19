@@ -30,6 +30,7 @@ import './blocks/container/column';
 import './blocks/heading';
 import './blocks/paragraph';
 import './blocks/image';
+import './blocks/spacer';
 
 //
 // Misc

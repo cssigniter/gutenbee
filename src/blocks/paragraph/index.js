@@ -9,7 +9,7 @@ import ParagraphEdit from './edit';
 import ParagraphStyle from './style';
 
 registerBlockType('gutenbee/paragraph', {
-  title: __('Paragraph'),
+  title: __('GutenBee Paragraph'),
   description: __('Start with the building block of all narrative.'),
   icon: 'P',
   category: 'gutenbee',

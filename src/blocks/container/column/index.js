@@ -14,7 +14,7 @@ import { getBackgroundImageStyle } from '../../../components/controls/background
 import Rule from '../../../components/stylesheet/Rule';
 
 registerBlockType('gutenbee/column', {
-  title: __('Column'),
+  title: __('GutenBee Column'),
   category: 'gutenbee',
   description: __('A single column within a container block'),
   supports: {

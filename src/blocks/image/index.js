@@ -14,7 +14,7 @@ import getBlockId from '../../util/getBlockId';
 import ImageStyle from './style';
 
 registerBlockType('gutenbee/image', {
-  title: __('Image'),
+  title: __('GutenBee Image'),
   description: __('Insert an image to make a visual statement.'),
   icon: 'I',
   category: 'gutenbee',

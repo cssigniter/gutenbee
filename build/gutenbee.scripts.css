@@ -2148,3 +2148,9 @@
   width: 100%;
 }
 
+.wp-block-gutenbee-spacer {
+  clear: both;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+

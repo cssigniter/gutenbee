@@ -9,7 +9,7 @@ import getBlockId from '../../util/getBlockId';
 import HeadingStyle from './style';
 
 registerBlockType('gutenbee/heading', {
-  title: __('Heading'),
+  title: __('GutenBee Heading'),
   description: __(
     'Introduce new sections and organize content to help visitors (and search engines) understand the structure of your content.',
   ),

@@ -9,7 +9,7 @@ import PostTypesEdit from './edit';
 import PostTypesBlockIcon from './block-icon';
 
 registerBlockType('gutenbee/post-types', {
-  title: __('Post Types'),
+  title: __('GutenBee Post Types'),
   description: __('Display a list of post type items.'),
   icon: PostTypesBlockIcon,
   category: 'gutenbee',
