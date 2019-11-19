@@ -12,8 +12,8 @@ jQuery($ => {
   $maps.each(function() {
     const $this = $(this);
     const location = {
-      lat: $this.data('latitude'),
-      lng: $this.data('longitude'),
+      lat: parseFloat($this.data('latitude')),
+      lng: parseFloat($this.data('longitude')),
     };
     const info = $this.data('info-window');
 
