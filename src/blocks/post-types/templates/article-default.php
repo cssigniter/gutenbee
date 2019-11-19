@@ -23,6 +23,10 @@
 					<?php echo get_the_date(); ?>
 				</time>
 			</div>
+
+			<div class="gutenbee-post-types-item-excerpt">
+				<?php the_excerpt(); ?>
+			</div>
 		<?php endif; ?>
 
 		<a href="<?php the_permalink(); ?>" class="gutenbee-post-types-item-more">
