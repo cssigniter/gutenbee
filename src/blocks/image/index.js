@@ -12,13 +12,17 @@ import {
 } from '../../components/controls/responsive-control/default-values';
 import getBlockId from '../../util/getBlockId';
 import ImageStyle from './style';
+import ImageBlockIcon from './block-icon';
 
 registerBlockType('gutenbee/image', {
   title: __('GutenBee Image'),
   description: __('Insert an image to make a visual statement.'),
-  icon: 'I',
+  icon: ImageBlockIcon,
   category: 'gutenbee',
   keywords: ['img', __('photo')],
+  supports: {
+    anchor: false,
+  },
   example: {
     attributes: {
       sizeSlug: 'large',
@@ -172,22 +176,18 @@ registerBlockType('gutenbee/image', {
 
     if ('left' === align || 'right' === align || 'center' === align) {
       return (
-        <Fragment>
+        <div id={blockId}>
           <ImageStyle attributes={attributes} />
-          <div id={blockId}>
-            <figure className={classes}>{figure}</figure>
-          </div>
-        </Fragment>
+          <figure className={classes}>{figure}</figure>
+        </div>
       );
     }
 
     return (
-      <Fragment>
+      <figure id={blockId} className={classes}>
         <ImageStyle attributes={attributes} />
-        <figure id={blockId} className={classes}>
-          {figure}
-        </figure>
-      </Fragment>
+        {figure}
+      </figure>
     );
   },
 });

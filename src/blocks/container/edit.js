@@ -9,6 +9,7 @@ import { withDispatch, withSelect, useSelect } from 'wp.data';
 import { createBlock } from 'wp.blocks';
 import times from 'lodash.times';
 import dropRight from 'lodash.dropright';
+import classNames from 'classnames';
 
 import MarginControls from '../../components/controls/margin-controls';
 import BackgroundControls from '../../components/controls/background-controls/BackgroundControl';
@@ -101,7 +102,6 @@ const TEMPLATE_OPTIONS = [
 ];
 
 const ContainerBlockEdit = ({
-  className,
   attributes,
   setAttributes,
   clientId,
@@ -149,6 +149,9 @@ const ContainerBlockEdit = ({
   });
 
   const blockId = getBlockId(uniqueId);
+  const className = 'wp-block-gutenbee-container';
+
+  const classes = classNames(blockId, className);
 
   return (
     <Fragment>
@@ -160,8 +163,7 @@ const ContainerBlockEdit = ({
       </ContainerStyle>
 
       <div
-        id={blockId}
-        className={className}
+        className={classes}
         style={{
           color: textColor,
         }}
@@ -252,7 +254,7 @@ const ContainerBlockEdit = ({
                         setAttributes({
                           containerHeight: {
                             ...containerHeight,
-                            [breakpoint]: value,
+                            [breakpoint]: value != null ? value : '',
                           },
                         })
                       }
@@ -273,14 +275,14 @@ const ContainerBlockEdit = ({
                       min={-1}
                       max={2500}
                       value={innerContentWidth[breakpoint]}
-                      onChange={value =>
+                      onChange={value => {
                         setAttributes({
                           innerContentWidth: {
                             ...innerContentWidth,
-                            [breakpoint]: value,
+                            [breakpoint]: value != null ? value : '',
                           },
-                        })
-                      }
+                        });
+                      }}
                       step={1}
                       help={__('Set to -1 for 100% width.')}
                     />

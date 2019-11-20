@@ -541,6 +541,7 @@
   margin-bottom: 28px;
 }
 
+.gutenbee-responsive-control-wrap .components-font-size-picker__controls,
 .gutenbee-responsive-control-wrap .components-base-control {
   margin-bottom: 0 !important;
 }
@@ -2486,6 +2487,10 @@
   top: 0;
   left: 0;
   z-index: -1;
+}
+
+.wp-block-gutenbee-container-inner {
+  width: 100%;
 }
 
 .wp-block-gutenbee-container-row {

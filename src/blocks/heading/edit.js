@@ -55,6 +55,31 @@ function HeadingEdit({
 
   return (
     <Fragment>
+      <HeadingStyle attributes={attributes} />
+
+      <div
+        id={blockId}
+        style={{
+          color: textColor ? textColor : undefined,
+          backgroundColor: backgroundColor ? backgroundColor : undefined,
+        }}
+        className="gutenbee-heading-wrap"
+      >
+        <RichText
+          identifier="content"
+          tagName={tagName}
+          value={content}
+          onChange={value => setAttributes({ content: value })}
+          onMerge={mergeBlocks}
+          onReplace={onReplace}
+          onRemove={() => onReplace([])}
+          className={classNames(className, {
+            [`has-text-align-${align}`]: align,
+          })}
+          placeholder={placeholder || __('Write heading…')}
+        />
+      </div>
+
       <BlockControls>
         <HeadingToolbar
           minLevel={2}
@@ -111,44 +136,19 @@ function HeadingEdit({
           initialOpen={false}
           colorSettings={[
             {
-              value: backgroundColor,
-              onChange: value => setAttributes({ backgroundColor: value }),
-              label: __('Background Color'),
-            },
-            {
               value: textColor,
               onChange: value => setAttributes({ textColor: value }),
               label: __('Text Color'),
+            },
+            {
+              value: backgroundColor,
+              onChange: value => setAttributes({ backgroundColor: value }),
+              label: __('Background Color'),
             },
           ]}
           onChange={value => setAttributes({ backgroundColor: value })}
         />
       </InspectorControls>
-
-      <HeadingStyle attributes={attributes} />
-
-      <div
-        id={blockId}
-        style={{
-          color: textColor ? textColor : undefined,
-          backgroundColor: backgroundColor ? backgroundColor : undefined,
-        }}
-        className="gutenbee-heading-wrap"
-      >
-        <RichText
-          identifier="content"
-          tagName={tagName}
-          value={content}
-          onChange={value => setAttributes({ content: value })}
-          onMerge={mergeBlocks}
-          onReplace={onReplace}
-          onRemove={() => onReplace([])}
-          className={classNames(className, {
-            [`has-text-align-${align}`]: align,
-          })}
-          placeholder={placeholder || __('Write heading…')}
-        />
-      </div>
     </Fragment>
   );
 }

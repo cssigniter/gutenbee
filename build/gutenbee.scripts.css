@@ -2051,6 +2051,10 @@
   width: calc(100vw - 10px);
 }
 
+.wp-block-gutenbee-container-inner {
+  width: 100%;
+}
+
 .wp-block-gutenbee-container-row {
   display: -webkit-box;
   display: -ms-flexbox;

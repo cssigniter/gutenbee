@@ -200,7 +200,7 @@ const ImageEdit = ({
     <Fragment>
       <ImageStyle attributes={attributes} />
 
-      <figure id={blockId} className={className}>
+      <figure className={classNames(className, blockId)}>
         <img
           src={url}
           alt={alt}
@@ -235,7 +235,7 @@ const ImageEdit = ({
                   setAttributes({
                     width: {
                       ...width,
-                      [breakpoint]: value,
+                      [breakpoint]: value != null ? value : '',
                     },
                   });
                 }}

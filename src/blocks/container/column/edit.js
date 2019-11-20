@@ -1,4 +1,5 @@
 import { Fragment } from 'wp.element';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import {
@@ -55,13 +56,18 @@ const ColumnBlockEdit = ({
     horizontalContentAlignment,
   } = attributes;
 
+  const customClass = 'wp-block-gutenbee-column';
+
   return (
     <Fragment>
       <ColumnStyle attributes={attributes} />
 
-      <div id={getBlockId(uniqueId)} className={className}>
+      <div
+        id={getBlockId(uniqueId)}
+        className={classNames(className, customClass)}
+      >
         <div
-          className={`${className}-content`}
+          className={`${customClass}-content`}
           style={{
             color: textColor,
             backgroundColor,

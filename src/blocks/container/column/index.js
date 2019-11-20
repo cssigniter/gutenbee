@@ -2,7 +2,6 @@
  * Column block
  */
 
-import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 import { InnerBlocks } from 'wp.blockEditor';
@@ -25,6 +24,7 @@ registerBlockType('gutenbee/column', {
     inserter: false,
     reusable: false,
     html: false,
+    anchor: false,
   },
   attributes: {
     uniqueId: {
@@ -97,24 +97,22 @@ registerBlockType('gutenbee/column', {
     } = attributes;
 
     return (
-      <Fragment>
+      <div id={getBlockId(uniqueId)} className="wp-block-gutenbee-column">
         <ColumnStyle attributes={attributes}>
           <Rule value={width} rule="{ flex-basis: %s; }" unit="%" />
         </ColumnStyle>
 
-        <div id={getBlockId(uniqueId)} className="wp-block-gutenbee-column">
-          <div
-            className="wp-block-gutenbee-column-content"
-            style={{
-              color: textColor,
-              backgroundColor,
-              ...getBackgroundImageStyle(backgroundImage),
-            }}
-          >
-            <InnerBlocks.Content />
-          </div>
+        <div
+          className="wp-block-gutenbee-column-content"
+          style={{
+            color: textColor,
+            backgroundColor,
+            ...getBackgroundImageStyle(backgroundImage),
+          }}
+        >
+          <InnerBlocks.Content />
         </div>
-      </Fragment>
+      </div>
     );
   },
 });

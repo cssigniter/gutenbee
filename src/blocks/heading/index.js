@@ -7,18 +7,19 @@ import classNames from 'classnames';
 import HeadingEdit from './edit';
 import getBlockId from '../../util/getBlockId';
 import HeadingStyle from './style';
+import HeadingBlockIcon from './block-icon';
 
 registerBlockType('gutenbee/heading', {
   title: __('GutenBee Heading'),
   description: __(
     'Introduce new sections and organize content to help visitors (and search engines) understand the structure of your content.',
   ),
-  icon: 'H',
+  icon: HeadingBlockIcon,
   category: 'gutenbee',
   keywords: [__('title'), __('subtitle'), __('heading')],
   supports: {
-    className: false,
-    anchor: true,
+    className: true,
+    anchor: false,
   },
   example: {
     attributes: {

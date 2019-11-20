@@ -191,8 +191,22 @@ const generateStyles = styles => {
     .trim();
 };
 
+/**
+ * Determines whether a styles array is empty.
+ *
+ * @param {Array} stylesArray The styles array.
+ * @return {boolean}
+ */
+const stylesArrayIsEmpty = stylesArray => {
+  return stylesArray.every(style => style.rules.length === 0);
+};
+
 const StyleSheet = ({ id = '', children }) => {
   const stylesArray = getStylesArrayFromChildren(id, children);
+
+  if (stylesArrayIsEmpty(stylesArray)) {
+    return null;
+  }
 
   return (
     <style dangerouslySetInnerHTML={{ __html: generateStyles(stylesArray) }} />

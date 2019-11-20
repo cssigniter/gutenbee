@@ -7,16 +7,17 @@ import classNames from 'classnames';
 import getBlockId from '../../util/getBlockId';
 import ParagraphEdit from './edit';
 import ParagraphStyle from './style';
+import ParagraphBlockIcon from './block-icon';
 
 registerBlockType('gutenbee/paragraph', {
   title: __('GutenBee Paragraph'),
   description: __('Start with the building block of all narrative.'),
-  icon: 'P',
+  icon: ParagraphBlockIcon,
   category: 'gutenbee',
   keywords: [__('text'), __('content'), __('paragraph')],
   supports: {
-    className: false,
-    anchor: true,
+    className: true,
+    anchor: false,
   },
   example: {
     attributes: {

@@ -2,7 +2,6 @@
  * Container block
  */
 
-import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 import { InnerBlocks } from 'wp.blockEditor';
@@ -26,7 +25,7 @@ registerBlockType('gutenbee/container', {
   keywords: [__('container'), __('wrapper'), __('row'), __('section')],
   supports: {
     align: ['wide', 'full'],
-    anchor: true,
+    anchor: false,
     html: false,
   },
   isMultiBlock: true,
@@ -84,9 +83,9 @@ registerBlockType('gutenbee/container', {
     innerContentWidth: {
       type: 'object',
       default: getDefaultResponsiveValue({
-        desktop: -1,
-        tablet: -1,
-        mobile: -1,
+        desktop: '',
+        tablet: '',
+        mobile: '',
       }),
     },
     verticalContentAlignment: {
@@ -99,7 +98,7 @@ registerBlockType('gutenbee/container', {
     },
   },
   edit: ContainerBlockEdit,
-  save: ({ attributes }) => {
+  save: ({ attributes, className }) => {
     const {
       uniqueId,
       textColor,
@@ -111,39 +110,36 @@ registerBlockType('gutenbee/container', {
     const { parallax, parallaxSpeed } = backgroundImage;
 
     return (
-      <Fragment>
+      <div
+        id={getBlockId(uniqueId)}
+        className={className}
+        style={{
+          color: textColor,
+        }}
+      >
         <ContainerStyle attributes={attributes} />
-
-        <div
-          id={getBlockId(uniqueId)}
-          className="wp-block-gutenbee-container"
-          style={{
-            color: textColor,
-          }}
-        >
-          <div className="wp-block-gutenbee-container-inner">
-            <div
-              className={classNames({
-                'wp-block-gutenbee-container-row': true,
-                [`wp-block-gutenbee-container-${gutter}`]: true,
-              })}
-            >
-              <InnerBlocks.Content />
-            </div>
-          </div>
+        <div className="wp-block-gutenbee-container-inner">
           <div
             className={classNames({
-              'wp-block-gutenbee-container-background': true,
-              'gutenbee-parallax': parallax,
+              'wp-block-gutenbee-container-row': true,
+              [`wp-block-gutenbee-container-${gutter}`]: true,
             })}
-            data-parallax-speed={parallaxSpeed}
-            style={{
-              backgroundColor,
-              ...getBackgroundImageStyle(backgroundImage),
-            }}
-          />
+          >
+            <InnerBlocks.Content />
+          </div>
         </div>
-      </Fragment>
+        <div
+          className={classNames({
+            'wp-block-gutenbee-container-background': true,
+            'gutenbee-parallax': parallax,
+          })}
+          data-parallax-speed={parallaxSpeed}
+          style={{
+            backgroundColor,
+            ...getBackgroundImageStyle(backgroundImage),
+          }}
+        />
+      </div>
     );
   },
 });
