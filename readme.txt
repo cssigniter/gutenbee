@@ -32,6 +32,11 @@ The plugin's documentation can be found [here](https://www.cssigniter.com/docs/g
 * **Progress Bar**: Add stylish progress bars and display either progress or your skillset with the most visually captivating way.
 * **Slideshow**: Add a fancy slideshow to your posts or pages. Drag and drop your images, choose your settings and hit publish!
 * **Tabs**: Organize your content into fancy tabs. All the content including titles can be edited directly in the WordPress editor and you can choose any color combination from the block’s settings.
+* **Container**: A powerful container block allowing content grouping or splitting in columns, complete with fully responsive settings.
+* **Heading**: A normal heading block with responsive settings.
+* **Paragraph**: A variation of the core Paragraph block with responsive spacing settings.
+* **Image**: A variation of the core Image block with extra responsive spacing and sizing settings.
+* **Spacer**: Complete control spacing of elements in your posts and pages with the responsive Spacer block.
 
 == Installation ==
 From within WordPress' dashboard:
