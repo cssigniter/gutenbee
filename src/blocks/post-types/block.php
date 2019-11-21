@@ -82,6 +82,9 @@
 				),
 				'excludedPostIds' => array(
 					'type'    => 'array',
+					'items'   => array(
+						'type' => 'number',
+					),
 					'default' => array(),
 				),
 				'columns'         => array(
