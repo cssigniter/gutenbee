@@ -177,14 +177,14 @@ const ColumnBlockEdit = ({
           initialOpen={false}
           colorSettings={[
             {
-              value: backgroundColor,
-              onChange: value => setAttributes({ backgroundColor: value }),
-              label: __('Background Color'),
-            },
-            {
               value: textColor,
               onChange: value => setAttributes({ textColor: value }),
               label: __('Text Color'),
+            },
+            {
+              value: backgroundColor,
+              onChange: value => setAttributes({ backgroundColor: value }),
+              label: __('Background Color'),
             },
           ]}
           onChange={value => setAttributes({ backgroundColor: value })}

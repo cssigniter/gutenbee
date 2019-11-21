@@ -219,20 +219,20 @@ class TabsEdit extends Component {
               initialOpen={false}
               colorSettings={[
                 {
-                  value: activeTabBackgroundColor,
-                  onChange: value =>
-                    setAttributes({
-                      activeTabBackgroundColor: value,
-                    }),
-                  label: __('Active Tab Background Color'),
-                },
-                {
                   value: activeTabTextColor,
                   onChange: value =>
                     setAttributes({
                       activeTabTextColor: value,
                     }),
                   label: __('Active Tab Text Color'),
+                },
+                {
+                  value: activeTabBackgroundColor,
+                  onChange: value =>
+                    setAttributes({
+                      activeTabBackgroundColor: value,
+                    }),
+                  label: __('Active Tab Background Color'),
                 },
                 {
                   value: borderColor,

@@ -50,14 +50,14 @@ function ParagraphPanelColor({
       initialOpen={false}
       colorSettings={[
         {
-          value: backgroundColor,
-          onChange: setBackgroundColor,
-          label: __('Background Color'),
-        },
-        {
           value: textColor,
           onChange: setTextColor,
           label: __('Text Color'),
+        },
+        {
+          value: backgroundColor,
+          onChange: setBackgroundColor,
+          label: __('Background Color'),
         },
       ]}
     >

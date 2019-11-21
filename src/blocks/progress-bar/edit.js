@@ -133,14 +133,14 @@ class ProgressBarEdit extends Component {
                   label: __('Title Text Color'),
                 },
                 {
-                  value: backgroundColor,
-                  onChange: value => setAttributes({ backgroundColor: value }),
-                  label: __('Bar Background Color'),
-                },
-                {
                   value: textColor,
                   onChange: value => setAttributes({ textColor: value }),
                   label: __('Bar Text Color'),
+                },
+                {
+                  value: backgroundColor,
+                  onChange: value => setAttributes({ backgroundColor: value }),
+                  label: __('Bar Background Color'),
                 },
               ]}
               onChange={value => setAttributes({ backgroundColor: value })}

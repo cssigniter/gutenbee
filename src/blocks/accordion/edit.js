@@ -228,20 +228,20 @@ class AccordionsEdit extends Component {
               initialOpen={false}
               colorSettings={[
                 {
-                  value: titleBackgroundColor,
-                  onChange: value =>
-                    setAttributes({
-                      titleBackgroundColor: value,
-                    }),
-                  label: __('Title Background Color'),
-                },
-                {
                   value: titleTextColor,
                   onChange: value =>
                     setAttributes({
                       titleTextColor: value,
                     }),
                   label: __('Title Text Color'),
+                },
+                {
+                  value: titleBackgroundColor,
+                  onChange: value =>
+                    setAttributes({
+                      titleBackgroundColor: value,
+                    }),
+                  label: __('Title Background Color'),
                 },
                 {
                   value: borderColor,
