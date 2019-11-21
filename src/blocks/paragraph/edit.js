@@ -119,7 +119,7 @@ const ParagraphBlock = ({
                   setAttributes({
                     fontSize: {
                       ...fontSize,
-                      [breakpoint]: value,
+                      [breakpoint]: value != null ? value : '',
                     },
                   })
                 }
