@@ -15,11 +15,13 @@ import {
   getDefaultResponsiveValue,
   getDefaultSpacingValue,
 } from '../../../components/controls/responsive-control/default-values';
+import ColumnBlockIcon from './block-icon';
 
 registerBlockType('gutenbee/column', {
   title: __('GutenBee Column'),
   category: 'gutenbee',
-  description: __('A single column within a container block'),
+  description: __('A single column within a container block.'),
+  icon: ColumnBlockIcon,
   supports: {
     inserter: false,
     reusable: false,
