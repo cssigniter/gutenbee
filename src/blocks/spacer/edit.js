@@ -68,7 +68,7 @@ const SpacerEdit = ({
                   setAttributes({
                     height: {
                       ...height,
-                      [breakpoint]: value,
+                      [breakpoint]: value != null ? value : '',
                     },
                   })
                 }

@@ -163,6 +163,7 @@ const ContainerBlockEdit = ({
       </ContainerStyle>
 
       <div
+        id={blockId}
         className={classes}
         style={{
           color: textColor,
