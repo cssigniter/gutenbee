@@ -2,8 +2,8 @@
 Contributors: cssigniterteam, silencerius, nvourva, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 5.0
-Tested up to: 5.0.2
-Stable tag: 1.0.0
+Tested up to: 5.3
+Stable tag: 2.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
 Requires PHP: 5.6
@@ -37,6 +37,7 @@ The plugin's documentation can be found [here](https://www.cssigniter.com/docs/g
 * **Paragraph**: A variation of the core Paragraph block with responsive spacing settings.
 * **Image**: A variation of the core Image block with extra responsive spacing and sizing settings.
 * **Spacer**: Complete control spacing of elements in your posts and pages with the responsive Spacer block.
+* **Post Types**: List posts from any post type in a configurable grid, complete with fully responsive settings.
 
 == Installation ==
 From within WordPress' dashboard:
@@ -59,6 +60,9 @@ Note that if you want to use the Google Maps block you will also need a Google M
 7. Tabs or Accordions, group your content the way you want.
 
 == Changelog ==
+= 2.1.0 =
+* Added new blocks: Container, Heading, Paragraph, Image, Spacer, Post Types.
+
 = 2.0.9 =
 * Added new blocks: Accordion, Countdown, CountUp, Google Maps, Icon, Icon Box, Image Box, Image Comparison, Justified Gallery, Progress Bar, Slideshow, Tabs.
 * Removed the Spacer block.
