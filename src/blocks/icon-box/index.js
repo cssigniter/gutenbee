@@ -5,8 +5,8 @@
 import { Fragment } from 'wp.element';
 import { __, sprintf } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import { RichText, InspectorControls, AlignmentToolbar } from 'wp.blockEditor';
-import { PanelBody, Toolbar } from 'wp.components';
+import { RichText, InspectorControls } from 'wp.blockEditor';
+import { PanelBody, Toolbar, SelectControl, RangeControl } from 'wp.components';
 import { withState } from 'wp.compose';
 import classNames from 'classnames';
 import omit from 'lodash.omit';
@@ -15,11 +15,19 @@ import { iconAttributes, IconSettings } from '../icon';
 import Icon from '../icon/Icon';
 import TextControls from '../../components/controls/text-controls/TextControls';
 import IconBoxBlockIcon from './block-icon';
-import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 import MarginControls from '../../components/controls/margin-controls';
+import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
+import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
+import useUniqueId from '../../hooks/useUniqueId';
+import getBlockId from '../../util/getBlockId';
+import deprecated from './deprecated';
+import IconBoxStyle from './style';
+import ImageBoxStyle from '../image-box/style';
+import { capitalize } from '../../util/text';
 
 const IconBox = ({ className, attributes }) => {
   const {
+    uniqueId,
     titleNodeLevel,
     titleContent,
     titleFontSize,
@@ -27,25 +35,29 @@ const IconBox = ({ className, attributes }) => {
     textFontSize,
     align,
     contentAlign,
-    blockMargin,
     iconMargin,
+    iconPadding,
+    titleBottomSpacing,
   } = attributes;
+
+  const blockId = getBlockId(uniqueId);
 
   return (
     <div
+      id={blockId}
       className={classNames({
         [className]: true,
         [`${className}-align-${align}`]: true,
         [`${className}-content-align-${contentAlign}`]: !!contentAlign,
       })}
-      style={{
-        margin: getMarginSettingStyles(blockMargin),
-      }}
     >
+      <ImageBoxStyle attributes={attributes} />
       <Icon
+        id={`${blockId}-icon`}
         {...{
           ...attributes,
           blockMargin: iconMargin,
+          blockPadding: iconPadding,
         }}
       />
       <div className={`${className}-content`}>
@@ -56,6 +68,9 @@ const IconBox = ({ className, attributes }) => {
             className={`${className}-title`}
             style={{
               fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
+              marginBottom: titleBottomSpacing
+                ? `${titleBottomSpacing}px`
+                : undefined,
             }}
           />
         )}
@@ -82,8 +97,10 @@ const IconBoxEditBlock = ({
   isSelected,
   editable,
   setState,
+  clientId,
 }) => {
   const {
+    uniqueId,
     titleContent,
     titleNodeLevel,
     titleFontSize,
@@ -91,10 +108,14 @@ const IconBoxEditBlock = ({
     textFontSize,
     align,
     contentAlign,
-    blockMargin,
     iconMargin,
+    iconPadding,
+    titleBottomSpacing,
   } = attributes;
   const setActiveEditable = newEditable => setState({ editable: newEditable });
+
+  useUniqueId({ attributes, setAttributes, clientId });
+  const blockId = getBlockId(uniqueId);
 
   return (
     <Fragment>
@@ -104,14 +125,15 @@ const IconBoxEditBlock = ({
           [`${className}-align-${align}`]: true,
           [`${className}-content-align-${contentAlign}`]: !!contentAlign,
         })}
-        style={{
-          margin: getMarginSettingStyles(blockMargin),
-        }}
       >
+        <IconBoxStyle attributes={attributes} />
+
         <Icon
+          id={`${blockId}-icon`}
           {...{
             ...attributes,
             blockMargin: iconMargin,
+            blockPadding: iconPadding,
           }}
         />
         <div className={`${className}-content`}>
@@ -125,6 +147,9 @@ const IconBoxEditBlock = ({
             onFocus={() => setActiveEditable('title')}
             style={{
               fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
+              marginBottom: titleBottomSpacing
+                ? `${titleBottomSpacing}px`
+                : undefined,
             }}
           />
 
@@ -150,24 +175,49 @@ const IconBoxEditBlock = ({
               className={className}
               setAttributes={setAttributes}
               excludeAlignment
-              {...omit(attributes, ['blockMargin'])}
+              attributes={{
+                ...omit(attributes, ['blockMargin', 'blockPadding']),
+              }}
             >
-              <p>{__('Alignment')}</p>
-              <AlignmentToolbar
-                value={align}
-                onChange={value => setAttributes({ align: value || 'left' })}
-              />
+              <ResponsiveControl>
+                {breakpoint => (
+                  <MarginControls
+                    label={__('Padding (px)')}
+                    attributeKey="iconPadding"
+                    attributes={attributes}
+                    setAttributes={setAttributes}
+                    breakpoint={breakpoint}
+                  />
+                )}
+              </ResponsiveControl>
 
-              <MarginControls
-                attributeKey="iconMargin"
-                attributes={attributes}
-                setAttributes={setAttributes}
-                label={__('Icon Margin')}
-              />
+              <ResponsiveControl>
+                {breakpoint => (
+                  <MarginControls
+                    label={__('Margin (px)')}
+                    attributeKey="iconMargin"
+                    attributes={attributes}
+                    setAttributes={setAttributes}
+                    breakpoint={breakpoint}
+                  />
+                )}
+              </ResponsiveControl>
             </IconSettings>
           </PanelBody>
 
-          <PanelBody title={__('Title Settings')} initialOpen={false}>
+          <PanelBody title={__('Content Settings')} initialOpen={false}>
+            <SelectControl
+              label={__('Content Text Alignment')}
+              value={contentAlign}
+              options={['', 'left', 'center', 'right'].map(option => ({
+                value: option,
+                label: option ? capitalize(option) : 'None',
+              }))}
+              onChange={value => {
+                setAttributes({ contentAlign: value || undefined });
+              }}
+            />
+
             <p>{__('Heading element')}</p>
             <Toolbar
               controls={'23456'
@@ -188,31 +238,53 @@ const IconBoxEditBlock = ({
               attributeKey="title"
               attributes={attributes}
               defaultFontSize={null}
+              fontSizeLabel={__('Heading Font Size')}
             />
-          </PanelBody>
 
-          <PanelBody title={__('Text Settings')} initialOpen={false}>
+            <RangeControl
+              label={__('Heading Bottom Margin')}
+              value={titleBottomSpacing}
+              onChange={value => {
+                setAttributes({
+                  titleBottomSpacing: value != null ? value : undefined,
+                });
+              }}
+              min={0}
+              max={200}
+            />
+
             <TextControls
               setAttributes={setAttributes}
               attributeKey="text"
               attributes={attributes}
+              fontSizeLabel={__('Text Font Size')}
             />
           </PanelBody>
 
-          <PanelBody title={__('Content Settings')} initialOpen={false}>
-            <p>{__('Alignment')}</p>
-            <AlignmentToolbar
-              value={contentAlign}
-              onChange={value => setAttributes({ contentAlign: value })}
-            />
-          </PanelBody>
+          <PanelBody title={__('Block Appearance')} initialOpen={false}>
+            <ResponsiveControl>
+              {breakpoint => (
+                <MarginControls
+                  label={__('Padding (px)')}
+                  attributeKey="blockPadding"
+                  attributes={attributes}
+                  setAttributes={setAttributes}
+                  breakpoint={breakpoint}
+                />
+              )}
+            </ResponsiveControl>
 
-          <PanelBody title={__('Appearance')} initialOpen={false}>
-            <MarginControls
-              attributeKey="blockMargin"
-              attributes={attributes}
-              setAttributes={setAttributes}
-            />
+            <ResponsiveControl>
+              {breakpoint => (
+                <MarginControls
+                  label={__('Margin (px)')}
+                  attributeKey="blockMargin"
+                  attributes={attributes}
+                  setAttributes={setAttributes}
+                  breakpoint={breakpoint}
+                />
+              )}
+            </ResponsiveControl>
           </PanelBody>
         </InspectorControls>
       )}
@@ -228,6 +300,12 @@ registerBlockType('gutenbee/iconbox', {
   keywords: [__('icon')],
   attributes: {
     ...iconAttributes,
+    uniqueId: {
+      type: 'string',
+    },
+    titleBottomSpacing: {
+      type: 'number',
+    },
     titleContent: {
       source: 'html',
       selector: 'h1,h2,h3,h4,h5,h6',
@@ -260,13 +338,22 @@ registerBlockType('gutenbee/iconbox', {
     },
     blockMargin: {
       type: 'object',
-      default: {},
+      default: getDefaultSpacingValue(),
+    },
+    blockPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue(),
     },
     iconMargin: {
       type: 'object',
-      default: {},
+      default: getDefaultSpacingValue(),
+    },
+    iconPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue(),
     },
   },
+  deprecated,
   edit: withState({ editable: null })(IconBoxEditBlock),
   save({ className, attributes }) {
     return <IconBox className={className} attributes={attributes} />;

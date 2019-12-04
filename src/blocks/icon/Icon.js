@@ -1,13 +1,11 @@
-/**
- * Icon Component
- */
-
 import classNames from 'classnames';
 
 import { VIEWS } from './constants';
-import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
+import IconStyle from './style';
 
 const Icon = ({
+  id,
+  uniqueId,
   className,
   view,
   shape,
@@ -19,6 +17,7 @@ const Icon = ({
   colorPrimary,
   colorSecondary,
   blockMargin,
+  blockPadding,
 }) => {
   const wrapperClasses = classNames({
     'gutenbee-icon-block': true,
@@ -52,12 +51,8 @@ const Icon = ({
   }
 
   return (
-    <div
-      className={wrapperClasses}
-      style={{
-        margin: getMarginSettingStyles(blockMargin),
-      }}
-    >
+    <div id={id} className={wrapperClasses}>
+      <IconStyle id={id} attributes={{ uniqueId, blockMargin, blockPadding }} />
       <span
         className="gutenbee-icon-block-icon-wrap"
         style={{

@@ -1,0 +1,29 @@
+.block-editor-block-list__block[data-align="center"] {
+	text-align: center;
+}
+
+.editor-video-poster-control .components-button {
+	display: block;
+	margin-right: 8px;
+}
+
+.editor-video-poster-control .components-button + .components-button {
+	margin-top: 1em;
+}
+
+.wp-block-gutenbee-video {
+  video {
+		max-width: 100%;
+    margin: 0;
+	}
+
+  &.aligncenter {
+ 		text-align: center;
+ 	}
+
+ 	figcaption {
+     margin-top: .5em;
+     margin-bottom: 0;
+     font-size: 0.9rem;
+ 	}
+}

@@ -1,4 +1,4 @@
-import { Component } from 'wp.element';
+import { Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import {
@@ -9,97 +9,175 @@ import {
 } from 'wp.components';
 import { InspectorControls } from 'wp.blockEditor';
 import startCase from 'lodash.startcase';
+import classNames from 'classnames';
 
 import Gallery from '../../components/gallery/Gallery';
 import { LAST_ROW } from './constants';
 import { capitalizeSentence } from '../../util/text';
 import MarginControls from '../../components/controls/margin-controls';
-import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
+import useUniqueId from '../../hooks/useUniqueId';
+import getBlockId from '../../util/getBlockId';
+import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
+import GalleryStyle from './style';
 
-class JustifiedGalleryEdit extends Component {
-  static propTypes = {
-    attributes: PropTypes.shape({
-      rowHeight: PropTypes.number,
-      margins: PropTypes.number,
-      lastRow: PropTypes.oneOf(Object.values(LAST_ROW)),
-      randomize: PropTypes.bool,
-      blockMargin: PropTypes.shape({
-        top: PropTypes.number,
-        right: PropTypes.number,
-        bottom: PropTypes.number,
-        left: PropTypes.number,
-      }),
-    }),
-    isSelected: PropTypes.bool.isRequired,
-    className: PropTypes.string,
-    setAttributes: PropTypes.func.isRequired,
-  };
+export const GALLERY_TYPE = {
+  COLUMNS: 'columns',
+  JUSTIFIED: 'justified',
+};
 
-  render() {
-    const { attributes, isSelected, className, setAttributes } = this.props;
-    const { rowHeight, margins, lastRow, randomize, blockMargin } = attributes;
+const propTypes = {
+  attributes: PropTypes.shape({
+    uniqueId: PropTypes.string,
+    type: PropTypes.oneOf(Object.values(GALLERY_TYPE)),
+    columns: PropTypes.number.isRequired,
+    rowHeight: PropTypes.number,
+    margins: PropTypes.number,
+    lastRow: PropTypes.oneOf(Object.values(LAST_ROW)),
+    randomize: PropTypes.bool,
+    blockMargin: PropTypes.object,
+    blockPadding: PropTypes.object,
+  }),
+  isSelected: PropTypes.bool.isRequired,
+  className: PropTypes.string,
+  setAttributes: PropTypes.func.isRequired,
+  clientId: PropTypes.string.isRequired,
+};
 
-    return (
-      <Gallery
-        className={className}
-        attributes={attributes}
-        isSelected={isSelected}
-        setAttributes={setAttributes}
-        label={__('Justified Gallery')}
-        style={{
-          margin: getMarginSettingStyles(blockMargin),
-        }}
-      >
-        {isSelected && (
-          <InspectorControls>
-            <PanelBody title={__('Gallery Settings')}>
-              <RangeControl
-                label={__('Row Height')}
-                min={0}
-                max={600}
-                value={rowHeight}
-                onChange={value => setAttributes({ rowHeight: value })}
-                step={5}
-              />
+const JustifiedGalleryEdit = ({
+  attributes,
+  isSelected,
+  className,
+  setAttributes,
+  clientId,
+}) => {
+  const {
+    uniqueId,
+    type,
+    columns,
+    rowHeight,
+    margins,
+    lastRow,
+    randomize,
+  } = attributes;
 
-              <RangeControl
-                label={__('Margins')}
-                min={0}
-                max={50}
-                value={margins}
-                onChange={value => setAttributes({ margins: value })}
-                step={1}
-              />
+  useUniqueId({ attributes, setAttributes, clientId });
 
-              <SelectControl
-                label={__('Last Row')}
-                value={lastRow}
-                options={Object.keys(LAST_ROW).map(key => ({
-                  value: LAST_ROW[key],
-                  label: capitalizeSentence(startCase(key)),
-                }))}
-                onChange={value => setAttributes({ lastRow: value })}
-              />
+  const blockId = getBlockId(uniqueId);
 
-              <ToggleControl
-                label={__('Randomize')}
-                checked={randomize}
-                onChange={value => setAttributes({ randomize: value })}
-              />
-            </PanelBody>
+  return (
+    <Gallery
+      id={blockId}
+      className={classNames(className, {
+        [`gutenbee-columns-${columns}`]: type === GALLERY_TYPE.COLUMNS,
+      })}
+      attributes={attributes}
+      isSelected={isSelected}
+      setAttributes={setAttributes}
+      label={__('Gallery')}
+    >
+      <GalleryStyle attributes={attributes} />
+      {isSelected && (
+        <InspectorControls>
+          <PanelBody title={__('Gallery Settings')}>
+            <SelectControl
+              label={__('Gallery Type')}
+              value={type}
+              options={[
+                {
+                  value: GALLERY_TYPE.COLUMNS,
+                  label: 'Columns',
+                },
+                {
+                  value: GALLERY_TYPE.JUSTIFIED,
+                  label: 'Justified',
+                },
+              ]}
+              onChange={value => setAttributes({ type: value })}
+            />
 
-            <PanelBody title={__('Appearance')} initialOpen={false}>
-              <MarginControls
-                attributeKey="blockMargin"
-                attributes={attributes}
-                setAttributes={setAttributes}
-              />
-            </PanelBody>
-          </InspectorControls>
-        )}
-      </Gallery>
-    );
-  }
-}
+            {type === GALLERY_TYPE.COLUMNS && (
+              <Fragment>
+                <RangeControl
+                  label={__('Columns')}
+                  min={1}
+                  max={6}
+                  value={columns}
+                  onChange={value => setAttributes({ columns: value })}
+                  step={1}
+                />
+              </Fragment>
+            )}
+
+            {type === GALLERY_TYPE.JUSTIFIED && (
+              <Fragment>
+                <RangeControl
+                  label={__('Row Height')}
+                  min={0}
+                  max={600}
+                  value={rowHeight}
+                  onChange={value => setAttributes({ rowHeight: value })}
+                  step={5}
+                />
+
+                <RangeControl
+                  label={__('Margins')}
+                  min={0}
+                  max={50}
+                  value={margins}
+                  onChange={value => setAttributes({ margins: value })}
+                  step={1}
+                />
+
+                <SelectControl
+                  label={__('Last Row')}
+                  value={lastRow}
+                  options={Object.keys(LAST_ROW).map(key => ({
+                    value: LAST_ROW[key],
+                    label: capitalizeSentence(startCase(key)),
+                  }))}
+                  onChange={value => setAttributes({ lastRow: value })}
+                />
+
+                <ToggleControl
+                  label={__('Randomize')}
+                  checked={randomize}
+                  onChange={value => setAttributes({ randomize: value })}
+                />
+              </Fragment>
+            )}
+          </PanelBody>
+
+          <PanelBody title={__('Appearance')} initialOpen={false}>
+            <ResponsiveControl>
+              {breakpoint => (
+                <MarginControls
+                  label={__('Padding (px)')}
+                  attributeKey="blockPadding"
+                  attributes={attributes}
+                  setAttributes={setAttributes}
+                  breakpoint={breakpoint}
+                />
+              )}
+            </ResponsiveControl>
+
+            <ResponsiveControl>
+              {breakpoint => (
+                <MarginControls
+                  label={__('Margin (px)')}
+                  attributeKey="blockMargin"
+                  attributes={attributes}
+                  setAttributes={setAttributes}
+                  breakpoint={breakpoint}
+                />
+              )}
+            </ResponsiveControl>
+          </PanelBody>
+        </InspectorControls>
+      )}
+    </Gallery>
+  );
+};
+
+JustifiedGalleryEdit.propTypes = propTypes;
 
 export default JustifiedGalleryEdit;

@@ -23,6 +23,7 @@ const MarginControls = ({
   breakpoint,
 }) => {
   const margins = attributes[attributeKey];
+
   const onMarginsChange = (value, position) => {
     // Accommodate for responsive changes.
     if (breakpoint) {

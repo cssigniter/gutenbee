@@ -11,10 +11,14 @@ import classNames from 'classnames';
 
 import ImageBoxEditBlock from './edit';
 import ImageBoxBlockIcon from './block-icon';
-import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
+import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
+import ImageBoxStyle from './style';
+import getBlockId from '../../util/getBlockId';
+import deprecated from './deprecated';
 
 const ImageBox = ({ className, attributes }) => {
   const {
+    uniqueId,
     titleContent,
     titleNodeLevel,
     titleFontSize,
@@ -25,27 +29,22 @@ const ImageBox = ({ className, attributes }) => {
     imageAlign,
     imageWidth,
     contentAlign,
-    blockMargin,
-    imageMargin,
+    titleBottomSpacing,
   } = attributes;
+
+  const blockId = getBlockId(uniqueId);
 
   return (
     <div
+      id={blockId}
       className={classNames({
         [className]: true,
         [`${className}-align-${imageAlign}`]: true,
         [`${className}-content-align-${contentAlign}`]: !!contentAlign,
       })}
-      style={{
-        margin: getMarginSettingStyles(blockMargin),
-      }}
     >
-      <figure
-        className={`${className}-figure`}
-        style={{
-          margin: getMarginSettingStyles(imageMargin),
-        }}
-      >
+      <ImageBoxStyle attributes={attributes} />
+      <figure className={`${className}-figure`}>
         <img
           src={url}
           alt={alt}
@@ -63,6 +62,9 @@ const ImageBox = ({ className, attributes }) => {
             className={`${className}-title`}
             style={{
               fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
+              marginBottom: titleBottomSpacing
+                ? `${titleBottomSpacing}px`
+                : undefined,
             }}
           />
         )}
@@ -89,6 +91,9 @@ registerBlockType('gutenbee/imagebox', {
   category: 'gutenbee',
   keywords: [__('image'), __('image box'), __('media')],
   attributes: {
+    uniqueId: {
+      type: 'string',
+    },
     titleContent: {
       source: 'html',
       selector: 'h1,h2,h3,h4,h5,h6',
@@ -101,6 +106,9 @@ registerBlockType('gutenbee/imagebox', {
     titleFontSize: {
       type: 'number',
       default: null,
+    },
+    titleBottomSpacing: {
+      type: 'number',
     },
     textContent: {
       source: 'html',
@@ -141,13 +149,18 @@ registerBlockType('gutenbee/imagebox', {
     },
     blockMargin: {
       type: 'object',
-      default: {},
+      default: getDefaultSpacingValue(),
+    },
+    blockPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue(),
     },
     imageMargin: {
       type: 'object',
-      default: {},
+      default: getDefaultSpacingValue(),
     },
   },
+  deprecated,
   edit: ImageBoxEditBlock,
   save({ className, attributes }) {
     return <ImageBox className={className} attributes={attributes} />;

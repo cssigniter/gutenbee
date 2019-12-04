@@ -13,6 +13,13 @@
   flex-grow: 1;
   justify-content: center;
 
+  @for $i from 1 through 8 {
+    .gutenbee-columns-#{$i} & {
+      width: percentage(1 / $i);
+      max-width: percentage(1 / $i);
+    }
+  }
+
   figure {
     margin: 0;
     height: 100%;

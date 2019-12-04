@@ -2,7 +2,10 @@ import { Children } from 'wp.element';
 import PropTypes from 'prop-types';
 import { sprintf } from 'wp.i18n';
 
-import { getMarginSettingStyles } from '../controls/margin-controls/margin-settings';
+import {
+  getMarginSettingStyles,
+  hasAllSpacingSettings,
+} from '../controls/margin-controls/margin-settings';
 
 const propTypes = {
   children: PropTypes.string.isRequired,
@@ -25,6 +28,11 @@ export const BREAKPOINTS = {
   [BREAKPOINT_NAMES.mobile]: 575,
 };
 
+const replaceBetweenCurly = (text, replacement) =>
+  text.replace(/[^{\}]+(?=})/gi, replacement);
+
+const getSpacingProperty = text => text.match(/margin|padding|position/gi)[0];
+
 /**
  * Creates the CSS rule of a particular ruleset.
  *
@@ -41,14 +49,34 @@ const getCSSRule = ({ id, value, rule, unit = '', edgeCase }) => {
   }
 
   const base = `#${id} ${rule}`;
+  const spacingRules = ['padding', 'margin', 'position'];
 
   //
-  // Spacing / Margin control
+  // Spacing control (position or margin/padding)
   //
-  if (typeof value === 'object' && ('top' in value || 'left' in value)) {
-    const spacingStyles = getMarginSettingStyles(value);
+  if (spacingRules.some(spacingRule => rule.includes(spacingRule))) {
+    // If margin or padding and every value is set return the shorthand rule.
+    if (hasAllSpacingSettings(value) && rule !== 'position') {
+      const spacingStyles = getMarginSettingStyles(value);
 
-    return spacingStyles && sprintf(base, spacingStyles);
+      return spacingStyles && sprintf(base, spacingStyles);
+    } else {
+      // Else only a few values are set so only return those.
+      const val = ['top', 'right', 'bottom', 'left']
+        .map(pos => {
+          const property = getSpacingProperty(rule);
+
+          if (value[pos] != null && value[pos] !== '') {
+            const finalValue = `${value[pos]}${unit}`;
+            return property === 'position'
+              ? `${pos}: ${finalValue};`
+              : `${property}-${pos}: ${finalValue};`;
+          }
+        })
+        .join(' ');
+
+      return !!val.trim() ? replaceBetweenCurly(base, ` ${val} `) : undefined;
+    }
   }
 
   //

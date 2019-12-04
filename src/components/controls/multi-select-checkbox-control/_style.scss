@@ -1,0 +1,38 @@
+.multi-select-checkbox-option-wrap {
+  max-height: 160px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border: 1px solid $input-border-color;
+  padding: 0 8px 8px 8px;
+  background-color: $white;
+  border-radius: $input-border-radius;
+  position: relative;
+
+  .components-base-control {
+    margin-bottom: 0 !important;
+  }
+
+  .components-base-control__field {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 0 1px 2px;
+  }
+
+  .components-checkbox-control__label {
+    white-space: nowrap;
+  }
+}
+
+.multi-select-checkbox-search-control {
+  position: sticky;
+  top: 0;
+  background: $white;
+  z-index: 100;
+  padding: 8px 0 0;
+
+  .components-base-control__field {
+    overflow: visible;
+    white-space: normal;
+  }
+}

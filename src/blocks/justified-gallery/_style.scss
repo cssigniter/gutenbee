@@ -1,18 +1,22 @@
 @import "~justifiedGallery/dist/css/justifiedGallery.css";
 
-.wp-block-gutenbee-justified-gallery {
+// Justified type
+.wp-block-gutenbee-gallery-justified {
   margin: $base-block-vertical-spacing 0;
-  display: none;
 
-  &.justified-gallery {
-    display: block;
+  .wp-block-gutenbee-gallery-content {
+    display: none;
 
-    img {
-      background: none;
-      border: 0;
-      padding: 0;
-      margin: 0;
-      box-shadow: none;
+    &.justified-gallery {
+      display: block;
+
+      img {
+        background: none;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        box-shadow: none;
+      }
     }
   }
 }
@@ -24,5 +28,49 @@
     filter: "alpha(opacity=100)";
     opacity: 1;
     transition: opacity 500ms ease-in;
+  }
+}
+
+// Columns type
+.wp-block-gutenbee-gallery-columns {
+  margin: $base-block-vertical-spacing 0;
+
+  .wp-block-gutenbee-gallery-content {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -8px;
+    margin-right: -8px;
+    margin-bottom: -16px;
+  }
+
+  .wp-block-gutenbee-gallery-item {
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-bottom: 16px;
+    position: relative;
+    flex-grow: 1;
+
+    figure {
+      margin: 0;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      position: relative;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+}
+
+
+@for $i from 1 through 8 {
+  .gutenbee-columns-#{$i} {
+    .wp-block-gutenbee-gallery-item {
+      width: percentage(1 / $i);
+      max-width: percentage(1 / $i);
+    }
   }
 }

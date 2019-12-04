@@ -1,15 +1,7 @@
-/**
- * Icon Block
- */
-
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import {
-  InspectorControls,
-  AlignmentToolbar,
-  ColorPalette,
-} from 'wp.blockEditor';
+import { InspectorControls, PanelColorSettings } from 'wp.blockEditor';
 import {
   PanelBody,
   RangeControl,
@@ -25,8 +17,17 @@ import Icon from './Icon';
 import IconSelectValue from './IconSelectValue';
 import IconBlockIcon from './block-icon';
 import MarginControls from '../../components/controls/margin-controls';
+import { capitalize } from '../../util/text';
+import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
+import useUniqueId from '../../hooks/useUniqueId';
+import getBlockId from '../../util/getBlockId';
+import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
+import deprecated from './deprecated';
 
 export const iconAttributes = {
+  uniqueId: {
+    type: 'string',
+  },
   view: {
     type: 'string',
     default: VIEWS.DEFAULT,
@@ -63,137 +64,208 @@ export const iconAttributes = {
   },
   blockMargin: {
     type: 'object',
-    default: {},
+    default: getDefaultSpacingValue(),
+  },
+  blockPadding: {
+    type: 'object',
+    default: getDefaultSpacingValue(),
   },
 };
 
 export const IconSettings = ({
   className,
   setAttributes,
-  view,
-  shape,
-  icon,
-  size,
-  padding,
-  borderWidth,
-  align,
-  colorPrimary,
-  colorSecondary,
-  excludeAlignment,
+  attributes,
   children,
-  blockMargin,
-}) => (
-  <Fragment>
-    <BaseControl id="icon-select" label={__('Icon')}>
-      <ReactSelect
-        aria-labelledby="icon-select"
-        onChange={value => setAttributes({ icon: value })}
-        value={icon}
-        options={icons.map(value => ({ value, label: startCase(value) }))}
-        simpleValue
-        valueRenderer={({ value, label }) => (
-          <IconSelectValue value={value} label={label} />
-        )}
-        optionRenderer={({ value, label }) => (
-          <IconSelectValue value={value} label={label} className={className} />
-        )}
-      />
-    </BaseControl>
+}) => {
+  const {
+    view,
+    shape,
+    icon,
+    size,
+    padding,
+    borderWidth,
+    align,
+    colorPrimary,
+    colorSecondary,
+    excludeAlignment,
+    blockMargin,
+    blockPadding,
+  } = attributes;
 
-    <SelectControl
-      label={__('View')}
-      value={view}
-      onChange={value => setAttributes({ view: value })}
-      options={[
-        { value: VIEWS.DEFAULT, label: __('Default') },
-        { value: VIEWS.STACKED, label: __('Stacked') },
-        { value: VIEWS.FRAMED, label: __('Framed') },
-      ]}
-    />
+  return (
+    <Fragment>
+      <BaseControl id="icon-select" label={__('Icon')}>
+        <ReactSelect
+          aria-labelledby="icon-select"
+          onChange={value => setAttributes({ icon: value })}
+          value={icon}
+          options={icons.map(value => ({ value, label: startCase(value) }))}
+          simpleValue
+          valueRenderer={({ value, label }) => (
+            <IconSelectValue value={value} label={label} />
+          )}
+          optionRenderer={({ value, label }) => (
+            <IconSelectValue
+              value={value}
+              label={label}
+              className={className}
+            />
+          )}
+        />
+      </BaseControl>
 
-    {view !== VIEWS.DEFAULT && (
       <SelectControl
-        label={__('Shape')}
-        value={shape}
-        onChange={value => setAttributes({ shape: value })}
+        label={__('View')}
+        value={view}
+        onChange={value => setAttributes({ view: value })}
         options={[
-          { value: SHAPES.CIRCLE, label: __('Circle') },
-          { value: SHAPES.SQUARE, label: __('Square') },
+          { value: VIEWS.DEFAULT, label: __('Default') },
+          { value: VIEWS.STACKED, label: __('Stacked') },
+          { value: VIEWS.FRAMED, label: __('Framed') },
         ]}
       />
-    )}
 
-    <RangeControl
-      label={__('Icon Size (px)')}
-      min={1}
-      max={100}
-      value={size}
-      onChange={value => setAttributes({ size: value })}
-    />
+      {view !== VIEWS.DEFAULT && (
+        <SelectControl
+          label={__('Shape')}
+          value={shape}
+          onChange={value => setAttributes({ shape: value })}
+          options={[
+            { value: SHAPES.CIRCLE, label: __('Circle') },
+            { value: SHAPES.SQUARE, label: __('Square') },
+          ]}
+        />
+      )}
 
-    {view !== VIEWS.DEFAULT && (
       <RangeControl
-        label={__('Padding (em)')}
+        label={__('Icon Size (px)')}
         min={1}
-        max={10}
-        step={0.1}
-        value={padding}
-        onChange={value => setAttributes({ padding: value })}
+        max={100}
+        value={size}
+        onChange={value => setAttributes({ size: value })}
       />
-    )}
 
-    {view === VIEWS.FRAMED && (
-      <RangeControl
-        label={__('Border Size (px)')}
-        min={1}
-        max={50}
-        step={1}
-        value={borderWidth}
-        onChange={value => setAttributes({ borderWidth: value })}
-      />
-    )}
-
-    {!excludeAlignment && (
-      <Fragment>
-        <p>{__('Alignment')}</p>
-        <AlignmentToolbar
-          value={align}
-          onChange={value => setAttributes({ align: value || 'left' })}
+      {view !== VIEWS.DEFAULT && (
+        <RangeControl
+          label={__('Padding (em)')}
+          min={1}
+          max={10}
+          step={0.1}
+          value={padding}
+          onChange={value => setAttributes({ padding: value })}
         />
-      </Fragment>
-    )}
+      )}
 
-    {children}
-
-    <PanelBody title={__('Primary Color')}>
-      <ColorPalette
-        value={colorPrimary}
-        onChange={value => setAttributes({ colorPrimary: value })}
-      />
-    </PanelBody>
-
-    {view !== VIEWS.DEFAULT && (
-      <PanelBody title={__('Secondary Color')}>
-        <ColorPalette
-          value={colorSecondary}
-          onChange={value => setAttributes({ colorSecondary: value })}
+      {view === VIEWS.FRAMED && (
+        <RangeControl
+          label={__('Border Size (px)')}
+          min={1}
+          max={50}
+          step={1}
+          value={borderWidth}
+          onChange={value => setAttributes({ borderWidth: value })}
         />
-      </PanelBody>
-    )}
+      )}
 
-    {blockMargin && (
-      <PanelBody title={__('Block Appearance')} initialOpen={false}>
-        <MarginControls
-          attributeKey="blockMargin"
-          attributes={{
-            blockMargin,
-          }}
-          setAttributes={setAttributes}
-        />
-      </PanelBody>
-    )}
-  </Fragment>
-);
+      {!excludeAlignment && (
+        <Fragment>
+          <SelectControl
+            label={__('Alignment')}
+            value={align}
+            options={['left', 'center', 'right'].map(option => ({
+              value: option,
+              label: capitalize(option),
+            }))}
+            onChange={value => {
+              setAttributes({ align: value || 'left' });
+            }}
+          />
+        </Fragment>
+      )}
+
+      <PanelColorSettings
+        title={__('Icon Appearance')}
+        initialOpen={false}
+        colorSettings={[
+          {
+            value: colorPrimary,
+            onChange: value => setAttributes({ colorPrimary: value }),
+            label: __('Primary Color'),
+          },
+          ...(view !== VIEWS.DEFAULT
+            ? [
+                {
+                  value: colorSecondary,
+                  onChange: value => setAttributes({ colorSecondary: value }),
+                  label: __('Secondary Color'),
+                },
+              ]
+            : []),
+        ]}
+        onChange={value => setAttributes({ backgroundColor: value })}
+      >
+        {blockPadding && (
+          <ResponsiveControl>
+            {breakpoint => (
+              <MarginControls
+                label={__('Padding (px)')}
+                attributeKey="blockPadding"
+                attributes={attributes}
+                setAttributes={setAttributes}
+                breakpoint={breakpoint}
+              />
+            )}
+          </ResponsiveControl>
+        )}
+
+        {blockMargin && (
+          <ResponsiveControl>
+            {breakpoint => (
+              <MarginControls
+                label={__('Margin (px)')}
+                attributeKey="blockMargin"
+                attributes={attributes}
+                setAttributes={setAttributes}
+                breakpoint={breakpoint}
+              />
+            )}
+          </ResponsiveControl>
+        )}
+
+        {children}
+      </PanelColorSettings>
+    </Fragment>
+  );
+};
+
+const IconEdit = ({
+  className,
+  attributes,
+  setAttributes,
+  isSelected,
+  clientId,
+}) => {
+  useUniqueId({ attributes, setAttributes, clientId });
+  const blockId = getBlockId(attributes.uniqueId);
+
+  return (
+    <Fragment>
+      <Icon id={blockId} className={className} {...attributes} />
+      {isSelected && (
+        <InspectorControls>
+          <PanelBody>
+            <IconSettings
+              className={className}
+              setAttributes={setAttributes}
+              attributes={attributes}
+            />
+          </PanelBody>
+        </InspectorControls>
+      )}
+    </Fragment>
+  );
+};
 
 registerBlockType('gutenbee/icon', {
   title: __('GutenBee Icon'),
@@ -202,25 +274,10 @@ registerBlockType('gutenbee/icon', {
   category: 'gutenbee',
   keywords: [__('icons')],
   attributes: iconAttributes,
-  edit({ className, attributes, setAttributes, isSelected }) {
-    return (
-      <Fragment>
-        <Icon className={className} {...attributes} />
-        {isSelected && (
-          <InspectorControls>
-            <PanelBody>
-              <IconSettings
-                className={className}
-                setAttributes={setAttributes}
-                {...attributes}
-              />
-            </PanelBody>
-          </InspectorControls>
-        )}
-      </Fragment>
-    );
-  },
+  deprecated,
+  edit: IconEdit,
   save({ className, attributes }) {
-    return <Icon className={className} {...attributes} />;
+    const id = getBlockId(attributes.uniqueId);
+    return <Icon id={id} className={className} {...attributes} />;
   },
 });

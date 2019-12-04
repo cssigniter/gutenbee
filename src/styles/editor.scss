@@ -17,6 +17,9 @@
 @import '../components/controls/text-controls/style';
 @import '../components/controls/background-controls/style';
 @import '../components/controls/responsive-control/style';
+@import '../components/controls/responsive-control/style';
+@import '../components/controls/multi-select-checkbox-control/style';
+
 
 // Block styles
 
@@ -36,3 +39,5 @@
 @import "../blocks/heading/editor";
 @import "../blocks/paragraph/editor";
 @import "../blocks/image/editor";
+@import "../blocks/video/editor";
+@import "../blocks/justified-gallery/editor";

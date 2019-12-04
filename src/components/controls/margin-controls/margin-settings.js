@@ -17,6 +17,14 @@ const hasMarginSettings = margins => {
   return Object.values(margins).some(value => value != null && value !== '');
 };
 
+export const hasAllSpacingSettings = margins => {
+  if (!margins) {
+    return false;
+  }
+
+  return Object.values(margins).every(value => value != null && value !== '');
+};
+
 /**
  * Given a `margins` attribute object (with top, right, bottom, left values)
  * generates the required CSS object

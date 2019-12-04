@@ -114,6 +114,7 @@ class Gallery extends Component {
       children,
       label,
       style,
+      id,
     } = this.props;
     const { images, linkTo, size } = attributes;
 
@@ -206,7 +207,7 @@ class Gallery extends Component {
           </InspectorControls>
         )}
 
-        <div className={galleryComponentClasses} style={style}>
+        <div id={id} className={galleryComponentClasses} style={style}>
           {images.map((img, index) => (
             <div key={img.id || img.url} className="gutenbee-gallery-item">
               <GalleryItem

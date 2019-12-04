@@ -31,6 +31,7 @@ import './blocks/heading';
 import './blocks/paragraph';
 import './blocks/image';
 import './blocks/spacer';
+import './blocks/video';
 
 //
 // Misc

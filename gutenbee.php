@@ -115,23 +115,24 @@
 		// index.js file, after `gutenbee/XYZ`, XYZ is the block's key).
 		return array(
 			'accordion'         => __( 'Accordion Block', 'gutenbee' ),
+			'container'         => __( 'Container Block', 'gutenbee' ),
 			'countdown'         => __( 'Countdown Block', 'gutenbee' ),
 			'countup'           => __( 'Countup Block', 'gutenbee' ),
 			'divider'           => __( 'Divider Block', 'gutenbee' ),
+			'heading'           => __( 'Heading Block', 'gutenbee' ),
 			'icon'              => __( 'Icon Block', 'gutenbee' ),
 			'iconbox'           => __( 'Icon Box Block', 'gutenbee' ),
+			'image'             => __( 'Image Block', 'gutenbee' ),
 			'imagebox'          => __( 'Image Box Block', 'gutenbee' ),
 			'image-comparison'  => __( 'Image Comparison Block', 'gutenbee' ),
 			'justified-gallery' => __( 'Justified Gallery Block', 'gutenbee' ),
+			'paragraph'         => __( 'Paragraph Block', 'gutenbee' ),
+			'post-types'        => __( 'Post Types Block', 'gutenbee' ),
 			'progress-bar'      => __( 'Progress Bar Block', 'gutenbee' ),
+			'spacer'            => __( 'Spacer Block', 'gutenbee' ),
 			'slideshow'         => __( 'Slideshow Block', 'gutenbee' ),
 			'tabs'              => __( 'Tabs Block', 'gutenbee' ),
-			'container'         => __( 'Container Block', 'gutenbee' ),
-			'post-types'        => __( 'Post Types Block', 'gutenbee' ),
-			'heading'           => __( 'Heading Block', 'gutenbee' ),
-			'paragraph'         => __( 'Paragraph Block', 'gutenbee' ),
-			'image'             => __( 'Image Block', 'gutenbee' ),
-			'spacer'            => __( 'Spacer Block', 'gutenbee' ),
+			'video'             => __( 'Video Block', 'gutenbee' ),
 		);
 	}
 
