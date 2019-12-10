@@ -365,31 +365,31 @@ const ContainerBlockEdit = ({
                 attributeKey="backgroundImage"
                 supportsParallax
               />
+
+              <ResponsiveControl>
+                {breakpoint => (
+                  <MarginControls
+                    label={__('Padding (px)')}
+                    attributeKey="blockPadding"
+                    attributes={attributes}
+                    setAttributes={setAttributes}
+                    breakpoint={breakpoint}
+                  />
+                )}
+              </ResponsiveControl>
+
+              <ResponsiveControl>
+                {breakpoint => (
+                  <MarginControls
+                    label={__('Margin (px)')}
+                    attributeKey="blockMargin"
+                    attributes={attributes}
+                    setAttributes={setAttributes}
+                    breakpoint={breakpoint}
+                  />
+                )}
+              </ResponsiveControl>
             </PanelColorSettings>
-
-            <ResponsiveControl>
-              {breakpoint => (
-                <MarginControls
-                  label={__('Padding (px)')}
-                  attributeKey="blockPadding"
-                  attributes={attributes}
-                  setAttributes={setAttributes}
-                  breakpoint={breakpoint}
-                />
-              )}
-            </ResponsiveControl>
-
-            <ResponsiveControl>
-              {breakpoint => (
-                <MarginControls
-                  label={__('Margin (px)')}
-                  attributeKey="blockMargin"
-                  attributes={attributes}
-                  setAttributes={setAttributes}
-                  breakpoint={breakpoint}
-                />
-              )}
-            </ResponsiveControl>
           </InspectorControls>
         </Fragment>
       )}

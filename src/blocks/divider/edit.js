@@ -10,6 +10,7 @@ import {
 import { BORDER_STYLES, Divider } from './index';
 import MarginControls from '../../components/controls/margin-controls';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
+import BackgroundControls from '../../components/controls/background-controls';
 
 const DividerEdit = ({ className, attributes, setAttributes, isSelected }) => {
   const {
@@ -24,7 +25,7 @@ const DividerEdit = ({ className, attributes, setAttributes, isSelected }) => {
 
   return (
     <Fragment>
-      <Divider className={className} {...attributes} />
+      <Divider className={className} attributes={attributes} />
 
       {isSelected && (
         <InspectorControls key="inspector">
@@ -89,6 +90,14 @@ const DividerEdit = ({ className, attributes, setAttributes, isSelected }) => {
               },
             ]}
           >
+            <BackgroundControls
+              label={__('Background Image')}
+              setAttributes={setAttributes}
+              attributes={attributes}
+              attributeKey="backgroundImage"
+              supportsParallax
+            />
+
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls

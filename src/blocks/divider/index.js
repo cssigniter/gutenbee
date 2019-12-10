@@ -13,6 +13,10 @@ import {
   getDefaultBackgroundImageValue,
   getDefaultSpacingValue,
 } from '../../components/controls/responsive-control/default-values';
+import getBlockId from '../../util/getBlockId';
+import DividerStyle from './style';
+import { getBackgroundImageStyle } from '../../components/controls/background-controls/helpers';
+import deprecated from './deprecated';
 
 export const BORDER_STYLES = {
   SOLID: 'solid',
@@ -21,36 +25,44 @@ export const BORDER_STYLES = {
   DOUBLE: 'double',
 };
 
-export const Divider = ({
-  className,
-  height,
-  style,
-  weight,
-  width,
-  align,
-  color,
-  ...props
-}) => (
-  <div
-    key="divider"
-    className={`${className} align-${align}`}
-    style={{
-      height,
-      ...props.style,
-    }}
-    {...props}
-  >
+export const Divider = ({ className, attributes, ...props }) => {
+  const {
+    height,
+    style,
+    weight,
+    width,
+    align,
+    color,
+    uniqueId,
+    backgroundColor,
+    backgroundImage,
+  } = attributes;
+  const blockId = getBlockId(uniqueId);
+
+  return (
     <div
-      className={`${className}-inner`}
+      className={`${className} align-${align}`}
+      id={blockId}
       style={{
-        borderTopStyle: style,
-        borderTopWidth: weight,
-        borderTopColor: color,
-        width: `${width}%`,
+        height,
+        backgroundColor: backgroundColor || undefined,
+        ...getBackgroundImageStyle(backgroundImage),
       }}
-    />
-  </div>
-);
+      {...props}
+    >
+      <DividerStyle attributes={attributes} />
+      <div
+        className={`${className}-inner`}
+        style={{
+          borderTopStyle: style,
+          borderTopWidth: weight,
+          borderTopColor: color,
+          width: `${width}%`,
+        }}
+      />
+    </div>
+  );
+};
 
 registerBlockType('gutenbee/divider', {
   title: __('GutenBee Divider'),
@@ -104,8 +116,9 @@ registerBlockType('gutenbee/divider', {
       default: getDefaultSpacingValue(),
     },
   },
+  deprecated: deprecated,
   edit: DividerEdit,
   save({ className, attributes }) {
-    return <Divider className={className} {...attributes} />;
+    return <Divider className={className} attributes={attributes} />;
   },
 });
