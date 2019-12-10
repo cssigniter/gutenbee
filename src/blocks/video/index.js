@@ -6,11 +6,12 @@ import VideoEdit from './edit';
 import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
 import getBlockId from '../../util/getBlockId';
 import VideoStyle from './style';
+import VideoBlockIcon from './block-icon';
 
 registerBlockType('gutenbee/video', {
   title: __('GutenBee Video'),
   description: __('Embed a video from your media library or upload a new one.'),
-  icon: 'V',
+  icon: VideoBlockIcon,
   category: 'gutenbee',
   keywords: [__('video'), __('movie')],
   supports: {

@@ -1,6 +1,4 @@
 import PropTypes from 'prop-types';
-import { getColorClassName } from 'wp.blockEditor';
-import classNames from 'classnames';
 
 import formatNumber from '../../util/formatNumber';
 
@@ -9,7 +7,6 @@ const propTypes = {
   endNumber: PropTypes.number.isRequired,
   animationDuration: PropTypes.number.isRequired,
   separator: PropTypes.string.isRequired,
-  textFontSize: PropTypes.number,
   textColor: PropTypes.string.isRequired,
   prefix: PropTypes.string,
   className: PropTypes.string.isRequired,
@@ -20,25 +17,16 @@ const Countup = ({
   endNumber,
   animationDuration,
   separator,
-  textFontSize,
   textColor,
-  customTextColor,
   prefix,
   suffix,
   className,
 }) => {
-  const textClass = getColorClassName('color', textColor);
-  const classes = classNames({
-    [className]: true,
-    [textClass]: !!textClass,
-  });
-
   return (
     <span
-      className={classes}
+      className={className}
       style={{
-        fontSize: `${textFontSize}px`,
-        color: textClass ? undefined : customTextColor,
+        color: textColor ? textColor : undefined,
       }}
       data-start={startNumber}
       data-end={endNumber}

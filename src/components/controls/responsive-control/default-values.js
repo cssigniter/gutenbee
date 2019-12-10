@@ -28,3 +28,14 @@ export const getDefaultSpacingValue = () => ({
     left: '',
   },
 });
+
+export const getDefaultBackgroundImageValue = () => ({
+  url: '',
+  image: null,
+  repeat: 'no-repeat',
+  size: 'cover',
+  position: 'top center',
+  attachment: 'scroll',
+  parallax: false,
+  parallaxSpeed: 0.3,
+});

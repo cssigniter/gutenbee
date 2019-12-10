@@ -105,7 +105,25 @@ function HeadingEdit({
             selectedLevel={level}
             onChange={newLevel => setAttributes({ level: newLevel })}
           />
+        </PanelBody>
 
+        <PanelColorSettings
+          title={__('Block Appearance')}
+          initialOpen={false}
+          colorSettings={[
+            {
+              value: textColor,
+              onChange: value => setAttributes({ textColor: value }),
+              label: __('Text Color'),
+            },
+            {
+              value: backgroundColor,
+              onChange: value => setAttributes({ backgroundColor: value }),
+              label: __('Background Color'),
+            },
+          ]}
+          onChange={value => setAttributes({ backgroundColor: value })}
+        >
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
@@ -129,25 +147,7 @@ function HeadingEdit({
               />
             )}
           </ResponsiveControl>
-        </PanelBody>
-
-        <PanelColorSettings
-          title={__('Color Settings')}
-          initialOpen={false}
-          colorSettings={[
-            {
-              value: textColor,
-              onChange: value => setAttributes({ textColor: value }),
-              label: __('Text Color'),
-            },
-            {
-              value: backgroundColor,
-              onChange: value => setAttributes({ backgroundColor: value }),
-              label: __('Background Color'),
-            },
-          ]}
-          onChange={value => setAttributes({ backgroundColor: value })}
-        />
+        </PanelColorSettings>
       </InspectorControls>
     </Fragment>
   );

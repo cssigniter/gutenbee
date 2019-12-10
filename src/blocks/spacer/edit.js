@@ -1,13 +1,18 @@
 import classNames from 'classnames';
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
-import { InspectorControls } from 'wp.blockEditor';
+import { InspectorControls, PanelColorSettings } from 'wp.blockEditor';
 import { RangeControl, PanelBody, ResizableBox } from 'wp.components';
 import { compose, withInstanceId } from 'wp.compose';
 import { withDispatch } from 'wp.data';
 
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 import useUniqueId from '../../hooks/useUniqueId';
+import { getBackgroundImageStyle } from '../../components/controls/background-controls/helpers';
+import getBlockId from '../../util/getBlockId';
+import SpacerStyle from './style';
+import BackgroundControls from '../../components/controls/background-controls';
+import MarginControls from '../../components/controls/margin-controls';
 
 const SpacerEdit = ({
   attributes,
@@ -18,44 +23,53 @@ const SpacerEdit = ({
   onResizeStop,
   clientId,
 }) => {
-  const { height } = attributes;
+  const { height, backgroundColor, backgroundImage, uniqueId } = attributes;
   const id = `block-spacer-height-input-${instanceId}`;
 
   useUniqueId({ attributes, setAttributes, clientId });
+  const blockId = getBlockId(uniqueId);
 
   return (
     <Fragment>
-      <ResizableBox
-        className={classNames('block-library-spacer__resize-container', {
-          'is-selected': isSelected,
-        })}
-        size={{
-          height: height.desktop,
-        }}
-        minHeight="20"
-        enable={{
-          top: false,
-          right: false,
-          bottom: true,
-          left: false,
-          topRight: false,
-          bottomRight: false,
-          bottomLeft: false,
-          topLeft: false,
-        }}
-        onResizeStart={onResizeStart}
-        onResizeStop={(event, direction, elt, delta) => {
-          onResizeStop();
-          const spacerHeight = parseInt(height.desktop + delta.height, 10);
+      <SpacerStyle attributes={attributes} />
+      <div>
+        <ResizableBox
+          id={blockId}
+          style={{
+            backgroundColor: backgroundColor || undefined,
+            ...getBackgroundImageStyle(backgroundImage),
+          }}
+          className={classNames('block-library-spacer__resize-container', {
+            'is-selected': isSelected,
+          })}
+          size={{
+            height: height.desktop,
+          }}
+          minHeight="20"
+          enable={{
+            top: false,
+            right: false,
+            bottom: true,
+            left: false,
+            topRight: false,
+            bottomRight: false,
+            bottomLeft: false,
+            topLeft: false,
+          }}
+          onResizeStart={onResizeStart}
+          onResizeStop={(event, direction, elt, delta) => {
+            onResizeStop();
+            const spacerHeight = parseInt(height.desktop + delta.height, 10);
 
-          setAttributes({
-            height: {
-              ...height,
-              desktop: spacerHeight,
-            },
-          });
-        }}
-      />
+            setAttributes({
+              height: {
+                ...height,
+                desktop: spacerHeight,
+              },
+            });
+          }}
+        />
+      </div>
 
       <InspectorControls>
         <PanelBody title={__('Spacer Settings')}>
@@ -80,6 +94,39 @@ const SpacerEdit = ({
             )}
           </ResponsiveControl>
         </PanelBody>
+
+        <PanelColorSettings
+          title={__('Block Appearance')}
+          initialOpen={false}
+          colorSettings={[
+            {
+              value: backgroundColor,
+              onChange: value => setAttributes({ backgroundColor: value }),
+              label: __('Background Color'),
+            },
+          ]}
+          onChange={value => setAttributes({ backgroundColor: value })}
+        >
+          <ResponsiveControl>
+            {breakpoint => (
+              <MarginControls
+                label={__('Margin (px)')}
+                attributeKey="blockMargin"
+                attributes={attributes}
+                setAttributes={setAttributes}
+                breakpoint={breakpoint}
+              />
+            )}
+          </ResponsiveControl>
+
+          <BackgroundControls
+            label={__('Background Image')}
+            setAttributes={setAttributes}
+            attributes={attributes}
+            attributeKey="backgroundImage"
+            supportsParallax
+          />
+        </PanelColorSettings>
       </InspectorControls>
     </Fragment>
   );

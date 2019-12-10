@@ -1,5 +1,13 @@
 @import './common';
 
+.wp-block-gutenbee-progress-bar {
+  .editor-rich-text {
+    p {
+      margin: 0;
+    }
+  }
+}
+
 .wp-block-gutenbee-progress-bar-inner {
   .editor-rich-text__tinymce {
     &.mce-content-body {
@@ -9,6 +17,10 @@
 
   .editor-rich-text {
     overflow: hidden;
+
+    p {
+      margin: 0;
+    }
   }
 
   .components-autocomplete {

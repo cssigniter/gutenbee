@@ -12,21 +12,38 @@ import { RichText } from 'wp.blockEditor';
 import edit from './edit';
 import Countup from './Countup';
 import CountupBlockIcon from './block-icon';
-import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../components/controls/responsive-control/default-values';
+import getBlockId from '../../util/getBlockId';
+import CountupStyle from './style';
+import deprecated from './deprecated';
 
 const CountupRender = ({ attributes, className }) => {
-  const { titleContent, align, blockMargin } = attributes;
+  const {
+    titleContent,
+    align,
+    titleColor,
+    backgroundColor,
+    titleTopMargin,
+    uniqueId,
+  } = attributes;
+  const blockId = getBlockId(uniqueId);
 
   return (
     <div
+      id={blockId}
       className={classNames({
         [className]: true,
         [`${className}-align-${align}`]: !!align,
       })}
       style={{
-        margin: getMarginSettingStyles(blockMargin),
+        backgroundColor: backgroundColor || undefined,
       }}
     >
+      <CountupStyle attributes={attributes} />
+
       <Countup {...attributes} className={`${className}-number`} />
 
       {!RichText.isEmpty(titleContent) && (
@@ -34,6 +51,11 @@ const CountupRender = ({ attributes, className }) => {
           tagName="p"
           value={titleContent}
           className={`${className}-title`}
+          style={{
+            color: titleColor || undefined,
+            marginTop:
+              titleTopMargin != null ? `${titleTopMargin}px` : undefined,
+          }}
         />
       )}
     </div>
@@ -47,6 +69,9 @@ registerBlockType('gutenbee/countup', {
   icon: CountupBlockIcon,
   keywords: [__('counter'), __('numbers'), __('animation')],
   attributes: {
+    uniqueId: {
+      type: 'string',
+    },
     startNumber: {
       type: 'string',
       default: '0',
@@ -71,13 +96,11 @@ registerBlockType('gutenbee/countup', {
     },
     textFontSize: {
       type: 'number',
-      default: 16,
+      default: getDefaultResponsiveValue({ desktop: 16 }),
     },
-    textColor: {
-      type: 'string',
-    },
-    customTextColor: {
-      type: 'string',
+    titleFontSize: {
+      type: 'object',
+      default: getDefaultResponsiveValue({ desktop: 16 }),
     },
     titleContent: {
       source: 'html',
@@ -87,11 +110,28 @@ registerBlockType('gutenbee/countup', {
       type: 'string',
       default: 'left',
     },
+    blockPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue(),
+    },
     blockMargin: {
       type: 'object',
-      default: {},
+      default: getDefaultSpacingValue(),
+    },
+    titleTopMargin: {
+      type: 'number',
+    },
+    textColor: {
+      type: 'string',
+    },
+    titleColor: {
+      type: 'string',
+    },
+    backgroundColor: {
+      type: 'string',
     },
   },
+  deprecated,
   edit,
   save({ attributes, className }) {
     return <CountupRender attributes={attributes} className={className} />;

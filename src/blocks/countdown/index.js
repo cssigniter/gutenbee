@@ -9,19 +9,28 @@ import { RichText } from 'wp.blockEditor';
 import CountdownEdit from './edit';
 import { capitalize } from '../../util/text';
 import CountdownBlockIcon from './block-icon';
-import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../components/controls/responsive-control/default-values';
+import getBlockId from '../../util/getBlockId';
+import CountdownStyle from './style';
+import deprecated from './deprecated';
 
 const CountDown = ({ attributes, className }) => {
   const {
+    uniqueId,
     date,
     textColor,
     backgroundColor,
     displayLabels,
-    numberFontSize,
-    labelFontSize,
     maxWidth,
-    blockMargin,
+    labelTopMargin,
+    labelTextColor,
+    numberBackgroundColor,
   } = attributes;
+
+  const blockId = getBlockId(uniqueId);
 
   const renderItem = key => {
     const displayAttributeKey = `display${[capitalize(key)]}`;
@@ -35,21 +44,22 @@ const CountDown = ({ attributes, className }) => {
       <div
         className={`${className}-item`}
         style={{
-          backgroundColor: backgroundColor || undefined,
+          backgroundColor: numberBackgroundColor || undefined,
           maxWidth: maxWidth ? `${maxWidth}%` : undefined,
         }}
       >
-        <p
-          className={`gutenbee-countdown-number gutenbee-countdown-${key}`}
-          style={{ fontSize: numberFontSize }}
-        />
+        <p className={`gutenbee-countdown-number gutenbee-countdown-${key}`} />
 
         {displayLabels && !RichText.isEmpty(attributes[labelAttributeKey]) && (
           <RichText.Content
             tagName="p"
             className={`gutenbee-countdown-label gutenbee-countdown-label-${key}`}
             value={attributes[labelAttributeKey]}
-            style={{ fontSize: labelFontSize }}
+            style={{
+              marginTop:
+                labelTopMargin != null ? `${labelTopMargin}px` : undefined,
+              color: labelTextColor || undefined,
+            }}
           />
         )}
       </div>
@@ -60,12 +70,14 @@ const CountDown = ({ attributes, className }) => {
 
   return (
     <div
+      id={blockId}
       className={className}
       data-date={date}
       style={{
-        margin: getMarginSettingStyles(blockMargin),
+        backgroundColor: backgroundColor || undefined,
       }}
     >
+      <CountdownStyle attributes={attributes} />
       <div
         className={`${className}-wrap`}
         style={{
@@ -85,6 +97,9 @@ registerBlockType('gutenbee/countdown', {
   icon: CountdownBlockIcon,
   keywords: [__('counter'), __('numbers'), __('countdown')],
   attributes: {
+    uniqueId: {
+      type: 'string',
+    },
     date: {
       type: 'string',
     },
@@ -136,26 +151,42 @@ registerBlockType('gutenbee/countdown', {
       type: 'string',
       default: '',
     },
+    labelTextColor: {
+      type: 'string',
+      default: '',
+    },
+    numberBackgroundColor: {
+      type: 'string',
+      default: '',
+    },
     backgroundColor: {
       type: 'string',
       default: '',
     },
     numberFontSize: {
-      type: 'number',
-      default: 24,
+      type: 'object',
+      default: getDefaultResponsiveValue({ desktop: 24 }),
     },
     labelFontSize: {
+      type: 'object',
+      default: getDefaultResponsiveValue({ desktop: 13 }),
+    },
+    labelTopMargin: {
       type: 'number',
-      default: 13,
     },
     maxWidth: {
       type: 'number',
     },
     blockMargin: {
       type: 'object',
-      default: {},
+      default: getDefaultSpacingValue(),
+    },
+    blockPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue(),
     },
   },
+  deprecated,
   edit: CountdownEdit,
   save({ attributes, className }) {
     return <CountDown attributes={attributes} className={className} />;

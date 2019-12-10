@@ -1,5 +1,5 @@
 import { __ } from 'wp.i18n';
-import { Component, Fragment } from 'wp.element';
+import { Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import {
   InspectorControls,
@@ -7,6 +7,7 @@ import {
   RichText,
   AlignmentToolbar,
   PanelColorSettings,
+  BlockControls,
 } from 'wp.blockEditor';
 import {
   RangeControl,
@@ -16,81 +17,106 @@ import {
 } from 'wp.components';
 import classNames from 'classnames';
 
-import TextControls from '../../components/controls/text-controls/TextControls';
 import Countup from './Countup';
 import MarginControls from '../../components/controls/margin-controls';
-import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
+import useUniqueId from '../../hooks/useUniqueId';
+import getBlockId from '../../util/getBlockId';
+import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
+import CountupStyle from './style';
+import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
 
-class CountupEdit extends Component {
-  static propTypes = {
-    attributes: PropTypes.shape({
-      startNumber: PropTypes.number.isRequired,
-      endNumber: PropTypes.number.isRequired,
-      animationDuration: PropTypes.number.isRequired,
-      separator: PropTypes.string.isRequired,
-      textFontSize: PropTypes.number,
-      textColor: PropTypes.string,
-      customTextColor: PropTypes.string,
-      prefix: PropTypes.string,
-      suffix: PropTypes.string,
-      blockMargin: PropTypes.shape({
-        top: PropTypes.number,
-        right: PropTypes.number,
-        bottom: PropTypes.number,
-        left: PropTypes.number,
-      }),
-    }).isRequired,
-    setAttributes: PropTypes.func.isRequired,
-    className: PropTypes.string.isRequired,
-    isSelected: PropTypes.bool.isRequired,
-  };
+const propTypes = {
+  attributes: PropTypes.shape({
+    uniqueId: PropTypes.string,
+    startNumber: PropTypes.number.isRequired,
+    endNumber: PropTypes.number.isRequired,
+    animationDuration: PropTypes.number.isRequired,
+    separator: PropTypes.string.isRequired,
+    textFontSize: PropTypes.number,
+    textColor: PropTypes.string,
+    customTextColor: PropTypes.string,
+    prefix: PropTypes.string,
+    suffix: PropTypes.string,
+    blockMargin: PropTypes.shape({
+      top: PropTypes.number,
+      right: PropTypes.number,
+      bottom: PropTypes.number,
+      left: PropTypes.number,
+    }),
+  }).isRequired,
+  setAttributes: PropTypes.func.isRequired,
+  className: PropTypes.string.isRequired,
+  isSelected: PropTypes.bool.isRequired,
+  clientId: PropTypes.string.isRequired,
+};
 
-  render() {
-    const {
-      attributes,
-      setAttributes,
-      isSelected,
-      className,
-      setTextColor,
-      textColor,
-    } = this.props;
+const CountupEdit = ({
+  attributes,
+  setAttributes,
+  isSelected,
+  className,
+  clientId,
+}) => {
+  const {
+    uniqueId,
+    startNumber,
+    endNumber,
+    animationDuration,
+    separator,
+    textFontSize,
+    titleFontSize,
+    prefix,
+    suffix,
+    titleContent,
+    align,
+    textColor,
+    titleColor,
+    backgroundColor,
+    titleTopMargin,
+  } = attributes;
 
-    const {
-      startNumber,
-      endNumber,
-      animationDuration,
-      separator,
-      textFontSize,
-      prefix,
-      suffix,
-      titleContent,
-      align,
-      blockMargin,
-    } = attributes;
+  useUniqueId({ attributes, setAttributes, clientId });
+  const blockId = getBlockId(uniqueId);
 
-    return (
-      <Fragment>
-        <div
-          className={classNames({
-            [className]: true,
-            [`${className}-align-${align}`]: !!align,
-          })}
+  return (
+    <Fragment>
+      <div
+        id={blockId}
+        className={classNames({
+          [className]: true,
+          [`${className}-align-${align}`]: !!align,
+        })}
+        style={{
+          backgroundColor: backgroundColor || undefined,
+        }}
+      >
+        <CountupStyle attributes={attributes} />
+
+        <Countup {...attributes} className={`${className}-number`} />
+
+        <RichText
+          tagName="p"
+          value={titleContent}
+          onChange={value => setAttributes({ titleContent: value })}
+          className={`${className}-title`}
+          placeholder={__('Write a title…')}
           style={{
-            margin: getMarginSettingStyles(blockMargin),
+            color: titleColor || undefined,
+            marginTop:
+              titleTopMargin != null ? `${titleTopMargin}px` : undefined,
           }}
-        >
-          <Countup {...attributes} className={`${className}-number`} />
+        />
+      </div>
 
-          <RichText
-            tagName="p"
-            value={titleContent}
-            onChange={value => setAttributes({ titleContent: value })}
-            className={`${className}-title`}
-            placeholder={__('Write a title…')}
-          />
-        </div>
+      {isSelected && (
+        <Fragment>
+          <BlockControls>
+            <AlignmentToolbar
+              value={align}
+              onChange={value => setAttributes({ align: value || 'left' })}
+            />
+          </BlockControls>
 
-        {isSelected && (
           <InspectorControls>
             <PanelBody title={__('Settings')} initialOpen>
               <TextControl
@@ -140,47 +166,105 @@ class CountupEdit extends Component {
                 ]}
               />
 
-              <TextControls
-                setAttributes={setAttributes}
-                attributeKey="text"
-                attributes={{
-                  textFontSize,
+              <ResponsiveControl>
+                {breakpoint => (
+                  <FontSizePickerLabel
+                    label={__('Text Font Size')}
+                    value={textFontSize[breakpoint]}
+                    onChange={value =>
+                      setAttributes({
+                        textFontSize: {
+                          ...textFontSize,
+                          [breakpoint]: value != null ? value : '',
+                        },
+                      })
+                    }
+                  />
+                )}
+              </ResponsiveControl>
+
+              <RangeControl
+                label={__('Title Top Margin')}
+                value={titleTopMargin}
+                onChange={value => {
+                  setAttributes({
+                    titleTopMargin: value != null ? value : undefined,
+                  });
                 }}
-                defaultFontSize={textFontSize}
+                min={0}
+                max={200}
               />
 
-              <p>{__('Alignment')}</p>
-              <AlignmentToolbar
-                value={align}
-                onChange={value => setAttributes({ align: value || 'left' })}
-              />
-            </PanelBody>
-
-            <PanelBody title={__('Block Appearance')} initialOpen={false}>
-              <MarginControls
-                attributeKey="blockMargin"
-                attributes={attributes}
-                setAttributes={setAttributes}
-              />
+              <ResponsiveControl>
+                {breakpoint => (
+                  <FontSizePickerLabel
+                    label={__('Title Font Size')}
+                    value={titleFontSize[breakpoint]}
+                    onChange={value =>
+                      setAttributes({
+                        titleFontSize: {
+                          ...titleFontSize,
+                          [breakpoint]: value != null ? value : '',
+                        },
+                      })
+                    }
+                  />
+                )}
+              </ResponsiveControl>
             </PanelBody>
 
             <PanelColorSettings
-              colorValue={textColor.value}
-              title={__('Color Settings')}
-              onChange={setTextColor}
+              title={__('Block Appearance')}
+              initialOpen={false}
               colorSettings={[
                 {
-                  value: textColor.value,
-                  onChange: setTextColor,
+                  value: textColor,
+                  onChange: value => setAttributes({ textColor: value }),
                   label: __('Text Color'),
                 },
+                {
+                  value: titleColor,
+                  onChange: value => setAttributes({ titleColor: value }),
+                  label: __('Title Color'),
+                },
+                {
+                  value: backgroundColor,
+                  onChange: value => setAttributes({ backgroundColor: value }),
+                  label: __('Background Color'),
+                },
               ]}
-            />
+            >
+              <ResponsiveControl>
+                {breakpoint => (
+                  <MarginControls
+                    label={__('Padding (px)')}
+                    attributeKey="blockPadding"
+                    attributes={attributes}
+                    setAttributes={setAttributes}
+                    breakpoint={breakpoint}
+                  />
+                )}
+              </ResponsiveControl>
+
+              <ResponsiveControl>
+                {breakpoint => (
+                  <MarginControls
+                    label={__('Margin (px)')}
+                    attributeKey="blockMargin"
+                    attributes={attributes}
+                    setAttributes={setAttributes}
+                    breakpoint={breakpoint}
+                  />
+                )}
+              </ResponsiveControl>
+            </PanelColorSettings>
           </InspectorControls>
-        )}
-      </Fragment>
-    );
-  }
-}
+        </Fragment>
+      )}
+    </Fragment>
+  );
+};
+
+CountupEdit.propTypes = propTypes;
 
 export default withColors({ textColor: 'color' })(CountupEdit);

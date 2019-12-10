@@ -10,12 +10,13 @@ const propTypes = {
 };
 
 const SpacerStyle = ({ attributes, children }) => {
-  const { uniqueId, height } = attributes;
+  const { uniqueId, height, blockMargin } = attributes;
   const blockId = getBlockId(uniqueId);
 
   return (
     <StyleSheet id={blockId}>
       <Rule value={height} rule="{ height: %s; }" unit="px" />
+      <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
       {children}
     </StyleSheet>
   );

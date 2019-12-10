@@ -500,14 +500,17 @@
   border-radius: 0;
 }
 
+.gutenbee-font-size-picker-label > fieldset legend,
 .gutenbee-font-size-control > fieldset legend {
   display: none;
 }
 
+.gutenbee-font-size-picker-label .components-base-control__field .components-base-control__label,
 .gutenbee-font-size-control .components-base-control__field .components-base-control__label {
   display: none;
 }
 
+.gutenbee-font-size-picker-label > .components-base-control__label,
 .gutenbee-font-size-control > .components-base-control__label {
   margin-bottom: 4px;
 }
@@ -2018,12 +2021,20 @@
   padding-right: 10px;
 }
 
+.wp-block-gutenbee-progress-bar .editor-rich-text p {
+  margin: 0;
+}
+
 .wp-block-gutenbee-progress-bar-inner .editor-rich-text__tinymce.mce-content-body {
   line-height: 1.2;
 }
 
 .wp-block-gutenbee-progress-bar-inner .editor-rich-text {
   overflow: hidden;
+}
+
+.wp-block-gutenbee-progress-bar-inner .editor-rich-text p {
+  margin: 0;
 }
 
 .wp-block-gutenbee-progress-bar-inner .components-autocomplete {
@@ -2084,6 +2095,10 @@
   text-align: right;
 }
 
+.wp-block-gutenbee-countup .editor-rich-text p {
+  margin: 0;
+}
+
 .wp-block-gutenbee-google-maps-loading {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2108,6 +2123,7 @@
   justify-content: center;
   text-align: center;
   color: #fff;
+  line-height: 1;
 }
 
 .wp-block-gutenbee-countdown-wrap .wp-block-gutenbee-countdown-item {
@@ -2116,7 +2132,7 @@
   padding: 10px 15px;
   border-radius: 2px;
   color: currentColor;
-  line-height: normal;
+  line-height: 1;
   margin: 0 3px;
   -webkit-box-flex: 1;
   -ms-flex-positive: 1;
@@ -2127,8 +2143,8 @@
 
 .wp-block-gutenbee-countdown-wrap .gutenbee-countdown-number {
   font-weight: bold;
-  margin: 0 0 5px;
-  line-height: normal;
+  margin: 0;
+  line-height: 1;
   color: currentColor;
 }
 

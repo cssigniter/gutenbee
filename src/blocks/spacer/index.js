@@ -2,10 +2,15 @@ import { registerBlockType } from 'wp.blocks';
 import { __ } from 'wp.i18n';
 
 import getBlockId from '../../util/getBlockId';
-import { getDefaultResponsiveValue } from '../../components/controls/responsive-control/default-values';
+import {
+  getDefaultBackgroundImageValue,
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../components/controls/responsive-control/default-values';
 import SpacerStyle from './style';
 import SpacerEdit from './edit';
 import SpacerBlockIcon from './block-icon';
+import { getBackgroundImageStyle } from '../../components/controls/background-controls/helpers';
 
 registerBlockType('gutenbee/spacer', {
   title: __('GutenBee Spacer'),
@@ -24,14 +29,33 @@ registerBlockType('gutenbee/spacer', {
       type: 'object',
       default: getDefaultResponsiveValue({ desktop: 100 }),
     },
+    blockMargin: {
+      type: 'object',
+      default: getDefaultSpacingValue(),
+    },
+    backgroundColor: {
+      type: 'string',
+    },
+    backgroundImage: {
+      type: 'objcet',
+      default: getDefaultBackgroundImageValue(),
+    },
   },
   edit: SpacerEdit,
   save: ({ attributes, className }) => {
-    const { uniqueId } = attributes;
+    const { uniqueId, backgroundColor, backgroundImage } = attributes;
     const blockId = getBlockId(uniqueId);
 
     return (
-      <div id={blockId} className={className} aria-hidden>
+      <div
+        id={blockId}
+        className={className}
+        style={{
+          backgroundColor: backgroundColor || undefined,
+          ...getBackgroundImageStyle(backgroundImage),
+        }}
+        aria-hidden
+      >
         <SpacerStyle attributes={attributes} />
       </div>
     );

@@ -293,30 +293,6 @@ const ContainerBlockEdit = ({
 
               <ResponsiveControl>
                 {breakpoint => (
-                  <MarginControls
-                    label={__('Padding (px)')}
-                    attributeKey="blockPadding"
-                    attributes={attributes}
-                    setAttributes={setAttributes}
-                    breakpoint={breakpoint}
-                  />
-                )}
-              </ResponsiveControl>
-
-              <ResponsiveControl>
-                {breakpoint => (
-                  <MarginControls
-                    label={__('Margin (px)')}
-                    attributeKey="blockMargin"
-                    attributes={attributes}
-                    setAttributes={setAttributes}
-                    breakpoint={breakpoint}
-                  />
-                )}
-              </ResponsiveControl>
-
-              <ResponsiveControl>
-                {breakpoint => (
                   <SelectControl
                     label={__('Vertical Content Alignment')}
                     value={verticalContentAlignment[breakpoint]}
@@ -366,7 +342,7 @@ const ContainerBlockEdit = ({
             </PanelBody>
 
             <PanelColorSettings
-              title={__('Color Settings')}
+              title={__('Block Appearance')}
               initialOpen={false}
               colorSettings={[
                 {
@@ -390,6 +366,30 @@ const ContainerBlockEdit = ({
                 supportsParallax
               />
             </PanelColorSettings>
+
+            <ResponsiveControl>
+              {breakpoint => (
+                <MarginControls
+                  label={__('Padding (px)')}
+                  attributeKey="blockPadding"
+                  attributes={attributes}
+                  setAttributes={setAttributes}
+                  breakpoint={breakpoint}
+                />
+              )}
+            </ResponsiveControl>
+
+            <ResponsiveControl>
+              {breakpoint => (
+                <MarginControls
+                  label={__('Margin (px)')}
+                  attributeKey="blockMargin"
+                  attributes={attributes}
+                  setAttributes={setAttributes}
+                  breakpoint={breakpoint}
+                />
+              )}
+            </ResponsiveControl>
           </InspectorControls>
         </Fragment>
       )}

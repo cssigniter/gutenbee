@@ -8,48 +8,66 @@ import { RichText } from 'wp.blockEditor';
 
 import ProgressBarEdit from './edit';
 import ProgressBarBlockIcon from './block-icon';
-import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../components/controls/responsive-control/default-values';
+import ProgressBarStyle from './style';
+import getBlockId from '../../util/getBlockId';
+import deprecated from './deprecated';
 
 const ProgressBar = ({ className, attributes }) => {
   const {
+    uniqueId,
     title,
     innerTitle,
     percentage,
     displayPercentage,
     textColor,
     backgroundColor,
+    barBackgroundColor,
     titleTextColor,
-    titleFontSize,
-    innerTitleFontSize,
-    blockMargin,
+    progressBackgroundColor,
+    titleBottomMargin,
   } = attributes;
+
+  const blockId = getBlockId(uniqueId);
 
   return (
     <div
+      id={blockId}
       className={className}
       style={{
-        margin: getMarginSettingStyles(blockMargin),
+        backgroundColor: backgroundColor || undefined,
       }}
     >
+      <ProgressBarStyle attributes={attributes} />
+
       {!RichText.isEmpty(title) && (
         <RichText.Content
           tagName="p"
           value={title}
           className={`${className}-title`}
           style={{
-            fontSize: titleFontSize,
-            color: titleTextColor,
+            color: titleTextColor || undefined,
+            marginBottom:
+              titleBottomMargin == null ? undefined : `${titleBottomMargin}px`,
           }}
         />
       )}
 
-      <div className={`${className}-outer`}>
+      <div
+        className={`${className}-outer`}
+        style={{
+          backgroundColor: barBackgroundColor || undefined,
+        }}
+      >
         <div
           className={`${className}-inner`}
           style={{
             width: `${percentage}%`,
-            backgroundColor,
-            color: textColor,
+            backgroundColor: progressBackgroundColor || undefined,
+            color: textColor || undefined,
           }}
         >
           {!RichText.isEmpty(innerTitle) && (
@@ -57,7 +75,6 @@ const ProgressBar = ({ className, attributes }) => {
               tagName="span"
               value={innerTitle}
               className={`${className}-inner-title`}
-              style={{ fontSize: innerTitleFontSize }}
             />
           )}
 
@@ -77,6 +94,9 @@ registerBlockType('gutenbee/progress-bar', {
   category: 'gutenbee',
   keywords: [__('progress'), __('progress bar')],
   attributes: {
+    uniqueId: {
+      type: 'string',
+    },
     title: {
       source: 'html',
       selector: '.wp-block-gutenbee-progress-bar-title',
@@ -96,25 +116,39 @@ registerBlockType('gutenbee/progress-bar', {
     textColor: {
       type: 'string',
     },
+    barBackgroundColor: {
+      type: 'string',
+    },
+    progressBackgroundColor: {
+      type: 'string',
+    },
     backgroundColor: {
       type: 'string',
     },
     titleTextColor: {
       type: 'string',
     },
-    titleFontSize: {
+    titleBottomMargin: {
       type: 'number',
-      default: 16,
+    },
+    titleFontSize: {
+      type: 'object',
+      default: getDefaultResponsiveValue({ desktop: 16 }),
     },
     innerTitleFontSize: {
-      type: 'number',
-      default: 14,
+      type: 'object',
+      default: getDefaultResponsiveValue({ desktop: 14 }),
     },
     blockMargin: {
       type: 'object',
-      default: {},
+      default: getDefaultSpacingValue(),
+    },
+    blockPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue(),
     },
   },
+  deprecated,
   edit: ProgressBarEdit,
   save: ({ className, attributes }) => (
     <ProgressBar className={className} attributes={attributes} />

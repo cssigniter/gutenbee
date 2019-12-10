@@ -5,6 +5,7 @@
   justify-content: center;
   text-align: center;
   color: $white;
+  line-height: 1;
 
   .wp-block-gutenbee-countdown-item {
     text-align: center;
@@ -12,7 +13,7 @@
     padding: 10px 15px;
     border-radius: 2px;
     color: currentColor;
-    line-height: normal;
+    line-height: 1;
     margin: 0 3px;
     flex-grow: 1;
     flex-basis: 0;
@@ -20,8 +21,8 @@
 
   .gutenbee-countdown-number {
     font-weight: bold;
-    margin: 0 0 5px;
-    line-height: normal;
+    margin: 0;
+    line-height: 1;
     color: currentColor;
 
     &:only-child {

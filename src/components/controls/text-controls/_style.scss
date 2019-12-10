@@ -5,6 +5,7 @@
 // TODO: Temporarily hide the label on Gutenberg's FontSizePicker
 // component as we want to display our own label. Remove this
 // when they support custom labels.
+.gutenbee-font-size-picker-label,
 .gutenbee-font-size-control {
   > fieldset {
     legend {

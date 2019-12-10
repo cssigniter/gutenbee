@@ -1494,6 +1494,7 @@
   justify-content: center;
   text-align: center;
   color: #fff;
+  line-height: 1;
 }
 
 .wp-block-gutenbee-countdown-wrap .wp-block-gutenbee-countdown-item {
@@ -1502,7 +1503,7 @@
   padding: 10px 15px;
   border-radius: 2px;
   color: currentColor;
-  line-height: normal;
+  line-height: 1;
   margin: 0 3px;
   -webkit-box-flex: 1;
   -ms-flex-positive: 1;
@@ -1513,8 +1514,8 @@
 
 .wp-block-gutenbee-countdown-wrap .gutenbee-countdown-number {
   font-weight: bold;
-  margin: 0 0 5px;
-  line-height: normal;
+  margin: 0;
+  line-height: 1;
   color: currentColor;
 }
 
@@ -1530,7 +1531,7 @@
 }
 
 .wp-block-gutenbee-countdown-wrap {
-  margin: 30px 0;
+  margin: 0;
 }
 
 .wp-block-gutenbee-gallery-justified {
@@ -2245,7 +2246,6 @@
 
 .wp-block-gutenbee-spacer {
   clear: both;
-  margin: 0 !important;
   padding: 0 !important;
 }
 

@@ -1,4 +1,4 @@
-import { Component, Fragment } from 'wp.element';
+import { Fragment, useEffect, useRef } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import {
@@ -7,74 +7,103 @@ import {
   DateTimePicker,
   RangeControl,
 } from 'wp.components';
-import { InspectorControls, RichText, ColorPalette } from 'wp.blockEditor';
+import {
+  InspectorControls,
+  RichText,
+  PanelColorSettings,
+} from 'wp.blockEditor';
 import moment from 'moment';
 
 import { capitalize } from '../../util/text';
 import CountdownTimer from '../../util/CountdownTimer';
-import TextControls from '../../components/controls/text-controls/TextControls';
 import MarginControls from '../../components/controls/margin-controls';
-import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
+import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
+import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
+import CountdownStyle from './style';
+import useUniqueId from '../../hooks/useUniqueId';
+import getBlockId from '../../util/getBlockId';
 
-class CountdownEdit extends Component {
-  static propTypes = {
-    attributes: PropTypes.shape({
-      date: PropTypes.string.isRequired,
-      displayDays: PropTypes.bool.isRequired,
-      displayHours: PropTypes.bool.isRequired,
-      displayMinutes: PropTypes.bool.isRequired,
-      displaySeconds: PropTypes.bool.isRequired,
-      displayLabels: PropTypes.bool.isRequired,
-      labelDays: PropTypes.string.isRequired,
-      labelHours: PropTypes.string.isRequired,
-      labelMinutes: PropTypes.string.isRequired,
-      labelSeconds: PropTypes.string.isRequired,
-      textColor: PropTypes.string,
-      backgroundColor: PropTypes.string,
-      numberFontSize: PropTypes.number.isRequired,
-      labelFontSize: PropTypes.number.isRequired,
-      maxWidth: PropTypes.number,
-      blockMargin: PropTypes.shape({
-        top: PropTypes.number,
-        right: PropTypes.number,
-        bottom: PropTypes.number,
-        left: PropTypes.number,
-      }),
-    }).isRequired,
-    isSelected: PropTypes.bool.isRequired,
-    className: PropTypes.string.isRequired,
-    setAttributes: PropTypes.func.isRequired,
-  };
+const propTypes = {
+  attributes: PropTypes.shape({
+    uniqueId: PropTypes.string,
+    date: PropTypes.string.isRequired,
+    displayDays: PropTypes.bool.isRequired,
+    displayHours: PropTypes.bool.isRequired,
+    displayMinutes: PropTypes.bool.isRequired,
+    displaySeconds: PropTypes.bool.isRequired,
+    displayLabels: PropTypes.bool.isRequired,
+    labelDays: PropTypes.string.isRequired,
+    labelHours: PropTypes.string.isRequired,
+    labelMinutes: PropTypes.string.isRequired,
+    labelSeconds: PropTypes.string.isRequired,
+    textColor: PropTypes.string,
+    backgroundColor: PropTypes.string,
+    numberBackgroundColor: PropTypes.string,
+    numberFontSize: PropTypes.object.isRequired,
+    labelFontSize: PropTypes.object.isRequired,
+    maxWidth: PropTypes.number,
+    blockMargin: PropTypes.shape({
+      top: PropTypes.object,
+      right: PropTypes.object,
+      bottom: PropTypes.object,
+      left: PropTypes.object,
+    }),
+    blockPadding: PropTypes.shape({
+      top: PropTypes.object,
+      right: PropTypes.object,
+      bottom: PropTypes.object,
+      left: PropTypes.object,
+    }),
+  }).isRequired,
+  isSelected: PropTypes.bool.isRequired,
+  className: PropTypes.string.isRequired,
+  setAttributes: PropTypes.func.isRequired,
+  clientId: PropTypes.string.isRequired,
+};
 
-  countdown = null;
-  clock = null;
-  now = moment().format();
+const CountdownEdit = ({
+  attributes,
+  isSelected,
+  className,
+  setAttributes,
+  clientId,
+}) => {
+  let countdown = useRef(null);
+  const clock = useRef(null);
+  const now = moment().format();
 
-  componentDidMount() {
-    const { date = this.now } = this.props.attributes;
+  const {
+    uniqueId,
+    date = now,
+    displayDays,
+    displayHours,
+    displayMinutes,
+    displaySeconds,
+    displayLabels,
+    textColor,
+    labelTextColor,
+    backgroundColor,
+    numberBackgroundColor,
+    numberFontSize,
+    labelFontSize,
+    labelTopMargin,
+    maxWidth,
+  } = attributes;
 
-    this.countdown = new CountdownTimer(this.clock, date);
-  }
+  useUniqueId({ attributes, setAttributes, clientId });
 
-  componentWillReceiveProps(nextProps) {
-    const { date = this.now } = this.props.attributes;
-    const { date: nextDate } = nextProps.attributes;
+  useEffect(
+    () => {
+      if (countdown.current) {
+        countdown.current.destroy();
+      }
 
-    if (date !== nextDate) {
-      this.countdown.destroy();
-      this.countdown = new CountdownTimer(this.clock, nextDate);
-    }
-  }
+      countdown.current = new CountdownTimer(clock.current, date);
+    },
+    [date],
+  );
 
-  renderItem = key => {
-    const { className, attributes, setAttributes } = this.props;
-    const {
-      displayLabels,
-      backgroundColor,
-      numberFontSize,
-      labelFontSize,
-      maxWidth,
-    } = attributes;
+  const renderItem = key => {
     const displayAttributeKey = `display${[capitalize(key)]}`;
     const labelAttributeKey = `label${[capitalize(key)]}`;
 
@@ -83,21 +112,17 @@ class CountdownEdit extends Component {
         className={`${className}-item`}
         style={{
           display: attributes[displayAttributeKey] ? 'block' : 'none',
-          backgroundColor: backgroundColor || undefined,
+          backgroundColor: numberBackgroundColor || undefined,
           maxWidth: maxWidth ? `${maxWidth}%` : undefined,
         }}
       >
-        <p
-          className={`gutenbee-countdown-number gutenbee-countdown-${key}`}
-          style={{
-            fontSize: numberFontSize,
-          }}
-        />
+        <p className={`gutenbee-countdown-number gutenbee-countdown-${key}`} />
 
         {displayLabels && (
           <div
             style={{
-              fontSize: labelFontSize,
+              marginTop:
+                labelTopMargin != null ? `${labelTopMargin}px` : undefined,
             }}
           >
             <RichText
@@ -105,6 +130,9 @@ class CountdownEdit extends Component {
               className={`gutenbee-countdown-label gutenbee-countdown-label-${key}`}
               value={attributes[labelAttributeKey]}
               onChange={value => setAttributes({ [labelAttributeKey]: value })}
+              style={{
+                color: labelTextColor || undefined,
+              }}
             />
           </div>
         )}
@@ -112,134 +140,181 @@ class CountdownEdit extends Component {
     );
   };
 
-  render() {
-    const { attributes, isSelected, className, setAttributes } = this.props;
+  const items = ['days', 'hours', 'minutes', 'seconds'];
+  const blockId = getBlockId(uniqueId);
 
-    const {
-      date,
-      displayDays,
-      displayHours,
-      displayMinutes,
-      displaySeconds,
-      displayLabels,
-      textColor,
-      backgroundColor,
-      numberFontSize,
-      labelFontSize,
-      maxWidth,
-      blockMargin,
-    } = attributes;
-
-    const items = ['days', 'hours', 'minutes', 'seconds'];
-
-    return (
-      <Fragment>
+  return (
+    <Fragment>
+      <div
+        id={blockId}
+        className={className}
+        ref={clock}
+        style={{
+          backgroundColor: backgroundColor || undefined,
+        }}
+      >
+        <CountdownStyle attributes={attributes} />
         <div
-          className={className}
+          className={`${className}-wrap`}
           style={{
-            margin: getMarginSettingStyles(blockMargin),
-          }}
-          ref={ref => {
-            this.clock = ref;
+            color: textColor || undefined,
           }}
         >
-          <div
-            className={`${className}-wrap`}
-            style={{
-              color: textColor || undefined,
-            }}
-          >
-            {items.map(key => this.renderItem(key))}
-          </div>
+          {items.map(key => renderItem(key))}
         </div>
+      </div>
 
-        {isSelected && (
-          <InspectorControls>
-            <PanelBody title={__('Date & Time')}>
-              <DateTimePicker
-                currentDate={date || this.now}
-                onChange={value => {
-                  setAttributes({ date: value });
-                }}
-                is12Hour={false}
-              />
-            </PanelBody>
+      {isSelected && (
+        <InspectorControls>
+          <PanelBody title={__('Date & Time')}>
+            <DateTimePicker
+              currentDate={date}
+              onChange={value => {
+                setAttributes({ date: value });
+              }}
+              is12Hour={false}
+            />
+          </PanelBody>
 
-            <PanelBody title={__('Settings')} initialOpen={false}>
-              <ToggleControl
-                label={__('Show Days')}
-                checked={displayDays}
-                onChange={value => setAttributes({ displayDays: value })}
-              />
-              <ToggleControl
-                label={__('Show Hours')}
-                checked={displayHours}
-                onChange={value => setAttributes({ displayHours: value })}
-              />
-              <ToggleControl
-                label={__('Show Minutes')}
-                checked={displayMinutes}
-                onChange={value => setAttributes({ displayMinutes: value })}
-              />
-              <ToggleControl
-                label={__('Show Seconds')}
-                checked={displaySeconds}
-                onChange={value => setAttributes({ displaySeconds: value })}
-              />
-              <ToggleControl
-                label={__('Show Labels')}
-                checked={displayLabels}
-                onChange={value => setAttributes({ displayLabels: value })}
-              />
-            </PanelBody>
+          <PanelBody title={__('Settings')} initialOpen={false}>
+            <ToggleControl
+              label={__('Show Days')}
+              checked={displayDays}
+              onChange={value => setAttributes({ displayDays: value })}
+            />
+            <ToggleControl
+              label={__('Show Hours')}
+              checked={displayHours}
+              onChange={value => setAttributes({ displayHours: value })}
+            />
+            <ToggleControl
+              label={__('Show Minutes')}
+              checked={displayMinutes}
+              onChange={value => setAttributes({ displayMinutes: value })}
+            />
+            <ToggleControl
+              label={__('Show Seconds')}
+              checked={displaySeconds}
+              onChange={value => setAttributes({ displaySeconds: value })}
+            />
+            <ToggleControl
+              label={__('Show Labels')}
+              checked={displayLabels}
+              onChange={value => setAttributes({ displayLabels: value })}
+            />
+          </PanelBody>
 
-            <PanelBody title={__('Appearance')} initialOpen={false}>
-              <TextControls
-                setAttributes={setAttributes}
-                attributeKey="number"
-                attributes={attributes}
-                defaultFontSize={numberFontSize}
-                fontSizeLabel={__('Number Font Size')}
-              />
-              <TextControls
-                setAttributes={setAttributes}
-                attributeKey="label"
-                attributes={attributes}
-                defaultFontSize={labelFontSize}
-                fontSizeLabel={__('Label Font Size')}
-              />
-              <RangeControl
-                label={__('Box max width (%)')}
-                min={0}
-                max={100}
-                value={maxWidth}
-                onChange={value => setAttributes({ maxWidth: value })}
-              />
-              <MarginControls
-                setAttributes={setAttributes}
-                attributes={attributes}
-                attributeKey="blockMargin"
-              />
-            </PanelBody>
+          <PanelColorSettings
+            title={__('Block Appearance')}
+            initialOpen={false}
+            colorSettings={[
+              {
+                value: textColor,
+                onChange: value => setAttributes({ textColor: value }),
+                label: __('Box Text Color'),
+              },
+              {
+                value: numberBackgroundColor,
+                onChange: value =>
+                  setAttributes({ numberBackgroundColor: value }),
+                label: __('Box Background Color'),
+              },
+              {
+                value: labelTextColor,
+                onChange: value => setAttributes({ labelTextColor: value }),
+                label: __('Box Label Text Color'),
+              },
+              {
+                value: backgroundColor,
+                onChange: value => setAttributes({ backgroundColor: value }),
+                label: __('Block Background Color'),
+              },
+            ]}
+          >
+            <RangeControl
+              label={__('Box max width (%)')}
+              min={0}
+              max={100}
+              value={maxWidth}
+              onChange={value => setAttributes({ maxWidth: value })}
+            />
 
-            <PanelBody title={__('Text Color')} initialOpen={false}>
-              <ColorPalette
-                value={textColor}
-                onChange={value => setAttributes({ textColor: value })}
-              />
-            </PanelBody>
+            <ResponsiveControl>
+              {breakpoint => (
+                <FontSizePickerLabel
+                  label={__('Number Font Size')}
+                  value={numberFontSize[breakpoint]}
+                  onChange={value =>
+                    setAttributes({
+                      numberFontSize: {
+                        ...numberFontSize,
+                        [breakpoint]: value != null ? value : '',
+                      },
+                    })
+                  }
+                />
+              )}
+            </ResponsiveControl>
 
-            <PanelBody title={__('Background Color')} initialOpen={false}>
-              <ColorPalette
-                value={backgroundColor}
-                onChange={value => setAttributes({ backgroundColor: value })}
-              />
-            </PanelBody>
-          </InspectorControls>
-        )}
-      </Fragment>
-    );
-  }
-}
+            <ResponsiveControl>
+              {breakpoint => (
+                <FontSizePickerLabel
+                  label={__('Label Font Size')}
+                  value={labelFontSize[breakpoint]}
+                  onChange={value =>
+                    setAttributes({
+                      labelFontSize: {
+                        ...labelFontSize,
+                        [breakpoint]: value != null ? value : '',
+                      },
+                    })
+                  }
+                />
+              )}
+            </ResponsiveControl>
+
+            <RangeControl
+              label={__('Label Top Margin')}
+              value={labelTopMargin}
+              onChange={value => {
+                setAttributes({
+                  labelTopMargin: value != null ? value : undefined,
+                });
+              }}
+              min={0}
+              max={200}
+            />
+
+            <ResponsiveControl>
+              {breakpoint => (
+                <MarginControls
+                  label={__('Padding (px)')}
+                  attributeKey="blockPadding"
+                  attributes={attributes}
+                  setAttributes={setAttributes}
+                  breakpoint={breakpoint}
+                />
+              )}
+            </ResponsiveControl>
+
+            <ResponsiveControl>
+              {breakpoint => (
+                <MarginControls
+                  label={__('Margin (px)')}
+                  attributeKey="blockMargin"
+                  attributes={attributes}
+                  setAttributes={setAttributes}
+                  breakpoint={breakpoint}
+                />
+              )}
+            </ResponsiveControl>
+          </PanelColorSettings>
+        </InspectorControls>
+      )}
+    </Fragment>
+  );
+};
+
+CountdownEdit.propTypes = propTypes;
 
 export default CountdownEdit;
