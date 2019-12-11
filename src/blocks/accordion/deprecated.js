@@ -6,34 +6,28 @@ import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 import { RichText } from 'wp.blockEditor';
 
+import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 import AccordionBlockIcon from './block-icon';
 import AccordionsEdit from './edit';
-import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
-import AccordionStyle from './style';
-import getBlockId from '../../util/getBlockId';
 
 const Accordion = ({ className, attributes }) => {
   const {
-    uniqueId,
     tabs,
+    blockMargin,
     titleBackgroundColor,
     titleTextColor,
     borderColor,
-    tabContentBackgroundColor,
-    tabContentTextColor,
     collapseOthers,
   } = attributes;
 
-  const blockId = getBlockId(uniqueId);
-
   return (
     <div
-      id={blockId}
       className={className}
       data-collapse-others={collapseOthers}
+      style={{
+        margin: getMarginSettingStyles(blockMargin),
+      }}
     >
-      <AccordionStyle attributes={attributes} />
-
       {tabs.map(tab => (
         <div className={`${className}-item`}>
           <div
@@ -52,8 +46,6 @@ const Accordion = ({ className, attributes }) => {
               className={`${className}-item-content`}
               style={{
                 borderColor: borderColor || undefined,
-                backgroundColor: tabContentBackgroundColor || undefined,
-                color: tabContentTextColor || undefined,
               }}
             >
               <RichText.Content
@@ -76,9 +68,6 @@ registerBlockType('gutenbee/accordion', {
   category: 'gutenbee',
   keywords: [__('accordion'), __('tabs')],
   attributes: {
-    uniqueId: {
-      type: 'string',
-    },
     tabs: {
       type: 'array',
       default: [
@@ -100,25 +89,13 @@ registerBlockType('gutenbee/accordion', {
       type: 'string',
       default: '',
     },
-    tabContentTextColor: {
-      type: 'string',
-      default: '',
-    },
-    tabContentBackgroundColor: {
-      type: 'string',
-      default: '',
-    },
     borderColor: {
       type: 'string',
       default: '',
     },
-    blockPadding: {
-      type: 'object',
-      default: getDefaultSpacingValue(),
-    },
     blockMargin: {
       type: 'object',
-      default: getDefaultSpacingValue(),
+      default: {},
     },
   },
   edit: AccordionsEdit,

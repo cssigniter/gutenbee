@@ -7,7 +7,10 @@ import { registerBlockType } from 'wp.blocks';
 
 import ImageComparisonEdit from './edit';
 import ImageComparisonBlockIcon from './block-icon';
-import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
+import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
+import getBlockId from '../../util/getBlockId';
+import ImageComparisonStyle from './style';
+import deprecated from './deprecated';
 
 registerBlockType('gutenbee/image-comparison', {
   title: __('GutenBee Image Comparison'),
@@ -16,6 +19,9 @@ registerBlockType('gutenbee/image-comparison', {
   category: 'gutenbee',
   keywords: [__('image comparison'), __('comparison'), __('diff')],
   attributes: {
+    uniqueId: {
+      type: 'string',
+    },
     urlA: {
       type: 'string',
       source: 'attribute',
@@ -38,28 +44,39 @@ registerBlockType('gutenbee/image-comparison', {
       type: 'number',
       default: 50,
     },
-    blockMargin: {
-      type: 'object',
-      default: {},
-    },
     imageSize: {
       type: 'string',
     },
+    blockMargin: {
+      type: 'object',
+      default: getDefaultSpacingValue(),
+    },
+    blockPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue(),
+    },
+    backgroundColor: {
+      type: 'string',
+    },
   },
+  deprecated,
   edit: ImageComparisonEdit,
   save: ({ className, attributes }) => {
-    const { urlA, urlB, offset, blockMargin } = attributes;
+    const { uniqueId, urlA, urlB, offset, backgroundColor } = attributes;
+    const blockId = getBlockId(uniqueId);
 
     return (
       <div
+        id={blockId}
+        style={{ backgroundColor: backgroundColor || undefined }}
         className={className}
-        data-offset={offset}
-        style={{
-          margin: getMarginSettingStyles(blockMargin),
-        }}
       >
-        {urlA && <img className="img-1" src={urlA} alt="" />}
-        {urlB && <img className="img-2" src={urlB} alt="" />}
+        <div className="wp-block-gutenbee-comparison-wrap" data-offset={offset}>
+          <ImageComparisonStyle attributes={attributes} />
+
+          {urlA && <img className="img-1" src={urlA} alt="" />}
+          {urlB && <img className="img-2" src={urlB} alt="" />}
+        </div>
       </div>
     );
   },

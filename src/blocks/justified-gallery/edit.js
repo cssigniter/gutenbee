@@ -7,7 +7,7 @@ import {
   SelectControl,
   PanelBody,
 } from 'wp.components';
-import { InspectorControls } from 'wp.blockEditor';
+import { InspectorControls, PanelColorSettings } from 'wp.blockEditor';
 import startCase from 'lodash.startcase';
 import classNames from 'classnames';
 
@@ -58,6 +58,7 @@ const JustifiedGalleryEdit = ({
     margins,
     lastRow,
     randomize,
+    backgroundColor,
   } = attributes;
 
   useUniqueId({ attributes, setAttributes, clientId });
@@ -74,6 +75,9 @@ const JustifiedGalleryEdit = ({
       isSelected={isSelected}
       setAttributes={setAttributes}
       label={__('Gallery')}
+      style={{
+        backgroundColor: backgroundColor || undefined,
+      }}
     >
       <GalleryStyle attributes={attributes} />
       {isSelected && (
@@ -147,7 +151,18 @@ const JustifiedGalleryEdit = ({
             )}
           </PanelBody>
 
-          <PanelBody title={__('Appearance')} initialOpen={false}>
+          <PanelColorSettings
+            title={__('Block Appearance')}
+            initialOpen={false}
+            colorSettings={[
+              {
+                value: backgroundColor,
+                onChange: value => setAttributes({ backgroundColor: value }),
+                label: __('Background Color'),
+              },
+            ]}
+            onChange={value => setAttributes({ backgroundColor: value })}
+          >
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
@@ -171,7 +186,7 @@ const JustifiedGalleryEdit = ({
                 />
               )}
             </ResponsiveControl>
-          </PanelBody>
+          </PanelColorSettings>
         </InspectorControls>
       )}
     </Gallery>

@@ -111,6 +111,9 @@ registerBlockType('gutenbee/image', {
       type: 'object',
       default: getDefaultSpacingValue(),
     },
+    backgroundColor: {
+      type: 'string',
+    },
   },
   getEditWrapperProps(attributes) {
     const { align, width } = attributes;
@@ -139,6 +142,7 @@ registerBlockType('gutenbee/image', {
       linkTarget,
       sizeSlug,
       title,
+      backgroundColor,
     } = attributes;
 
     const newRel = isEmpty(rel) ? undefined : rel;
@@ -159,10 +163,20 @@ registerBlockType('gutenbee/image', {
       />
     );
 
+    const style = {
+      backgroundColor: backgroundColor || undefined,
+    };
+
     const figure = (
       <Fragment>
         {href ? (
-          <a className={linkClass} href={href} target={linkTarget} rel={newRel}>
+          <a
+            className={linkClass}
+            href={href}
+            target={linkTarget}
+            rel={newRel}
+            style={style}
+          >
             {image}
           </a>
         ) : (
@@ -176,7 +190,7 @@ registerBlockType('gutenbee/image', {
 
     if ('left' === align || 'right' === align || 'center' === align) {
       return (
-        <div id={blockId}>
+        <div id={blockId} style={style}>
           <ImageStyle attributes={attributes} />
           <figure className={classes}>{figure}</figure>
         </div>
@@ -184,7 +198,7 @@ registerBlockType('gutenbee/image', {
     }
 
     return (
-      <figure id={blockId} className={classes}>
+      <figure id={blockId} className={classes} style={style}>
         <ImageStyle attributes={attributes} />
         {figure}
       </figure>

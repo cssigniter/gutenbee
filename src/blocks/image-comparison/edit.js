@@ -1,8 +1,12 @@
-import { Component, Fragment } from 'wp.element';
+import { Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { compose } from 'wp.compose';
 import { __ } from 'wp.i18n';
-import { InspectorControls, MediaUpload } from 'wp.blockEditor';
+import {
+  InspectorControls,
+  MediaUpload,
+  PanelColorSettings,
+} from 'wp.blockEditor';
 import {
   IconButton,
   RangeControl,
@@ -14,44 +18,65 @@ import startCase from 'lodash.startcase';
 import get from 'lodash.get';
 
 import ImagePlaceholder from '../../components/image-placeholder/ImagePlaceholder';
-import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 import MarginControls from '../../components/controls/margin-controls';
+import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
+import useUniqueId from '../../hooks/useUniqueId';
+import getBlockId from '../../util/getBlockId';
+import ImageComparisonStyle from './style';
 
-class ImageComparisonEdit extends Component {
-  static propTypes = {
-    attributes: PropTypes.shape({
-      idA: PropTypes.number,
-      urlA: PropTypes.string,
-      idB: PropTypes.number,
-      urlB: PropTypes.string,
-      offset: PropTypes.number,
-      blockMargin: PropTypes.shape({
-        top: PropTypes.number,
-        right: PropTypes.number,
-        bottom: PropTypes.number,
-        left: PropTypes.number,
-      }),
-      imageSize: PropTypes.string,
+const propTypes = {
+  attributes: PropTypes.shape({
+    uniaueId: PropTypes.string,
+    idA: PropTypes.number,
+    urlA: PropTypes.string,
+    idB: PropTypes.number,
+    urlB: PropTypes.string,
+    offset: PropTypes.number,
+    blockMargin: PropTypes.object,
+    blockPadding: PropTypes.object,
+    backgroundColor: PropTypes.string,
+    imageSize: PropTypes.string,
+  }),
+  className: PropTypes.string.isRequired,
+  setAttributes: PropTypes.func.isRequired,
+  isSelected: PropTypes.bool.isRequired,
+  imageA: PropTypes.shape({
+    media_details: PropTypes.shape({
+      sizes: PropTypes.object,
     }),
-    className: PropTypes.string.isRequired,
-    setAttributes: PropTypes.func.isRequired,
-    isSelected: PropTypes.bool.isRequired,
-    imageA: PropTypes.shape({
-      media_details: PropTypes.shape({
-        sizes: PropTypes.object,
-      }),
+  }),
+  imageB: PropTypes.shape({
+    media_details: PropTypes.shape({
+      sizes: PropTypes.object,
     }),
-    imageB: PropTypes.shape({
-      media_details: PropTypes.shape({
-        sizes: PropTypes.object,
-      }),
-    }),
-  };
+  }),
+  clientId: PropTypes.string.isRequired,
+};
 
-  onSetImageSize = size => {
-    const { setAttributes, imageA, imageB, attributes } = this.props;
-    const { urlA, urlB } = attributes;
+const ImageComparisonEdit = ({
+  className,
+  attributes,
+  setAttributes,
+  isSelected,
+  imageA,
+  imageB,
+  clientId,
+}) => {
+  const {
+    uniqueId,
+    urlA,
+    idA,
+    urlB,
+    idB,
+    offset,
+    backgroundColor,
+    imageSize,
+  } = attributes;
+  const availableSizes = get(imageA, 'media_details.sizes');
 
+  useUniqueId({ attributes, setAttributes, clientId });
+
+  const onSetImageSize = size => {
     const imageASizes = get(imageA, 'media_details.sizes');
     const imageBSizes = get(imageB, 'media_details.sizes');
     const newUrlA = get(imageASizes[size], 'source_url', urlA);
@@ -64,164 +89,180 @@ class ImageComparisonEdit extends Component {
     });
   };
 
-  getImageAttributes = image => {
-    const { attributes } = this.props;
-    const { imageSize } = attributes;
+  const getImageAttributes = image => {
     const url = get(image, `sizes[${imageSize}].url`, image.url);
 
     return { url, id: image.id };
   };
 
-  render() {
-    const {
-      className,
-      attributes,
-      setAttributes,
-      isSelected,
-      imageA,
-      imageB,
-    } = this.props;
+  const blockId = getBlockId(uniqueId);
 
-    const { urlA, idA, urlB, idB, offset, blockMargin, imageSize } = attributes;
+  return (
+    <Fragment>
+      <div
+        id={blockId}
+        className={className}
+        style={{
+          backgroundColor: backgroundColor || undefined,
+        }}
+      >
+        <ImageComparisonStyle attributes={attributes} />
+        <div className={`${className}-pane`}>
+          {urlA && idA ? (
+            <figure className={`${className}-figure`}>
+              <img src={urlA} alt="" />
 
-    const availableSizes = get(imageA, 'media_details.sizes');
-
-    return (
-      <Fragment>
-        <div
-          className={className}
-          style={{
-            margin: getMarginSettingStyles(blockMargin),
-          }}
-        >
-          <div className={`${className}-pane`}>
-            {urlA && idA ? (
-              <figure className={`${className}-figure`}>
-                <img src={urlA} alt="" />
-
-                <MediaUpload
-                  onSelect={image => {
-                    const { id, url } = this.getImageAttributes(image);
-
-                    setAttributes({
-                      idA: id,
-                      urlA: url,
-                    });
-                  }}
-                  allowedTypes={['image']}
-                  value={idA}
-                  render={({ open }) => (
-                    <IconButton
-                      className="components-toolbar__control"
-                      label={__('Edit Image')}
-                      icon="format-image"
-                      onClick={open}
-                    />
-                  )}
-                />
-              </figure>
-            ) : (
-              <ImagePlaceholder
-                icon="format-image"
-                label={__('Image A')}
-                onSelectImage={image => {
-                  const { id, url } = this.getImageAttributes(image);
+              <MediaUpload
+                onSelect={image => {
+                  const { id, url } = getImageAttributes(image);
 
                   setAttributes({
                     idA: id,
                     urlA: url,
                   });
                 }}
+                allowedTypes={['image']}
+                value={idA}
+                render={({ open }) => (
+                  <IconButton
+                    className="components-toolbar__control"
+                    label={__('Edit Image')}
+                    icon="format-image"
+                    onClick={open}
+                  />
+                )}
               />
-            )}
-          </div>
+            </figure>
+          ) : (
+            <ImagePlaceholder
+              icon="format-image"
+              label={__('Image A')}
+              onSelectImage={image => {
+                const { id, url } = getImageAttributes(image);
 
-          <div className={`${className}-pane`}>
-            {urlB && idB ? (
-              <figure className={`${className}-figure`}>
-                <img src={urlB} alt="" />
+                setAttributes({
+                  idA: id,
+                  urlA: url,
+                });
+              }}
+            />
+          )}
+        </div>
 
-                <MediaUpload
-                  onSelect={image => {
-                    const { id, url } = this.getImageAttributes(image);
+        <div className={`${className}-pane`}>
+          {urlB && idB ? (
+            <figure className={`${className}-figure`}>
+              <img src={urlB} alt="" />
 
-                    setAttributes({
-                      idB: id,
-                      urlB: url,
-                    });
-                  }}
-                  allowedTypes={['image']}
-                  value={idB}
-                  render={({ open }) => (
-                    <IconButton
-                      className="components-toolbar__control"
-                      label={__('Edit Image')}
-                      icon="format-image"
-                      onClick={open}
-                    />
-                  )}
-                />
-              </figure>
-            ) : (
-              <ImagePlaceholder
-                icon="format-image"
-                label={__('Image B')}
-                onSelectImage={image => {
-                  const { id, url } = this.getImageAttributes(image);
+              <MediaUpload
+                onSelect={image => {
+                  const { id, url } = getImageAttributes(image);
 
                   setAttributes({
                     idB: id,
                     urlB: url,
                   });
                 }}
+                allowedTypes={['image']}
+                value={idB}
+                render={({ open }) => (
+                  <IconButton
+                    className="components-toolbar__control"
+                    label={__('Edit Image')}
+                    icon="format-image"
+                    onClick={open}
+                  />
+                )}
+              />
+            </figure>
+          ) : (
+            <ImagePlaceholder
+              icon="format-image"
+              label={__('Image B')}
+              onSelectImage={image => {
+                const { id, url } = getImageAttributes(image);
+
+                setAttributes({
+                  idB: id,
+                  urlB: url,
+                });
+              }}
+            />
+          )}
+        </div>
+      </div>
+
+      {isSelected && (
+        <InspectorControls>
+          <PanelBody title={__('Settings')} initialOpen>
+            <RangeControl
+              label={__('Default Offset')}
+              min={1}
+              max={100}
+              value={offset}
+              onChange={value => setAttributes({ offset: value })}
+            />
+
+            {imageA && imageB && availableSizes && (
+              <SelectControl
+                label={__('Source Image Size')}
+                value={imageSize}
+                options={Object.keys(availableSizes).map(name => {
+                  const size = availableSizes[name];
+
+                  return {
+                    value: name,
+                    label: `${startCase(name)} - ${size.width}×${size.height}`,
+                  };
+                })}
+                onChange={onSetImageSize}
               />
             )}
-          </div>
-        </div>
+          </PanelBody>
 
-        {isSelected && (
-          <InspectorControls>
-            <PanelBody title={__('Settings')} initialOpen>
-              <RangeControl
-                label={__('Default Offset')}
-                min={1}
-                max={100}
-                value={offset}
-                onChange={value => setAttributes({ offset: value })}
-              />
-
-              {imageA && imageB && availableSizes && (
-                <SelectControl
-                  label={__('Source Image Size')}
-                  value={imageSize}
-                  options={Object.keys(availableSizes).map(name => {
-                    const size = availableSizes[name];
-
-                    return {
-                      value: name,
-                      label: `${startCase(name)} - ${size.width}×${
-                        size.height
-                      }`,
-                    };
-                  })}
-                  onChange={this.onSetImageSize}
+          <PanelColorSettings
+            title={__('Block Appearance')}
+            initialOpen={false}
+            colorSettings={[
+              {
+                value: backgroundColor,
+                onChange: value => setAttributes({ backgroundColor: value }),
+                label: __('Background Color'),
+              },
+            ]}
+            onChange={value => setAttributes({ backgroundColor: value })}
+          >
+            <ResponsiveControl>
+              {breakpoint => (
+                <MarginControls
+                  label={__('Padding (px)')}
+                  attributeKey="blockPadding"
+                  attributes={attributes}
+                  setAttributes={setAttributes}
+                  breakpoint={breakpoint}
                 />
               )}
-            </PanelBody>
+            </ResponsiveControl>
 
-            <PanelBody title={__('Appearance')} initialOpen={false}>
-              <MarginControls
-                attributeKey="blockMargin"
-                attributes={attributes}
-                setAttributes={setAttributes}
-              />
-            </PanelBody>
-          </InspectorControls>
-        )}
-      </Fragment>
-    );
-  }
-}
+            <ResponsiveControl>
+              {breakpoint => (
+                <MarginControls
+                  label={__('Margin (px)')}
+                  attributeKey="blockMargin"
+                  attributes={attributes}
+                  setAttributes={setAttributes}
+                  breakpoint={breakpoint}
+                />
+              )}
+            </ResponsiveControl>
+          </PanelColorSettings>
+        </InspectorControls>
+      )}
+    </Fragment>
+  );
+};
+
+ImageComparisonEdit.propTypes = propTypes;
 
 export default compose([
   withSelect((select, props) => {

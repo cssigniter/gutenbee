@@ -21,6 +21,7 @@ jQuery($ => {
         slidesToScroll: $this.data('slides-to-scroll'),
         slidesToShow: $this.data('slides-to-show'),
         pauseOnHover: $this.data('pause-on-hover'),
+        slide: '.gutenbee-slideshow-item',
         customPaging: () => {
           return $('<button type="button" />').css({
             backgroundColor: $this.data('dots-color'),

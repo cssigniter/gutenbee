@@ -9,7 +9,13 @@ import GoogleMapsEdit from './edit';
 import mapStyles from './map-styles';
 import get from 'lodash.get';
 import GoogleMapsBlockIcon from './block-icon';
-import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../components/controls/responsive-control/default-values';
+import getBlockId from '../../util/getBlockId';
+import GoogleMapsStyle from './style';
+import deprecated from './deprecated';
 
 registerBlockType('gutenbee/google-maps', {
   title: __('GutenBee Google Maps'),
@@ -18,6 +24,9 @@ registerBlockType('gutenbee/google-maps', {
   category: 'gutenbee',
   keywords: [__('maps'), __('google')],
   attributes: {
+    uniqueId: {
+      type: 'string',
+    },
     latitude: {
       type: 'string',
       default: '37.585636',
@@ -32,7 +41,11 @@ registerBlockType('gutenbee/google-maps', {
     },
     height: {
       type: 'number',
-      default: 280,
+      default: getDefaultResponsiveValue({
+        desktop: 280,
+        tablet: 280,
+        mobile: 280,
+      }),
     },
     preventScroll: {
       type: 'boolean',
@@ -57,25 +70,35 @@ registerBlockType('gutenbee/google-maps', {
     markerImageId: {
       type: 'number',
     },
+    blockPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue(),
+    },
     blockMargin: {
       type: 'object',
-      default: {},
+      default: getDefaultSpacingValue(),
+    },
+    backgroundColor: {
+      type: 'string',
     },
   },
+  deprecated,
   edit: GoogleMapsEdit,
   save: ({ className, attributes }) => {
     const {
+      uniqueId,
       latitude,
       longitude,
       zoom,
-      height,
       preventScroll,
       styleId,
       infoWindow,
       customStyles,
       markerImageUrl,
-      blockMargin,
+      backgroundColor,
     } = attributes;
+
+    const blockId = getBlockId(uniqueId);
 
     const getCustomStyles = () => {
       try {
@@ -92,19 +115,24 @@ registerBlockType('gutenbee/google-maps', {
 
     return (
       <div
+        id={blockId}
         className={className}
-        data-latitude={latitude}
-        data-longitude={longitude}
-        data-zoom={zoom}
-        data-prevent-scroll={preventScroll}
-        data-map-style={mapStyle && JSON.stringify(mapStyle)}
-        data-info-window={infoWindow}
-        data-marker-icon={markerImageUrl}
         style={{
-          height: `${height}px`,
-          margin: getMarginSettingStyles(blockMargin),
+          backgroundColor: backgroundColor || undefined,
         }}
-      />
+      >
+        <GoogleMapsStyle attributes={attributes} />
+
+        <div
+          data-latitude={latitude}
+          data-longitude={longitude}
+          data-zoom={zoom}
+          data-prevent-scroll={preventScroll}
+          data-map-style={mapStyle && JSON.stringify(mapStyle)}
+          data-info-window={infoWindow}
+          data-marker-icon={markerImageUrl}
+        />
+      </div>
     );
   },
 });

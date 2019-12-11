@@ -7,6 +7,7 @@ import {
   InspectorControls,
   MediaPlaceholder,
   RichText,
+  PanelColorSettings,
 } from 'wp.blockEditor';
 import {
   PanelBody,
@@ -65,6 +66,7 @@ const ImageEdit = ({
     width,
     align,
     caption,
+    backgroundColor,
   } = attributes;
 
   useUniqueId({ attributes, setAttributes, clientId });
@@ -200,7 +202,12 @@ const ImageEdit = ({
     <Fragment>
       <ImageStyle attributes={attributes} />
 
-      <figure className={classNames(className, blockId)}>
+      <figure
+        className={classNames(className, blockId)}
+        style={{
+          backgroundColor: backgroundColor || undefined,
+        }}
+      >
         <img
           src={url}
           alt={alt}
@@ -261,7 +268,20 @@ const ImageEdit = ({
               onChange={onImageSizeUpdate}
             />
           )}
+        </PanelBody>
 
+        <PanelColorSettings
+          title={__('Block Appearance')}
+          initialOpen={false}
+          colorSettings={[
+            {
+              value: backgroundColor,
+              onChange: value => setAttributes({ backgroundColor: value }),
+              label: __('Background Color'),
+            },
+          ]}
+          onChange={value => setAttributes({ backgroundColor: value })}
+        >
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
@@ -285,7 +305,7 @@ const ImageEdit = ({
               />
             )}
           </ResponsiveControl>
-        </PanelBody>
+        </PanelColorSettings>
       </InspectorControls>
     </Fragment>
   );

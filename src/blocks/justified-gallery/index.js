@@ -96,6 +96,9 @@ registerBlockType('gutenbee/justified-gallery', {
       type: 'object',
       default: getDefaultSpacingValue(),
     },
+    backgroundColor: {
+      type: 'string',
+    },
   },
   deprecated,
   edit: JustifiedGalleryEdit,
@@ -110,6 +113,7 @@ registerBlockType('gutenbee/justified-gallery', {
       lastRow,
       randomize,
       linkTo,
+      backgroundColor,
     } = attributes;
 
     const blockId = getBlockId(uniqueId);
@@ -128,6 +132,9 @@ registerBlockType('gutenbee/justified-gallery', {
         data-margins={margins}
         data-last-row={lastRow}
         data-randomize={randomize}
+        style={{
+          backgroundColor: backgroundColor || undefined,
+        }}
       >
         <GalleryStyle attributes={attributes} />
         <div className="wp-block-gutenbee-gallery-content">

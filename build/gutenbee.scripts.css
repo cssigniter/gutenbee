@@ -1469,6 +1469,10 @@
   margin: 30px 0;
 }
 
+.wp-block-gutenbee-google-maps > div {
+  height: 100%;
+}
+
 .wp-block-gutenbee-google-maps img {
   margin: 0;
   padding: 0 !important;
@@ -1677,7 +1681,8 @@
 }
 
 .wp-block-gutenbee-tabs {
-  margin: 30px 0;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .wp-block-gutenbee-tabs-nav {

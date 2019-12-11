@@ -43,10 +43,11 @@ function ParagraphPanelColor({
   setBackgroundColor,
   setTextColor,
   textColor,
+  children,
 }) {
   return (
     <PanelColorSettings
-      title={__('Color Settings')}
+      title={__('Block Appearance')}
       initialOpen={false}
       colorSettings={[
         {
@@ -69,6 +70,7 @@ function ParagraphPanelColor({
           fallbackBackgroundColor,
         }}
       />
+      {children}
     </PanelColorSettings>
   );
 }
@@ -137,7 +139,16 @@ const ParagraphBlock = ({
                 : __('Toggle to show a large initial letter.')
             }
           />
+        </PanelBody>
 
+        <ParagraphPanelColor
+          backgroundColor={backgroundColor.color}
+          fallbackBackgroundColor={fallbackBackgroundColor}
+          fallbackTextColor={fallbackTextColor}
+          setBackgroundColor={setBackgroundColor}
+          setTextColor={setTextColor}
+          textColor={textColor.color}
+        >
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
@@ -161,16 +172,7 @@ const ParagraphBlock = ({
               />
             )}
           </ResponsiveControl>
-        </PanelBody>
-
-        <ParagraphPanelColor
-          backgroundColor={backgroundColor.color}
-          fallbackBackgroundColor={fallbackBackgroundColor}
-          fallbackTextColor={fallbackTextColor}
-          setBackgroundColor={setBackgroundColor}
-          setTextColor={setTextColor}
-          textColor={textColor.color}
-        />
+        </ParagraphPanelColor>
       </InspectorControls>
 
       <ParagraphStyle attributes={attributes} />

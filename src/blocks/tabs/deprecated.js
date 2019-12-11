@@ -9,17 +9,24 @@ import { RichText } from 'wp.blockEditor';
 
 import TabsBlockIcon from './block-icon';
 import TabsEdit from './edit';
-import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
-import getBlockId from '../../util/getBlockId';
-import TabsStyle from './style';
+import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 
 const Tabs = ({ attributes, className }) => {
-  const { uniqueId, tabs } = attributes;
-
-  const blockId = getBlockId(uniqueId);
+  const {
+    tabs,
+    blockMargin,
+    activeTabBackgroundColor,
+    activeTabTextColor,
+    borderColor,
+  } = attributes;
 
   return (
-    <div id={blockId} className={className}>
+    <div
+      className={className}
+      style={{
+        margin: getMarginSettingStyles(blockMargin),
+      }}
+    >
       <div className={`${className}-nav`}>
         {tabs.map((tab, index) => (
           <div
@@ -33,7 +40,12 @@ const Tabs = ({ attributes, className }) => {
         ))}
       </div>
 
-      <div className={`${className}-tab-content-wrap`}>
+      <div
+        className={`${className}-tab-content-wrap`}
+        style={{
+          borderColor: borderColor || undefined,
+        }}
+      >
         {tabs.map((tab, index) => (
           <div
             className={`${className}-tab-content`}
@@ -45,7 +57,13 @@ const Tabs = ({ attributes, className }) => {
           </div>
         ))}
       </div>
-      <TabsStyle attributes={attributes} />
+
+      <style>
+        {`.${className}-nav-item-active {
+            background-color: ${activeTabBackgroundColor};
+            color: ${activeTabTextColor};
+          }`}
+      </style>
     </div>
   );
 };
@@ -57,9 +75,6 @@ registerBlockType('gutenbee/tabs', {
   category: 'gutenbee',
   keywords: [__('tabs')],
   attributes: {
-    uniqueId: {
-      type: 'string',
-    },
     tabs: {
       type: 'array',
       default: [
@@ -68,14 +83,6 @@ registerBlockType('gutenbee/tabs', {
           content: '',
         },
       ],
-    },
-    tabBackgroundColor: {
-      type: 'string',
-      default: '',
-    },
-    tabTextColor: {
-      type: 'string',
-      default: '',
     },
     activeTabBackgroundColor: {
       type: 'string',
@@ -89,21 +96,9 @@ registerBlockType('gutenbee/tabs', {
       type: 'string',
       default: '',
     },
-    tabContentBackgroundColor: {
-      type: 'string',
-      default: '',
-    },
-    tabContentTextColor: {
-      type: 'string',
-      default: '',
-    },
-    blockPadding: {
-      type: 'object',
-      default: getDefaultSpacingValue(),
-    },
     blockMargin: {
       type: 'object',
-      default: getDefaultSpacingValue(),
+      default: {},
     },
   },
   edit: TabsEdit,

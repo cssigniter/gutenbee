@@ -7,7 +7,7 @@ jQuery($ => {
     return;
   }
 
-  const $maps = $('.wp-block-gutenbee-google-maps');
+  const $maps = $('.wp-block-gutenbee-google-maps > div');
 
   $maps.each(function() {
     const $this = $(this);

@@ -4,7 +4,7 @@ import 'zurb-twentytwenty/js/jquery.twentytwenty';
 
 jQuery($ => {
   $(window).load(() => {
-    $('.wp-block-gutenbee-image-comparison').each(function() {
+    $('.wp-block-gutenbee-comparison-wrap').each(function() {
       const $this = $(this);
 
       $this.twentytwenty({

@@ -38,6 +38,7 @@ class Slideshow extends Component {
       PropTypes.node,
       PropTypes.arrayOf(PropTypes.node),
     ]),
+    id: PropTypes.string,
   };
 
   onSelectImages = images => {
@@ -72,6 +73,7 @@ class Slideshow extends Component {
       images: propImages,
       style,
       children,
+      id,
     } = this.props;
     const {
       images,
@@ -95,7 +97,7 @@ class Slideshow extends Component {
 
     if (images.length === 0) {
       return (
-        <div style={style}>
+        <div id={id} style={style}>
           <ImagePlaceholder
             className={className}
             icon="format-gallery"
@@ -110,6 +112,7 @@ class Slideshow extends Component {
     return (
       <Fragment>
         <div
+          id={id}
           className={className}
           style={{
             ...style,

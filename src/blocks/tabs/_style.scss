@@ -1,5 +1,6 @@
 .wp-block-gutenbee-tabs {
-  margin: $base-block-vertical-spacing 0;
+  margin-top: $base-block-vertical-spacing;
+  margin-bottom: $base-block-vertical-spacing;
 
   &-nav {
     list-style: none;

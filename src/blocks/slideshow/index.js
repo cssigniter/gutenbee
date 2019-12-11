@@ -10,7 +10,10 @@ import { registerBlockType } from 'wp.blocks';
 import SlideshowEdit from './edit';
 import { LINKTO } from '../../components/gallery/constants';
 import SlideshowBlockIcon from './block-icon';
-import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
+import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
+import SlideshowStyle from './style';
+import getBlockId from '../../util/getBlockId';
+import deprecated from './deprecated';
 
 registerBlockType('gutenbee/slideshow', {
   title: __('GutenBee Slideshow'),
@@ -19,6 +22,9 @@ registerBlockType('gutenbee/slideshow', {
   category: 'gutenbee',
   keywords: [__('slideshow'), __('gallery')],
   attributes: {
+    uniqueId: {
+      type: 'string',
+    },
     images: {
       type: 'array',
       default: [],
@@ -111,12 +117,21 @@ registerBlockType('gutenbee/slideshow', {
     },
     blockMargin: {
       type: 'object',
-      default: {},
+      default: getDefaultSpacingValue(),
+    },
+    blockPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue(),
+    },
+    backgroundColor: {
+      type: 'string',
     },
   },
+  deprecated,
   edit: SlideshowEdit,
   save({ className, attributes }) {
     const {
+      uniqueId,
       images,
       animationStyle,
       autoplay,
@@ -129,13 +144,15 @@ registerBlockType('gutenbee/slideshow', {
       slidesToShow,
       slidesToScroll,
       pauseOnHover,
-      blockMargin,
       arrowsColor,
       dotsColor,
+      backgroundColor,
     } = attributes;
+    const blockId = getBlockId(uniqueId);
 
     return (
       <div
+        id={blockId}
         className={className}
         data-fade={animationStyle === 'fade'}
         data-autoplay={autoplay}
@@ -149,11 +166,12 @@ registerBlockType('gutenbee/slideshow', {
         data-pause-on-hover={pauseOnHover}
         style={{
           color: arrowsColor,
-          margin: getMarginSettingStyles(blockMargin),
+          backgroundColor: backgroundColor || undefined,
         }}
         data-dots-color={dotsColor}
         data-arrows-color={arrowsColor}
       >
+        <SlideshowStyle attributes={attributes} />
         {images.map((image, index) => {
           let href;
 

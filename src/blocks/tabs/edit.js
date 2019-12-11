@@ -1,4 +1,4 @@
-import { Component, Fragment } from 'wp.element';
+import { Fragment, useState, useEffect } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import {
@@ -10,53 +10,68 @@ import {
 import { PanelBody, RangeControl } from 'wp.components';
 import classNames from 'classnames';
 
-import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
 import MarginControls from '../../components/controls/margin-controls';
+import getBlockId from '../../util/getBlockId';
+import TabsStyle from './style';
+import useUniqueId from '../../hooks/useUniqueId';
+import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 
-class TabsEdit extends Component {
-  static propTypes = {
-    attributes: PropTypes.shape({
-      tabs: PropTypes.arrayOf(
-        PropTypes.shape({
-          title: PropTypes.string,
-          content: PropTypes.string,
-        }),
-      ),
-      activeTabBackgroundColor: PropTypes.string,
-      activeTabTextColor: PropTypes.string,
-      borderColor: PropTypes.string,
-      blockMargin: PropTypes.shape({
-        top: PropTypes.number,
-        right: PropTypes.number,
-        bottom: PropTypes.number,
-        left: PropTypes.number,
+const propTypes = {
+  attributes: PropTypes.shape({
+    tabs: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string,
+        content: PropTypes.string,
       }),
-    }).isRequired,
-    isSelected: PropTypes.bool.isRequired,
-    className: PropTypes.string.isRequired,
-    setAttributes: PropTypes.func.isRequired,
-  };
+    ),
+    activeTabBackgroundColor: PropTypes.string,
+    activeTabTextColor: PropTypes.string,
+    borderColor: PropTypes.string,
+    tabBackgroundColor: PropTypes.string,
+    tabTextColor: PropTypes.string,
+    tabContentBackgroundColor: PropTypes.string,
+    tabContentTextColor: PropTypes.string,
+    blockPadding: PropTypes.object,
+    blockMargin: PropTypes.object,
+  }).isRequired,
+  isSelected: PropTypes.bool.isRequired,
+  className: PropTypes.string.isRequired,
+  setAttributes: PropTypes.func.isRequired,
+  clientId: PropTypes.string.isRequired,
+};
 
-  state = {
-    selectedTabIndex: 0,
-  };
+const TabsEdit = ({
+  attributes,
+  isSelected,
+  className,
+  setAttributes,
+  clientId,
+}) => {
+  const [selectedTabIndex, setSelectedTabIndex] = useState(0);
+  const {
+    uniqueId,
+    tabs,
+    activeTabBackgroundColor,
+    activeTabTextColor,
+    tabBackgroundColor,
+    tabTextColor,
+    tabContentBackgroundColor,
+    tabContentTextColor,
+    borderColor,
+  } = attributes;
 
-  componentWillReceiveProps(nextProps) {
-    const { selectedTabIndex } = this.state;
-    const { attributes } = nextProps;
-    const { tabs } = attributes;
+  useUniqueId({ attributes, setAttributes, clientId });
 
-    if (selectedTabIndex > tabs.length - 1) {
-      this.setState(() => ({
-        selectedTabIndex: 0,
-      }));
-    }
-  }
+  useEffect(
+    () => {
+      if (selectedTabIndex > tabs.length - 1) {
+        setSelectedTabIndex(0);
+      }
+    },
+    [tabs.length],
+  );
 
-  onTabTitleUpdate = (index, title) => {
-    const { attributes, setAttributes } = this.props;
-    const { tabs } = attributes;
-
+  const onTabTitleUpdate = (index, title) => {
     setAttributes({
       tabs: tabs.map((tab, i) => {
         if (i === index) {
@@ -71,11 +86,7 @@ class TabsEdit extends Component {
     });
   };
 
-  onTabContentUpdate = content => {
-    const { selectedTabIndex } = this.state;
-    const { setAttributes, attributes } = this.props;
-    const { tabs } = attributes;
-
+  const onTabContentUpdate = content => {
     setAttributes({
       tabs: tabs.map((tab, i) => {
         if (i === selectedTabIndex) {
@@ -90,10 +101,7 @@ class TabsEdit extends Component {
     });
   };
 
-  onUpdateTabsNumber = number => {
-    const { attributes, setAttributes } = this.props;
-    const { tabs } = attributes;
-
+  const onUpdateTabsNumber = number => {
     // We don't allow less than 1 tab
     if (number === 0) {
       return;
@@ -117,146 +125,178 @@ class TabsEdit extends Component {
     }
   };
 
-  isActiveTab = index => {
-    const { selectedTabIndex } = this.state;
-
+  const isActiveTab = index => {
     return index === selectedTabIndex;
   };
 
-  render() {
-    const { selectedTabIndex } = this.state;
-    const { attributes, isSelected, className, setAttributes } = this.props;
-    const {
-      tabs,
-      blockMargin,
-      activeTabBackgroundColor,
-      activeTabTextColor,
-      borderColor,
-    } = attributes;
+  const activeTab = tabs[selectedTabIndex];
+  const blockId = getBlockId(uniqueId);
 
-    const activeTab = tabs[selectedTabIndex];
+  return (
+    <Fragment>
+      <div id={blockId} className={className}>
+        <TabsStyle attributes={attributes} />
 
-    return (
-      <Fragment>
-        <div
-          className={className}
-          style={{
-            margin: getMarginSettingStyles(blockMargin),
-          }}
-        >
-          <div className={`${className}-nav`}>
-            {tabs.map((tab, index) => (
-              <div
-                className={classNames({
-                  [`${className}-nav-item`]: true,
-                  [`${className}-nav-item-active`]: this.isActiveTab(index),
-                })}
-                onClick={() => {
-                  this.setState(() => ({
-                    selectedTabIndex: index,
-                  }));
-                }}
-                style={{
-                  fontSize: tabs.length > 4 ? '14px' : undefined,
-                  color: this.isActiveTab(index)
-                    ? activeTabTextColor
-                    : undefined,
-                  backgroundColor: this.isActiveTab(index)
-                    ? activeTabBackgroundColor
-                    : undefined,
-                }}
-              >
-                <PlainText
-                  value={tab.title}
-                  onChange={value => this.onTabTitleUpdate(index, value)}
-                  onFocus={() => {
-                    this.setState(() => ({
-                      selectedTabIndex: index,
-                    }));
-                  }}
-                  placeholder={__('Write title…')}
-                />
-              </div>
-            ))}
-          </div>
-
-          {activeTab && (
+        <div className={`${className}-nav`}>
+          {tabs.map((tab, index) => (
             <div
-              className={`${className}-tab-content-wrap`}
+              className={classNames({
+                [`${className}-nav-item`]: true,
+                [`${className}-nav-item-active`]: isActiveTab(index),
+              })}
+              onClick={() => {
+                setSelectedTabIndex(index);
+              }}
               style={{
-                borderColor: borderColor || undefined,
+                fontSize: tabs.length > 4 ? '14px' : undefined,
+                color: isActiveTab(index)
+                  ? activeTabTextColor
+                  : tabTextColor || undefined,
+                backgroundColor: isActiveTab(index)
+                  ? activeTabBackgroundColor
+                  : tabBackgroundColor || undefined,
               }}
             >
-              <div className={`${className}-tab-content`}>
-                <RichText
-                  tagName="p"
-                  value={activeTab.content}
-                  onChange={content => this.onTabContentUpdate(content)}
-                  className={`${className}-text`}
-                  placeholder={__('Write content…')}
-                  keepPlaceholderOnFocus
-                />
-              </div>
+              <PlainText
+                value={tab.title}
+                onChange={value => onTabTitleUpdate(index, value)}
+                onFocus={() => {
+                  setSelectedTabIndex(index);
+                }}
+                placeholder={__('Write title…')}
+              />
             </div>
-          )}
+          ))}
         </div>
 
-        {isSelected && (
-          <InspectorControls>
-            <PanelBody title={__('Tab Settings')} initialOpen>
-              <RangeControl
-                label={__('Number of tabs')}
-                value={tabs.length}
-                min={1}
-                max={10}
-                step={1}
-                onChange={this.onUpdateTabsNumber}
+        {activeTab && (
+          <div
+            className={`${className}-tab-content-wrap`}
+            style={{
+              borderColor: borderColor || undefined,
+              color: tabContentTextColor || undefined,
+              backgroundColor: tabContentBackgroundColor || undefined,
+            }}
+          >
+            <div className={`${className}-tab-content`}>
+              <RichText
+                tagName="p"
+                value={activeTab.content}
+                onChange={content => onTabContentUpdate(content)}
+                className={`${className}-text`}
+                placeholder={__('Write content…')}
+                keepPlaceholderOnFocus
               />
-            </PanelBody>
-
-            <PanelColorSettings
-              title={__('Color Settings')}
-              initialOpen={false}
-              colorSettings={[
-                {
-                  value: activeTabTextColor,
-                  onChange: value =>
-                    setAttributes({
-                      activeTabTextColor: value,
-                    }),
-                  label: __('Active Tab Text Color'),
-                },
-                {
-                  value: activeTabBackgroundColor,
-                  onChange: value =>
-                    setAttributes({
-                      activeTabBackgroundColor: value,
-                    }),
-                  label: __('Active Tab Background Color'),
-                },
-                {
-                  value: borderColor,
-                  onChange: value =>
-                    setAttributes({
-                      borderColor: value,
-                    }),
-                  label: __('Border Color'),
-                },
-              ]}
-            />
-
-            <PanelBody title={__('Appearance')} initialOpen={false}>
-              <MarginControls
-                attributeKey="blockMargin"
-                attributes={attributes}
-                setAttributes={setAttributes}
-              />
-            </PanelBody>
-          </InspectorControls>
+            </div>
+          </div>
         )}
-      </Fragment>
-    );
-  }
-}
+      </div>
+
+      {isSelected && (
+        <InspectorControls>
+          <PanelBody title={__('Tab Settings')} initialOpen>
+            <RangeControl
+              label={__('Number of tabs')}
+              value={tabs.length}
+              min={1}
+              max={10}
+              step={1}
+              onChange={onUpdateTabsNumber}
+            />
+          </PanelBody>
+
+          <PanelColorSettings
+            title={__('Block Appearance')}
+            initialOpen={false}
+            colorSettings={[
+              {
+                value: tabTextColor,
+                onChange: value =>
+                  setAttributes({
+                    tabTextColor: value,
+                  }),
+                label: __('Tab Text Color'),
+              },
+              {
+                value: tabBackgroundColor,
+                onChange: value =>
+                  setAttributes({
+                    tabBackgroundColor: value,
+                  }),
+                label: __('Tab Background Color'),
+              },
+              {
+                value: activeTabTextColor,
+                onChange: value =>
+                  setAttributes({
+                    activeTabTextColor: value,
+                  }),
+                label: __('Active Tab Text Color'),
+              },
+              {
+                value: activeTabBackgroundColor,
+                onChange: value =>
+                  setAttributes({
+                    activeTabBackgroundColor: value,
+                  }),
+                label: __('Active Tab Background Color'),
+              },
+              {
+                value: tabContentTextColor,
+                onChange: value =>
+                  setAttributes({
+                    tabContentTextColor: value,
+                  }),
+                label: __('Content Text Color'),
+              },
+              {
+                value: tabContentBackgroundColor,
+                onChange: value =>
+                  setAttributes({
+                    tabContentBackgroundColor: value,
+                  }),
+                label: __('Content Background Color'),
+              },
+              {
+                value: borderColor,
+                onChange: value =>
+                  setAttributes({
+                    borderColor: value,
+                  }),
+                label: __('Content Border Color'),
+              },
+            ]}
+          >
+            <ResponsiveControl>
+              {breakpoint => (
+                <MarginControls
+                  label={__('Padding (px)')}
+                  attributeKey="blockPadding"
+                  attributes={attributes}
+                  setAttributes={setAttributes}
+                  breakpoint={breakpoint}
+                />
+              )}
+            </ResponsiveControl>
+
+            <ResponsiveControl>
+              {breakpoint => (
+                <MarginControls
+                  label={__('Margin (px)')}
+                  attributeKey="blockMargin"
+                  attributes={attributes}
+                  setAttributes={setAttributes}
+                  breakpoint={breakpoint}
+                />
+              )}
+            </ResponsiveControl>
+          </PanelColorSettings>
+        </InspectorControls>
+      )}
+    </Fragment>
+  );
+};
+
+TabsEdit.propTypes = propTypes;
 
 export default TabsEdit;
