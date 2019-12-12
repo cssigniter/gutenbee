@@ -1,15 +1,8 @@
-/**
- * Tabs block
- */
-
-import { __ } from 'wp.i18n';
-import { registerBlockType } from 'wp.blocks';
 import classNames from 'classnames';
 import { RichText } from 'wp.blockEditor';
 
-import TabsBlockIcon from './block-icon';
-import TabsEdit from './edit';
 import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
+import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
 
 const Tabs = ({ attributes, className }) => {
   const {
@@ -68,41 +61,65 @@ const Tabs = ({ attributes, className }) => {
   );
 };
 
-registerBlockType('gutenbee/tabs', {
-  title: __('GutenBee Tabs'),
-  description: __('Display fancy tabs'),
-  icon: TabsBlockIcon,
-  category: 'gutenbee',
-  keywords: [__('tabs')],
-  attributes: {
-    tabs: {
-      type: 'array',
-      default: [
-        {
-          title: '',
-          content: '',
+const deprecated = [
+  {
+    attributes: {
+      tabs: {
+        type: 'array',
+        default: [
+          {
+            title: '',
+            content: '',
+          },
+        ],
+      },
+      activeTabBackgroundColor: {
+        type: 'string',
+        default: '',
+      },
+      activeTabTextColor: {
+        type: 'string',
+        default: '',
+      },
+      borderColor: {
+        type: 'string',
+        default: '',
+      },
+      blockMargin: {
+        type: 'object',
+        default: {},
+      },
+    },
+    migrate(attributes) {
+      return {
+        ...attributes,
+        blockPadding: getDefaultSpacingValue(),
+        blockMargin: {
+          desktop: {
+            top: attributes.blockMargin.top || '',
+            right: attributes.blockMargin.right || '',
+            bottom: attributes.blockMargin.bottom || '',
+            left: attributes.blockMargin.left || '',
+          },
+          tablet: {
+            top: '',
+            right: '',
+            bottom: '',
+            left: '',
+          },
+          mobile: {
+            top: '',
+            right: '',
+            bottom: '',
+            left: '',
+          },
         },
-      ],
+      };
     },
-    activeTabBackgroundColor: {
-      type: 'string',
-      default: '',
-    },
-    activeTabTextColor: {
-      type: 'string',
-      default: '',
-    },
-    borderColor: {
-      type: 'string',
-      default: '',
-    },
-    blockMargin: {
-      type: 'object',
-      default: {},
-    },
+    save: ({ className, attributes }) => (
+      <Tabs className={className} attributes={attributes} />
+    ),
   },
-  edit: TabsEdit,
-  save: ({ className, attributes }) => (
-    <Tabs className={className} attributes={attributes} />
-  ),
-});
+];
+
+export default deprecated;

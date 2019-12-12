@@ -1,14 +1,7 @@
-/**
- * Accordion block
- */
-
-import { __ } from 'wp.i18n';
-import { registerBlockType } from 'wp.blocks';
 import { RichText } from 'wp.blockEditor';
 
 import { getMarginSettingStyles } from '../../components/controls/margin-controls/margin-settings';
-import AccordionBlockIcon from './block-icon';
-import AccordionsEdit from './edit';
+import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
 
 const Accordion = ({ className, attributes }) => {
   const {
@@ -60,46 +53,69 @@ const Accordion = ({ className, attributes }) => {
     </div>
   );
 };
-
-registerBlockType('gutenbee/accordion', {
-  title: __('GutenBee Accordion'),
-  description: __('Display fancy accordions'),
-  icon: AccordionBlockIcon,
-  category: 'gutenbee',
-  keywords: [__('accordion'), __('tabs')],
-  attributes: {
-    tabs: {
-      type: 'array',
-      default: [
-        {
-          title: '',
-          content: '',
+const deprecated = [
+  {
+    attributes: {
+      tabs: {
+        type: 'array',
+        default: [
+          {
+            title: '',
+            content: '',
+          },
+        ],
+      },
+      collapseOthers: {
+        type: 'boolean',
+        default: true,
+      },
+      titleBackgroundColor: {
+        type: 'string',
+        default: '',
+      },
+      titleTextColor: {
+        type: 'string',
+        default: '',
+      },
+      borderColor: {
+        type: 'string',
+        default: '',
+      },
+      blockMargin: {
+        type: 'object',
+        default: {},
+      },
+    },
+    migrate(attributes) {
+      return {
+        ...attributes,
+        blockPadding: getDefaultSpacingValue(),
+        blockMargin: {
+          desktop: {
+            top: attributes.blockMargin.top || '',
+            right: attributes.blockMargin.right || '',
+            bottom: attributes.blockMargin.bottom || '',
+            left: attributes.blockMargin.left || '',
+          },
+          tablet: {
+            top: '',
+            right: '',
+            bottom: '',
+            left: '',
+          },
+          mobile: {
+            top: '',
+            right: '',
+            bottom: '',
+            left: '',
+          },
         },
-      ],
+      };
     },
-    collapseOthers: {
-      type: 'boolean',
-      default: true,
-    },
-    titleBackgroundColor: {
-      type: 'string',
-      default: '',
-    },
-    titleTextColor: {
-      type: 'string',
-      default: '',
-    },
-    borderColor: {
-      type: 'string',
-      default: '',
-    },
-    blockMargin: {
-      type: 'object',
-      default: {},
-    },
+    save: ({ className, attributes }) => (
+      <Accordion className={className} attributes={attributes} />
+    ),
   },
-  edit: AccordionsEdit,
-  save: ({ className, attributes }) => (
-    <Accordion className={className} attributes={attributes} />
-  ),
-});
+];
+
+export default deprecated;

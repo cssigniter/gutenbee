@@ -11,6 +11,7 @@ import AccordionsEdit from './edit';
 import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
 import AccordionStyle from './style';
 import getBlockId from '../../util/getBlockId';
+import deprecated from './deprecated';
 
 const Accordion = ({ className, attributes }) => {
   const {
@@ -121,6 +122,7 @@ registerBlockType('gutenbee/accordion', {
       default: getDefaultSpacingValue(),
     },
   },
+  deprecated,
   edit: AccordionsEdit,
   save: ({ className, attributes }) => (
     <Accordion className={className} attributes={attributes} />

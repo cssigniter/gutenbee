@@ -12,6 +12,7 @@ import TabsEdit from './edit';
 import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
 import getBlockId from '../../util/getBlockId';
 import TabsStyle from './style';
+import deprecated from './deprecated';
 
 const Tabs = ({ attributes, className }) => {
   const { uniqueId, tabs } = attributes;
@@ -106,6 +107,7 @@ registerBlockType('gutenbee/tabs', {
       default: getDefaultSpacingValue(),
     },
   },
+  deprecated,
   edit: TabsEdit,
   save: ({ className, attributes }) => (
     <Tabs className={className} attributes={attributes} />
