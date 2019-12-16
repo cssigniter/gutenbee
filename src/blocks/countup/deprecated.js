@@ -147,18 +147,12 @@ const deprecated = [
           },
         },
         blockPadding: getDefaultSpacingValue(),
-        titleColor: undefined,
-        backgroundColor: undefined,
-        textFontSize: {
-          type: 'number',
-          default: getDefaultResponsiveValue({
-            desktop: attributes.textFontSize,
-          }),
-        },
-        titleFontSize: {
-          type: 'object',
-          default: getDefaultResponsiveValue({ desktop: 16 }),
-        },
+        titleColor: attributes.titleColor,
+        backgroundColor: attributes.backgroundColor,
+        textFontSize: getDefaultResponsiveValue({
+          desktop: attributes.textFontSize,
+        }),
+        titleFontSize: getDefaultResponsiveValue({ desktop: 16 }),
       };
     },
     save({ attributes, className }) {

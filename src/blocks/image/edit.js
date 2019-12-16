@@ -203,7 +203,8 @@ const ImageEdit = ({
       <ImageStyle attributes={attributes} />
 
       <figure
-        className={classNames(className, blockId)}
+        id={blockId}
+        className={className}
         style={{
           backgroundColor: backgroundColor || undefined,
         }}
@@ -247,7 +248,7 @@ const ImageEdit = ({
                   });
                 }}
                 min={10}
-                max={1000}
+                max={2000}
                 beforeIcon="format-image"
                 afterIcon="format-image"
               />

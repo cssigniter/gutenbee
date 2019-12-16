@@ -9,7 +9,7 @@ import { registerBlockType } from 'wp.blocks';
 import classNames from 'classnames';
 import { RichText } from 'wp.blockEditor';
 
-import edit from './edit';
+import CountupEdit from './edit';
 import Countup from './Countup';
 import CountupBlockIcon from './block-icon';
 import {
@@ -132,7 +132,7 @@ registerBlockType('gutenbee/countup', {
     },
   },
   deprecated,
-  edit,
+  edit: CountupEdit,
   save({ attributes, className }) {
     return <CountupRender attributes={attributes} className={className} />;
   },

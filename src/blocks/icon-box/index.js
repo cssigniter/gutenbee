@@ -13,7 +13,6 @@ import omit from 'lodash.omit';
 
 import { iconAttributes, IconSettings } from '../icon';
 import Icon from '../icon/Icon';
-import TextControls from '../../components/controls/text-controls/TextControls';
 import IconBoxBlockIcon from './block-icon';
 import MarginControls from '../../components/controls/margin-controls';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
@@ -24,6 +23,7 @@ import deprecated from './deprecated';
 import IconBoxStyle from './style';
 import ImageBoxStyle from '../image-box/style';
 import { capitalize } from '../../util/text';
+import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
 
 const IconBox = ({ className, attributes }) => {
   const {
@@ -233,12 +233,10 @@ const IconBoxEditBlock = ({
                 }))}
             />
 
-            <TextControls
-              setAttributes={setAttributes}
-              attributeKey="title"
-              attributes={attributes}
-              defaultFontSize={null}
-              fontSizeLabel={__('Heading Font Size')}
+            <FontSizePickerLabel
+              value={titleFontSize}
+              label={__('Heading Font Size')}
+              onChange={value => setAttributes({ titleFontSize: value })}
             />
 
             <RangeControl
@@ -253,11 +251,10 @@ const IconBoxEditBlock = ({
               max={200}
             />
 
-            <TextControls
-              setAttributes={setAttributes}
-              attributeKey="text"
-              attributes={attributes}
-              fontSizeLabel={__('Text Font Size')}
+            <FontSizePickerLabel
+              value={textFontSize}
+              label={__('Text Font Size')}
+              onChange={value => setAttributes({ textFontSize: value })}
             />
           </PanelBody>
 

@@ -20,13 +20,13 @@ import { withSelect } from 'wp.data';
 import startCase from 'lodash.startcase';
 
 import ImagePlaceholder from '../../components/image-placeholder/ImagePlaceholder';
-import TextControls from '../../components/controls/text-controls/TextControls';
 import { capitalize } from '../../util/text';
 import useUniqueId from '../../hooks/useUniqueId';
 import getBlockId from '../../util/getBlockId';
 import ImageBoxStyle from './style';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 import MarginControls from '../../components/controls/margin-controls';
+import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
 
 const propTypes = {
   className: PropTypes.string.isRequired,
@@ -200,7 +200,7 @@ const ImageBoxEditBlock = ({
                   setAttributes({ imageWidth: value });
                 }}
                 min={10}
-                max={1000}
+                max={2000}
                 beforeIcon="format-image"
                 afterIcon="format-image"
               />
@@ -246,12 +246,10 @@ const ImageBoxEditBlock = ({
                   }))}
               />
 
-              <TextControls
-                setAttributes={setAttributes}
-                attributeKey="title"
-                attributes={attributes}
-                defaultFontSize={null}
-                fontSizeLabel={__('Heading Font Size')}
+              <FontSizePickerLabel
+                value={titleFontSize}
+                label={__('Heading Font Size')}
+                onChange={value => setAttributes({ titleFontSize: value })}
               />
 
               <RangeControl
@@ -266,11 +264,10 @@ const ImageBoxEditBlock = ({
                 max={200}
               />
 
-              <TextControls
-                setAttributes={setAttributes}
-                attributeKey="text"
-                attributes={attributes}
-                fontSizeLabel={__('Text Font Size')}
+              <FontSizePickerLabel
+                value={textFontSize}
+                label={__('Text Font Size')}
+                onChange={value => setAttributes({ textFontSize: value })}
               />
             </PanelBody>
 
