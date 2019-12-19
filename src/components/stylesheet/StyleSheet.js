@@ -99,7 +99,7 @@ const getCSSRule = ({ id, value, rule, unit = '', edgeCase }) => {
  * @param children The StyleSheet component's children.
  * @return {Array<Object>}
  */
-const getStylesArrayFromChildren = (id, children) => {
+const defaultGetStylesArrayFromChildren = (id, children) => {
   const initial = [
     {
       name: 'desktop',
@@ -187,7 +187,7 @@ const getStylesArrayFromChildren = (id, children) => {
  * @param {Array<Object>} styles The styles array.
  * @return {string}
  */
-const generateStyles = styles => {
+const defaultGenerateStyles = styles => {
   return styles
     .reduce((acc, breakpoint) => {
       if (!breakpoint.rules.length) {
@@ -229,7 +229,15 @@ const stylesArrayIsEmpty = stylesArray => {
   return stylesArray.every(style => style.rules.length === 0);
 };
 
-const StyleSheet = ({ id = '', children }) => {
+const StyleSheet = ({
+  id = '',
+  children,
+  methods = {
+    getStylesArrayFromChildren: defaultGetStylesArrayFromChildren,
+    generateStyles: defaultGenerateStyles,
+  },
+}) => {
+  const { getStylesArrayFromChildren, generateStyles } = methods;
   const stylesArray = getStylesArrayFromChildren(id, children);
 
   if (stylesArrayIsEmpty(stylesArray)) {

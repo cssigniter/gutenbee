@@ -27,6 +27,7 @@ import ResponsiveControl from '../../components/controls/responsive-control/Resp
 import useUniqueId from '../../hooks/useUniqueId';
 import getBlockId from '../../util/getBlockId';
 import VideoStyle from './style';
+import VideoBlockIcon from './block-icon';
 
 // import icon from './icon';
 
@@ -123,8 +124,7 @@ const VideoEdit = ({
   if (editing) {
     return (
       <MediaPlaceholder
-        // TODO add icon
-        icon={<BlockIcon icon="" />}
+        icon={<BlockIcon icon={VideoBlockIcon} />}
         className={className}
         onSelect={onSelectVideo}
         accept="video/*"
@@ -132,6 +132,12 @@ const VideoEdit = ({
         value={attributes}
         notices={noticeUI}
         onError={onUploadError}
+        labels={{
+          instructions: __(
+            'Upload a video file, or pick one from your media library.',
+          ),
+          title: __('GutenBee Video'),
+        }}
       />
     );
   }

@@ -95,7 +95,7 @@ registerBlockType('gutenbee/countup', {
       type: 'string',
     },
     textFontSize: {
-      type: 'number',
+      type: 'object',
       default: getDefaultResponsiveValue({ desktop: 16 }),
     },
     titleFontSize: {
