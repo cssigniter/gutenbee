@@ -17,6 +17,7 @@ import useUniqueId from '../../hooks/useUniqueId';
 import MarginControls from '../../components/controls/margin-controls';
 import HeadingStyle from './style';
 import getBlockId from '../../util/getBlockId';
+import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
 
 const propTypes = {
   attribute: PropTypes.object.isRequired,
@@ -42,6 +43,7 @@ function HeadingEdit({
     uniqueId,
     textColor,
     backgroundColor,
+    fontSize,
   } = attributes;
   const tagName = 'h' + level;
 
@@ -105,6 +107,23 @@ function HeadingEdit({
             selectedLevel={level}
             onChange={newLevel => setAttributes({ level: newLevel })}
           />
+
+          <ResponsiveControl>
+            {breakpoint => (
+              <FontSizePickerLabel
+                label={__('Font Size')}
+                value={fontSize[breakpoint]}
+                onChange={value =>
+                  setAttributes({
+                    fontSize: {
+                      ...fontSize,
+                      [breakpoint]: value != null ? value : '',
+                    },
+                  })
+                }
+              />
+            )}
+          </ResponsiveControl>
         </PanelBody>
 
         <PanelColorSettings

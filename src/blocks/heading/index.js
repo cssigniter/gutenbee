@@ -8,6 +8,7 @@ import HeadingEdit from './edit';
 import getBlockId from '../../util/getBlockId';
 import HeadingStyle from './style';
 import HeadingBlockIcon from './block-icon';
+import { getDefaultResponsiveValue } from '../../components/controls/responsive-control/default-values';
 
 registerBlockType('gutenbee/heading', {
   title: __('GutenBee Heading'),
@@ -49,6 +50,10 @@ registerBlockType('gutenbee/heading', {
     },
     textColor: {
       type: 'string',
+    },
+    fontSize: {
+      type: 'object',
+      default: getDefaultResponsiveValue(),
     },
     backgroundColor: {
       type: 'string',

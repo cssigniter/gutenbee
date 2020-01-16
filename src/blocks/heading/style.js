@@ -10,13 +10,14 @@ const propTypes = {
 };
 
 const HeadingStyle = ({ attributes, children }) => {
-  const { uniqueId, blockPadding, blockMargin } = attributes;
+  const { uniqueId, blockPadding, blockMargin, fontSize } = attributes;
   const blockId = getBlockId(uniqueId);
 
   return (
     <StyleSheet id={blockId}>
       <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
       <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
+      <Rule value={fontSize} rule="{ font-size: %s; }" unit="px" />
 
       {children}
     </StyleSheet>
