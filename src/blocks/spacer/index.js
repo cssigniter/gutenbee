@@ -11,6 +11,7 @@ import SpacerStyle from './style';
 import SpacerEdit from './edit';
 import SpacerBlockIcon from './block-icon';
 import { getBackgroundImageStyle } from '../../components/controls/background-controls/helpers';
+import deprecated from './deprecated';
 
 registerBlockType('gutenbee/spacer', {
   title: __('GutenBee Spacer'),
@@ -37,11 +38,12 @@ registerBlockType('gutenbee/spacer', {
       type: 'string',
     },
     backgroundImage: {
-      type: 'objcet',
+      type: 'object',
       default: getDefaultBackgroundImageValue(),
     },
   },
   edit: SpacerEdit,
+  deprecated,
   save: ({ attributes, className }) => {
     const { uniqueId, backgroundColor, backgroundImage } = attributes;
     const blockId = getBlockId(uniqueId);

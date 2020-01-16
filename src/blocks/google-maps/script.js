@@ -7,7 +7,9 @@ jQuery($ => {
     return;
   }
 
-  const $maps = $('.wp-block-gutenbee-google-maps > div');
+  const $maps = $(
+    '.wp-block-gutenbee-google-maps > div, .wp-block-gutenbee-google-maps',
+  );
 
   $maps.each(function() {
     const $this = $(this);
@@ -16,6 +18,10 @@ jQuery($ => {
       lng: parseFloat($this.data('longitude')),
     };
     const info = $this.data('info-window');
+
+    if (!location.lat || !location.lng) {
+      return;
+    }
 
     const map = new google.maps.Map($this.get(0), {
       zoom: $this.data('zoom'),
