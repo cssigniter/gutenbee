@@ -223,7 +223,7 @@
 			$get_terms_args['child_of'] = $term_id;
 		}
 
-		if ( count( $tax_query_args ) >= 1 ) {
+		if ( count( $tax_query_args ) > 1 ) {
 			$tax_query_args = array_merge( array(
 				'relation' => 'AND',
 			), $tax_query_args );
