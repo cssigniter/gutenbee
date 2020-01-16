@@ -193,16 +193,16 @@
 			unset( $args['paged'] );
 		}
 
-		$query_args_tax = array(
-			'tax_query' => array(
-				array(
-					'taxonomy'         => $taxonomy_slug,
-					'field'            => 'term_id',
-					'terms'            => $term_id,
-					'include_children' => true,
-				),
-			),
-		);
+		$tax_query_args = array();
+
+		if ( 'product' === $post_type && taxonomy_exists( 'product_visibility' ) ) {
+			$tax_query_args[] = array(
+				'taxonomy' => 'product_visibility',
+				'field'    => 'slug',
+				'terms'    => array( 'exclude-from-catalog' ),
+				'operator' => 'NOT IN',
+			);
+		}
 
 		$get_terms_args = array(
 			'hide_empty' => 1,
@@ -213,9 +213,26 @@
 		}
 
 		if ( $taxonomy_slug && $term_id > 0 ) {
-			$query_args = array_merge( $args, $query_args_tax );
+			$tax_query_args[] = array(
+				'taxonomy'         => $taxonomy_slug,
+				'field'            => 'term_id',
+				'terms'            => $term_id,
+				'include_children' => true,
+			);
 
 			$get_terms_args['child_of'] = $term_id;
+		}
+
+		if ( count( $tax_query_args ) >= 1 ) {
+			$tax_query_args = array_merge( array(
+				'relation' => 'AND',
+			), $tax_query_args );
+		}
+
+		if ( count( $tax_query_args ) >= 1 ) {
+			$query_args = array_merge( $args, array(
+				'tax_query' => $tax_query_args,
+			) );
 		} else {
 			$query_args = $args;
 		}
