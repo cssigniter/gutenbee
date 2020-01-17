@@ -1,8 +1,8 @@
 === GutenBee ===
 Contributors: cssigniterteam, silencerius, nvourva, tsiger, anastis
 Tags: gutenberg, blocks
-Requires at least: 5.0
-Tested up to: 5.3
+Requires at least: 5.3
+Tested up to: 5.3.2
 Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
@@ -38,6 +38,7 @@ The plugin's documentation can be found [here](https://www.cssigniter.com/docs/g
 * **Image**: A variation of the core Image block with extra responsive spacing and sizing settings.
 * **Spacer**: Complete control spacing of elements in your posts and pages with the responsive Spacer block.
 * **Post Types**: List posts from any post type in a configurable grid, complete with fully responsive settings.
+* **Video**: Embed a video from your media library or upload a new one.
 
 == Installation ==
 From within WordPress' dashboard:
@@ -60,6 +61,15 @@ Note that if you want to use the Google Maps block you will also need a Google M
 7. Tabs or Accordions, group your content the way you want.
 
 == Changelog ==
+= 2.2.0 =
+* Added new video block.
+* Added responsive settings for blocks: ImageBox, Icon, IconBox.
+* Fixed responsive styles. Unset properties will not get applied.
+* Added font size in Heading block.
+* Fixed issue where Post Types block wouldn't respect WooCommerce's products visibility option.
+* Grouped block options in more relevant sections.
+* Fixed incorrect wording on labels.
+
 = 2.1.0 =
 * Added new blocks: Container, Heading, Paragraph, Image, Spacer, Post Types.
 
