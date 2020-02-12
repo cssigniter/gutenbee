@@ -54,6 +54,11 @@
         word-break: break-word; // For back-compat.
         overflow-wrap: break-word; // New standard.
 
+        // Force 1 column layouts to span the whole width
+        &:only-of-type {
+          flex-basis: 100%;
+        }
+
         &:nth-child(even) {
           margin-left: calc(#{$grid-size-large * 2} + #{$block-padding});
         }
@@ -98,6 +103,16 @@
 
   [data-type="gutenbee/column"].is-selected .block-list-appender {
     margin: $block-padding 0;
+  }
+
+  &[data-theme-grid] {
+    max-width: none !important;
+    margin-left: -45px;
+    margin-right: -45px;
+
+    &::before {
+      display: none !important;
+    }
   }
 }
 

@@ -4,7 +4,12 @@ import { compose } from 'wp.compose';
 import { __ } from 'wp.i18n';
 import { InspectorControls } from 'wp.blockEditor';
 import { PanelColorSettings, InnerBlocks } from 'wp.blockEditor';
-import { PanelBody, SelectControl, RangeControl } from 'wp.components';
+import {
+  PanelBody,
+  SelectControl,
+  RangeControl,
+  CheckboxControl,
+} from 'wp.components';
 import { withDispatch, withSelect, useSelect } from 'wp.data';
 import { createBlock } from 'wp.blocks';
 import times from 'lodash.times';
@@ -118,6 +123,7 @@ const ContainerBlockEdit = ({
     horizontalContentAlignment,
     gutter,
     columnDirection,
+    themeGrid,
   } = attributes;
 
   const { count } = useSelect(select => {
@@ -209,6 +215,13 @@ const ContainerBlockEdit = ({
                 onChange={value => updateColumns(count, value)}
               />
 
+              <CheckboxControl
+                label={__('Enable theme grid (experimental)')}
+                value="on"
+                checked={themeGrid}
+                onChange={value => setAttributes({ themeGrid: value })}
+              />
+
               <ResponsiveControl>
                 {breakpoint => (
                   <SelectControl
@@ -259,7 +272,7 @@ const ContainerBlockEdit = ({
                           },
                         })
                       }
-                      step={10}
+                      step={1}
                       help={__(
                         'Leave blank for auto height or set to -1 for full viewport height.',
                       )}

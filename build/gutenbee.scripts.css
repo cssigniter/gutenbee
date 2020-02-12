@@ -2138,6 +2138,12 @@
   z-index: -1;
 }
 
+@media (max-width: 1199px) {
+  .wp-block-gutenbee-container-background {
+    background-attachment: scroll !important;
+  }
+}
+
 .wp-block-gutenbee-container {
   overflow: hidden;
 }
@@ -2248,6 +2254,12 @@
   -ms-flex-direction: column;
   flex-direction: column;
   width: 100%;
+}
+
+@media (max-width: 1199px) {
+  .wp-block-gutenbee-column-content {
+    background-attachment: scroll !important;
+  }
 }
 
 .wp-block-gutenbee-spacer {

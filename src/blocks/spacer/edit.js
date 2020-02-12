@@ -88,7 +88,7 @@ const SpacerEdit = ({
                 }
                 min={10}
                 max={500}
-                step={10}
+                step={1}
                 value={height[breakpoint]}
               />
             )}

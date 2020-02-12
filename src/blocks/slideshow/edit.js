@@ -187,7 +187,7 @@ const SlideshowEdit = ({
                 onChange={value => {
                   setAttributes({ speed: value });
                 }}
-                step={10}
+                step={1}
               />
               <RangeControl
                 label={__('Autoplay Speed (ms)')}
@@ -197,7 +197,7 @@ const SlideshowEdit = ({
                 onChange={value => {
                   setAttributes({ autoplaySpeed: value });
                 }}
-                step={10}
+                step={1}
               />
               <ToggleControl
                 label={__('Pause on Hover')}

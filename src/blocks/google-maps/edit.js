@@ -187,7 +187,7 @@ const GoogleMapsEdit = ({
                       },
                     })
                   }
-                  step={10}
+                  step={1}
                 />
               )}
             </ResponsiveControl>

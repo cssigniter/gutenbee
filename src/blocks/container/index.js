@@ -35,7 +35,7 @@ registerBlockType('gutenbee/container', {
     },
     gutter: {
       type: 'string',
-      default: 'md',
+      default: 'lg',
     },
     columnDirection: {
       type: 'object',
@@ -76,6 +76,10 @@ registerBlockType('gutenbee/container', {
       type: 'boolean',
       default: false,
     },
+    themeGrid: {
+      type: 'boolean',
+      default: false,
+    },
     containerHeight: {
       type: 'object',
       default: getDefaultResponsiveValue(),
@@ -96,6 +100,13 @@ registerBlockType('gutenbee/container', {
       type: 'object',
       default: getDefaultResponsiveValue(),
     },
+  },
+  getEditWrapperProps(attributes) {
+    const { themeGrid } = attributes;
+
+    if (themeGrid) {
+      return { 'data-theme-grid': themeGrid };
+    }
   },
   edit: ContainerBlockEdit,
   save: ({ attributes, className }) => {
