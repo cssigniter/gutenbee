@@ -8,6 +8,10 @@ import getBlockId from '../../util/getBlockId';
 import ParagraphEdit from './edit';
 import ParagraphStyle from './style';
 import ParagraphBlockIcon from './block-icon';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../components/controls/responsive-control/default-values';
 
 registerBlockType('gutenbee/paragraph', {
   title: __('GutenBee Paragraph'),
@@ -32,8 +36,10 @@ registerBlockType('gutenbee/paragraph', {
     uniqueId: {
       type: 'string',
     },
+    // TODO [deprecate]
     align: {
-      type: 'string',
+      type: 'object',
+      default: getDefaultResponsiveValue(),
     },
     content: {
       type: 'string',
@@ -70,56 +76,17 @@ registerBlockType('gutenbee/paragraph', {
     },
     blockPadding: {
       type: 'object',
-      default: {
-        desktop: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-        tablet: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-        mobile: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-      },
+      default: getDefaultSpacingValue(),
     },
     blockMargin: {
       type: 'object',
-      default: {
-        desktop: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-        tablet: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-        mobile: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-      },
+      default: getDefaultSpacingValue(),
     },
   },
   edit: ParagraphEdit,
   save: ({ attributes }) => {
     const {
       uniqueId,
-      align,
       content,
       dropCap,
       backgroundColor,
@@ -139,7 +106,6 @@ registerBlockType('gutenbee/paragraph', {
     const className = classNames({
       'has-text-color': textColor || customTextColor,
       'has-drop-cap': dropCap,
-      [`has-text-align-${align}`]: align,
       [textClass]: textClass,
       [backgroundClass]: backgroundClass,
     });

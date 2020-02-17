@@ -33,6 +33,8 @@ import {
 } from './template-icons';
 import { getColumnsTemplate, getMappedColumnWidths } from './utils';
 import Rule from '../../components/stylesheet/Rule';
+import AdvancedColorControl from '../../components/controls/advanced-color-control/AdvancedColorControl';
+import { hexToRGBA } from '../../components/controls/advanced-color-control/helpers';
 
 const propTypes = {
   className: PropTypes.string.isRequired,
@@ -124,6 +126,8 @@ const ContainerBlockEdit = ({
     gutter,
     columnDirection,
     themeGrid,
+    overlayBackgroundColor,
+    overlayBackgroundColorOpacity,
   } = attributes;
 
   const { count } = useSelect(select => {
@@ -194,6 +198,19 @@ const ContainerBlockEdit = ({
             />
           </div>
         </div>
+
+        {overlayBackgroundColor && (
+          <div
+            className={`${className}-background-overlay`}
+            style={{
+              backgroundColor: hexToRGBA(
+                overlayBackgroundColor,
+                overlayBackgroundColorOpacity,
+              ),
+            }}
+          />
+        )}
+
         <div
           className={`${className}-background`}
           style={{
@@ -371,6 +388,19 @@ const ContainerBlockEdit = ({
               ]}
               onChange={value => setAttributes({ backgroundColor: value })}
             >
+              <AdvancedColorControl
+                label={__('Background Overlay Color')}
+                colorValue={overlayBackgroundColor || ''}
+                colorDefault=""
+                onColorChange={value =>
+                  setAttributes({ overlayBackgroundColor: value })
+                }
+                opacityValue={overlayBackgroundColorOpacity}
+                onOpacityChange={value =>
+                  setAttributes({ overlayBackgroundColorOpacity: value })
+                }
+              />
+
               <BackgroundControls
                 label={__('Background Image')}
                 setAttributes={setAttributes}

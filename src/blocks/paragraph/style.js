@@ -10,7 +10,7 @@ const propTypes = {
 };
 
 const ParagraphStyle = ({ attributes, children }) => {
-  const { uniqueId, blockPadding, blockMargin, fontSize } = attributes;
+  const { uniqueId, blockPadding, blockMargin, fontSize, align } = attributes;
   const blockId = getBlockId(uniqueId);
 
   return (
@@ -18,6 +18,7 @@ const ParagraphStyle = ({ attributes, children }) => {
       <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
       <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
       <Rule value={fontSize} rule="{ font-size: %s; }" unit="px" />
+      <Rule value={align} rule="{ text-align: %s; }" unit="" />
 
       {children}
     </StyleSheet>

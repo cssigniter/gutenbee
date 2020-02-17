@@ -8,7 +8,10 @@ import HeadingEdit from './edit';
 import getBlockId from '../../util/getBlockId';
 import HeadingStyle from './style';
 import HeadingBlockIcon from './block-icon';
-import { getDefaultResponsiveValue } from '../../components/controls/responsive-control/default-values';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../components/controls/responsive-control/default-values';
 
 registerBlockType('gutenbee/heading', {
   title: __('GutenBee Heading'),
@@ -32,8 +35,10 @@ registerBlockType('gutenbee/heading', {
     uniqueId: {
       type: 'string',
     },
+    // TODO [deprecate]
     align: {
-      type: 'string',
+      type: 'object',
+      default: getDefaultResponsiveValue(),
     },
     content: {
       type: 'string',
@@ -60,67 +65,21 @@ registerBlockType('gutenbee/heading', {
     },
     blockPadding: {
       type: 'object',
-      default: {
-        desktop: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-        tablet: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-        mobile: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-      },
+      default: getDefaultSpacingValue(),
     },
     blockMargin: {
       type: 'object',
-      default: {
-        desktop: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-        tablet: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-        mobile: {
-          top: '',
-          right: '',
-          bottom: '',
-          left: '',
-        },
-      },
+      default: getDefaultSpacingValue(),
     },
   },
   edit: HeadingEdit,
   save: ({ attributes }) => {
-    const {
-      uniqueId,
-      align,
-      content,
-      level,
-      textColor,
-      backgroundColor,
-    } = attributes;
+    const { uniqueId, content, level, textColor, backgroundColor } = attributes;
     const tagName = 'h' + level;
 
     const className = classNames({
       'has-text-color': !!textColor,
       'has-background-color': !!backgroundColor,
-      [`has-text-align-${align}`]: align,
     });
 
     const blockId = getBlockId(uniqueId);

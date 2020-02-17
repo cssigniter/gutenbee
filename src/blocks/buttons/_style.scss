@@ -1,0 +1,17 @@
+.wp-block-gutenbee-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  .gutenbee-block-button-link {
+    margin-right: $block-padding;
+  }
+
+  .wp-block-gutenbee-button {
+    &:only-of-type {
+      .gutenbee-block-button-link {
+        margin-right: 0;
+      }
+    }
+  }
+}

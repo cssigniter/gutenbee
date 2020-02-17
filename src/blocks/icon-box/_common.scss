@@ -10,6 +10,9 @@
 
 .wp-block-gutenbee-iconbox-content {
   flex: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .wp-block-gutenbee-iconbox-title {

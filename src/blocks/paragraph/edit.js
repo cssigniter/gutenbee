@@ -1,11 +1,14 @@
 import classnames from 'classnames';
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
-import { PanelBody, ToggleControl, withFallbackStyles } from 'wp.components';
+import {
+  PanelBody,
+  ToggleControl,
+  withFallbackStyles,
+  SelectControl,
+} from 'wp.components';
 import {
   withColors,
-  AlignmentToolbar,
-  BlockControls,
   ContrastChecker,
   FontSizePicker,
   InspectorControls,
@@ -104,13 +107,6 @@ const ParagraphBlock = ({
 
   return (
     <Fragment>
-      <BlockControls>
-        <AlignmentToolbar
-          value={align}
-          onChange={newAlign => setAttributes({ align: newAlign })}
-        />
-      </BlockControls>
-
       <InspectorControls>
         <PanelBody title={__('Text Settings')} className="blocks-font-size">
           <ResponsiveControl>
@@ -139,6 +135,29 @@ const ParagraphBlock = ({
                 : __('Toggle to show a large initial letter.')
             }
           />
+
+          <ResponsiveControl>
+            {breakpoint => (
+              <SelectControl
+                label={__('Text Alignment')}
+                value={align[breakpoint]}
+                options={[
+                  { value: '', label: __('') },
+                  { value: 'left', label: __('Left') },
+                  { value: 'center', label: __('Center') },
+                  { value: 'right', label: __('Right') },
+                ]}
+                onChange={value =>
+                  setAttributes({
+                    align: {
+                      ...align,
+                      [breakpoint]: value != null ? value : '',
+                    },
+                  })
+                }
+              />
+            )}
+          </ResponsiveControl>
         </PanelBody>
 
         <ParagraphPanelColor

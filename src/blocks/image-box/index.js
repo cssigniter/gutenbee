@@ -30,6 +30,9 @@ const ImageBox = ({ className, attributes }) => {
     imageWidth,
     contentAlign,
     titleBottomSpacing,
+    textColor,
+    titleColor,
+    backgroundColor,
   } = attributes;
 
   const blockId = getBlockId(uniqueId);
@@ -42,6 +45,9 @@ const ImageBox = ({ className, attributes }) => {
         [`${className}-align-${imageAlign}`]: true,
         [`${className}-content-align-${contentAlign}`]: !!contentAlign,
       })}
+      style={{
+        backgroundColor: backgroundColor || undefined,
+      }}
     >
       <ImageBoxStyle attributes={attributes} />
       <figure className={`${className}-figure`}>
@@ -61,10 +67,12 @@ const ImageBox = ({ className, attributes }) => {
             value={titleContent}
             className={`${className}-title`}
             style={{
+              color: titleColor || undefined,
               fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
-              marginBottom: titleBottomSpacing
-                ? `${titleBottomSpacing}px`
-                : undefined,
+              marginBottom:
+                titleBottomSpacing != null
+                  ? `${titleBottomSpacing}px`
+                  : undefined,
             }}
           />
         )}
@@ -75,6 +83,7 @@ const ImageBox = ({ className, attributes }) => {
             value={textContent}
             className={`${className}-text`}
             style={{
+              color: textColor || undefined,
               fontSize: textFontSize ? `${textFontSize}px` : undefined,
             }}
           />
@@ -158,6 +167,15 @@ registerBlockType('gutenbee/imagebox', {
     imageMargin: {
       type: 'object',
       default: getDefaultSpacingValue(),
+    },
+    textColor: {
+      type: 'string',
+    },
+    titleColor: {
+      type: 'string',
+    },
+    backgroundColor: {
+      type: 'string',
     },
   },
   deprecated,

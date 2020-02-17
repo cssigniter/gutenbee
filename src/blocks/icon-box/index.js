@@ -5,7 +5,11 @@
 import { Fragment } from 'wp.element';
 import { __, sprintf } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import { RichText, InspectorControls } from 'wp.blockEditor';
+import {
+  RichText,
+  InspectorControls,
+  PanelColorSettings,
+} from 'wp.blockEditor';
 import { PanelBody, Toolbar, SelectControl, RangeControl } from 'wp.components';
 import { withState } from 'wp.compose';
 import classNames from 'classnames';
@@ -38,6 +42,9 @@ const IconBox = ({ className, attributes }) => {
     iconMargin,
     iconPadding,
     titleBottomSpacing,
+    titleColor,
+    textColor,
+    backgroundColor,
   } = attributes;
 
   const blockId = getBlockId(uniqueId);
@@ -50,6 +57,9 @@ const IconBox = ({ className, attributes }) => {
         [`${className}-align-${align}`]: true,
         [`${className}-content-align-${contentAlign}`]: !!contentAlign,
       })}
+      style={{
+        backgroundColor: backgroundColor || undefined,
+      }}
     >
       <ImageBoxStyle attributes={attributes} />
       <Icon
@@ -67,10 +77,12 @@ const IconBox = ({ className, attributes }) => {
             value={titleContent}
             className={`${className}-title`}
             style={{
+              color: titleColor || undefined,
               fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
-              marginBottom: titleBottomSpacing
-                ? `${titleBottomSpacing}px`
-                : undefined,
+              marginBottom:
+                titleBottomSpacing != null
+                  ? `${titleBottomSpacing}px`
+                  : undefined,
             }}
           />
         )}
@@ -81,6 +93,7 @@ const IconBox = ({ className, attributes }) => {
             value={textContent}
             className={`${className}-text`}
             style={{
+              color: textColor || undefined,
               fontSize: textFontSize ? `${textFontSize}px` : undefined,
             }}
           />
@@ -111,6 +124,9 @@ const IconBoxEditBlock = ({
     iconMargin,
     iconPadding,
     titleBottomSpacing,
+    titleColor,
+    textColor,
+    backgroundColor,
   } = attributes;
   const setActiveEditable = newEditable => setState({ editable: newEditable });
 
@@ -120,11 +136,15 @@ const IconBoxEditBlock = ({
   return (
     <Fragment>
       <div
+        id={blockId}
         className={classNames({
           [className]: true,
           [`${className}-align-${align}`]: true,
           [`${className}-content-align-${contentAlign}`]: !!contentAlign,
         })}
+        style={{
+          backgroundColor: backgroundColor || undefined,
+        }}
       >
         <IconBoxStyle attributes={attributes} />
 
@@ -146,10 +166,12 @@ const IconBoxEditBlock = ({
             isSelected={isSelected && editable === 'title'}
             onFocus={() => setActiveEditable('title')}
             style={{
+              color: titleColor || undefined,
               fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
-              marginBottom: titleBottomSpacing
-                ? `${titleBottomSpacing}px`
-                : undefined,
+              marginBottom:
+                titleBottomSpacing != null
+                  ? `${titleBottomSpacing}px`
+                  : undefined,
             }}
           />
 
@@ -162,6 +184,7 @@ const IconBoxEditBlock = ({
             isSelected={isSelected && editable === 'text'}
             onFocus={() => setActiveEditable('text')}
             style={{
+              color: textColor || undefined,
               fontSize: textFontSize ? `${textFontSize}px` : undefined,
             }}
           />
@@ -258,7 +281,28 @@ const IconBoxEditBlock = ({
             />
           </PanelBody>
 
-          <PanelBody title={__('Block Appearance')} initialOpen={false}>
+          <PanelColorSettings
+            title={__('Block Appearance')}
+            initialOpen={false}
+            colorSettings={[
+              {
+                value: titleColor,
+                onChange: value => setAttributes({ titleColor: value }),
+                label: __('Title Color'),
+              },
+              {
+                value: textColor,
+                onChange: value => setAttributes({ textColor: value }),
+                label: __('Content Text Color'),
+              },
+              {
+                value: backgroundColor,
+                onChange: value => setAttributes({ backgroundColor: value }),
+                label: __('Block Background Color'),
+              },
+            ]}
+            onChange={value => setAttributes({ backgroundColor: value })}
+          >
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
@@ -282,7 +326,7 @@ const IconBoxEditBlock = ({
                 />
               )}
             </ResponsiveControl>
-          </PanelBody>
+          </PanelColorSettings>
         </InspectorControls>
       )}
     </Fragment>
@@ -348,6 +392,15 @@ registerBlockType('gutenbee/iconbox', {
     iconPadding: {
       type: 'object',
       default: getDefaultSpacingValue(),
+    },
+    textColor: {
+      type: 'string',
+    },
+    titleColor: {
+      type: 'string',
+    },
+    backgroundColor: {
+      type: 'string',
     },
   },
   deprecated,

@@ -16,6 +16,7 @@ import {
   getDefaultResponsiveValue,
   getDefaultSpacingValue,
 } from '../../components/controls/responsive-control/default-values';
+import { hexToRGBA } from '../../components/controls/advanced-color-control/helpers';
 
 registerBlockType('gutenbee/container', {
   title: __('GutenBee Container'),
@@ -63,6 +64,13 @@ registerBlockType('gutenbee/container', {
         parallax: false,
         parallaxSpeed: 0.3,
       },
+    },
+    overlayBackgroundColor: {
+      type: 'string',
+    },
+    overlayBackgroundColorOpacity: {
+      type: 'number',
+      default: 1,
     },
     blockPadding: {
       type: 'object',
@@ -116,6 +124,8 @@ registerBlockType('gutenbee/container', {
       backgroundColor,
       backgroundImage,
       gutter,
+      overlayBackgroundColor,
+      overlayBackgroundColorOpacity,
     } = attributes;
 
     const { parallax, parallaxSpeed } = backgroundImage;
@@ -123,7 +133,9 @@ registerBlockType('gutenbee/container', {
     return (
       <div
         id={getBlockId(uniqueId)}
-        className={className}
+        className={classNames(className, {
+          'has-parallax': parallax,
+        })}
         style={{
           color: textColor,
         }}
@@ -138,7 +150,20 @@ registerBlockType('gutenbee/container', {
           >
             <InnerBlocks.Content />
           </div>
+
+          {overlayBackgroundColor && (
+            <div
+              className="wp-block-gutenbee-container-background-overlay"
+              style={{
+                backgroundColor: hexToRGBA(
+                  overlayBackgroundColor,
+                  overlayBackgroundColorOpacity,
+                ),
+              }}
+            />
+          )}
         </div>
+
         <div
           className={classNames({
             'wp-block-gutenbee-container-background': true,

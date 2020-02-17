@@ -719,6 +719,139 @@
   white-space: normal;
 }
 
+.gutenbee-color-popover-container {
+  margin-bottom: 14px;
+}
+
+.gutenbee-advanced-color-settings-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.gutenbee-advanced-color-settings-container .components-color-palette__clear {
+  background: transparent;
+  padding: 4px;
+  height: auto;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 1px solid transparent;
+}
+
+.gutenbee-advanced-color-settings-container .components-color-palette__clear svg {
+  width: 16px;
+}
+
+.gutenbee-advanced-color-settings-container .gutenbee-advanced-color-indicator {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  margin: 0;
+}
+
+.gutenbee-advanced-color-settings-container .gutenbee-advanced-color-label {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  margin: 0;
+}
+
+.components-popover.gutenbee-popover-color > .components-popover__content > .components-base-control {
+  padding: 0 10px;
+}
+
+.gutenbee-block-default-palette .components-color-palette,
+.components-popover.gutenbee-popover-color .components-color-palette {
+  margin-right: 0;
+  width: auto;
+}
+
+.components-popover.gutenbee-popover-color .components-color-palette__item-wrapper,
+.gutenbee-color-popover-container .components-color-palette__item-wrapper {
+  display: inline-block;
+  height: 28px;
+  width: 28px;
+  margin-right: 7px;
+  margin-left: 7px;
+  margin-bottom: 14px;
+  vertical-align: top;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: -webkit-transform .1s ease;
+  transition: -webkit-transform .1s ease;
+  transition: transform .1s ease;
+  transition: transform .1s ease, -webkit-transform .1s ease;
+}
+
+.components-popover.gutenbee-popover-color .components-color-palette__item-wrapper .components-color-palette__item,
+.gutenbee-color-popover-container .components-color-palette__item-wrapper .components-color-palette__item {
+  display: inline-block;
+  vertical-align: top;
+  height: 100%;
+  width: 100%;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  -webkit-box-shadow: inset 0 0 0 14px;
+  box-shadow: inset 0 0 0 14px;
+  -webkit-transition: -webkit-box-shadow .1s ease;
+  transition: -webkit-box-shadow .1s ease;
+  transition: box-shadow .1s ease;
+  transition: box-shadow .1s ease, -webkit-box-shadow .1s ease;
+  cursor: pointer;
+}
+
+.components-popover.gutenbee-popover-color .components-color-palette__item-wrapper .components-color-palette__item:after,
+.gutenbee-color-popover-container .components-color-palette__item-wrapper .components-color-palette__item:after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  bottom: -1px;
+  right: -1px;
+  border-radius: 50%;
+  -webkit-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+  border: 1px solid transparent;
+}
+
+.components-popover.gutenbee-popover-color .components-color-palette__item-wrapper .components-color-palette__item.is-active,
+.gutenbee-color-popover-container .components-color-palette__item-wrapper .components-color-palette__item.is-active {
+  -webkit-box-shadow: inset 0 0 0 4px;
+  box-shadow: inset 0 0 0 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.components-popover.gutenbee-popover-color .components-color-palette__item-wrapper .components-color-palette__item.is-active + .dashicons-saved,
+.gutenbee-color-popover-container .components-color-palette__item-wrapper .components-color-palette__item.is-active + .dashicons-saved {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+}
+
+.components-popover.gutenbee-popover-color .components-color-palette__item-wrapper .components-color-palette__item:focus,
+.gutenbee-color-popover-container .components-color-palette__item-wrapper .components-color-palette__item:focus {
+  outline: none;
+}
+
+.components-popover.gutenbee-popover-color .components-color-palette__item-wrapper .components-color-palette__item:focus:after,
+.gutenbee-color-popover-container .components-color-palette__item-wrapper .components-color-palette__item:focus:after {
+  content: "";
+  border: 2px solid #606a73;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  border-radius: 50%;
+  -webkit-box-shadow: inset 0 0 0 2px #fff;
+  box-shadow: inset 0 0 0 2px #fff;
+}
+
 .wp-block-gutenbee-divider {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1741,6 +1874,16 @@
   -webkit-box-flex: 1;
   -ms-flex: auto;
   flex: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .wp-block-gutenbee-iconbox-title {
@@ -2652,13 +2795,22 @@
   height: 100%;
   top: 0;
   left: 0;
-  z-index: -1;
+  z-index: -2;
 }
 
 @media (max-width: 1199px) {
   .wp-block-gutenbee-container-background {
     background-attachment: scroll !important;
   }
+}
+
+.wp-block-gutenbee-container-background-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
 
 .wp-block-gutenbee-container-inner {
@@ -2864,5 +3016,122 @@
   margin-top: .5em;
   margin-bottom: 0;
   font-size: 0.9rem;
+}
+
+.wp-block-gutenbee-button {
+  position: relative;
+  line-height: 1;
+}
+
+.wp-block-gutenbee-button [contenteditable] {
+  cursor: text;
+}
+
+.wp-block-gutenbee-button .block-editor-rich-text__editable:focus {
+  -webkit-box-shadow: 0 0 0 1px #fff, 0 0 0 3px #0085ba;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 3px #0085ba;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+
+.wp-block-gutenbee-button [data-rich-text-placeholder]::after {
+  opacity: 0.8;
+}
+
+.gutenbee-block-button-link {
+  color: #000;
+  height: auto;
+  overflow: hidden;
+  max-width: 290px;
+  background-color: transparent;
+  border: 2px solid #000;
+  border-radius: 3px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  margin: 0;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  overflow-wrap: break-word;
+  line-height: 1;
+}
+
+.gutenbee-block-button-link:hover, .gutenbee-block-button-link:focus, .gutenbee-block-button-link:active, .gutenbee-block-button-link:visited {
+  color: inherit;
+}
+
+.gutenbee-block-button-link-input__suggestions {
+  max-width: 290px;
+}
+
+.is-selected .gutenbee-block-button-link,
+.is-typing .gutenbee-block-button-link {
+  height: auto;
+  overflow: visible;
+}
+
+div[data-type="gutenbee/button"] {
+  display: table;
+}
+
+.wp-block-gutenbee-buttons .wp-block.block-editor-block-list__block[data-type="gutenbee/button"] {
+  display: inline-block;
+  width: auto;
+  margin: 0;
+}
+
+.wp-block-gutenbee-buttons .gutenbee-block-button-link {
+  margin-right: 14px;
+}
+
+.wp-block-gutenbee-buttons .block-editor-block-list__layout {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.wp-block-gutenbee-buttons .block-editor-block-list__layout > div:last-child {
+  display: inline-block;
+}
+
+.wp-block-gutenbee-buttons.flex-start .block-editor-block-list__layout {
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+}
+
+.wp-block-gutenbee-buttons.center .block-editor-block-list__layout {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.wp-block-gutenbee-buttons.flex-end .block-editor-block-list__layout {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.wp-block-gutenbee-buttons .block-list-appender {
+  display: inline-block !important;
+  margin: 0;
+}
+
+.wp-block-gutenbee-buttons .block-editor-button-block-appender {
+  background: none;
+  outline: none;
+  margin-left: 14px;
 }
 

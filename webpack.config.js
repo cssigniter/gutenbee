@@ -28,6 +28,7 @@ const wplib = [
   'keycodes',
   'htmlEntities',
   'serverSideRender',
+  'icons',
 ];
 
 const webpackConfig = {

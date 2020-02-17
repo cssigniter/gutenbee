@@ -8,6 +8,7 @@ import {
   BlockControls,
   RichText,
   MediaUpload,
+  PanelColorSettings,
 } from 'wp.blockEditor';
 import {
   PanelBody,
@@ -60,6 +61,9 @@ const ImageBoxEditBlock = ({
     imageWidth,
     contentAlign,
     titleBottomSpacing,
+    textColor,
+    titleColor,
+    backgroundColor,
   } = attributes;
 
   useUniqueId({ attributes, setAttributes, clientId });
@@ -77,6 +81,9 @@ const ImageBoxEditBlock = ({
           [`${className}-align-${imageAlign}`]: true,
           [`${className}-content-align-${contentAlign}`]: !!contentAlign,
         })}
+        style={{
+          backgroundColor: backgroundColor || undefined,
+        }}
       >
         <figure className={`${className}-figure`}>
           {url ? (
@@ -115,10 +122,12 @@ const ImageBoxEditBlock = ({
             isSelected={isSelected && editable === 'title'}
             onFocus={() => setActiveEditable('title')}
             style={{
+              color: titleColor || undefined,
               fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
-              marginBottom: titleBottomSpacing
-                ? `${titleBottomSpacing}px`
-                : undefined,
+              marginBottom:
+                titleBottomSpacing != null
+                  ? `${titleBottomSpacing}px`
+                  : undefined,
             }}
           />
 
@@ -131,6 +140,7 @@ const ImageBoxEditBlock = ({
             isSelected={isSelected && editable === 'text'}
             onFocus={() => setActiveEditable('text')}
             style={{
+              color: textColor || undefined,
               fontSize: textFontSize ? `${textFontSize}px` : undefined,
             }}
           />
@@ -271,7 +281,28 @@ const ImageBoxEditBlock = ({
               />
             </PanelBody>
 
-            <PanelBody title={__('Block Appearance')} initialOpen={false}>
+            <PanelColorSettings
+              title={__('Block Appearance')}
+              initialOpen={false}
+              colorSettings={[
+                {
+                  value: titleColor,
+                  onChange: value => setAttributes({ titleColor: value }),
+                  label: __('Title Color'),
+                },
+                {
+                  value: textColor,
+                  onChange: value => setAttributes({ textColor: value }),
+                  label: __('Content Text Color'),
+                },
+                {
+                  value: backgroundColor,
+                  onChange: value => setAttributes({ backgroundColor: value }),
+                  label: __('Block Background Color'),
+                },
+              ]}
+              onChange={value => setAttributes({ backgroundColor: value })}
+            >
               <ResponsiveControl>
                 {breakpoint => (
                   <MarginControls
@@ -295,7 +326,7 @@ const ImageBoxEditBlock = ({
                   />
                 )}
               </ResponsiveControl>
-            </PanelBody>
+            </PanelColorSettings>
           </InspectorControls>
         </Fragment>
       )}

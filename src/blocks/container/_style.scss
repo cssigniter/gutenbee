@@ -1,7 +1,9 @@
 @import 'common';
 
 .wp-block-gutenbee-container {
-  overflow: hidden;
+  &.has-parallax {
+    overflow: hidden;
+  }
 
   &.gutenbee-alignwide {
     margin-left: calc(-100vw / 2 + 100% / 2) !important;

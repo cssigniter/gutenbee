@@ -2,9 +2,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
-import { PanelBody } from 'wp.components';
+import { PanelBody, SelectControl } from 'wp.components';
 import {
-  AlignmentToolbar,
   BlockControls,
   InspectorControls,
   RichText,
@@ -89,12 +88,6 @@ function HeadingEdit({
           selectedLevel={level}
           onChange={newLevel => setAttributes({ level: newLevel })}
         />
-        <AlignmentToolbar
-          value={align}
-          onChange={nextAlign => {
-            setAttributes({ align: nextAlign });
-          }}
-        />
       </BlockControls>
 
       <InspectorControls>
@@ -117,6 +110,29 @@ function HeadingEdit({
                   setAttributes({
                     fontSize: {
                       ...fontSize,
+                      [breakpoint]: value != null ? value : '',
+                    },
+                  })
+                }
+              />
+            )}
+          </ResponsiveControl>
+
+          <ResponsiveControl>
+            {breakpoint => (
+              <SelectControl
+                label={__('Text Alignment')}
+                value={align[breakpoint]}
+                options={[
+                  { value: '', label: __('') },
+                  { value: 'left', label: __('Left') },
+                  { value: 'center', label: __('Center') },
+                  { value: 'right', label: __('Right') },
+                ]}
+                onChange={value =>
+                  setAttributes({
+                    align: {
+                      ...align,
                       [breakpoint]: value != null ? value : '',
                     },
                   })
