@@ -1,1 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="m18 2v16h-7.5v-6h1.5v-4h-1.5v-6z" fill="#ffd400"/><path d="m9.5 12v6h-7.5v-16h7.5v6h-1.5v4z" fill="#f2f2f2"/><path d="m9.5 8v-6h-7.5v16h7.5v-6h-1.5v-4zm-9.5-8h20v20h-20zm12 8v4h-1.5v6h7.5v-16h-7.5v6z" fill="#333"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <title>image_comparison</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="V2_-_IMAGE_COMPARISON" data-name="V2 - IMAGE COMPARISON">
+      <g>
+        <polygon points="12 2 2 2 2 22 12 22 12 12 12 2" style="fill: #ffd400"/>
+        <path d="M0,0V24H24V0ZM22,22H2V2H22Z" style="fill: #333"/>
+        <polygon points="12 12 12 22 22 22 22 2 12 2 12 12" style="fill: #fff"/>
+        <polygon points="8 14 12 14 16 14 16 10 12 10 8 10 8 14" style="fill: #333"/>
+      </g>
+    </g>
+  </g>
+</svg>

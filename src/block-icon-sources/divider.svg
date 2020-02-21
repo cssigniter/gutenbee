@@ -1,9 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-  <g>
-    <path d="M0,0V6H20V0ZM18,4H2V0H18Z" style="fill: #333"/>
-    <rect x="2" width="16" height="4" style="fill: #fc0"/>
-    <path d="M20,20V14H0v6ZM2,16H18v4H2Z" style="fill: #333"/>
-    <rect x="2" y="16" width="16" height="4" transform="translate(20 36) rotate(180)" style="fill: #fc0"/>
-    <rect y="9" width="20" height="2" style="fill: #333"/>
+  <title>divider</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="V2_-_DIVIDER" data-name="V2 - DIVIDER">
+      <g>
+        <rect x="2" y="2" width="20" height="20" style="fill: #ffd400"/>
+        <path d="M0,0V24H24V0ZM22,22H2V2H22Z" style="fill: #333"/>
+        <polygon points="20 11 4 11 4 13 20 13 20 11 20 11" style="fill: #333"/>
+      </g>
+    </g>
   </g>
 </svg>

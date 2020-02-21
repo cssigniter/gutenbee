@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <title>buttons</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="V2_-_BUTTONS" data-name="V2 - BUTTONS">
+      <g>
+        <g>
+          <rect x="1" y="1" width="22" height="8" style="fill: #ffd400"/>
+          <path d="M22,2V8H2V2H22m2-2H0V10H24V0Z" style="fill: #333"/>
+        </g>
+        <g>
+          <rect x="4" y="4" width="16" height="2" style="fill: #ffd400"/>
+          <polygon points="20 4 4 4 4 6 20 6 20 4 20 4" style="fill: #333"/>
+        </g>
+        <g>
+          <rect x="1" y="15" width="22" height="8" style="fill: #ffd400"/>
+          <path d="M22,16v6H2V16H22m2-2H0V24H24V14Z" style="fill: #333"/>
+        </g>
+        <g>
+          <rect x="4" y="18" width="16" height="2" style="fill: #ffd400"/>
+          <polygon points="20 18 4 18 4 20 20 20 20 18 20 18" style="fill: #333"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

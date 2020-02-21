@@ -1,1 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><g data-name="Layer 2"><g data-name="post types"><g fill="#333"><path d="M0 8h8V0H0zm2-6h4v4H2zM10 0h8v2h-8zM10 6h10v2H10zM0 20h8v-8H0zm2-6h4v4H2zM10 12h8v2h-8zM10 18h10v2H10z"/></g><g fill="#fc0"><path d="M2 2h4v4H2zM2 14h4v4H2z"/></g></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <title>post_type</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="V2_-_POST_TYPE" data-name="V2 - POST TYPE">
+      <g>
+        <path d="M0,14V24H10V14Zm8,8H2V16H8Z" style="fill: #333"/>
+        <rect x="12" width="12" height="2" style="fill: #333"/>
+        <rect x="12" y="2" width="10" height="2" style="fill: #ffd400"/>
+        <rect x="12" y="6" width="12" height="2" style="fill: #333"/>
+        <rect x="12" y="8" width="10" height="2" style="fill: #ffd400"/>
+        <rect x="12" y="20" width="12" height="2" style="fill: #333"/>
+        <rect x="12" y="22" width="10" height="2" style="fill: #ffd400"/>
+        <path d="M0,0V10H10V0ZM8,8H2V2H8Z" style="fill: #333"/>
+        <rect x="12" y="14" width="12" height="2" style="fill: #333"/>
+        <rect x="12" y="16" width="10" height="2" style="fill: #ffd400"/>
+        <rect x="2" y="2" width="6" height="6" style="fill: #ffd400"/>
+        <rect x="2" y="16" width="6" height="6" style="fill: #ffd400"/>
+      </g>
+    </g>
+  </g>
+</svg>

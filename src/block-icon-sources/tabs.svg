@@ -1,1 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="m6 2h-4v16h16v-12h-12z" fill="#ffd400"/><path d="m19 4h-1v-4h-18v20h20v-16zm-2-3v3h-4v-3zm-9 1v-1h4v3h-4zm10 16h-16v-16h4v4h12z" fill="#333"/><g fill="#fff"><path d="m12 1h-4v1 2h4z"/><path d="m14 4h3v-3h-4v3z"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <title>tabs</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="V2_-_TABS" data-name="V2 - TABS">
+      <g>
+        <polygon points="12 6 8 6 6 6 2 6 2 22 22 22 22 6 20 6 14 6 12 6" style="fill: #ffd400"/>
+        <polygon points="20 4 20 6 22 6 22 22 2 22 2 6 0 6 0 24 24 24 24 4 20 4" style="fill: #333"/>
+        <rect x="2" y="2" width="4" height="2" style="fill: #ffd400"/>
+        <polygon points="2 6 6 6 6 4 2 4 2 2 6 2 6 0 0 0 0 4 0 6 2 6" style="fill: #333"/>
+        <rect x="8" y="2" width="4" height="2" style="fill: #fff"/>
+        <polygon points="6 2 6 4 6 6 8 6 12 6 12 4 8 4 8 2 12 2 12 0 8 0 6 0 6 2" style="fill: #333"/>
+        <rect x="14" y="2" width="4" height="2" style="fill: #fff"/>
+        <path d="M12,2V6h8V0H12Zm2,0h4V4H14Z" style="fill: #333"/>
+      </g>
+    </g>
+  </g>
+</svg>

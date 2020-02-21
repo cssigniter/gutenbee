@@ -1,5 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24.00012" height="24.00015" viewBox="0 0 24.00012 24.00015">
-  <rect x="0.00012" y="2.00015" width="24" height="20" style="fill: #ffd400"/>
-  <polygon points="13 22 13 14 11 14 11 22 0 22 0 24 24 24 24 22 13 22" style="fill: #333"/>
-  <polygon points="11 2 11 10 13 10 13 2 24 2 24 0 0 0 0 2 11 2" style="fill: #333"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24.00006" viewBox="0 0 24 24.00006">
+  <title>spacer</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="V2_-_SPACER" data-name="V2 - SPACER">
+      <g>
+        <rect y="2" width="24" height="20" style="fill: #ffd400"/>
+        <polygon points="0 0 0 2 11 2 11 10 13 10 13 2 24 2 24 0 0 0" style="fill: #333"/>
+        <polygon points="0 24 0 22 11 22 11 14 13 14 13 22 24 22 24 24 0 24" style="fill: #333"/>
+      </g>
+    </g>
+  </g>
 </svg>
