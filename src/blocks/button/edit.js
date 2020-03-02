@@ -17,7 +17,6 @@ import classnames from 'classnames';
 import useUniqueId from '../../hooks/useUniqueId';
 import getBlockId from '../../util/getBlockId';
 import ButtonStyle from './style';
-import URLPicker from './URLPicker';
 import MarginControls from '../../components/controls/margin-controls';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 
@@ -31,13 +30,7 @@ const propTypes = {
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
-const ButtonEdit = ({
-  attributes,
-  setAttributes,
-  className,
-  clientId,
-  isSelected,
-}) => {
+const ButtonEdit = ({ attributes, setAttributes, className, clientId }) => {
   const {
     uniqueId,
     url,
@@ -102,14 +95,6 @@ const ButtonEdit = ({
         />
       </div>
 
-      <URLPicker
-        url={url}
-        setAttributes={setAttributes}
-        isSelected={isSelected}
-        opensInNewTab={linkTarget === '_blank'}
-        onToggleOpenInNewTab={onToggleOpenInNewTab}
-      />
-
       <InspectorControls>
         <PanelBody title={__('Button Settings')} initialOpen>
           <RangeControl
@@ -132,6 +117,13 @@ const ButtonEdit = ({
             onChange={value => setAttributes({ borderWidth: value })}
           />
 
+          <TextControl
+            label={__('Button URL')}
+            value={url}
+            onChange={value => setAttributes({ url: value })}
+            type="url"
+            placeholder="https://"
+          />
           <ToggleControl
             label={__('Open in new tab')}
             onChange={onToggleOpenInNewTab}

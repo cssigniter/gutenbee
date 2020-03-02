@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { PanelBody, SelectControl } from 'wp.components';
@@ -17,6 +16,7 @@ import MarginControls from '../../components/controls/margin-controls';
 import HeadingStyle from './style';
 import getBlockId from '../../util/getBlockId';
 import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
+import Rule from '../../components/stylesheet/Rule';
 
 const propTypes = {
   attribute: PropTypes.object.isRequired,
@@ -56,7 +56,13 @@ function HeadingEdit({
 
   return (
     <Fragment>
-      <HeadingStyle attributes={attributes} />
+      <HeadingStyle attributes={attributes}>
+        <Rule
+          value={fontSize}
+          rule={` ${tagName} { font-size: %s !important; }`}
+          unit="px"
+        />
+      </HeadingStyle>
 
       <div
         id={blockId}
@@ -74,17 +80,15 @@ function HeadingEdit({
           onMerge={mergeBlocks}
           onReplace={onReplace}
           onRemove={() => onReplace([])}
-          className={classNames(className, {
-            [`has-text-align-${align}`]: align,
-          })}
+          className={className}
           placeholder={placeholder || __('Write heading…')}
         />
       </div>
 
       <BlockControls>
         <HeadingToolbar
-          minLevel={2}
-          maxLevel={5}
+          minLevel={1}
+          maxLevel={7}
           selectedLevel={level}
           onChange={newLevel => setAttributes({ level: newLevel })}
         />

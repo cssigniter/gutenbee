@@ -233,7 +233,7 @@ const ContainerBlockEdit = ({
               />
 
               <CheckboxControl
-                label={__('Enable theme grid (experimental)')}
+                label={__('Enable theme grid')}
                 value="on"
                 checked={themeGrid}
                 onChange={value => setAttributes({ themeGrid: value })}
@@ -290,6 +290,7 @@ const ContainerBlockEdit = ({
                         })
                       }
                       step={1}
+                      initialPosition={120}
                       help={__(
                         'Leave blank for auto height or set to -1 for full viewport height.',
                       )}
@@ -316,6 +317,7 @@ const ContainerBlockEdit = ({
                       }}
                       step={1}
                       help={__('Set to -1 for 100% width.')}
+                      initialPosition={-1}
                     />
                   </Fragment>
                 )}

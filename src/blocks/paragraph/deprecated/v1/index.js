@@ -1,45 +1,41 @@
 import { Fragment } from 'wp.element';
-import { registerBlockType } from 'wp.blocks';
-import { __ } from 'wp.i18n';
 import { RichText, getColorClassName } from 'wp.blockEditor';
 import classNames from 'classnames';
 
-import getBlockId from '../../util/getBlockId';
-import ParagraphEdit from './edit';
-import ParagraphStyle from './style';
-import ParagraphBlockIcon from './block-icon';
+import StyleSheet from '../../../../components/stylesheet';
+import Rule from '../../../../components/stylesheet/Rule';
+import getBlockId from '../../../../util/getBlockId';
 import {
   getDefaultResponsiveValue,
   getDefaultSpacingValue,
-} from '../../components/controls/responsive-control/default-values';
-import deprecated from './deprecated';
+} from '../../../../components/controls/responsive-control/default-values';
 
-registerBlockType('gutenbee/paragraph', {
-  title: __('GutenBee Paragraph'),
-  description: __('Start with the building block of all narrative.'),
-  icon: ParagraphBlockIcon,
-  category: 'gutenbee',
-  keywords: [__('text'), __('content'), __('paragraph')],
+const ParagraphStyle = ({ attributes, children }) => {
+  const { uniqueId, blockPadding, blockMargin, fontSize } = attributes;
+  const blockId = getBlockId(uniqueId);
+
+  return (
+    <StyleSheet id={blockId}>
+      <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
+      <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
+      <Rule value={fontSize} rule="{ font-size: %s; }" unit="px" />
+
+      {children}
+    </StyleSheet>
+  );
+};
+
+const paragraphDeprecationV1 = {
   supports: {
     className: true,
     anchor: false,
-  },
-  example: {
-    attributes: {
-      content: __(
-        'It was a bright cold day in April, and the clocks were striking thirteen.',
-      ),
-      fontSize: 16,
-      dropCap: false,
-    },
   },
   attributes: {
     uniqueId: {
       type: 'string',
     },
     align: {
-      type: 'object',
-      default: getDefaultResponsiveValue(),
+      type: 'string',
     },
     content: {
       type: 'string',
@@ -68,11 +64,7 @@ registerBlockType('gutenbee/paragraph', {
     },
     fontSize: {
       type: 'object',
-      default: {
-        desktop: '',
-        tablet: '',
-        mobile: '',
-      },
+      default: getDefaultResponsiveValue(),
     },
     blockPadding: {
       type: 'object',
@@ -83,11 +75,20 @@ registerBlockType('gutenbee/paragraph', {
       default: getDefaultSpacingValue(),
     },
   },
-  deprecated,
-  edit: ParagraphEdit,
+  migrate(attributes) {
+    return {
+      ...attributes,
+      align: getDefaultResponsiveValue({
+        desktop: attributes.align,
+        tablet: '',
+        mobile: '',
+      }),
+    };
+  },
   save: ({ attributes }) => {
     const {
       uniqueId,
+      align,
       content,
       dropCap,
       backgroundColor,
@@ -107,6 +108,7 @@ registerBlockType('gutenbee/paragraph', {
     const className = classNames({
       'has-text-color': textColor || customTextColor,
       'has-drop-cap': dropCap,
+      [`has-text-align-${align}`]: align,
       [textClass]: textClass,
       [backgroundClass]: backgroundClass,
     });
@@ -130,4 +132,6 @@ registerBlockType('gutenbee/paragraph', {
       </Fragment>
     );
   },
-});
+};
+
+export default paragraphDeprecationV1;

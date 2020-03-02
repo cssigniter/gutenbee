@@ -36,7 +36,7 @@ registerBlockType('gutenbee/container', {
     },
     gutter: {
       type: 'string',
-      default: 'lg',
+      default: 'md',
     },
     columnDirection: {
       type: 'object',
@@ -126,6 +126,7 @@ registerBlockType('gutenbee/container', {
       gutter,
       overlayBackgroundColor,
       overlayBackgroundColorOpacity,
+      themeGrid,
     } = attributes;
 
     const { parallax, parallaxSpeed } = backgroundImage;
@@ -135,6 +136,7 @@ registerBlockType('gutenbee/container', {
         id={getBlockId(uniqueId)}
         className={classNames(className, {
           'has-parallax': parallax,
+          'theme-grid': themeGrid,
         })}
         style={{
           color: textColor,

@@ -7,12 +7,12 @@ import { getDefaultSpacingValue } from '../../components/controls/responsive-con
 import ButtonEdit from './edit';
 import ButtonStyle from './style';
 import getBlockId from '../../util/getBlockId';
+import ButtonBlockIcon from './block-icon';
 
 registerBlockType('gutenbee/button', {
   title: __('GutenBee Button'),
   description: __('Prompt visitors to take action with a button-style link.'),
-  // TODO add icon
-  icon: 'icon',
+  icon: ButtonBlockIcon,
   category: 'gutenbee',
   keywords: [__('button'), __('button link'), __('call to action')],
   supports: {

@@ -9,14 +9,14 @@ import {
 import ButtonsEdit from './edit';
 import getBlockId from '../../util/getBlockId';
 import ButtonsStyle from './style';
+import ButtonsBlockIcon from './block-icon';
 
 registerBlockType('gutenbee/buttons', {
   title: __('GutenBee Button Group'),
   description: __(
     'Prompt visitors to take action with a group of button-style links',
   ),
-  // TODO: Icons
-  icon: 'icon',
+  icon: ButtonsBlockIcon,
   category: 'gutenbee',
   keywords: [__('link'), __('button'), __('call to action')],
   attributes: {

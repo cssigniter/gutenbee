@@ -1,44 +1,36 @@
 import { Fragment } from 'wp.element';
-import { registerBlockType } from 'wp.blocks';
-import { __ } from 'wp.i18n';
 import { RichText } from 'wp.blockEditor';
 import classNames from 'classnames';
 
-import HeadingEdit from './edit';
-import getBlockId from '../../util/getBlockId';
-import HeadingStyle from './style';
-import HeadingBlockIcon from './block-icon';
 import {
   getDefaultResponsiveValue,
   getDefaultSpacingValue,
-} from '../../components/controls/responsive-control/default-values';
-import deprecated from './deprecated';
+} from '../../../../components/controls/responsive-control/default-values';
+import getBlockId from '../../../../util/getBlockId';
+import StyleSheet from '../../../../components/stylesheet';
+import Rule from '../../../../components/stylesheet/Rule';
 
-registerBlockType('gutenbee/heading', {
-  title: __('GutenBee Heading'),
-  description: __(
-    'Introduce new sections and organize content to help visitors (and search engines) understand the structure of your content.',
-  ),
-  icon: HeadingBlockIcon,
-  category: 'gutenbee',
-  keywords: [__('title'), __('subtitle'), __('heading')],
-  supports: {
-    className: true,
-    anchor: false,
-  },
-  example: {
-    attributes: {
-      content: __('Code is Poetry'),
-      level: 2,
-    },
-  },
+const HeadingStyle = ({ attributes, children }) => {
+  const { uniqueId, blockPadding, blockMargin } = attributes;
+  const blockId = getBlockId(uniqueId);
+
+  return (
+    <StyleSheet id={blockId}>
+      <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
+      <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
+
+      {children}
+    </StyleSheet>
+  );
+};
+
+const headingDeprecationV1 = {
   attributes: {
     uniqueId: {
       type: 'string',
     },
     align: {
-      type: 'object',
-      default: getDefaultResponsiveValue(),
+      type: 'string',
     },
     content: {
       type: 'string',
@@ -56,10 +48,6 @@ registerBlockType('gutenbee/heading', {
     textColor: {
       type: 'string',
     },
-    fontSize: {
-      type: 'object',
-      default: getDefaultResponsiveValue(),
-    },
     backgroundColor: {
       type: 'string',
     },
@@ -72,15 +60,32 @@ registerBlockType('gutenbee/heading', {
       default: getDefaultSpacingValue(),
     },
   },
-  deprecated,
-  edit: HeadingEdit,
+  migrate(attributes) {
+    return {
+      ...attributes,
+      fontSize: getDefaultResponsiveValue(),
+      align: getDefaultResponsiveValue({
+        desktop: attributes.align,
+        tablet: '',
+        mobile: '',
+      }),
+    };
+  },
   save: ({ attributes }) => {
-    const { uniqueId, content, level, textColor, backgroundColor } = attributes;
+    const {
+      uniqueId,
+      align,
+      content,
+      level,
+      textColor,
+      backgroundColor,
+    } = attributes;
     const tagName = 'h' + level;
 
     const className = classNames({
       'has-text-color': !!textColor,
       'has-background-color': !!backgroundColor,
+      [`has-text-align-${align}`]: align,
     });
 
     const blockId = getBlockId(uniqueId);
@@ -102,4 +107,6 @@ registerBlockType('gutenbee/heading', {
       </Fragment>
     );
   },
-});
+};
+
+export default headingDeprecationV1;

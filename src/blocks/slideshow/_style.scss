@@ -1,7 +1,11 @@
-@import '~slick-carousel/slick/slick';
+@import "~slick-carousel/slick/slick.scss";
 
 .wp-block-gutenbee-slideshow {
   margin: $base-block-vertical-spacing 0;
+
+  style {
+    display: none !important;
+  }
 
   &:not(.slick-initialized) {
     > div {

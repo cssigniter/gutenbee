@@ -257,6 +257,10 @@
   margin: 30px 0;
 }
 
+.wp-block-gutenbee-slideshow style {
+  display: none !important;
+}
+
 .wp-block-gutenbee-slideshow:not(.slick-initialized) > div {
   display: none;
 }
