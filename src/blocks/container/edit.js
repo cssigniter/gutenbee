@@ -163,6 +163,8 @@ const ContainerBlockEdit = ({
 
   const classes = classNames(blockId, className);
 
+  const supports = window.__GUTENBEE_SETTINGS__.theme_supports['container'];
+
   return (
     <Fragment>
       <ContainerStyle attributes={attributes}>
