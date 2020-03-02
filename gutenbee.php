@@ -156,7 +156,7 @@
 		$settings = wp_parse_args( $settings, $defaults );
 
 		$settings['theme_supports']['post-types'] = gutenbee_block_post_types_get_theme_support();
-//		$settings['theme_supports']['container']  = gutenbee_block_container_get_theme_support();
+		$settings['theme_supports']['container']  = gutenbee_block_container_get_theme_support();
 
 		return $settings;
 	}
@@ -250,4 +250,5 @@
 	}
 
 	require_once untrailingslashit( dirname( __FILE__ ) ) . '/inc/options.php';
+	require_once untrailingslashit( dirname( __FILE__ ) ) . '/src/blocks/container/block.php';
 	require_once untrailingslashit( dirname( __FILE__ ) ) . '/src/blocks/post-types/block.php';
