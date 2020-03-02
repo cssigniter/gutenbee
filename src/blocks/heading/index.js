@@ -13,6 +13,7 @@ import {
   getDefaultSpacingValue,
 } from '../../components/controls/responsive-control/default-values';
 import deprecated from './deprecated';
+import transforms from './transforms';
 
 registerBlockType('gutenbee/heading', {
   title: __('GutenBee Heading'),
@@ -73,6 +74,7 @@ registerBlockType('gutenbee/heading', {
     },
   },
   deprecated,
+  transforms,
   edit: HeadingEdit,
   save: ({ attributes }) => {
     const { uniqueId, content, level, textColor, backgroundColor } = attributes;
