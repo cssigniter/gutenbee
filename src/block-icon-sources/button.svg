@@ -1,16 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="10" viewBox="0 0 24 10">
-  <g>
+    <path fill="#ffd400" d="M1 1h22v8H1z"/>
+    <path d="M22 2v6H2V2h20m2-2H0v10h24V0z" fill="#333"/>
     <g>
-      <g>
-        <g>
-          <rect x="1" y="1" width="22" height="8" style="fill: #ffd400"/>
-          <path d="M22,2V8H2V2H22m2-2H0V10H24V0Z" style="fill: #333"/>
-        </g>
-        <g>
-          <rect x="4" y="4" width="16" height="2" style="fill: #ffd400"/>
-          <polygon points="20 4 4 4 4 6 20 6 20 4 20 4" style="fill: #333"/>
-        </g>
-      </g>
+        <path fill="#ffd400" d="M4 4h16v2H4z"/>
+        <path fill="#333" d="M20 4H4v2h16V4z"/>
     </g>
-  </g>
 </svg>

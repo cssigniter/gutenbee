@@ -1,14 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-  <title>icon</title>
-  <g id="Layer_2" data-name="Layer 2">
-    <g id="V2_-_ICON" data-name="V2 - ICON">
-      <g>
-        <g>
-          <rect x="2" y="2" width="20" height="20" style="fill: #ffd400"/>
-          <path d="M0,0V24H24V0ZM22,22H2V2H22Z" style="fill: #333"/>
-        </g>
-        <polygon points="12 13.646 13.545 14.5 13.25 12.691 14.5 11.41 12.773 11.146 12 9.5 11.227 11.146 9.5 11.41 10.75 12.691 10.455 14.5 12 13.646" style="fill: #333"/>
-      </g>
-    </g>
-  </g>
+    <path fill="#ffd400" d="M2 2h20v20H2z" />
+    <path d="M0 0v24h24V0zm22 22H2V2h20z" fill="#333" />
+    <path
+      fill="#333"
+      d="M12 13.646l1.545.854-.295-1.809 1.25-1.281-1.727-.264L12 9.5l-.773 1.646-1.727.264 1.25 1.281-.295 1.809L12 13.646z"
+    />
 </svg>

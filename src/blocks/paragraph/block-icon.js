@@ -5,10 +5,10 @@ const ParagraphBlockIcon = () => (
     height="24"
     viewBox="0 0 24 24"
   >
-    <rect x="1" y="1" width="22" height="22" fill="#ffd400" />
-    <path d="M0,0V24H24V0ZM22,22H2V2H22Z" fill="#333" />
-    <rect x="10" y="8" width="4" height="4" fill="#fff" />
-    <path d="M10,14h6V6H8V18h2Zm0-6h4v4H10Z" fill="#333" />
+    <path fill="#ffd400" d="M2 2h20v20H2z" />
+    <path d="M0 0v24h24V0zm22 22H2V2h20z" fill="#333" />
+    <path fill="#fff" d="M10 8h4v4h-4z" />
+    <path d="M10 14h6V6H8v12h2zm0-6h4v4h-4z" fill="#333" />
   </svg>
 );
 

@@ -1,12 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-  <title>container</title>
-  <g id="Layer_2" data-name="Layer 2">
-    <g id="V2_-_CONTAINER" data-name="V2 - CONTAINER">
-      <g>
-        <rect width="24" height="24" style="fill: #333"/>
-        <rect x="2" y="2" width="20" height="20" style="fill: #ffd400"/>
-        <rect x="4" y="4" width="16" height="16" style="fill: #333"/>
-      </g>
-    </g>
-  </g>
+    <path fill="#333" d="M0 0h24v24H0z"/>
+    <path fill="#ffd400" d="M2 2h20v20H2z"/>
+    <path fill="#333" d="M4 4h16v16H4z"/>
 </svg>

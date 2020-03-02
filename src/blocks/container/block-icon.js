@@ -1,10 +1,13 @@
 const ContainerBlockIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
-    <g>
-      <path d="M0 0v20h20V0zm18 18H2V2h16z" fill="#333" />
-      <path fill="#ffd400" d="M2 2h16v16H2z" />
-      <path fill="#333" d="M4 4h12v12H4z" />
-    </g>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+  >
+    <path fill="#333" d="M0 0h24v24H0z" />
+    <path fill="#ffd400" d="M2 2h20v20H2z" />
+    <path fill="#333" d="M4 4h16v16H4z" />
   </svg>
 );
 

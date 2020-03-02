@@ -1,14 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-  <title>countup</title>
-  <g id="Layer_2" data-name="Layer 2">
-    <g id="V2_-_COUNT_UP" data-name="V2 - COUNT UP">
-      <g>
-        <g>
-          <rect x="1" y="1" width="22" height="22" style="fill: #ffd400"/>
-          <path d="M22,2V22H2V2H22m2-2H0V24H24V0Z" style="fill: #333"/>
-        </g>
-        <polygon points="11.807 9.212 13.711 12 15.614 14.788 11.807 14.788 8 14.788 9.904 12 11.807 9.212" style="fill: #333"/>
-      </g>
-    </g>
-  </g>
+    <path fill="#ffd400" d="M1 1h22v22H1z"/>
+    <path d="M22 2v20H2V2h20m2-2H0v24h24V0z" fill="#333"/>
+    <path fill="#333" d="M11.807 9.212L13.711 12l1.903 2.788H8L9.904 12l1.903-2.788z"/>
 </svg>

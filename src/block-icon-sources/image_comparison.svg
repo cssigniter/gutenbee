@@ -1,13 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-  <title>image_comparison</title>
-  <g id="Layer_2" data-name="Layer 2">
-    <g id="V2_-_IMAGE_COMPARISON" data-name="V2 - IMAGE COMPARISON">
-      <g>
-        <polygon points="12 2 2 2 2 22 12 22 12 12 12 2" style="fill: #ffd400"/>
-        <path d="M0,0V24H24V0ZM22,22H2V2H22Z" style="fill: #333"/>
-        <polygon points="12 12 12 22 22 22 22 2 12 2 12 12" style="fill: #fff"/>
-        <polygon points="8 14 12 14 16 14 16 10 12 10 8 10 8 14" style="fill: #333"/>
-      </g>
-    </g>
-  </g>
+    <path fill="#ffd400" d="M12 2H2v20h10V2z" />
+    <path d="M0 0v24h24V0zm22 22H2V2h20z" fill="#333" />
+    <path fill="#fff" d="M12 12v10h10V2H12v10z" />
+    <path fill="#333" d="M8 14h8v-4H8v4z" />
 </svg>

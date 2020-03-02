@@ -1,19 +1,18 @@
 const ProgressBarBlockIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
     width="24"
-    height="24"
+    height="22"
+    viewBox="0 0 24 22"
   >
-    <g fill="#333">
-      <path d="m0 0v2h18 2v-2z" />
-      <path d="m0 8h16 2v-2h-18z" />
-      <path d="m0 14h14 2v-2h-16z" />
-      <path d="m0 18h14v2h-14z" />
-    </g>
-    <path d="m0 2h18v2h-18z" fill="#ffd400" />
-    <path d="m0 8h16v2h-16z" fill="#ffd400" />
-    <path d="m0 14h14v2h-14z" fill="#ffd400" />
+    <path fill="#333" d="M0 0h24v2H0z" />
+    <path fill="#ffd400" d="M0 2h22v2H0z" />
+    <path fill="#333" d="M0 6h22v2H0z" />
+    <path fill="#ffd400" d="M0 8h20v2H0z" />
+    <path fill="#333" d="M0 12h20v2H0z" />
+    <path fill="#ffd400" d="M0 14h18v2H0z" />
+    <path fill="#333" d="M0 18h18v2H0z" />
+    <path fill="#ffd400" d="M0 20h16v2H0z" />
   </svg>
 );
 

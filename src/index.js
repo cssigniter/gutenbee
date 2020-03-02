@@ -39,3 +39,4 @@ import './blocks/buttons';
 // Misc
 //
 import './options';
+import './category-icon';

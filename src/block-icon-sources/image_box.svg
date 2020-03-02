@@ -1,19 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-  <title>image_box</title>
-  <g id="Layer_2" data-name="Layer 2">
-    <g id="V2_-_IMAGE_BOX" data-name="V2 - IMAGE BOX">
-      <g>
-        <g>
-          <rect y="18" width="24" height="2" style="fill: #333"/>
-          <rect y="22" width="24" height="2" style="fill: #333"/>
-          <g>
-            <rect x="2" y="2" width="20" height="10" style="fill: #ffd400"/>
-            <path d="M22,2V12H2V2H22m2-2H0V14H24V0Z" style="fill: #333"/>
-          </g>
-        </g>
-        <rect x="2" y="2" width="10" height="10" style="fill: #fff"/>
-        <circle cx="6" cy="6" r="2" style="fill: #333"/>
-      </g>
-    </g>
-  </g>
+    <path fill="#333" d="M0 18h24v2H0zM0 22h24v2H0z" />
+    <path fill="#ffd400" d="M2 2h20v10H2z" />
+    <path d="M22 2v10H2V2h20m2-2H0v14h24V0z" fill="#333" />
+    <path fill="#fff" d="M2 2h10v10H2z" />
+    <circle cx="6" cy="6" r="2" fill="#333" />
 </svg>

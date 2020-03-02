@@ -1,17 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-  <title>tabs</title>
-  <g id="Layer_2" data-name="Layer 2">
-    <g id="V2_-_TABS" data-name="V2 - TABS">
-      <g>
-        <polygon points="12 6 8 6 6 6 2 6 2 22 22 22 22 6 20 6 14 6 12 6" style="fill: #ffd400"/>
-        <polygon points="20 4 20 6 22 6 22 22 2 22 2 6 0 6 0 24 24 24 24 4 20 4" style="fill: #333"/>
-        <rect x="2" y="2" width="4" height="2" style="fill: #ffd400"/>
-        <polygon points="2 6 6 6 6 4 2 4 2 2 6 2 6 0 0 0 0 4 0 6 2 6" style="fill: #333"/>
-        <rect x="8" y="2" width="4" height="2" style="fill: #fff"/>
-        <polygon points="6 2 6 4 6 6 8 6 12 6 12 4 8 4 8 2 12 2 12 0 8 0 6 0 6 2" style="fill: #333"/>
-        <rect x="14" y="2" width="4" height="2" style="fill: #fff"/>
-        <path d="M12,2V6h8V0H12Zm2,0h4V4H14Z" style="fill: #333"/>
-      </g>
-    </g>
-  </g>
+    <path fill="#ffd400" d="M12 6H2v16h20V6H12z" />
+    <path fill="#333" d="M20 4v2h2v16H2V6H0v18h24V4h-4z" />
+    <path fill="#ffd400" d="M2 2h4v2H2z" />
+    <path fill="#333" d="M2 6h4V4H2V2h4V0H0v6h2z" />
+    <path fill="#fff" d="M8 2h4v2H8z" />
+    <path fill="#333" d="M6 2v4h6V4H8V2h4V0H6v2z" />
+    <path fill="#fff" d="M14 2h4v2h-4z" />
+    <path d="M12 2v4h8V0h-8zm2 0h4v2h-4z" fill="#333" />
 </svg>

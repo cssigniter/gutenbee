@@ -5,20 +5,9 @@ const DividerBlockIcon = () => (
     height="24"
     viewBox="0 0 24 24"
   >
-    <g>
-      <path d="M0,0V6H20V0ZM18,4H2V0H18Z" style={{ fill: '#333' }} />
-      <rect x="2" width="16" height="4" style={{ fill: '#fc0' }} />
-      <path d="M20,20V14H0v6ZM2,16H18v4H2Z" style={{ fill: '#333' }} />
-      <rect
-        x="2"
-        y="16"
-        width="16"
-        height="4"
-        transform="translate(20 36) rotate(180)"
-        style={{ fill: '#fc0' }}
-      />
-      <rect y="9" width="20" height="2" style={{ fill: '#333' }} />
-    </g>
+    <path fill="#ffd400" d="M2 2h20v20H2z" />
+    <path d="M0 0v24h24V0zm22 22H2V2h20z" fill="#333" />
+    <path fill="#333" d="M20 11H4v2h16v-2z" />
   </svg>
 );
 

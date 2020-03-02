@@ -1,16 +1,14 @@
 const ImageComparisonBlockIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
     width="24"
     height="24"
+    viewBox="0 0 24 24"
   >
-    <path d="m18 2v16h-7.5v-6h1.5v-4h-1.5v-6z" fill="#ffd400" />
-    <path d="m9.5 12v6h-7.5v-16h7.5v6h-1.5v4z" fill="#f2f2f2" />
-    <path
-      d="m9.5 8v-6h-7.5v16h7.5v-6h-1.5v-4zm-9.5-8h20v20h-20zm12 8v4h-1.5v6h7.5v-16h-7.5v6z"
-      fill="#333"
-    />
+    <path fill="#ffd400" d="M12 2H2v20h10V2z" />
+    <path d="M0 0v24h24V0zm22 22H2V2h20z" fill="#333" />
+    <path fill="#fff" d="M12 12v10h10V2H12v10z" />
+    <path fill="#333" d="M8 14h8v-4H8v4z" />
   </svg>
 );
 

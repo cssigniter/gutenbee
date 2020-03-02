@@ -1,15 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-  <title>accordion</title>
-  <g id="Layer_2" data-name="Layer 2">
-    <g id="V2_-_ACCORDION" data-name="V2 - ACCORDION">
-      <g>
-        <rect width="24" height="2" style="fill: #333"/>
-        <g>
-          <rect x="2" y="8" width="20" height="8" style="fill: #ffd400"/>
-          <path d="M22,8v8H2V8H22m2-2H0V18H24V6Z" style="fill: #333"/>
-        </g>
-        <rect y="22" width="24" height="2" style="fill: #333"/>
-      </g>
-    </g>
-  </g>
+    <path fill="#333" d="M0 0h24v2H0z"/>
+    <path fill="#ffd400" d="M2 8h20v8H2z"/>
+    <path d="M22 8v8H2V8h20m2-2H0v12h24V6zM0 22h24v2H0z" fill="#333"/>
 </svg>

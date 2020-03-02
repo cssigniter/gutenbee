@@ -5,13 +5,11 @@ const VideoBlockIcon = () => (
     height="24"
     viewBox="0 0 24 24"
   >
-    <g>
-      <rect x="1" y="1" width="22" height="22" fill="#ffd400" />
-      <path d="M22,2V22H2V2H22m2-2H0V24H24V0Z" fill="#333" />
-    </g>
-    <polygon
-      points="15.576 11.807 12.788 13.711 10 15.614 10 11.807 10 8 12.788 9.904 15.576 11.807"
+    <path fill="#ffd400" d="M1 1h22v22H1z" />
+    <path d="M22 2v20H2V2h20m2-2H0v24h24V0z" fill="#333" />
+    <path
       fill="#333"
+      d="M15.576 11.807l-2.788 1.904L10 15.614V8l2.788 1.904 2.788 1.903z"
     />
   </svg>
 );
