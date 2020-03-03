@@ -40,7 +40,7 @@ registerBlockType('gutenbee/google-maps', {
       default: 10,
     },
     height: {
-      type: 'number',
+      type: 'object',
       default: getDefaultResponsiveValue({
         desktop: 280,
         tablet: 280,
