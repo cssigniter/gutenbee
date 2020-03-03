@@ -3,7 +3,7 @@ Contributors: cssigniterteam, silencerius, nvourva, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 5.3
 Tested up to: 5.3.2
-Stable tag: 2.1.0
+Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
 Requires PHP: 5.6
@@ -20,6 +20,7 @@ The plugin's documentation can be found [here](https://www.cssigniter.com/docs/g
 **Blocks:**
 
 * **Accordion**: Organize your content into accordion elements. All the content including titles can be edited directly in the WordPress editor and you can choose any color combination from the block’s settings.
+* **Buttons**: Actionable content needs clickable buttons. Add one or more buttons, tweak their colors, borders and alignment and you're all set!
 * **Countdown**: Have an upcoming event? Pick a date directly inside the editor screen, choose your layout, colors, and typography and you’re ready!
 * **CountUp**: Maybe not every block counts, but this one does! Pick a starting and ending number, add a suffix or prefix, style it and you’re done!
 * **Divider**: Provide thematic content spacing with a fancy divider, edit its style, colors, and margins.
@@ -61,6 +62,24 @@ Note that if you want to use the Google Maps block you will also need a Google M
 7. Tabs or Accordions, group your content the way you want.
 
 == Changelog ==
+= 2.3.0 =
+* Added New buttons block.
+* Added background overlay option for the container block.
+* Added responsive alignment options for the Heading / Paragraph blocks.
+* Added background color and spacing controls in image box and icon box blocks.
+* Added transformations from Heading to Paragraph and Paragraph to Heading.
+* Fixed an issue where the slider controls value would keep resetting on input blur.
+* Override fixed image attachment when in mobile.
+* Minor aesthetic fixes.
+* Container alignment settings now will inherit its desktop values over to the smaller breakpoints unless explicitly overridden.
+* Fixed single column width in container block to be 100%
+* Fixed visual alignment issues in image box and icon box blocks.
+* Fixed image attachment setting to be reverted when in mobile breakpoints.
+* Updated all block icons.
+* Fixed slideshow block.
+* Add new paragraph when return is pressed for GutenBee paragraph and heading blocks.
+* Fixed an issue with the Google Maps block where it would break in the editor if the height was adjusted.
+
 = 2.2.0 =
 * Added new video block.
 * Added responsive settings for blocks: ImageBox, Icon, IconBox.
