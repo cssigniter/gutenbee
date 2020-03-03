@@ -115,6 +115,7 @@
 		// index.js file, after `gutenbee/XYZ`, XYZ is the block's key).
 		return array(
 			'accordion'         => __( 'Accordion Block', 'gutenbee' ),
+			'buttons'           => __( 'Button Block', 'gutenbee' ),
 			'container'         => __( 'Container Block', 'gutenbee' ),
 			'countdown'         => __( 'Countdown Block', 'gutenbee' ),
 			'countup'           => __( 'Countup Block', 'gutenbee' ),
