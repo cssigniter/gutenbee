@@ -15,6 +15,7 @@ import {
   PanelColorSettings,
   RichText,
 } from 'wp.blockEditor';
+import { createBlock } from 'wp.blocks';
 import { compose } from 'wp.compose';
 import useUniqueId from '../../hooks/useUniqueId';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
@@ -223,6 +224,16 @@ const ParagraphBlock = ({
           onMerge={mergeBlocks}
           onReplace={onReplace}
           onRemove={onReplace ? () => onReplace([]) : undefined}
+          onSplit={value => {
+            if (!value) {
+              return createBlock('gutenbee/paragraph');
+            }
+
+            return createBlock('gutenbee/paragraph', {
+              ...attributes,
+              content: value,
+            });
+          }}
           aria-label={__('Paragraph block')}
           placeholder={placeholder || __('Start writing…')}
           __unstableEmbedURLOnPaste

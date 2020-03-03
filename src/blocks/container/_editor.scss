@@ -116,11 +116,15 @@
 
     > .editor-block-list__block-edit {
       > div[data-block] {
-        max-width: 1080px;
-        margin-left: auto;
-        margin-right: auto;
-        padding-left: $block-padding;
-        padding-right: $block-padding;
+        > .wp-block-gutenbee-container {
+          > .wp-block-gutenbee-container-inner {
+            max-width: 1080px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: $block-padding;
+            padding-right: $block-padding;
+          }
+        }
       }
     }
   }

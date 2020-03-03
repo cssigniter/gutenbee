@@ -163,7 +163,8 @@ const ContainerBlockEdit = ({
 
   const classes = classNames(blockId, className);
 
-  // const supports = window.__GUTENBEE_SETTINGS__.theme_supports['container'];
+  const supports =
+    window.__GUTENBEE_SETTINGS__.theme_supports['container'] || {};
 
   return (
     <Fragment>
@@ -234,12 +235,14 @@ const ContainerBlockEdit = ({
                 onChange={value => updateColumns(count, value)}
               />
 
-              <CheckboxControl
-                label={__('Enable theme grid')}
-                value="on"
-                checked={themeGrid}
-                onChange={value => setAttributes({ themeGrid: value })}
-              />
+              {supports.themeGrid && (
+                <CheckboxControl
+                  label={__('Enable theme grid')}
+                  value="on"
+                  checked={themeGrid}
+                  onChange={value => setAttributes({ themeGrid: value })}
+                />
+              )}
 
               <ResponsiveControl>
                 {breakpoint => (

@@ -8,6 +8,7 @@ import {
   RichText,
   PanelColorSettings,
 } from 'wp.blockEditor';
+import { createBlock } from 'wp.blocks';
 
 import HeadingToolbar from './heading-toolbar';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
@@ -80,6 +81,16 @@ function HeadingEdit({
           onMerge={mergeBlocks}
           onReplace={onReplace}
           onRemove={() => onReplace([])}
+          onSplit={value => {
+            if (!value) {
+              return createBlock('gutenbee/paragraph');
+            }
+
+            return createBlock('gutenbee/heading', {
+              ...attributes,
+              content: value,
+            });
+          }}
           className={className}
           placeholder={placeholder || __('Write heading…')}
         />
