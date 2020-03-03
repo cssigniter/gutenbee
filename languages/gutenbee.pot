@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: GutenBee!\n"
-"POT-Creation-Date: 2020-03-03 18:30+0200\n"
+"POT-Creation-Date: 2020-03-03 19:07+0200\n"
 "PO-Revision-Date: 2016-08-29 19:22+0300\n"
 "Last-Translator: Nik Vourvachis <nvourva@cssigniter.com>\n"
 "Language-Team: Nik Vourvachis <nvourva@cssigniter.com>\n"
@@ -31,74 +31,78 @@ msgid "Accordion Block"
 msgstr ""
 
 #: gutenbee.php:118
-msgid "Container Block"
+msgid "Button Block"
 msgstr ""
 
 #: gutenbee.php:119
-msgid "Countdown Block"
+msgid "Container Block"
 msgstr ""
 
 #: gutenbee.php:120
-msgid "Countup Block"
+msgid "Countdown Block"
 msgstr ""
 
 #: gutenbee.php:121
-msgid "Divider Block"
+msgid "Countup Block"
 msgstr ""
 
 #: gutenbee.php:122
-msgid "Heading Block"
+msgid "Divider Block"
 msgstr ""
 
 #: gutenbee.php:123
-msgid "Icon Block"
+msgid "Heading Block"
 msgstr ""
 
 #: gutenbee.php:124
-msgid "Icon Box Block"
+msgid "Icon Block"
 msgstr ""
 
 #: gutenbee.php:125
-msgid "Image Block"
+msgid "Icon Box Block"
 msgstr ""
 
 #: gutenbee.php:126
-msgid "Image Box Block"
+msgid "Image Block"
 msgstr ""
 
 #: gutenbee.php:127
-msgid "Image Comparison Block"
+msgid "Image Box Block"
 msgstr ""
 
 #: gutenbee.php:128
-msgid "Justified Gallery Block"
+msgid "Image Comparison Block"
 msgstr ""
 
 #: gutenbee.php:129
-msgid "Paragraph Block"
+msgid "Justified Gallery Block"
 msgstr ""
 
 #: gutenbee.php:130
-msgid "Post Types Block"
+msgid "Paragraph Block"
 msgstr ""
 
 #: gutenbee.php:131
-msgid "Progress Bar Block"
+msgid "Post Types Block"
 msgstr ""
 
 #: gutenbee.php:132
-msgid "Spacer Block"
+msgid "Progress Bar Block"
 msgstr ""
 
 #: gutenbee.php:133
-msgid "Slideshow Block"
+msgid "Spacer Block"
 msgstr ""
 
 #: gutenbee.php:134
-msgid "Tabs Block"
+msgid "Slideshow Block"
 msgstr ""
 
 #: gutenbee.php:135
+msgid "Tabs Block"
+msgstr ""
+
+#: gutenbee.php:136
 msgid "Video Block"
 msgstr ""
 
