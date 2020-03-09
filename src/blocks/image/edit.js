@@ -12,6 +12,7 @@ import {
 import {
   PanelBody,
   SelectControl,
+  TextControl,
   TextareaControl,
   RangeControl,
   Toolbar,
@@ -67,6 +68,7 @@ const ImageEdit = ({
     align,
     caption,
     backgroundColor,
+    href,
   } = attributes;
 
   useUniqueId({ attributes, setAttributes, clientId });
@@ -269,6 +271,14 @@ const ImageEdit = ({
               onChange={onImageSizeUpdate}
             />
           )}
+
+          <TextControl
+            type="url"
+            label={__('Image Link')}
+            value={href}
+            onChange={value => setAttributes({ href: value })}
+            placeholder="https://"
+          />
         </PanelBody>
 
         <PanelColorSettings
