@@ -127,6 +127,14 @@
   content: "\E002";
 }
 
+.editor-block-list__layout > [data-type^="gutenbee"]:first-child > .editor-block-list__block-edit > [data-block] > div[class*="wp-block"] {
+  margin-top: 0 !important;
+}
+
+.editor-block-list__layout > [data-type^="gutenbee"]:nth-last-child(3) > .editor-block-list__block-edit > [data-block] > div[class*="wp-block"], .editor-block-list__layout > [data-type^="gutenbee"]:nth-last-child(2) > .editor-block-list__block-edit > [data-block] > div[class*="wp-block"] {
+  margin-bottom: 0 !important;
+}
+
 .wp-block-gutenbee-divider {
   display: -webkit-box;
   display: -ms-flexbox;

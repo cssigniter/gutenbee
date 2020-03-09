@@ -11,8 +11,15 @@ import { BORDER_STYLES, Divider } from './index';
 import MarginControls from '../../components/controls/margin-controls';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 import BackgroundControls from '../../components/controls/background-controls';
+import useUniqueId from '../../hooks/useUniqueId';
 
-const DividerEdit = ({ className, attributes, setAttributes, isSelected }) => {
+const DividerEdit = ({
+  className,
+  attributes,
+  setAttributes,
+  isSelected,
+  clientId,
+}) => {
   const {
     style,
     weight,
@@ -22,6 +29,8 @@ const DividerEdit = ({ className, attributes, setAttributes, isSelected }) => {
     color,
     backgroundColor,
   } = attributes;
+
+  useUniqueId({ attributes, setAttributes, clientId });
 
   return (
     <Fragment>

@@ -21,6 +21,8 @@
       display: flex;
       flex-wrap: nowrap;
       flex-direction: inherit;
+      margin-left: -15px;
+      margin-right: -15px;
 
       // Set full heights on Columns to enable vertical alignment preview
       > [data-type="gutenbee/column"],
@@ -47,8 +49,8 @@
         padding-right: 0;
         flex-basis: calc(50% - 44px);
         flex-grow: 0;
-        margin-left: 14px;
-        margin-right: 14px;
+        margin-left: 30px;
+        margin-right: 30px;
 
         // Prevent long unbroken words from overflowing.
         word-break: break-word; // For back-compat.
@@ -57,14 +59,6 @@
         // Force 1 column layouts to span the whole width
         &:only-of-type {
           flex-basis: 100%;
-        }
-
-        &:nth-child(even) {
-          margin-left: calc(#{$grid-size-large * 2} + #{$block-padding});
-        }
-
-        &:not(:first-child) {
-          margin-left: calc(#{$grid-size-large * 2} + #{$block-padding});
         }
 
         > .editor-block-list__block-edit {
