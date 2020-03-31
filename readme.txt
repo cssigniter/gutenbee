@@ -2,8 +2,8 @@
 Contributors: cssigniterteam, silencerius, nvourva, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 5.3
-Tested up to: 5.3.2
-Stable tag: 2.2.0
+Tested up to: 5.4
+Stable tag: 2.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
 Requires PHP: 5.6
@@ -62,6 +62,16 @@ Note that if you want to use the Google Maps block you will also need a Google M
 7. Tabs or Accordions, group your content the way you want.
 
 == Changelog ==
+= 2.3.2 =
+* Added link in image block.
+* Update Container block to work on WordPress 5.4
+* Added the ability to rearrange columns within the container block.
+* Fix container and column block hover controls from being inaccessible.
+
+= 2.3.1 =
+* Skipped.
+
+* Added New buttons block.
 = 2.3.0 =
 * Added New buttons block.
 * Added background overlay option for the container block.
