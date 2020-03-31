@@ -7,6 +7,11 @@ import { registerBlockType } from 'wp.blocks';
 import { InnerBlocks } from 'wp.blockEditor';
 import classNames from 'classnames';
 
+// This is a check to see if we are in Gutenberg 7.x which supports
+// this and load the appropriate Edit component
+import { __experimentalBlockVariationPicker } from 'wp.blockEditor';
+
+import ContainerBlockEditLegacy from './edit-legacy';
 import ContainerBlockEdit from './edit';
 import { getBackgroundImageStyle } from '../../components/controls/background-controls/helpers';
 import ContainerStyle from './style';
@@ -17,6 +22,7 @@ import {
   getDefaultSpacingValue,
 } from '../../components/controls/responsive-control/default-values';
 import { hexToRGBA } from '../../components/controls/advanced-color-control/helpers';
+import variations from './variations';
 
 registerBlockType('gutenbee/container', {
   title: __('GutenBee Container'),
@@ -116,7 +122,10 @@ registerBlockType('gutenbee/container', {
       return { 'data-theme-grid': themeGrid };
     }
   },
-  edit: ContainerBlockEdit,
+  variations,
+  edit: !!__experimentalBlockVariationPicker
+    ? ContainerBlockEdit
+    : ContainerBlockEditLegacy,
   save: ({ attributes, className }) => {
     const {
       uniqueId,

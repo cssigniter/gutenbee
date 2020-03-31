@@ -1,40 +1,27 @@
-import { Fragment, useState, useEffect } from 'wp.element';
+import { Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { compose } from 'wp.compose';
-import { __ } from 'wp.i18n';
-import { InspectorControls } from 'wp.blockEditor';
-import { PanelColorSettings, InnerBlocks } from 'wp.blockEditor';
 import {
-  PanelBody,
-  SelectControl,
-  RangeControl,
-  CheckboxControl,
-} from 'wp.components';
-import { withDispatch, withSelect, useSelect } from 'wp.data';
+  InnerBlocks,
+  __experimentalBlockVariationPicker as ExperimentalBlockVariationPicker,
+} from 'wp.blockEditor';
+import { withDispatch, withSelect, useSelect, useDispatch } from 'wp.data';
 import { createBlock } from 'wp.blocks';
-import times from 'lodash.times';
-import dropRight from 'lodash.dropright';
+import { times, dropRight, get } from 'lodash';
 import classNames from 'classnames';
 
-import MarginControls from '../../components/controls/margin-controls';
-import BackgroundControls from '../../components/controls/background-controls/BackgroundControl';
 import { getBackgroundImageStyle } from '../../components/controls/background-controls/helpers';
-import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
+
 import useUniqueId from '../../hooks/useUniqueId';
 import ContainerStyle from './style';
 import getBlockId from '../../util/getBlockId';
 import {
-  OneColumn,
-  ThreeColumnsEqual,
-  ThreeColumnsWideCenter,
-  TwoColumnsEqual,
-  TwoColumnsOneThirdTwoThirds,
-  TwoColumnsTwoThirdsOneThird,
-} from './template-icons';
-import { getColumnsTemplate, getMappedColumnWidths } from './utils';
+  createBlocksFromInnerBlocksTemplate,
+  getMappedColumnWidths,
+} from './utils';
 import Rule from '../../components/stylesheet/Rule';
-import AdvancedColorControl from '../../components/controls/advanced-color-control/AdvancedColorControl';
 import { hexToRGBA } from '../../components/controls/advanced-color-control/helpers';
+import ContainerInspectorControls from './inspector-controls';
 
 const propTypes = {
   className: PropTypes.string.isRequired,
@@ -44,71 +31,8 @@ const propTypes = {
   updateColumns: PropTypes.func.isRequired,
 };
 
-const DEFAULT_COLUMNS = 1;
-const TEMPLATE_OPTIONS = [
-  {
-    title: __('One column'),
-    icon: <OneColumn />,
-    template: [
-      [
-        'gutenbee/column',
-        { width: { desktop: 100, tablet: 100, mobile: 100 } },
-      ],
-    ],
-  },
-  {
-    title: __('Two columns; equal split'),
-    icon: <TwoColumnsEqual />,
-    template: [
-      ['gutenbee/column', { width: { desktop: 50, tablet: 100, mobile: 100 } }],
-      ['gutenbee/column', { width: { desktop: 50, tablet: 100, mobile: 100 } }],
-    ],
-  },
-  {
-    title: __('Two columns; one-third, two-thirds split'),
-    icon: <TwoColumnsOneThirdTwoThirds />,
-    template: [
-      [
-        'gutenbee/column',
-        { width: { desktop: 33.33, tablet: 100, mobile: 100 } },
-      ],
-      [
-        'gutenbee/column',
-        { width: { desktop: 66.66, tablet: 100, mobile: 100 } },
-      ],
-    ],
-  },
-  {
-    title: __('Two columns; two-thirds, one-third split'),
-    icon: <TwoColumnsTwoThirdsOneThird />,
-    template: [
-      [
-        'gutenbee/column',
-        { width: { desktop: 66.66, tablet: 100, mobile: 100 } },
-      ],
-      [
-        'gutenbee/column',
-        { width: { desktop: 33.33, tablet: 100, mobile: 100 } },
-      ],
-    ],
-  },
-  {
-    title: __('Three columns; equal split'),
-    icon: <ThreeColumnsEqual />,
-    template: [['gutenbee/column'], ['gutenbee/column'], ['gutenbee/column']],
-  },
-  {
-    title: __('Three columns; wide center column'),
-    icon: <ThreeColumnsWideCenter />,
-    template: [
-      ['gutenbee/column', { width: { desktop: 25, tablet: 100, mobile: 100 } }],
-      ['gutenbee/column', { width: { desktop: 50, tablet: 100, mobile: 100 } }],
-      ['gutenbee/column', { width: { desktop: 25, tablet: 100, mobile: 100 } }],
-    ],
-  },
-];
-
 const ContainerBlockEdit = ({
+  name,
   attributes,
   setAttributes,
   clientId,
@@ -119,38 +43,31 @@ const ContainerBlockEdit = ({
     textColor,
     backgroundColor,
     backgroundImage,
-    innerContentWidth,
-    containerHeight,
-    verticalContentAlignment,
-    horizontalContentAlignment,
-    gutter,
     columnDirection,
-    themeGrid,
     overlayBackgroundColor,
     overlayBackgroundColorOpacity,
   } = attributes;
 
-  const { count } = useSelect(select => {
-    return {
-      count: select('core/block-editor').getBlockCount(clientId),
-    };
-  });
+  const { count, variations, blockType, defaultVariation } = useSelect(
+    select => {
+      const {
+        getBlockVariations,
+        getBlockType,
+        getDefaultBlockVariation,
+      } = select('core/blocks');
 
-  const [template, setTemplate] = useState(getColumnsTemplate(count));
-  const [forceUseTemplate, setForceUseTemplate] = useState(false);
-
-  // This is used to force the usage of the template even if the count doesn't match the template
-  // The count doesn't match the template once you use undo/redo (this is used to reset to the placeholder state).
-  useEffect(
-    () => {
-      // Once the template is applied, reset it.
-      if (forceUseTemplate) {
-        setForceUseTemplate(false);
-      }
+      return {
+        count: select('core/block-editor').getBlockCount(clientId),
+        variations: getBlockVariations(name, 'block'),
+        defaultVariation: getDefaultBlockVariation(name, 'block'),
+        blockType: getBlockType(name),
+      };
     },
-    [forceUseTemplate],
+    [clientId, name],
   );
-  const showTemplateSelector = (count === 0 && !forceUseTemplate) || !template;
+  const { replaceInnerBlocks } = useDispatch('core/block-editor');
+
+  const hasInnerBlocks = count > 0;
 
   useUniqueId({
     attributes,
@@ -163,9 +80,6 @@ const ContainerBlockEdit = ({
 
   const classes = classNames(blockId, className);
 
-  const supports =
-    window.__GUTENBEE_SETTINGS__.theme_supports['container'] || {};
-
   return (
     <Fragment>
       <ContainerStyle attributes={attributes}>
@@ -175,273 +89,77 @@ const ContainerBlockEdit = ({
         />
       </ContainerStyle>
 
-      <div
-        id={blockId}
-        className={classes}
-        style={{
-          color: textColor,
-        }}
-      >
-        <div className={`${className}-inner`}>
-          <div className={`${className}-row`}>
-            <InnerBlocks
-              __experimentalTemplateOptions={TEMPLATE_OPTIONS}
-              __experimentalOnSelectTemplateOption={nextTemplate => {
-                if (nextTemplate === undefined) {
-                  nextTemplate = getColumnsTemplate(DEFAULT_COLUMNS);
-                }
-
-                setTemplate(nextTemplate);
-                setForceUseTemplate(true);
-              }}
-              __experimentalAllowTemplateOptionSkip
-              template={showTemplateSelector ? null : template}
-              templateLock="all"
-              allowedBlocks={['gutenbee/column']}
-            />
+      {hasInnerBlocks ? (
+        <div
+          id={blockId}
+          className={classes}
+          style={{
+            color: textColor,
+          }}
+        >
+          <div className={`${className}-inner`}>
+            <div className={`${className}-row`}>
+              <InnerBlocks
+                allowedBlocks={['gutenbee/column']}
+                __experimentalMoverDirection="horizontal"
+                __experimentalTagName={<div />}
+                __experimentalPassedProps={{}}
+              />
+            </div>
           </div>
-        </div>
 
-        {overlayBackgroundColor && (
+          {overlayBackgroundColor && (
+            <div
+              className={`${className}-background-overlay`}
+              style={{
+                backgroundColor: hexToRGBA(
+                  overlayBackgroundColor,
+                  overlayBackgroundColorOpacity,
+                ),
+              }}
+            />
+          )}
+
           <div
-            className={`${className}-background-overlay`}
+            className={`${className}-background`}
             style={{
-              backgroundColor: hexToRGBA(
-                overlayBackgroundColor,
-                overlayBackgroundColorOpacity,
-              ),
+              backgroundColor,
+              ...getBackgroundImageStyle(backgroundImage),
             }}
           />
-        )}
+        </div>
+      ) : (
+        <div>
+          <ExperimentalBlockVariationPicker
+            icon={get(blockType, ['icon', 'src'])}
+            label={get(blockType, ['title'])}
+            variations={variations}
+            onSelect={(nextVariation = defaultVariation) => {
+              if (nextVariation.attributes) {
+                setAttributes(nextVariation.attributes);
+              }
 
-        <div
-          className={`${className}-background`}
-          style={{
-            backgroundColor,
-            ...getBackgroundImageStyle(backgroundImage),
-          }}
+              if (nextVariation.innerBlocks) {
+                replaceInnerBlocks(
+                  clientId,
+                  createBlocksFromInnerBlocksTemplate(
+                    nextVariation.innerBlocks,
+                  ),
+                );
+              }
+            }}
+            allowSkip
+          />
+        </div>
+      )}
+
+      {hasInnerBlocks && (
+        <ContainerInspectorControls
+          attributes={attributes}
+          setAttributes={setAttributes}
+          updateColumns={updateColumns}
+          columnCount={count}
         />
-      </div>
-
-      {!showTemplateSelector && (
-        <Fragment>
-          <InspectorControls>
-            <PanelBody title={__('Layout Settings')} initialOpen>
-              <RangeControl
-                label={__('Columns')}
-                min={1}
-                max={9}
-                value={count}
-                onChange={value => updateColumns(count, value)}
-              />
-
-              {supports.themeGrid && (
-                <CheckboxControl
-                  label={__('Enable theme grid')}
-                  value="on"
-                  checked={themeGrid}
-                  onChange={value => setAttributes({ themeGrid: value })}
-                />
-              )}
-
-              <ResponsiveControl>
-                {breakpoint => (
-                  <SelectControl
-                    label={__('Column Direction')}
-                    value={columnDirection[breakpoint]}
-                    options={[
-                      { value: '', label: __('Normal') },
-                      { value: 'row-reverse', label: __('Reverse') },
-                    ]}
-                    onChange={value =>
-                      setAttributes({
-                        columnDirection: {
-                          ...columnDirection,
-                          [breakpoint]: value,
-                        },
-                      })
-                    }
-                  />
-                )}
-              </ResponsiveControl>
-
-              <SelectControl
-                label={__('Gutter Width')}
-                value={gutter}
-                options={[
-                  { value: 'none', label: __('No gutter (0px)') },
-                  { value: 'sm', label: __('Small (10px)') },
-                  { value: 'md', label: __('Medium (20px)') },
-                  { value: 'lg', label: __('Large (30px)') },
-                  { value: 'xl', label: __('Extra Large (40px)') },
-                ]}
-                onChange={value => setAttributes({ gutter: value })}
-              />
-
-              <ResponsiveControl>
-                {breakpoint => (
-                  <Fragment>
-                    <RangeControl
-                      label={__('Container Height (px)')}
-                      min={-1}
-                      max={1200}
-                      value={containerHeight[breakpoint]}
-                      onChange={value =>
-                        setAttributes({
-                          containerHeight: {
-                            ...containerHeight,
-                            [breakpoint]: value != null ? value : '',
-                          },
-                        })
-                      }
-                      step={1}
-                      initialPosition={120}
-                      help={__(
-                        'Leave blank for auto height or set to -1 for full viewport height.',
-                      )}
-                    />
-                  </Fragment>
-                )}
-              </ResponsiveControl>
-
-              <ResponsiveControl>
-                {breakpoint => (
-                  <Fragment>
-                    <RangeControl
-                      label={__('Content Width (px)')}
-                      min={-1}
-                      max={2500}
-                      value={innerContentWidth[breakpoint]}
-                      onChange={value => {
-                        setAttributes({
-                          innerContentWidth: {
-                            ...innerContentWidth,
-                            [breakpoint]: value != null ? value : '',
-                          },
-                        });
-                      }}
-                      step={1}
-                      help={__('Set to -1 for 100% width.')}
-                      initialPosition={-1}
-                    />
-                  </Fragment>
-                )}
-              </ResponsiveControl>
-
-              <ResponsiveControl>
-                {breakpoint => (
-                  <SelectControl
-                    label={__('Vertical Content Alignment')}
-                    value={verticalContentAlignment[breakpoint]}
-                    options={[
-                      { value: '', label: '' },
-                      { value: 'flex-start', label: __('Top') },
-                      { value: 'center', label: __('Middle') },
-                      { value: 'flex-end', label: __('Bottom') },
-                    ]}
-                    onChange={value =>
-                      setAttributes({
-                        verticalContentAlignment: {
-                          ...verticalContentAlignment,
-                          [breakpoint]: value,
-                        },
-                      })
-                    }
-                  />
-                )}
-              </ResponsiveControl>
-
-              <ResponsiveControl>
-                {breakpoint => (
-                  <SelectControl
-                    label={__('Horizontal Content Alignment')}
-                    value={horizontalContentAlignment[breakpoint]}
-                    options={[
-                      { value: '', label: '' },
-                      { value: 'flex-start', label: __('Left') },
-                      { value: 'center', label: __('Center') },
-                      { value: 'flex-end', label: __('Right') },
-                    ]}
-                    onChange={value =>
-                      setAttributes({
-                        horizontalContentAlignment: {
-                          ...horizontalContentAlignment,
-                          [breakpoint]: value,
-                        },
-                      })
-                    }
-                    help={__(
-                      'The content alignment settings apply when Container Height and/or the Content Width are set.',
-                    )}
-                  />
-                )}
-              </ResponsiveControl>
-            </PanelBody>
-
-            <PanelColorSettings
-              title={__('Block Appearance')}
-              initialOpen={false}
-              colorSettings={[
-                {
-                  value: textColor,
-                  onChange: value => setAttributes({ textColor: value }),
-                  label: __('Text Color'),
-                },
-                {
-                  value: backgroundColor,
-                  onChange: value => setAttributes({ backgroundColor: value }),
-                  label: __('Background Color'),
-                },
-              ]}
-              onChange={value => setAttributes({ backgroundColor: value })}
-            >
-              <AdvancedColorControl
-                label={__('Background Overlay Color')}
-                colorValue={overlayBackgroundColor || ''}
-                colorDefault=""
-                onColorChange={value =>
-                  setAttributes({ overlayBackgroundColor: value })
-                }
-                opacityValue={overlayBackgroundColorOpacity}
-                onOpacityChange={value =>
-                  setAttributes({ overlayBackgroundColorOpacity: value })
-                }
-              />
-
-              <BackgroundControls
-                label={__('Background Image')}
-                setAttributes={setAttributes}
-                attributes={attributes}
-                attributeKey="backgroundImage"
-                supportsParallax
-              />
-
-              <ResponsiveControl>
-                {breakpoint => (
-                  <MarginControls
-                    label={__('Padding (px)')}
-                    attributeKey="blockPadding"
-                    attributes={attributes}
-                    setAttributes={setAttributes}
-                    breakpoint={breakpoint}
-                  />
-                )}
-              </ResponsiveControl>
-
-              <ResponsiveControl>
-                {breakpoint => (
-                  <MarginControls
-                    label={__('Margin (px)')}
-                    attributeKey="blockMargin"
-                    attributes={attributes}
-                    setAttributes={setAttributes}
-                    breakpoint={breakpoint}
-                  />
-                )}
-              </ResponsiveControl>
-            </PanelColorSettings>
-          </InspectorControls>
-        </Fragment>
       )}
     </Fragment>
   );

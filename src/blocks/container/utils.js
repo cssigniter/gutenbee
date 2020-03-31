@@ -1,8 +1,6 @@
-/**
- * External dependencies
- */
+import { createBlock } from 'wp.blocks';
 import memoize from 'memize';
-import { times, findIndex, sumBy, merge, mapValues } from 'lodash';
+import { times, findIndex, sumBy, merge, mapValues, map } from 'lodash';
 
 /**
  * Returns the layouts configuration for a given number of columns.
@@ -57,16 +55,16 @@ export function getAdjacentBlocks(blocks, clientId) {
  *
  * @return {number} Effective column width.
  */
-export function getEffectiveColumnWidth({
+export const getEffectiveColumnWidth = ({
   block,
   totalBlockCount,
   breakpoint,
-}) {
+}) => {
   const { width } = block.attributes;
   const w = width[breakpoint] || 100 / totalBlockCount;
 
   return toWidthPrecision(w);
-}
+};
 
 /**
  * Returns the total width occupied by the given set of column blocks.
@@ -77,15 +75,15 @@ export function getEffectiveColumnWidth({
  *
  * @return {number} Total width occupied by blocks.
  */
-export function getTotalColumnsWidth({
+export const getTotalColumnsWidth = ({
   blocks,
   totalBlockCount = blocks.length,
   breakpoint,
-}) {
+}) => {
   return sumBy(blocks, block =>
     getEffectiveColumnWidth({ block, totalBlockCount, breakpoint }),
   );
-}
+};
 
 /**
  * Returns an object of `clientId` → `width` of effective column widths.
@@ -96,11 +94,11 @@ export function getTotalColumnsWidth({
  *
  * @return {Object<string,number>} Column widths.
  */
-export function getColumnWidths({
+export const getColumnWidths = ({
   blocks,
   totalBlockCount = blocks.length,
   breakpoint,
-}) {
+}) => {
   return blocks.reduce((accumulator, block) => {
     const width = getEffectiveColumnWidth({
       block,
@@ -115,7 +113,7 @@ export function getColumnWidths({
       },
     });
   }, {});
-}
+};
 
 /**
  * Returns an object of `clientId` → `width` of column widths as redistributed
@@ -130,12 +128,12 @@ export function getColumnWidths({
  *
  * @return {Object<string,number>} Redistributed column widths.
  */
-export function getRedistributedColumnWidths({
+export const getRedistributedColumnWidths = ({
   blocks,
   availableWidth,
   totalBlockCount = blocks.length,
   breakpoint,
-}) {
+}) => {
   const totalWidth = getTotalColumnsWidth({
     blocks,
     totalBlockCount,
@@ -151,7 +149,7 @@ export function getRedistributedColumnWidths({
       [breakpoint]: toWidthPrecision(width[breakpoint] + adjustment),
     }),
   );
-}
+};
 
 /**
  * Returns true if column blocks within the provided set are assigned with
@@ -162,11 +160,11 @@ export function getRedistributedColumnWidths({
  *
  * @return {boolean} Whether columns have explicit widths.
  */
-export function hasExplicitColumnWidths(blocks, breakpoint) {
+export const hasExplicitColumnWidths = (blocks, breakpoint) => {
   return blocks.some(block =>
     Number.isFinite(block.attributes.width[breakpoint]),
   );
-}
+};
 
 /**
  * Returns a copy of the given set of blocks with new widths assigned from the
@@ -176,7 +174,7 @@ export function hasExplicitColumnWidths(blocks, breakpoint) {
  *
  * @return {WPBlock[]} blocks Mapped block objects.
  */
-export function getMappedColumnWidths(blocks) {
+export const getMappedColumnWidths = blocks => {
   return blocks.map(block =>
     merge({}, block, {
       attributes: {
@@ -188,4 +186,14 @@ export function getMappedColumnWidths(blocks) {
       },
     }),
   );
-}
+};
+
+export const createBlocksFromInnerBlocksTemplate = innerBlocksTemplate => {
+  return map(innerBlocksTemplate, ([name, attributes, innerBlocks = []]) =>
+    createBlock(
+      name,
+      attributes,
+      createBlocksFromInnerBlocksTemplate(innerBlocks),
+    ),
+  );
+};
