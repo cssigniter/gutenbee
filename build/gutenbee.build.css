@@ -3011,12 +3011,20 @@
 
 [data-type="gutenbee/container"][data-theme-grid] {
   max-width: none !important;
-  margin-left: -45px;
-  margin-right: -45px;
+  margin-left: -42px;
+  margin-right: -42px;
 }
 
 [data-type="gutenbee/container"][data-theme-grid]::before {
   display: none !important;
+}
+
+[data-type="gutenbee/container"][data-theme-grid] > .wp-block-gutenbee-container > .wp-block-gutenbee-container-inner {
+  max-width: 1080px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 14px;
+  padding-right: 14px;
 }
 
 [data-type="gutenbee/container"][data-theme-grid] > .editor-block-list__block-edit > div[data-block] > .wp-block-gutenbee-container > .wp-block-gutenbee-container-inner {
