@@ -67,7 +67,6 @@ const ButtonEdit = ({ attributes, setAttributes, className, clientId }) => {
       rel: updatedRel,
     });
   };
-  console.log(attributes, getBoxShadowCSSValue({ attributes, prefix: '' }));
 
   return (
     <Fragment>
