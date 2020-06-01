@@ -12,6 +12,8 @@ import SpacerEdit from './edit';
 import SpacerBlockIcon from './block-icon';
 import { getBackgroundImageStyle } from '../../components/controls/background-controls/helpers';
 import deprecated from './deprecated';
+import borderControlAttributes from '../../components/controls/border-controls/attributes';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 
 registerBlockType('gutenbee/spacer', {
   title: __('GutenBee Spacer'),
@@ -41,6 +43,7 @@ registerBlockType('gutenbee/spacer', {
       type: 'object',
       default: getDefaultBackgroundImageValue(),
     },
+    ...borderControlAttributes(),
   },
   edit: SpacerEdit,
   deprecated,
@@ -55,6 +58,7 @@ registerBlockType('gutenbee/spacer', {
         style={{
           backgroundColor: backgroundColor || undefined,
           ...getBackgroundImageStyle(backgroundImage),
+          ...getBorderCSSValue({ attributes }),
         }}
         aria-hidden
       >

@@ -13,6 +13,8 @@ import {
   getDefaultSpacingValue,
 } from '../../components/controls/responsive-control/default-values';
 import deprecated from './deprecated';
+import borderControlAttributes from '../../components/controls/border-controls/attributes';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 
 registerBlockType('gutenbee/paragraph', {
   title: __('GutenBee Paragraph'),
@@ -74,6 +76,7 @@ registerBlockType('gutenbee/paragraph', {
         mobile: '',
       },
     },
+    ...borderControlAttributes(),
     blockPadding: {
       type: 'object',
       default: getDefaultSpacingValue(),
@@ -114,6 +117,7 @@ registerBlockType('gutenbee/paragraph', {
     const styles = {
       backgroundColor: backgroundClass ? undefined : customBackgroundColor,
       color: textClass ? undefined : customTextColor,
+      ...getBorderCSSValue({ attributes }),
     };
 
     return (

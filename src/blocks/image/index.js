@@ -13,6 +13,8 @@ import {
 import getBlockId from '../../util/getBlockId';
 import ImageStyle from './style';
 import ImageBlockIcon from './block-icon';
+import borderControlAttributes from '../../components/controls/border-controls/attributes';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 
 registerBlockType('gutenbee/image', {
   title: __('GutenBee Image'),
@@ -114,6 +116,7 @@ registerBlockType('gutenbee/image', {
     backgroundColor: {
       type: 'string',
     },
+    ...borderControlAttributes('image'),
   },
   getEditWrapperProps(attributes) {
     const { align, width } = attributes;
@@ -165,6 +168,7 @@ registerBlockType('gutenbee/image', {
 
     const style = {
       backgroundColor: backgroundColor || undefined,
+      ...getBorderCSSValue({ attributes, prefix: 'image' }),
     };
 
     const figure = (

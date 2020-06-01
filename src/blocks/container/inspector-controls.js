@@ -12,6 +12,7 @@ import MarginControls from '../../components/controls/margin-controls';
 import BackgroundControls from '../../components/controls/background-controls/BackgroundControl';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 import AdvancedColorControl from '../../components/controls/advanced-color-control/AdvancedColorControl';
+import BorderControls from '../../components/controls/border-controls';
 
 const ContainerInspectorControls = ({
   attributes,
@@ -227,6 +228,11 @@ const ContainerInspectorControls = ({
             attributes={attributes}
             attributeKey="backgroundImage"
             supportsParallax
+          />
+
+          <BorderControls
+            attributes={attributes}
+            setAttributes={setAttributes}
           />
 
           <ResponsiveControl>

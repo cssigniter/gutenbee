@@ -3,14 +3,14 @@
  */
 
 import { Fragment } from 'wp.element';
-import { __, sprintf } from 'wp.i18n';
+import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 import {
   RichText,
   InspectorControls,
   PanelColorSettings,
 } from 'wp.blockEditor';
-import { PanelBody, Toolbar, SelectControl, RangeControl } from 'wp.components';
+import { PanelBody, SelectControl, RangeControl } from 'wp.components';
 import { withState } from 'wp.compose';
 import classNames from 'classnames';
 import omit from 'lodash.omit';
@@ -28,6 +28,10 @@ import IconBoxStyle from './style';
 import ImageBoxStyle from '../image-box/style';
 import { capitalize } from '../../util/text';
 import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import BorderControls from '../../components/controls/border-controls';
+import borderControlAttributes from '../../components/controls/border-controls/attributes';
+import HeadingToolbar from '../heading/heading-toolbar';
 
 const IconBox = ({ className, attributes }) => {
   const {
@@ -59,6 +63,7 @@ const IconBox = ({ className, attributes }) => {
       })}
       style={{
         backgroundColor: backgroundColor || undefined,
+        ...getBorderCSSValue({ attributes }),
       }}
     >
       <ImageBoxStyle attributes={attributes} />
@@ -144,6 +149,7 @@ const IconBoxEditBlock = ({
         })}
         style={{
           backgroundColor: backgroundColor || undefined,
+          ...getBorderCSSValue({ attributes }),
         }}
       >
         <IconBoxStyle attributes={attributes} />
@@ -242,18 +248,12 @@ const IconBoxEditBlock = ({
             />
 
             <p>{__('Heading element')}</p>
-            <Toolbar
-              controls={'23456'
-                .split('')
-                .map(Number)
-                .map(controlLevel => ({
-                  icon: 'heading',
-                  title: sprintf(__('Heading %s'), controlLevel),
-                  isActive: titleNodeLevel === controlLevel,
-                  onClick: () =>
-                    setAttributes({ titleNodeLevel: controlLevel }),
-                  subscript: controlLevel,
-                }))}
+            <HeadingToolbar
+              isCollapsed={false}
+              minLevel={1}
+              maxLevel={7}
+              selectedLevel={titleNodeLevel}
+              onChange={newLevel => setAttributes({ titleNodeLevel: newLevel })}
             />
 
             <FontSizePickerLabel
@@ -303,6 +303,11 @@ const IconBoxEditBlock = ({
             ]}
             onChange={value => setAttributes({ backgroundColor: value })}
           >
+            <BorderControls
+              attributes={attributes}
+              setAttributes={setAttributes}
+            />
+
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
@@ -402,6 +407,7 @@ registerBlockType('gutenbee/iconbox', {
     backgroundColor: {
       type: 'string',
     },
+    ...borderControlAttributes(),
   },
   deprecated,
   edit: withState({ editable: null })(IconBoxEditBlock),

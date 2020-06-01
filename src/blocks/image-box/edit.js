@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'wp.element';
 import PropTypes from 'prop-types';
 import { compose } from 'wp.compose';
-import { __, sprintf } from 'wp.i18n';
+import { __ } from 'wp.i18n';
 import classNames from 'classnames';
 import {
   InspectorControls,
@@ -9,6 +9,7 @@ import {
   RichText,
   MediaUpload,
   PanelColorSettings,
+  AlignmentToolbar,
 } from 'wp.blockEditor';
 import {
   PanelBody,
@@ -28,6 +29,9 @@ import ImageBoxStyle from './style';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 import MarginControls from '../../components/controls/margin-controls';
 import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
+import BorderControls from '../../components/controls/border-controls';
+import HeadingToolbar from '../heading/heading-toolbar';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 
 const propTypes = {
   className: PropTypes.string.isRequired,
@@ -83,6 +87,7 @@ const ImageBoxEditBlock = ({
         })}
         style={{
           backgroundColor: backgroundColor || undefined,
+          ...getBorderCSSValue({ attributes }),
         }}
       >
         <figure className={`${className}-figure`}>
@@ -229,31 +234,23 @@ const ImageBoxEditBlock = ({
             </PanelBody>
 
             <PanelBody title={__('Content Settings')} initialOpen={false}>
-              <SelectControl
-                label={__('Content Text Alignment')}
-                value={contentAlign}
-                options={['', 'left', 'center', 'right'].map(option => ({
-                  value: option,
-                  label: option ? capitalize(option) : 'None',
-                }))}
+              <AlignmentToolbar
+                align={contentAlign}
                 onChange={value => {
                   setAttributes({ contentAlign: value || undefined });
                 }}
+                isCollapsed={false}
               />
 
               <p>{__('Heading Element')}</p>
-              <Toolbar
-                controls={'23456'
-                  .split('')
-                  .map(Number)
-                  .map(controlLevel => ({
-                    icon: 'heading',
-                    title: sprintf(__('Heading %s'), controlLevel),
-                    isActive: controlLevel === titleNodeLevel,
-                    onClick: () =>
-                      setAttributes({ titleNodeLevel: controlLevel }),
-                    subscript: controlLevel,
-                  }))}
+              <HeadingToolbar
+                isCollapsed={false}
+                minLevel={1}
+                maxLevel={7}
+                selectedLevel={titleNodeLevel}
+                onChange={newLevel =>
+                  setAttributes({ titleNodeLevel: newLevel })
+                }
               />
 
               <FontSizePickerLabel
@@ -303,6 +300,11 @@ const ImageBoxEditBlock = ({
               ]}
               onChange={value => setAttributes({ backgroundColor: value })}
             >
+              <BorderControls
+                attributes={attributes}
+                setAttributes={setAttributes}
+              />
+
               <ResponsiveControl>
                 {breakpoint => (
                   <MarginControls

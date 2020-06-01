@@ -23,6 +23,8 @@ import ResponsiveControl from '../../components/controls/responsive-control/Resp
 import useUniqueId from '../../hooks/useUniqueId';
 import getBlockId from '../../util/getBlockId';
 import ImageComparisonStyle from './style';
+import BorderControls from '../../components/controls/border-controls';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -104,6 +106,7 @@ const ImageComparisonEdit = ({
         className={className}
         style={{
           backgroundColor: backgroundColor || undefined,
+          ...getBorderCSSValue({ attributes }),
         }}
       >
         <ImageComparisonStyle attributes={attributes} />
@@ -232,6 +235,11 @@ const ImageComparisonEdit = ({
             ]}
             onChange={value => setAttributes({ backgroundColor: value })}
           >
+            <BorderControls
+              attributes={attributes}
+              setAttributes={setAttributes}
+            />
+
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls

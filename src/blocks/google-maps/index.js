@@ -16,6 +16,8 @@ import {
 import getBlockId from '../../util/getBlockId';
 import GoogleMapsStyle from './style';
 import deprecated from './deprecated';
+import borderControlAttributes from '../../components/controls/border-controls/attributes';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 
 registerBlockType('gutenbee/google-maps', {
   title: __('GutenBee Google Maps'),
@@ -81,6 +83,7 @@ registerBlockType('gutenbee/google-maps', {
     backgroundColor: {
       type: 'string',
     },
+    ...borderControlAttributes(),
   },
   deprecated,
   edit: GoogleMapsEdit,
@@ -119,6 +122,7 @@ registerBlockType('gutenbee/google-maps', {
         className={className}
         style={{
           backgroundColor: backgroundColor || undefined,
+          ...getBorderCSSValue({ attributes }),
         }}
       >
         <GoogleMapsStyle attributes={attributes} />

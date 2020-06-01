@@ -15,6 +15,8 @@ import {
 import ProgressBarStyle from './style';
 import getBlockId from '../../util/getBlockId';
 import deprecated from './deprecated';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import borderControlAttributes from '../../components/controls/border-controls/attributes';
 
 const ProgressBar = ({ className, attributes }) => {
   const {
@@ -39,6 +41,7 @@ const ProgressBar = ({ className, attributes }) => {
       className={className}
       style={{
         backgroundColor: backgroundColor || undefined,
+        ...getBorderCSSValue({ attributes }),
       }}
     >
       <ProgressBarStyle attributes={attributes} />
@@ -147,6 +150,7 @@ registerBlockType('gutenbee/progress-bar', {
       type: 'object',
       default: getDefaultSpacingValue(),
     },
+    ...borderControlAttributes(),
   },
   deprecated,
   edit: ProgressBarEdit,

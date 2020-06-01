@@ -23,6 +23,8 @@ import {
 } from '../../components/controls/responsive-control/default-values';
 import { hexToRGBA } from '../../components/controls/advanced-color-control/helpers';
 import variations from './variations';
+import borderControlAttributes from '../../components/controls/border-controls/attributes';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 
 registerBlockType('gutenbee/container', {
   title: __('GutenBee Container'),
@@ -114,6 +116,7 @@ registerBlockType('gutenbee/container', {
       type: 'object',
       default: getDefaultResponsiveValue(),
     },
+    ...borderControlAttributes(),
   },
   getEditWrapperProps(attributes) {
     const { themeGrid } = attributes;
@@ -184,6 +187,7 @@ registerBlockType('gutenbee/container', {
           style={{
             backgroundColor,
             ...getBackgroundImageStyle(backgroundImage),
+            ...getBorderCSSValue({ attributes, prefix: 'block' }),
           }}
         />
       </div>

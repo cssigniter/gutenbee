@@ -28,8 +28,8 @@ import useUniqueId from '../../hooks/useUniqueId';
 import getBlockId from '../../util/getBlockId';
 import VideoStyle from './style';
 import VideoBlockIcon from './block-icon';
-
-// import icon from './icon';
+import BorderControls from '../../components/controls/border-controls';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 
 const ALLOWED_MEDIA_TYPES = ['video'];
 const VIDEO_POSTER_ALLOWED_MEDIA_TYPES = ['image'];
@@ -232,6 +232,13 @@ const VideoEdit = ({
               )}
             </BaseControl>
           </MediaUploadCheck>
+        </PanelBody>
+
+        <PanelBody title={__('Block Appearance')} initialOpen={false}>
+          <BorderControls
+            attributes={attributes}
+            setAttributes={setAttributes}
+          />
 
           <ResponsiveControl>
             {breakpoint => (
@@ -260,7 +267,13 @@ const VideoEdit = ({
       </InspectorControls>
 
       <VideoStyle attributes={attributes} />
-      <figure id={getBlockId(uniqueId)} className={className}>
+      <figure
+        id={getBlockId(uniqueId)}
+        className={className}
+        style={{
+          ...getBorderCSSValue({ attributes }),
+        }}
+      >
         {/*
   						Disable the video tag so the user clicking on it won't play the
   						video when the controls are enabled.

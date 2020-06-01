@@ -8,6 +8,8 @@ import ButtonEdit from './edit';
 import ButtonStyle from './style';
 import getBlockId from '../../util/getBlockId';
 import ButtonBlockIcon from './block-icon';
+import borderControlAttributes from '../../components/controls/border-controls/attributes';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 
 registerBlockType('gutenbee/button', {
   title: __('GutenBee Button'),
@@ -47,21 +49,13 @@ registerBlockType('gutenbee/button', {
       selector: 'a',
       attribute: 'rel',
     },
-    borderRadius: {
-      type: 'number',
-    },
-    borderWidth: {
-      type: 'number',
-    },
     backgroundColor: {
-      type: 'string',
-    },
-    borderColor: {
       type: 'string',
     },
     textColor: {
       type: 'string',
     },
+    ...borderControlAttributes(''),
     blockPadding: {
       type: 'object',
       default: getDefaultSpacingValue(),
@@ -76,10 +70,7 @@ registerBlockType('gutenbee/button', {
     const {
       uniqueId,
       textColor,
-      borderColor,
       backgroundColor,
-      borderRadius,
-      borderWidth,
       linkTarget,
       rel,
       text,
@@ -102,11 +93,8 @@ registerBlockType('gutenbee/button', {
           })}
           style={{
             backgroundColor: backgroundColor || undefined,
-            borderColor: borderColor || undefined,
             color: textColor || undefined,
-            borderRadius:
-              borderRadius != null ? `${borderRadius}px` : undefined,
-            borderWidth: borderWidth != null ? `${borderWidth}px` : undefined,
+            ...getBorderCSSValue({ attributes, prefix: '' }),
           }}
         />
       </div>

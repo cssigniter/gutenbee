@@ -14,6 +14,8 @@ import {
 } from '../../components/controls/responsive-control/default-values';
 import deprecated from './deprecated';
 import transforms from './transforms';
+import borderControlAttributes from '../../components/controls/border-controls/attributes';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 
 registerBlockType('gutenbee/heading', {
   title: __('GutenBee Heading'),
@@ -64,6 +66,7 @@ registerBlockType('gutenbee/heading', {
     backgroundColor: {
       type: 'string',
     },
+    ...borderControlAttributes(),
     blockPadding: {
       type: 'object',
       default: getDefaultSpacingValue(),
@@ -98,6 +101,7 @@ registerBlockType('gutenbee/heading', {
           style={{
             color: textColor ? textColor : undefined,
             backgroundColor: backgroundColor ? backgroundColor : undefined,
+            ...getBorderCSSValue({ attributes }),
           }}
           value={content}
         />

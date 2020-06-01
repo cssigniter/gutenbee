@@ -609,7 +609,8 @@
   -ms-flex-align: center;
   align-items: center;
   position: absolute;
-  right: -6px;
+  right: -3px;
+  top: 2px;
 }
 
 .gutenbee-responsive-control-wrap-button {
@@ -659,7 +660,8 @@
   -ms-flex-align: center;
   align-items: center;
   position: absolute;
-  right: -6px;
+  right: -3px;
+  top: 2px;
 }
 
 .gutenbee-responsive-control-wrap-button {
@@ -1981,7 +1983,7 @@
   text-align: right;
 }
 
-.wp-block-gutenbee-iconbox .editor-rich-text h1, .wp-block-gutenbee-iconbox .editor-rich-text h2, .wp-block-gutenbee-iconbox .editor-rich-text h3, .wp-block-gutenbee-iconbox .editor-rich-text h4, .wp-block-gutenbee-iconbox .editor-rich-text h5, .wp-block-gutenbee-iconbox .editor-rich-text h6, .wp-block-gutenbee-iconbox .editor-rich-text p {
+.wp-block-gutenbee-iconbox .wp-block-gutenbee-iconbox-content h1, .wp-block-gutenbee-iconbox .wp-block-gutenbee-iconbox-content h2, .wp-block-gutenbee-iconbox .wp-block-gutenbee-iconbox-content h3, .wp-block-gutenbee-iconbox .wp-block-gutenbee-iconbox-content h4, .wp-block-gutenbee-iconbox .wp-block-gutenbee-iconbox-content h5, .wp-block-gutenbee-iconbox .wp-block-gutenbee-iconbox-content h6, .wp-block-gutenbee-iconbox .wp-block-gutenbee-iconbox-content p {
   margin-top: 0;
   margin-bottom: 0;
 }
@@ -2119,7 +2121,7 @@
   margin-bottom: 0;
 }
 
-.wp-block-gutenbee-imagebox-content .editor-rich-text h1, .wp-block-gutenbee-imagebox-content .editor-rich-text h2, .wp-block-gutenbee-imagebox-content .editor-rich-text h3, .wp-block-gutenbee-imagebox-content .editor-rich-text h4, .wp-block-gutenbee-imagebox-content .editor-rich-text h5, .wp-block-gutenbee-imagebox-content .editor-rich-text h6, .wp-block-gutenbee-imagebox-content .editor-rich-text p {
+.wp-block-gutenbee-imagebox .wp-block-gutenbee-imagebox-content h1, .wp-block-gutenbee-imagebox .wp-block-gutenbee-imagebox-content h2, .wp-block-gutenbee-imagebox .wp-block-gutenbee-imagebox-content h3, .wp-block-gutenbee-imagebox .wp-block-gutenbee-imagebox-content h4, .wp-block-gutenbee-imagebox .wp-block-gutenbee-imagebox-content h5, .wp-block-gutenbee-imagebox .wp-block-gutenbee-imagebox-content h6, .wp-block-gutenbee-imagebox .wp-block-gutenbee-imagebox-content p {
   margin-top: 0;
   margin-bottom: 0;
 }

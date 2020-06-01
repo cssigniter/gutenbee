@@ -24,6 +24,8 @@ import getBlockId from '../../util/getBlockId';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 import CountupStyle from './style';
 import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
+import BorderControls from '../../components/controls/border-controls';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -88,6 +90,7 @@ const CountupEdit = ({
         })}
         style={{
           backgroundColor: backgroundColor || undefined,
+          ...getBorderCSSValue({ attributes, prefix: 'block' }),
         }}
       >
         <CountupStyle attributes={attributes} />
@@ -234,6 +237,11 @@ const CountupEdit = ({
                 },
               ]}
             >
+              <BorderControls
+                attributes={attributes}
+                setAttributes={setAttributes}
+              />
+
               <ResponsiveControl>
                 {breakpoint => (
                   <MarginControls

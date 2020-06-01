@@ -27,6 +27,8 @@ import ResponsiveControl from '../../components/controls/responsive-control/Resp
 import GoogleMapsStyle from './style';
 import useUniqueId from '../../hooks/useUniqueId';
 import getBlockId from '../../util/getBlockId';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import BorderControls from '../../components/controls/border-controls';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -125,6 +127,7 @@ const GoogleMapsEdit = ({
                 id={blockId}
                 style={{
                   backgroundColor: backgroundColor || undefined,
+                  ...getBorderCSSValue({ attributes }),
                 }}
               />
             }
@@ -283,6 +286,11 @@ const GoogleMapsEdit = ({
             ]}
             onChange={value => setAttributes({ backgroundColor: value })}
           >
+            <BorderControls
+              attributes={attributes}
+              setAttributes={setAttributes}
+            />
+
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls

@@ -13,6 +13,8 @@ import getBlockId from '../../util/getBlockId';
 import SpacerStyle from './style';
 import BackgroundControls from '../../components/controls/background-controls';
 import MarginControls from '../../components/controls/margin-controls';
+import BorderControls from '../../components/controls/border-controls';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 
 const SpacerEdit = ({
   attributes,
@@ -38,6 +40,7 @@ const SpacerEdit = ({
           style={{
             backgroundColor: backgroundColor || undefined,
             ...getBackgroundImageStyle(backgroundImage),
+            ...getBorderCSSValue({ attributes }),
           }}
           className={classNames('block-library-spacer__resize-container', {
             'is-selected': isSelected,
@@ -107,6 +110,19 @@ const SpacerEdit = ({
           ]}
           onChange={value => setAttributes({ backgroundColor: value })}
         >
+          <BackgroundControls
+            label={__('Background Image')}
+            setAttributes={setAttributes}
+            attributes={attributes}
+            attributeKey="backgroundImage"
+            supportsParallax
+          />
+
+          <BorderControls
+            attributes={attributes}
+            setAttributes={setAttributes}
+          />
+
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
@@ -118,14 +134,6 @@ const SpacerEdit = ({
               />
             )}
           </ResponsiveControl>
-
-          <BackgroundControls
-            label={__('Background Image')}
-            setAttributes={setAttributes}
-            attributes={attributes}
-            attributeKey="backgroundImage"
-            supportsParallax
-          />
         </PanelColorSettings>
       </InspectorControls>
     </Fragment>

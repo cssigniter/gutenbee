@@ -168,7 +168,7 @@ class AdvancedColorControl extends Component {
                         this.setState({ currentColor: color.hex });
                         this.props.onColorChange(color.hex);
                       }}
-                      disableAlpha
+                      disableAlpha={false}
                     />
                   )}
                 {this.state.classSat !== 'second' &&

@@ -7,6 +7,8 @@ import { getDefaultSpacingValue } from '../../components/controls/responsive-con
 import getBlockId from '../../util/getBlockId';
 import VideoStyle from './style';
 import VideoBlockIcon from './block-icon';
+import borderControlAttributes from '../../components/controls/border-controls/attributes';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 
 registerBlockType('gutenbee/video', {
   title: __('GutenBee Video'),
@@ -88,6 +90,7 @@ registerBlockType('gutenbee/video', {
       type: 'object',
       default: getDefaultSpacingValue(),
     },
+    ...borderControlAttributes(),
   },
   edit: VideoEdit,
   save: ({ attributes }) => {
@@ -104,7 +107,12 @@ registerBlockType('gutenbee/video', {
       playsInline,
     } = attributes;
     return (
-      <figure id={getBlockId(uniqueId)}>
+      <figure
+        id={getBlockId(uniqueId)}
+        style={{
+          ...getBorderCSSValue({ attributes }),
+        }}
+      >
         <VideoStyle attributes={attributes} />
         {src && (
           <video

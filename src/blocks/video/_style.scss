@@ -1,6 +1,7 @@
 .wp-block-gutenbee-video {
 	margin-left: 0;
 	margin-right: 0;
+  line-height: 0;
 
   video {
 		max-width: 100%;
@@ -21,5 +22,6 @@
     margin-top: .5em;
     margin-bottom: 0;
     font-size: 0.9rem;
+    line-height: normal;
 	}
 }

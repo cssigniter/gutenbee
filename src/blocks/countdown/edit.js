@@ -22,6 +22,8 @@ import FontSizePickerLabel from '../../components/controls/text-controls/FontSiz
 import CountdownStyle from './style';
 import useUniqueId from '../../hooks/useUniqueId';
 import getBlockId from '../../util/getBlockId';
+import BorderControls from '../../components/controls/border-controls';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -151,6 +153,7 @@ const CountdownEdit = ({
         ref={clock}
         style={{
           backgroundColor: backgroundColor || undefined,
+          ...getBorderCSSValue({ attributes }),
         }}
       >
         <CountdownStyle attributes={attributes} />
@@ -231,6 +234,11 @@ const CountdownEdit = ({
               },
             ]}
           >
+            <BorderControls
+              attributes={attributes}
+              setAttributes={setAttributes}
+            />
+
             <RangeControl
               label={__('Box max width (%)')}
               min={0}

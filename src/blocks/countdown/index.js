@@ -16,6 +16,8 @@ import {
 import getBlockId from '../../util/getBlockId';
 import CountdownStyle from './style';
 import deprecated from './deprecated';
+import borderControlAttributes from '../../components/controls/border-controls/attributes';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 
 const CountDown = ({ attributes, className }) => {
   const {
@@ -75,6 +77,7 @@ const CountDown = ({ attributes, className }) => {
       data-date={date}
       style={{
         backgroundColor: backgroundColor || undefined,
+        ...getBorderCSSValue({ attributes }),
       }}
     >
       <CountdownStyle attributes={attributes} />
@@ -185,6 +188,7 @@ registerBlockType('gutenbee/countdown', {
       type: 'object',
       default: getDefaultSpacingValue(),
     },
+    ...borderControlAttributes(),
   },
   deprecated,
   edit: CountdownEdit,

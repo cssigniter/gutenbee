@@ -2301,6 +2301,7 @@
 .wp-block-gutenbee-video {
   margin-left: 0;
   margin-right: 0;
+  line-height: 0;
 }
 
 .wp-block-gutenbee-video video {
@@ -2323,6 +2324,7 @@
   margin-top: .5em;
   margin-bottom: 0;
   font-size: 0.9rem;
+  line-height: normal;
 }
 
 .wp-block-gutenbee-button {

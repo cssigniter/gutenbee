@@ -12,6 +12,8 @@ import ResponsiveControl from '../../components/controls/responsive-control/Resp
 import MarginControls from '../../components/controls/margin-controls';
 import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
 import getBlockId from '../../util/getBlockId';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import BorderControls from '../../components/controls/border-controls';
 
 const ProgressBarEdit = ({
   attributes,
@@ -48,6 +50,7 @@ const ProgressBarEdit = ({
         className={className}
         style={{
           backgroundColor: backgroundColor || undefined,
+          ...getBorderCSSValue({ attributes }),
         }}
       >
         <ProgressBarStyle attributes={attributes} />
@@ -197,6 +200,11 @@ const ProgressBarEdit = ({
               },
             ]}
           >
+            <BorderControls
+              attributes={attributes}
+              setAttributes={setAttributes}
+            />
+
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls

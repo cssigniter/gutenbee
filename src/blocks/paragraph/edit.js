@@ -1,12 +1,7 @@
 import classnames from 'classnames';
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
-import {
-  PanelBody,
-  ToggleControl,
-  withFallbackStyles,
-  SelectControl,
-} from 'wp.components';
+import { PanelBody, ToggleControl, withFallbackStyles } from 'wp.components';
 import {
   withColors,
   ContrastChecker,
@@ -14,6 +9,7 @@ import {
   InspectorControls,
   PanelColorSettings,
   RichText,
+  AlignmentToolbar,
 } from 'wp.blockEditor';
 import { createBlock } from 'wp.blocks';
 import { compose } from 'wp.compose';
@@ -22,6 +18,8 @@ import ResponsiveControl from '../../components/controls/responsive-control/Resp
 import MarginControls from '../../components/controls/margin-controls';
 import getBlockId from '../../util/getBlockId';
 import ParagraphStyle from './style';
+import BorderControls from '../../components/controls/border-controls';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 
 const { getComputedStyle } = window;
 
@@ -139,15 +137,9 @@ const ParagraphBlock = ({
 
           <ResponsiveControl>
             {breakpoint => (
-              <SelectControl
-                label={__('Text Alignment')}
+              <AlignmentToolbar
+                isCollapsed={false}
                 value={align[breakpoint]}
-                options={[
-                  { value: '', label: __('') },
-                  { value: 'left', label: __('Left') },
-                  { value: 'center', label: __('Center') },
-                  { value: 'right', label: __('Right') },
-                ]}
                 onChange={value =>
                   setAttributes({
                     align: {
@@ -169,6 +161,11 @@ const ParagraphBlock = ({
           setTextColor={setTextColor}
           textColor={textColor.color}
         >
+          <BorderControls
+            attributes={attributes}
+            setAttributes={setAttributes}
+          />
+
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
@@ -218,6 +215,7 @@ const ParagraphBlock = ({
           })}
           style={{
             fontSize: fontSize.desktop ? fontSize.desktop + 'px' : undefined,
+            ...getBorderCSSValue({ attributes }),
           }}
           value={content}
           onChange={newContent => setAttributes({ content: newContent })}

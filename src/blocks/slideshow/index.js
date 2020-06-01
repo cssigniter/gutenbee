@@ -14,6 +14,8 @@ import { getDefaultSpacingValue } from '../../components/controls/responsive-con
 import SlideshowStyle from './style';
 import getBlockId from '../../util/getBlockId';
 import deprecated from './deprecated';
+import borderControlAttributes from '../../components/controls/border-controls/attributes';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 
 registerBlockType('gutenbee/slideshow', {
   title: __('GutenBee Slideshow'),
@@ -126,6 +128,7 @@ registerBlockType('gutenbee/slideshow', {
     backgroundColor: {
       type: 'string',
     },
+    ...borderControlAttributes(),
   },
   deprecated,
   edit: SlideshowEdit,
@@ -167,6 +170,7 @@ registerBlockType('gutenbee/slideshow', {
         style={{
           color: arrowsColor,
           backgroundColor: backgroundColor || undefined,
+          ...getBorderCSSValue({ attributes }),
         }}
         data-dots-color={dotsColor}
         data-arrows-color={arrowsColor}

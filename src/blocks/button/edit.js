@@ -6,12 +6,7 @@ import {
   RichText,
   PanelColorSettings,
 } from 'wp.blockEditor';
-import {
-  PanelBody,
-  RangeControl,
-  TextControl,
-  ToggleControl,
-} from 'wp.components';
+import { PanelBody, TextControl, ToggleControl } from 'wp.components';
 import classnames from 'classnames';
 
 import useUniqueId from '../../hooks/useUniqueId';
@@ -19,6 +14,8 @@ import getBlockId from '../../util/getBlockId';
 import ButtonStyle from './style';
 import MarginControls from '../../components/controls/margin-controls';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
+import BorderControls from '../../components/controls/border-controls';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 
 const propTypes = {
   attributes: PropTypes.object.isRequired,
@@ -39,9 +36,6 @@ const ButtonEdit = ({ attributes, setAttributes, className, clientId }) => {
     linkTarget,
     textColor,
     backgroundColor,
-    borderColor,
-    borderRadius,
-    borderWidth,
   } = attributes;
 
   useUniqueId({
@@ -86,37 +80,14 @@ const ButtonEdit = ({ attributes, setAttributes, className, clientId }) => {
           })}
           style={{
             backgroundColor: backgroundColor || undefined,
-            borderColor: borderColor || undefined,
             color: textColor || undefined,
-            borderRadius:
-              borderRadius != null ? `${borderRadius}px` : undefined,
-            borderWidth: borderWidth != null ? `${borderWidth}px` : undefined,
+            ...getBorderCSSValue({ attributes, prefix: '' }),
           }}
         />
       </div>
 
       <InspectorControls>
         <PanelBody title={__('Button Settings')} initialOpen>
-          <RangeControl
-            value={borderRadius}
-            label={__('Border Radius')}
-            min={0}
-            max={50}
-            initialPosition={5}
-            allowReset
-            onChange={value => setAttributes({ borderRadius: value })}
-          />
-
-          <RangeControl
-            value={borderWidth}
-            label={__('Border Width')}
-            min={0}
-            max={20}
-            initialPosition={2}
-            allowReset
-            onChange={value => setAttributes({ borderWidth: value })}
-          />
-
           <TextControl
             label={__('Button URL')}
             value={url}
@@ -150,14 +121,15 @@ const ButtonEdit = ({ attributes, setAttributes, className, clientId }) => {
               onChange: value => setAttributes({ backgroundColor: value }),
               label: __('Background Color'),
             },
-            {
-              value: borderColor,
-              onChange: value => setAttributes({ borderColor: value }),
-              label: __('Border Color'),
-            },
           ]}
           onChange={value => setAttributes({ backgroundColor: value })}
         >
+          <BorderControls
+            attributes={attributes}
+            setAttributes={setAttributes}
+            attributePrefix=""
+          />
+
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls

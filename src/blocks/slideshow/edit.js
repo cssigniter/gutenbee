@@ -16,6 +16,8 @@ import useUniqueId from '../../hooks/useUniqueId';
 import getBlockId from '../../util/getBlockId';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 import SlideshowStyle from './style';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import BorderControls from '../../components/controls/border-controls';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -81,6 +83,7 @@ const SlideshowEdit = ({
         isSelected={isSelected}
         style={{
           backgroundColor: backgroundColor || undefined,
+          ...getBorderCSSValue({ attributes }),
         }}
       >
         <SlideshowStyle attributes={attributes} />
@@ -237,6 +240,11 @@ const SlideshowEdit = ({
               ]}
               onChange={value => setAttributes({ backgroundColor: value })}
             >
+              <BorderControls
+                attributes={attributes}
+                setAttributes={setAttributes}
+              />
+
               <ResponsiveControl>
                 {breakpoint => (
                   <MarginControls

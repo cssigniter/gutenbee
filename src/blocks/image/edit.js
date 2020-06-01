@@ -29,6 +29,8 @@ import ResponsiveControl from '../../components/controls/responsive-control/Resp
 import ImageStyle from './style';
 import { getDefaultResponsiveValue } from '../../components/controls/responsive-control/default-values';
 import MarginControls from '../../components/controls/margin-controls';
+import BorderControls from '../../components/controls/border-controls';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 
 const propTypes = {
   attributes: PropTypes.object.isRequired,
@@ -209,6 +211,7 @@ const ImageEdit = ({
         className={className}
         style={{
           backgroundColor: backgroundColor || undefined,
+          ...getBorderCSSValue({ attributes, prefix: 'image' }),
         }}
       >
         <img
@@ -293,6 +296,12 @@ const ImageEdit = ({
           ]}
           onChange={value => setAttributes({ backgroundColor: value })}
         >
+          <BorderControls
+            attributes={attributes}
+            setAttributes={setAttributes}
+            attributePrefix="image"
+          />
+
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls

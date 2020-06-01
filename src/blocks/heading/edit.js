@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
-import { PanelBody, SelectControl } from 'wp.components';
+import { PanelBody } from 'wp.components';
 import {
   BlockControls,
   InspectorControls,
   RichText,
   PanelColorSettings,
+  AlignmentToolbar,
 } from 'wp.blockEditor';
 import { createBlock } from 'wp.blocks';
 
@@ -18,6 +19,8 @@ import HeadingStyle from './style';
 import getBlockId from '../../util/getBlockId';
 import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
 import Rule from '../../components/stylesheet/Rule';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import BorderControls from '../../components/controls/border-controls';
 
 const propTypes = {
   attribute: PropTypes.object.isRequired,
@@ -70,6 +73,7 @@ function HeadingEdit({
         style={{
           color: textColor ? textColor : undefined,
           backgroundColor: backgroundColor ? backgroundColor : undefined,
+          ...getBorderCSSValue({ attributes }),
         }}
         className="gutenbee-heading-wrap"
       >
@@ -135,15 +139,9 @@ function HeadingEdit({
 
           <ResponsiveControl>
             {breakpoint => (
-              <SelectControl
-                label={__('Text Alignment')}
+              <AlignmentToolbar
+                isCollapsed={false}
                 value={align[breakpoint]}
-                options={[
-                  { value: '', label: __('') },
-                  { value: 'left', label: __('Left') },
-                  { value: 'center', label: __('Center') },
-                  { value: 'right', label: __('Right') },
-                ]}
                 onChange={value =>
                   setAttributes({
                     align: {
@@ -174,6 +172,11 @@ function HeadingEdit({
           ]}
           onChange={value => setAttributes({ backgroundColor: value })}
         >
+          <BorderControls
+            attributes={attributes}
+            setAttributes={setAttributes}
+          />
+
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls

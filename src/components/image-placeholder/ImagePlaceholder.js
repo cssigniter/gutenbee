@@ -27,7 +27,7 @@ const ImagePlaceholder = ({
       onSelect={onSelectImage}
       allowedTypes={['image']}
       render={({ open }) => (
-        <Button isLarge onClick={open}>
+        <Button isSecondary isLarge onClick={open}>
           {multiple ? __('Select Images') : __('Select Image')}
         </Button>
       )}

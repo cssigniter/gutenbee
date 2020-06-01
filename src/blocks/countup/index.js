@@ -19,6 +19,8 @@ import {
 import getBlockId from '../../util/getBlockId';
 import CountupStyle from './style';
 import deprecated from './deprecated';
+import borderControlAttributes from '../../components/controls/border-controls/attributes';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 
 const CountupRender = ({ attributes, className }) => {
   const {
@@ -40,6 +42,7 @@ const CountupRender = ({ attributes, className }) => {
       })}
       style={{
         backgroundColor: backgroundColor || undefined,
+        ...getBorderCSSValue({ attributes }),
       }}
     >
       <CountupStyle attributes={attributes} />
@@ -130,6 +133,7 @@ registerBlockType('gutenbee/countup', {
     backgroundColor: {
       type: 'string',
     },
+    ...borderControlAttributes(),
   },
   deprecated,
   edit: CountupEdit,

@@ -11,6 +11,8 @@ import { getDefaultSpacingValue } from '../../components/controls/responsive-con
 import getBlockId from '../../util/getBlockId';
 import ImageComparisonStyle from './style';
 import deprecated from './deprecated';
+import borderControlAttributes from '../../components/controls/border-controls/attributes';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 
 registerBlockType('gutenbee/image-comparison', {
   title: __('GutenBee Image Comparison'),
@@ -58,6 +60,7 @@ registerBlockType('gutenbee/image-comparison', {
     backgroundColor: {
       type: 'string',
     },
+    ...borderControlAttributes(),
   },
   deprecated,
   edit: ImageComparisonEdit,
@@ -68,7 +71,10 @@ registerBlockType('gutenbee/image-comparison', {
     return (
       <div
         id={blockId}
-        style={{ backgroundColor: backgroundColor || undefined }}
+        style={{
+          backgroundColor: backgroundColor || undefined,
+          ...getBorderCSSValue({ attributes }),
+        }}
         className={className}
       >
         <div className="wp-block-gutenbee-comparison-wrap" data-offset={offset}>
