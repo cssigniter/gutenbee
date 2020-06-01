@@ -2,6 +2,7 @@ import { Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import { SelectControl, RangeControl } from 'wp.components';
+
 import PopoverColorControl from '../advanced-color-control/PopoverColorControl';
 
 const propTypes = {

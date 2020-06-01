@@ -16,6 +16,8 @@ import MarginControls from '../../components/controls/margin-controls';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 import BorderControls from '../../components/controls/border-controls';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
+import BoxShadowControls from '../../components/controls/box-shadow-controls';
 
 const propTypes = {
   attributes: PropTypes.object.isRequired,
@@ -65,6 +67,7 @@ const ButtonEdit = ({ attributes, setAttributes, className, clientId }) => {
       rel: updatedRel,
     });
   };
+  console.log(attributes, getBoxShadowCSSValue({ attributes, prefix: '' }));
 
   return (
     <Fragment>
@@ -82,6 +85,7 @@ const ButtonEdit = ({ attributes, setAttributes, className, clientId }) => {
             backgroundColor: backgroundColor || undefined,
             color: textColor || undefined,
             ...getBorderCSSValue({ attributes, prefix: '' }),
+            ...getBoxShadowCSSValue({ attributes, prefix: '' }),
           }}
         />
       </div>
@@ -125,6 +129,12 @@ const ButtonEdit = ({ attributes, setAttributes, className, clientId }) => {
           onChange={value => setAttributes({ backgroundColor: value })}
         >
           <BorderControls
+            attributes={attributes}
+            setAttributes={setAttributes}
+            attributePrefix=""
+          />
+
+          <BoxShadowControls
             attributes={attributes}
             setAttributes={setAttributes}
             attributePrefix=""

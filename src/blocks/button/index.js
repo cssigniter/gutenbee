@@ -10,6 +10,10 @@ import getBlockId from '../../util/getBlockId';
 import ButtonBlockIcon from './block-icon';
 import borderControlAttributes from '../../components/controls/border-controls/attributes';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import {
+  boxShadowControlAttributes,
+  getBoxShadowCSSValue,
+} from '../../components/controls/box-shadow-controls/helpers';
 
 registerBlockType('gutenbee/button', {
   title: __('GutenBee Button'),
@@ -56,6 +60,7 @@ registerBlockType('gutenbee/button', {
       type: 'string',
     },
     ...borderControlAttributes(''),
+    ...boxShadowControlAttributes(''),
     blockPadding: {
       type: 'object',
       default: getDefaultSpacingValue(),
@@ -95,6 +100,7 @@ registerBlockType('gutenbee/button', {
             backgroundColor: backgroundColor || undefined,
             color: textColor || undefined,
             ...getBorderCSSValue({ attributes, prefix: '' }),
+            ...getBoxShadowCSSValue({ attributes, prefix: '' }),
           }}
         />
       </div>
