@@ -21,6 +21,8 @@ import FontSizePickerLabel from '../../components/controls/text-controls/FontSiz
 import Rule from '../../components/stylesheet/Rule';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import BorderControls from '../../components/controls/border-controls';
+import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
+import BoxShadowControls from '../../components/controls/box-shadow-controls';
 
 const propTypes = {
   attribute: PropTypes.object.isRequired,
@@ -74,6 +76,7 @@ function HeadingEdit({
           color: textColor ? textColor : undefined,
           backgroundColor: backgroundColor ? backgroundColor : undefined,
           ...getBorderCSSValue({ attributes }),
+          ...getBoxShadowCSSValue({ attributes }),
         }}
         className="gutenbee-heading-wrap"
       >
@@ -173,6 +176,11 @@ function HeadingEdit({
           onChange={value => setAttributes({ backgroundColor: value })}
         >
           <BorderControls
+            attributes={attributes}
+            setAttributes={setAttributes}
+          />
+
+          <BoxShadowControls
             attributes={attributes}
             setAttributes={setAttributes}
           />

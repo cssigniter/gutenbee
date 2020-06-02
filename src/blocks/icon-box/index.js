@@ -32,6 +32,11 @@ import { getBorderCSSValue } from '../../components/controls/border-controls/hel
 import BorderControls from '../../components/controls/border-controls';
 import borderControlAttributes from '../../components/controls/border-controls/attributes';
 import HeadingToolbar from '../heading/heading-toolbar';
+import {
+  boxShadowControlAttributes,
+  getBoxShadowCSSValue,
+} from '../../components/controls/box-shadow-controls/helpers';
+import BoxShadowControls from '../../components/controls/box-shadow-controls';
 
 const IconBox = ({ className, attributes }) => {
   const {
@@ -64,6 +69,7 @@ const IconBox = ({ className, attributes }) => {
       style={{
         backgroundColor: backgroundColor || undefined,
         ...getBorderCSSValue({ attributes }),
+        ...getBoxShadowCSSValue({ attributes }),
       }}
     >
       <ImageBoxStyle attributes={attributes} />
@@ -150,6 +156,7 @@ const IconBoxEditBlock = ({
         style={{
           backgroundColor: backgroundColor || undefined,
           ...getBorderCSSValue({ attributes }),
+          ...getBoxShadowCSSValue({ attributes }),
         }}
       >
         <IconBoxStyle attributes={attributes} />
@@ -308,6 +315,11 @@ const IconBoxEditBlock = ({
               setAttributes={setAttributes}
             />
 
+            <BoxShadowControls
+              attributes={attributes}
+              setAttributes={setAttributes}
+            />
+
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
@@ -408,6 +420,7 @@ registerBlockType('gutenbee/iconbox', {
       type: 'string',
     },
     ...borderControlAttributes(),
+    ...boxShadowControlAttributes(),
   },
   deprecated,
   edit: withState({ editable: null })(IconBoxEditBlock),

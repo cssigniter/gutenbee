@@ -31,6 +31,8 @@ import { getDefaultResponsiveValue } from '../../components/controls/responsive-
 import MarginControls from '../../components/controls/margin-controls';
 import BorderControls from '../../components/controls/border-controls';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
+import BoxShadowControls from '../../components/controls/box-shadow-controls';
 
 const propTypes = {
   attributes: PropTypes.object.isRequired,
@@ -211,7 +213,6 @@ const ImageEdit = ({
         className={className}
         style={{
           backgroundColor: backgroundColor || undefined,
-          ...getBorderCSSValue({ attributes, prefix: 'image' }),
         }}
       >
         <img
@@ -219,6 +220,10 @@ const ImageEdit = ({
           alt={alt}
           onDoubleClick={toggleIsEditing}
           onClick={onImageClick}
+          style={{
+            ...getBorderCSSValue({ attributes, prefix: 'image' }),
+            ...getBoxShadowCSSValue({ attributes, prefix: 'image' }),
+          }}
         />
 
         {(!RichText.isEmpty(caption) || isSelected) && (
@@ -297,6 +302,12 @@ const ImageEdit = ({
           onChange={value => setAttributes({ backgroundColor: value })}
         >
           <BorderControls
+            attributes={attributes}
+            setAttributes={setAttributes}
+            attributePrefix="image"
+          />
+
+          <BoxShadowControls
             attributes={attributes}
             setAttributes={setAttributes}
             attributePrefix="image"

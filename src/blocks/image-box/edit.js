@@ -32,6 +32,8 @@ import FontSizePickerLabel from '../../components/controls/text-controls/FontSiz
 import BorderControls from '../../components/controls/border-controls';
 import HeadingToolbar from '../heading/heading-toolbar';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import BoxShadowControls from '../../components/controls/box-shadow-controls';
+import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 
 const propTypes = {
   className: PropTypes.string.isRequired,
@@ -88,6 +90,7 @@ const ImageBoxEditBlock = ({
         style={{
           backgroundColor: backgroundColor || undefined,
           ...getBorderCSSValue({ attributes }),
+          ...getBoxShadowCSSValue({ attributes }),
         }}
       >
         <figure className={`${className}-figure`}>
@@ -301,6 +304,11 @@ const ImageBoxEditBlock = ({
               onChange={value => setAttributes({ backgroundColor: value })}
             >
               <BorderControls
+                attributes={attributes}
+                setAttributes={setAttributes}
+              />
+
+              <BoxShadowControls
                 attributes={attributes}
                 setAttributes={setAttributes}
               />

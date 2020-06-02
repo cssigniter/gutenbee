@@ -25,6 +25,8 @@ import getBlockId from '../../util/getBlockId';
 import ImageComparisonStyle from './style';
 import BorderControls from '../../components/controls/border-controls';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import BoxShadowControls from '../../components/controls/box-shadow-controls';
+import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -107,6 +109,7 @@ const ImageComparisonEdit = ({
         style={{
           backgroundColor: backgroundColor || undefined,
           ...getBorderCSSValue({ attributes }),
+          ...getBoxShadowCSSValue({ attributes }),
         }}
       >
         <ImageComparisonStyle attributes={attributes} />
@@ -236,6 +239,11 @@ const ImageComparisonEdit = ({
             onChange={value => setAttributes({ backgroundColor: value })}
           >
             <BorderControls
+              attributes={attributes}
+              setAttributes={setAttributes}
+            />
+
+            <BoxShadowControls
               attributes={attributes}
               setAttributes={setAttributes}
             />

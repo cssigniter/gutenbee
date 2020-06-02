@@ -18,6 +18,10 @@ import CountdownStyle from './style';
 import deprecated from './deprecated';
 import borderControlAttributes from '../../components/controls/border-controls/attributes';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import {
+  boxShadowControlAttributes,
+  getBoxShadowCSSValue,
+} from '../../components/controls/box-shadow-controls/helpers';
 
 const CountDown = ({ attributes, className }) => {
   const {
@@ -78,6 +82,7 @@ const CountDown = ({ attributes, className }) => {
       style={{
         backgroundColor: backgroundColor || undefined,
         ...getBorderCSSValue({ attributes }),
+        ...getBoxShadowCSSValue({ attributes }),
       }}
     >
       <CountdownStyle attributes={attributes} />
@@ -189,6 +194,7 @@ registerBlockType('gutenbee/countdown', {
       default: getDefaultSpacingValue(),
     },
     ...borderControlAttributes(),
+    ...boxShadowControlAttributes(),
   },
   deprecated,
   edit: CountdownEdit,

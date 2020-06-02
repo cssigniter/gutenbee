@@ -16,6 +16,10 @@ import deprecated from './deprecated';
 import transforms from './transforms';
 import borderControlAttributes from '../../components/controls/border-controls/attributes';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import {
+  boxShadowControlAttributes,
+  getBoxShadowCSSValue,
+} from '../../components/controls/box-shadow-controls/helpers';
 
 registerBlockType('gutenbee/heading', {
   title: __('GutenBee Heading'),
@@ -67,6 +71,7 @@ registerBlockType('gutenbee/heading', {
       type: 'string',
     },
     ...borderControlAttributes(),
+    ...boxShadowControlAttributes(),
     blockPadding: {
       type: 'object',
       default: getDefaultSpacingValue(),
@@ -102,6 +107,7 @@ registerBlockType('gutenbee/heading', {
             color: textColor ? textColor : undefined,
             backgroundColor: backgroundColor ? backgroundColor : undefined,
             ...getBorderCSSValue({ attributes }),
+            ...getBoxShadowCSSValue({ attributes }),
           }}
           value={content}
         />

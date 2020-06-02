@@ -20,6 +20,8 @@ import getBlockId from '../../util/getBlockId';
 import ParagraphStyle from './style';
 import BorderControls from '../../components/controls/border-controls';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
+import BoxShadowControls from '../../components/controls/box-shadow-controls';
 
 const { getComputedStyle } = window;
 
@@ -166,6 +168,11 @@ const ParagraphBlock = ({
             setAttributes={setAttributes}
           />
 
+          <BoxShadowControls
+            attributes={attributes}
+            setAttributes={setAttributes}
+          />
+
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
@@ -216,6 +223,7 @@ const ParagraphBlock = ({
           style={{
             fontSize: fontSize.desktop ? fontSize.desktop + 'px' : undefined,
             ...getBorderCSSValue({ attributes }),
+            ...getBoxShadowCSSValue({ attributes }),
           }}
           value={content}
           onChange={newContent => setAttributes({ content: newContent })}

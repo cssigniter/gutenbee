@@ -90,6 +90,7 @@ const BorderControls = ({
             initialPosition={defaultValues.width || 0}
             allowReset
           />
+
           <RangeControl
             label={__('Border Radius (px)')}
             min={0}

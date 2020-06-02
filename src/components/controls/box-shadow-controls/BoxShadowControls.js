@@ -27,6 +27,12 @@ const BoxShadowControls = ({
   const spread = attributePrefix
     ? attributes[`${attributePrefix}BoxShadowSpread`]
     : attributes.boxShadowSpread;
+  const left = attributePrefix
+    ? attributes[`${attributePrefix}BoxShadowLeft`]
+    : attributes.boxShadowLeft;
+  const top = attributePrefix
+    ? attributes[`${attributePrefix}BoxShadowTop`]
+    : attributes.boxShadowTop;
 
   return (
     <Fragment>
@@ -90,6 +96,40 @@ const BoxShadowControls = ({
                 setAttributes({ [`${attributePrefix}BoxShadowSpread`]: value });
               } else {
                 setAttributes({ boxShadowSpread: value });
+              }
+            }}
+            step={1}
+            initialPosition={0}
+            allowReset
+          />
+
+          <RangeControl
+            label={__('Box Shadow Left (px)')}
+            min={-100}
+            max={100}
+            value={left}
+            onChange={value => {
+              if (attributePrefix) {
+                setAttributes({ [`${attributePrefix}BoxShadowLeft`]: value });
+              } else {
+                setAttributes({ boxShadowLeft: value });
+              }
+            }}
+            step={1}
+            initialPosition={0}
+            allowReset
+          />
+
+          <RangeControl
+            label={__('Box Shadow Top (px)')}
+            min={-100}
+            max={100}
+            value={top}
+            onChange={value => {
+              if (attributePrefix) {
+                setAttributes({ [`${attributePrefix}BoxShadowTop`]: value });
+              } else {
+                setAttributes({ boxShadowTop: value });
               }
             }}
             step={1}

@@ -27,6 +27,10 @@ import {
   toWidthPrecision,
 } from '../utils';
 import { BREAKPOINT_NAMES } from '../../../components/stylesheet/StyleSheet';
+import BorderControls from '../../../components/controls/border-controls';
+import BoxShadowControls from '../../../components/controls/box-shadow-controls';
+import { getBoxShadowCSSValue } from '../../../components/controls/box-shadow-controls/helpers';
+import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
 
 const propTypes = {
   className: PropTypes.string.isRequired,
@@ -72,6 +76,8 @@ const ColumnBlockEdit = ({
             color: textColor,
             backgroundColor,
             ...getBackgroundImageStyle(backgroundImage),
+            ...getBorderCSSValue({ attributes }),
+            ...getBoxShadowCSSValue({ attributes }),
           }}
         >
           <InnerBlocks
@@ -194,6 +200,16 @@ const ColumnBlockEdit = ({
             setAttributes={setAttributes}
             attributes={attributes}
             attributeKey="backgroundImage"
+          />
+
+          <BorderControls
+            attributes={attributes}
+            setAttributes={setAttributes}
+          />
+
+          <BoxShadowControls
+            attributes={attributes}
+            setAttributes={setAttributes}
           />
         </PanelColorSettings>
       </InspectorControls>

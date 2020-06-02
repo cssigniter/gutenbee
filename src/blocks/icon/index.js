@@ -23,6 +23,8 @@ import useUniqueId from '../../hooks/useUniqueId';
 import getBlockId from '../../util/getBlockId';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 import deprecated from './deprecated';
+import { boxShadowControlAttributes } from '../../components/controls/box-shadow-controls/helpers';
+import BoxShadowControls from '../../components/controls/box-shadow-controls';
 
 export const iconAttributes = {
   uniqueId: {
@@ -70,6 +72,7 @@ export const iconAttributes = {
     type: 'object',
     default: getDefaultSpacingValue(),
   },
+  ...boxShadowControlAttributes('icon'),
 };
 
 export const IconSettings = ({
@@ -205,6 +208,12 @@ export const IconSettings = ({
         ]}
         onChange={value => setAttributes({ backgroundColor: value })}
       >
+        <BoxShadowControls
+          attributes={attributes}
+          setAttributes={setAttributes}
+          attributePrefix="icon"
+        />
+
         {blockPadding && (
           <ResponsiveControl>
             {breakpoint => (

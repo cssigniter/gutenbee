@@ -23,6 +23,7 @@ import Rule from '../../components/stylesheet/Rule';
 import { hexToRGBA } from '../../components/controls/advanced-color-control/helpers';
 import ContainerInspectorControls from './inspector-controls';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 
 const propTypes = {
   className: PropTypes.string.isRequired,
@@ -126,7 +127,8 @@ const ContainerBlockEdit = ({
             style={{
               backgroundColor,
               ...getBackgroundImageStyle(backgroundImage),
-              ...getBorderCSSValue({ attributes, prefix: 'block' }),
+              ...getBorderCSSValue({ attributes }),
+              ...getBoxShadowCSSValue({ attributes }),
             }}
           />
         </div>

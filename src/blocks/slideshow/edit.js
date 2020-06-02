@@ -18,6 +18,8 @@ import ResponsiveControl from '../../components/controls/responsive-control/Resp
 import SlideshowStyle from './style';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import BorderControls from '../../components/controls/border-controls';
+import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
+import BoxShadowControls from '../../components/controls/box-shadow-controls';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -84,6 +86,7 @@ const SlideshowEdit = ({
         style={{
           backgroundColor: backgroundColor || undefined,
           ...getBorderCSSValue({ attributes }),
+          ...getBoxShadowCSSValue({ attributes }),
         }}
       >
         <SlideshowStyle attributes={attributes} />
@@ -241,6 +244,11 @@ const SlideshowEdit = ({
               onChange={value => setAttributes({ backgroundColor: value })}
             >
               <BorderControls
+                attributes={attributes}
+                setAttributes={setAttributes}
+              />
+
+              <BoxShadowControls
                 attributes={attributes}
                 setAttributes={setAttributes}
               />

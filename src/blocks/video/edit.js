@@ -30,6 +30,8 @@ import VideoStyle from './style';
 import VideoBlockIcon from './block-icon';
 import BorderControls from '../../components/controls/border-controls';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
+import BoxShadowControls from '../../components/controls/box-shadow-controls';
 
 const ALLOWED_MEDIA_TYPES = ['video'];
 const VIDEO_POSTER_ALLOWED_MEDIA_TYPES = ['image'];
@@ -240,6 +242,11 @@ const VideoEdit = ({
             setAttributes={setAttributes}
           />
 
+          <BoxShadowControls
+            attributes={attributes}
+            setAttributes={setAttributes}
+          />
+
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
@@ -272,6 +279,7 @@ const VideoEdit = ({
         className={className}
         style={{
           ...getBorderCSSValue({ attributes }),
+          ...getBoxShadowCSSValue({ attributes }),
         }}
       >
         {/*

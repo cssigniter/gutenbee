@@ -14,6 +14,10 @@ import { getBackgroundImageStyle } from '../../components/controls/background-co
 import deprecated from './deprecated';
 import borderControlAttributes from '../../components/controls/border-controls/attributes';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import {
+  boxShadowControlAttributes,
+  getBoxShadowCSSValue,
+} from '../../components/controls/box-shadow-controls/helpers';
 
 registerBlockType('gutenbee/spacer', {
   title: __('GutenBee Spacer'),
@@ -44,6 +48,7 @@ registerBlockType('gutenbee/spacer', {
       default: getDefaultBackgroundImageValue(),
     },
     ...borderControlAttributes(),
+    ...boxShadowControlAttributes(),
   },
   edit: SpacerEdit,
   deprecated,
@@ -59,6 +64,7 @@ registerBlockType('gutenbee/spacer', {
           backgroundColor: backgroundColor || undefined,
           ...getBackgroundImageStyle(backgroundImage),
           ...getBorderCSSValue({ attributes }),
+          ...getBoxShadowCSSValue({ attributes }),
         }}
         aria-hidden
       >

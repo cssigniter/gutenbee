@@ -15,6 +15,10 @@ import ImageStyle from './style';
 import ImageBlockIcon from './block-icon';
 import borderControlAttributes from '../../components/controls/border-controls/attributes';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import {
+  boxShadowControlAttributes,
+  getBoxShadowCSSValue,
+} from '../../components/controls/box-shadow-controls/helpers';
 
 registerBlockType('gutenbee/image', {
   title: __('GutenBee Image'),
@@ -117,6 +121,7 @@ registerBlockType('gutenbee/image', {
       type: 'string',
     },
     ...borderControlAttributes('image'),
+    ...boxShadowControlAttributes('image'),
   },
   getEditWrapperProps(attributes) {
     const { align, width } = attributes;
@@ -163,12 +168,15 @@ registerBlockType('gutenbee/image', {
         alt={alt}
         className={id ? `wp-image-${id}` : null}
         title={title}
+        style={{
+          ...getBorderCSSValue({ attributes, prefix: 'image' }),
+          ...getBoxShadowCSSValue({ attributes, prefix: 'image' }),
+        }}
       />
     );
 
     const style = {
       backgroundColor: backgroundColor || undefined,
-      ...getBorderCSSValue({ attributes, prefix: 'image' }),
     };
 
     const figure = (

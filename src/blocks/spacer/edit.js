@@ -15,6 +15,8 @@ import BackgroundControls from '../../components/controls/background-controls';
 import MarginControls from '../../components/controls/margin-controls';
 import BorderControls from '../../components/controls/border-controls';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import BoxShadowControls from '../../components/controls/box-shadow-controls';
+import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 
 const SpacerEdit = ({
   attributes,
@@ -41,6 +43,7 @@ const SpacerEdit = ({
             backgroundColor: backgroundColor || undefined,
             ...getBackgroundImageStyle(backgroundImage),
             ...getBorderCSSValue({ attributes }),
+            ...getBoxShadowCSSValue({ attributes }),
           }}
           className={classNames('block-library-spacer__resize-container', {
             'is-selected': isSelected,
@@ -119,6 +122,11 @@ const SpacerEdit = ({
           />
 
           <BorderControls
+            attributes={attributes}
+            setAttributes={setAttributes}
+          />
+
+          <BoxShadowControls
             attributes={attributes}
             setAttributes={setAttributes}
           />

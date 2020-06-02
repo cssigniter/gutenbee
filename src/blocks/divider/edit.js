@@ -12,6 +12,8 @@ import MarginControls from '../../components/controls/margin-controls';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 import BackgroundControls from '../../components/controls/background-controls';
 import useUniqueId from '../../hooks/useUniqueId';
+import BorderControls from '../../components/controls/border-controls';
+import BoxShadowControls from '../../components/controls/box-shadow-controls';
 
 const DividerEdit = ({
   className,
@@ -80,6 +82,7 @@ const DividerEdit = ({
             <AlignmentToolbar
               value={align}
               onChange={value => setAttributes({ align: value || 'left' })}
+              isCollapsed={false}
             />
           </PanelBody>
 
@@ -105,6 +108,16 @@ const DividerEdit = ({
               attributes={attributes}
               attributeKey="backgroundImage"
               supportsParallax
+            />
+
+            <BorderControls
+              attributes={attributes}
+              setAttributes={setAttributes}
+            />
+
+            <BoxShadowControls
+              attributes={attributes}
+              setAttributes={setAttributes}
             />
 
             <ResponsiveControl>

@@ -17,6 +17,10 @@ import getBlockId from '../../util/getBlockId';
 import deprecated from './deprecated';
 import borderControlAttributes from '../../components/controls/border-controls/attributes';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import {
+  boxShadowControlAttributes,
+  getBoxShadowCSSValue,
+} from '../../components/controls/box-shadow-controls/helpers';
 
 const ImageBox = ({ className, attributes }) => {
   const {
@@ -50,6 +54,7 @@ const ImageBox = ({ className, attributes }) => {
       style={{
         backgroundColor: backgroundColor || undefined,
         ...getBorderCSSValue({ attributes }),
+        ...getBoxShadowCSSValue({ attributes }),
       }}
     >
       <ImageBoxStyle attributes={attributes} />
@@ -181,6 +186,7 @@ registerBlockType('gutenbee/imagebox', {
       type: 'string',
     },
     ...borderControlAttributes(),
+    ...boxShadowControlAttributes(),
   },
   deprecated,
   edit: ImageBoxEditBlock,

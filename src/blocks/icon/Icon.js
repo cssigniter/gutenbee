@@ -2,6 +2,7 @@ import classNames from 'classnames';
 
 import { VIEWS } from './constants';
 import IconStyle from './style';
+import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 
 const Icon = ({
   id,
@@ -18,6 +19,7 @@ const Icon = ({
   colorSecondary,
   blockMargin,
   blockPadding,
+  ...attributes
 }) => {
   const wrapperClasses = classNames({
     'gutenbee-icon-block': true,
@@ -63,6 +65,7 @@ const Icon = ({
           width: pad ? `${pad}em` : 'auto',
           height: pad ? `${pad}em` : 'auto',
           borderWidth,
+          ...getBoxShadowCSSValue({ attributes, prefix: 'icon' }),
         }}
       >
         <span className={iconClasses} />

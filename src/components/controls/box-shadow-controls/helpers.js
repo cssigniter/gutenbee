@@ -17,6 +17,14 @@ export const boxShadowControlAttributes = (prefix = 'block') => {
         type: 'number',
         default: 0,
       },
+      [`${prefix}BoxShadowLeft`]: {
+        type: 'number',
+        default: 0,
+      },
+      [`${prefix}BoxShadowTop`]: {
+        type: 'number',
+        default: 0,
+      },
     };
   }
 
@@ -37,6 +45,14 @@ export const boxShadowControlAttributes = (prefix = 'block') => {
       type: 'number',
       default: 0,
     },
+    boxShadowLeft: {
+      type: 'number',
+      default: 0,
+    },
+    boxShadowTop: {
+      type: 'number',
+      default: 0,
+    },
   };
 };
 
@@ -53,20 +69,19 @@ export const getBoxShadowCSSValue = ({ attributes, prefix = 'block' }) => {
   const spread = prefix
     ? attributes[`${prefix}BoxShadowSpread`]
     : attributes.boxShadowSpread;
+  const left = prefix
+    ? attributes[`${prefix}BoxShadowLeft`]
+    : attributes.boxShadowLeft;
+  const top = prefix
+    ? attributes[`${prefix}BoxShadowTop`]
+    : attributes.boxShadowTop;
 
   if (type === 'none' || !type) {
     return {};
   }
-
-  if (spread) {
-    return {
-      boxShadow: `0 0 ${width}px ${spread}px ${
-        type === 'outset' ? '' : type
-      } ${color}`,
-    };
-  }
-
   return {
-    boxShadow: `0 0 ${width}px ${type === 'outset' ? '' : type} ${color}`,
+    boxShadow: `${left}px ${top}px ${width}px ${spread}px ${
+      type === 'outset' ? '' : type
+    } ${color}`,
   };
 };

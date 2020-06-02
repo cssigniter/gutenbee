@@ -29,6 +29,8 @@ import useUniqueId from '../../hooks/useUniqueId';
 import getBlockId from '../../util/getBlockId';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import BorderControls from '../../components/controls/border-controls';
+import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
+import BoxShadowControls from '../../components/controls/box-shadow-controls';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -128,6 +130,7 @@ const GoogleMapsEdit = ({
                 style={{
                   backgroundColor: backgroundColor || undefined,
                   ...getBorderCSSValue({ attributes }),
+                  ...getBoxShadowCSSValue({ attributes }),
                 }}
               />
             }
@@ -287,6 +290,11 @@ const GoogleMapsEdit = ({
             onChange={value => setAttributes({ backgroundColor: value })}
           >
             <BorderControls
+              attributes={attributes}
+              setAttributes={setAttributes}
+            />
+
+            <BoxShadowControls
               attributes={attributes}
               setAttributes={setAttributes}
             />

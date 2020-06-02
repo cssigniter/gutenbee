@@ -13,6 +13,7 @@ import BackgroundControls from '../../components/controls/background-controls/Ba
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 import AdvancedColorControl from '../../components/controls/advanced-color-control/AdvancedColorControl';
 import BorderControls from '../../components/controls/border-controls';
+import BoxShadowControls from '../../components/controls/box-shadow-controls';
 
 const ContainerInspectorControls = ({
   attributes,
@@ -231,6 +232,11 @@ const ContainerInspectorControls = ({
           />
 
           <BorderControls
+            attributes={attributes}
+            setAttributes={setAttributes}
+          />
+
+          <BoxShadowControls
             attributes={attributes}
             setAttributes={setAttributes}
           />

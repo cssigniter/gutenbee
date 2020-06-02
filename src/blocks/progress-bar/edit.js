@@ -14,6 +14,8 @@ import FontSizePickerLabel from '../../components/controls/text-controls/FontSiz
 import getBlockId from '../../util/getBlockId';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import BorderControls from '../../components/controls/border-controls';
+import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
+import BoxShadowControls from '../../components/controls/box-shadow-controls';
 
 const ProgressBarEdit = ({
   attributes,
@@ -51,6 +53,7 @@ const ProgressBarEdit = ({
         style={{
           backgroundColor: backgroundColor || undefined,
           ...getBorderCSSValue({ attributes }),
+          ...getBoxShadowCSSValue({ attributes }),
         }}
       >
         <ProgressBarStyle attributes={attributes} />
@@ -201,6 +204,11 @@ const ProgressBarEdit = ({
             ]}
           >
             <BorderControls
+              attributes={attributes}
+              setAttributes={setAttributes}
+            />
+
+            <BoxShadowControls
               attributes={attributes}
               setAttributes={setAttributes}
             />

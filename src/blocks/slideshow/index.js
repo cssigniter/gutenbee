@@ -16,6 +16,10 @@ import getBlockId from '../../util/getBlockId';
 import deprecated from './deprecated';
 import borderControlAttributes from '../../components/controls/border-controls/attributes';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import {
+  boxShadowControlAttributes,
+  getBoxShadowCSSValue,
+} from '../../components/controls/box-shadow-controls/helpers';
 
 registerBlockType('gutenbee/slideshow', {
   title: __('GutenBee Slideshow'),
@@ -129,6 +133,7 @@ registerBlockType('gutenbee/slideshow', {
       type: 'string',
     },
     ...borderControlAttributes(),
+    ...boxShadowControlAttributes(),
   },
   deprecated,
   edit: SlideshowEdit,
@@ -171,6 +176,7 @@ registerBlockType('gutenbee/slideshow', {
           color: arrowsColor,
           backgroundColor: backgroundColor || undefined,
           ...getBorderCSSValue({ attributes }),
+          ...getBoxShadowCSSValue({ attributes }),
         }}
         data-dots-color={dotsColor}
         data-arrows-color={arrowsColor}

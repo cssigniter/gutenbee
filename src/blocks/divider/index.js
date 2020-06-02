@@ -17,6 +17,12 @@ import getBlockId from '../../util/getBlockId';
 import DividerStyle from './style';
 import { getBackgroundImageStyle } from '../../components/controls/background-controls/helpers';
 import deprecated from './deprecated';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import {
+  boxShadowControlAttributes,
+  getBoxShadowCSSValue,
+} from '../../components/controls/box-shadow-controls/helpers';
+import borderControlAttributes from '../../components/controls/border-controls/attributes';
 
 export const BORDER_STYLES = {
   SOLID: 'solid',
@@ -47,6 +53,8 @@ export const Divider = ({ className, attributes, ...props }) => {
         height,
         backgroundColor: backgroundColor || undefined,
         ...getBackgroundImageStyle(backgroundImage),
+        ...getBorderCSSValue({ attributes }),
+        ...getBoxShadowCSSValue({ attributes }),
       }}
       {...props}
     >
@@ -115,6 +123,8 @@ registerBlockType('gutenbee/divider', {
       type: 'object',
       default: getDefaultSpacingValue(),
     },
+    ...borderControlAttributes(),
+    ...boxShadowControlAttributes(),
   },
   deprecated: deprecated,
   edit: DividerEdit,

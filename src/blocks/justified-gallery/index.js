@@ -16,6 +16,10 @@ import { LAST_ROW } from './constants';
 import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
 import borderControlAttributes from '../../components/controls/border-controls/attributes';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import {
+  boxShadowControlAttributes,
+  getBoxShadowCSSValue,
+} from '../../components/controls/box-shadow-controls/helpers';
 
 registerBlockType('gutenbee/justified-gallery', {
   title: __('GutenBee Gallery'),
@@ -102,6 +106,7 @@ registerBlockType('gutenbee/justified-gallery', {
       type: 'string',
     },
     ...borderControlAttributes(),
+    ...boxShadowControlAttributes(),
   },
   deprecated,
   edit: JustifiedGalleryEdit,
@@ -138,6 +143,7 @@ registerBlockType('gutenbee/justified-gallery', {
         style={{
           backgroundColor: backgroundColor || undefined,
           ...getBorderCSSValue({ attributes }),
+          ...getBoxShadowCSSValue({ attributes }),
         }}
       >
         <GalleryStyle attributes={attributes} />

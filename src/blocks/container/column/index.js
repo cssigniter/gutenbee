@@ -16,6 +16,12 @@ import {
   getDefaultSpacingValue,
 } from '../../../components/controls/responsive-control/default-values';
 import ColumnBlockIcon from './block-icon';
+import borderControlAttributes from '../../../components/controls/border-controls/attributes';
+import {
+  boxShadowControlAttributes,
+  getBoxShadowCSSValue,
+} from '../../../components/controls/box-shadow-controls/helpers';
+import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
 
 registerBlockType('gutenbee/column', {
   title: __('GutenBee Column'),
@@ -76,6 +82,8 @@ registerBlockType('gutenbee/column', {
       type: 'object',
       default: getDefaultResponsiveValue(),
     },
+    ...borderControlAttributes(),
+    ...boxShadowControlAttributes(),
   },
   getEditWrapperProps(attributes) {
     const { width } = attributes;
@@ -110,6 +118,8 @@ registerBlockType('gutenbee/column', {
             color: textColor,
             backgroundColor,
             ...getBackgroundImageStyle(backgroundImage),
+            ...getBorderCSSValue({ attributes }),
+            ...getBoxShadowCSSValue({ attributes }),
           }}
         >
           <InnerBlocks.Content />

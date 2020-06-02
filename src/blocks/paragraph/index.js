@@ -15,6 +15,10 @@ import {
 import deprecated from './deprecated';
 import borderControlAttributes from '../../components/controls/border-controls/attributes';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import {
+  boxShadowControlAttributes,
+  getBoxShadowCSSValue,
+} from '../../components/controls/box-shadow-controls/helpers';
 
 registerBlockType('gutenbee/paragraph', {
   title: __('GutenBee Paragraph'),
@@ -77,6 +81,7 @@ registerBlockType('gutenbee/paragraph', {
       },
     },
     ...borderControlAttributes(),
+    ...boxShadowControlAttributes(),
     blockPadding: {
       type: 'object',
       default: getDefaultSpacingValue(),
@@ -118,6 +123,7 @@ registerBlockType('gutenbee/paragraph', {
       backgroundColor: backgroundClass ? undefined : customBackgroundColor,
       color: textClass ? undefined : customTextColor,
       ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
     };
 
     return (

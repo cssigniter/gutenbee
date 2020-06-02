@@ -9,6 +9,10 @@ import VideoStyle from './style';
 import VideoBlockIcon from './block-icon';
 import borderControlAttributes from '../../components/controls/border-controls/attributes';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import {
+  boxShadowControlAttributes,
+  getBoxShadowCSSValue,
+} from '../../components/controls/box-shadow-controls/helpers';
 
 registerBlockType('gutenbee/video', {
   title: __('GutenBee Video'),
@@ -91,6 +95,7 @@ registerBlockType('gutenbee/video', {
       default: getDefaultSpacingValue(),
     },
     ...borderControlAttributes(),
+    ...boxShadowControlAttributes(),
   },
   edit: VideoEdit,
   save: ({ attributes }) => {
@@ -111,6 +116,7 @@ registerBlockType('gutenbee/video', {
         id={getBlockId(uniqueId)}
         style={{
           ...getBorderCSSValue({ attributes }),
+          ...getBoxShadowCSSValue({ attributes }),
         }}
       >
         <VideoStyle attributes={attributes} />

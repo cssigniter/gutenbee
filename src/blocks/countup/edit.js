@@ -26,6 +26,8 @@ import CountupStyle from './style';
 import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
 import BorderControls from '../../components/controls/border-controls';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import BoxShadowControls from '../../components/controls/box-shadow-controls';
+import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -90,7 +92,8 @@ const CountupEdit = ({
         })}
         style={{
           backgroundColor: backgroundColor || undefined,
-          ...getBorderCSSValue({ attributes, prefix: 'block' }),
+          ...getBorderCSSValue({ attributes }),
+          ...getBoxShadowCSSValue({ attributes }),
         }}
       >
         <CountupStyle attributes={attributes} />
@@ -238,6 +241,11 @@ const CountupEdit = ({
               ]}
             >
               <BorderControls
+                attributes={attributes}
+                setAttributes={setAttributes}
+              />
+
+              <BoxShadowControls
                 attributes={attributes}
                 setAttributes={setAttributes}
               />

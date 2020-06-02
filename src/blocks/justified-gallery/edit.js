@@ -21,6 +21,8 @@ import ResponsiveControl from '../../components/controls/responsive-control/Resp
 import GalleryStyle from './style';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import BorderControls from '../../components/controls/border-controls';
+import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
+import BoxShadowControls from '../../components/controls/box-shadow-controls';
 
 export const GALLERY_TYPE = {
   COLUMNS: 'columns',
@@ -80,6 +82,7 @@ const JustifiedGalleryEdit = ({
       style={{
         backgroundColor: backgroundColor || undefined,
         ...getBorderCSSValue({ attributes }),
+        ...getBoxShadowCSSValue({ attributes }),
       }}
     >
       <GalleryStyle attributes={attributes} />
@@ -167,6 +170,11 @@ const JustifiedGalleryEdit = ({
             onChange={value => setAttributes({ backgroundColor: value })}
           >
             <BorderControls
+              attributes={attributes}
+              setAttributes={setAttributes}
+            />
+
+            <BoxShadowControls
               attributes={attributes}
               setAttributes={setAttributes}
             />
