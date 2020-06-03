@@ -3,7 +3,7 @@ Contributors: cssigniterteam, silencerius, nvourva, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 5.3
 Tested up to: 5.4
-Stable tag: 2.3.0
+Stable tag: 2.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
 Requires PHP: 5.6
@@ -62,6 +62,12 @@ Note that if you want to use the Google Maps block you will also need a Google M
 7. Tabs or Accordions, group your content the way you want.
 
 == Changelog ==
+= 2.4.0 =
+* Added border and border radius settings on all blocks (except Tabs and Accordion).
+* Added box shadow settings on all blocks (except Tabs and Accordion).
+* Fixed an issue where custom classes would make some blocks break their styling.
+* Various editor UI fixes.
+
 = 2.3.2 =
 * Added link in image block.
 * Update Container block to work on WordPress 5.4
