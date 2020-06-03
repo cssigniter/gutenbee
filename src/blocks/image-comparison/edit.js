@@ -113,9 +113,9 @@ const ImageComparisonEdit = ({
         }}
       >
         <ImageComparisonStyle attributes={attributes} />
-        <div className={`${className}-pane`}>
+        <div className="wp-block-gutenbee-image-comparison-pane">
           {urlA && idA ? (
-            <figure className={`${className}-figure`}>
+            <figure className="wp-block-gutenbee-image-comparison-figure">
               <img src={urlA} alt="" />
 
               <MediaUpload
@@ -155,9 +155,9 @@ const ImageComparisonEdit = ({
           )}
         </div>
 
-        <div className={`${className}-pane`}>
+        <div className="wp-block-gutenbee-image-comparison-pane">
           {urlB && idB ? (
-            <figure className={`${className}-figure`}>
+            <figure className="wp-block-gutenbee-image-comparison-figure">
               <img src={urlB} alt="" />
 
               <MediaUpload

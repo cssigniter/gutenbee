@@ -890,6 +890,10 @@
   min-height: 20px;
 }
 
+.wp-block-gutenbee-divider-style-edit .components-toolbar__control {
+  position: relative;
+}
+
 @font-face {
   font-family: "ep-icon-module";
   src: url(fonts/ep-icon-module.eot);

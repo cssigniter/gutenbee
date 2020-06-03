@@ -60,7 +60,7 @@ export const Divider = ({ className, attributes, ...props }) => {
     >
       <DividerStyle attributes={attributes} />
       <div
-        className={`${className}-inner`}
+        className="wp-block-gutenbee-divider-inner"
         style={{
           borderTopStyle: style,
           borderTopWidth: weight,

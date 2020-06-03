@@ -48,7 +48,7 @@ const CountDown = ({ attributes, className }) => {
 
     return (
       <div
-        className={`${className}-item`}
+        className="wp-block-gutenbee-countdown-item"
         style={{
           backgroundColor: numberBackgroundColor || undefined,
           maxWidth: maxWidth ? `${maxWidth}%` : undefined,
@@ -87,7 +87,7 @@ const CountDown = ({ attributes, className }) => {
     >
       <CountdownStyle attributes={attributes} />
       <div
-        className={`${className}-wrap`}
+        className="wp-block-gutenbee-countdown-wrap"
         style={{
           color: textColor || undefined,
         }}

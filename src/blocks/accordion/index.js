@@ -36,9 +36,9 @@ const Accordion = ({ className, attributes }) => {
       <AccordionStyle attributes={attributes} />
 
       {tabs.map(tab => (
-        <div className={`${className}-item`}>
+        <div className="wp-block-gutenbee-accordion-item">
           <div
-            className={`${className}-item-title`}
+            className="wp-block-gutenbee-accordion-item-title"
             style={{
               color: titleTextColor || undefined,
               backgroundColor: titleBackgroundColor || undefined,
@@ -48,9 +48,9 @@ const Accordion = ({ className, attributes }) => {
             {tab.title}
           </div>
 
-          <div className={`${className}-item-content-wrap`}>
+          <div className="wp-block-gutenbee-accordion-item-content-wrap">
             <div
-              className={`${className}-item-content`}
+              className="wp-block-gutenbee-accordion-item-content"
               style={{
                 borderColor: borderColor || undefined,
                 backgroundColor: tabContentBackgroundColor || undefined,
@@ -60,7 +60,7 @@ const Accordion = ({ className, attributes }) => {
               <RichText.Content
                 tagName="p"
                 value={tab.content}
-                className={`${className}-item-text`}
+                className="wp-block-gutenbee-accordion-item-text"
               />
             </div>
           </div>

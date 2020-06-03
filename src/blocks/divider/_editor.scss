@@ -3,3 +3,9 @@
 .wp-block-gutenbee-divider {
   min-height: 20px;
 }
+
+.wp-block-gutenbee-divider-style-edit {
+  .components-toolbar__control {
+    position: relative;
+  }
+}

@@ -137,12 +137,12 @@ const TabsEdit = ({
       <div id={blockId} className={className}>
         <TabsStyle attributes={attributes} />
 
-        <div className={`${className}-nav`}>
+        <div className="wp-block-gutenbee-tabs-nav">
           {tabs.map((tab, index) => (
             <div
               className={classNames({
-                [`${className}-nav-item`]: true,
-                [`${className}-nav-item-active`]: isActiveTab(index),
+                'wp-block-gutenbee-tabs-nav-item': true,
+                'wp-block-gutenbee-tabs-nav-item-active': isActiveTab(index),
               })}
               onClick={() => {
                 setSelectedTabIndex(index);
@@ -171,19 +171,19 @@ const TabsEdit = ({
 
         {activeTab && (
           <div
-            className={`${className}-tab-content-wrap`}
+            className="wp-block-gutenbee-tabs-tab-content-wrap"
             style={{
               borderColor: borderColor || undefined,
               color: tabContentTextColor || undefined,
               backgroundColor: tabContentBackgroundColor || undefined,
             }}
           >
-            <div className={`${className}-tab-content`}>
+            <div className="wp-block-gutenbee-tabs-tab-content">
               <RichText
                 tagName="p"
                 value={activeTab.content}
                 onChange={content => onTabContentUpdate(content)}
-                className={`${className}-text`}
+                className="wp-block-gutenbee-tabs-text"
                 placeholder={__('Write content…')}
                 keepPlaceholderOnFocus
               />

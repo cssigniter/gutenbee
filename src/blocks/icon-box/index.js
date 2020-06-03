@@ -63,8 +63,8 @@ const IconBox = ({ className, attributes }) => {
       id={blockId}
       className={classNames({
         [className]: true,
-        [`${className}-align-${align}`]: true,
-        [`${className}-content-align-${contentAlign}`]: !!contentAlign,
+        [`wp-block-gutenbee-iconbox-align-${align}`]: true,
+        [`wp-block-gutenbee-iconbox-content-align-${contentAlign}`]: !!contentAlign,
       })}
       style={{
         backgroundColor: backgroundColor || undefined,
@@ -81,12 +81,12 @@ const IconBox = ({ className, attributes }) => {
           blockPadding: iconPadding,
         }}
       />
-      <div className={`${className}-content`}>
+      <div className="wp-block-gutenbee-iconbox-content">
         {!RichText.isEmpty(titleContent) && (
           <RichText.Content
             tagName={`h${titleNodeLevel}`}
             value={titleContent}
-            className={`${className}-title`}
+            className="wp-block-gutenbee-iconbox-title"
             style={{
               color: titleColor || undefined,
               fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
@@ -102,7 +102,7 @@ const IconBox = ({ className, attributes }) => {
           <RichText.Content
             tagName="p"
             value={textContent}
-            className={`${className}-text`}
+            className="wp-block-gutenbee-iconbox-text"
             style={{
               color: textColor || undefined,
               fontSize: textFontSize ? `${textFontSize}px` : undefined,
@@ -150,8 +150,8 @@ const IconBoxEditBlock = ({
         id={blockId}
         className={classNames({
           [className]: true,
-          [`${className}-align-${align}`]: true,
-          [`${className}-content-align-${contentAlign}`]: !!contentAlign,
+          [`wp-block-gutenbee-iconbox-align-${align}`]: true,
+          [`wp-block-gutenbee-iconbox-content-align-${contentAlign}`]: !!contentAlign,
         })}
         style={{
           backgroundColor: backgroundColor || undefined,
@@ -169,12 +169,12 @@ const IconBoxEditBlock = ({
             blockPadding: iconPadding,
           }}
         />
-        <div className={`${className}-content`}>
+        <div className="wp-block-gutenbee-iconbox-content">
           <RichText
             tagName={`h${titleNodeLevel}`}
             value={titleContent}
             onChange={value => setAttributes({ titleContent: value })}
-            className={`${className}-title`}
+            className="wp-block-gutenbee-iconbox-title"
             placeholder={__('Write heading…')}
             isSelected={isSelected && editable === 'title'}
             onFocus={() => setActiveEditable('title')}
@@ -192,7 +192,7 @@ const IconBoxEditBlock = ({
             tagName="p"
             value={textContent}
             onChange={value => setAttributes({ textContent: value })}
-            className={`${className}-text`}
+            className="wp-block-gutenbee-iconbox-text"
             placeholder={__('Write content…')}
             isSelected={isSelected && editable === 'text'}
             onFocus={() => setActiveEditable('text')}

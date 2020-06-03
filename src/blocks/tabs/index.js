@@ -21,12 +21,12 @@ const Tabs = ({ attributes, className }) => {
 
   return (
     <div id={blockId} className={className}>
-      <div className={`${className}-nav`}>
+      <div className="wp-block-gutenbee-tabs-nav">
         {tabs.map((tab, index) => (
           <div
             className={classNames({
-              [`${className}-nav-item`]: true,
-              [`${className}-nav-item-active`]: index === 0,
+              'wp-block-gutenbee-tabs-nav-item': true,
+              'wp-block-gutenbee-tabs-nav-item-active': index === 0,
             })}
           >
             {tab.title}
@@ -34,10 +34,10 @@ const Tabs = ({ attributes, className }) => {
         ))}
       </div>
 
-      <div className={`${className}-tab-content-wrap`}>
+      <div className="wp-block-gutenbee-tabs-tab-content-wrap">
         {tabs.map((tab, index) => (
           <div
-            className={`${className}-tab-content`}
+            className="wp-block-gutenbee-tabs-tab-content"
             style={{
               display: index === 0 ? 'block' : 'none',
             }}

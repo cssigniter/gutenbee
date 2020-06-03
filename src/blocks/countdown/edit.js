@@ -113,7 +113,7 @@ const CountdownEdit = ({
 
     return (
       <div
-        className={`${className}-item`}
+        className="wp-block-gutenbee-countdown-item"
         style={{
           display: attributes[displayAttributeKey] ? 'block' : 'none',
           backgroundColor: numberBackgroundColor || undefined,
@@ -161,7 +161,7 @@ const CountdownEdit = ({
       >
         <CountdownStyle attributes={attributes} />
         <div
-          className={`${className}-wrap`}
+          className="wp-block-gutenbee-countdown-wrap"
           style={{
             color: textColor || undefined,
           }}

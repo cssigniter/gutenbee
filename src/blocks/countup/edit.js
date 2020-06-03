@@ -88,7 +88,7 @@ const CountupEdit = ({
         id={blockId}
         className={classNames({
           [className]: true,
-          [`${className}-align-${align}`]: !!align,
+          [`wp-block-gutenbee-countup-align-${align}`]: !!align,
         })}
         style={{
           backgroundColor: backgroundColor || undefined,
@@ -98,13 +98,13 @@ const CountupEdit = ({
       >
         <CountupStyle attributes={attributes} />
 
-        <Countup {...attributes} className={`${className}-number`} />
+        <Countup {...attributes} className="wp-block-gutenbee-countup-number" />
 
         <RichText
           tagName="p"
           value={titleContent}
           onChange={value => setAttributes({ titleContent: value })}
-          className={`${className}-title`}
+          className="wp-block-gutenbee-countup-title"
           placeholder={__('Write a title…')}
           style={{
             color: titleColor || undefined,

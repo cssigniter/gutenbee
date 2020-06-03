@@ -118,7 +118,7 @@ const GoogleMapsEdit = ({
             googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${apiKey}`}
             loadingElement={
               <div
-                className={`${className}-loading`}
+                className="wp-block-gutenbee-google-maps-loading"
                 style={{ height: `${height.desktop}px` }}
               >
                 <Spinner />

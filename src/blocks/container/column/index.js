@@ -5,6 +5,7 @@
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 import { InnerBlocks } from 'wp.blockEditor';
+import classNames from 'classnames';
 
 import ColumnBlockEdit from './edit';
 import getBlockId from '../../../util/getBlockId';
@@ -97,7 +98,7 @@ registerBlockType('gutenbee/column', {
     }
   },
   edit: ColumnBlockEdit,
-  save({ attributes }) {
+  save({ attributes, className }) {
     const {
       width,
       uniqueId,
@@ -107,7 +108,12 @@ registerBlockType('gutenbee/column', {
     } = attributes;
 
     return (
-      <div id={getBlockId(uniqueId)} className="wp-block-gutenbee-column">
+      <div
+        id={getBlockId(uniqueId)}
+        className={classNames(className, {
+          'wp-block-gutenbee-column': true,
+        })}
+      >
         <ColumnStyle attributes={attributes}>
           <Rule value={width} rule="{ flex-basis: %s; }" unit="%" />
         </ColumnStyle>

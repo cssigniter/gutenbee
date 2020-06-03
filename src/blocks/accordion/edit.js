@@ -138,9 +138,9 @@ const AccordionsEdit = ({
       <AccordionStyle attributes={attributes} />
       <div id={blockId} className={className}>
         {tabs.map((tab, index) => (
-          <div className={`${className}-item`}>
+          <div className="wp-block-gutenbee-accordion-item">
             <div
-              className={`${className}-item-title`}
+              className="wp-block-gutenbee-accordion-item-title"
               onClick={() => onTabToggle(index)}
               style={{
                 color: titleTextColor || undefined,
@@ -168,9 +168,9 @@ const AccordionsEdit = ({
             </div>
 
             {isTabExpanded(index) && (
-              <div className={`${className}-item-content-wrap`}>
+              <div className="wp-block-gutenbee-accordion-item-content-wrap">
                 <div
-                  className={`${className}-item-content`}
+                  className="wp-block-gutenbee-accordion-item-content"
                   style={{
                     borderColor: borderColor || undefined,
                     backgroundColor: tabContentBackgroundColor || undefined,
@@ -181,7 +181,7 @@ const AccordionsEdit = ({
                     tagName="p"
                     value={tab.content}
                     onChange={content => onTabContentUpdate(index, content)}
-                    className={`${className}-item-text`}
+                    className="wp-block-gutenbee-accordion-item-text"
                     placeholder={__('Write content…')}
                     keepPlaceholderOnFocus
                   />

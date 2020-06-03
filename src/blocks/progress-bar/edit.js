@@ -63,7 +63,7 @@ const ProgressBarEdit = ({
           tagName="p"
           value={title}
           onChange={value => setAttributes({ title: value })}
-          className={`${className}-title`}
+          className="wp-block-gutenbee-progress-bar-title"
           placeholder={__('Write title…')}
           isSelected={isSelected && editable === 'title'}
           onFocus={() => setEditable('title')}
@@ -75,13 +75,13 @@ const ProgressBarEdit = ({
         />
 
         <div
-          className={`${className}-outer`}
+          className="wp-block-gutenbee-progress-bar-outer"
           style={{
             backgroundColor: barBackgroundColor || undefined,
           }}
         >
           <div
-            className={`${className}-inner`}
+            className="wp-block-gutenbee-progress-bar-inner"
             style={{
               width: `${percentage}%`,
               backgroundColor: progressBackgroundColor || undefined,
@@ -93,14 +93,16 @@ const ProgressBarEdit = ({
               tagName="span"
               value={innerTitle}
               onChange={value => setAttributes({ innerTitle: value })}
-              className={`${className}-inner-title`}
+              className="wp-block-gutenbee-progress-bar-inner-title"
               placeholder={__('Write inner title…')}
               isSelected={isSelected && editable === 'innerTitle'}
               onFocus={() => setEditable('innerTitle')}
             />
 
             {displayPercentage && (
-              <span className={`${className}-percentage`}>{percentage}%</span>
+              <span className="wp-block-gutenbee-progress-bar-percentage">
+                {percentage}%
+              </span>
             )}
           </div>
         </div>

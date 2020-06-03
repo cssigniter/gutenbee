@@ -48,8 +48,8 @@ const ImageBox = ({ className, attributes }) => {
       id={blockId}
       className={classNames({
         [className]: true,
-        [`${className}-align-${imageAlign}`]: true,
-        [`${className}-content-align-${contentAlign}`]: !!contentAlign,
+        [`wp-block-gutenbee-imagebox-align-${imageAlign}`]: true,
+        [`wp-block-gutenbee-imagebox-content-align-${contentAlign}`]: !!contentAlign,
       })}
       style={{
         backgroundColor: backgroundColor || undefined,
@@ -58,7 +58,7 @@ const ImageBox = ({ className, attributes }) => {
       }}
     >
       <ImageBoxStyle attributes={attributes} />
-      <figure className={`${className}-figure`}>
+      <figure className="wp-block-gutenbee-imagebox-figure">
         <img
           src={url}
           alt={alt}
@@ -68,12 +68,12 @@ const ImageBox = ({ className, attributes }) => {
         />
       </figure>
 
-      <div className={`${className}-content`}>
+      <div className="wp-block-gutenbee-imagebox-content">
         {!RichText.isEmpty(titleContent) && (
           <RichText.Content
             tagName={`h${titleNodeLevel}`}
             value={titleContent}
-            className={`${className}-title`}
+            className="wp-block-gutenbee-imagebox-title"
             style={{
               color: titleColor || undefined,
               fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
@@ -89,7 +89,7 @@ const ImageBox = ({ className, attributes }) => {
           <RichText.Content
             tagName="p"
             value={textContent}
-            className={`${className}-text`}
+            className="wp-block-gutenbee-imagebox-text"
             style={{
               color: textColor || undefined,
               fontSize: textFontSize ? `${textFontSize}px` : undefined,

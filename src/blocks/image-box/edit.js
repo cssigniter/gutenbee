@@ -84,8 +84,8 @@ const ImageBoxEditBlock = ({
         id={blockId}
         className={classNames({
           [className]: true,
-          [`${className}-align-${imageAlign}`]: true,
-          [`${className}-content-align-${contentAlign}`]: !!contentAlign,
+          [`wp-block-gutenbee-imagebox-align-${imageAlign}`]: true,
+          [`wp-block-gutenbee-imagebox-content-align-${contentAlign}`]: !!contentAlign,
         })}
         style={{
           backgroundColor: backgroundColor || undefined,
@@ -93,7 +93,7 @@ const ImageBoxEditBlock = ({
           ...getBoxShadowCSSValue({ attributes }),
         }}
       >
-        <figure className={`${className}-figure`}>
+        <figure className="wp-block-gutenbee-imagebox-figure">
           {url ? (
             <img
               src={url}
@@ -120,12 +120,12 @@ const ImageBoxEditBlock = ({
           )}
         </figure>
 
-        <div className={`${className}-content`}>
+        <div className="wp-block-gutenbee-imagebox-content">
           <RichText
             tagName={`h${titleNodeLevel}`}
             value={titleContent}
             onChange={value => setAttributes({ titleContent: value })}
-            className={`${className}-title`}
+            className="wp-block-gutenbee-imagebox-title"
             placeholder={__('Write heading…')}
             isSelected={isSelected && editable === 'title'}
             onFocus={() => setActiveEditable('title')}
@@ -143,7 +143,7 @@ const ImageBoxEditBlock = ({
             tagName="p"
             value={textContent}
             onChange={value => setAttributes({ textContent: value })}
-            className={`${className}-text`}
+            className="wp-block-gutenbee-imagebox-text"
             placeholder={__('Write content…')}
             isSelected={isSelected && editable === 'text'}
             onFocus={() => setActiveEditable('text')}

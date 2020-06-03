@@ -55,7 +55,7 @@ const ProgressBar = ({ className, attributes }) => {
         <RichText.Content
           tagName="p"
           value={title}
-          className={`${className}-title`}
+          className="wp-block-gutenbee-progress-bar-title"
           style={{
             color: titleTextColor || undefined,
             marginBottom:
@@ -65,13 +65,13 @@ const ProgressBar = ({ className, attributes }) => {
       )}
 
       <div
-        className={`${className}-outer`}
+        className="wp-block-gutenbee-progress-bar-outer"
         style={{
           backgroundColor: barBackgroundColor || undefined,
         }}
       >
         <div
-          className={`${className}-inner`}
+          className="wp-block-gutenbee-progress-bar-inner"
           style={{
             width: `${percentage}%`,
             backgroundColor: progressBackgroundColor || undefined,
@@ -82,12 +82,14 @@ const ProgressBar = ({ className, attributes }) => {
             <RichText.Content
               tagName="span"
               value={innerTitle}
-              className={`${className}-inner-title`}
+              className="wp-block-gutenbee-progress-bar-inner-title"
             />
           )}
 
           {displayPercentage && (
-            <span className={`${className}-percentage`}>{percentage}%</span>
+            <span className="wp-block-gutenbee-progress-bar-percentage">
+              {percentage}%
+            </span>
           )}
         </div>
       </div>

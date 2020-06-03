@@ -42,7 +42,7 @@ const CountupRender = ({ attributes, className }) => {
       id={blockId}
       className={classNames({
         [className]: true,
-        [`${className}-align-${align}`]: !!align,
+        [`wp-block-gutenbee-countup-align-${align}`]: !!align,
       })}
       style={{
         backgroundColor: backgroundColor || undefined,
@@ -52,13 +52,13 @@ const CountupRender = ({ attributes, className }) => {
     >
       <CountupStyle attributes={attributes} />
 
-      <Countup {...attributes} className={`${className}-number`} />
+      <Countup {...attributes} className="wp-block-gutenbee-countup-number" />
 
       {!RichText.isEmpty(titleContent) && (
         <RichText.Content
           tagName="p"
           value={titleContent}
-          className={`${className}-title`}
+          className="wp-block-gutenbee-countup-title"
           style={{
             color: titleColor || undefined,
             marginTop:
