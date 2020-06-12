@@ -22,6 +22,7 @@ export const blocks = [
   'tabs',
   'video',
   'google-maps',
+  'lottie',
 ];
 
 // Deactivate blocks based on user settings (GutenBee options page)

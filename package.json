@@ -42,6 +42,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@lottiefiles/lottie-player": "^0.5.1",
     "classnames": "2.2.5",
     "countup": "1.8.2",
     "justifiedGallery": "3.7.0",

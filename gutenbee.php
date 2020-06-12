@@ -134,6 +134,7 @@
 			'slideshow'         => __( 'Slideshow Block', 'gutenbee' ),
 			'tabs'              => __( 'Tabs Block', 'gutenbee' ),
 			'video'             => __( 'Video Block', 'gutenbee' ),
+			'lottie'            => __( 'Lottie Player Block', 'gutenbee' ),
 		);
 	}
 
@@ -253,3 +254,20 @@
 	require_once untrailingslashit( dirname( __FILE__ ) ) . '/inc/options.php';
 	require_once untrailingslashit( dirname( __FILE__ ) ) . '/src/blocks/container/block.php';
 	require_once untrailingslashit( dirname( __FILE__ ) ) . '/src/blocks/post-types/block.php';
+
+	// TODO think what to do here enabling JSON uploads
+	add_filter( 'wp_check_filetype_and_ext', 'gutenbee_file_and_ext_json', 10, 4 );
+	function gutenbee_file_and_ext_json( $types, $file, $filename, $mimes ) {
+		if ( false !== strpos( $filename, '.json' ) ) {
+			$types['ext']  = 'json';
+			$types['type'] = 'application/json';
+		}
+		return $types;
+	}
+
+	function gutenbee_mime_types( $mimes ) {
+		$mimes['json']  = 'application/json';
+		return $mimes;
+	}
+
+	add_filter( 'upload_mimes', 'gutenbee_mime_types' );

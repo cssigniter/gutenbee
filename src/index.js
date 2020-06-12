@@ -34,6 +34,7 @@ import './blocks/spacer';
 import './blocks/video';
 import './blocks/button';
 import './blocks/buttons';
+import './blocks/lottie';
 
 //
 // Misc
