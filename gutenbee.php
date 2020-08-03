@@ -223,7 +223,7 @@
 	function gutenbee_locate_template( $block, $templates ) {
 		$plugin_path = plugin_dir_path( __FILE__ );
 
-		// The templates path in the plugin, i.e.defaults/fallback. E.g. src/blocks/post-types/templates/
+		// The templates path in the plugin, i.e. defaults/fallback. E.g. src/blocks/post-types/templates/
 		$default_path = trailingslashit( trailingslashit( $plugin_path ) . "src/blocks/{$block}/templates" );
 
 		// The templates path in the theme. E.g. gutenbee/
@@ -237,6 +237,8 @@
 
 		// Try to find a theme-overridden template.
 		$located = locate_template( $theme_templates, false );
+
+		$located = apply_filters( 'gutenbee_locate_template', $located, $block, $theme_templates, $templates, $theme_path, $default_path );
 
 		if ( empty( $located ) ) {
 			// Nope. Try the plugin templates instead.
