@@ -134,7 +134,7 @@
 			'slideshow'         => __( 'Slideshow Block', 'gutenbee' ),
 			'tabs'              => __( 'Tabs Block', 'gutenbee' ),
 			'video'             => __( 'Video Block', 'gutenbee' ),
-			'lottie'            => __( 'Lottie Player Block', 'gutenbee' ),
+//			'lottie'            => __( 'Lottie Player Block', 'gutenbee' ),
 		);
 	}
 

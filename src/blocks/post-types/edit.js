@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'wp.element';
+import { Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import { compose } from 'wp.compose';
@@ -95,17 +95,6 @@ const PostTypesEdit = ({
     categoryFilters,
   } = attributes;
 
-  // Reset taxonomy and term id every time we change the post type.
-  useEffect(
-    () => {
-      setAttributes({
-        taxonomySlug: '',
-        termId: '',
-      });
-    },
-    [postType],
-  );
-
   const supports = window.__GUTENBEE_SETTINGS__.theme_supports['post-types'];
 
   return (
@@ -124,7 +113,17 @@ const PostTypesEdit = ({
                 value: p.slug,
                 label: p.name,
               }))}
-              onChange={value => setAttributes({ postType: value })}
+              onChange={value => {
+                setAttributes({ postType: value });
+
+                // Reset taxonomy and term id every time we change the post type.
+                if (value !== postType) {
+                  setAttributes({
+                    taxonomySlug: '',
+                    termId: '',
+                  });
+                }
+              }}
             />
 
             {taxonomy && terms && (

@@ -21,4 +21,4 @@ import './blocks/accordion/script';
 import './blocks/tabs/script';
 
 // TODO only import this if there is an active lottie block
-import '@lottiefiles/lottie-player';
+// import '@lottiefiles/lottie-player';
