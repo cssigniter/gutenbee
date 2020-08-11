@@ -55,6 +55,10 @@ registerBlockType('gutenbee/post-types', {
       type: 'array',
       default: [],
     },
+    includedPostIds: {
+      type: 'array',
+      default: [],
+    },
     columns: {
       type: 'number',
       default: 3,

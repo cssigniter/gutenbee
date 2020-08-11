@@ -87,6 +87,13 @@
 					),
 					'default' => array(),
 				),
+				'includedPostIds' => array(
+					'type'    => 'array',
+					'items'   => array(
+						'type' => 'number',
+					),
+					'default' => array(),
+				),
 				'columns'         => array(
 					'type'    => 'number',
 					'default' => 3,
@@ -148,6 +155,7 @@
 		$order             = $attributes['order'];
 		$order_by          = $attributes['orderBy'];
 		$excluded_post_ids = $attributes['excludedPostIds'];
+		$included_post_ids = $attributes['includedPostIds'];
 		$author_id         = intval( $attributes['authorId'] );
 		$taxonomy_slug     = $attributes['taxonomySlug'];
 		$term_id           = intval( $attributes['termId'] );
@@ -178,6 +186,7 @@
 			'posts_per_page'      => $posts_per_page,
 			'order'               => $order,
 			'post__not_in'        => $excluded_post_ids,
+			'post__in'            => $included_post_ids,
 		);
 
 		if ( $offset ) {

@@ -89,6 +89,7 @@ const PostTypesEdit = ({
     orderBy,
     order,
     excludedPostIds,
+    includedPostIds,
     gridEffect,
     gridSpacing,
     masonry,
@@ -176,6 +177,18 @@ const PostTypesEdit = ({
                   label: p.title.raw,
                 }))}
                 onChange={value => setAttributes({ excludedPostIds: value })}
+              />
+            )}
+
+            {posts && posts.length && (
+              <MultiSelectCheckboxControl
+                label={__('Included Posts')}
+                value={includedPostIds}
+                options={posts.map(p => ({
+                  value: p.id,
+                  label: p.title.raw,
+                }))}
+                onChange={value => setAttributes({ includedPostIds: value })}
               />
             )}
 
