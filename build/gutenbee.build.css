@@ -3001,6 +3001,11 @@
   margin-bottom: -28px;
 }
 
+[data-type="gutenbee/container"][data-align="full"] .wp-block-gutenbee-container-row > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 [data-type="gutenbee/container"][data-theme-grid] {
   max-width: none !important;
   margin-left: -42px;
