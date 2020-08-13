@@ -32,7 +32,6 @@ const ContainerStyle = ({ attributes, children }) => {
         value={containerHeight}
         rule="{ height: %s; }"
         unit="px"
-        // breakpointLimit TODO add deprecation
         edgeCase={{
           edge: -1,
           value: '100vh',
@@ -44,7 +43,6 @@ const ContainerStyle = ({ attributes, children }) => {
         value={innerContentWidth}
         rule=".wp-block-gutenbee-container-inner { width: %s; }"
         unit="px"
-        // breakpointLimit TODO add deprecation
         edgeCase={{
           edge: -1,
           value: '100%',
