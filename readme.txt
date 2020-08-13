@@ -1,9 +1,9 @@
 === GutenBee ===
 Contributors: cssigniterteam, silencerius, nvourva, tsiger, anastis
 Tags: gutenberg, blocks
-Requires at least: 5.3
-Tested up to: 5.4
-Stable tag: 2.4.0
+Requires at least: 5.4
+Tested up to: 5.5
+Stable tag: 2.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
 Requires PHP: 5.6
@@ -62,6 +62,17 @@ Note that if you want to use the Google Maps block you will also need a Google M
 7. Tabs or Accordions, group your content the way you want.
 
 == Changelog ==
+
+= 2.5.0 =
+* Fixed container block issue spacing when theme grid is on
+* Fixed paragraph block border and box shadow application element
+* Fixed an issue where the move handlers were being clipped when the container block was fullwidth.
+* Updated container block for WordPress 5.5 support.
+* Fixed container block direction setting in the editor
+* Fixed minor styling issue for blocks for WordPress 5.5 support
+* Added "Included posts" in Post Type block
+* Fixed an issue where the selected term in the post types block would not be preserved on subsequent page loads
+
 = 2.4.0 =
 * Added border and border radius settings on all blocks (except Tabs and Accordion).
 * Added box shadow settings on all blocks (except Tabs and Accordion).
