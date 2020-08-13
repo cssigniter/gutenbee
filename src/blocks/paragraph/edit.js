@@ -211,6 +211,8 @@ const ParagraphBlock = ({
         style={{
           backgroundColor: backgroundColor.color,
           color: textColor.color,
+          ...getBorderCSSValue({ attributes }),
+          ...getBoxShadowCSSValue({ attributes }),
         }}
       >
         <RichText
@@ -222,8 +224,6 @@ const ParagraphBlock = ({
           })}
           style={{
             fontSize: fontSize.desktop ? fontSize.desktop + 'px' : undefined,
-            ...getBorderCSSValue({ attributes }),
-            ...getBoxShadowCSSValue({ attributes }),
           }}
           value={content}
           onChange={newContent => setAttributes({ content: newContent })}

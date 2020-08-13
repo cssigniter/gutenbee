@@ -151,8 +151,8 @@
 
   &[data-theme-grid] {
     max-width: none !important;
-    margin-left: -42px;
-    margin-right: -42px;
+    margin-left: -10px;
+    margin-right: -10px;
 
     &::before {
       display: none !important;
@@ -160,7 +160,7 @@
 
     > .wp-block-gutenbee-container {
       > .wp-block-gutenbee-container-inner {
-        max-width: 1080px;
+        max-width: 1110px;
         margin-left: auto;
         margin-right: auto;
         padding-left: $block-padding;
