@@ -158,14 +158,18 @@
       display: none !important;
     }
 
-    > .wp-block-gutenbee-container {
-      > .wp-block-gutenbee-container-inner {
-        max-width: 1110px;
-        margin-left: auto;
-        margin-right: auto;
-        padding-left: $block-padding;
-        padding-right: $block-padding;
-      }
+    > .wp-block-gutenbee-container  > .wp-block-gutenbee-container-inner {
+      max-width: 1110px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: $block-padding;
+      padding-right: $block-padding;
+    }
+
+    > .wp-block > .wp-block-gutenbee-container  > .wp-block-gutenbee-container-inner {
+      max-width: 1110px;
+      margin-left: auto;
+      margin-right: auto
     }
 
     > .editor-block-list__block-edit {
