@@ -110,7 +110,6 @@ const ContainerInspectorControls = ({
                     })
                   }
                   step={1}
-                  initialPosition={120}
                   help={__(
                     'Leave blank for auto height or set to -1 for full viewport height.',
                   )}
@@ -137,7 +136,6 @@ const ContainerInspectorControls = ({
                   }}
                   step={1}
                   help={__('Set to -1 for 100% width.')}
-                  initialPosition={-1}
                 />
               </Fragment>
             )}
