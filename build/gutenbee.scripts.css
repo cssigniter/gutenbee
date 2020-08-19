@@ -263,6 +263,7 @@
 
 .wp-block-gutenbee-slideshow {
   margin: 30px 0;
+  position: relative;
 }
 
 .wp-block-gutenbee-slideshow style {
@@ -282,7 +283,7 @@
   top: 50%;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
-  z-index: 99;
+  z-index: 25;
   line-height: normal;
   background: none;
   color: currentColor;
@@ -291,7 +292,7 @@
   border: 0;
   min-width: auto;
   max-width: 100%;
-  padding: 10px;
+  padding: 20px;
   margin: 0;
   font-size: 0;
   -webkit-box-shadow: none;
@@ -316,7 +317,7 @@
 }
 
 .wp-block-gutenbee-slideshow button.slick-arrow.slick-next {
-  right: 15px;
+  right: 0;
   left: auto;
 }
 
@@ -331,7 +332,7 @@
 }
 
 .wp-block-gutenbee-slideshow button.slick-arrow.slick-prev {
-  left: 15px;
+  left: 0;
   right: auto;
 }
 
@@ -348,11 +349,14 @@
 .wp-block-gutenbee-slideshow .slick-dots {
   position: absolute;
   margin: 0;
-  padding: 0;
   list-style-type: none;
   text-align: center;
-  width: 100%;
-  bottom: 20px;
+  width: auto;
+  padding: 4px 14px;
+  bottom: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
 }
 
 .wp-block-gutenbee-slideshow .slick-dots li {

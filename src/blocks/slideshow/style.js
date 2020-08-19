@@ -10,13 +10,27 @@ const propTypes = {
 };
 
 const SlideshowStyle = ({ attributes, children }) => {
-  const { uniqueId, blockPadding, blockMargin } = attributes;
+  const {
+    uniqueId,
+    blockPadding,
+    blockMargin,
+    dotsBackgroundColor,
+    arrowsBackgroundColor,
+  } = attributes;
   const blockId = getBlockId(uniqueId);
 
   return (
     <StyleSheet id={blockId}>
       <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
       <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
+      <Rule
+        value={dotsBackgroundColor}
+        rule=".slick-dots { background-color: %s; }"
+      />
+      <Rule
+        value={arrowsBackgroundColor}
+        rule="button.slick-arrow { background-color: %s; }"
+      />
       {children}
     </StyleSheet>
   );

@@ -2,6 +2,7 @@
 
 .wp-block-gutenbee-slideshow {
   margin: 0;
+  position: relative;
 
   &-slider {
     margin: 0;
@@ -30,7 +31,7 @@
         border: 0;
         min-width: auto;
         max-width: 100%;
-        padding: 10px;
+        padding: 20px;
         margin: 0;
         font-size: 0;
         box-shadow: none;
@@ -53,7 +54,7 @@
         }
 
         &.slick-next {
-          right: 15px;
+          right: 0;
           left: auto;
 
           &::before {
@@ -68,7 +69,7 @@
         }
 
         &.slick-prev {
-          left: 15px;
+          left: 0;
           right: auto;
 
           &::before {
@@ -87,11 +88,13 @@
     .slick-dots {
       position: absolute;
       margin: 0;
-      padding: 0;
       list-style-type: none;
       text-align: center;
-      width: 100%;
-      bottom: 20px;
+      width: auto;
+      padding: 4px 14px;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
 
       li {
         display: inline-block;

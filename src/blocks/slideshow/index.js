@@ -113,9 +113,15 @@ registerBlockType('gutenbee/slideshow', {
       type: 'string',
       default: '#FFFFFF',
     },
+    arrowsBackgroundColor: {
+      type: 'string',
+    },
     dotsColor: {
       type: 'string',
       default: '#FFFFFF',
+    },
+    dotsBackgroundColor: {
+      type: 'string',
     },
     size: {
       type: 'string',

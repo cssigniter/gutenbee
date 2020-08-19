@@ -68,7 +68,9 @@ const SlideshowEdit = ({
     slidesToScroll,
     pauseOnHover,
     arrowsColor,
+    arrowsBackgroundColor,
     dotsColor,
+    dotsBackgroundColor,
     backgroundColor,
   } = attributes;
 
@@ -224,9 +226,21 @@ const SlideshowEdit = ({
                   label: __('Arrow Navigation Color'),
                 },
                 {
+                  value: arrowsBackgroundColor,
+                  onChange: color =>
+                    setAttributes({ arrowsBackgroundColor: color }),
+                  label: __('Arrow Background Color'),
+                },
+                {
                   value: dotsColor,
                   onChange: color => setAttributes({ dotsColor: color }),
                   label: __('Dot Navigation Color'),
+                },
+                {
+                  value: dotsBackgroundColor,
+                  onChange: color =>
+                    setAttributes({ dotsBackgroundColor: color }),
+                  label: __('Dot Background Color'),
                 },
               ]}
             />
