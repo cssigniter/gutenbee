@@ -116,6 +116,7 @@ export const IconSettings = ({
               className={className}
             />
           )}
+          clearable={false}
         />
       </BaseControl>
 
