@@ -1,12 +1,7 @@
 import { Fragment, useState } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
-import {
-  RichText,
-  PlainText,
-  InspectorControls,
-  PanelColorSettings,
-} from 'wp.blockEditor';
+import { RichText, PlainText, InspectorControls } from 'wp.blockEditor';
 import { PanelBody, RangeControl, ToggleControl } from 'wp.components';
 
 import MarginControls from '../../components/controls/margin-controls';
@@ -14,6 +9,7 @@ import useUniqueId from '../../hooks/useUniqueId';
 import AccordionStyle from './style';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 import getBlockId from '../../util/getBlockId';
+import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -211,52 +207,40 @@ const AccordionsEdit = ({
             />
           </PanelBody>
 
-          <PanelColorSettings
-            title={__('Block Appearance')}
-            initialOpen={false}
-            colorSettings={[
-              {
-                value: titleTextColor,
-                onChange: value =>
-                  setAttributes({
-                    titleTextColor: value,
-                  }),
-                label: __('Title Text Color'),
-              },
-              {
-                value: titleBackgroundColor,
-                onChange: value =>
-                  setAttributes({
-                    titleBackgroundColor: value,
-                  }),
-                label: __('Title Background Color'),
-              },
-              {
-                value: tabContentTextColor,
-                onChange: value =>
-                  setAttributes({
-                    tabContentTextColor: value,
-                  }),
-                label: __('Content Text Color'),
-              },
-              {
-                value: tabContentBackgroundColor,
-                onChange: value =>
-                  setAttributes({
-                    tabContentBackgroundColor: value,
-                  }),
-                label: __('Content Background Color'),
-              },
-              {
-                value: borderColor,
-                onChange: value =>
-                  setAttributes({
-                    borderColor: value,
-                  }),
-                label: __('Border Color'),
-              },
-            ]}
-          >
+          <PanelBody title={__('Block Appearance')} initialOpen={false}>
+            <PopoverColorControl
+              label={__('Title Text Color')}
+              value={titleTextColor || ''}
+              defaultValue={titleTextColor || ''}
+              onChange={value => setAttributes({ titleTextColor: value })}
+            />
+            <PopoverColorControl
+              label={__('Title Background Color')}
+              value={titleBackgroundColor || ''}
+              defaultValue={titleBackgroundColor || ''}
+              onChange={value => setAttributes({ titleBackgroundColor: value })}
+            />
+            <PopoverColorControl
+              label={__('Content Text Color')}
+              value={tabContentTextColor || ''}
+              defaultValue={tabContentTextColor || ''}
+              onChange={value => setAttributes({ tabContentTextColor: value })}
+            />
+            <PopoverColorControl
+              label={__('Content Background Color')}
+              value={tabContentBackgroundColor || ''}
+              defaultValue={tabContentBackgroundColor || ''}
+              onChange={value =>
+                setAttributes({ tabContentBackgroundColor: value })
+              }
+            />
+            <PopoverColorControl
+              label={__('Border Color')}
+              value={borderColor || ''}
+              defaultValue={borderColor || ''}
+              onChange={value => setAttributes({ borderColor: value })}
+            />
+
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
@@ -280,7 +264,7 @@ const AccordionsEdit = ({
                 />
               )}
             </ResponsiveControl>
-          </PanelColorSettings>
+          </PanelBody>
         </InspectorControls>
       )}
     </Fragment>

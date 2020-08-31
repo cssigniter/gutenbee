@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'wp.element';
+import { Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { compose } from 'wp.compose';
 import { __ } from 'wp.i18n';
@@ -8,7 +8,6 @@ import {
   BlockControls,
   RichText,
   MediaUpload,
-  PanelColorSettings,
   AlignmentToolbar,
 } from 'wp.blockEditor';
 import {
@@ -34,6 +33,7 @@ import HeadingToolbar from '../heading/heading-toolbar';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
+import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 
 const propTypes = {
   className: PropTypes.string.isRequired,
@@ -52,7 +52,6 @@ const ImageBoxEditBlock = ({
   image,
   clientId,
 }) => {
-  const [editable, setActiveEditable] = useState(null);
   const {
     uniqueId,
     titleContent,
@@ -127,8 +126,6 @@ const ImageBoxEditBlock = ({
             onChange={value => setAttributes({ titleContent: value })}
             className="wp-block-gutenbee-imagebox-title"
             placeholder={__('Write heading…')}
-            isSelected={isSelected && editable === 'title'}
-            onFocus={() => setActiveEditable('title')}
             style={{
               color: titleColor || undefined,
               fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
@@ -145,8 +142,6 @@ const ImageBoxEditBlock = ({
             onChange={value => setAttributes({ textContent: value })}
             className="wp-block-gutenbee-imagebox-text"
             placeholder={__('Write content…')}
-            isSelected={isSelected && editable === 'text'}
-            onFocus={() => setActiveEditable('text')}
             style={{
               color: textColor || undefined,
               fontSize: textFontSize ? `${textFontSize}px` : undefined,
@@ -281,28 +276,28 @@ const ImageBoxEditBlock = ({
               />
             </PanelBody>
 
-            <PanelColorSettings
-              title={__('Block Appearance')}
-              initialOpen={false}
-              colorSettings={[
-                {
-                  value: titleColor,
-                  onChange: value => setAttributes({ titleColor: value }),
-                  label: __('Title Color'),
-                },
-                {
-                  value: textColor,
-                  onChange: value => setAttributes({ textColor: value }),
-                  label: __('Content Text Color'),
-                },
-                {
-                  value: backgroundColor,
-                  onChange: value => setAttributes({ backgroundColor: value }),
-                  label: __('Block Background Color'),
-                },
-              ]}
-              onChange={value => setAttributes({ backgroundColor: value })}
-            >
+            <PanelBody title={__('Block Appearance')} initialOpen={false}>
+              <PopoverColorControl
+                label={__('Title Color')}
+                value={titleColor || ''}
+                defaultValue={titleColor || ''}
+                onChange={value => setAttributes({ titleColor: value })}
+              />
+
+              <PopoverColorControl
+                label={__('Content Text Color')}
+                value={textColor || ''}
+                defaultValue={textColor || ''}
+                onChange={value => setAttributes({ textColor: value })}
+              />
+
+              <PopoverColorControl
+                label={__('Block Background Color')}
+                value={backgroundColor || ''}
+                defaultValue={backgroundColor || ''}
+                onChange={value => setAttributes({ backgroundColor: value })}
+              />
+
               <BorderControls
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -336,7 +331,7 @@ const ImageBoxEditBlock = ({
                   />
                 )}
               </ResponsiveControl>
-            </PanelColorSettings>
+            </PanelBody>
           </InspectorControls>
         </Fragment>
       )}

@@ -1,11 +1,7 @@
 import { Fragment } from 'wp.element';
 import { __, sprintf } from 'wp.i18n';
 import { PanelBody, Toolbar, RangeControl } from 'wp.components';
-import {
-  InspectorControls,
-  AlignmentToolbar,
-  PanelColorSettings,
-} from 'wp.blockEditor';
+import { InspectorControls, AlignmentToolbar } from 'wp.blockEditor';
 
 import { BORDER_STYLES, Divider } from './index';
 import MarginControls from '../../components/controls/margin-controls';
@@ -14,6 +10,7 @@ import BackgroundControls from '../../components/controls/background-controls';
 import useUniqueId from '../../hooks/useUniqueId';
 import BorderControls from '../../components/controls/border-controls';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
+import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 
 const DividerEdit = ({
   className,
@@ -87,22 +84,21 @@ const DividerEdit = ({
             />
           </PanelBody>
 
-          <PanelColorSettings
-            title={__('Block Appearance')}
-            initialOpen={false}
-            colorSettings={[
-              {
-                value: color,
-                onChange: value => setAttributes({ color: value }),
-                label: __('Color'),
-              },
-              {
-                value: backgroundColor,
-                onChange: value => setAttributes({ backgroundColor: value }),
-                label: __('Background Color'),
-              },
-            ]}
-          >
+          <PanelBody title={__('Block Appearance')} initialOpen={false}>
+            <PopoverColorControl
+              label={__('Color')}
+              value={color || ''}
+              defaultValue={color || ''}
+              onChange={value => setAttributes({ color: value })}
+            />
+
+            <PopoverColorControl
+              label={__('Background Color')}
+              value={backgroundColor || ''}
+              defaultValue={backgroundColor || ''}
+              onChange={value => setAttributes({ backgroundColor: value })}
+            />
+
             <BackgroundControls
               label={__('Background Image')}
               setAttributes={setAttributes}
@@ -144,7 +140,7 @@ const DividerEdit = ({
                 />
               )}
             </ResponsiveControl>
-          </PanelColorSettings>
+          </PanelBody>
         </InspectorControls>
       )}
     </Fragment>

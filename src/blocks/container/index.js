@@ -21,7 +21,6 @@ import {
   getDefaultResponsiveValue,
   getDefaultSpacingValue,
 } from '../../components/controls/responsive-control/default-values';
-import { hexToRGBA } from '../../components/controls/advanced-color-control/helpers';
 import variations from './variations';
 import borderControlAttributes from '../../components/controls/border-controls/attributes';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
@@ -142,7 +141,6 @@ registerBlockType('gutenbee/container', {
       backgroundImage,
       gutter,
       overlayBackgroundColor,
-      overlayBackgroundColorOpacity,
       themeGrid,
     } = attributes;
 
@@ -174,10 +172,7 @@ registerBlockType('gutenbee/container', {
             <div
               className="wp-block-gutenbee-container-background-overlay"
               style={{
-                backgroundColor: hexToRGBA(
-                  overlayBackgroundColor,
-                  overlayBackgroundColorOpacity,
-                ),
+                backgroundColor: overlayBackgroundColor,
               }}
             />
           )}

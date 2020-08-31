@@ -1,11 +1,7 @@
 import { Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
-import {
-  InspectorControls,
-  RichText,
-  PanelColorSettings,
-} from 'wp.blockEditor';
+import { InspectorControls, RichText } from 'wp.blockEditor';
 import { PanelBody, TextControl, ToggleControl } from 'wp.components';
 import classnames from 'classnames';
 
@@ -18,6 +14,7 @@ import BorderControls from '../../components/controls/border-controls';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
+import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 
 const propTypes = {
   attributes: PropTypes.object.isRequired,
@@ -110,23 +107,21 @@ const ButtonEdit = ({ attributes, setAttributes, className, clientId }) => {
           />
         </PanelBody>
 
-        <PanelColorSettings
-          title={__('Block Appearance')}
-          initialOpen={false}
-          colorSettings={[
-            {
-              value: textColor,
-              onChange: value => setAttributes({ textColor: value }),
-              label: __('Text Color'),
-            },
-            {
-              value: backgroundColor,
-              onChange: value => setAttributes({ backgroundColor: value }),
-              label: __('Background Color'),
-            },
-          ]}
-          onChange={value => setAttributes({ backgroundColor: value })}
-        >
+        <PanelBody title={__('Block Appearance')} initialOpen={false}>
+          <PopoverColorControl
+            label={__('Text Color')}
+            value={textColor || ''}
+            defaultValue={textColor || ''}
+            onChange={value => setAttributes({ textColor: value })}
+          />
+
+          <PopoverColorControl
+            label={__('Background Color')}
+            value={backgroundColor || ''}
+            defaultValue={backgroundColor || ''}
+            onChange={value => setAttributes({ backgroundColor: value })}
+          />
+
           <BorderControls
             attributes={attributes}
             setAttributes={setAttributes}
@@ -162,7 +157,7 @@ const ButtonEdit = ({ attributes, setAttributes, className, clientId }) => {
               />
             )}
           </ResponsiveControl>
-        </PanelColorSettings>
+        </PanelBody>
       </InspectorControls>
     </Fragment>
   );

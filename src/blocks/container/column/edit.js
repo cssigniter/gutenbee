@@ -2,11 +2,7 @@ import { Fragment } from 'wp.element';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
-import {
-  InspectorControls,
-  PanelColorSettings,
-  InnerBlocks,
-} from 'wp.blockEditor';
+import { InspectorControls, InnerBlocks } from 'wp.blockEditor';
 import { PanelBody, RangeControl, SelectControl } from 'wp.components';
 import { compose } from 'wp.compose';
 import { withSelect, withDispatch } from 'wp.data';
@@ -31,6 +27,7 @@ import BorderControls from '../../../components/controls/border-controls';
 import BoxShadowControls from '../../../components/controls/box-shadow-controls';
 import { getBoxShadowCSSValue } from '../../../components/controls/box-shadow-controls/helpers';
 import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
+import PopoverColorControl from '../../../components/controls/advanced-color-control/PopoverColorControl';
 
 const propTypes = {
   className: PropTypes.string.isRequired,
@@ -178,23 +175,21 @@ const ColumnBlockEdit = ({
           </ResponsiveControl>
         </PanelBody>
 
-        <PanelColorSettings
-          title={__('Color Settings')}
-          initialOpen={false}
-          colorSettings={[
-            {
-              value: textColor,
-              onChange: value => setAttributes({ textColor: value }),
-              label: __('Text Color'),
-            },
-            {
-              value: backgroundColor,
-              onChange: value => setAttributes({ backgroundColor: value }),
-              label: __('Background Color'),
-            },
-          ]}
-          onChange={value => setAttributes({ backgroundColor: value })}
-        >
+        <PanelBody title={__('Color Settings')} initialOpen={false}>
+          <PopoverColorControl
+            label={__('Text Color')}
+            value={textColor || ''}
+            defaultValue={textColor || ''}
+            onChange={value => setAttributes({ textColor: value })}
+          />
+
+          <PopoverColorControl
+            label={__('Background Color')}
+            value={backgroundColor || ''}
+            defaultValue={backgroundColor || ''}
+            onChange={value => setAttributes({ backgroundColor: value })}
+          />
+
           <BackgroundControls
             label={__('Background Image')}
             setAttributes={setAttributes}
@@ -211,7 +206,7 @@ const ColumnBlockEdit = ({
             attributes={attributes}
             setAttributes={setAttributes}
           />
-        </PanelColorSettings>
+        </PanelBody>
       </InspectorControls>
     </Fragment>
   );

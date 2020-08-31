@@ -5,13 +5,8 @@
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import {
-  RichText,
-  InspectorControls,
-  PanelColorSettings,
-} from 'wp.blockEditor';
+import { RichText, InspectorControls } from 'wp.blockEditor';
 import { PanelBody, SelectControl, RangeControl } from 'wp.components';
-import { withState } from 'wp.compose';
 import classNames from 'classnames';
 import omit from 'lodash.omit';
 
@@ -25,7 +20,6 @@ import useUniqueId from '../../hooks/useUniqueId';
 import getBlockId from '../../util/getBlockId';
 import deprecated from './deprecated';
 import IconBoxStyle from './style';
-import ImageBoxStyle from '../image-box/style';
 import { capitalize } from '../../util/text';
 import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
@@ -37,6 +31,7 @@ import {
   getBoxShadowCSSValue,
 } from '../../components/controls/box-shadow-controls/helpers';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
+import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 
 const IconBox = ({ className, attributes }) => {
   const {
@@ -72,7 +67,7 @@ const IconBox = ({ className, attributes }) => {
         ...getBoxShadowCSSValue({ attributes }),
       }}
     >
-      <ImageBoxStyle attributes={attributes} />
+      <IconBoxStyle attributes={attributes} />
       <Icon
         id={`${blockId}-icon`}
         {...{
@@ -119,8 +114,6 @@ const IconBoxEditBlock = ({
   attributes,
   setAttributes,
   isSelected,
-  editable,
-  setState,
   clientId,
 }) => {
   const {
@@ -139,7 +132,6 @@ const IconBoxEditBlock = ({
     textColor,
     backgroundColor,
   } = attributes;
-  const setActiveEditable = newEditable => setState({ editable: newEditable });
 
   useUniqueId({ attributes, setAttributes, clientId });
   const blockId = getBlockId(uniqueId);
@@ -176,8 +168,6 @@ const IconBoxEditBlock = ({
             onChange={value => setAttributes({ titleContent: value })}
             className="wp-block-gutenbee-iconbox-title"
             placeholder={__('Write heading…')}
-            isSelected={isSelected && editable === 'title'}
-            onFocus={() => setActiveEditable('title')}
             style={{
               color: titleColor || undefined,
               fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
@@ -194,8 +184,6 @@ const IconBoxEditBlock = ({
             onChange={value => setAttributes({ textContent: value })}
             className="wp-block-gutenbee-iconbox-text"
             placeholder={__('Write content…')}
-            isSelected={isSelected && editable === 'text'}
-            onFocus={() => setActiveEditable('text')}
             style={{
               color: textColor || undefined,
               fontSize: textFontSize ? `${textFontSize}px` : undefined,
@@ -288,28 +276,28 @@ const IconBoxEditBlock = ({
             />
           </PanelBody>
 
-          <PanelColorSettings
-            title={__('Block Appearance')}
-            initialOpen={false}
-            colorSettings={[
-              {
-                value: titleColor,
-                onChange: value => setAttributes({ titleColor: value }),
-                label: __('Title Color'),
-              },
-              {
-                value: textColor,
-                onChange: value => setAttributes({ textColor: value }),
-                label: __('Content Text Color'),
-              },
-              {
-                value: backgroundColor,
-                onChange: value => setAttributes({ backgroundColor: value }),
-                label: __('Block Background Color'),
-              },
-            ]}
-            onChange={value => setAttributes({ backgroundColor: value })}
-          >
+          <PanelBody title={__('Block Appearance')} initialOpen={false}>
+            <PopoverColorControl
+              label={__('Title Color')}
+              value={titleColor || ''}
+              defaultValue={titleColor || ''}
+              onChange={value => setAttributes({ titleColor: value })}
+            />
+
+            <PopoverColorControl
+              label={__('Content Text Color')}
+              value={textColor || ''}
+              defaultValue={textColor || ''}
+              onChange={value => setAttributes({ textColor: value })}
+            />
+
+            <PopoverColorControl
+              label={__('Block Background Color')}
+              value={backgroundColor || ''}
+              defaultValue={backgroundColor || ''}
+              onChange={value => setAttributes({ backgroundColor: value })}
+            />
+
             <BorderControls
               attributes={attributes}
               setAttributes={setAttributes}
@@ -343,7 +331,7 @@ const IconBoxEditBlock = ({
                 />
               )}
             </ResponsiveControl>
-          </PanelColorSettings>
+          </PanelBody>
         </InspectorControls>
       )}
     </Fragment>
@@ -423,7 +411,7 @@ registerBlockType('gutenbee/iconbox', {
     ...boxShadowControlAttributes(),
   },
   deprecated,
-  edit: withState({ editable: null })(IconBoxEditBlock),
+  edit: IconBoxEditBlock,
   save({ className, attributes }) {
     return <IconBox className={className} attributes={attributes} />;
   },

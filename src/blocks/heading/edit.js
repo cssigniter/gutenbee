@@ -6,7 +6,6 @@ import {
   BlockControls,
   InspectorControls,
   RichText,
-  PanelColorSettings,
   AlignmentToolbar,
 } from 'wp.blockEditor';
 import { createBlock } from 'wp.blocks';
@@ -23,6 +22,7 @@ import { getBorderCSSValue } from '../../components/controls/border-controls/hel
 import BorderControls from '../../components/controls/border-controls';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
+import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 
 const propTypes = {
   attribute: PropTypes.object.isRequired,
@@ -158,23 +158,21 @@ function HeadingEdit({
           </ResponsiveControl>
         </PanelBody>
 
-        <PanelColorSettings
-          title={__('Block Appearance')}
-          initialOpen={false}
-          colorSettings={[
-            {
-              value: textColor,
-              onChange: value => setAttributes({ textColor: value }),
-              label: __('Text Color'),
-            },
-            {
-              value: backgroundColor,
-              onChange: value => setAttributes({ backgroundColor: value }),
-              label: __('Background Color'),
-            },
-          ]}
-          onChange={value => setAttributes({ backgroundColor: value })}
-        >
+        <PanelBody title={__('Block Appearance')} initialOpen={false}>
+          <PopoverColorControl
+            label={__('Text Color')}
+            value={textColor || ''}
+            defaultValue={textColor || ''}
+            onChange={value => setAttributes({ textColor: value })}
+          />
+
+          <PopoverColorControl
+            label={__('Background Color')}
+            value={backgroundColor || ''}
+            defaultValue={backgroundColor || ''}
+            onChange={value => setAttributes({ backgroundColor: value })}
+          />
+
           <BorderControls
             attributes={attributes}
             setAttributes={setAttributes}
@@ -208,7 +206,7 @@ function HeadingEdit({
               />
             )}
           </ResponsiveControl>
-        </PanelColorSettings>
+        </PanelBody>
       </InspectorControls>
     </Fragment>
   );

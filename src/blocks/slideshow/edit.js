@@ -8,7 +8,7 @@ import {
   PanelBody,
   Notice,
 } from 'wp.components';
-import { InspectorControls, PanelColorSettings } from 'wp.blockEditor';
+import { InspectorControls } from 'wp.blockEditor';
 
 import MarginControls from '../../components/controls/margin-controls';
 import Slideshow from '../../components/slideshow/Slideshow';
@@ -20,6 +20,7 @@ import { getBorderCSSValue } from '../../components/controls/border-controls/hel
 import BorderControls from '../../components/controls/border-controls';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
+import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -216,47 +217,48 @@ const SlideshowEdit = ({
               />
             </PanelBody>
 
-            <PanelColorSettings
-              initialOpen={false}
-              title={__('Navigation Appearance')}
-              colorSettings={[
-                {
-                  value: arrowsColor,
-                  onChange: color => setAttributes({ arrowsColor: color }),
-                  label: __('Arrow Navigation Color'),
-                },
-                {
-                  value: arrowsBackgroundColor,
-                  onChange: color =>
-                    setAttributes({ arrowsBackgroundColor: color }),
-                  label: __('Arrow Background Color'),
-                },
-                {
-                  value: dotsColor,
-                  onChange: color => setAttributes({ dotsColor: color }),
-                  label: __('Dot Navigation Color'),
-                },
-                {
-                  value: dotsBackgroundColor,
-                  onChange: color =>
-                    setAttributes({ dotsBackgroundColor: color }),
-                  label: __('Dot Background Color'),
-                },
-              ]}
-            />
+            <PanelBody initialOpen={false} title={__('Navigation Appearance')}>
+              <PopoverColorControl
+                label={__('Arrow Navigation Color')}
+                value={arrowsColor || ''}
+                defaultValue={arrowsColor || ''}
+                onChange={value => setAttributes({ arrowsColor: value })}
+              />
 
-            <PanelColorSettings
-              title={__('Block Appearance')}
-              initialOpen={false}
-              colorSettings={[
-                {
-                  value: backgroundColor,
-                  onChange: value => setAttributes({ backgroundColor: value }),
-                  label: __('Background Color'),
-                },
-              ]}
-              onChange={value => setAttributes({ backgroundColor: value })}
-            >
+              <PopoverColorControl
+                label={__('Arrow Background Color')}
+                value={arrowsBackgroundColor || ''}
+                defaultValue={arrowsBackgroundColor || ''}
+                onChange={value =>
+                  setAttributes({ arrowsBackgroundColor: value })
+                }
+              />
+
+              <PopoverColorControl
+                label={__('Dot Navigation Color')}
+                value={dotsColor || ''}
+                defaultValue={dotsColor || ''}
+                onChange={value => setAttributes({ dotsColor: value })}
+              />
+
+              <PopoverColorControl
+                label={__('Dot Background Color')}
+                value={dotsBackgroundColor || ''}
+                defaultValue={dotsBackgroundColor || ''}
+                onChange={value =>
+                  setAttributes({ dotsBackgroundColor: value })
+                }
+              />
+            </PanelBody>
+
+            <PanelBody title={__('Block Appearance')} initialOpen={false}>
+              <PopoverColorControl
+                label={__('Background Color')}
+                value={backgroundColor || ''}
+                defaultValue={backgroundColor || ''}
+                onChange={value => setAttributes({ backgroundColor: value })}
+              />
+
               <BorderControls
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -290,7 +292,7 @@ const SlideshowEdit = ({
                   />
                 )}
               </ResponsiveControl>
-            </PanelColorSettings>
+            </PanelBody>
           </InspectorControls>
         )}
       </Slideshow>

@@ -5,6 +5,8 @@
   "devDependencies": {
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
+    "@svgr/cli": "^5.4.0",
+    "@svgr/webpack": "^5.4.0",
     "@testing-library/react": "^9.3.0",
     "autoprefixer": "9.0.1",
     "babel-core": "^6.26.3",
@@ -39,6 +41,7 @@
   "scripts": {
     "build": "cross-env BABEL_ENV=default NODE_ENV=production webpack",
     "start": "cross-env BABEL_ENV=default webpack --watch",
+    "generate-icons": "node ./scripts/generate-icons.js",
     "test": "jest"
   },
   "dependencies": {

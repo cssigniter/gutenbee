@@ -4,10 +4,8 @@ import { __ } from 'wp.i18n';
 import { PanelBody, ToggleControl, withFallbackStyles } from 'wp.components';
 import {
   withColors,
-  ContrastChecker,
   FontSizePicker,
   InspectorControls,
-  PanelColorSettings,
   RichText,
   AlignmentToolbar,
 } from 'wp.blockEditor';
@@ -22,6 +20,7 @@ import BorderControls from '../../components/controls/border-controls';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
+import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 
 const { getComputedStyle } = window;
 
@@ -40,56 +39,13 @@ const applyFallbackStyles = withFallbackStyles((node, ownProps) => {
   };
 });
 
-function ParagraphPanelColor({
-  backgroundColor,
-  fallbackBackgroundColor,
-  fallbackTextColor,
-  setBackgroundColor,
-  setTextColor,
-  textColor,
-  children,
-}) {
-  return (
-    <PanelColorSettings
-      title={__('Block Appearance')}
-      initialOpen={false}
-      colorSettings={[
-        {
-          value: textColor,
-          onChange: setTextColor,
-          label: __('Text Color'),
-        },
-        {
-          value: backgroundColor,
-          onChange: setBackgroundColor,
-          label: __('Background Color'),
-        },
-      ]}
-    >
-      <ContrastChecker
-        {...{
-          textColor,
-          backgroundColor,
-          fallbackTextColor,
-          fallbackBackgroundColor,
-        }}
-      />
-      {children}
-    </PanelColorSettings>
-  );
-}
-
 const ParagraphBlock = ({
   attributes,
   backgroundColor,
   className,
-  fallbackBackgroundColor,
-  fallbackTextColor,
   mergeBlocks,
   onReplace,
   setAttributes,
-  setBackgroundColor,
-  setTextColor,
   textColor,
   clientId,
 }) => {
@@ -155,14 +111,21 @@ const ParagraphBlock = ({
           </ResponsiveControl>
         </PanelBody>
 
-        <ParagraphPanelColor
-          backgroundColor={backgroundColor.color}
-          fallbackBackgroundColor={fallbackBackgroundColor}
-          fallbackTextColor={fallbackTextColor}
-          setBackgroundColor={setBackgroundColor}
-          setTextColor={setTextColor}
-          textColor={textColor.color}
-        >
+        <PanelBody title={__('Block Appearancce')} initialOpen={false}>
+          <PopoverColorControl
+            label={__('Text Color')}
+            value={textColor || ''}
+            defaultValue={textColor || ''}
+            onChange={value => setAttributes({ textColor: value })}
+          />
+
+          <PopoverColorControl
+            label={__('Background Color')}
+            value={backgroundColor || ''}
+            defaultValue={backgroundColor || ''}
+            onChange={value => setAttributes({ backgroundColor: value })}
+          />
+
           <BorderControls
             attributes={attributes}
             setAttributes={setAttributes}
@@ -196,7 +159,7 @@ const ParagraphBlock = ({
               />
             )}
           </ResponsiveControl>
-        </ParagraphPanelColor>
+        </PanelBody>
       </InspectorControls>
 
       <ParagraphStyle attributes={attributes} />

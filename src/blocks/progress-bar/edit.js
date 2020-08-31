@@ -1,11 +1,7 @@
 import { Fragment, useState } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { ToggleControl, RangeControl, PanelBody } from 'wp.components';
-import {
-  InspectorControls,
-  RichText,
-  PanelColorSettings,
-} from 'wp.blockEditor';
+import { InspectorControls, RichText } from 'wp.blockEditor';
 import useUniqueId from '../../hooks/useUniqueId';
 import ProgressBarStyle from './style';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
@@ -16,6 +12,7 @@ import { getBorderCSSValue } from '../../components/controls/border-controls/hel
 import BorderControls from '../../components/controls/border-controls';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
+import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 
 const ProgressBarEdit = ({
   attributes,
@@ -173,38 +170,44 @@ const ProgressBarEdit = ({
             </ResponsiveControl>
           </PanelBody>
 
-          <PanelColorSettings
-            title={__('Block Appearance')}
-            initialOpen={false}
-            colorSettings={[
-              {
-                value: titleTextColor,
-                onChange: value => setAttributes({ titleTextColor: value }),
-                label: __('Title Text Color'),
-              },
-              {
-                value: textColor,
-                onChange: value => setAttributes({ textColor: value }),
-                label: __('Bar Text Color'),
-              },
-              {
-                value: progressBackgroundColor,
-                onChange: value =>
-                  setAttributes({ progressBackgroundColor: value }),
-                label: __('Progress Background Color'),
-              },
-              {
-                value: barBackgroundColor,
-                onChange: value => setAttributes({ barBackgroundColor: value }),
-                label: __('Bar Background Color'),
-              },
-              {
-                value: backgroundColor,
-                onChange: value => setAttributes({ backgroundColor: value }),
-                label: __('Block Background Color'),
-              },
-            ]}
-          >
+          <PanelBody title={__('Block Appearance')} initialOpen={false}>
+            <PopoverColorControl
+              label={__('Title Text Color')}
+              value={titleTextColor || ''}
+              defaultValue={titleTextColor || ''}
+              onChange={value => setAttributes({ titleTextColor: value })}
+            />
+
+            <PopoverColorControl
+              label={__('Bar Text Color')}
+              value={textColor || ''}
+              defaultValue={textColor || ''}
+              onChange={value => setAttributes({ textColor: value })}
+            />
+
+            <PopoverColorControl
+              label={__('Progress Background Color')}
+              value={progressBackgroundColor || ''}
+              defaultValue={progressBackgroundColor || ''}
+              onChange={value =>
+                setAttributes({ progressBackgroundColor: value })
+              }
+            />
+
+            <PopoverColorControl
+              label={__('Bar Background Color')}
+              value={barBackgroundColor || ''}
+              defaultValue={barBackgroundColor || ''}
+              onChange={value => setAttributes({ barBackgroundColor: value })}
+            />
+
+            <PopoverColorControl
+              label={__('Block Background Color')}
+              value={backgroundColor || ''}
+              defaultValue={backgroundColor || ''}
+              onChange={value => setAttributes({ backgroundColor: value })}
+            />
+
             <BorderControls
               attributes={attributes}
               setAttributes={setAttributes}
@@ -238,7 +241,7 @@ const ProgressBarEdit = ({
                 />
               )}
             </ResponsiveControl>
-          </PanelColorSettings>
+          </PanelBody>
         </InspectorControls>
       )}
     </Fragment>

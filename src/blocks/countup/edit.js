@@ -6,7 +6,6 @@ import {
   withColors,
   RichText,
   AlignmentToolbar,
-  PanelColorSettings,
   BlockControls,
 } from 'wp.blockEditor';
 import {
@@ -28,6 +27,7 @@ import BorderControls from '../../components/controls/border-controls';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
+import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -219,27 +219,28 @@ const CountupEdit = ({
               </ResponsiveControl>
             </PanelBody>
 
-            <PanelColorSettings
-              title={__('Block Appearance')}
-              initialOpen={false}
-              colorSettings={[
-                {
-                  value: textColor,
-                  onChange: value => setAttributes({ textColor: value }),
-                  label: __('Text Color'),
-                },
-                {
-                  value: titleColor,
-                  onChange: value => setAttributes({ titleColor: value }),
-                  label: __('Title Color'),
-                },
-                {
-                  value: backgroundColor,
-                  onChange: value => setAttributes({ backgroundColor: value }),
-                  label: __('Background Color'),
-                },
-              ]}
-            >
+            <PanelBody title={__('Block Appearance')} initialOpen={false}>
+              <PopoverColorControl
+                label={__('Text Color')}
+                value={textColor || ''}
+                defaultValue={textColor || ''}
+                onChange={value => setAttributes({ textColor: value })}
+              />
+
+              <PopoverColorControl
+                label={__('Title Color')}
+                value={titleColor || ''}
+                defaultValue={titleColor || ''}
+                onChange={value => setAttributes({ titleColor: value })}
+              />
+
+              <PopoverColorControl
+                label={__('Background Color')}
+                value={backgroundColor || ''}
+                defaultValue={backgroundColor || ''}
+                onChange={value => setAttributes({ backgroundColor: value })}
+              />
+
               <BorderControls
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -273,7 +274,7 @@ const CountupEdit = ({
                   />
                 )}
               </ResponsiveControl>
-            </PanelColorSettings>
+            </PanelBody>
           </InspectorControls>
         </Fragment>
       )}

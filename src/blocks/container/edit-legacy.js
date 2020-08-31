@@ -23,7 +23,6 @@ import {
 } from './template-icons';
 import { getColumnsTemplate, getMappedColumnWidths } from './utils';
 import Rule from '../../components/stylesheet/Rule';
-import { hexToRGBA } from '../../components/controls/advanced-color-control/helpers';
 import ContainerInspectorControls from './inspector-controls';
 
 const propTypes = {
@@ -111,7 +110,6 @@ const ContainerBlockEdit = ({
     backgroundImage,
     columnDirection,
     overlayBackgroundColor,
-    overlayBackgroundColorOpacity,
   } = attributes;
 
   const { count } = useSelect(select => {
@@ -187,10 +185,7 @@ const ContainerBlockEdit = ({
           <div
             className={`${className}-background-overlay`}
             style={{
-              backgroundColor: hexToRGBA(
-                overlayBackgroundColor,
-                overlayBackgroundColorOpacity,
-              ),
+              backgroundColor: overlayBackgroundColor,
             }}
           />
         )}

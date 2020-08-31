@@ -1,7 +1,7 @@
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import { InspectorControls, PanelColorSettings } from 'wp.blockEditor';
+import { InspectorControls } from 'wp.blockEditor';
 import {
   PanelBody,
   RangeControl,
@@ -25,6 +25,7 @@ import ResponsiveControl from '../../components/controls/responsive-control/Resp
 import deprecated from './deprecated';
 import { boxShadowControlAttributes } from '../../components/controls/box-shadow-controls/helpers';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
+import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 
 export const iconAttributes = {
   uniqueId: {
@@ -40,7 +41,7 @@ export const iconAttributes = {
   },
   icon: {
     type: 'string',
-    default: icons[0],
+    default: 'add-bag',
   },
   size: {
     type: 'number',
@@ -187,27 +188,22 @@ export const IconSettings = ({
         </Fragment>
       )}
 
-      <PanelColorSettings
-        title={__('Icon Appearance')}
-        initialOpen={false}
-        colorSettings={[
-          {
-            value: colorPrimary,
-            onChange: value => setAttributes({ colorPrimary: value }),
-            label: __('Primary Color'),
-          },
-          ...(view !== VIEWS.DEFAULT
-            ? [
-                {
-                  value: colorSecondary,
-                  onChange: value => setAttributes({ colorSecondary: value }),
-                  label: __('Secondary Color'),
-                },
-              ]
-            : []),
-        ]}
-        onChange={value => setAttributes({ backgroundColor: value })}
-      >
+      <PanelBody title={__('Icon Appearance')} initialOpen={false}>
+        <PopoverColorControl
+          label={__('Primary Color')}
+          value={colorPrimary || ''}
+          defaultValue={colorPrimary || ''}
+          onChange={value => setAttributes({ colorPrimary: value })}
+        />
+
+        {view !== VIEWS.DEFAULT && (
+          <PopoverColorControl
+            label={__('Secondary Color')}
+            value={colorSecondary || ''}
+            defaultValue={colorSecondary || ''}
+            onChange={value => setAttributes({ colorSecondary: value })}
+          />
+        )}
         <BoxShadowControls
           attributes={attributes}
           setAttributes={setAttributes}
@@ -243,7 +239,7 @@ export const IconSettings = ({
         )}
 
         {children}
-      </PanelColorSettings>
+      </PanelBody>
     </Fragment>
   );
 };

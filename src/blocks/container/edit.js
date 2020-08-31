@@ -20,7 +20,6 @@ import {
   getMappedColumnWidths,
 } from './utils';
 import Rule from '../../components/stylesheet/Rule';
-import { hexToRGBA } from '../../components/controls/advanced-color-control/helpers';
 import ContainerInspectorControls from './inspector-controls';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
@@ -47,7 +46,6 @@ const ContainerBlockEdit = ({
     backgroundImage,
     columnDirection,
     overlayBackgroundColor,
-    overlayBackgroundColorOpacity,
   } = attributes;
 
   const { count, variations, blockType, defaultVariation } = useSelect(
@@ -114,10 +112,7 @@ const ContainerBlockEdit = ({
             <div
               className={`${className}-background-overlay`}
               style={{
-                backgroundColor: hexToRGBA(
-                  overlayBackgroundColor,
-                  overlayBackgroundColorOpacity,
-                ),
+                backgroundColor: overlayBackgroundColor,
               }}
             />
           )}

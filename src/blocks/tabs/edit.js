@@ -1,12 +1,7 @@
 import { Fragment, useState, useEffect } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
-import {
-  RichText,
-  PlainText,
-  InspectorControls,
-  PanelColorSettings,
-} from 'wp.blockEditor';
+import { RichText, PlainText, InspectorControls } from 'wp.blockEditor';
 import { PanelBody, RangeControl } from 'wp.components';
 import classNames from 'classnames';
 
@@ -15,6 +10,7 @@ import getBlockId from '../../util/getBlockId';
 import TabsStyle from './style';
 import useUniqueId from '../../hooks/useUniqueId';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
+import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -205,68 +201,60 @@ const TabsEdit = ({
             />
           </PanelBody>
 
-          <PanelColorSettings
-            title={__('Block Appearance')}
-            initialOpen={false}
-            colorSettings={[
-              {
-                value: tabTextColor,
-                onChange: value =>
-                  setAttributes({
-                    tabTextColor: value,
-                  }),
-                label: __('Tab Text Color'),
-              },
-              {
-                value: tabBackgroundColor,
-                onChange: value =>
-                  setAttributes({
-                    tabBackgroundColor: value,
-                  }),
-                label: __('Tab Background Color'),
-              },
-              {
-                value: activeTabTextColor,
-                onChange: value =>
-                  setAttributes({
-                    activeTabTextColor: value,
-                  }),
-                label: __('Active Tab Text Color'),
-              },
-              {
-                value: activeTabBackgroundColor,
-                onChange: value =>
-                  setAttributes({
-                    activeTabBackgroundColor: value,
-                  }),
-                label: __('Active Tab Background Color'),
-              },
-              {
-                value: tabContentTextColor,
-                onChange: value =>
-                  setAttributes({
-                    tabContentTextColor: value,
-                  }),
-                label: __('Content Text Color'),
-              },
-              {
-                value: tabContentBackgroundColor,
-                onChange: value =>
-                  setAttributes({
-                    tabContentBackgroundColor: value,
-                  }),
-                label: __('Content Background Color'),
-              },
-              {
-                value: borderColor,
-                onChange: value =>
-                  setAttributes({
-                    borderColor: value,
-                  }),
-                label: __('Content Border Color'),
-              },
-            ]}
-          >
+          <PanelBody title={__('Block Appearance')} initialOpen={false}>
+            <PopoverColorControl
+              label={__('Tab Text Color')}
+              value={tabTextColor || ''}
+              defaultValue={tabTextColor || ''}
+              onChange={value => setAttributes({ tabTextColor: value })}
+            />
+
+            <PopoverColorControl
+              label={__('Tab Background Color')}
+              value={tabBackgroundColor || ''}
+              defaultValue={tabBackgroundColor || ''}
+              onChange={value => setAttributes({ tabBackgroundColor: value })}
+            />
+
+            <PopoverColorControl
+              label={__('Active Tab Text Color')}
+              value={activeTabTextColor || ''}
+              defaultValue={activeTabTextColor || ''}
+              onChange={value => setAttributes({ activeTabTextColor: value })}
+            />
+
+            <PopoverColorControl
+              label={__('Active Tab Background Color')}
+              value={activeTabBackgroundColor || ''}
+              defaultValue={activeTabBackgroundColor || ''}
+              onChange={value =>
+                setAttributes({ activeTabBackgroundColor: value })
+              }
+            />
+
+            <PopoverColorControl
+              label={__('Content Text Color')}
+              value={tabContentTextColor || ''}
+              defaultValue={tabContentTextColor || ''}
+              onChange={value => setAttributes({ tabContentTextColor: value })}
+            />
+
+            <PopoverColorControl
+              label={__('Content Background Color')}
+              value={tabContentBackgroundColor || ''}
+              defaultValue={tabContentBackgroundColor || ''}
+              onChange={value =>
+                setAttributes({ tabContentBackgroundColor: value })
+              }
+            />
+
+            <PopoverColorControl
+              label={__('Content Border Color')}
+              value={borderColor || ''}
+              defaultValue={borderColor || ''}
+              onChange={value => setAttributes({ borderColor: value })}
+            />
+
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
@@ -290,7 +278,7 @@ const TabsEdit = ({
                 />
               )}
             </ResponsiveControl>
-          </PanelColorSettings>
+          </PanelBody>
         </InspectorControls>
       )}
     </Fragment>

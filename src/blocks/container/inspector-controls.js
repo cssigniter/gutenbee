@@ -1,6 +1,6 @@
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
-import { InspectorControls, PanelColorSettings } from 'wp.blockEditor';
+import { InspectorControls } from 'wp.blockEditor';
 import {
   PanelBody,
   SelectControl,
@@ -11,9 +11,9 @@ import {
 import MarginControls from '../../components/controls/margin-controls';
 import BackgroundControls from '../../components/controls/background-controls/BackgroundControl';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
-import AdvancedColorControl from '../../components/controls/advanced-color-control/AdvancedColorControl';
 import BorderControls from '../../components/controls/border-controls';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
+import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 
 const ContainerInspectorControls = ({
   attributes,
@@ -35,7 +35,6 @@ const ContainerInspectorControls = ({
     columnDirection,
     themeGrid,
     overlayBackgroundColor,
-    overlayBackgroundColorOpacity,
   } = attributes;
 
   return (
@@ -191,34 +190,30 @@ const ContainerInspectorControls = ({
           </ResponsiveControl>
         </PanelBody>
 
-        <PanelColorSettings
-          title={__('Block Appearance')}
-          initialOpen={false}
-          colorSettings={[
-            {
-              value: textColor,
-              onChange: value => setAttributes({ textColor: value }),
-              label: __('Text Color'),
-            },
-            {
-              value: backgroundColor,
-              onChange: value => setAttributes({ backgroundColor: value }),
-              label: __('Background Color'),
-            },
-          ]}
-          onChange={value => setAttributes({ backgroundColor: value })}
-        >
-          <AdvancedColorControl
+        <PanelBody title={__('Block Appearance')} initialOpen={false}>
+          <PopoverColorControl
+            value={textColor}
+            defaultValue={textColor || ''}
+            label={__('Text Color')}
+            onChange={value => {
+              setAttributes({ textColor: value });
+            }}
+          />
+
+          <PopoverColorControl
+            value={backgroundColor}
+            defaultValue={backgroundColor || ''}
+            label={__('Background Color')}
+            onChange={value => {
+              setAttributes({ backgroundColor: value });
+            }}
+          />
+
+          <PopoverColorControl
             label={__('Background Overlay Color')}
-            colorValue={overlayBackgroundColor || ''}
-            colorDefault=""
-            onColorChange={value =>
-              setAttributes({ overlayBackgroundColor: value })
-            }
-            opacityValue={overlayBackgroundColorOpacity}
-            onOpacityChange={value =>
-              setAttributes({ overlayBackgroundColorOpacity: value })
-            }
+            value={overlayBackgroundColor || ''}
+            defaultValue={overlayBackgroundColor || ''}
+            onChange={value => setAttributes({ overlayBackgroundColor: value })}
           />
 
           <BackgroundControls
@@ -262,7 +257,7 @@ const ContainerInspectorControls = ({
               />
             )}
           </ResponsiveControl>
-        </PanelColorSettings>
+        </PanelBody>
       </InspectorControls>
     </Fragment>
   );

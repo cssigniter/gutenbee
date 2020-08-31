@@ -1,6 +1,7 @@
-import { Fragment, useState } from 'wp.element';
+import { Fragment, useState, useRef } from 'wp.element';
 import PropTypes from 'prop-types';
-import { __ } from 'wp.i18n';
+import _ from 'lodash';
+import { __, sprintf } from 'wp.i18n';
 import {
   Button,
   Popover,
@@ -9,6 +10,7 @@ import {
   Tooltip,
   Dashicon,
 } from 'wp.components';
+import { useSelect } from 'wp.data';
 
 const propTypes = {
   label: PropTypes.string,
@@ -26,6 +28,12 @@ const PopoverColorControl = ({
   onChange,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const defaultColor = useRef(defaultValue);
+  const colorPalette = useSelect(select => {
+    const settings = select('core/block-editor').getSettings();
+
+    return _.get(settings, ['colors'], []);
+  });
 
   const toggleVisible = () => {
     setIsVisible(v => !v);
@@ -33,19 +41,18 @@ const PopoverColorControl = ({
 
   return (
     <div className="gutenbee-color-popover-container">
-      <div className="gutenbee-advanced-color-settings-container">
+      <div className="gutenbee-color-popover-settings-container">
         {label && (
           <span className="gutenbee-advanced-color-label">{label}</span>
         )}
 
-        <div className="gutenbee-advanced-color-label-controls" />
-        {value && value !== defaultValue && (
-          <Tooltip text={__('Clear')}>
+        {value && value !== defaultColor.current && (
+          <Tooltip text={__('Reset')}>
             <Button
               className="components-color-palette__clear"
               type="button"
               onClick={() => {
-                onChange(defaultValue);
+                onChange(defaultColor.current);
               }}
               isSmall
             >
@@ -63,7 +70,7 @@ const PopoverColorControl = ({
                 onClose={toggleVisible}
               >
                 <ColorPicker
-                  color={value || defaultValue}
+                  color={value}
                   onChangeComplete={color => {
                     if ((color.rgb && color.rgb.a === 1) || disableAlpha) {
                       onChange(color.hex);
@@ -74,6 +81,53 @@ const PopoverColorControl = ({
                   }}
                   disableAlpha={false}
                 />
+
+                {colorPalette.length > 0 && (
+                  <div className="components-color-palette">
+                    {colorPalette.map(color => {
+                      return (
+                        <div
+                          key={color.slug}
+                          className="components-color-palette__item-wrapper"
+                        >
+                          <Button
+                            type="button"
+                            className={`components-color-palette__item ${
+                              value === color.color ? 'is-active' : ''
+                            }`}
+                            onClick={() => {
+                              onChange(color.color);
+                            }}
+                            style={{
+                              backgroundColor: color.color,
+                              color: color.color,
+                            }}
+                            aria-label={
+                              color.name
+                                ? // translators: %s: The name of the color e.g: "vivid red".
+                                  sprintf(__('Color: %s'), name)
+                                : // translators: %s: color hex code e.g: "#f00".
+                                  sprintf(__('Color code: %s'), color)
+                            }
+                            aria-pressed={color.color === value}
+                          />
+                          {color.color === value && <Dashicon icon="saved" />}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
+                <div className="gutenbee-color-popover-footer">
+                  <Button
+                    isSecondary
+                    isSmall
+                    disabled={!value}
+                    onClick={() => onChange()}
+                  >
+                    {__('Clear')}
+                  </Button>
+                </div>
               </Popover>
             </Fragment>
           )}

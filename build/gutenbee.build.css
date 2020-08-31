@@ -539,10 +539,6 @@
   margin-bottom: 0;
 }
 
-.gutenbee-control-background-label {
-  font-weight: bold;
-}
-
 .gutenbee-control-background-image-wrap {
   margin-bottom: 24px;
 }
@@ -737,7 +733,7 @@
   margin-bottom: 14px;
 }
 
-.gutenbee-advanced-color-settings-container {
+.gutenbee-color-popover-settings-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -746,7 +742,7 @@
   align-items: center;
 }
 
-.gutenbee-advanced-color-settings-container .components-color-palette__clear {
+.gutenbee-color-popover-settings-container .components-color-palette__clear {
   background: transparent;
   padding: 4px;
   height: auto;
@@ -755,36 +751,73 @@
   border: 1px solid transparent;
 }
 
-.gutenbee-advanced-color-settings-container .components-color-palette__clear svg {
+.gutenbee-color-popover-settings-container .components-color-palette__clear svg {
   width: 16px;
 }
 
-.gutenbee-advanced-color-settings-container .gutenbee-advanced-color-indicator {
+.gutenbee-color-popover-settings-container .gutenbee-advanced-color-indicator {
   width: 28px;
   height: 28px;
   border-radius: 50%;
   margin: 0;
 }
 
-.gutenbee-advanced-color-settings-container .gutenbee-advanced-color-label {
+.gutenbee-color-popover-settings-container .gutenbee-advanced-color-label {
   -webkit-box-flex: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
   margin: 0;
 }
 
-.components-popover.gutenbee-popover-color > .components-popover__content > .components-base-control {
+.gutenbee-popover-color > .components-popover__content {
+  overflow: hidden;
+}
+
+.gutenbee-popover-color > .components-popover__content > .components-base-control {
   padding: 0 10px;
 }
 
-.gutenbee-block-default-palette .components-color-palette,
-.components-popover.gutenbee-popover-color .components-color-palette {
+.gutenbee-popover-color .components-color-picker {
+  padding: 14px;
+}
+
+.gutenbee-popover-color .components-color-picker__body {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.gutenbee-popover-color .components-color-palette__clear {
+  background: transparent;
+  padding: 4px;
+  height: auto;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 1px solid transparent;
+}
+
+.gutenbee-popover-color .components-color-palette__clear svg {
+  width: 16px;
+}
+
+.gutenbee-popover-color .components-color-palette {
+  padding: 14px 7px 0 7px;
+  border-top: 1px solid #e2e4e7;
   margin-right: 0;
   width: auto;
 }
 
-.components-popover.gutenbee-popover-color .components-color-palette__item-wrapper,
-.gutenbee-color-popover-container .components-color-palette__item-wrapper {
+.gutenbee-popover-color .gutenbee-color-popover-footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  padding: 14px;
+  border-top: 1px solid #e2e4e7;
+}
+
+.gutenbee-popover-color .components-color-palette__item-wrapper {
   display: inline-block;
   height: 28px;
   width: 28px;
@@ -800,8 +833,7 @@
   transition: transform .1s ease, -webkit-transform .1s ease;
 }
 
-.components-popover.gutenbee-popover-color .components-color-palette__item-wrapper .components-color-palette__item,
-.gutenbee-color-popover-container .components-color-palette__item-wrapper .components-color-palette__item {
+.gutenbee-popover-color .components-color-palette__item-wrapper .components-color-palette__item {
   display: inline-block;
   vertical-align: top;
   height: 100%;
@@ -818,8 +850,7 @@
   cursor: pointer;
 }
 
-.components-popover.gutenbee-popover-color .components-color-palette__item-wrapper .components-color-palette__item:after,
-.gutenbee-color-popover-container .components-color-palette__item-wrapper .components-color-palette__item:after {
+.gutenbee-popover-color .components-color-palette__item-wrapper .components-color-palette__item:after {
   content: "";
   position: absolute;
   top: -1px;
@@ -832,28 +863,25 @@
   border: 1px solid transparent;
 }
 
-.components-popover.gutenbee-popover-color .components-color-palette__item-wrapper .components-color-palette__item.is-active,
-.gutenbee-color-popover-container .components-color-palette__item-wrapper .components-color-palette__item.is-active {
+.gutenbee-popover-color .components-color-palette__item-wrapper .components-color-palette__item.is-active {
   -webkit-box-shadow: inset 0 0 0 4px;
   box-shadow: inset 0 0 0 4px;
   position: relative;
   z-index: 1;
 }
 
-.components-popover.gutenbee-popover-color .components-color-palette__item-wrapper .components-color-palette__item.is-active + .dashicons-saved,
-.gutenbee-color-popover-container .components-color-palette__item-wrapper .components-color-palette__item.is-active + .dashicons-saved {
+.gutenbee-popover-color .components-color-palette__item-wrapper .components-color-palette__item.is-active + .dashicons-saved {
   position: absolute;
   left: 4px;
   top: 4px;
+  z-index: 10;
 }
 
-.components-popover.gutenbee-popover-color .components-color-palette__item-wrapper .components-color-palette__item:focus,
-.gutenbee-color-popover-container .components-color-palette__item-wrapper .components-color-palette__item:focus {
+.gutenbee-popover-color .components-color-palette__item-wrapper .components-color-palette__item:focus {
   outline: none;
 }
 
-.components-popover.gutenbee-popover-color .components-color-palette__item-wrapper .components-color-palette__item:focus:after,
-.gutenbee-color-popover-container .components-color-palette__item-wrapper .components-color-palette__item:focus:after {
+.gutenbee-popover-color .components-color-palette__item-wrapper .components-color-palette__item:focus:after {
   content: "";
   border: 2px solid #606a73;
   width: 32px;
@@ -896,412 +924,6 @@
 
 .wp-block-gutenbee-divider-style-edit .components-toolbar__control {
   position: relative;
-}
-
-@font-face {
-  font-family: "ep-icon-module";
-  src: url(fonts/ep-icon-module.eot);
-  src: url(fonts/ep-icon-module.eot?#iefix) format("eot"), url(fonts/ep-icon-module.woff2) format("woff2"), url(fonts/ep-icon-module.woff) format("woff"), url(fonts/ep-icon-module.ttf) format("truetype");
-}
-
-.ep-icon-module:before {
-  font-family: "ep-icon-module";
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-style: normal;
-  font-variant: normal;
-  font-weight: normal;
-  /* speak: none; only necessary if not using the private unicode range (firstGlyph option) */
-  text-decoration: none;
-  text-transform: none;
-}
-
-.ep-icon-module-add-bag:before {
-  content: "\E001";
-}
-
-.ep-icon-module-air-conditioning:before {
-  content: "\E002";
-}
-
-.ep-icon-module-alarm:before {
-  content: "\E003";
-}
-
-.ep-icon-module-american-express:before {
-  content: "\E004";
-}
-
-.ep-icon-module-bag-return:before {
-  content: "\E005";
-}
-
-.ep-icon-module-bag:before {
-  content: "\E006";
-}
-
-.ep-icon-module-bar:before {
-  content: "\E007";
-}
-
-.ep-icon-module-baseball:before {
-  content: "\E008";
-}
-
-.ep-icon-module-basket-ball:before {
-  content: "\E009";
-}
-
-.ep-icon-module-basket:before {
-  content: "\E00A";
-}
-
-.ep-icon-module-bathrobe:before {
-  content: "\E00B";
-}
-
-.ep-icon-module-bathroom:before {
-  content: "\E00C";
-}
-
-.ep-icon-module-bowling-ball:before {
-  content: "\E00D";
-}
-
-.ep-icon-module-boxing-glove:before {
-  content: "\E00E";
-}
-
-.ep-icon-module-breakfast:before {
-  content: "\E00F";
-}
-
-.ep-icon-module-calculator:before {
-  content: "\E010";
-}
-
-.ep-icon-module-car-rental:before {
-  content: "\E011";
-}
-
-.ep-icon-module-cart:before {
-  content: "\E012";
-}
-
-.ep-icon-module-concierge:before {
-  content: "\E013";
-}
-
-.ep-icon-module-coupon:before {
-  content: "\E014";
-}
-
-.ep-icon-module-credit-card:before {
-  content: "\E015";
-}
-
-.ep-icon-module-cricket:before {
-  content: "\E016";
-}
-
-.ep-icon-module-delta-credit-card:before {
-  content: "\E017";
-}
-
-.ep-icon-module-disabled:before {
-  content: "\E018";
-}
-
-.ep-icon-module-discover-credit-card:before {
-  content: "\E019";
-}
-
-.ep-icon-module-diving:before {
-  content: "\E01A";
-}
-
-.ep-icon-module-dollar-currency:before {
-  content: "\E01B";
-}
-
-.ep-icon-module-dumbbell:before {
-  content: "\E01C";
-}
-
-.ep-icon-module-elevator:before {
-  content: "\E01D";
-}
-
-.ep-icon-module-euro-currency:before {
-  content: "\E01E";
-}
-
-.ep-icon-module-fitness-center:before {
-  content: "\E01F";
-}
-
-.ep-icon-module-free-toiletries:before {
-  content: "\E020";
-}
-
-.ep-icon-module-gavel:before {
-  content: "\E021";
-}
-
-.ep-icon-module-gift:before {
-  content: "\E022";
-}
-
-.ep-icon-module-globe:before {
-  content: "\E023";
-}
-
-.ep-icon-module-golf-ball:before {
-  content: "\E024";
-}
-
-.ep-icon-module-hairdryer:before {
-  content: "\E025";
-}
-
-.ep-icon-module-heating:before {
-  content: "\E026";
-}
-
-.ep-icon-module-iron:before {
-  content: "\E027";
-}
-
-.ep-icon-module-jcb-credit-card:before {
-  content: "\E028";
-}
-
-.ep-icon-module-laundry:before {
-  content: "\E029";
-}
-
-.ep-icon-module-linens:before {
-  content: "\E02A";
-}
-
-.ep-icon-module-lounge:before {
-  content: "\E02B";
-}
-
-.ep-icon-module-maestro-credit-card:before {
-  content: "\E02C";
-}
-
-.ep-icon-module-mail:before {
-  content: "\E02D";
-}
-
-.ep-icon-module-mastercard-card:before {
-  content: "\E02E";
-}
-
-.ep-icon-module-medal:before {
-  content: "\E02F";
-}
-
-.ep-icon-module-minibar:before {
-  content: "\E030";
-}
-
-.ep-icon-module-mobile-app:before {
-  content: "\E031";
-}
-
-.ep-icon-module-newspapers:before {
-  content: "\E032";
-}
-
-.ep-icon-module-no-smoking:before {
-  content: "\E033";
-}
-
-.ep-icon-module-parking:before {
-  content: "\E034";
-}
-
-.ep-icon-module-paypal:before {
-  content: "\E035";
-}
-
-.ep-icon-module-pets:before {
-  content: "\E036";
-}
-
-.ep-icon-module-piggy-bank:before {
-  content: "\E037";
-}
-
-.ep-icon-module-ping-pong:before {
-  content: "\E038";
-}
-
-.ep-icon-module-pool-ball:before {
-  content: "\E039";
-}
-
-.ep-icon-module-pool:before {
-  content: "\E03A";
-}
-
-.ep-icon-module-pound-currency:before {
-  content: "\E03B";
-}
-
-.ep-icon-module-radio:before {
-  content: "\E03C";
-}
-
-.ep-icon-module-refrigerator:before {
-  content: "\E03D";
-}
-
-.ep-icon-module-restaurant:before {
-  content: "\E03E";
-}
-
-.ep-icon-module-rollers:before {
-  content: "\E03F";
-}
-
-.ep-icon-module-rugby-ball:before {
-  content: "\E040";
-}
-
-.ep-icon-module-ruler:before {
-  content: "\E041";
-}
-
-.ep-icon-module-rupee-currency:before {
-  content: "\E042";
-}
-
-.ep-icon-module-safe:before {
-  content: "\E043";
-}
-
-.ep-icon-module-satellite-channels:before {
-  content: "\E044";
-}
-
-.ep-icon-module-search:before {
-  content: "\E045";
-}
-
-.ep-icon-module-secure:before {
-  content: "\E046";
-}
-
-.ep-icon-module-shower:before {
-  content: "\E047";
-}
-
-.ep-icon-module-shuttle-service:before {
-  content: "\E048";
-}
-
-.ep-icon-module-shuttlecock:before {
-  content: "\E049";
-}
-
-.ep-icon-module-skating:before {
-  content: "\E04A";
-}
-
-.ep-icon-module-ski:before {
-  content: "\E04B";
-}
-
-.ep-icon-module-slippers:before {
-  content: "\E04C";
-}
-
-.ep-icon-module-smoking:before {
-  content: "\E04D";
-}
-
-.ep-icon-module-soccer-ball:before {
-  content: "\E04E";
-}
-
-.ep-icon-module-solo-credit-card:before {
-  content: "\E04F";
-}
-
-.ep-icon-module-soundproof:before {
-  content: "\E050";
-}
-
-.ep-icon-module-spa:before {
-  content: "\E051";
-}
-
-.ep-icon-module-star:before {
-  content: "\E052";
-}
-
-.ep-icon-module-sun-deck:before {
-  content: "\E053";
-}
-
-.ep-icon-module-support:before {
-  content: "\E054";
-}
-
-.ep-icon-module-tag:before {
-  content: "\E055";
-}
-
-.ep-icon-module-telephone:before {
-  content: "\E056";
-}
-
-.ep-icon-module-tennis-ball:before {
-  content: "\E057";
-}
-
-.ep-icon-module-toilet:before {
-  content: "\E058";
-}
-
-.ep-icon-module-towels:before {
-  content: "\E059";
-}
-
-.ep-icon-module-transport:before {
-  content: "\E05A";
-}
-
-.ep-icon-module-trophy:before {
-  content: "\E05B";
-}
-
-.ep-icon-module-tv:before {
-  content: "\E05C";
-}
-
-.ep-icon-module-visa-credit-card:before {
-  content: "\E05D";
-}
-
-.ep-icon-module-visa-electron:before {
-  content: "\E05E";
-}
-
-.ep-icon-module-volley-ball:before {
-  content: "\E05F";
-}
-
-.ep-icon-module-wifi:before {
-  content: "\E060";
-}
-
-.ep-icon-module-yen-currency:before {
-  content: "\E061";
 }
 
 .gutenbee-icon-block {
@@ -1351,6 +973,14 @@
 
 .gutenbee-icon-block-shape-circle .gutenbee-icon-block-icon-wrap {
   border-radius: 50%;
+}
+
+.wp-block-gutenbee-icon-icon {
+  display: inline-block;
+}
+
+.wp-block-gutenbee-icon-icon path {
+  fill: currentColor;
 }
 
 /**
@@ -1859,18 +1489,20 @@
 }
 
 .gutenbee-icon-block-select-value {
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
 }
 
-.gutenbee-icon-block-select-value .ep-icon-module {
+.gutenbee-icon-block-select-value svg {
+  min-width: 14px;
   margin-right: 5px;
-  min-width: 17px;
-  font-size: 16px;
+  -webkit-box-flex: 0;
+  -ms-flex: none;
+  flex: none;
 }
 
 .is-open .Select-control .gutenbee-icon-block-select-value {
@@ -2879,9 +2511,8 @@
   padding-right: 0;
   -ms-flex-preferred-size: calc(50% - 44px);
   flex-basis: calc(50% - 44px);
-  -webkit-box-flex: 0;
-  -ms-flex-positive: 0;
-  flex-grow: 0;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
   margin-left: 15px;
   margin-right: 15px;
   margin-top: 0;
@@ -2963,9 +2594,9 @@
   padding-right: 0;
   -ms-flex-preferred-size: calc(50% - 44px);
   flex-basis: calc(50% - 44px);
-  -webkit-box-flex: 0;
-  -ms-flex-positive: 0;
-  flex-grow: 0;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
   margin-left: 30px;
   margin-right: 30px;
   word-break: break-word;

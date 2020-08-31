@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import { Fragment } from 'wp.element';
 import { InnerBlocks } from 'wp.blockEditor';
-import { InspectorControls, PanelColorSettings } from 'wp.blockEditor';
+import { InspectorControls } from 'wp.blockEditor';
 import { PanelBody, SelectControl } from 'wp.components';
 import classnames from 'classnames';
 
@@ -12,6 +12,7 @@ import getBlockId from '../../util/getBlockId';
 import { BREAKPOINT_NAMES } from '../../components/stylesheet/StyleSheet';
 import MarginControls from '../../components/controls/margin-controls';
 import ButtonsStyle from './style';
+import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 
 const propTypes = {
   attributes: PropTypes.object.isRequired,
@@ -74,19 +75,14 @@ const ButtonsEdit = ({ attributes, setAttributes, className, clientId }) => {
           </ResponsiveControl>
         </PanelBody>
 
-        <PanelColorSettings
-          title={__('Block Appearance')}
-          initialOpen={false}
-          colorSettings={[
-            {
-              value: backgroundColor,
-              onChange: value => setAttributes({ backgroundColor: value }),
-              label: __('Background Color'),
-              disableAlpha: false,
-            },
-          ]}
-          onChange={value => setAttributes({ backgroundColor: value })}
-        >
+        <PanelBody title={__('Block Appearance')} initialOpen={false}>
+          <PopoverColorControl
+            label={__('Background Color')}
+            value={backgroundColor || ''}
+            defaultValue={backgroundColor || ''}
+            onChange={value => setAttributes({ backgroundColor: value })}
+          />
+
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
@@ -110,7 +106,7 @@ const ButtonsEdit = ({ attributes, setAttributes, className, clientId }) => {
               />
             )}
           </ResponsiveControl>
-        </PanelColorSettings>
+        </PanelBody>
       </InspectorControls>
     </Fragment>
   );

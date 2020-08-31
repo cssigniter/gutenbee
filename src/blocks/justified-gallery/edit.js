@@ -7,7 +7,7 @@ import {
   SelectControl,
   PanelBody,
 } from 'wp.components';
-import { InspectorControls, PanelColorSettings } from 'wp.blockEditor';
+import { InspectorControls } from 'wp.blockEditor';
 import startCase from 'lodash.startcase';
 import classNames from 'classnames';
 
@@ -23,6 +23,7 @@ import { getBorderCSSValue } from '../../components/controls/border-controls/hel
 import BorderControls from '../../components/controls/border-controls';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
+import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 
 export const GALLERY_TYPE = {
   COLUMNS: 'columns',
@@ -157,18 +158,14 @@ const JustifiedGalleryEdit = ({
             )}
           </PanelBody>
 
-          <PanelColorSettings
-            title={__('Block Appearance')}
-            initialOpen={false}
-            colorSettings={[
-              {
-                value: backgroundColor,
-                onChange: value => setAttributes({ backgroundColor: value }),
-                label: __('Background Color'),
-              },
-            ]}
-            onChange={value => setAttributes({ backgroundColor: value })}
-          >
+          <PanelBody title={__('Block Appearance')} initialOpen={false}>
+            <PopoverColorControl
+              label={__('Background Color')}
+              value={backgroundColor || ''}
+              defaultValue={backgroundColor || ''}
+              onChange={value => setAttributes({ backgroundColor: value })}
+            />
+
             <BorderControls
               attributes={attributes}
               setAttributes={setAttributes}
@@ -202,7 +199,7 @@ const JustifiedGalleryEdit = ({
                 />
               )}
             </ResponsiveControl>
-          </PanelColorSettings>
+          </PanelBody>
         </InspectorControls>
       )}
     </Gallery>

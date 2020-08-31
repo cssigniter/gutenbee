@@ -124,6 +124,10 @@ const webpackConfig = {
         ],
       },
       {
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+      },
+      {
         test: /\.(ttf|eot|woff|woff2)$/,
         loader: 'file-loader',
         options: {

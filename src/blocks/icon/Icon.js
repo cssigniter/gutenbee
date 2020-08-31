@@ -21,6 +21,8 @@ const Icon = ({
   blockPadding,
   ...attributes
 }) => {
+  const IconComponent = require(`./svg/${icon}.svg`).default;
+
   const wrapperClasses = classNames({
     'gutenbee-icon-block': true,
     [`align-${align || 'left'}`]: true,
@@ -30,9 +32,7 @@ const Icon = ({
   });
 
   const iconClasses = classNames({
-    'ep-icon-module': true,
     [`${className}-icon`]: !!className,
-    [`ep-icon-module-${icon}`]: !!icon,
   });
 
   let color = colorPrimary;
@@ -68,7 +68,12 @@ const Icon = ({
           ...getBoxShadowCSSValue({ attributes, prefix: 'icon' }),
         }}
       >
-        <span className={iconClasses} />
+        <IconComponent
+          className={iconClasses}
+          style={{
+            width: `${size}px`,
+          }}
+        />
       </span>
     </div>
   );

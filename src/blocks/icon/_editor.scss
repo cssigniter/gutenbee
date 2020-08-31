@@ -2,13 +2,13 @@
 @import '~react-select/dist/react-select';
 
 .gutenbee-icon-block-select-value {
-  display: inline-flex;
+  display: flex;
   align-items: center;
 
-  .ep-icon-module {
+  svg {
+    min-width: 14px;
     margin-right: 5px;
-    min-width: 17px;
-    font-size: 16px;
+    flex: none;
   }
 
   .is-open .Select-control & {

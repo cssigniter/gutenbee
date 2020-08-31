@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
-import { InspectorControls, PanelColorSettings } from 'wp.blockEditor';
+import { InspectorControls } from 'wp.blockEditor';
 import { RangeControl, PanelBody, ResizableBox } from 'wp.components';
 import { compose, withInstanceId } from 'wp.compose';
 import { withDispatch } from 'wp.data';
@@ -17,6 +17,7 @@ import BorderControls from '../../components/controls/border-controls';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
+import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 
 const SpacerEdit = ({
   attributes,
@@ -101,18 +102,14 @@ const SpacerEdit = ({
           </ResponsiveControl>
         </PanelBody>
 
-        <PanelColorSettings
-          title={__('Block Appearance')}
-          initialOpen={false}
-          colorSettings={[
-            {
-              value: backgroundColor,
-              onChange: value => setAttributes({ backgroundColor: value }),
-              label: __('Background Color'),
-            },
-          ]}
-          onChange={value => setAttributes({ backgroundColor: value })}
-        >
+        <PanelBody title={__('Block Appearance')} initialOpen={false}>
+          <PopoverColorControl
+            label={__('Background Color')}
+            value={backgroundColor || ''}
+            defaultValue={backgroundColor || ''}
+            onChange={value => setAttributes({ backgroundColor: value })}
+          />
+
           <BackgroundControls
             label={__('Background Image')}
             setAttributes={setAttributes}
@@ -142,7 +139,7 @@ const SpacerEdit = ({
               />
             )}
           </ResponsiveControl>
-        </PanelColorSettings>
+        </PanelBody>
       </InspectorControls>
     </Fragment>
   );

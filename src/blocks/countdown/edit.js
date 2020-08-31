@@ -7,11 +7,7 @@ import {
   DateTimePicker,
   RangeControl,
 } from 'wp.components';
-import {
-  InspectorControls,
-  RichText,
-  PanelColorSettings,
-} from 'wp.blockEditor';
+import { InspectorControls, RichText } from 'wp.blockEditor';
 import moment from 'moment';
 
 import { capitalize } from '../../util/text';
@@ -26,6 +22,7 @@ import BorderControls from '../../components/controls/border-controls';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
+import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -210,33 +207,37 @@ const CountdownEdit = ({
             />
           </PanelBody>
 
-          <PanelColorSettings
-            title={__('Block Appearance')}
-            initialOpen={false}
-            colorSettings={[
-              {
-                value: textColor,
-                onChange: value => setAttributes({ textColor: value }),
-                label: __('Box Text Color'),
-              },
-              {
-                value: numberBackgroundColor,
-                onChange: value =>
-                  setAttributes({ numberBackgroundColor: value }),
-                label: __('Box Background Color'),
-              },
-              {
-                value: labelTextColor,
-                onChange: value => setAttributes({ labelTextColor: value }),
-                label: __('Box Label Text Color'),
-              },
-              {
-                value: backgroundColor,
-                onChange: value => setAttributes({ backgroundColor: value }),
-                label: __('Block Background Color'),
-              },
-            ]}
-          >
+          <PanelBody title={__('Block Appearance')} initialOpen={false}>
+            <PopoverColorControl
+              label={__('Box Text Color')}
+              value={textColor || ''}
+              defaultValue={textColor || ''}
+              onChange={value => setAttributes({ textColor: value })}
+            />
+
+            <PopoverColorControl
+              label={__('Box Background Color')}
+              value={numberBackgroundColor || ''}
+              defaultValue={numberBackgroundColor || ''}
+              onChange={value =>
+                setAttributes({ numberBackgroundColor: value })
+              }
+            />
+
+            <PopoverColorControl
+              label={__('Box Label Text Color')}
+              value={labelTextColor || ''}
+              defaultValue={labelTextColor || ''}
+              onChange={value => setAttributes({ labelTextColor: value })}
+            />
+
+            <PopoverColorControl
+              label={__('Block Background Color')}
+              value={backgroundColor || ''}
+              defaultValue={backgroundColor || ''}
+              onChange={value => setAttributes({ backgroundColor: value })}
+            />
+
             <BorderControls
               attributes={attributes}
               setAttributes={setAttributes}
@@ -324,7 +325,7 @@ const CountdownEdit = ({
                 />
               )}
             </ResponsiveControl>
-          </PanelColorSettings>
+          </PanelBody>
         </InspectorControls>
       )}
     </Fragment>

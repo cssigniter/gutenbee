@@ -1,7 +1,7 @@
 import { __ } from 'wp.i18n';
 import { Fragment, useState } from 'wp.element';
 import PropTypes from 'prop-types';
-import { InspectorControls, PanelColorSettings } from 'wp.blockEditor';
+import { InspectorControls } from 'wp.blockEditor';
 import {
   RangeControl,
   SelectControl,
@@ -27,6 +27,7 @@ import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 import LottieStyle from './style';
 import MarginControls from '../../components/controls/margin-controls';
+import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 
 const propTypes = {
   attributes: PropTypes.object.isRequired,
@@ -175,18 +176,14 @@ const LottieEdit = ({ attributes, setAttributes, clientId, className }) => {
           />
         </PanelBody>
 
-        <PanelColorSettings
-          title={__('Block Appearance')}
-          initialOpen={false}
-          colorSettings={[
-            {
-              value: backgroundColor,
-              onChange: value => setAttributes({ backgroundColor: value }),
-              label: __('Background Color'),
-            },
-          ]}
-          onChange={value => setAttributes({ backgroundColor: value })}
-        >
+        <PanelBody title={__('Block Appearance')} initialOpen={false}>
+          <PopoverColorControl
+            label={__('Background Color')}
+            value={backgroundColor || ''}
+            defaultValue={backgroundColor || ''}
+            onChange={value => setAttributes({ backgroundColor: value })}
+          />
+
           <BorderControls
             attributes={attributes}
             setAttributes={setAttributes}
@@ -220,7 +217,7 @@ const LottieEdit = ({ attributes, setAttributes, clientId, className }) => {
               />
             )}
           </ResponsiveControl>
-        </PanelColorSettings>
+        </PanelBody>
       </InspectorControls>
     </Fragment>
   );
