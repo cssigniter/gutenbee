@@ -70,8 +70,10 @@ const Icon = ({
       >
         <IconComponent
           className={iconClasses}
+          preserveAspectRatio="xMidYMid meet"
           style={{
             width: `${size}px`,
+            height: `${size}px`,
           }}
         />
       </span>

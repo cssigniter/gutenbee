@@ -13,7 +13,7 @@ const IconSelectValue = ({ value, label }) => {
   const IconComponent = require(`./svg/${value}.svg`).default;
   return (
     <div className="gutenbee-icon-block-select-value">
-      <IconComponent />
+      <IconComponent preserveAspectRatio="xMidYMid meet" />
       {label}
     </div>
   );

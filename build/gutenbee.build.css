@@ -1498,7 +1498,8 @@
 }
 
 .gutenbee-icon-block-select-value svg {
-  min-width: 14px;
+  width: 20px;
+  height: 20px;
   margin-right: 5px;
   -webkit-box-flex: 0;
   -ms-flex: none;
