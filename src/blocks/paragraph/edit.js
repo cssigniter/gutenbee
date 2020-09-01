@@ -48,6 +48,8 @@ const ParagraphBlock = ({
   setAttributes,
   textColor,
   clientId,
+  setBackgroundColor,
+  setTextColor,
 }) => {
   const {
     uniqueId,
@@ -114,16 +116,16 @@ const ParagraphBlock = ({
         <PanelBody title={__('Block Appearancce')} initialOpen={false}>
           <PopoverColorControl
             label={__('Text Color')}
-            value={textColor || ''}
-            defaultValue={textColor || ''}
-            onChange={value => setAttributes({ textColor: value })}
+            value={textColor.color || ''}
+            defaultValue={textColor.color || ''}
+            onChange={setTextColor}
           />
 
           <PopoverColorControl
             label={__('Background Color')}
-            value={backgroundColor || ''}
-            defaultValue={backgroundColor || ''}
-            onChange={value => setAttributes({ backgroundColor: value })}
+            value={backgroundColor.color || ''}
+            defaultValue={backgroundColor.color || ''}
+            onChange={setBackgroundColor}
           />
 
           <BorderControls
