@@ -77,21 +77,24 @@ function gutenbee_enqueue_frontend_block_assets() {
 		wp_enqueue_script( 'gutenbee-google-maps', 'https://maps.googleapis.com/maps/api/js?key=' . $maps_api_key, array(), GUTENBEE_PLUGIN_VERSION, true );
 	}
 
-	$all_blocks = array_unique( array_merge( array_keys( gutenbee_get_setting_block_names() ), array( 'google-maps' ) ) );
-	$all_blocks = array_map( function( $element ) {
-		return 'gutenbee/' . $element;
-	}, $all_blocks );
-
-	$has_gutenbee_block = false;
-	foreach ( $all_blocks as $block ) {
-		if ( has_block( $block ) ) {
-			$has_gutenbee_block = true;
-			break;
+	$enqueue_css = false;
+	$enqueue_js  = false;
+	foreach ( gutenbee_get_blocks_info() as $block_name => $block_info ) {
+		if ( has_block( $block_name ) ) {
+			if ( ! $enqueue_css && $block_info['enqueue_css'] ) {
+				$enqueue_css = true;
+			}
+			if ( ! $enqueue_js && $block_info['enqueue_js'] ) {
+				$enqueue_js = true;
+			}
 		}
 	}
 
-	if ( $has_gutenbee_block ) {
+	if ( $enqueue_css ) {
 		wp_enqueue_style( 'gutenbee', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.scripts.css', array(), GUTENBEE_PLUGIN_VERSION );
+	}
+
+	if ( $enqueue_js ) {
 		wp_enqueue_script( 'gutenbee-scripts', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.scripts.js', array(
 			'jquery',
 		), GUTENBEE_PLUGIN_VERSION, true );
@@ -147,6 +150,136 @@ function gutenbee_get_setting_block_names() {
 		'tabs'              => __( 'Tabs Block', 'gutenbee' ),
 		'video'             => __( 'Video Block', 'gutenbee' ),
 //			'lottie'            => __( 'Lottie Player Block', 'gutenbee' ),
+	);
+}
+
+/**
+ * Returns a list of blocks and information about them.
+ *
+ * @return array
+ */
+function gutenbee_get_blocks_info() {
+	return array(
+		'gutenbee/accordion'         => array(
+			'label'       => __( 'Accordion Block', 'gutenbee' ),
+			'enqueue_js'  => true,
+			'enqueue_css' => true,
+		),
+		'gutenbee/button'            => array(
+			'label'       => __( 'Button Block', 'gutenbee' ),
+			'enqueue_js'  => false,
+			'enqueue_css' => true,
+		),
+		'gutenbee/buttons'           => array(
+			'label'       => __( 'Buttons Block', 'gutenbee' ),
+			'enqueue_js'  => false,
+			'enqueue_css' => true,
+		),
+		'gutenbee/container'         => array(
+			'label'       => __( 'Container Block', 'gutenbee' ),
+			'enqueue_js'  => false,
+			'enqueue_css' => true,
+		),
+		'gutenbee/column'            => array(
+			'label'       => __( 'Column Block', 'gutenbee' ),
+			'enqueue_js'  => false,
+			'enqueue_css' => false,
+		),
+		'gutenbee/countdown'         => array(
+			'label'       => __( 'Countdown Block', 'gutenbee' ),
+			'enqueue_js'  => true,
+			'enqueue_css' => true,
+		),
+		'gutenbee/countup'           => array(
+			'label'       => __( 'Countup Block', 'gutenbee' ),
+			'enqueue_js'  => true,
+			'enqueue_css' => true,
+		),
+		'gutenbee/divider'           => array(
+			'label'       => __( 'Divider Block', 'gutenbee' ),
+			'enqueue_js'  => false,
+			'enqueue_css' => true,
+		),
+		'gutenbee/google-maps'       => array(
+			'label'       => __( 'Google Map Block', 'gutenbee' ),
+			'enqueue_js'  => true,
+			'enqueue_css' => true,
+		),
+		'gutenbee/heading'           => array(
+			'label'       => __( 'Heading Block', 'gutenbee' ),
+			'enqueue_js'  => false,
+			'enqueue_css' => false,
+		),
+		'gutenbee/icon'              => array(
+			'label'       => __( 'Icon Block', 'gutenbee' ),
+			'enqueue_js'  => false,
+			'enqueue_css' => true,
+		),
+		'gutenbee/iconbox'           => array(
+			'label'       => __( 'Icon Box Block', 'gutenbee' ),
+			'enqueue_js'  => false,
+			'enqueue_css' => true,
+		),
+		'gutenbee/image'             => array(
+			'label'       => __( 'Image Block', 'gutenbee' ),
+			'enqueue_js'  => false,
+			'enqueue_css' => false,
+		),
+		'gutenbee/imagebox'          => array(
+			'label'       => __( 'Image Box Block', 'gutenbee' ),
+			'enqueue_js'  => false,
+			'enqueue_css' => true,
+		),
+		'gutenbee/image-comparison'  => array(
+			'label'       => __( 'Image Comparison Block', 'gutenbee' ),
+			'enqueue_js'  => true,
+			'enqueue_css' => true,
+		),
+		'gutenbee/justified-gallery' => array(
+			'label'       => __( 'Justified Gallery Block', 'gutenbee' ),
+			'enqueue_js'  => true,
+			'enqueue_css' => true,
+		),
+//		'gutenbee/lottie'            => array(
+//			'label'       => __( 'Lottie Player Block', 'gutenbee' ),
+//			'enqueue_js'  => false,
+//			'enqueue_css' => false,
+//		),
+		'gutenbee/paragraph'         => array(
+			'label'       => __( 'Paragraph Block', 'gutenbee' ),
+			'enqueue_js'  => false,
+			'enqueue_css' => false,
+		),
+		'gutenbee/post-types'        => array(
+			'label'       => __( 'Post Types Block', 'gutenbee' ),
+			'enqueue_js'  => false,
+			'enqueue_css' => true,
+		),
+		'gutenbee/progress-bar'      => array(
+			'label'       => __( 'Progress Block', 'gutenbee' ),
+			'enqueue_js'  => false,
+			'enqueue_css' => true,
+		),
+		'gutenbee/slideshow'         => array(
+			'label'       => __( 'Slideshow Block', 'gutenbee' ),
+			'enqueue_js'  => true,
+			'enqueue_css' => true,
+		),
+		'gutenbee/spacer'            => array(
+			'label'       => __( 'Spacer Block', 'gutenbee' ),
+			'enqueue_js'  => false,
+			'enqueue_css' => true,
+		),
+		'gutenbee/tabs'              => array(
+			'label'       => __( 'Tabs Block', 'gutenbee' ),
+			'enqueue_js'  => true,
+			'enqueue_css' => true,
+		),
+		'gutenbee/video'             => array(
+			'label'       => __( 'Video Block', 'gutenbee' ),
+			'enqueue_js'  => false,
+			'enqueue_css' => true,
+		),
 	);
 }
 
