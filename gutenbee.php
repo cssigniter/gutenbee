@@ -177,7 +177,7 @@ function gutenbee_get_blocks_info() {
 		),
 		'gutenbee/container'         => array(
 			'label'       => __( 'Container Block', 'gutenbee' ),
-			'enqueue_js'  => false,
+			'enqueue_js'  => true,
 			'enqueue_css' => true,
 		),
 		'gutenbee/column'            => array(
@@ -197,7 +197,7 @@ function gutenbee_get_blocks_info() {
 		),
 		'gutenbee/divider'           => array(
 			'label'       => __( 'Divider Block', 'gutenbee' ),
-			'enqueue_js'  => false,
+			'enqueue_js'  => true,
 			'enqueue_css' => true,
 		),
 		'gutenbee/google-maps'       => array(
@@ -267,7 +267,7 @@ function gutenbee_get_blocks_info() {
 		),
 		'gutenbee/spacer'            => array(
 			'label'       => __( 'Spacer Block', 'gutenbee' ),
-			'enqueue_js'  => false,
+			'enqueue_js'  => true,
 			'enqueue_css' => true,
 		),
 		'gutenbee/tabs'              => array(
