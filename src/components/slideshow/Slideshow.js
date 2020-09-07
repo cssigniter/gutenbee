@@ -130,14 +130,14 @@ class Slideshow extends Component {
             speed={speed}
             pauseOnHover={pauseOnHover}
             fade={animationStyle === 'fade'}
-            className={`${className}-slider`}
+            className="wp-block-gutenbee-slideshow-slider"
             customPaging={() => (
               <button style={{ backgroundColor: dotsColor }} />
             )}
           >
             {images.map(image => {
               return (
-                <div className={`${className}-item`}>
+                <div className="wp-block-gutenbee-slideshow-item">
                   <img src={image.url} alt={image.alt} />
                 </div>
               );
