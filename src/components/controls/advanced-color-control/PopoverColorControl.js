@@ -28,6 +28,7 @@ const PopoverColorControl = ({
   onChange,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [forceColorPickerReset, setForceColorPickerReset] = useState(false);
   const defaultColor = useRef(defaultValue);
   const colorPalette = useSelect(select => {
     const settings = select('core/block-editor').getSettings();
@@ -67,9 +68,10 @@ const PopoverColorControl = ({
               <Popover
                 position="top left"
                 className="gutenbee-popover-color"
-                onClose={toggleVisible}
+                onClose={() => setIsVisible(false)}
               >
                 <ColorPicker
+                  key={forceColorPickerReset}
                   color={value}
                   onChangeComplete={color => {
                     if ((color.rgb && color.rgb.a === 1) || disableAlpha) {
@@ -97,6 +99,7 @@ const PopoverColorControl = ({
                             }`}
                             onClick={() => {
                               onChange(color.color);
+                              setForceColorPickerReset(v => !v);
                             }}
                             style={{
                               backgroundColor: color.color,
@@ -135,7 +138,7 @@ const PopoverColorControl = ({
           <Tooltip text={__('Select Color')}>
             <Button
               className="gutenbee-color-icon-indicator"
-              onClick={toggleVisible}
+              onMouseDown={toggleVisible}
             >
               <ColorIndicator
                 className="gutenbee-advanced-color-indicator"

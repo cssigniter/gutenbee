@@ -1,4 +1,22 @@
 .wp-block-gutenbee-spacer {
   clear: both;
   padding: 0 !important;
+  position: relative;
+
+  &.has-parallax {
+    overflow: hidden;
+  }
+
+  &-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -2;
+
+    @include media-breakpoint-down(lg) {
+      background-attachment: scroll !important;
+    }
+  }
 }

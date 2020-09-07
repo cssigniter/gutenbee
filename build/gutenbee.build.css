@@ -1521,6 +1521,10 @@
   display: block;
 }
 
+.wp-block-gutenbee-iconbox svg path {
+  fill: currentColor;
+}
+
 .wp-block-gutenbee-iconbox-content {
   -webkit-box-flex: 1;
   -ms-flex: auto;
@@ -1990,12 +1994,37 @@
   cursor: pointer;
 }
 
+.wp-block-gutenbee-tabs-nav-item .block-editor-plain-text,
 .wp-block-gutenbee-tabs-nav-item .editor-plain-text,
 .wp-block-gutenbee-tabs-nav-item .editor-plain-text:focus {
   background: transparent;
   color: currentColor;
   line-height: 1;
   white-space: nowrap;
+}
+
+.wp-block-gutenbee-tabs-nav-item .block-editor-plain-text::-webkit-input-placeholder,
+.wp-block-gutenbee-tabs-nav-item .editor-plain-text::-webkit-input-placeholder,
+.wp-block-gutenbee-tabs-nav-item .editor-plain-text:focus::-webkit-input-placeholder {
+  color: currentColor;
+}
+
+.wp-block-gutenbee-tabs-nav-item .block-editor-plain-text:-ms-input-placeholder,
+.wp-block-gutenbee-tabs-nav-item .editor-plain-text:-ms-input-placeholder,
+.wp-block-gutenbee-tabs-nav-item .editor-plain-text:focus:-ms-input-placeholder {
+  color: currentColor;
+}
+
+.wp-block-gutenbee-tabs-nav-item .block-editor-plain-text::-ms-input-placeholder,
+.wp-block-gutenbee-tabs-nav-item .editor-plain-text::-ms-input-placeholder,
+.wp-block-gutenbee-tabs-nav-item .editor-plain-text:focus::-ms-input-placeholder {
+  color: currentColor;
+}
+
+.wp-block-gutenbee-tabs-nav-item .block-editor-plain-text::placeholder,
+.wp-block-gutenbee-tabs-nav-item .editor-plain-text::placeholder,
+.wp-block-gutenbee-tabs-nav-item .editor-plain-text:focus::placeholder {
+  color: currentColor;
 }
 
 .wp-block-gutenbee-tabs-nav-item-active {

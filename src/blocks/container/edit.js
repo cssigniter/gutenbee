@@ -65,7 +65,7 @@ const ContainerBlockEdit = ({
     },
     [clientId, name],
   );
-  const { replaceInnerBlocks } = useDispatch('core/block-editor');
+  const { replaceInnerBlocks, selectBlock } = useDispatch('core/block-editor');
 
   const hasInnerBlocks = count > 0;
 
@@ -146,6 +146,8 @@ const ContainerBlockEdit = ({
                   ),
                 );
               }
+
+              selectBlock(clientId);
             }}
             allowSkip
           />

@@ -12,12 +12,17 @@
     background-color: $white;
     cursor: pointer;
 
+    .block-editor-plain-text,
     .editor-plain-text,
     .editor-plain-text:focus {
       background: transparent;
       color: currentColor;
       line-height: 1;
       white-space: nowrap;
+
+      &::placeholder {
+        color: currentColor;
+      }
     }
   }
 

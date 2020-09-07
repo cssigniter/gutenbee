@@ -1,5 +1,6 @@
 import { registerBlockType } from 'wp.blocks';
 import { __ } from 'wp.i18n';
+import classNames from 'classnames';
 
 import getBlockId from '../../util/getBlockId';
 import {
@@ -55,20 +56,33 @@ registerBlockType('gutenbee/spacer', {
   save: ({ attributes, className }) => {
     const { uniqueId, backgroundColor, backgroundImage } = attributes;
     const blockId = getBlockId(uniqueId);
+    const { parallax, parallaxSpeed } = backgroundImage;
 
     return (
       <div
         id={blockId}
-        className={className}
+        className={classNames(className, {
+          'has-parallax': parallax,
+        })}
         style={{
-          backgroundColor: backgroundColor || undefined,
-          ...getBackgroundImageStyle(backgroundImage),
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),
         }}
         aria-hidden
       >
         <SpacerStyle attributes={attributes} />
+
+        <div
+          className={classNames({
+            'wp-block-gutenbee-spacer-background': true,
+            'gutenbee-parallax': parallax,
+          })}
+          data-parallax-speed={parallaxSpeed}
+          style={{
+            backgroundColor: backgroundColor || undefined,
+            ...getBackgroundImageStyle(backgroundImage),
+          }}
+        />
       </div>
     );
   },

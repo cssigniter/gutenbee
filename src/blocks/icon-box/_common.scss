@@ -6,6 +6,12 @@
   .gutenbee-icon-block {
     display: block;
   }
+
+  svg {
+    path {
+      fill: currentColor;
+    }
+  }
 }
 
 .wp-block-gutenbee-iconbox-content {
