@@ -1,54 +1,78 @@
-/**
- * Container block
- */
-
-import { __ } from 'wp.i18n';
-import { registerBlockType } from 'wp.blocks';
 import { InnerBlocks } from 'wp.blockEditor';
 import classNames from 'classnames';
 
-// This is a check to see if we are in Gutenberg 7.x which supports
-// this and load the appropriate Edit component
-import { __experimentalBlockVariationPicker } from 'wp.blockEditor';
-
-import ContainerBlockEditLegacy from './edit-legacy';
-import ContainerBlockEdit from './edit';
-import { getBackgroundImageStyle } from '../../components/controls/background-controls/helpers';
-import ContainerStyle from './style';
-import ContainerBlockIcon from './block-icon';
-import getBlockId from '../../util/getBlockId';
-import {
-  getDefaultResponsiveValue,
-  getDefaultSpacingValue,
-} from '../../components/controls/responsive-control/default-values';
-import variations from './variations';
-import borderControlAttributes from '../../components/controls/border-controls/attributes';
-import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import getBlockId from '../../../util/getBlockId';
+import { getBackgroundImageStyle } from '../../../components/controls/background-controls/helpers';
+import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
 import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
-} from '../../components/controls/box-shadow-controls/helpers';
-import deprecated from './deprecated';
+} from '../../../components/controls/box-shadow-controls/helpers';
+import StyleSheet from '../../../components/stylesheet';
+import Rule from '../../../components/stylesheet/Rule';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../../components/controls/responsive-control/default-values';
+import borderControlAttributes from '../../../components/controls/border-controls/attributes';
 
-registerBlockType('gutenbee/container', {
-  title: __('GutenBee Container'),
-  description: __('A versatile container for your blocks.'),
-  icon: ContainerBlockIcon,
-  category: 'gutenbee',
-  keywords: [__('container'), __('wrapper'), __('row'), __('section')],
-  supports: {
-    align: ['wide', 'full'],
-    anchor: false,
-    html: false,
-  },
-  isMultiBlock: true,
+const ContainerStyle = ({ attributes, children }) => {
+  const {
+    uniqueId,
+    containerHeight,
+    innerContentWidth,
+    blockPadding,
+    blockMargin,
+    columnDirection,
+    verticalContentAlignment,
+    horizontalContentAlignment,
+  } = attributes;
+  const blockId = getBlockId(uniqueId);
+
+  return (
+    <StyleSheet id={blockId}>
+      <Rule
+        value={columnDirection}
+        rule=".wp-block-gutenbee-container-row { flex-direction: %s; }"
+      />
+      <Rule
+        value={containerHeight}
+        rule="{ height: %s; }"
+        unit="px"
+        edgeCase={{
+          edge: -1,
+          value: '100vh',
+        }}
+      />
+      <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
+      <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
+      <Rule
+        value={innerContentWidth}
+        rule=".wp-block-gutenbee-container-inner { width: %s; }"
+        unit="px"
+        edgeCase={{
+          edge: -1,
+          value: '100%',
+        }}
+      />
+      <Rule value={verticalContentAlignment} rule="{ align-items: %s; }" />
+      <Rule
+        value={horizontalContentAlignment}
+        rule="{ justify-content: %s; }"
+      />
+      {children}
+    </StyleSheet>
+  );
+};
+
+const v1 = {
   attributes: {
     uniqueId: {
       type: 'string',
     },
     gutter: {
       type: 'string',
-      default: 'lg',
+      default: 'md',
     },
     columnDirection: {
       type: 'object',
@@ -123,18 +147,12 @@ registerBlockType('gutenbee/container', {
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
   },
-  deprecated,
-  getEditWrapperProps(attributes) {
-    const { themeGrid } = attributes;
-
-    if (themeGrid) {
-      return { 'data-theme-grid': themeGrid };
-    }
+  migrate(attributes) {
+    return {
+      ...attributes,
+      gutter: attributes.gutter,
+    };
   },
-  variations,
-  edit: !!__experimentalBlockVariationPicker
-    ? ContainerBlockEdit
-    : ContainerBlockEditLegacy,
   save: ({ attributes, className }) => {
     const {
       uniqueId,
@@ -144,7 +162,6 @@ registerBlockType('gutenbee/container', {
       gutter,
       overlayBackgroundColor,
       themeGrid,
-      columnDirection,
     } = attributes;
 
     const { parallax, parallaxSpeed } = backgroundImage;
@@ -155,9 +172,6 @@ registerBlockType('gutenbee/container', {
         className={classNames(className, {
           'has-parallax': parallax,
           'theme-grid': themeGrid,
-          'row-reverse-desktop': columnDirection.desktop === 'row-reverse',
-          'row-reverse-tablet': columnDirection.tablet === 'row-reverse',
-          'row-reverse-mobile': columnDirection.mobile === 'row-reverse',
         })}
         style={{
           color: textColor,
@@ -200,4 +214,6 @@ registerBlockType('gutenbee/container', {
       </div>
     );
   },
-});
+};
+
+export default v1;

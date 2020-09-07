@@ -98,3 +98,36 @@
     background-attachment: scroll !important;
   }
 }
+
+// Row reverse setting styles
+.wp-block-gutenbee-container {
+  &.row-reverse-desktop {
+    .wp-block-gutenbee-container-row {
+      flex-direction: row-reverse;
+    }
+  }
+
+  &.row-reverse-tablet {
+    @media (max-width: 991px) and (min-width: 576px) {
+      @for $i from 1 through 9 {
+        .wp-block-gutenbee-container-row {
+          > :nth-child(#{$i}) {
+            order: #{9 - $i};
+          }
+        }
+      }
+    }
+  }
+
+  &.row-reverse-mobile {
+    @media (max-width: 575px) {
+      @for $i from 1 through 9 {
+        .wp-block-gutenbee-container-row {
+          > :nth-child(#{$i}) {
+            order: #{9 - $i};
+          }
+        }
+      }
+    }
+  }
+}

@@ -16,7 +16,6 @@ const ContainerStyle = ({ attributes, children }) => {
     innerContentWidth,
     blockPadding,
     blockMargin,
-    columnDirection,
     verticalContentAlignment,
     horizontalContentAlignment,
   } = attributes;
@@ -24,10 +23,6 @@ const ContainerStyle = ({ attributes, children }) => {
 
   return (
     <StyleSheet id={blockId}>
-      <Rule
-        value={columnDirection}
-        rule=".wp-block-gutenbee-container-row { flex-direction: %s; }"
-      />
       <Rule
         value={containerHeight}
         rule="{ height: %s; }"
