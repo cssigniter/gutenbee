@@ -110,8 +110,6 @@ const ImageEdit = ({
     if (!media.id || media.id !== id) {
       setAttributes({
         ...mediaAttributes,
-        width: getDefaultResponsiveValue(),
-        sizeSlug: 'large',
       });
     } else {
       setAttributes({

@@ -2116,3 +2116,78 @@
   margin-right: 0;
 }
 
+.wp-block-gutenbee-food-menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.wp-block-gutenbee-food-menu-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.wp-block-gutenbee-food-menu-item .wp-block-gutenbee-image {
+  -webkit-box-flex: 0;
+  -ms-flex: none;
+  flex: none;
+  margin-right: 20px;
+}
+
+.wp-block-gutenbee-food-menu-item p,
+.wp-block-gutenbee-food-menu-item h1,
+.wp-block-gutenbee-food-menu-item h2,
+.wp-block-gutenbee-food-menu-item h3,
+.wp-block-gutenbee-food-menu-item h4,
+.wp-block-gutenbee-food-menu-item h5 {
+  margin-bottom: 15px;
+}
+
+.wp-block-gutenbee-food-menu-item-wrapper > :last-child {
+  margin-bottom: 0;
+}
+
+.gutenbee-food-menu-columns-desktop-1 .wp-block-gutenbee-food-menu-item {
+  width: 100%;
+}
+
+.gutenbee-food-menu-columns-desktop-2 .wp-block-gutenbee-food-menu-item {
+  width: 50%;
+}
+
+.gutenbee-food-menu-columns-desktop-3 .wp-block-gutenbee-food-menu-item {
+  width: 33.33333%;
+}
+
+@media (max-width: 991px) {
+  .gutenbee-food-menu-columns-tablet-1 .wp-block-gutenbee-food-menu-item {
+    width: 100%;
+  }
+  .gutenbee-food-menu-columns-tablet-2 .wp-block-gutenbee-food-menu-item {
+    width: 50%;
+  }
+  .gutenbee-food-menu-columns-tablet-3 .wp-block-gutenbee-food-menu-item {
+    width: 33.33333%;
+  }
+}
+
+@media (max-width: 575px) {
+  .gutenbee-food-menu-columns-mobile-1 .wp-block-gutenbee-food-menu-item {
+    width: 100%;
+  }
+  .gutenbee-food-menu-columns-mobile-2 .wp-block-gutenbee-food-menu-item {
+    width: 50%;
+  }
+  .gutenbee-food-menu-columns-mobile-3 .wp-block-gutenbee-food-menu-item {
+    width: 33.33333%;
+  }
+}
+

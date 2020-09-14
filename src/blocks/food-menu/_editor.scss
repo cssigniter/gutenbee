@@ -1,0 +1,61 @@
+[data-type="gutenbee/food-menu"] {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -10px;
+  margin-right: -10px;
+
+  .block-list-appender {
+    width: 100%;
+  }
+
+  > [data-type="gutenbee/food-menu-item"] {
+    margin: 0 0 30px;
+  }
+}
+
+@for $i from 1 through 3 {
+  .gutenbee-food-menu-columns-desktop-#{$i} {
+    [data-type="gutenbee/food-menu"] {
+      > [data-type="gutenbee/food-menu-item"] {
+        width: percentage(1 / $i);
+      }
+    }
+  }
+}
+
+[data-type="gutenbee/food-menu-item"] {
+  display: flex;
+  width: 100%;
+  margin: 0 0 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  > [data-type="gutenbee/food-menu-item"] {
+    margin-bottom: 0;
+  }
+
+  [data-type="gutenbee/image"] {
+    margin: 0 20px 0 0;
+    flex: none;
+
+    .wp-block-gutenbee-image {
+      > figcaption.rich-text {
+        display: none !important;
+      }
+    }
+
+    .components-placeholder.components-placeholder {
+      min-width: 160px;
+    }
+  }
+
+  [data-type="gutenbee/food-menu-wrapper"] {
+    flex: auto;
+    margin: 0;
+  }
+
+  [data-type="gutenbee/paragraph"],
+  [data-type="gutenbee/heading"] {
+    margin: 0;
+  }
+}

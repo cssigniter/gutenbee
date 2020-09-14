@@ -22,6 +22,7 @@ export const blocks = [
   'tabs',
   'video',
   'google-maps',
+  'food-menu',
   // 'lottie',
 ];
 

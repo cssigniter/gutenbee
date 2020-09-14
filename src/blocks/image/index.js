@@ -93,7 +93,7 @@ registerBlockType('gutenbee/image', {
       type: 'number',
     },
     width: {
-      object: 'number',
+      type: 'object',
       default: getDefaultResponsiveValue(),
     },
     sizeSlug: {

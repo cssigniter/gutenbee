@@ -1,0 +1,61 @@
+.wp-block-gutenbee-food-menu {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.wp-block-gutenbee-food-menu-item {
+  display: flex;
+  margin-bottom: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  .wp-block-gutenbee-image {
+    flex: none;
+    margin-right: 20px;
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    margin-bottom: 15px;
+  }
+}
+
+.wp-block-gutenbee-food-menu-item-wrapper {
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+@for $i from 1 through 3 {
+  .gutenbee-food-menu-columns-desktop-#{$i} {
+    .wp-block-gutenbee-food-menu-item {
+      width: percentage(1 / $i);
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  @for $i from 1 through 3 {
+    .gutenbee-food-menu-columns-tablet-#{$i} {
+      .wp-block-gutenbee-food-menu-item {
+        width: percentage(1 / $i);
+      }
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  @for $i from 1 through 3 {
+    .gutenbee-food-menu-columns-mobile-#{$i} {
+      .wp-block-gutenbee-food-menu-item {
+        width: percentage(1 / $i);
+      }
+    }
+  }
+}

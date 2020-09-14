@@ -34,6 +34,9 @@ import './blocks/spacer';
 import './blocks/video';
 import './blocks/button';
 import './blocks/buttons';
+import './blocks/food-menu/food-menu-item';
+import './blocks/food-menu/food-menu-wrapper';
+import './blocks/food-menu';
 // import './blocks/lottie';
 
 //

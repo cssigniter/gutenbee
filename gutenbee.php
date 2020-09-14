@@ -149,6 +149,7 @@ function gutenbee_get_setting_block_names() {
 		'slideshow'         => __( 'Slideshow Block', 'gutenbee' ),
 		'tabs'              => __( 'Tabs Block', 'gutenbee' ),
 		'video'             => __( 'Video Block', 'gutenbee' ),
+		'food-menu'         => __( 'Food Menu Block', 'gutenbee' ),
 //			'lottie'            => __( 'Lottie Player Block', 'gutenbee' ),
 	);
 }
@@ -277,6 +278,11 @@ function gutenbee_get_blocks_info() {
 		),
 		'gutenbee/video'             => array(
 			'label'       => __( 'Video Block', 'gutenbee' ),
+			'enqueue_js'  => false,
+			'enqueue_css' => true,
+		),
+		'gutenbee/food-menu'         => array(
+			'label'       => __( 'Food Menu', 'gutenbee' ),
 			'enqueue_js'  => false,
 			'enqueue_css' => true,
 		),
