@@ -2890,6 +2890,10 @@ div[data-type="gutenbee/button"] {
   margin-left: 14px;
 }
 
+.wp-block-gutenbee-food-menu {
+  width: 100%;
+}
+
 [data-type="gutenbee/food-menu"] {
   display: -webkit-box;
   display: -ms-flexbox;
