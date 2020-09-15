@@ -2894,6 +2894,11 @@ div[data-type="gutenbee/button"] {
   width: 100%;
 }
 
+.wp-block-gutenbee-food-menu-item {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
 [data-type="gutenbee/food-menu"] {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2909,7 +2914,7 @@ div[data-type="gutenbee/button"] {
 }
 
 [data-type="gutenbee/food-menu"] > [data-type="gutenbee/food-menu-item"] {
-  margin: 0 0 30px;
+  margin: 0;
 }
 
 .gutenbee-food-menu-columns-desktop-1 [data-type="gutenbee/food-menu"] > [data-type="gutenbee/food-menu-item"] {
@@ -2934,7 +2939,7 @@ div[data-type="gutenbee/button"] {
   padding-right: 10px;
 }
 
-[data-type="gutenbee/food-menu-item"] > [data-type="gutenbee/food-menu-item"] {
+[data-type="gutenbee/food-menu-item"] [data-type="gutenbee/food-menu-item"] {
   margin-bottom: 0;
 }
 

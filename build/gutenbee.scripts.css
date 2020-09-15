@@ -2142,6 +2142,10 @@
   margin-right: 20px;
 }
 
+.wp-block-gutenbee-food-menu-item .wp-block-gutenbee-image figcaption {
+  display: none !important;
+}
+
 .wp-block-gutenbee-food-menu-item p,
 .wp-block-gutenbee-food-menu-item h1,
 .wp-block-gutenbee-food-menu-item h2,
@@ -2149,6 +2153,29 @@
 .wp-block-gutenbee-food-menu-item h4,
 .wp-block-gutenbee-food-menu-item h5 {
   margin-bottom: 15px;
+}
+
+.wp-block-gutenbee-food-menu-item-wrapper {
+  -webkit-box-flex: 1;
+  -ms-flex: auto;
+  flex: auto;
+  display: grid;
+  grid-template: "title price" fit-content(100%) "description ." 2fr;
+}
+
+.wp-block-gutenbee-food-menu-item-wrapper h1, .wp-block-gutenbee-food-menu-item-wrapper h2, .wp-block-gutenbee-food-menu-item-wrapper h3, .wp-block-gutenbee-food-menu-item-wrapper h4, .wp-block-gutenbee-food-menu-item-wrapper h5, .wp-block-gutenbee-food-menu-item-wrapper h6 {
+  grid-area: title;
+  width: 100%;
+}
+
+.wp-block-gutenbee-food-menu-item-wrapper p:first-of-type {
+  grid-area: price;
+  margin-left: auto;
+  padding-left: 10px;
+}
+
+.wp-block-gutenbee-food-menu-item-wrapper p:last-of-type {
+  grid-area: description;
 }
 
 .wp-block-gutenbee-food-menu-item-wrapper > :last-child {

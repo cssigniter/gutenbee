@@ -162,6 +162,10 @@ registerBlockType('gutenbee/image', {
 
     const blockId = getBlockId(uniqueId);
 
+    if (!url) {
+      return null;
+    }
+
     const image = (
       <img
         src={url}

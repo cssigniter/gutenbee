@@ -2,6 +2,11 @@
   width: 100%;
 }
 
+.wp-block-gutenbee-food-menu-item {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
 [data-type="gutenbee/food-menu"] {
   display: flex;
   flex-wrap: wrap;
@@ -13,7 +18,7 @@
   }
 
   > [data-type="gutenbee/food-menu-item"] {
-    margin: 0 0 30px;
+    margin: 0;
   }
 }
 
@@ -34,7 +39,7 @@
   padding-left: 10px;
   padding-right: 10px;
 
-  > [data-type="gutenbee/food-menu-item"] {
+  [data-type="gutenbee/food-menu-item"] {
     margin-bottom: 0;
   }
 

@@ -1,8 +1,18 @@
 import { registerBlockType } from 'wp.blocks';
 import { __ } from 'wp.i18n';
-import { InnerBlocks, __experimentalBlock as Block } from 'wp.blockEditor';
+import { InnerBlocks } from 'wp.blockEditor';
+import classNames from 'classnames';
 
 import { getDefaultSpacingValue } from '../../../components/controls/responsive-control/default-values';
+import borderControlAttributes from '../../../components/controls/border-controls/attributes';
+import {
+  boxShadowControlAttributes,
+  getBoxShadowCSSValue,
+} from '../../../components/controls/box-shadow-controls/helpers';
+import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
+import FoodMenuItemStyle from './style';
+import getBlockId from '../../../util/getBlockId';
+import FoodMenuItemEdit from './edit';
 
 registerBlockType('gutenbee/food-menu-item', {
   title: __('GutenBee Food Menu Item'),
@@ -20,6 +30,12 @@ registerBlockType('gutenbee/food-menu-item', {
     backgroundColor: {
       type: 'string',
     },
+    verticalContentAlignment: {
+      type: 'object',
+      default: getDefaultSpacingValue(),
+    },
+    ...borderControlAttributes(),
+    ...boxShadowControlAttributes(),
     blockPadding: {
       type: 'object',
       default: getDefaultSpacingValue(),
@@ -29,29 +45,23 @@ registerBlockType('gutenbee/food-menu-item', {
       default: getDefaultSpacingValue(),
     },
   },
-  edit: () => (
-    <InnerBlocks
-      template={[
-        [
-          'gutenbee/image',
-          {
-            caption: '',
-            width: {
-              desktop: 180,
-              tablet: '',
-              mobile: '',
-            },
-          },
-        ],
-        ['gutenbee/food-menu-wrapper', {}],
-      ]}
-      templateLock="all"
-      __experimentalTagName={Block.div}
-    />
-  ),
-  save: () => {
+  edit: FoodMenuItemEdit,
+  save: ({ attributes, className }) => {
+    const { uniqueId, backgroundColor } = attributes;
+
     return (
-      <div className="wp-block-gutenbee-food-menu-item">
+      <div
+        id={getBlockId(uniqueId)}
+        style={{
+          backgroundColor: backgroundColor ? backgroundColor : undefined,
+          ...getBorderCSSValue({ attributes }),
+          ...getBoxShadowCSSValue({ attributes }),
+        }}
+        className={classNames(className, {
+          'wp-block-gutenbee-food-menu-item': true,
+        })}
+      >
+        <FoodMenuItemStyle attributes={attributes} />
         <InnerBlocks.Content />
       </div>
     );

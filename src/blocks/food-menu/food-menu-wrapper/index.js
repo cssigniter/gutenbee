@@ -10,15 +10,32 @@ registerBlockType('gutenbee/food-menu-wrapper', {
   // icon: ButtonsBlockIcon,
   parent: ['gutenbee/food-menu-item'],
   category: 'gutenbee',
-  keywords: [__('food'), __('menu')],
+  keywords: [],
   attributes: {},
   edit: () => (
     <div className="wp-block-gutenbee-food-menu-item-wrapper">
       <InnerBlocks
         __experimentalTagName={Block.div}
         template={[
-          ['gutenbee/heading', { placeholder: 'Menu item name...', level: 5 }],
-          ['gutenbee/paragraph', { placeholder: 'Price' }],
+          [
+            'gutenbee/heading',
+            {
+              placeholder: 'Menu item name...',
+              level: 5,
+              fontSize: {
+                desktop: 22,
+                tablet: '',
+                mobile: '',
+              },
+            },
+          ],
+          [
+            'gutenbee/paragraph',
+            {
+              placeholder: 'Price',
+              className: 'wp-block-gutenbee-food-menu-item-price',
+            },
+          ],
           [
             'gutenbee/paragraph',
             { placeholder: 'Write a description for your menu item...' },
