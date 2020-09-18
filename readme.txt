@@ -24,6 +24,7 @@ The plugin's documentation can be found [here](https://www.cssigniter.com/docs/g
 * **Countdown**: Have an upcoming event? Pick a date directly inside the editor screen, choose your layout, colors, and typography and you’re ready!
 * **CountUp**: Maybe not every block counts, but this one does! Pick a starting and ending number, add a suffix or prefix, style it and you’re done!
 * **Divider**: Provide thematic content spacing with a fancy divider, edit its style, colors, and margins.
+* **Food Menu**: Display your dishes and drinko offerings in a styling way.
 * **Google Maps**: Easy-peasy fancy maps with the Google Maps block. Just enter a location and save, it just works! With support for beautiful predefined map styles and Snazzy custom map styles!
 * **Icon**: Display icons from a custom designed, curated list of over one hundred icons, with more icons being added in regular updates!
 * **Icon Box**: Your standard icon box block on steroids. Choose from over one hundred custom designed icons, style them any way and at any size you like, add some text and you’re good to go.

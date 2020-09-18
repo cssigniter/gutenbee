@@ -66,7 +66,8 @@ const FoodMenuItemEdit = ({
                 label={__('Vertical Content Alignment')}
                 value={verticalContentAlignment[breakpoint]}
                 options={[
-                  { value: '', label: __('Top') },
+                  { value: '', label: __('Inherit') },
+                  { value: 'flex-start', label: __('Top') },
                   { value: 'center', label: __('Middle') },
                   { value: 'flex-end', label: __('Bottom') },
                 ]}

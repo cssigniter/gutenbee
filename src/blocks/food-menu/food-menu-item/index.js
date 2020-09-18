@@ -3,7 +3,10 @@ import { __ } from 'wp.i18n';
 import { InnerBlocks } from 'wp.blockEditor';
 import classNames from 'classnames';
 
-import { getDefaultSpacingValue } from '../../../components/controls/responsive-control/default-values';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../../components/controls/responsive-control/default-values';
 import borderControlAttributes from '../../../components/controls/border-controls/attributes';
 import {
   boxShadowControlAttributes,
@@ -13,16 +16,22 @@ import { getBorderCSSValue } from '../../../components/controls/border-controls/
 import FoodMenuItemStyle from './style';
 import getBlockId from '../../../util/getBlockId';
 import FoodMenuItemEdit from './edit';
+import FoodMenuItemIcon from './block-icon';
 
 registerBlockType('gutenbee/food-menu-item', {
   title: __('GutenBee Food Menu Item'),
-  // TODO update description
-  description: __('List your favorite dishes.'),
-  // TODO add icon
-  // icon: ButtonsBlockIcon,
+  description: __('Single food menu item.'),
+  icon: FoodMenuItemIcon,
   category: 'gutenbee',
   keywords: [__('food'), __('menu')],
   parent: ['gutenbee/food-menu'],
+  getEditWrapperProps(attributes) {
+    const { verticalContentAlignment } = attributes;
+
+    if (verticalContentAlignment.desktop) {
+      return { 'data-vertical-align': verticalContentAlignment.desktop };
+    }
+  },
   attributes: {
     uniqueId: {
       type: 'string',
@@ -32,7 +41,11 @@ registerBlockType('gutenbee/food-menu-item', {
     },
     verticalContentAlignment: {
       type: 'object',
-      default: getDefaultSpacingValue(),
+      default: getDefaultResponsiveValue({
+        desktop: 'flex-start',
+        tablet: '',
+        mobile: '',
+      }),
     },
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),

@@ -10,13 +10,14 @@ const propTypes = {
 };
 
 const FoodMenuStyle = ({ attributes, children }) => {
-  const { uniqueId, blockPadding, blockMargin } = attributes;
+  const { uniqueId, blockPadding, blockMargin, gutter } = attributes;
   const blockId = getBlockId(uniqueId);
 
   return (
     <StyleSheet id={blockId}>
       <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
       <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
+      <Rule value={gutter} rule="{ grid-gap: %s; }" unit="px" />
       {children}
     </StyleSheet>
   );

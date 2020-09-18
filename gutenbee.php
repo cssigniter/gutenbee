@@ -135,6 +135,7 @@ function gutenbee_get_setting_block_names() {
 		'countdown'         => __( 'Countdown Block', 'gutenbee' ),
 		'countup'           => __( 'Countup Block', 'gutenbee' ),
 		'divider'           => __( 'Divider Block', 'gutenbee' ),
+		'food-menu'         => __( 'Food Menu Block', 'gutenbee' ),
 		'heading'           => __( 'Heading Block', 'gutenbee' ),
 		'icon'              => __( 'Icon Block', 'gutenbee' ),
 		'iconbox'           => __( 'Icon Box Block', 'gutenbee' ),
@@ -149,7 +150,6 @@ function gutenbee_get_setting_block_names() {
 		'slideshow'         => __( 'Slideshow Block', 'gutenbee' ),
 		'tabs'              => __( 'Tabs Block', 'gutenbee' ),
 		'video'             => __( 'Video Block', 'gutenbee' ),
-		'food-menu'         => __( 'Food Menu Block', 'gutenbee' ),
 //			'lottie'            => __( 'Lottie Player Block', 'gutenbee' ),
 	);
 }

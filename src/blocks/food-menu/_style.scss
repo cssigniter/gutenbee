@@ -1,15 +1,12 @@
 .wp-block-gutenbee-food-menu {
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: -10px;
-  margin-right: -10px;
+  display: grid;
+  grid-gap: 30px;
 }
 
 .wp-block-gutenbee-food-menu-item {
   display: flex;
-  margin-bottom: 30px;
-  padding-left: 10px;
-  padding-right: 10px;
+  align-items: flex-start;
+  align-self: flex-start;
 
   .wp-block-gutenbee-image {
     flex: none;
@@ -25,30 +22,46 @@
   h2,
   h3,
   h4,
-  h5 {
-    margin-bottom: 15px;
+  h5,
+  h6 {
+    margin-bottom: 0;
+  }
+
+  p:empty {
+    display: none;
   }
 }
 
 .wp-block-gutenbee-food-menu-item-wrapper {
-  flex: auto;
   display: grid;
-  grid-template: "title price" fit-content(100%)
-                 "description ." 2fr;
+  grid-template-columns: 1fr min-content;
+  flex: auto;
+  align-items: flex-end;
 
   h1, h2, h3, h4, h5, h6 {
-    grid-area: title;
     width: 100%;
+    display: flex;
+    line-height: 1.1;
+
+    &::after {
+      content: "";
+      border-bottom: 2px dotted currentColor;
+      flex-grow: 1;
+      margin-left: 10px;
+      position: relative;
+      top: -5px;
+    }
   }
 
   p:first-of-type {
-    grid-area: price;
     margin-left: auto;
     padding-left: 10px;
+    line-height: 1.1;
   }
 
   p:last-of-type {
-    grid-area: description;
+    grid-column: span 2;
+    margin-top: 15px;
   }
 
   > :last-child {
@@ -58,18 +71,14 @@
 
 @for $i from 1 through 3 {
   .gutenbee-food-menu-columns-desktop-#{$i} {
-    .wp-block-gutenbee-food-menu-item {
-      width: percentage(1 / $i);
-    }
+    grid-template-columns: repeat($i, 1fr);
   }
 }
 
 @media (max-width: 991px) {
   @for $i from 1 through 3 {
     .gutenbee-food-menu-columns-tablet-#{$i} {
-      .wp-block-gutenbee-food-menu-item {
-        width: percentage(1 / $i);
-      }
+      grid-template-columns: repeat($i, 1fr);
     }
   }
 }
@@ -77,9 +86,7 @@
 @media (max-width: 575px) {
   @for $i from 1 through 3 {
     .gutenbee-food-menu-columns-mobile-#{$i} {
-      .wp-block-gutenbee-food-menu-item {
-        width: percentage(1 / $i);
-      }
+      grid-template-columns: repeat($i, 1fr);
     }
   }
 }

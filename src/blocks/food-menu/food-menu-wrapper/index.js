@@ -1,13 +1,12 @@
 import { registerBlockType } from 'wp.blocks';
 import { __ } from 'wp.i18n';
 import { InnerBlocks, __experimentalBlock as Block } from 'wp.blockEditor';
+import FoodMenuItemIcon from '../food-menu-item/block-icon';
 
 registerBlockType('gutenbee/food-menu-wrapper', {
-  title: __('GutenBee Food Menu Item Wrapper'),
-  // TODO update description
-  description: __('A wrapper block or food menu items.'),
-  // TODO add icon
-  // icon: ButtonsBlockIcon,
+  title: __('Food Menu Group'),
+  description: __('Wrapper for the Food Menu block.'),
+  icon: FoodMenuItemIcon,
   parent: ['gutenbee/food-menu-item'],
   category: 'gutenbee',
   keywords: [],

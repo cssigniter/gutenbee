@@ -22,10 +22,7 @@ const FoodMenuItemStyle = ({ attributes, children }) => {
     <StyleSheet id={blockId}>
       <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
       <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
-      <Rule
-        value={verticalContentAlignment}
-        rule="{ align-items: %s; }"
-      />
+      <Rule value={verticalContentAlignment} rule="{ align-items: %s; }" />
       {children}
     </StyleSheet>
   );

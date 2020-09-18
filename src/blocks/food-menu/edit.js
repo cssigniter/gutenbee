@@ -16,6 +16,7 @@ import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import BorderControls from '../../components/controls/border-controls';
 import FoodMenuStyle from './style';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
+import Rule from '../../components/stylesheet/Rule';
 
 const propTypes = {
   attributes: PropTypes.object.isRequired,
@@ -25,7 +26,7 @@ const propTypes = {
 };
 
 const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
-  const { uniqueId, backgroundColor, columns } = attributes;
+  const { uniqueId, backgroundColor, columns, gutter } = attributes;
 
   useUniqueId({ attributes, setAttributes, clientId });
   const blockId = getBlockId(uniqueId);
@@ -53,7 +54,13 @@ const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
           __experimentalTagName={Block.div}
         />
 
-        <FoodMenuStyle attributes={attributes} />
+        <FoodMenuStyle attributes={attributes}>
+          <Rule
+            value={gutter}
+            rule="[data-type='gutenbee/food-menu'] { grid-gap: %s; }"
+            unit="px"
+          />
+        </FoodMenuStyle>
       </div>
 
       <InspectorControls>
@@ -69,6 +76,29 @@ const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
                   setAttributes({
                     columns: {
                       ...columns,
+                      [breakpoint]: value,
+                    },
+                  })
+                }
+              />
+            )}
+          </ResponsiveControl>
+
+          <ResponsiveControl>
+            {breakpoint => (
+              <RangeControl
+                label={__('Gutter (px)')}
+                help={__(
+                  'Controls the vertical and horizontal space between menu items.',
+                )}
+                min={0}
+                max={100}
+                value={gutter[breakpoint]}
+                initialPosition={30}
+                onChange={value =>
+                  setAttributes({
+                    gutter: {
+                      ...gutter,
                       [breakpoint]: value,
                     },
                   })

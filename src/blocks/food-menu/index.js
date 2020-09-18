@@ -4,7 +4,10 @@ import { InnerBlocks } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import FoodMenuEdit from './edit';
-import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../components/controls/responsive-control/default-values';
 import borderControlAttributes from '../../components/controls/border-controls/attributes';
 import {
   boxShadowControlAttributes,
@@ -13,12 +16,12 @@ import {
 import FoodMenuStyle from './style';
 import getBlockId from '../../util/getBlockId';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import FoodMenuIcon from './block-icon';
 
 registerBlockType('gutenbee/food-menu', {
   title: __('GutenBee Food Menu'),
   description: __('List your favorite dishes.'),
-  // TODO add icon
-  // icon: ButtonsBlockIcon,
+  icon: FoodMenuIcon,
   category: 'gutenbee',
   keywords: [__('food'), __('menu')],
   attributes: {
@@ -32,6 +35,10 @@ registerBlockType('gutenbee/food-menu', {
         tablet: 1,
         mobile: 1,
       },
+    },
+    gutter: {
+      type: 'object',
+      default: getDefaultResponsiveValue(),
     },
     backgroundColor: {
       type: 'string',

@@ -7,6 +7,7 @@ export const blocks = [
   'countdown',
   'countup',
   'divider',
+  'food-menu',
   'heading',
   'icon',
   'iconbox',
@@ -22,7 +23,6 @@ export const blocks = [
   'tabs',
   'video',
   'google-maps',
-  'food-menu',
   // 'lottie',
 ];
 

@@ -2899,37 +2899,43 @@ div[data-type="gutenbee/button"] {
 
 .wp-block-gutenbee-food-menu-item {
   width: 100%;
-  margin-bottom: 30px;
+  margin: 0;
 }
 
-[data-type="gutenbee/food-menu"] {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin-left: -10px;
-  margin-right: -10px;
-}
-
-[data-type="gutenbee/food-menu"] .block-list-appender {
-  width: 100%;
+[data-type="gutenbee/food-menu"] [data-type="gutenbee/food-menu"] {
+  display: grid;
+  grid-gap: 30px;
 }
 
 [data-type="gutenbee/food-menu"] > [data-type="gutenbee/food-menu-item"] {
   margin: 0;
 }
 
-.gutenbee-food-menu-columns-desktop-1 [data-type="gutenbee/food-menu"] > [data-type="gutenbee/food-menu-item"] {
+.gutenbee-food-menu-columns-desktop-1 [data-type="gutenbee/food-menu"] {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.gutenbee-food-menu-columns-desktop-1 .block-list-appender {
   width: 100%;
+  grid-column: span 1;
 }
 
-.gutenbee-food-menu-columns-desktop-2 [data-type="gutenbee/food-menu"] > [data-type="gutenbee/food-menu-item"] {
-  width: 50%;
+.gutenbee-food-menu-columns-desktop-2 [data-type="gutenbee/food-menu"] {
+  grid-template-columns: repeat(2, 1fr);
 }
 
-.gutenbee-food-menu-columns-desktop-3 [data-type="gutenbee/food-menu"] > [data-type="gutenbee/food-menu-item"] {
-  width: 33.33333%;
+.gutenbee-food-menu-columns-desktop-2 .block-list-appender {
+  width: 100%;
+  grid-column: span 2;
+}
+
+.gutenbee-food-menu-columns-desktop-3 [data-type="gutenbee/food-menu"] {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.gutenbee-food-menu-columns-desktop-3 .block-list-appender {
+  width: 100%;
+  grid-column: span 3;
 }
 
 [data-type="gutenbee/food-menu-item"] {
@@ -2937,13 +2943,38 @@ div[data-type="gutenbee/button"] {
   display: -ms-flexbox;
   display: flex;
   width: 100%;
-  margin: 0 0 30px;
-  padding-left: 10px;
-  padding-right: 10px;
+  margin: 0;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
 }
 
 [data-type="gutenbee/food-menu-item"] [data-type="gutenbee/food-menu-item"] {
   margin-bottom: 0;
+}
+
+[data-type="gutenbee/food-menu-item"][data-vertical-align="flex-start"] {
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+
+[data-type="gutenbee/food-menu-item"][data-vertical-align="center"] {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+[data-type="gutenbee/food-menu-item"][data-vertical-align="flex-end"] {
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  align-items: flex-end;
+}
+
+[data-type="gutenbee/food-menu-item"] [role="textbox"] {
+  min-width: 35px;
 }
 
 [data-type="gutenbee/food-menu-item"] [data-type="gutenbee/image"] {
@@ -2961,15 +2992,56 @@ div[data-type="gutenbee/button"] {
   min-width: 160px;
 }
 
+[data-type="gutenbee/food-menu-item"] [data-type="gutenbee/image"] .components-placeholder__label {
+  width: 100%;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+[data-type="gutenbee/food-menu-item"] [data-type="gutenbee/image"] .components-button {
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+
 [data-type="gutenbee/food-menu-item"] [data-type="gutenbee/food-menu-wrapper"] {
   -webkit-box-flex: 1;
   -ms-flex: auto;
   flex: auto;
   margin: 0;
+  display: grid;
+  grid-template-columns: 1fr -webkit-min-content;
+  grid-template-columns: 1fr min-content;
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  align-items: flex-end;
 }
 
-[data-type="gutenbee/food-menu-item"] [data-type="gutenbee/paragraph"],
-[data-type="gutenbee/food-menu-item"] [data-type="gutenbee/heading"] {
+[data-type="gutenbee/food-menu-item"] [data-type="gutenbee/food-menu-wrapper"] [data-type="gutenbee/paragraph"]:last-child {
+  margin-top: 15px;
+}
+
+[data-type="gutenbee/food-menu-item"] [data-type="gutenbee/paragraph"] {
   margin: 0;
+}
+
+[data-type="gutenbee/food-menu-item"] [data-type="gutenbee/heading"] {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0;
+}
+
+[data-type="gutenbee/food-menu-item"] [data-type="gutenbee/heading"]::after {
+  content: "";
+  border-bottom: 2px dotted currentColor;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  margin: 0 10px;
+  position: relative;
+  top: -6px;
 }
 
