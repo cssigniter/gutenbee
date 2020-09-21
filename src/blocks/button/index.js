@@ -14,6 +14,7 @@ import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
 } from '../../components/controls/box-shadow-controls/helpers';
+import deprecated from './deprecated';
 
 registerBlockType('gutenbee/button', {
   title: __('GutenBee Button'),
@@ -70,6 +71,7 @@ registerBlockType('gutenbee/button', {
       default: getDefaultSpacingValue(),
     },
   },
+  deprecated,
   edit: ButtonEdit,
   save: ({ attributes }) => {
     const {

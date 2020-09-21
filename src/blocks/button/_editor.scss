@@ -1,64 +1,64 @@
 .wp-block-gutenbee-button {
-	position: relative;
+  position: relative;
   line-height: 1;
 
-	[contenteditable] {
-		cursor: text;
-	}
+  [contenteditable] {
+    cursor: text;
+  }
 
-	// Add outline to button on focus to indicate focus-state
-	.block-editor-rich-text__editable:focus {
-		box-shadow: 0 0 0 1px $white, 0 0 0 3px $blue;
+  // Add outline to button on focus to indicate focus-state
+  .block-editor-rich-text__editable:focus {
+    box-shadow: 0 0 0 1px $white, 0 0 0 3px $blue;
 
-		// Windows' High Contrast mode will show this outline, but not the box-shadow.
-		outline: 2px solid transparent;
-		outline-offset: -2px;
-	}
+    // Windows' High Contrast mode will show this outline, but not the box-shadow.
+    outline: 2px solid transparent;
+    outline-offset: -2px;
+  }
 
-	// Increase placeholder opacity to meet contrast ratios.
-	[data-rich-text-placeholder]::after {
-		opacity: 0.8;
-	}
+  // Increase placeholder opacity to meet contrast ratios.
+  [data-rich-text-placeholder]::after {
+    opacity: 0.8;
+  }
 }
 
 .gutenbee-block-button-link {
-	color: $black;
-	height: auto;
-	overflow: hidden;
-	max-width: 290px;
+  color: $black;
+  height: auto;
+  overflow: hidden;
+  max-width: 290px;
   background-color: transparent;
-  border: 2px solid $black;
- 	border-radius: $input-border-radius;
- 	box-shadow: none;
- 	cursor: pointer;
- 	display: inline-block;
- 	font-size: 16px;
- 	margin: 0;
- 	padding: 12px 24px;
- 	text-align: center;
- 	text-decoration: none;
- 	overflow-wrap: break-word;
+  border: 2px solid transparent;
+  border-radius: $input-border-radius;
+  box-shadow: none;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  margin: 0;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  overflow-wrap: break-word;
   line-height: 1;
 
- 	&:hover,
- 	&:focus,
- 	&:active,
- 	&:visited {
- 		color: inherit;
- 	}
+  &:hover,
+  &:focus,
+  &:active,
+  &:visited {
+    color: inherit;
+  }
 
-	&-input__suggestions {
-		max-width: 290px;
-	}
+  &-input__suggestions {
+    max-width: 290px;
+  }
 
-	.is-selected &,
-	.is-typing & {
-		height: auto;
-		overflow: visible;
-	}
+  .is-selected &,
+  .is-typing & {
+    height: auto;
+    overflow: visible;
+  }
 }
 
 // Display "table" is used because the button container should only wrap the content and not takes the full width.
 div[data-type="gutenbee/button"] {
-	display: table;
+  display: table;
 }

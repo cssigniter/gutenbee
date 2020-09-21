@@ -16,6 +16,27 @@ import {
 } from '../../../components/controls/responsive-control/default-values';
 import borderControlAttributes from '../../../components/controls/border-controls/attributes';
 
+export const hexToRGBA = (hex, alpha) => {
+  if (hex == null || hex === '') {
+    return '';
+  }
+
+  hex = hex.replace('#', '');
+  const r = parseInt(
+    hex.length === 3 ? hex.slice(0, 1).repeat(2) : hex.slice(0, 2),
+    16,
+  );
+  const g = parseInt(
+    hex.length === 3 ? hex.slice(1, 2).repeat(2) : hex.slice(2, 4),
+    16,
+  );
+  const b = parseInt(
+    hex.length === 3 ? hex.slice(2, 3).repeat(2) : hex.slice(4, 6),
+    16,
+  );
+  return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')';
+};
+
 const ContainerStyle = ({ attributes, children }) => {
   const {
     uniqueId,
@@ -148,8 +169,16 @@ const v1 = {
     ...boxShadowControlAttributes(),
   },
   migrate(attributes) {
+    const {
+      overlayBackgroundColorOpacity,
+      overlayBackgroundColor,
+    } = attributes;
+
     return {
       ...attributes,
+      overlayBackgroundColor: overlayBackgroundColor
+        ? hexToRGBA(overlayBackgroundColor, overlayBackgroundColorOpacity)
+        : undefined,
       gutter: attributes.gutter,
     };
   },
@@ -161,6 +190,7 @@ const v1 = {
       backgroundImage,
       gutter,
       overlayBackgroundColor,
+      overlayBackgroundColorOpacity,
       themeGrid,
     } = attributes;
 
@@ -192,7 +222,10 @@ const v1 = {
             <div
               className="wp-block-gutenbee-container-background-overlay"
               style={{
-                backgroundColor: overlayBackgroundColor,
+                backgroundColor: hexToRGBA(
+                  overlayBackgroundColor,
+                  overlayBackgroundColorOpacity,
+                ),
               }}
             />
           )}
