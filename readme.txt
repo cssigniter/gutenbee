@@ -2,7 +2,7 @@
 Contributors: cssigniterteam, silencerius, nvourva, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 5.4
-Tested up to: 5.5
+Tested up to: 5.5.1
 Stable tag: 2.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
@@ -24,7 +24,7 @@ The plugin's documentation can be found [here](https://www.cssigniter.com/docs/g
 * **Countdown**: Have an upcoming event? Pick a date directly inside the editor screen, choose your layout, colors, and typography and you’re ready!
 * **CountUp**: Maybe not every block counts, but this one does! Pick a starting and ending number, add a suffix or prefix, style it and you’re done!
 * **Divider**: Provide thematic content spacing with a fancy divider, edit its style, colors, and margins.
-* **Food Menu**: Display your dishes and drinko offerings in a styling way.
+* **Food Menu**: Display your dishes and drink offerings in a stylish fashion.
 * **Google Maps**: Easy-peasy fancy maps with the Google Maps block. Just enter a location and save, it just works! With support for beautiful predefined map styles and Snazzy custom map styles!
 * **Icon**: Display icons from a custom designed, curated list of over one hundred icons, with more icons being added in regular updates!
 * **Icon Box**: Your standard icon box block on steroids. Choose from over one hundred custom designed icons, style them any way and at any size you like, add some text and you’re good to go.
@@ -64,9 +64,25 @@ Note that if you want to use the Google Maps block you will also need a Google M
 
 == Changelog ==
 
+= 2.6.0 =
+* Added new "Food Item" block.
+* Fixed an issue where the theme-grid option would be incompatible with fullwidth alignment in the container block.
+* Added background color for arrows and dots navigation in the Slideshow block.
+* Update all color pickers on all blocks with RGBA ones.
+* Changed the "Icon" and "Icon Box" blocks to render SVG for their icons instead of an icon font.
+* Fixed an issue where the "Icon Box" and "Image Box" blocks would not accept the paste command in their text inputs.
+* Front-end scripts and styles are now only enqueued when they are required by the GutenBee blocks used.
+* Fixed Spacer block's parallax setting.
+* Now the container block will remain selected when choosing columns from the initial layouts.
+* Updated default gutter size to "30px - large" in the container block (will not affect existing content).
+* Fixed an issue where the reverse column order settings in tablet and mobile would not take effect on the container block.
+* Fixed an issue where the styling would break on the Slideshow block if custom classes were added.
+* Fixed an issue where center aligned Image blocks would cause their images to be stretched on iOS.
+* Minor style adjustments.
+
 = 2.5.0 =
-* Fixed container block issue spacing when theme grid is on
-* Fixed paragraph block border and box shadow application element
+* Fixed container block issue spacing when theme grid is on.
+* Fixed paragraph block border and box shadow application element.
 * Fixed an issue where the move handlers were being clipped when the container block was fullwidth.
 * Updated container block for WordPress 5.5 support.
 * Fixed container block direction setting in the editor
