@@ -1,26 +1,34 @@
-/**
- * Image Box
- *
- * Image with title, description, and link
- */
-
-import { __ } from 'wp.i18n';
-import { registerBlockType } from 'wp.blocks';
 import { RichText } from 'wp.blockEditor';
 import classNames from 'classnames';
 
-import ImageBoxEditBlock from './edit';
-import ImageBoxBlockIcon from './block-icon';
-import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
-import ImageBoxStyle from './style';
-import getBlockId from '../../util/getBlockId';
-import deprecated from './deprecated';
-import borderControlAttributes from '../../components/controls/border-controls/attributes';
-import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import { getDefaultSpacingValue } from '../../../components/controls/responsive-control/default-values';
+import getBlockId from '../../../util/getBlockId';
+import StyleSheet from '../../../components/stylesheet/StyleSheet';
+import Rule from '../../../components/stylesheet/Rule';
+import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
 import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
-} from '../../components/controls/box-shadow-controls/helpers';
+} from '../../../components/controls/box-shadow-controls/helpers';
+import borderControlAttributes from '../../../components/controls/border-controls/attributes';
+
+const ImageBoxStyle = ({ attributes, children }) => {
+  const { uniqueId, blockPadding, blockMargin, imageMargin } = attributes;
+  const blockId = getBlockId(uniqueId);
+
+  return (
+    <StyleSheet id={blockId}>
+      <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
+      <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
+      <Rule
+        value={imageMargin}
+        rule=".wp-block-gutenbee-imagebox-figure { margin: %s; }"
+        unit="px"
+      />
+      {children}
+    </StyleSheet>
+  );
+};
 
 const ImageBox = ({ className, attributes }) => {
   const {
@@ -101,12 +109,7 @@ const ImageBox = ({ className, attributes }) => {
   );
 };
 
-registerBlockType('gutenbee/imagebox', {
-  title: __('GutenBee Image Box'),
-  description: __('An image box with a title and a description.'),
-  icon: ImageBoxBlockIcon,
-  category: 'gutenbee',
-  keywords: [__('image'), __('image box'), __('media')],
+const v2 = {
   attributes: {
     uniqueId: {
       type: 'string',
@@ -122,6 +125,7 @@ registerBlockType('gutenbee/imagebox', {
     },
     titleFontSize: {
       type: 'number',
+      default: null,
     },
     titleBottomSpacing: {
       type: 'number',
@@ -133,6 +137,7 @@ registerBlockType('gutenbee/imagebox', {
     },
     textFontSize: {
       type: 'number',
+      default: 16,
     },
     url: {
       type: 'string',
@@ -186,9 +191,16 @@ registerBlockType('gutenbee/imagebox', {
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
   },
-  deprecated,
-  edit: ImageBoxEditBlock,
+  migrate(attributes) {
+    return {
+      ...attributes,
+      textFontSize: attributes.textFontSize || undefined,
+      titleFontSize: attributes.titleFontSize || undefined,
+    };
+  },
   save({ className, attributes }) {
     return <ImageBox className={className} attributes={attributes} />;
   },
-});
+};
+
+export default v2;

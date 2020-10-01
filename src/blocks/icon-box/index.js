@@ -363,7 +363,6 @@ registerBlockType('gutenbee/iconbox', {
     },
     titleFontSize: {
       type: 'number',
-      default: null,
     },
     textContent: {
       source: 'html',
@@ -372,7 +371,6 @@ registerBlockType('gutenbee/iconbox', {
     },
     textFontSize: {
       type: 'number',
-      default: 16,
     },
     align: {
       type: 'string',

@@ -1,43 +1,47 @@
-/**
- * Image Box
- *
- * Image with title, description, and link
- */
-
-import { __ } from 'wp.i18n';
-import { registerBlockType } from 'wp.blocks';
 import { RichText } from 'wp.blockEditor';
 import classNames from 'classnames';
 
-import ImageBoxEditBlock from './edit';
-import ImageBoxBlockIcon from './block-icon';
-import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
-import ImageBoxStyle from './style';
-import getBlockId from '../../util/getBlockId';
-import deprecated from './deprecated';
-import borderControlAttributes from '../../components/controls/border-controls/attributes';
-import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import { iconAttributes } from '../../icon';
+import { getDefaultSpacingValue } from '../../../components/controls/responsive-control/default-values';
+import borderControlAttributes from '../../../components/controls/border-controls/attributes';
 import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
-} from '../../components/controls/box-shadow-controls/helpers';
+} from '../../../components/controls/box-shadow-controls/helpers';
+import getBlockId from '../../../util/getBlockId';
+import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
+import StyleSheet from '../../../components/stylesheet';
+import Rule from '../../../components/stylesheet/Rule';
+import Icon from '../../icon/Icon';
 
-const ImageBox = ({ className, attributes }) => {
+const IconBoxStyle = ({ attributes, children }) => {
+  const { uniqueId, blockPadding, blockMargin } = attributes;
+  const blockId = getBlockId(uniqueId);
+
+  return (
+    <StyleSheet id={blockId}>
+      <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
+      <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
+      {children}
+    </StyleSheet>
+  );
+};
+
+const IconBox = ({ className, attributes }) => {
   const {
     uniqueId,
-    titleContent,
     titleNodeLevel,
+    titleContent,
     titleFontSize,
     textContent,
     textFontSize,
-    url,
-    alt,
-    imageAlign,
-    imageWidth,
+    align,
     contentAlign,
+    iconMargin,
+    iconPadding,
     titleBottomSpacing,
-    textColor,
     titleColor,
+    textColor,
     backgroundColor,
   } = attributes;
 
@@ -48,8 +52,8 @@ const ImageBox = ({ className, attributes }) => {
       id={blockId}
       className={classNames({
         [className]: true,
-        [`wp-block-gutenbee-imagebox-align-${imageAlign}`]: true,
-        [`wp-block-gutenbee-imagebox-content-align-${contentAlign}`]: !!contentAlign,
+        [`wp-block-gutenbee-iconbox-align-${align}`]: true,
+        [`wp-block-gutenbee-iconbox-content-align-${contentAlign}`]: !!contentAlign,
       })}
       style={{
         backgroundColor: backgroundColor || undefined,
@@ -57,23 +61,21 @@ const ImageBox = ({ className, attributes }) => {
         ...getBoxShadowCSSValue({ attributes }),
       }}
     >
-      <ImageBoxStyle attributes={attributes} />
-      <figure className="wp-block-gutenbee-imagebox-figure">
-        <img
-          src={url}
-          alt={alt}
-          style={{
-            width: imageWidth ? `${imageWidth}px` : undefined,
-          }}
-        />
-      </figure>
-
-      <div className="wp-block-gutenbee-imagebox-content">
+      <IconBoxStyle attributes={attributes} />
+      <Icon
+        id={`${blockId}-icon`}
+        {...{
+          ...attributes,
+          blockMargin: iconMargin,
+          blockPadding: iconPadding,
+        }}
+      />
+      <div className="wp-block-gutenbee-iconbox-content">
         {!RichText.isEmpty(titleContent) && (
           <RichText.Content
             tagName={`h${titleNodeLevel}`}
             value={titleContent}
-            className="wp-block-gutenbee-imagebox-title"
+            className="wp-block-gutenbee-iconbox-title"
             style={{
               color: titleColor || undefined,
               fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
@@ -89,7 +91,7 @@ const ImageBox = ({ className, attributes }) => {
           <RichText.Content
             tagName="p"
             value={textContent}
-            className="wp-block-gutenbee-imagebox-text"
+            className="wp-block-gutenbee-iconbox-text"
             style={{
               color: textColor || undefined,
               fontSize: textFontSize ? `${textFontSize}px` : undefined,
@@ -101,15 +103,14 @@ const ImageBox = ({ className, attributes }) => {
   );
 };
 
-registerBlockType('gutenbee/imagebox', {
-  title: __('GutenBee Image Box'),
-  description: __('An image box with a title and a description.'),
-  icon: ImageBoxBlockIcon,
-  category: 'gutenbee',
-  keywords: [__('image'), __('image box'), __('media')],
+const deprecated = {
   attributes: {
+    ...iconAttributes,
     uniqueId: {
       type: 'string',
+    },
+    titleBottomSpacing: {
+      type: 'number',
     },
     titleContent: {
       source: 'html',
@@ -122,9 +123,7 @@ registerBlockType('gutenbee/imagebox', {
     },
     titleFontSize: {
       type: 'number',
-    },
-    titleBottomSpacing: {
-      type: 'number',
+      default: null,
     },
     textContent: {
       source: 'html',
@@ -133,30 +132,11 @@ registerBlockType('gutenbee/imagebox', {
     },
     textFontSize: {
       type: 'number',
+      default: 16,
     },
-    url: {
-      type: 'string',
-      source: 'attribute',
-      selector: 'img',
-      attribute: 'src',
-    },
-    alt: {
-      type: 'string',
-      source: 'attribute',
-      selector: 'img',
-      attribute: 'alt',
-      default: '',
-    },
-    id: {
-      type: 'number',
-    },
-    imageAlign: {
+    align: {
       type: 'string',
       default: 'left',
-    },
-    imageWidth: {
-      type: 'number',
-      default: 160,
     },
     contentAlign: {
       type: 'string',
@@ -170,7 +150,11 @@ registerBlockType('gutenbee/imagebox', {
       type: 'object',
       default: getDefaultSpacingValue(),
     },
-    imageMargin: {
+    iconMargin: {
+      type: 'object',
+      default: getDefaultSpacingValue(),
+    },
+    iconPadding: {
       type: 'object',
       default: getDefaultSpacingValue(),
     },
@@ -186,9 +170,16 @@ registerBlockType('gutenbee/imagebox', {
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
   },
-  deprecated,
-  edit: ImageBoxEditBlock,
-  save({ className, attributes }) {
-    return <ImageBox className={className} attributes={attributes} />;
+  migrate(attributes) {
+    return {
+      ...attributes,
+      textFontSize: attributes.textFontSize || undefined,
+      titleFontSize: attributes.titleFontSize || undefined,
+    };
   },
-});
+  save({ className, attributes }) {
+    return <IconBox className={className} attributes={attributes} />;
+  },
+};
+
+export default deprecated;
