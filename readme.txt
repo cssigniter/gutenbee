@@ -3,7 +3,7 @@ Contributors: cssigniterteam, silencerius, nvourva, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 5.4
 Tested up to: 5.5.1
-Stable tag: 2.6.0
+Stable tag: 2.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
 Requires PHP: 5.6
@@ -63,6 +63,9 @@ Note that if you want to use the Google Maps block you will also need a Google M
 7. Tabs or Accordions, group your content the way you want.
 
 == Changelog ==
+
+= 2.6.1 =
+*  Fixed an issue with the IconBox and the ImageBox blocks where if the font size was reset the block would break validation.
 
 = 2.6.0 =
 * Added new "Food Item" block.
