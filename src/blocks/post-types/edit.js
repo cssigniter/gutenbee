@@ -30,8 +30,8 @@ const propTypes = {
     gridSpacing: PropTypes.string,
     masonry: PropTypes.bool,
     categoryFilters: PropTypes.bool,
+    className: PropTypes.string,
   }).isRequired,
-  className: PropTypes.string.isRequired,
   setAttributes: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
   postTypes: PropTypes.arrayOf(
@@ -70,7 +70,6 @@ const propTypes = {
 const PostTypesEdit = ({
   attributes,
   setAttributes,
-  className,
   isSelected,
   postTypes,
   authors,
@@ -100,9 +99,7 @@ const PostTypesEdit = ({
 
   return (
     <Fragment>
-      <div className={className}>
-        <ServerSideRender block="gutenbee/post-types" attributes={attributes} />
-      </div>
+      <ServerSideRender block="gutenbee/post-types" attributes={attributes} />
 
       {isSelected && (
         <InspectorControls>

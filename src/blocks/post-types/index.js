@@ -79,6 +79,10 @@ registerBlockType('gutenbee/post-types', {
       type: 'boolean',
       default: false,
     },
+    className: {
+      type: 'string',
+      default: '',
+    },
   },
 
   edit: PostTypesEdit,

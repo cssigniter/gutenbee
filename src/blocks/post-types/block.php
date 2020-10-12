@@ -114,6 +114,10 @@
 					'type'    => 'boolean',
 					'default' => false,
 				),
+				'className'       => array(
+					'type'    => 'string',
+					'default' => '',
+				),
 			),
 			'render_callback' => 'gutenbee_block_post_types_render_callback',
 		) );
@@ -165,6 +169,7 @@
 		$masonry          = (bool) $attributes['masonry'];
 		$grid_effect      = $attributes['gridEffect'];
 		$category_filters = (bool) $attributes['categoryFilters'];
+		$class_name       = $attributes['className'];
 
 
 		$post_type_taxonomies = get_object_taxonomies( $post_type, 'objects' );
@@ -260,10 +265,10 @@
 
 		$q = new WP_Query( $query_args );
 
-		$container_classes = array(
+		$container_classes = array_merge( array(
 			'gutenbee-row',
 			'gutenbee-row-items',
-		);
+		), explode( ' ', $class_name ) );
 
 		if ( $masonry ) {
 			$container_classes[] = 'row-isotope';
@@ -285,6 +290,8 @@
 
 		if ( $q->have_posts() ) {
 			ob_start();
+
+			?><div class="<?php echo esc_attr( $class_name ); ?>"><?php
 
 			if ( $category_filters ) {
 				gutenbee_block_post_types_get_category_filters( $get_terms_args );
@@ -339,6 +346,8 @@
 
 				$wp_query = $old_wp_query;
 			}
+
+			?></div><?php
 
 			$response = ob_get_clean();
 
