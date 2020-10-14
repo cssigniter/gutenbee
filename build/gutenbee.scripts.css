@@ -2059,10 +2059,6 @@
   line-height: normal;
 }
 
-.wp-block-gutenbee-button {
-  line-height: 1;
-}
-
 .wp-block-gutenbee-button.aligncenter {
   text-align: center;
 }
@@ -2088,7 +2084,6 @@
   text-align: center;
   text-decoration: none;
   overflow-wrap: break-word;
-  line-height: 1;
   font-style: normal;
 }
 

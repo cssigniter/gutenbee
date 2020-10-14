@@ -265,10 +265,14 @@
 
 		$q = new WP_Query( $query_args );
 
-		$container_classes = array_merge( array(
+		$block_classes = array_merge( array(
+			'wp-block-gutenbee-post-types',
+		), explode( ' ', $class_name ) );
+
+		$container_classes = array(
 			'gutenbee-row',
 			'gutenbee-row-items',
-		), explode( ' ', $class_name ) );
+		);
 
 		if ( $masonry ) {
 			$container_classes[] = 'row-isotope';
@@ -291,7 +295,7 @@
 		if ( $q->have_posts() ) {
 			ob_start();
 
-			?><div class="<?php echo esc_attr( $class_name ); ?>"><?php
+			?><div class="<?php echo esc_attr( implode( ' ', $block_classes ) ); ?>"><?php
 
 			if ( $category_filters ) {
 				gutenbee_block_post_types_get_category_filters( $get_terms_args );
