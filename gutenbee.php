@@ -58,9 +58,7 @@ function gutenbee_enqueue_editor_assets() {
 		'wp-server-side-render',
 	), GUTENBEE_PLUGIN_VERSION, true );
 
-	$gutenbee_settings = get_option( 'gutenbee_settings' );
-	$gutenbee_settings = gutenbee_validate_settings( $gutenbee_settings );
-	wp_localize_script( 'gutenbee', '__GUTENBEE_SETTINGS__', $gutenbee_settings );
+	wp_localize_script( 'gutenbee', '__GUTENBEE_SETTINGS__', gutenbee_get_settings() );
 
 	wp_enqueue_style( 'gutenbee-editor', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.build.css', array(
 		'wp-edit-blocks',
@@ -69,8 +67,7 @@ function gutenbee_enqueue_editor_assets() {
 
 add_action( 'wp_enqueue_scripts', 'gutenbee_enqueue_frontend_block_assets' );
 function gutenbee_enqueue_frontend_block_assets() {
-	$gutenbee_settings = get_option( 'gutenbee_settings' );
-	$gutenbee_settings = gutenbee_validate_settings( $gutenbee_settings );
+	$gutenbee_settings = gutenbee_get_settings();
 	$maps_api_key      = $gutenbee_settings['google_maps_api_key'];
 
 	if ( $maps_api_key && has_block( 'gutenbee/google-maps' ) ) {
@@ -287,6 +284,29 @@ function gutenbee_get_blocks_info() {
 			'enqueue_css' => true,
 		),
 	);
+}
+
+/**
+ * Returns the plugin's settings array.
+ *
+ * @return array
+ */
+function gutenbee_get_settings() {
+	$settings = get_option( 'gutenbee_settings' );
+	$settings = gutenbee_validate_settings( $settings );
+
+	/**
+	 * Filters the plugin's settings values.
+	 *
+	 * @since 2.6.2
+	 *
+	 * @param array $settings
+	 *
+	 * @hooked ignition_module_accommodation_add_cpt_to_array - 10
+	 */
+	$settings = apply_filters( 'gutenbee_settings', $settings );
+
+	return $settings;
 }
 
 /**

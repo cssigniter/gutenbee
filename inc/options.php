@@ -10,6 +10,8 @@
 		}
 
 		public function init() {
+			// Don't use gutenbee_get_settings() here, as any extra/dynamically added (via filter) settings will end up
+			// getting stored into the option array. See self::settings_sanitize().
 			$this->settings = get_option( 'gutenbee_settings' );
 			$this->settings = gutenbee_validate_settings( $this->settings );
 		}

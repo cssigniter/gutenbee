@@ -3,6 +3,26 @@
 	 * Custom Post Type dynamic block
 	 */
 
+	add_filter( 'gutenbee_settings', 'gutenbee_block_post_types_filter_gutenbee_settings' );
+	function gutenbee_block_post_types_filter_gutenbee_settings( $settings ) {
+		$settings['post_type_columns'] = gutenbee_block_post_types_get_post_types_columns();
+
+		return $settings;
+	}
+
+	function gutenbee_block_post_types_get_post_types_columns() {
+		$post_types = get_post_types();
+
+		$pt_cols = array();
+		foreach ( $post_types as $post_type ) {
+			$pt_cols[ $post_type ] = array(
+				'min' => 1,
+				'max' => 4,
+			);
+		}
+
+		return apply_filters( 'gutenbee_block_post_types_post_types_columns', $pt_cols );
+	}
 
 	function gutenbee_block_post_types_get_theme_support_defaults() {
 		return array(
