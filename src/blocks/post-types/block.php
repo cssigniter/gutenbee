@@ -36,6 +36,7 @@
 			'categoryFilters' => false,
 		);
 	}
+
 	/**
 	 * Returns whether the active theme supports a specific feature.
 	 *
@@ -395,6 +396,8 @@
 	 *
 	 * @link https://codex.wordpress.org/Making_Custom_Queries_using_Offset_and_Pagination
 	 *
+	 * @since 2.6.2
+	 *
 	 * @param WP_Query $query
 	 */
 	function gutenbee_block_post_types_pre_get_posts_offset( $query ) {
@@ -429,6 +432,8 @@
 	 * Looks for and uses the custom query variable 'gb_pt_offset'.
 	 *
 	 * @link https://codex.wordpress.org/Making_Custom_Queries_using_Offset_and_Pagination
+	 *
+	 * @since 2.6.2
 	 *
 	 * @param int      $found_posts
 	 * @param WP_Query $query
