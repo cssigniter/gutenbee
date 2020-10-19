@@ -220,7 +220,7 @@
 		);
 
 		if ( $offset ) {
-			$args['offset'] = $offset;
+			$args['gb_pt_offset'] = $offset;
 		}
 
 		if ( $pagination ) {
@@ -387,3 +387,60 @@
 		return $response;
 	}
 
+	add_action( 'pre_get_posts', 'gutenbee_block_post_types_pre_get_posts_offset' );
+	/**
+	 * Fixes the query with the correct offset parameter, when used in combination with pagination.
+	 *
+	 * Looks for and uses the custom query variable 'gb_pt_offset'.
+	 *
+	 * @link https://codex.wordpress.org/Making_Custom_Queries_using_Offset_and_Pagination
+	 *
+	 * @param WP_Query $query
+	 */
+	function gutenbee_block_post_types_pre_get_posts_offset( $query ) {
+		if ( isset( $query->query_vars['gb_pt_offset'] ) ) {
+			// First, define your desired offset...
+			$offset = $query->query_vars['gb_pt_offset'];
+
+			// Next, determine how many posts per page you want (we'll use WordPress's settings)
+			$ppp = isset( $query->query_vars['posts_per_page'] ) ? $query->query_vars['posts_per_page'] : get_option( 'posts_per_page' );
+
+			// Next, detect and handle pagination...
+			if ( $query->is_paged ) {
+
+				// Manually determine page query offset (offset + current page (minus one) x posts per page)
+				$page_offset = $offset + ( ( $query->query_vars['paged'] - 1 ) * $ppp );
+
+				// Apply adjust page offset
+				$query->set( 'offset', $page_offset );
+
+			} else {
+				// This is the first page. Just use the offset...
+				$query->set( 'offset', $offset );
+
+			}
+		}
+	}
+
+	add_filter( 'found_posts', 'gutenbee_block_post_types_found_posts_offset', 10, 2 );
+	/**
+	 * Fixes the found_posts value when offset is used in combination with pagination.
+	 *
+	 * Looks for and uses the custom query variable 'gb_pt_offset'.
+	 *
+	 * @link https://codex.wordpress.org/Making_Custom_Queries_using_Offset_and_Pagination
+	 *
+	 * @param int      $found_posts
+	 * @param WP_Query $query
+	 *
+	 * @return int
+	 */
+	function gutenbee_block_post_types_found_posts_offset( $found_posts, $query ) {
+		if ( isset( $query->query_vars['gb_pt_offset'] ) ) {
+			$offset = $query->query_vars['gb_pt_offset'];
+
+			return $found_posts - $offset;
+		}
+
+		return $found_posts;
+	}
