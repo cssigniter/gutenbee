@@ -17,6 +17,10 @@ Check out [the demo](https://www.cssigniter.com/gutenbee/) now!
 
 The plugin's documentation can be found [here](https://www.cssigniter.com/docs/gutenbee/).
 
+Here's the demo of our latest block, Food Menu block
+
+https://www.youtube.com/watch?v=Wv_zwREKi68
+
 **Blocks:**
 
 * **Accordion**: Organize your content into accordion elements. All the content including titles can be edited directly in the WordPress editor and you can choose any color combination from the block’s settings.
