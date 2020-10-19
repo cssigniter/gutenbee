@@ -3045,3 +3045,7 @@ div[data-type="gutenbee/button"] {
   top: -6px;
 }
 
+[data-type="gutenbee/food-menu-item"] .wp-block-gutenbee-heading {
+  margin-bottom: 0;
+}
+

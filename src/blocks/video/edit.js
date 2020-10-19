@@ -213,12 +213,12 @@ const VideoEdit = ({
                 allowedTypes={VIDEO_POSTER_ALLOWED_MEDIA_TYPES}
                 render={({ open }) => (
                   <Button
-                    isDefault
+                    isPrimary
                     onClick={open}
                     ref={posterImageButtonRef}
                     aria-describedby={videoPosterDescription}
                   >
-                    {!poster ? __('Select Poster Image') : __('Replace image')}
+                    {!poster ? __('Select') : __('Replace')}
                   </Button>
                 )}
               />
@@ -228,8 +228,8 @@ const VideoEdit = ({
                   : __('There is no poster image currently selected')}
               </p>
               {!!poster && (
-                <Button onClick={onRemovePoster} isLink isDestructive>
-                  {__('Remove Poster Image')}
+                <Button onClick={onRemovePoster} isDestructive isTertiary>
+                  {__('Remove')}
                 </Button>
               )}
             </BaseControl>

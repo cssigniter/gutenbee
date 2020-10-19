@@ -61,8 +61,8 @@ const BorderControls = ({
       {style !== 'none' && !!style && (
         <Fragment>
           <PopoverColorControl
-            value={color}
-            defaultValue={defaultValues.color || ''}
+            value={color || '#000000'}
+            defaultValue={defaultValues.color || '#000000'}
             label={__('Border color')}
             disableAlpha={false}
             onChange={value => {
@@ -87,28 +87,28 @@ const BorderControls = ({
               }
             }}
             step={1}
-            initialPosition={defaultValues.width || 0}
-            allowReset
-          />
-
-          <RangeControl
-            label={__('Border Radius (px)')}
-            min={0}
-            max={100}
-            value={radius}
-            onChange={value => {
-              if (attributePrefix) {
-                setAttributes({ [`${attributePrefix}BorderRadius`]: value });
-              } else {
-                setAttributes({ borderRadius: value });
-              }
-            }}
-            step={1}
-            initialPosition={defaultValues.radius || 0}
+            initialPosition={defaultValues.width || 3}
             allowReset
           />
         </Fragment>
       )}
+
+      <RangeControl
+        label={__('Border Radius (px)')}
+        min={0}
+        max={100}
+        value={radius}
+        onChange={value => {
+          if (attributePrefix) {
+            setAttributes({ [`${attributePrefix}BorderRadius`]: value });
+          } else {
+            setAttributes({ borderRadius: value });
+          }
+        }}
+        step={1}
+        initialPosition={defaultValues.radius || 0}
+        allowReset
+      />
     </Fragment>
   );
 };

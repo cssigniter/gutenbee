@@ -73,7 +73,6 @@ function HeadingEdit({
       <div
         id={blockId}
         style={{
-          color: textColor ? textColor : undefined,
           backgroundColor: backgroundColor ? backgroundColor : undefined,
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),
@@ -100,6 +99,9 @@ function HeadingEdit({
           }}
           className={className}
           placeholder={placeholder || __('Write heading…')}
+          style={{
+            color: textColor ? textColor : undefined,
+          }}
         />
       </div>
 

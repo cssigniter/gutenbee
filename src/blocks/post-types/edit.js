@@ -1,4 +1,4 @@
-import { Fragment } from 'wp.element';
+import { Fragment, useEffect } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import { compose } from 'wp.compose';
@@ -96,6 +96,25 @@ const PostTypesEdit = ({
   } = attributes;
 
   const supports = window.__GUTENBEE_SETTINGS__.theme_supports['post-types'];
+  const postTypeColumns = window.__GUTENBEE_SETTINGS__.post_type_columns || {};
+  const columnLimits = postTypeColumns[postType] || {};
+
+  // When changing a post type, check its column limits and apply different ones
+  useEffect(
+    () => {
+      const newColumnLimits = postTypeColumns[postType] || {};
+
+      if (newColumnLimits.min > columns) {
+        setAttributes({ columns: newColumnLimits.min || 3 });
+        return;
+      }
+
+      if (newColumnLimits.max < columns) {
+        setAttributes({ columns: newColumnLimits.max || 3 });
+      }
+    },
+    [postType],
+  );
 
   return (
     <Fragment>
@@ -246,8 +265,8 @@ const PostTypesEdit = ({
             <RangeControl
               label={__('Columns')}
               value={columns}
-              min={1}
-              max={4}
+              min={columnLimits.min || 1}
+              max={columnLimits.max | 4}
               onChange={value => setAttributes({ columns: value })}
             />
 

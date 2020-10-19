@@ -102,7 +102,7 @@ export const IconSettings = ({
       <BaseControl id="icon-select" label={__('Icon')}>
         <ReactSelect
           aria-labelledby="icon-select"
-          onChange={value => setAttributes({ icon: value })}
+          onChange={value => setAttributes({ icon: value || 'add-bag' })}
           value={icon}
           options={icons.map(value => ({ value, label: startCase(value) }))}
           simpleValue
