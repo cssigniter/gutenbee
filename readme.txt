@@ -64,8 +64,18 @@ Note that if you want to use the Google Maps block you will also need a Google M
 
 == Changelog ==
 
+= 2.6.2 =
+* Fixed Post Type block support for custom classes.
+* Post Type block: Min-max columns are now filterable per post type (see 'gutenbee_block_post_types_post_types_columns').
+* Fixed an issue where heading colors would not be overridden by the applied text color.
+* Fixed an issue on the Icon block where deleting the icon input would invalidate the block.
+* Updated buttons on the poster image setting in the Video block.
+* Display initial values on the border settings.
+* Always display the border radius setting, regardless of the border style attribute.
+* Fixed handling of offset when used in combination with pagination in the Post Type block.
+
 = 2.6.1 =
-*  Fixed an issue with the IconBox and the ImageBox blocks where if the font size was reset the block would break validation.
+* Fixed an issue with the IconBox and the ImageBox blocks where if the font size was reset the block would break validation.
 
 = 2.6.0 =
 * Added new "Food Item" block.

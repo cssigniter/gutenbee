@@ -3,14 +3,14 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: GutenBee!\n"
-"POT-Creation-Date: 2020-10-01 21:20+0300\n"
+"POT-Creation-Date: 2020-10-19 23:18+0300\n"
 "PO-Revision-Date: 2016-08-29 19:22+0300\n"
 "Last-Translator: Nik Vourvachis <nvourva@cssigniter.com>\n"
 "Language-Team: Nik Vourvachis <nvourva@cssigniter.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: gutenbee.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -22,132 +22,132 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #. Plugin Name of the plugin/theme
-#: gutenbee.php:116 inc/options.php:18
+#: gutenbee.php:113 inc/options.php:20
 msgid "GutenBee"
 msgstr ""
 
-#: gutenbee.php:132 gutenbee.php:165
+#: gutenbee.php:129 gutenbee.php:162
 msgid "Accordion Block"
 msgstr ""
 
-#: gutenbee.php:133 gutenbee.php:170
+#: gutenbee.php:130 gutenbee.php:167
 msgid "Button Block"
 msgstr ""
 
-#: gutenbee.php:134 gutenbee.php:180
+#: gutenbee.php:131 gutenbee.php:177
 msgid "Container Block"
 msgstr ""
 
-#: gutenbee.php:135 gutenbee.php:190
+#: gutenbee.php:132 gutenbee.php:187
 msgid "Countdown Block"
 msgstr ""
 
-#: gutenbee.php:136 gutenbee.php:195
+#: gutenbee.php:133 gutenbee.php:192
 msgid "Countup Block"
 msgstr ""
 
-#: gutenbee.php:137 gutenbee.php:200
+#: gutenbee.php:134 gutenbee.php:197
 msgid "Divider Block"
 msgstr ""
 
-#: gutenbee.php:138
+#: gutenbee.php:135
 msgid "Food Menu Block"
 msgstr ""
 
-#: gutenbee.php:139 gutenbee.php:210
+#: gutenbee.php:136 gutenbee.php:207
 msgid "Heading Block"
 msgstr ""
 
-#: gutenbee.php:140 gutenbee.php:215
+#: gutenbee.php:137 gutenbee.php:212
 msgid "Icon Block"
 msgstr ""
 
-#: gutenbee.php:141 gutenbee.php:220
+#: gutenbee.php:138 gutenbee.php:217
 msgid "Icon Box Block"
 msgstr ""
 
-#: gutenbee.php:142 gutenbee.php:225
+#: gutenbee.php:139 gutenbee.php:222
 msgid "Image Block"
 msgstr ""
 
-#: gutenbee.php:143 gutenbee.php:230
+#: gutenbee.php:140 gutenbee.php:227
 msgid "Image Box Block"
 msgstr ""
 
-#: gutenbee.php:144 gutenbee.php:235
+#: gutenbee.php:141 gutenbee.php:232
 msgid "Image Comparison Block"
 msgstr ""
 
-#: gutenbee.php:145 gutenbee.php:240
+#: gutenbee.php:142 gutenbee.php:237
 msgid "Justified Gallery Block"
 msgstr ""
 
-#: gutenbee.php:146 gutenbee.php:250
+#: gutenbee.php:143 gutenbee.php:247
 msgid "Paragraph Block"
 msgstr ""
 
-#: gutenbee.php:147 gutenbee.php:255
+#: gutenbee.php:144 gutenbee.php:252
 msgid "Post Types Block"
 msgstr ""
 
-#: gutenbee.php:148
+#: gutenbee.php:145
 msgid "Progress Bar Block"
 msgstr ""
 
-#: gutenbee.php:149 gutenbee.php:270
+#: gutenbee.php:146 gutenbee.php:267
 msgid "Spacer Block"
 msgstr ""
 
-#: gutenbee.php:150 gutenbee.php:265
+#: gutenbee.php:147 gutenbee.php:262
 msgid "Slideshow Block"
 msgstr ""
 
-#: gutenbee.php:151 gutenbee.php:275
+#: gutenbee.php:148 gutenbee.php:272
 msgid "Tabs Block"
 msgstr ""
 
-#: gutenbee.php:152 gutenbee.php:280
+#: gutenbee.php:149 gutenbee.php:277
 msgid "Video Block"
 msgstr ""
 
-#: gutenbee.php:175
+#: gutenbee.php:172
 msgid "Buttons Block"
 msgstr ""
 
-#: gutenbee.php:185
+#: gutenbee.php:182
 msgid "Column Block"
 msgstr ""
 
-#: gutenbee.php:205
+#: gutenbee.php:202
 msgid "Google Map Block"
 msgstr ""
 
-#: gutenbee.php:260
+#: gutenbee.php:257
 msgid "Progress Block"
 msgstr ""
 
-#: gutenbee.php:285
+#: gutenbee.php:282
 msgid "Food Menu"
 msgstr ""
 
-#: inc/options.php:18 inc/options.php:38
+#: inc/options.php:20 inc/options.php:40
 msgid "GutenBee Settings"
 msgstr ""
 
-#: inc/options.php:60
+#: inc/options.php:62
 msgid "Google Maps Block"
 msgstr ""
 
-#: inc/options.php:69
+#: inc/options.php:71
 msgid "Google Maps API Key"
 msgstr ""
 
-#: inc/options.php:77
+#: inc/options.php:79
 msgid "Use the checkboxes below to enable or disable your new blocks."
 msgstr ""
 
 #. translators: %s is a URL.
-#: inc/options.php:97
+#: inc/options.php:99
 #, php-format
 msgid ""
 "Paste your Google Maps API Key below. This is <strong>required</strong> in "
@@ -155,12 +155,12 @@ msgid ""
 "key read <a href=\"%s\" target=\"_blank\">this article</a>."
 msgstr ""
 
-#: src/blocks/post-types/block.php:131
+#: src/blocks/post-types/block.php:161
 msgctxt "all categories"
 msgid "All"
 msgstr ""
 
-#: src/blocks/post-types/block.php:346
+#: src/blocks/post-types/block.php:385
 msgid "No posts found."
 msgstr ""
 
