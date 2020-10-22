@@ -1,4 +1,4 @@
-=== GutenBee ===
+=== GutenBee - Gutenberg Blocks ===
 Contributors: cssigniterteam, silencerius, nvourva, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 5.4
