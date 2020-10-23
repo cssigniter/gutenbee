@@ -65,6 +65,40 @@ function gutenbee_enqueue_editor_assets() {
 	), GUTENBEE_PLUGIN_VERSION );
 }
 
+/**
+ * Checks the content for existence of blocks by $block_name inside reusable blocks.
+ * https://github.com/WordPress/gutenberg/issues/18272#issuecomment-566179633
+ *
+ * @param $block_name
+ * @param false $id
+ *
+ * @return bool
+ */
+function has_block_in_reusable( $block_name, $id = false ) {
+	$id = ( ! $id ) ? get_the_ID() : $id;
+	if ( $id ) {
+		if ( has_block( 'block', $id ) ) {
+			// Check for reusable blocks
+			$content = get_post_field( 'post_content', $id );
+			$blocks  = parse_blocks( $content );
+
+			if ( ! is_array( $blocks ) || empty( $blocks ) ) {
+				return false;
+			}
+
+			foreach ( $blocks as $block ) {
+				if ( $block['blockName'] === 'core/block' && ! empty( $block['attrs']['ref'] ) ) {
+					if ( has_block( $block_name, $block['attrs']['ref'] ) ) {
+						return true;
+					}
+				}
+			}
+		}
+	}
+
+	return false;
+}
+
 add_action( 'wp_enqueue_scripts', 'gutenbee_enqueue_frontend_block_assets' );
 function gutenbee_enqueue_frontend_block_assets() {
 	$gutenbee_settings = gutenbee_get_settings();
@@ -77,7 +111,7 @@ function gutenbee_enqueue_frontend_block_assets() {
 	$enqueue_css = false;
 	$enqueue_js  = false;
 	foreach ( gutenbee_get_blocks_info() as $block_name => $block_info ) {
-		if ( has_block( $block_name ) ) {
+		if ( has_block( $block_name ) || has_block_in_reusable( $block_name ) ) {
 			if ( ! $enqueue_css && $block_info['enqueue_css'] ) {
 				$enqueue_css = true;
 			}
