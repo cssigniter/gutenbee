@@ -17,7 +17,7 @@ Check out [the demo](https://www.cssigniter.com/gutenbee/) now!
 
 The plugin's documentation can be found [here](https://www.cssigniter.com/docs/gutenbee/).
 
-Here's the demo of our latest block, Food Menu block
+Here's the demo of one of our latest blocks, the Food Menu block
 
 https://www.youtube.com/watch?v=Wv_zwREKi68
 
@@ -32,6 +32,8 @@ https://www.youtube.com/watch?v=Wv_zwREKi68
 * **Google Maps**: Easy-peasy fancy maps with the Google Maps block. Just enter a location and save, it just works! With support for beautiful predefined map styles and Snazzy custom map styles!
 * **Icon**: Display icons from a custom designed, curated list of over one hundred icons, with more icons being added in regular updates!
 * **Icon Box**: Your standard icon box block on steroids. Choose from over one hundred custom designed icons, style them any way and at any size you like, add some text and you’re good to go.
+* **Icon List**: Create lists with beautiful icons instead of bullets.
+* **Image**: A variation of the core Image block with extra responsive spacing and sizing settings.
 * **Image Box**: A standard image box with title and text block on steroids. Adjust your spacing, layout, alignment, or colors and typography.
 * **Image Comparison**: Need to showcase your photo editing skills or writing up a camera review? With the Image Comparison block you can enhance your posts with side-by-side comparison of any two photos you wish.
 * **Justified Gallery**: Create beautiful justified grid layout galleries inside any of your post or pages.
@@ -41,10 +43,11 @@ https://www.youtube.com/watch?v=Wv_zwREKi68
 * **Container**: A powerful container block allowing content grouping or splitting in columns, complete with fully responsive settings.
 * **Heading**: A normal heading block with responsive settings.
 * **Paragraph**: A variation of the core Paragraph block with responsive spacing settings.
-* **Image**: A variation of the core Image block with extra responsive spacing and sizing settings.
 * **Spacer**: Complete control spacing of elements in your posts and pages with the responsive Spacer block.
+* **Testimonial**: An easy to use block to help you display your testimonials with multiple layouts.
 * **Post Types**: List posts from any post type in a configurable grid, complete with fully responsive settings.
 * **Video**: Embed a video from your media library or upload a new one.
+* **Video Embed**: Embed videos from YouTube or Vimeo and lazy-load theme if you wish to.
 
 == Installation ==
 From within WordPress' dashboard:
@@ -67,6 +70,11 @@ Note that if you want to use the Google Maps block you will also need a Google M
 7. Tabs or Accordions, group your content the way you want.
 
 == Changelog ==
+
+= 2.7.0 =
+* Added new "Icon List" block.
+* Added new "Testimonial" block.
+* Added new "Video Embed" block.
 
 = 2.6.2 =
 * Fixed Post Type block support for custom classes.
