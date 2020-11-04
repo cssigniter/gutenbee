@@ -1,26 +1,4 @@
-@keyframes rot {
-	from {
-		transform: rotate(0deg);
-	}
-
-	to {
-		transform: rotate(359deg);
-	}
-}
-
-@mixin spinner($color: #fff, $opacity: .35, $size: 40px, $border-width: 6px) {
-	border: $border-width solid rgba($color, $opacity);
-	border-top-color: rgba($color, $opacity * 2.5);
-	border-radius: 100%;
-	height: $size;
-	width: $size;
-	animation: rot .8s infinite linear;
-}
-
-.gutenbee-spinner {
-	@include spinner($size: 98px, $border-width: 2px);
-	z-index: 0;
-}
+@import './common';
 
 .gutenbee-embed__interactive-overlay {
 	position: absolute;
@@ -37,74 +15,6 @@
 	margin-bottom: 10px;
     font-weight: bold;
     color: red;
-}
-
-.gutenbee-video-embed-wrapper {
-	position: relative;
-	padding-top: 56.25%;
-	height: 0;
-	overflow: hidden;
-	max-width: 100%;
-	background-color: #000;
-
-	iframe,
-	object,
-	embed {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		z-index: 1;
-	}
-
-	.gutenbee-video-embed {
-		position: absolute;
-		top:0;
-		left: 0;
-		width: 100%;
-    	height: 100%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.gutenbee-video-embed-overlay {
-		background-size: cover;
-		background-position: 50%;
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		z-index: 10;
-
-		.play-button {
-			width: 90px;
-			height: 60px;
-			background-color: #333;
-			box-shadow: 0 0 30px rgba( 0,0,0,0.6 );
-			z-index: 20;
-			opacity: 0.8;
-			border-radius: 6px;
-			cursor: pointer;
-			position: relative;
-
-			&:before {
-				position: absolute;
-				content: "";
-				border-style: solid;
-				border-width: 15px 0 15px 26.0px;
-				border-color: transparent transparent transparent #fff;
-				top: 50%;
-				left: 50%;
-				transform: translate3d( -50%, -50%, 0 );
-			}
-		}
-	}
 }
 
 .editor-video-coverImage-control {

@@ -1,11 +1,11 @@
-import { Fragment, useRef, useState, useEffect, useCallback } from 'wp.element';
+import { Fragment, useRef, useState, useCallback } from 'wp.element';
 import {
   BaseControl,
   Button,
   PanelBody,
   Placeholder,
   ToggleControl,
-  __experimentalNumberControl as NumberControl,
+  TextControl,
   IconButton,
   Toolbar,
 } from 'wp.components';
@@ -28,6 +28,7 @@ import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 import VideoEmbedStyle from './style';
 import { getVideoInfo } from './util';
+import { useVideoEmbed } from './hooks';
 
 const VIDEO_POSTER_ALLOWED_MEDIA_TYPES = ['image'];
 
@@ -100,46 +101,17 @@ const VideoEmbedEdit = ({
     setEditing(true);
   };
 
-  const hideOverlay = () => {
+  const onOverlayClick = () => {
     setInteractive(true);
   };
 
   const videoCoverImageDescription = `video-block__coverImage-image-description-${instanceId}`;
 
-  const divStyle = {
-    backgroundImage: 'url(' + coverImage + ')',
-  };
-
   if (!isSelected && interactive) {
     setInteractive(false);
   }
 
-  useEffect(
-    () => {
-      if (videoEmbedRef) {
-        if ('youtube' === videoInfo.provider && videoInfo.id) {
-          if (!document.getElementById('youtube-api-script')) {
-            const tag = document.createElement('script');
-            tag.id = 'youtube-api-script';
-            tag.src = 'https://www.youtube.com/iframe_api';
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-          }
-          onYouTubeAPIReady(videoEmbedRef);
-        } else if ('vimeo' === videoInfo.provider && videoInfo.id) {
-          if (!document.getElementById('vimeo-api-script')) {
-            const tag = document.createElement('script');
-            tag.id = 'vimeo-api-script';
-            tag.src = 'https://player.vimeo.com/api/player.js';
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-          }
-          onVimeoAPIReady(videoEmbedRef);
-        }
-      }
-    },
-    [videoEmbedRef],
-  );
+  useVideoEmbed(videoEmbedRef, videoInfo);
 
   if (editing) {
     return (
@@ -158,7 +130,7 @@ const VideoEmbedEdit = ({
             setEditing(false);
           }}
         >
-          {videoUrl && 'unsupported' === videoInfo.provider && (
+          {videoUrl && videoInfo.provider === 'unsupported' && (
             <span className="gutenbee-embed-error">
               {__('Embed URL error. Please enter a YouTube or Vimeo URL.')}
             </span>
@@ -180,64 +152,6 @@ const VideoEmbedEdit = ({
       </Placeholder>
     );
   }
-
-  const attrState = attr => {
-    return 'true' === attr ? 1 : 0;
-  };
-
-  const onYouTubeAPIReady = videoEmbed => {
-    if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
-      return setTimeout(onYouTubeAPIReady.bind(null, videoEmbed), 333);
-    }
-
-    const dataset = videoEmbed.dataset;
-
-    // eslint-disable-next-line no-unused-vars
-    const ytPlayer = new YT.Player('video-' + blockId, {
-      videoId: dataset.videoId,
-      playerVars: {
-        autoplay: 0,
-        controls: dataset.videoControls ? attrState(dataset.videoControls) : 0,
-        showinfo: 0,
-        modestbranding: dataset.videoBranding
-          ? attrState(dataset.videoBranding)
-          : 0,
-        loop: dataset.videoLoop ? attrState(dataset.videoLoop) : 0,
-        playlist: dataset.videoId,
-        fs: 0,
-        cc_load_policy: 0,
-        iv_load_policy: 3,
-        autohide: 0,
-        mute: dataset.videoMute ? attrState(dataset.videoMute) : 0,
-        start: parseInt(dataset.videoStart, 10) || undefined,
-        end: parseInt(dataset.videoEnd, 10) || undefined,
-      },
-      events: {},
-    });
-  };
-
-  const onVimeoAPIReady = videoEmbed => {
-    if (typeof Vimeo === 'undefined' || typeof Vimeo.Player === 'undefined') {
-      return setTimeout(onVimeoAPIReady.bind(null, videoEmbed), 333);
-    }
-
-    const dataset = videoEmbed.dataset;
-
-    const player = new Vimeo.Player(videoEmbed, {
-      id: dataset.videoId,
-      loop: dataset.videoLoop ? attrState(dataset.videoLoop) : 0,
-      autoplay: 0,
-      controls: dataset.videoControls ? attrState(dataset.videoControls) : 0,
-      byline: false,
-      title: false,
-      autopause: false,
-      muted: dataset.videoMute ? attrState(dataset.videoMute) : 0,
-    });
-
-    if (dataset.videoStart) {
-      player.setCurrentTime(dataset.videoStart);
-    }
-  };
 
   return (
     <Fragment>
@@ -272,7 +186,7 @@ const VideoEmbedEdit = ({
             <div
               ref={overlayRef}
               className="gutenbee-video-embed-overlay"
-              style={divStyle}
+              style={{ backgroundImage: 'url(' + coverImage + ')' }}
               onClick={onHideOnClick}
             >
               <div className="play-button" />
@@ -282,7 +196,7 @@ const VideoEmbedEdit = ({
         {!interactive && (
           <div
             className="gutenbee-embed__interactive-overlay"
-            onMouseUp={hideOverlay}
+            onMouseUp={onOverlayClick}
           />
         )}
       </div>
@@ -343,7 +257,7 @@ const VideoEmbedEdit = ({
             checked={autoplay}
             onChange={value => {
               setAttributes({ autoplay: value });
-              setAttributes({ lazyLoad: true === value ? false : lazyLoad });
+              setAttributes({ lazyLoad: value === true ? false : lazyLoad });
             }}
           />
           <ToggleControl
@@ -356,7 +270,7 @@ const VideoEmbedEdit = ({
             checked={loop}
             onChange={value => setAttributes({ loop: value })}
           />
-          {'youtube' === videoInfo.provider && (
+          {videoInfo.provider === 'youtube' && (
             <ToggleControl
               label={__('Modest Branding')}
               checked={branding}
@@ -370,15 +284,17 @@ const VideoEmbedEdit = ({
               onChange={value => setAttributes({ lazyLoad: value })}
             />
           )}
-          <NumberControl
+          <TextControl
             label={__('Start time in seconds.')}
             onChange={value => setAttributes({ startTime: value })}
+            type="number"
             value={startTime}
           />
-          {'youtube' === videoInfo.provider && (
-            <NumberControl
+          {videoInfo.provider === 'youtube' && (
+            <TextControl
               label={__('End time in seconds.')}
               onChange={value => setAttributes({ endTime: value })}
+              type="number"
               value={endTime}
             />
           )}

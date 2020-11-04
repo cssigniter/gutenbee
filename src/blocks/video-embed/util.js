@@ -42,4 +42,61 @@ const getVideoInfo = url => {
   }
 };
 
-export { GetVimeoIDbyUrl, getVideoInfo };
+const attrState = attr => {
+  return attr === 'true' ? 1 : 0;
+};
+
+const onYouTubeAPIReady = videoEmbed => {
+  if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
+    return setTimeout(onYouTubeAPIReady.bind(null, videoEmbed), 333);
+  }
+
+  const dataset = videoEmbed.dataset;
+  // eslint-disable-next-line no-unused-vars
+  const ytPlayer = new YT.Player(videoEmbed, {
+    videoId: dataset.videoId,
+    playerVars: {
+      autoplay: 0,
+      controls: dataset.videoControls ? attrState(dataset.videoControls) : 0,
+      showinfo: 0,
+      modestbranding: dataset.videoBranding
+        ? attrState(dataset.videoBranding)
+        : 0,
+      loop: dataset.videoLoop ? attrState(dataset.videoLoop) : 0,
+      playlist: dataset.videoId,
+      fs: 0,
+      cc_load_policy: 0,
+      iv_load_policy: 3,
+      autohide: 0,
+      mute: dataset.videoMute ? attrState(dataset.videoMute) : 0,
+      start: parseInt(dataset.videoStart, 10) || undefined,
+      end: parseInt(dataset.videoEnd, 10) || undefined,
+    },
+    events: {},
+  });
+};
+
+const onVimeoAPIReady = videoEmbed => {
+  if (typeof Vimeo === 'undefined' || typeof Vimeo.Player === 'undefined') {
+    return setTimeout(onVimeoAPIReady.bind(null, videoEmbed), 333);
+  }
+
+  const dataset = videoEmbed.dataset;
+
+  const player = new Vimeo.Player(videoEmbed, {
+    id: dataset.videoId,
+    loop: dataset.videoLoop ? attrState(dataset.videoLoop) : 0,
+    autoplay: 0,
+    controls: dataset.videoControls ? attrState(dataset.videoControls) : 0,
+    byline: false,
+    title: false,
+    autopause: false,
+    muted: dataset.videoMute ? attrState(dataset.videoMute) : 0,
+  });
+
+  if (dataset.videoStart) {
+    player.setCurrentTime(dataset.videoStart);
+  }
+};
+
+export { getVideoInfo, onVimeoAPIReady, onYouTubeAPIReady };

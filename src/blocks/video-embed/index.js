@@ -92,12 +92,9 @@ registerBlockType('gutenbee/video-embed', {
     } = attributes;
 
     const blockId = getBlockId(uniqueId);
-    const divStyle = {
-      backgroundImage: 'url(' + coverImage + ')',
-    };
 
     if (!videoUrl) {
-      return;
+      return null;
     }
 
     const videoInfo = getVideoInfo(videoUrl);
@@ -131,7 +128,10 @@ registerBlockType('gutenbee/video-embed', {
             <div className="gutenbee-spinner" />
           </div>
           {coverImage && (
-            <div className="gutenbee-video-embed-overlay" style={divStyle}>
+            <div
+              className="gutenbee-video-embed-overlay"
+              style={{ backgroundImage: 'url(' + coverImage + ')' }}
+            >
               <div />
             </div>
           )}
