@@ -17,6 +17,7 @@ const propTypes = {
 
 const Rule = () => null;
 
+Rule.displayName = 'Rule';
 Rule.propTypes = propTypes;
 
 export default Rule;

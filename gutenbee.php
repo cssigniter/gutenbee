@@ -136,6 +136,7 @@ function gutenbee_get_setting_block_names() {
 		'heading'           => __( 'Heading Block', 'gutenbee' ),
 		'icon'              => __( 'Icon Block', 'gutenbee' ),
 		'iconbox'           => __( 'Icon Box Block', 'gutenbee' ),
+		'icon-list'         => __( 'Icon List Block', 'gutenbee' ),
 		'image'             => __( 'Image Block', 'gutenbee' ),
 		'imagebox'          => __( 'Image Box Block', 'gutenbee' ),
 		'image-comparison'  => __( 'Image Comparison Block', 'gutenbee' ),
@@ -146,8 +147,10 @@ function gutenbee_get_setting_block_names() {
 		'spacer'            => __( 'Spacer Block', 'gutenbee' ),
 		'slideshow'         => __( 'Slideshow Block', 'gutenbee' ),
 		'tabs'              => __( 'Tabs Block', 'gutenbee' ),
+		'testimonial'       => __( 'Testimonial Block', 'gutenbee' ),
 		'video'             => __( 'Video Block', 'gutenbee' ),
-//		'lottie'            => __( 'Lottie Player Block', 'gutenbee' ),
+		'video-embed'       => __( 'Video Embed Block', 'gutenbee' ),
+//			'lottie'            => __( 'Lottie Player Block', 'gutenbee' ),
 	);
 }
 
@@ -218,6 +221,11 @@ function gutenbee_get_blocks_info() {
 			'enqueue_js'  => false,
 			'enqueue_css' => true,
 		),
+		'gutenbee/icon-list'           => array(
+			'label'       => __( 'Icon List Block', 'gutenbee' ),
+			'enqueue_js'  => false,
+			'enqueue_css' => true,
+		),
 		'gutenbee/image'             => array(
 			'label'       => __( 'Image Block', 'gutenbee' ),
 			'enqueue_js'  => false,
@@ -273,9 +281,19 @@ function gutenbee_get_blocks_info() {
 			'enqueue_js'  => true,
 			'enqueue_css' => true,
 		),
+		'gutenbee/testimonial'       => array(
+			'label'       => __( 'Testimonial Block', 'gutenbee' ),
+			'enqueue_js'  => false,
+			'enqueue_css' => true,
+		),
 		'gutenbee/video'             => array(
 			'label'       => __( 'Video Block', 'gutenbee' ),
 			'enqueue_js'  => false,
+			'enqueue_css' => true,
+		),
+		'gutenbee/video-embed'             => array(
+			'label'       => __( 'Video Embed Block', 'gutenbee' ),
+			'enqueue_js'  => true,
 			'enqueue_css' => true,
 		),
 		'gutenbee/food-menu'         => array(

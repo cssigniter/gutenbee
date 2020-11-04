@@ -33,6 +33,18 @@ const replaceBetweenCurly = (text, replacement) =>
 
 const getSpacingProperty = text => text.match(/margin|padding|position/gi)[0];
 
+const isSpacingRule = rule => {
+  const spacingRules = ['padding', 'margin', 'position'];
+  // Remove instances where we want to style individual padding items
+  // like padding-right or margin-bottom
+  const exceptions = ['padding-', 'margin-'];
+
+  return (
+    spacingRules.some(spacingRule => rule.includes(spacingRule)) &&
+    !exceptions.some(exception => rule.includes(exception))
+  );
+};
+
 /**
  * Creates the CSS rule of a particular ruleset.
  *
@@ -49,12 +61,11 @@ const getCSSRule = ({ id, value, rule, unit = '', edgeCase }) => {
   }
 
   const base = `#${id} ${rule}`;
-  const spacingRules = ['padding', 'margin', 'position'];
 
   //
   // Spacing control (position or margin/padding)
   //
-  if (spacingRules.some(spacingRule => rule.includes(spacingRule))) {
+  if (isSpacingRule(rule)) {
     // If margin or padding and every value is set return the shorthand rule.
     if (hasAllSpacingSettings(value) && rule !== 'position') {
       const spacingStyles = getMarginSettingStyles(value);
@@ -89,6 +100,32 @@ const getCSSRule = ({ id, value, rule, unit = '', edgeCase }) => {
   }
 
   return sprintf(base, `${value}${unit}`);
+};
+
+/**
+ * Iterates over the children of a <Style> component and extracts
+ * all nested <Rule> elements (recursively).
+ *
+ * @param {Children} children
+ * @returns {*}
+ */
+const getStylesheetRuleChildren = children => {
+  return Children.toArray(children)
+    .map(child => {
+      if (Array.isArray(child.props.children)) {
+        return getStylesheetRuleChildren(child.props.children);
+      }
+
+      return child;
+    })
+    .reduce((acc, child) => {
+      if (Array.isArray(child)) {
+        return [...acc, ...child];
+      }
+
+      return [...acc, child];
+    }, [])
+    .filter(child => child.type && child.type.displayName === 'Rule');
 };
 
 /**
@@ -133,7 +170,9 @@ const defaultGetStylesArrayFromChildren = (id, children) => {
     },
   ];
 
-  return Children.toArray(children).reduce((acc, child) => {
+  const rules = getStylesheetRuleChildren(children);
+
+  return rules.reduce((acc, child) => {
     const { value, rule, unit, edgeCase, breakpointLimit } = child.props;
 
     if (typeof value !== 'object' || !('desktop' in value)) {

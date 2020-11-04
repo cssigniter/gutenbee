@@ -11,6 +11,7 @@ export const blocks = [
   'heading',
   'icon',
   'iconbox',
+  'icon-list',
   'image',
   'imagebox',
   'image-comparison',
@@ -21,7 +22,9 @@ export const blocks = [
   'spacer',
   'slideshow',
   'tabs',
+  'testimonial',
   'video',
+  'video-embed',
   'google-maps',
   // 'lottie',
 ];

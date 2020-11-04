@@ -37,6 +37,10 @@ import './blocks/buttons';
 import './blocks/food-menu/food-menu-item';
 import './blocks/food-menu/food-menu-wrapper';
 import './blocks/food-menu';
+import './blocks/icon-list';
+import './blocks/icon-list/icon-list-item';
+import './blocks/testimonial';
+import './blocks/video-embed';
 // import './blocks/lottie';
 
 //
