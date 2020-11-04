@@ -3055,7 +3055,7 @@ div[data-type="gutenbee/button"] {
   margin-left: 0;
 }
 
-.wp-block-gutenbee-icon-list .wp-block.block-editor-block-list__block[data-type="gutenbee/icon-list-item"] {
+.wp-block-gutenbee-icon-list .wp-block.block-editor-block-list__block[data-type='gutenbee/icon-list-item'] {
   width: auto;
   margin: 0;
 }
@@ -3288,7 +3288,7 @@ div[data-type="gutenbee/button"] {
   align-self: center;
 }
 
-@-webkit-keyframes rot {
+@-webkit-keyframes gutenbee-video-embed-rotate {
   from {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
@@ -3299,7 +3299,7 @@ div[data-type="gutenbee/button"] {
   }
 }
 
-@keyframes rot {
+@keyframes gutenbee-video-embed-rotate {
   from {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
@@ -3316,28 +3316,9 @@ div[data-type="gutenbee/button"] {
   border-radius: 100%;
   height: 98px;
   width: 98px;
-  -webkit-animation: rot .8s infinite linear;
-  animation: rot .8s infinite linear;
+  -webkit-animation: gutenbee-video-embed-rotate 0.8s infinite linear;
+  animation: gutenbee-video-embed-rotate 0.8s infinite linear;
   z-index: 0;
-}
-
-.gutenbee-embed__interactive-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  opacity: 0;
-  z-index: 10;
-}
-
-.gutenbee-embed-error {
-  -webkit-box-flex: 1;
-  -ms-flex: 1 1 100%;
-  flex: 1 1 100%;
-  margin-bottom: 10px;
-  font-weight: bold;
-  color: red;
 }
 
 .gutenbee-video-embed-wrapper {
@@ -3412,14 +3393,33 @@ div[data-type="gutenbee/button"] {
 
 .gutenbee-video-embed-wrapper .gutenbee-video-embed-overlay .play-button:before {
   position: absolute;
-  content: "";
+  content: '';
   border-style: solid;
-  border-width: 15px 0 15px 26.0px;
+  border-width: 15px 0 15px 26px;
   border-color: transparent transparent transparent #fff;
   top: 50%;
   left: 50%;
   -webkit-transform: translate3d(-50%, -50%, 0);
   transform: translate3d(-50%, -50%, 0);
+}
+
+.gutenbee-embed__interactive-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  z-index: 10;
+}
+
+.gutenbee-embed-error {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: red;
 }
 
 .editor-video-coverImage-control .components-base-control__label {

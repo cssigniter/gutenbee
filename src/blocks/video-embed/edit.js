@@ -74,35 +74,23 @@ const VideoEmbedEdit = ({
     }
   }, []);
 
-  const onHideOnClick = () => {
-    setHideOnClick(true);
-  };
-
-  const onChangeVideoUrl = newUrl => {
+  const onVideoUrlChange = newUrl => {
     setAttributes({
       videoUrl: newUrl,
     });
     setVideoInfo(getVideoInfo(newUrl));
   };
 
-  const onSelectCoverImage = image => {
+  const onCoverImageSelect = image => {
     setAttributes({ coverImage: image.url });
     setHideOnClick(false);
   };
 
-  const onRemoveCoverImage = () => {
+  const onCoverImageRemove = () => {
     setAttributes({ coverImage: '', lazyLoad: false });
 
     // Move focus back to the Media Upload button.
     coverImageImageButtonRef.current.focus();
-  };
-
-  const switchToEditing = () => {
-    setEditing(true);
-  };
-
-  const onOverlayClick = () => {
-    setInteractive(true);
   };
 
   const videoCoverImageDescription = `video-block__coverImage-image-description-${instanceId}`;
@@ -141,7 +129,7 @@ const VideoEmbedEdit = ({
             className="components-placeholder__input"
             aria-label={__('embed-url')}
             placeholder={__('Enter URL to embed here…')}
-            onChange={event => onChangeVideoUrl(event.target.value)}
+            onChange={event => onVideoUrlChange(event.target.value)}
           />
           {videoUrl && 'unsupported' !== videoInfo.provider && (
             <Button isPrimary type="submit">
@@ -187,7 +175,7 @@ const VideoEmbedEdit = ({
               ref={overlayRef}
               className="gutenbee-video-embed-overlay"
               style={{ backgroundImage: 'url(' + coverImage + ')' }}
-              onClick={onHideOnClick}
+              onClick={() => setHideOnClick(true)}
             >
               <div className="play-button" />
             </div>
@@ -196,7 +184,7 @@ const VideoEmbedEdit = ({
         {!interactive && (
           <div
             className="gutenbee-embed__interactive-overlay"
-            onMouseUp={onOverlayClick}
+            onMouseUp={() => setInteractive(true)}
           />
         )}
       </div>
@@ -205,7 +193,7 @@ const VideoEmbedEdit = ({
           <IconButton
             className="components-icon-button components-toolbar__control"
             label={__('Change video URL')}
-            onClick={switchToEditing}
+            onClick={() => setEditing(true)}
             icon="edit"
           />
         </Toolbar>
@@ -220,7 +208,7 @@ const VideoEmbedEdit = ({
 
               <MediaUpload
                 title={__('Select Cover Image')}
-                onSelect={onSelectCoverImage}
+                onSelect={onCoverImageSelect}
                 allowedTypes={VIDEO_POSTER_ALLOWED_MEDIA_TYPES}
                 render={({ open }) => (
                   <Button
@@ -241,7 +229,7 @@ const VideoEmbedEdit = ({
                   : __('There is no cover image currently selected')}
               </p>
               {!!coverImage && (
-                <Button onClick={onRemoveCoverImage} isLink isDestructive>
+                <Button onClick={onCoverImageRemove} isLink isDestructive>
                   {__('Remove Cover Image')}
                 </Button>
               )}
