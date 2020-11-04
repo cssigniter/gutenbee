@@ -1,10 +1,10 @@
 Development
 ==========================================
 
-Run "yarn" or "npm install" and then "npm start".
+Run "yarn" and then "yarn start".
 
 
 Build
 ==========================================
 
-Run "npm run build" before releasing an update.
+Run "yarn build" before releasing an update.
