@@ -168,7 +168,7 @@ registerBlockType('gutenbee/testimonial', {
       'gutenbee-testimonial-avatar': true,
     });
 
-    const generateContent = () => {
+    const renderContent = () => {
       return (
         <div className="wp-block-testimonial-content-wrapper">
           <RichText.Content multiline value={content} />
@@ -176,7 +176,7 @@ registerBlockType('gutenbee/testimonial', {
       );
     };
 
-    const generateCitation = () => {
+    const renderCitation = () => {
       return (
         <Fragment>
           {!RichText.isEmpty(citation) && (
@@ -190,7 +190,7 @@ registerBlockType('gutenbee/testimonial', {
       );
     };
 
-    const generateInfo = () => {
+    const renderInfo = () => {
       return (
         <Fragment>
           {!RichText.isEmpty(info) && (
@@ -203,15 +203,15 @@ registerBlockType('gutenbee/testimonial', {
         </Fragment>
       );
     };
-    const testimonialLayout = () => {
+    const renderTestimonialLayout = () => {
       if (['left', 'right'].includes(avatarPosition)) {
         return (
           <Fragment>
             <figure className={classes}>{image}</figure>
             <div className="gutenbee-testimonial-content-citation-wrapper">
-              {generateContent()}
-              {generateCitation()}
-              {generateInfo()}
+              {renderContent()}
+              {renderCitation()}
+              {renderInfo()}
             </div>
           </Fragment>
         );
@@ -219,9 +219,9 @@ registerBlockType('gutenbee/testimonial', {
         return (
           <Fragment>
             <figure className={classes}>{image}</figure>
-            {generateContent()}
-            {generateCitation()}
-            {generateInfo()}
+            {renderContent()}
+            {renderCitation()}
+            {renderInfo()}
           </Fragment>
         );
       }
@@ -237,7 +237,7 @@ registerBlockType('gutenbee/testimonial', {
           ...getBoxShadowCSSValue({ attributes }),
         }}
       >
-        {testimonialLayout()}
+        {renderTestimonialLayout()}
         <TestimonialStyle attributes={attributes} />
       </blockquote>
     );

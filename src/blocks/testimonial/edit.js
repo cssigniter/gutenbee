@@ -181,7 +181,7 @@ const TestimonialEdit = ({
     [`size-${sizeSlug}`]: sizeSlug,
   });
 
-  const generateAvatar = (
+  const renderAvatar = (
     <Fragment>
       {!isEditing && url && (
         <figure className={classes}>
@@ -197,7 +197,7 @@ const TestimonialEdit = ({
     </Fragment>
   );
 
-  const generateContent = () => {
+  const renderContent = () => {
     return (
       <div className="wp-block-testimonial-content-wrapper">
         <RichText
@@ -226,7 +226,7 @@ const TestimonialEdit = ({
     );
   };
 
-  const generateCitation = () => {
+  const renderCitation = () => {
     return (
       <Fragment>
         {(!RichText.isEmpty(citation) || isSelected) && (
@@ -251,7 +251,7 @@ const TestimonialEdit = ({
     );
   };
 
-  const generateInfo = () => {
+  const renderInfo = () => {
     return (
       <Fragment>
         {(!RichText.isEmpty(info) || isSelected) && (
@@ -276,25 +276,25 @@ const TestimonialEdit = ({
     );
   };
 
-  const testimonialLayout = () => {
+  const renderTestimonialLayout = () => {
     if (['left', 'right'].includes(avatarPosition)) {
       return (
         <Fragment>
-          {generateAvatar}
+          {renderAvatar}
           <div className="gutenbee-testimonial-content-citation-wrapper">
-            {generateContent()}
-            {generateCitation()}
-            {generateInfo()}
+            {renderContent()}
+            {renderCitation()}
+            {renderInfo()}
           </div>
         </Fragment>
       );
     } else {
       return (
         <Fragment>
-          {generateAvatar}
-          {generateContent()}
-          {generateCitation()}
-          {generateInfo()}
+          {renderAvatar}
+          {renderContent()}
+          {renderCitation()}
+          {renderInfo()}
         </Fragment>
       );
     }
@@ -311,7 +311,7 @@ const TestimonialEdit = ({
           ...getBoxShadowCSSValue({ attributes }),
         }}
       >
-        {testimonialLayout()}
+        {renderTestimonialLayout()}
         <TestimonialStyle attributes={attributes} />
       </BlockQuotation>
 

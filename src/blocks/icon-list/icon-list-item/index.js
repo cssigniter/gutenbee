@@ -22,7 +22,7 @@ registerBlockType('gutenbee/icon-list-item', {
     content: {
       type: 'string',
       source: 'html',
-      selector: 'div',
+      selector: '.wp-block-gutenbee-icon-list-item-text',
       default: '',
     },
     placeholder: {

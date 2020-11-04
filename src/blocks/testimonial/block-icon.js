@@ -5,8 +5,8 @@ const TestimonialBlockIcon = () => (
     height="24"
     viewBox="0 0 24 24"
   >
-    <g id="Layer_2" data-name="Layer 2">
-      <g id="Blockquote">
+    <g>
+      <g>
         <g>
           <rect width="24" height="24" fill="#333" />
           <rect x="2" y="2" width="20" height="20" fill="#ffd400" />

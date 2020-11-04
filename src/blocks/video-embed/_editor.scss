@@ -1,29 +1,29 @@
 @import './common';
 
 .gutenbee-embed__interactive-overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	opacity: 0;
-	z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  z-index: 10;
 }
 
 .gutenbee-embed-error {
-	flex: 1 1 100%;
-	margin-bottom: 10px;
-    font-weight: bold;
-    color: red;
+  flex: 1 1 100%;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: red;
 }
 
 .editor-video-coverImage-control {
-	.components-base-control__label {
-		display: block;
-		margin-bottom: 7px;
-	}
-	.components-button {
-		display: block;
-		margin-top: 7px;
-	}
+  .components-base-control__label {
+    display: block;
+    margin-bottom: 7px;
+  }
+  .components-button {
+    display: block;
+    margin-top: 7px;
+  }
 }
