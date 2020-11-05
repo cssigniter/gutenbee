@@ -75,6 +75,7 @@ Note that if you want to use the Google Maps block you will also need a Google M
 * Added new "Icon List" block.
 * Added new "Testimonial" block.
 * Added new "Video Embed" block.
+* GutenBee block styles are loaded when the blocks are in reusable blocks.
 
 = 2.6.2 =
 * Fixed Post Type block support for custom classes.
