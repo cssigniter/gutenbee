@@ -24,7 +24,7 @@ import ContainerInspectorControls from './inspector-controls';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 import { getVideoInfo } from './utils';
-import VideoBackground from './videobackground';
+import VideoBackground from './VideoBackground';
 
 const propTypes = {
   className: PropTypes.string.isRequired,
