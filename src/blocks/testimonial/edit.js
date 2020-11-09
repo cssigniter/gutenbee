@@ -73,6 +73,7 @@ const TestimonialEdit = ({
     sizeSlug,
     info,
     align,
+    textColor,
     backgroundColor,
     avatarPosition,
     contentSize,
@@ -307,6 +308,7 @@ const TestimonialEdit = ({
         {...blockProps}
         style={{
           backgroundColor: backgroundColor ? backgroundColor : undefined,
+          color: textColor ? textColor : undefined,
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),
         }}
@@ -450,6 +452,14 @@ const TestimonialEdit = ({
           </ResponsiveControl>
         </PanelBody>
         <PanelBody title={__('Block Appearance')} initialOpen={false}>
+          <PopoverColorControl
+            value={textColor}
+            defaultValue={textColor || ''}
+            label={__('Text Color')}
+            onChange={value => {
+              setAttributes({ textColor: value });
+            }}
+          />
           <PopoverColorControl
             value={backgroundColor}
             defaultValue={backgroundColor || ''}

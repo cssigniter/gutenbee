@@ -116,6 +116,9 @@ registerBlockType('gutenbee/testimonial', {
         mobile: '',
       }),
     },
+    textColor: {
+      type: 'string',
+    },
     backgroundColor: {
       type: 'string',
     },
@@ -134,6 +137,7 @@ registerBlockType('gutenbee/testimonial', {
   save: ({ attributes, className }) => {
     const {
       uniqueId,
+      textColor,
       backgroundColor,
       align,
       url,
@@ -233,6 +237,7 @@ registerBlockType('gutenbee/testimonial', {
         {...blockProps}
         style={{
           backgroundColor: backgroundColor ? backgroundColor : undefined,
+          color: textColor ? textColor : undefined,
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),
         }}

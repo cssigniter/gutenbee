@@ -6,6 +6,7 @@ import {
   SelectControl,
   RangeControl,
   CheckboxControl,
+  TextControl,
 } from 'wp.components';
 
 import MarginControls from '../../components/controls/margin-controls';
@@ -14,12 +15,15 @@ import ResponsiveControl from '../../components/controls/responsive-control/Resp
 import BorderControls from '../../components/controls/border-controls';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
+import { getVideoInfo } from '../video-embed/util';
 
 const ContainerInspectorControls = ({
   attributes,
   setAttributes,
   updateColumns,
   columnCount,
+  videoInfo,
+  setVideoInfo,
 }) => {
   const supports =
     window.__GUTENBEE_SETTINGS__.theme_supports['container'] || {};
@@ -35,7 +39,15 @@ const ContainerInspectorControls = ({
     columnDirection,
     themeGrid,
     overlayBackgroundColor,
+    backgroundVideoURL,
   } = attributes;
+
+  const onBackgroundVideoUrlChange = newUrl => {
+    setAttributes({
+      backgroundVideoURL: newUrl,
+    });
+    setVideoInfo(getVideoInfo(newUrl));
+  };
 
   return (
     <Fragment>
@@ -198,6 +210,19 @@ const ContainerInspectorControls = ({
             onChange={value => {
               setAttributes({ textColor: value });
             }}
+          />
+
+          {backgroundVideoURL &&
+            !['youtube', 'vimeo'].includes(videoInfo.provider) && (
+              <span className="gutenbee-embed-error">
+                {__('Embed URL error. Please enter a YouTube or Vimeo URL.')}
+              </span>
+            )}
+          <TextControl
+            label={__('Video Background URL.')}
+            onChange={onBackgroundVideoUrlChange}
+            type="text"
+            value={backgroundVideoURL}
           />
 
           <PopoverColorControl

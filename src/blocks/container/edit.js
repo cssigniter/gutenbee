@@ -1,4 +1,4 @@
-import { Fragment } from 'wp.element';
+import { Fragment, useState } from 'wp.element';
 import PropTypes from 'prop-types';
 import { compose } from 'wp.compose';
 import {
@@ -23,6 +23,8 @@ import Rule from '../../components/stylesheet/Rule';
 import ContainerInspectorControls from './inspector-controls';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
+import { getVideoInfo } from './utils';
+import VideoBackground from './videobackground';
 
 const propTypes = {
   className: PropTypes.string.isRequired,
@@ -43,6 +45,7 @@ const ContainerBlockEdit = ({
     uniqueId,
     textColor,
     backgroundColor,
+    backgroundVideoURL,
     backgroundImage,
     columnDirection,
     overlayBackgroundColor,
@@ -74,6 +77,10 @@ const ContainerBlockEdit = ({
     setAttributes,
     clientId,
   });
+
+  const [videoInfo, setVideoInfo] = useState(
+    backgroundVideoURL ? getVideoInfo(backgroundVideoURL) : null,
+  );
 
   const blockId = getBlockId(uniqueId);
   const className = 'wp-block-gutenbee-container';
@@ -116,7 +123,6 @@ const ContainerBlockEdit = ({
               }}
             />
           )}
-
           <div
             className={`${className}-background`}
             style={{
@@ -125,7 +131,15 @@ const ContainerBlockEdit = ({
               ...getBorderCSSValue({ attributes }),
               ...getBoxShadowCSSValue({ attributes }),
             }}
-          />
+          >
+            {backgroundVideoURL && (
+              <VideoBackground
+                key={backgroundVideoURL}
+                url={backgroundVideoURL}
+                videoInfo={videoInfo}
+              />
+            )}
+          </div>
         </div>
       ) : (
         <div>
@@ -160,6 +174,8 @@ const ContainerBlockEdit = ({
           setAttributes={setAttributes}
           updateColumns={updateColumns}
           columnCount={count}
+          videoInfo={videoInfo}
+          setVideoInfo={setVideoInfo}
         />
       )}
     </Fragment>

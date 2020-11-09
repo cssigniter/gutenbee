@@ -29,6 +29,7 @@ import {
   getBoxShadowCSSValue,
 } from '../../components/controls/box-shadow-controls/helpers';
 import deprecated from './deprecated';
+import { getVideoInfo } from '../video-embed/util';
 
 registerBlockType('gutenbee/container', {
   title: __('GutenBee Container'),
@@ -62,6 +63,9 @@ registerBlockType('gutenbee/container', {
       type: 'string',
     },
     backgroundColor: {
+      type: 'string',
+    },
+    backgroundVideoURL: {
       type: 'string',
     },
     backgroundImage: {
@@ -140,6 +144,7 @@ registerBlockType('gutenbee/container', {
       uniqueId,
       textColor,
       backgroundColor,
+      backgroundVideoURL,
       backgroundImage,
       gutter,
       overlayBackgroundColor,
@@ -148,6 +153,10 @@ registerBlockType('gutenbee/container', {
     } = attributes;
 
     const { parallax, parallaxSpeed } = backgroundImage;
+
+    const videoInfo = backgroundVideoURL
+      ? getVideoInfo(backgroundVideoURL)
+      : null;
 
     return (
       <div
@@ -162,6 +171,8 @@ registerBlockType('gutenbee/container', {
         style={{
           color: textColor,
         }}
+        data-video-id={videoInfo && videoInfo.id}
+        data-video-type={videoInfo && videoInfo.provider}
       >
         <ContainerStyle attributes={attributes} />
         <div className="wp-block-gutenbee-container-inner">
@@ -196,7 +207,11 @@ registerBlockType('gutenbee/container', {
             ...getBorderCSSValue({ attributes }),
             ...getBoxShadowCSSValue({ attributes }),
           }}
-        />
+        >
+          {videoInfo && videoInfo.provider === 'youtube' && (
+            <div id={`video-${getBlockId(uniqueId)}`} />
+          )}
+        </div>
       </div>
     );
   },

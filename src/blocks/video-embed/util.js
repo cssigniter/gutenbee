@@ -35,11 +35,13 @@ const getVideoInfo = url => {
       provider: 'vimeo',
       id: GetVimeoIDbyUrl(url),
     };
-  } else {
+  } else if (url) {
     return {
       provider: 'unsupported',
     };
   }
+
+  return false;
 };
 
 const attrState = attr => {
