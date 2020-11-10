@@ -87,11 +87,11 @@ function gutenbee_enqueue_frontend_block_assets() {
 		}
 	}
 
-	if ( $enqueue_css ) {
+	if ( apply_filters( 'gutenbee_enqueue_frontend_styles', $enqueue_css ) ) {
 		wp_enqueue_style( 'gutenbee', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.scripts.css', array(), GUTENBEE_PLUGIN_VERSION );
 	}
 
-	if ( $enqueue_js ) {
+	if ( apply_filters( 'gutenbee_enqueue_frontend_scripts', $enqueue_js ) ) {
 		wp_enqueue_script( 'gutenbee-scripts', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.scripts.js', array(
 			'jquery',
 		), GUTENBEE_PLUGIN_VERSION, true );
