@@ -271,6 +271,9 @@ const TestimonialEdit = ({
             }
             className="gutenbee-block-testimonial__info"
             textAlign={align}
+            style={{
+              color: textColor ? textColor : undefined,
+            }}
           />
         )}
       </Fragment>

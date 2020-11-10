@@ -188,6 +188,9 @@ registerBlockType('gutenbee/testimonial', {
               tagName="cite"
               className="gutenbee-block-testimonial__citation"
               value={citation}
+              style={{
+                color: textColor ? textColor : undefined,
+              }}
             />
           )}
         </Fragment>

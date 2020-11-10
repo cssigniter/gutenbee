@@ -6,8 +6,8 @@ jQuery($ => {
   /* -----------------------------------------
 	 Video Backgrounds
 	 ----------------------------------------- */
-  var $videoBg = $('.wp-block-gutenbee-container-background');
-  var $videoWrap = $videoBg.parents('.wp-block-gutenbee-container');
+  var $videoBg = $('.wp-block-gutenbee-video-bg');
+  var $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
 
   // YouTube videos
   function onYouTubeAPIReady($videoBg) {
@@ -16,11 +16,11 @@ jQuery($ => {
     }
 
     var videoId = $videoBg
-      .parents('.wp-block-gutenbee-container')
+      .parents('.wp-block-gutenbee-video-bg-wrapper')
       .data('video-id');
-    var $video = $videoBg.find('div').get(0);
+    var video = $videoBg.attr('id');
     // eslint-disable-next-line no-unused-vars
-    var ytPlayer = new YT.Player($video, {
+    var ytPlayer = new YT.Player(video, {
       videoId: videoId,
       playerVars: {
         autoplay: 1,
@@ -55,7 +55,7 @@ jQuery($ => {
     }
 
     var videoId = $videoBg
-      .parents('.wp-block-gutenbee-container')
+      .parents('.wp-block-gutenbee-video-bg-wrapper')
       .data('video-id');
 
     var player = new Vimeo.Player($videoBg, {
@@ -70,14 +70,7 @@ jQuery($ => {
 
     player.setVolume(0);
 
-    // Cuepoints seem to be the best way to determine
-    // if the video is actually playing or not
-    player.addCuePoint(0.1).catch(function() {
-      $videoWrap.addClass('visible');
-      adjustVideoSize();
-    });
-
-    player.on('cuepoint', function() {
+    player.on('play', function() {
       $videoWrap.addClass('visible');
       adjustVideoSize();
     });
@@ -109,7 +102,7 @@ jQuery($ => {
   function adjustVideoSize() {
     var size = getVideoSize();
 
-    $videoBg.find('iframe').css({
+    $videoWrap.find('iframe').css({
       width: size.width + 'px',
       height: size.height + 'px',
     });
@@ -120,7 +113,7 @@ jQuery($ => {
       var $this = $(this);
       var firstScript = $('script');
       var videoType = $this
-        .parents('.wp-block-gutenbee-container')
+        .parents('.wp-block-gutenbee-video-bg-wrapper')
         .data('video-type');
 
       if (videoType === 'youtube') {

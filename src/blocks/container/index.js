@@ -171,8 +171,6 @@ registerBlockType('gutenbee/container', {
         style={{
           color: textColor,
         }}
-        data-video-id={videoInfo && videoInfo.id}
-        data-video-type={videoInfo && videoInfo.provider}
       >
         <ContainerStyle attributes={attributes} />
         <div className="wp-block-gutenbee-container-inner">
@@ -208,8 +206,17 @@ registerBlockType('gutenbee/container', {
             ...getBoxShadowCSSValue({ attributes }),
           }}
         >
-          {videoInfo && videoInfo.provider === 'youtube' && (
-            <div id={`video-${getBlockId(uniqueId)}`} />
+          {backgroundVideoURL && videoInfo && (
+            <div
+              className="wp-block-gutenbee-video-bg-wrapper"
+              data-video-id={videoInfo && videoInfo.id}
+              data-video-type={videoInfo && videoInfo.provider}
+            >
+              <div
+                id={`video-${getBlockId(uniqueId)}`}
+                className="wp-block-gutenbee-video-bg"
+              />
+            </div>
           )}
         </div>
       </div>
