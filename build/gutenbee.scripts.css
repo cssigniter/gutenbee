@@ -1828,6 +1828,17 @@
   opacity: 1;
 }
 
+.wp-block-gutenbee-container .wp-block-gutenbee-video-bg-wrapper .wp-block-gutenbee-video-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
 .wp-block-gutenbee-container-row {
   display: -webkit-box;
   display: -ms-flexbox;

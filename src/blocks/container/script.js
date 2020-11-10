@@ -15,6 +15,7 @@ jQuery($ => {
       return setTimeout(onYouTubeAPIReady.bind(null, $videoBg), 333);
     }
 
+    var $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
     var videoId = $videoBg
       .parents('.wp-block-gutenbee-video-bg-wrapper')
       .data('video-id');
@@ -41,7 +42,7 @@ jQuery($ => {
         onStateChange: function(event) {
           if (event.data === YT.PlayerState.PLAYING) {
             $videoWrap.addClass('visible');
-            adjustVideoSize();
+            adjustVideoSize($videoWrap);
           }
         },
       },
@@ -54,6 +55,7 @@ jQuery($ => {
       return setTimeout(onVimeoAPIReady.bind(null, $videoBg), 333);
     }
 
+    var $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
     var videoId = $videoBg
       .parents('.wp-block-gutenbee-video-bg-wrapper')
       .data('video-id');
@@ -72,7 +74,7 @@ jQuery($ => {
 
     player.on('play', function() {
       $videoWrap.addClass('visible');
-      adjustVideoSize();
+      adjustVideoSize($videoWrap);
     });
   }
 
@@ -81,11 +83,14 @@ jQuery($ => {
   $window.on('resize.ciVideo', function() {
     clearTimeout(videoResizeTimer);
     videoResizeTimer = setTimeout(function() {
-      adjustVideoSize();
+      $videoWrap.each(function() {
+        var $this = $(this);
+        adjustVideoSize($this);
+      });
     }, 350);
   });
 
-  function getVideoSize() {
+  function getVideoSize($videoWrap) {
     var containerWidth = $videoWrap.outerWidth();
     var containerHeight = $videoWrap.outerHeight();
     var aspectRatio = 16 / 9;
@@ -99,8 +104,8 @@ jQuery($ => {
     };
   }
 
-  function adjustVideoSize() {
-    var size = getVideoSize();
+  function adjustVideoSize($videoWrap) {
+    var size = getVideoSize($videoWrap);
 
     $videoWrap.find('iframe').css({
       width: size.width + 'px',
