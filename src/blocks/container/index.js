@@ -206,7 +206,7 @@ registerBlockType('gutenbee/container', {
             ...getBoxShadowCSSValue({ attributes }),
           }}
         >
-          {backgroundVideoURL && videoInfo && (
+          {backgroundVideoURL && !['unsupported'].includes(videoInfo.provider) && (
             <div
               className="wp-block-gutenbee-video-bg-wrapper"
               data-video-id={videoInfo && videoInfo.id}

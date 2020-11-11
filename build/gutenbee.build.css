@@ -2751,6 +2751,12 @@
   width: calc(100% + 28px);
 }
 
+.gutenbee-controls-notice {
+  font-weight: 300;
+  margin: -15px 0 20px 0;
+  display: inline-block;
+}
+
 .gutenbee-heading-wrap h1, .gutenbee-heading-wrap h2, .gutenbee-heading-wrap h3, .gutenbee-heading-wrap h4, .gutenbee-heading-wrap h5, .gutenbee-heading-wrap h6 {
   margin-top: 0 !important;
   margin-bottom: 0 !important;

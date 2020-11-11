@@ -1,3 +1,10 @@
+/**
+ * Returns the Vimeo video ID based on the URL provided.
+ *
+ * @param {string} url Vimeo video URL.
+ *
+ * @return {string} The video ID.
+ */
 const GetVimeoIDbyUrl = url => {
   var id = false;
   var request = new XMLHttpRequest();
@@ -21,9 +28,24 @@ const ytPattern = [
 
 const vimeoPattern = [/^https?:\/\/(www\.)?vimeo\.com\/.+/i];
 
+/**
+ * Returns the video info based on the video URL provided.
+ *
+ * @param {string} url The video URL.
+ * @param {array} patterns An array of URL patterns to match.
+ *
+ * @return {boolean} Whether a pattern was matched.
+ */
 const matchesPatterns = (url, patterns = []) =>
   patterns.some(pattern => url.match(pattern));
 
+/**
+ * Returns the video info based on the video URL provided.
+ *
+ * @param {string} url The video URL.
+ *
+ * @return {Object<string,string|undefined>} Video provider and id if available.
+ */
 const getVideoInfo = url => {
   if (matchesPatterns(url, ytPattern)) {
     return {
@@ -40,14 +62,25 @@ const getVideoInfo = url => {
       provider: 'unsupported',
     };
   }
-
-  return false;
 };
 
+/**
+ * Translates true/false string values to 1 or 0.
+ *
+ * @param {string} attr The value of an attribute.
+ *
+ * @return {number} 1 or 0.
+ */
 const attrState = attr => {
   return attr === 'true' ? 1 : 0;
 };
 
+/**
+ * Creates the YouTube video embed.
+ *
+ * @param {Object} videoEmbed The element which will host the video embed.
+ *
+ */
 const onYouTubeAPIReady = videoEmbed => {
   if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
     return setTimeout(onYouTubeAPIReady.bind(null, videoEmbed), 333);
@@ -78,6 +111,12 @@ const onYouTubeAPIReady = videoEmbed => {
   });
 };
 
+/**
+ * Creates the Vimeo video embed.
+ *
+ * @param {Object} videoEmbed The element which will host the video embed.
+ *
+ */
 const onVimeoAPIReady = videoEmbed => {
   if (typeof Vimeo === 'undefined' || typeof Vimeo.Player === 'undefined') {
     return setTimeout(onVimeoAPIReady.bind(null, videoEmbed), 333);

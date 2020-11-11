@@ -224,6 +224,13 @@ const ContainerInspectorControls = ({
             type="text"
             value={backgroundVideoURL}
           />
+          {backgroundVideoURL && (
+            <span className="gutenbee-controls-notice">
+              {__(
+                'Make sure you set a background image below when using this option. The image will appear before the video starts playing and on mobile devices where background videos are not available.',
+              )}
+            </span>
+          )}
 
           <PopoverColorControl
             value={backgroundColor}

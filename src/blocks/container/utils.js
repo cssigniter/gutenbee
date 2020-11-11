@@ -198,6 +198,13 @@ export const createBlocksFromInnerBlocksTemplate = innerBlocksTemplate => {
   );
 };
 
+/**
+ * Returns the Vimeo video ID based on the URL provided.
+ *
+ * @param {string} url Vimeo video URL.
+ *
+ * @return {string} The video ID.
+ */
 export const GetVimeoIDbyUrl = url => {
   var id = false;
   var request = new XMLHttpRequest();
@@ -221,9 +228,24 @@ export const ytPattern = [
 
 export const vimeoPattern = [/^https?:\/\/(www\.)?vimeo\.com\/.+/i];
 
+/**
+ * Returns the video info based on the video URL provided.
+ *
+ * @param {string} url The video URL.
+ * @param {array} patterns An array of URL patterns to match.
+ *
+ * @return {boolean} Whether a pattern was matched.
+ */
 export const matchesPatterns = (url, patterns = []) =>
   patterns.some(pattern => url.match(pattern));
 
+/**
+ * Returns the video info based on the video URL provided.
+ *
+ * @param {string} url The video URL.
+ *
+ * @return {Object<string,string|undefined>} Video provider and id if available.
+ */
 export const getVideoInfo = url => {
   if (matchesPatterns(url, ytPattern)) {
     return {
@@ -238,10 +260,17 @@ export const getVideoInfo = url => {
   } else {
     return {
       provider: 'unsupported',
+      id: undefined,
     };
   }
 };
 
+/**
+ * Creates the YouTube video embed.
+ *
+ * @param {Object} videoEmbed The element which will host the video embed.
+ *
+ */
 export const onYouTubeAPIReady = videoEmbed => {
   if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
     return setTimeout(onYouTubeAPIReady.bind(null, videoEmbed), 333);
@@ -269,6 +298,12 @@ export const onYouTubeAPIReady = videoEmbed => {
   });
 };
 
+/**
+ * Creates the Vimeo video embed.
+ *
+ * @param {Object} videoEmbed The element which will host the video embed.
+ *
+ */
 export const onVimeoAPIReady = videoEmbed => {
   if (typeof Vimeo === 'undefined' || typeof Vimeo.Player === 'undefined') {
     return setTimeout(onVimeoAPIReady.bind(null, videoEmbed), 333);

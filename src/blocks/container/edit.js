@@ -132,13 +132,14 @@ const ContainerBlockEdit = ({
               ...getBoxShadowCSSValue({ attributes }),
             }}
           >
-            {backgroundVideoURL && (
-              <VideoBackground
-                key={backgroundVideoURL}
-                url={backgroundVideoURL}
-                videoInfo={videoInfo}
-              />
-            )}
+            {backgroundVideoURL &&
+              !['unsupported'].includes(videoInfo.provider) && (
+                <VideoBackground
+                  key={backgroundVideoURL}
+                  url={backgroundVideoURL}
+                  videoInfo={videoInfo}
+                />
+              )}
           </div>
         </div>
       ) : (
