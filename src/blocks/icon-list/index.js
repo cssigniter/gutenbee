@@ -19,7 +19,7 @@ import IconListStyle from './style';
 import IconListBlockIcon from './block-icon';
 
 registerBlockType('gutenbee/icon-list', {
-  title: __('Icon List'),
+  title: __('GutenBee Icon List'),
   description: __('Create lists with icons.'),
   icon: IconListBlockIcon,
   category: 'gutenbee',

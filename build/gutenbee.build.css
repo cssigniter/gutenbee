@@ -3090,7 +3090,7 @@ div[data-type="gutenbee/button"] {
 .wp-block-gutenbee-list-icon-wrapper .wp-block-gutenbee-icon-list {
   list-style: none;
   padding: 0;
-  margin-left: 0;
+  margin: 0;
 }
 
 .wp-block-gutenbee-icon-list .wp-block.block-editor-block-list__block[data-type='gutenbee/icon-list-item'] {

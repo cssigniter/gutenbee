@@ -4,7 +4,7 @@ import { InnerBlocks, __experimentalBlock as Block } from 'wp.blockEditor';
 import FoodMenuItemIcon from '../food-menu-item/block-icon';
 
 registerBlockType('gutenbee/food-menu-wrapper', {
-  title: __('Food Menu Group'),
+  title: __('GutenBee Food Menu Group'),
   description: __('Wrapper for the Food Menu block.'),
   icon: FoodMenuItemIcon,
   parent: ['gutenbee/food-menu-item'],
