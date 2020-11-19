@@ -15,9 +15,21 @@ const FoodMenuStyle = ({ attributes, children }) => {
 
   return (
     <StyleSheet id={blockId}>
-      <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
-      <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
-      <Rule value={gutter} rule="{ grid-gap: %s; }" unit="px" />
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-food-menu.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-food-menu.[root] { padding: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={gutter}
+        rule=".wp-block-gutenbee-food-menu.[root] { grid-gap: %s; }"
+        unit="px"
+      />
       {children}
     </StyleSheet>
   );

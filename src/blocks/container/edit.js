@@ -92,7 +92,7 @@ const ContainerBlockEdit = ({
       <ContainerStyle attributes={attributes}>
         <Rule
           value={columnDirection}
-          rule=".wp-block-gutenbee-container-row > .block-editor-inner-blocks > .block-editor-block-list__layout { flex-direction: %s; }"
+          rule=".wp-block-gutenbee-container.[root] .wp-block-gutenbee-container-row > .block-editor-inner-blocks > .block-editor-block-list__layout { flex-direction: %s; }"
         />
       </ContainerStyle>
 

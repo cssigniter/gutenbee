@@ -17,12 +17,12 @@ const ButtonStyle = ({ attributes, children }) => {
     <StyleSheet id={blockId}>
       <Rule
         value={blockMargin}
-        rule=".gutenbee-block-button-link { margin: %s; }"
+        rule=".wp-block-gutenbee-button.[root] .gutenbee-block-button-link { margin: %s; }"
         unit="px"
       />
       <Rule
         value={blockPadding}
-        rule=".gutenbee-block-button-link { padding: %s; }"
+        rule=".wp-block-gutenbee-button.[root] .gutenbee-block-button-link { padding: %s; }"
         unit="px"
       />
 

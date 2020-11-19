@@ -15,9 +15,21 @@ const ButtonsStyle = ({ attributes, children }) => {
 
   return (
     <StyleSheet id={blockId}>
-      <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
-      <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
-      <Rule value={align} rule="{ justify-content: %s; }" unit="" />
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-buttons.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-buttons.[root] { padding: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={align}
+        rule=".wp-block-gutenbee-buttons.[root] { justify-content: %s; }"
+        unit=""
+      />
 
       {children}
     </StyleSheet>

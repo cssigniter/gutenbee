@@ -42,7 +42,7 @@ const ProgressBar = ({ className, attributes }) => {
 
   return (
     <div
-      className={classNames(blockId, className)}
+      className={classNames(className, blockId)}
       style={{
         backgroundColor: backgroundColor || undefined,
         ...getBorderCSSValue({ attributes }),
@@ -103,6 +103,9 @@ registerBlockType('gutenbee/progress-bar', {
   icon: ProgressBarBlockIcon,
   category: 'gutenbee',
   keywords: [__('progress'), __('progress bar')],
+  supports: {
+    anchor: true,
+  },
   attributes: {
     uniqueId: {
       type: 'string',

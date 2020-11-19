@@ -31,7 +31,7 @@ registerBlockType('gutenbee/heading', {
   keywords: [__('title'), __('subtitle'), __('heading')],
   supports: {
     className: true,
-    anchor: false,
+    anchor: true,
   },
   example: {
     attributes: {
@@ -91,6 +91,7 @@ registerBlockType('gutenbee/heading', {
     const blockId = getBlockId(uniqueId);
 
     const classes = classNames({
+      'wp-block-gutenbee-heading': true,
       [className]: !!className,
       [blockId]: true,
       'has-text-color': !!textColor,

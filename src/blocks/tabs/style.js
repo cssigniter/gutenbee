@@ -26,36 +26,44 @@ const TabsStyle = ({ attributes, children }) => {
 
   return (
     <StyleSheet id={blockId}>
-      <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
-      <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-tabs.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-tabs.[root] { padding: %s; }"
+        unit="px"
+      />
 
       <Rule
         value={borderColor}
-        rule=".wp-block-gutenbee-tabs-tab-content-wrap { border-color: %s; }"
+        rule=".wp-block-gutenbee-tabs.[root] .wp-block-gutenbee-tabs-tab-content-wrap { border-color: %s; }"
       />
       <Rule
         value={tabTextColor}
-        rule=".wp-block-gutenbee-tabs-nav-item { color: %s; }"
+        rule=".wp-block-gutenbee-tabs.[root] .wp-block-gutenbee-tabs-nav-item { color: %s; }"
       />
       <Rule
         value={tabBackgroundColor}
-        rule=".wp-block-gutenbee-tabs-nav-item { background-color: %s; }"
+        rule=".wp-block-gutenbee-tabs.[root] .wp-block-gutenbee-tabs-nav-item { background-color: %s; }"
       />
       <Rule
         value={activeTabTextColor}
-        rule=".wp-block-gutenbee-tabs-nav-item-active { color: %s; }"
+        rule=".wp-block-gutenbee-tabs.[root] .wp-block-gutenbee-tabs-nav-item-active { color: %s; }"
       />
       <Rule
         value={activeTabBackgroundColor}
-        rule=".wp-block-gutenbee-tabs-nav-item-active { background-color: %s; }"
+        rule=".wp-block-gutenbee-tabs.[root] .wp-block-gutenbee-tabs-nav-item-active { background-color: %s; }"
       />
       <Rule
         value={tabContentTextColor}
-        rule=".wp-block-gutenbee-tabs-tab-content-wrap { color: %s; }"
+        rule=".wp-block-gutenbee-tabs.[root] .wp-block-gutenbee-tabs-tab-content-wrap { color: %s; }"
       />
       <Rule
         value={tabContentBackgroundColor}
-        rule=".wp-block-gutenbee-tabs-tab-content-wrap { background-color: %s; }"
+        rule=".wp-block-gutenbee-tabs.[root] .wp-block-gutenbee-tabs-tab-content-wrap { background-color: %s; }"
       />
       {children}
     </StyleSheet>

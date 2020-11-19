@@ -47,7 +47,7 @@ const ProgressBarEdit = ({
   return (
     <Fragment>
       <div
-        className={classNames(blockId, className)}
+        className={classNames(className, blockId)}
         style={{
           backgroundColor: backgroundColor || undefined,
           ...getBorderCSSValue({ attributes }),

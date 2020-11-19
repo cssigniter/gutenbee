@@ -15,10 +15,26 @@ const ParagraphStyle = ({ attributes, children }) => {
 
   return (
     <StyleSheet id={blockId}>
-      <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
-      <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
-      <Rule value={fontSize} rule="{ font-size: %s; }" unit="px" />
-      <Rule value={align} rule="{ text-align: %s; }" unit="" />
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-paragraph.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-paragraph.[root] { padding: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={fontSize}
+        rule=".wp-block-gutenbee-paragraph.[root] { font-size: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={align}
+        rule=".wp-block-gutenbee-paragraph.[root] { text-align: %s; }"
+        unit=""
+      />
 
       {children}
     </StyleSheet>

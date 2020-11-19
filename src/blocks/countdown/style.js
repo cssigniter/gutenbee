@@ -21,16 +21,24 @@ const CountdownStyle = ({ attributes, children }) => {
 
   return (
     <StyleSheet id={blockId}>
-      <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
-      <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-countdown.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-countdown.[root] { padding: %s; }"
+        unit="px"
+      />
       <Rule
         value={numberFontSize}
-        rule=".gutenbee-countdown-number { font-size: %s; }"
+        rule=".wp-block-gutenbee-countdown.[root] .gutenbee-countdown-number { font-size: %s; }"
         unit="px"
       />
       <Rule
         value={labelFontSize}
-        rule=".gutenbee-countdown-label { font-size: %s; }"
+        rule=".wp-block-gutenbee-countdown.[root] .gutenbee-countdown-label { font-size: %s; }"
         unit="px"
       />
 

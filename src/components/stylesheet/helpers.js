@@ -106,7 +106,15 @@ export const defaultGetCSSRule = ({ id, value, rule, unit = '', edgeCase }) => {
     return null;
   }
 
-  const base = `.${id} ${rule}`;
+  const base = (() => {
+    if (rule.includes('[root]')) {
+      return rule.replace('[root]', id);
+    }
+
+    return `.${id} ${rule}`;
+  })();
+
+  // const base = `.${id} ${rule}`;
 
   //
   // Spacing control (position or margin/padding)

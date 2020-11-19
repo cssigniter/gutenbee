@@ -14,6 +14,9 @@ registerBlockType('gutenbee/post-types', {
   icon: PostTypesBlockIcon,
   category: 'gutenbee',
   keywords: [__('custom post types')],
+  supports: {
+    anchor: true,
+  },
   attributes: {
     postType: {
       type: 'string',

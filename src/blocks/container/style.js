@@ -32,21 +32,32 @@ const ContainerStyle = ({ attributes, children }) => {
           value: '100vh',
         }}
       />
-      <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
-      <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-container.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-container.[root] { padding: %s; }"
+        unit="px"
+      />
       <Rule
         value={innerContentWidth}
-        rule=".wp-block-gutenbee-container-inner { width: %s; }"
+        rule=".wp-block-gutenbee-container.[root] .wp-block-gutenbee-container-inner { width: %s; }"
         unit="px"
         edgeCase={{
           edge: -1,
           value: '100%',
         }}
       />
-      <Rule value={verticalContentAlignment} rule="{ align-items: %s; }" />
+      <Rule
+        value={verticalContentAlignment}
+        rule=".wp-block-gutenbee-container.[root] { align-items: %s; }"
+      />
       <Rule
         value={horizontalContentAlignment}
-        rule="{ justify-content: %s; }"
+        rule=".wp-block-gutenbee-container.[root] { justify-content: %s; }"
       />
       {children}
     </StyleSheet>

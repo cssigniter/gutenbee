@@ -15,11 +15,19 @@ const ImageBoxStyle = ({ attributes, children }) => {
 
   return (
     <StyleSheet id={blockId}>
-      <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
-      <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-imagebox.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-imagebox.[root] { padding: %s; }"
+        unit="px"
+      />
       <Rule
         value={imageMargin}
-        rule=".wp-block-gutenbee-imagebox-figure { margin: %s; }"
+        rule=".wp-block-gutenbee-imagebox.[root] .wp-block-gutenbee-imagebox-figure { margin: %s; }"
         unit="px"
       />
       {children}

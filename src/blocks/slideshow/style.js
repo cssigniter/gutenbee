@@ -21,15 +21,23 @@ const SlideshowStyle = ({ attributes, children }) => {
 
   return (
     <StyleSheet id={blockId}>
-      <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
-      <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-slideshow.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-slideshow.[root] { padding: %s; }"
+        unit="px"
+      />
       <Rule
         value={dotsBackgroundColor}
-        rule=".slick-dots { background-color: %s; }"
+        rule=".wp-block-gutenbee-slideshow.[root] .slick-dots { background-color: %s; }"
       />
       <Rule
         value={arrowsBackgroundColor}
-        rule="button.slick-arrow { background-color: %s; }"
+        rule=".wp-block-gutenbee-slideshow.[root] button.slick-arrow { background-color: %s; }"
       />
       {children}
     </StyleSheet>

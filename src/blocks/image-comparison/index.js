@@ -25,6 +25,9 @@ registerBlockType('gutenbee/image-comparison', {
   icon: ImageComparisonBlockIcon,
   category: 'gutenbee',
   keywords: [__('image comparison'), __('comparison'), __('diff')],
+  supports: {
+    anchor: true,
+  },
   attributes: {
     uniqueId: {
       type: 'string',

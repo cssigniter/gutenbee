@@ -40,8 +40,8 @@ const CountupRender = ({ attributes, className }) => {
   return (
     <div
       className={classNames({
-        [blockId]: true,
         [className]: !!className,
+        [blockId]: true,
         [`wp-block-gutenbee-countup-align-${align}`]: !!align,
       })}
       style={{
@@ -76,6 +76,9 @@ registerBlockType('gutenbee/countup', {
   category: 'gutenbee',
   icon: CountupBlockIcon,
   keywords: [__('counter'), __('numbers'), __('animation')],
+  supports: {
+    anchor: true,
+  },
   attributes: {
     uniqueId: {
       type: 'string',

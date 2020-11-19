@@ -25,6 +25,9 @@ registerBlockType('gutenbee/food-menu', {
   icon: FoodMenuIcon,
   category: 'gutenbee',
   keywords: [__('food'), __('menu')],
+  supports: {
+    anchor: true,
+  },
   attributes: {
     uniqueId: {
       type: 'string',

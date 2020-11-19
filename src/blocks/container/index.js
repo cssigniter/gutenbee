@@ -39,7 +39,7 @@ registerBlockType('gutenbee/container', {
   keywords: [__('container'), __('wrapper'), __('row'), __('section')],
   supports: {
     align: ['wide', 'full'],
-    anchor: false,
+    anchor: true,
     html: false,
   },
   isMultiBlock: true,

@@ -29,6 +29,9 @@ registerBlockType('gutenbee/justified-gallery', {
   icon: JustifiedGalleryBlockIcon,
   category: 'gutenbee',
   keywords: [__('justified'), __('gallery')],
+  supports: {
+    anchor: true,
+  },
   attributes: {
     uniqueId: {
       type: 'string',
@@ -128,9 +131,7 @@ registerBlockType('gutenbee/justified-gallery', {
 
     return (
       <div
-        className={classNames({
-          [blockId]: true,
-          [className]: !!className,
+        className={classNames(className, blockId, {
           'wp-block-gutenbee-gallery-columns': type === GALLERY_TYPE.COLUMNS,
           'wp-block-gutenbee-gallery-justified':
             type === GALLERY_TYPE.JUSTIFIED,

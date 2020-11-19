@@ -27,6 +27,7 @@ const SpacerEdit = ({
   onResizeStart,
   onResizeStop,
   clientId,
+  className,
 }) => {
   const { height, backgroundColor, backgroundImage, uniqueId } = attributes;
   const id = `block-spacer-height-input-${instanceId}`;
@@ -46,6 +47,7 @@ const SpacerEdit = ({
             ...getBoxShadowCSSValue({ attributes }),
           }}
           className={classNames(
+            className,
             blockId,
             'block-library-spacer__resize-container',
             {

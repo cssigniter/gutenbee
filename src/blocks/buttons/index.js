@@ -56,7 +56,7 @@ registerBlockType('gutenbee/buttons', {
 
     return (
       <div
-        className={classNames(blockId, className)}
+        className={classNames(className, blockId)}
         style={{
           backgroundColor: backgroundColor || undefined,
         }}

@@ -167,8 +167,7 @@ const ParagraphBlock = ({
       <ParagraphStyle attributes={attributes} />
 
       <div
-        className={classnames({
-          [blockId]: true,
+        className={classnames(className, blockId, {
           'gutenbee-block-paragraph': true,
           [backgroundColor.class]: backgroundColor.class,
           [textColor.class]: textColor.class,
@@ -183,7 +182,7 @@ const ParagraphBlock = ({
         <RichText
           identifier="content"
           tagName="p"
-          className={classnames('gutenbee-block-paragraph', className, {
+          className={classnames('gutenbee-block-paragraph', {
             'has-drop-cap': dropCap,
             [`has-text-align-${align}`]: align,
           })}

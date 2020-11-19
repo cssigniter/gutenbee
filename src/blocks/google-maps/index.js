@@ -30,6 +30,9 @@ registerBlockType('gutenbee/google-maps', {
   icon: GoogleMapsBlockIcon,
   category: 'gutenbee',
   keywords: [__('maps'), __('google')],
+  supports: {
+    anchor: true,
+  },
   attributes: {
     uniqueId: {
       type: 'string',

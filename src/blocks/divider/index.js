@@ -82,6 +82,9 @@ registerBlockType('gutenbee/divider', {
   icon: DividerBlockIcon,
   category: 'gutenbee',
   keywords: [__('divider'), __('horizontal-line'), 'hr'],
+  supports: {
+    anchor: true,
+  },
   attributes: {
     uniqueId: {
       type: 'string',

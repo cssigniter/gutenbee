@@ -28,7 +28,7 @@ registerBlockType('gutenbee/paragraph', {
   keywords: [__('text'), __('content'), __('paragraph')],
   supports: {
     className: true,
-    anchor: false,
+    anchor: true,
   },
   example: {
     attributes: {
@@ -93,7 +93,7 @@ registerBlockType('gutenbee/paragraph', {
   },
   deprecated,
   edit: ParagraphEdit,
-  save: ({ attributes }) => {
+  save: ({ attributes, className }) => {
     const {
       uniqueId,
       content,
@@ -112,13 +112,17 @@ registerBlockType('gutenbee/paragraph', {
       backgroundColor,
     );
 
-    const className = classNames({
-      [blockId]: true,
-      'has-text-color': textColor || customTextColor,
-      'has-drop-cap': dropCap,
-      [textClass]: textClass,
-      [backgroundClass]: backgroundClass,
-    });
+    const classes = classNames(
+      'wp-block-gutenbee-paragraph',
+      className,
+      blockId,
+      {
+        'has-text-color': textColor || customTextColor,
+        'has-drop-cap': dropCap,
+        [textClass]: textClass,
+        [backgroundClass]: backgroundClass,
+      },
+    );
 
     const styles = {
       backgroundColor: backgroundClass ? undefined : customBackgroundColor,
@@ -134,7 +138,7 @@ registerBlockType('gutenbee/paragraph', {
         <RichText.Content
           tagName="p"
           style={styles}
-          className={className}
+          className={classes}
           value={content}
         />
       </Fragment>

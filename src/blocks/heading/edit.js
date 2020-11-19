@@ -66,7 +66,7 @@ function HeadingEdit({
       <HeadingStyle attributes={attributes}>
         <Rule
           value={fontSize}
-          rule={` ${tagName} { font-size: %s !important; }`}
+          rule={`.wp-block-gutenbee-heading.[root] ${tagName} { font-size: %s !important; }`}
           unit="px"
         />
       </HeadingStyle>
@@ -77,7 +77,11 @@ function HeadingEdit({
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),
         }}
-        className={classNames(blockId, 'gutenbee-heading-wrap')}
+        className={classNames(
+          'wp-block-gutenbee-heading',
+          blockId,
+          'gutenbee-heading-wrap',
+        )}
       >
         <RichText
           identifier="content"

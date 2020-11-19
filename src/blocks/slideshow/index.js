@@ -28,6 +28,9 @@ registerBlockType('gutenbee/slideshow', {
   icon: SlideshowBlockIcon,
   category: 'gutenbee',
   keywords: [__('slideshow'), __('gallery')],
+  supports: {
+    anchor: true,
+  },
   attributes: {
     uniqueId: {
       type: 'string',

@@ -23,26 +23,34 @@ const TestimonialStyle = ({ attributes, children }) => {
 
   return (
     <StyleSheet id={blockId}>
-      <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
-      <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-testimonial.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-testimonial.[root] { padding: %s; }"
+        unit="px"
+      />
       <Rule
         value={width}
-        rule=".gutenbee-testimonial-avatar img { width: %s; }"
+        rule=".wp-block-gutenbee-testimonial.[root] .gutenbee-testimonial-avatar img { width: %s; }"
         unit="px"
       />
       <Rule
         value={contentSize}
-        rule=".wp-block-testimonial-content-wrapper { font-size: %s; }"
+        rule=".wp-block-gutenbee-testimonial.[root] .wp-block-testimonial-content-wrapper { font-size: %s; }"
         unit="px"
       />
       <Rule
         value={citationSize}
-        rule=".gutenbee-block-testimonial__citation { font-size: %s; }"
+        rule=".wp-block-gutenbee-testimonial.[root] .gutenbee-block-testimonial__citation { font-size: %s; }"
         unit="px"
       />
       <Rule
         value={infoSize}
-        rule=".gutenbee-block-testimonial__info { font-size: %s; }"
+        rule=".wp-block-gutenbee-testimonial.[root] .gutenbee-block-testimonial__info { font-size: %s; }"
         unit="px"
       />
       {children}

@@ -45,9 +45,7 @@ const ImageBox = ({ className, attributes }) => {
 
   return (
     <div
-      className={classNames({
-        [blockId]: true,
-        [className]: !!className,
+      className={classNames(className, blockId, {
         [`wp-block-gutenbee-imagebox-align-${imageAlign}`]: true,
         [`wp-block-gutenbee-imagebox-content-align-${contentAlign}`]: !!contentAlign,
       })}
@@ -107,6 +105,9 @@ registerBlockType('gutenbee/imagebox', {
   icon: ImageBoxBlockIcon,
   category: 'gutenbee',
   keywords: [__('image'), __('image box'), __('media')],
+  supports: {
+    anchor: true,
+  },
   attributes: {
     uniqueId: {
       type: 'string',

@@ -15,9 +15,21 @@ const GoogleMapsStyle = ({ attributes, children }) => {
 
   return (
     <StyleSheet id={blockId}>
-      <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
-      <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
-      <Rule value={height} rule="{ height: %s; }" unit="px" />
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-google-maps.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-google-maps.[root] { padding: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={height}
+        rule=".wp-block-gutenbee-google-maps.[root] { height: %s; }"
+        unit="px"
+      />
       {children}
     </StyleSheet>
   );

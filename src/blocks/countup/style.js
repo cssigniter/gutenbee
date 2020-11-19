@@ -21,16 +21,24 @@ const CountupStyle = ({ attributes, children }) => {
 
   return (
     <StyleSheet id={blockId}>
-      <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
-      <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-countup.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-countup.[root] { padding: %s; }"
+        unit="px"
+      />
       <Rule
         value={textFontSize}
-        rule=".wp-block-gutenbee-countup-number { font-size: %s; }"
+        rule=".wp-block-gutenbee-countup.[root] .wp-block-gutenbee-countup-number { font-size: %s; }"
         unit="px"
       />
       <Rule
         value={titleFontSize}
-        rule=".wp-block-gutenbee-countup-title { font-size: %s; }"
+        rule=".wp-block-gutenbee-countup.[root] .wp-block-gutenbee-countup-title { font-size: %s; }"
         unit="px"
       />
 

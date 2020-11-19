@@ -87,7 +87,7 @@ registerBlockType('gutenbee/button', {
     const blockId = getBlockId(uniqueId);
 
     return (
-      <div className={classNames(blockId, className)}>
+      <div className={classNames(className, blockId)}>
         <ButtonStyle attributes={attributes} />
         <RichText.Content
           tagName="a"

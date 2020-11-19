@@ -57,6 +57,9 @@ registerBlockType('gutenbee/tabs', {
   icon: TabsBlockIcon,
   category: 'gutenbee',
   keywords: [__('tabs')],
+  supports: {
+    anchor: true,
+  },
   attributes: {
     uniqueId: {
       type: 'string',

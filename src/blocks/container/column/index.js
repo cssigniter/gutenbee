@@ -116,7 +116,11 @@ registerBlockType('gutenbee/column', {
         })}
       >
         <ColumnStyle attributes={attributes}>
-          <Rule value={width} rule="{ flex-basis: %s; }" unit="%" />
+          <Rule
+            value={width}
+            rule=".wp-block-gutenbee-column.[root] { flex-basis: %s; }"
+            unit="%"
+          />
         </ColumnStyle>
 
         <div

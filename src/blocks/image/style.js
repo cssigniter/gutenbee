@@ -15,9 +15,21 @@ const ImageStyle = ({ attributes, children }) => {
 
   return (
     <StyleSheet id={blockId}>
-      <Rule value={width} rule="img { width: %s; }" unit="px" />
-      <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
-      <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
+      <Rule
+        value={width}
+        rule=".wp-block-gutenbee-image.[root] img { width: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-image.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-image.[root] { padding: %s; }"
+        unit="px"
+      />
       {children}
     </StyleSheet>
   );

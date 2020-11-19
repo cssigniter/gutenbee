@@ -80,9 +80,7 @@ const ImageBoxEditBlock = ({
     <Fragment>
       <ImageBoxStyle attributes={attributes} />
       <div
-        className={classNames({
-          [blockId]: true,
-          [className]: !!className,
+        className={classNames(className, blockId, {
           [`wp-block-gutenbee-imagebox-align-${imageAlign}`]: true,
           [`wp-block-gutenbee-imagebox-content-align-${contentAlign}`]: !!contentAlign,
         })}

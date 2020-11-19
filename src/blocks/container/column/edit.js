@@ -63,7 +63,7 @@ const ColumnBlockEdit = ({
     <Fragment>
       <ColumnStyle attributes={attributes} />
 
-      <div className={classNames(className, getBlockId(uniqueId), customClass)}>
+      <div className={classNames(className, getBlockId(uniqueId))}>
         <div
           className={`${customClass}-content`}
           style={{

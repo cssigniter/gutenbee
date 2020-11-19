@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import StyleSheet from '../../components/stylesheet';
 import Rule from '../../components/stylesheet/Rule';
 import getBlockId from '../../util/getBlockId';
-import StyleSheetV1 from '../../components/stylesheet/deprecated/v1';
 
 const propTypes = {
   attributes: PropTypes.object.isRequired,
@@ -15,11 +14,19 @@ const LottieStyle = ({ attributes, children }) => {
   const blockId = getBlockId(uniqueId);
 
   return (
-    <StyleSheetV1 id={blockId}>
-      <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
-      <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
+    <StyleSheet id={blockId}>
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-lottie.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-lottie.[root] { padding: %s; }"
+        unit="px"
+      />
       {children}
-    </StyleSheetV1>
+    </StyleSheet>
   );
 };
 

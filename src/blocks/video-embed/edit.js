@@ -39,6 +39,7 @@ const VideoEmbedEdit = ({
   instanceId,
   clientId,
   isSelected,
+  className,
 }) => {
   const {
     uniqueId,
@@ -145,7 +146,11 @@ const VideoEmbedEdit = ({
   return (
     <Fragment>
       <div
-        className={classNames(blockId, 'gutenbee-video-embed-block-wrapper')}
+        className={classNames(
+          className,
+          blockId,
+          'gutenbee-video-embed-block-wrapper',
+        )}
         style={{
           backgroundColor: backgroundColor ? backgroundColor : undefined,
           ...getBorderCSSValue({ attributes }),

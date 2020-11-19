@@ -108,7 +108,7 @@ const GoogleMapsEdit = ({
 
   return (
     <Fragment>
-      <div className={className}>
+      <div>
         <GoogleMapsStyle attributes={attributes} />
         {apiKey ? (
           <Map
@@ -123,7 +123,7 @@ const GoogleMapsEdit = ({
             }
             containerElement={
               <div
-                className={blockId}
+                className={classNames(className, blockId)}
                 style={{
                   backgroundColor: backgroundColor || undefined,
                   ...getBorderCSSValue({ attributes }),

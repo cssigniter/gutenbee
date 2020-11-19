@@ -276,7 +276,7 @@ const VideoEdit = ({
 
       <VideoStyle attributes={attributes} />
       <figure
-        className={classNames(getBlockId(uniqueId), className)}
+        className={classNames(className, getBlockId(uniqueId))}
         style={{
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),

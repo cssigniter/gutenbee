@@ -86,8 +86,8 @@ const CountupEdit = ({
     <Fragment>
       <div
         className={classNames({
-          [blockId]: true,
           [className]: !!className,
+          [blockId]: true,
           [`wp-block-gutenbee-countup-align-${align}`]: !!align,
         })}
         style={{

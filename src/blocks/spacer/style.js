@@ -15,8 +15,16 @@ const SpacerStyle = ({ attributes, children }) => {
 
   return (
     <StyleSheet id={blockId}>
-      <Rule value={height} rule="{ height: %s; }" unit="px" />
-      <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
+      <Rule
+        value={height}
+        rule=".wp-block-gutenbee-spacer.[root] { height: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-spacer.[root] { margin: %s; }"
+        unit="px"
+      />
       {children}
     </StyleSheet>
   );

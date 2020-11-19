@@ -23,6 +23,9 @@ registerBlockType('gutenbee/lottie', {
   category: 'gutenbee',
   icon: 'A', // TODO
   keywords: ['lottie', __('animations')],
+  supports: {
+    anchor: true,
+  },
   attributes: {
     uniqueId: {
       type: 'string',

@@ -21,16 +21,24 @@ const ProgressBarStyle = ({ attributes, children }) => {
 
   return (
     <StyleSheet id={blockId}>
-      <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
-      <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-progress-bar.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-progress-bar.[root] { padding: %s; }"
+        unit="px"
+      />
       <Rule
         value={titleFontSize}
-        rule=".wp-block-gutenbee-progress-bar-title{ font-size: %s; }"
+        rule=".wp-block-gutenbee-progress-bar.[root] .wp-block-gutenbee-progress-bar-title { font-size: %s; }"
         unit="px"
       />
       <Rule
         value={innerTitleFontSize}
-        rule=".wp-block-gutenbee-progress-bar-inner-title { font-size: %s; }"
+        rule=".wp-block-gutenbee-progress-bar.[root] .wp-block-gutenbee-progress-bar-inner-title { font-size: %s; }"
         unit="px"
       />
 

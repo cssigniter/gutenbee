@@ -31,8 +31,8 @@ const Accordion = ({ className, attributes }) => {
   return (
     <div
       className={classNames({
-        [blockId]: true,
         [className]: !!className,
+        [blockId]: true,
       })}
       data-collapse-others={collapseOthers}
     >

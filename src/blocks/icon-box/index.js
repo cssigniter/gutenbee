@@ -140,8 +140,8 @@ const IconBoxEditBlock = ({
     <Fragment>
       <div
         className={classNames({
-          [blockId]: true,
           [className]: !!className,
+          [blockId]: true,
           [`wp-block-gutenbee-iconbox-align-${align}`]: true,
           [`wp-block-gutenbee-iconbox-content-align-${contentAlign}`]: !!contentAlign,
         })}
@@ -344,6 +344,9 @@ registerBlockType('gutenbee/iconbox', {
   icon: IconBoxBlockIcon,
   category: 'gutenbee',
   keywords: [__('icon')],
+  supports: {
+    anchor: true,
+  },
   attributes: {
     ...iconAttributes,
     uniqueId: {

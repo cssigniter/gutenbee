@@ -30,6 +30,9 @@ registerBlockType('gutenbee/testimonial', {
     { name: 'default', label: _x('Default', 'block style'), isDefault: true },
     { name: 'circle-mask', label: _x('Circle Mask', 'block style') },
   ],
+  supports: {
+    anchor: true,
+  },
   attributes: {
     uniqueId: {
       type: 'string',

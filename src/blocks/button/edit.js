@@ -69,8 +69,8 @@ const ButtonEdit = ({ attributes, setAttributes, className, clientId }) => {
     <Fragment>
       <div
         className={classNames({
-          [blockId]: true,
           [className]: !!className,
+          [blockId]: true,
         })}
       >
         <ButtonStyle attributes={attributes} />

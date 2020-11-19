@@ -104,6 +104,9 @@ registerBlockType('gutenbee/countdown', {
   category: 'gutenbee',
   icon: CountdownBlockIcon,
   keywords: [__('counter'), __('numbers'), __('countdown')],
+  supports: {
+    anchor: true,
+  },
   attributes: {
     uniqueId: {
       type: 'string',

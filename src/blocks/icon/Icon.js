@@ -24,12 +24,12 @@ const Icon = ({
   const IconComponent = require(`./svg/${icon}.svg`).default;
 
   const wrapperClasses = classNames({
+    [className]: !!className,
+    [id]: !!id,
     'gutenbee-icon-block': true,
     [`align-${align || 'left'}`]: true,
     [`gutenbee-icon-block-${view}`]: !!view,
     [`gutenbee-icon-block-shape-${shape}`]: !!shape && view !== VIEWS.DEFAULT, // Ignore shape if we are on the default view
-    [className]: !!className,
-    [id]: !!id,
   });
 
   const iconClasses = classNames({
