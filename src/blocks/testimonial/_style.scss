@@ -5,6 +5,14 @@
   padding: 0;
   border: 0;
 
+  &.has-text-align-center {
+    .gutenbee-testimonial-avatar {
+      img {
+        margin: 0 auto;
+      }
+    }
+  }
+
   .gutenbee-testimonial-avatar {
     order: 1;
     margin: 0;
@@ -12,9 +20,16 @@
 
   .wp-block-testimonial-content-wrapper {
     order: 2;
+
+    p {
+      &:last-child {
+        margin-bottom: 20px;
+      }
+    }
   }
 
   .gutenbee-block-testimonial__citation {
+    margin: 0;
     order: 3;
   }
 

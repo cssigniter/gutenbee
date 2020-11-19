@@ -176,9 +176,13 @@ registerBlockType('gutenbee/testimonial', {
 
     const renderContent = () => {
       return (
-        <div className="wp-block-testimonial-content-wrapper">
-          <RichText.Content multiline value={content} />
-        </div>
+        <Fragment>
+          {!RichText.isEmpty(content) && (
+            <div className="wp-block-testimonial-content-wrapper">
+              <RichText.Content multiline value={content} />
+            </div>
+          )}
+        </Fragment>
       );
     };
 
@@ -216,7 +220,7 @@ registerBlockType('gutenbee/testimonial', {
       if (['left', 'right'].includes(avatarPosition)) {
         return (
           <Fragment>
-            <figure className={classes}>{image}</figure>
+            {url && <figure className={classes}>{image}</figure>}
             <div className="gutenbee-testimonial-content-citation-wrapper">
               {renderContent()}
               {renderCitation()}
@@ -227,7 +231,7 @@ registerBlockType('gutenbee/testimonial', {
       } else {
         return (
           <Fragment>
-            <figure className={classes}>{image}</figure>
+            {url && <figure className={classes}>{image}</figure>}
             {renderContent()}
             {renderCitation()}
             {renderInfo()}

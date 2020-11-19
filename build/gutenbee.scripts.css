@@ -2352,6 +2352,10 @@
   border: 0;
 }
 
+.wp-block-gutenbee-testimonial.has-text-align-center .gutenbee-testimonial-avatar img {
+  margin: 0 auto;
+}
+
 .wp-block-gutenbee-testimonial .gutenbee-testimonial-avatar {
   -webkit-box-ordinal-group: 2;
   -ms-flex-order: 1;
@@ -2365,7 +2369,12 @@
   order: 2;
 }
 
+.wp-block-gutenbee-testimonial .wp-block-testimonial-content-wrapper p:last-child {
+  margin-bottom: 20px;
+}
+
 .wp-block-gutenbee-testimonial .gutenbee-block-testimonial__citation {
+  margin: 0;
   -webkit-box-ordinal-group: 4;
   -ms-flex-order: 3;
   order: 3;

@@ -338,6 +338,16 @@ const TestimonialEdit = ({
                 onClick={toggleIsEditing}
                 icon="format-image"
               />
+              <IconButton
+                className={classNames(
+                  'components-icon-button components-toolbar__control',
+                  { 'is-active': isEditing },
+                )}
+                label={__('Remove image')}
+                aria-pressed={isEditing}
+                onClick={onImageSelect}
+                icon="no"
+              />
             </Toolbar>
           </Fragment>
         )}
