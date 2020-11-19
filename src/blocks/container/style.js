@@ -25,7 +25,7 @@ const ContainerStyle = ({ attributes, children }) => {
     <StyleSheet id={blockId}>
       <Rule
         value={containerHeight}
-        rule="{ height: %s; }"
+        rule=".wp-block-gutenbee-container.[root] { height: %s; }"
         unit="px"
         edgeCase={{
           edge: -1,
