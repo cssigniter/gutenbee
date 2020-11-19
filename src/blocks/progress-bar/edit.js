@@ -2,6 +2,8 @@ import { Fragment, useState } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { ToggleControl, RangeControl, PanelBody } from 'wp.components';
 import { InspectorControls, RichText } from 'wp.blockEditor';
+import classNames from 'classnames';
+
 import useUniqueId from '../../hooks/useUniqueId';
 import ProgressBarStyle from './style';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
@@ -45,8 +47,7 @@ const ProgressBarEdit = ({
   return (
     <Fragment>
       <div
-        id={blockId}
-        className={className}
+        className={classNames(blockId, className)}
         style={{
           backgroundColor: backgroundColor || undefined,
           ...getBorderCSSValue({ attributes }),

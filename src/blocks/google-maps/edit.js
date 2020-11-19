@@ -123,7 +123,7 @@ const GoogleMapsEdit = ({
             }
             containerElement={
               <div
-                id={blockId}
+                className={blockId}
                 style={{
                   backgroundColor: backgroundColor || undefined,
                   ...getBorderCSSValue({ attributes }),

@@ -29,6 +29,7 @@ import PopoverColorControl from '../../components/controls/advanced-color-contro
 import VideoEmbedStyle from './style';
 import { getVideoInfo } from './util';
 import { useVideoEmbed } from './hooks';
+import classNames from 'classnames';
 
 const VIDEO_POSTER_ALLOWED_MEDIA_TYPES = ['image'];
 
@@ -144,8 +145,7 @@ const VideoEmbedEdit = ({
   return (
     <Fragment>
       <div
-        id={blockId}
-        className="gutenbee-video-embed-block-wrapper"
+        className={classNames(blockId, 'gutenbee-video-embed-block-wrapper')}
         style={{
           backgroundColor: backgroundColor ? backgroundColor : undefined,
           ...getBorderCSSValue({ attributes }),

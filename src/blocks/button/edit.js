@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import { InspectorControls, RichText } from 'wp.blockEditor';
 import { PanelBody, TextControl, ToggleControl } from 'wp.components';
-import classnames from 'classnames';
+import classNames from 'classnames';
 
 import useUniqueId from '../../hooks/useUniqueId';
 import getBlockId from '../../util/getBlockId';
@@ -67,14 +67,19 @@ const ButtonEdit = ({ attributes, setAttributes, className, clientId }) => {
 
   return (
     <Fragment>
-      <div id={blockId} className={className}>
+      <div
+        className={classNames({
+          [blockId]: true,
+          [className]: !!className,
+        })}
+      >
         <ButtonStyle attributes={attributes} />
         <RichText
           placeholder={__('Add text…')}
           value={text}
           onChange={value => setAttributes({ text: value })}
           withoutInteractiveFormatting
-          className={classnames({
+          className={classNames({
             'gutenbee-block-button-link': true,
           })}
           style={{

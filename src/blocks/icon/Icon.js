@@ -29,6 +29,7 @@ const Icon = ({
     [`gutenbee-icon-block-${view}`]: !!view,
     [`gutenbee-icon-block-shape-${shape}`]: !!shape && view !== VIEWS.DEFAULT, // Ignore shape if we are on the default view
     [className]: !!className,
+    [id]: !!id,
   });
 
   const iconClasses = classNames({
@@ -53,7 +54,7 @@ const Icon = ({
   }
 
   return (
-    <div id={id} className={wrapperClasses}>
+    <div className={wrapperClasses}>
       <IconStyle id={id} attributes={{ uniqueId, blockMargin, blockPadding }} />
       <span
         className="gutenbee-icon-block-icon-wrap"

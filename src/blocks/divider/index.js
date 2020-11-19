@@ -6,6 +6,7 @@
 
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
+import classNames from 'classnames';
 
 import DividerBlockIcon from './block-icon';
 import DividerEdit from './edit';
@@ -47,8 +48,9 @@ export const Divider = ({ className, attributes, ...props }) => {
 
   return (
     <div
-      className={`${className} align-${align}`}
-      id={blockId}
+      className={classNames(className, blockId, {
+        [`align-${align}`]: true,
+      })}
       style={{
         height,
         backgroundColor: backgroundColor || undefined,
@@ -126,7 +128,7 @@ registerBlockType('gutenbee/divider', {
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
   },
-  deprecated: deprecated,
+  deprecated,
   edit: DividerEdit,
   save({ className, attributes }) {
     return <Divider className={className} attributes={attributes} />;

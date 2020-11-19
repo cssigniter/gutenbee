@@ -3,7 +3,6 @@ import classNames from 'classnames';
 
 import { getDefaultSpacingValue } from '../../../components/controls/responsive-control/default-values';
 import getBlockId from '../../../util/getBlockId';
-import StyleSheet from '../../../components/stylesheet/StyleSheet';
 import Rule from '../../../components/stylesheet/Rule';
 import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
 import {
@@ -11,13 +10,14 @@ import {
   getBoxShadowCSSValue,
 } from '../../../components/controls/box-shadow-controls/helpers';
 import borderControlAttributes from '../../../components/controls/border-controls/attributes';
+import StyleSheetV1 from '../../../components/stylesheet/deprecated/v1';
 
 const ImageBoxStyle = ({ attributes, children }) => {
   const { uniqueId, blockPadding, blockMargin, imageMargin } = attributes;
   const blockId = getBlockId(uniqueId);
 
   return (
-    <StyleSheet id={blockId}>
+    <StyleSheetV1 id={blockId}>
       <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
       <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
       <Rule
@@ -26,7 +26,7 @@ const ImageBoxStyle = ({ attributes, children }) => {
         unit="px"
       />
       {children}
-    </StyleSheet>
+    </StyleSheetV1>
   );
 };
 

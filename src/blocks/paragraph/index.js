@@ -113,6 +113,7 @@ registerBlockType('gutenbee/paragraph', {
     );
 
     const className = classNames({
+      [blockId]: true,
       'has-text-color': textColor || customTextColor,
       'has-drop-cap': dropCap,
       [textClass]: textClass,
@@ -131,10 +132,9 @@ registerBlockType('gutenbee/paragraph', {
         <ParagraphStyle attributes={attributes} />
 
         <RichText.Content
-          id={blockId}
           tagName="p"
           style={styles}
-          className={className ? className : undefined}
+          className={className}
           value={content}
         />
       </Fragment>

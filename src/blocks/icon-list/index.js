@@ -3,6 +3,7 @@ import { __ } from 'wp.i18n';
 import { InnerBlocks } from 'wp.blockEditor';
 import classNames from 'classnames';
 
+import deprecated from './deprecated';
 import {
   getDefaultResponsiveValue,
   getDefaultSpacingValue,
@@ -91,15 +92,15 @@ registerBlockType('gutenbee/icon-list', {
       default: getDefaultSpacingValue(),
     },
   },
+  deprecated,
   edit: IconListEdit,
   save: ({ className, attributes }) => {
     const { uniqueId, blockLink, layout, backgroundColor } = attributes;
-    const id = getBlockId(uniqueId);
+    const blockId = getBlockId(uniqueId);
 
     return (
       <div
-        id={id}
-        className="wp-block-gutenbee-list-icon-wrapper"
+        className={classNames(blockId, 'wp-block-gutenbee-list-icon-wrapper')}
         style={{
           backgroundColor: backgroundColor ? backgroundColor : undefined,
           ...getBorderCSSValue({ attributes }),

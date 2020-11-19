@@ -98,7 +98,6 @@ const ContainerBlockEdit = ({
 
       {hasInnerBlocks ? (
         <div
-          id={blockId}
           className={classes}
           style={{
             color: textColor,

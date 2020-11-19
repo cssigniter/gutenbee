@@ -39,16 +39,19 @@ const SpacerEdit = ({
       <SpacerStyle attributes={attributes} />
       <div>
         <ResizableBox
-          id={blockId}
           style={{
             backgroundColor: backgroundColor || undefined,
             ...getBackgroundImageStyle(backgroundImage),
             ...getBorderCSSValue({ attributes }),
             ...getBoxShadowCSSValue({ attributes }),
           }}
-          className={classNames('block-library-spacer__resize-container', {
-            'is-selected': isSelected,
-          })}
+          className={classNames(
+            blockId,
+            'block-library-spacer__resize-container',
+            {
+              'is-selected': isSelected,
+            },
+          )}
           size={{
             height: height.desktop,
           }}

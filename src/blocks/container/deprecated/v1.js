@@ -8,13 +8,13 @@ import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
 } from '../../../components/controls/box-shadow-controls/helpers';
-import StyleSheet from '../../../components/stylesheet';
 import Rule from '../../../components/stylesheet/Rule';
 import {
   getDefaultResponsiveValue,
   getDefaultSpacingValue,
 } from '../../../components/controls/responsive-control/default-values';
 import borderControlAttributes from '../../../components/controls/border-controls/attributes';
+import StyleSheetV1 from '../../../components/stylesheet/deprecated/v1';
 
 export const hexToRGBA = (hex, alpha) => {
   if (hex == null || hex === '') {
@@ -51,7 +51,7 @@ const ContainerStyle = ({ attributes, children }) => {
   const blockId = getBlockId(uniqueId);
 
   return (
-    <StyleSheet id={blockId}>
+    <StyleSheetV1 id={blockId}>
       <Rule
         value={columnDirection}
         rule=".wp-block-gutenbee-container-row { flex-direction: %s; }"
@@ -82,7 +82,7 @@ const ContainerStyle = ({ attributes, children }) => {
         rule="{ justify-content: %s; }"
       />
       {children}
-    </StyleSheet>
+    </StyleSheetV1>
   );
 };
 

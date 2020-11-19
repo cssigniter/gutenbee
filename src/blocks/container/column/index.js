@@ -23,6 +23,7 @@ import {
   getBoxShadowCSSValue,
 } from '../../../components/controls/box-shadow-controls/helpers';
 import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
+import deprecated from './deprecated';
 
 registerBlockType('gutenbee/column', {
   title: __('GutenBee Column'),
@@ -97,6 +98,7 @@ registerBlockType('gutenbee/column', {
       };
     }
   },
+  deprecated,
   edit: ColumnBlockEdit,
   save({ attributes, className }) {
     const {
@@ -109,8 +111,7 @@ registerBlockType('gutenbee/column', {
 
     return (
       <div
-        id={getBlockId(uniqueId)}
-        className={classNames(className, {
+        className={classNames(className, getBlockId(uniqueId), {
           'wp-block-gutenbee-column': true,
         })}
       >

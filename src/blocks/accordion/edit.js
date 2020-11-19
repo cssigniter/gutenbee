@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import { RichText, PlainText, InspectorControls } from 'wp.blockEditor';
 import { PanelBody, RangeControl, ToggleControl } from 'wp.components';
+import classNames from 'classnames';
 
 import MarginControls from '../../components/controls/margin-controls';
 import useUniqueId from '../../hooks/useUniqueId';
@@ -132,7 +133,12 @@ const AccordionsEdit = ({
   return (
     <Fragment>
       <AccordionStyle attributes={attributes} />
-      <div id={blockId} className={className}>
+      <div
+        className={classNames({
+          [blockId]: true,
+          [className]: !!className,
+        })}
+      >
         {tabs.map((tab, index) => (
           <div className="wp-block-gutenbee-accordion-item">
             <div

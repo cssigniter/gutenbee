@@ -6,21 +6,21 @@ import {
   getBoxShadowCSSValue,
 } from '../../../components/controls/box-shadow-controls/helpers';
 
-import StyleSheet from '../../../components/stylesheet';
 import Rule from '../../../components/stylesheet/Rule';
 import getBlockId from '../../../util/getBlockId';
 import { getDefaultSpacingValue } from '../../../components/controls/responsive-control/default-values';
+import StyleSheetV1 from '../../../components/stylesheet/deprecated/v1';
 
 const IconStyle = ({ id, attributes, children }) => {
   const { uniqueId, blockPadding, blockMargin } = attributes;
   const blockId = id || getBlockId(uniqueId);
 
   return (
-    <StyleSheet id={blockId}>
+    <StyleSheetV1 id={blockId}>
       <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
       <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
       {children}
-    </StyleSheet>
+    </StyleSheetV1>
   );
 };
 

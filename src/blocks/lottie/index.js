@@ -4,6 +4,7 @@
 
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
+import classNames from 'classnames';
 
 import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
 import borderControlAttributes from '../../components/controls/border-controls/attributes';
@@ -102,8 +103,7 @@ registerBlockType('gutenbee/lottie', {
 
     return (
       <div
-        id={blockId}
-        className={className}
+        className={classNames(className, blockId)}
         style={{
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),

@@ -20,7 +20,7 @@ const Tabs = ({ attributes, className }) => {
   const blockId = getBlockId(uniqueId);
 
   return (
-    <div id={blockId} className={className}>
+    <div className={classNames(className, blockId)}>
       <div className="wp-block-gutenbee-tabs-nav">
         {tabs.map((tab, index) => (
           <div

@@ -17,6 +17,7 @@ import {
   MediaPlaceholder,
 } from 'wp.blockEditor';
 import '@lottiefiles/lottie-player';
+import classNames from 'classnames';
 
 import useUniqueId from '../../hooks/useUniqueId';
 import getBlockId from '../../util/getBlockId';
@@ -92,8 +93,7 @@ const LottieEdit = ({ attributes, setAttributes, clientId, className }) => {
         </MediaUploadCheck>
       ) : (
         <div
-          id={blockId}
-          className={className}
+          className={classNames(className, blockId)}
           style={{
             ...getBorderCSSValue({ attributes }),
             ...getBoxShadowCSSValue({ attributes }),

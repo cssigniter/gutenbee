@@ -1,6 +1,7 @@
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 import { RichText } from 'wp.blockEditor';
+import classNames from 'classnames';
 
 import VideoEdit from './edit';
 import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
@@ -13,6 +14,7 @@ import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
 } from '../../components/controls/box-shadow-controls/helpers';
+import deprecated from './deprecated';
 
 registerBlockType('gutenbee/video', {
   title: __('GutenBee Video'),
@@ -21,7 +23,7 @@ registerBlockType('gutenbee/video', {
   category: 'gutenbee',
   keywords: [__('video'), __('movie')],
   supports: {
-    anchor: false,
+    anchor: true,
     align: true,
   },
   attributes: {
@@ -97,8 +99,9 @@ registerBlockType('gutenbee/video', {
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
   },
+  deprecated,
   edit: VideoEdit,
-  save: ({ attributes }) => {
+  save: ({ attributes, className }) => {
     const {
       uniqueId,
       autoplay,
@@ -113,7 +116,7 @@ registerBlockType('gutenbee/video', {
     } = attributes;
     return (
       <figure
-        id={getBlockId(uniqueId)}
+        className={classNames(getBlockId(uniqueId), className)}
         style={{
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),

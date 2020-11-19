@@ -160,8 +160,7 @@ registerBlockType('gutenbee/container', {
 
     return (
       <div
-        id={getBlockId(uniqueId)}
-        className={classNames(className, {
+        className={classNames(className, getBlockId(uniqueId), {
           'has-parallax': parallax,
           'theme-grid': themeGrid,
           'row-reverse-desktop': columnDirection.desktop === 'row-reverse',

@@ -1,7 +1,7 @@
 import { registerBlockType } from 'wp.blocks';
 import { __ } from 'wp.i18n';
 import { RichText } from 'wp.blockEditor';
-import classnames from 'classnames';
+import classNames from 'classnames';
 
 import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
 import ButtonEdit from './edit';
@@ -73,7 +73,7 @@ registerBlockType('gutenbee/button', {
   },
   deprecated,
   edit: ButtonEdit,
-  save: ({ attributes }) => {
+  save: ({ attributes, className }) => {
     const {
       uniqueId,
       textColor,
@@ -87,7 +87,7 @@ registerBlockType('gutenbee/button', {
     const blockId = getBlockId(uniqueId);
 
     return (
-      <div id={blockId}>
+      <div className={classNames(blockId, className)}>
         <ButtonStyle attributes={attributes} />
         <RichText.Content
           tagName="a"
@@ -95,7 +95,7 @@ registerBlockType('gutenbee/button', {
           value={text}
           target={linkTarget}
           rel={rel}
-          className={classnames({
+          className={classNames({
             'gutenbee-block-button-link': true,
           })}
           style={{

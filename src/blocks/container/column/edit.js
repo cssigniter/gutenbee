@@ -22,7 +22,7 @@ import {
   getTotalColumnsWidth,
   toWidthPrecision,
 } from '../utils';
-import { BREAKPOINT_NAMES } from '../../../components/stylesheet/StyleSheet';
+import { BREAKPOINT_NAMES } from '../../../components/stylesheet/helpers';
 import BorderControls from '../../../components/controls/border-controls';
 import BoxShadowControls from '../../../components/controls/box-shadow-controls';
 import { getBoxShadowCSSValue } from '../../../components/controls/box-shadow-controls/helpers';
@@ -63,10 +63,7 @@ const ColumnBlockEdit = ({
     <Fragment>
       <ColumnStyle attributes={attributes} />
 
-      <div
-        id={getBlockId(uniqueId)}
-        className={classNames(className, customClass)}
-      >
+      <div className={classNames(className, getBlockId(uniqueId), customClass)}>
         <div
           className={`${customClass}-content`}
           style={{

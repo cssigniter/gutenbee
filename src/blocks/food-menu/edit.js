@@ -34,8 +34,7 @@ const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
   return (
     <Fragment>
       <div
-        id={blockId}
-        className={classnames(className, {
+        className={classnames(className, blockId, {
           [`gutenbee-food-menu-columns-desktop-${columns.desktop}`]: true,
           [`gutenbee-food-menu-columns-tablet-${columns.tablet}`]: true,
           [`gutenbee-food-menu-columns-mobile-${columns.mobile}`]: true,

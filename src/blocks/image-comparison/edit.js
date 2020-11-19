@@ -12,6 +12,7 @@ import {
 import { withSelect } from 'wp.data';
 import startCase from 'lodash.startcase';
 import get from 'lodash.get';
+import classNames from 'classnames';
 
 import ImagePlaceholder from '../../components/image-placeholder/ImagePlaceholder';
 import MarginControls from '../../components/controls/margin-controls';
@@ -101,8 +102,7 @@ const ImageComparisonEdit = ({
   return (
     <Fragment>
       <div
-        id={blockId}
-        className={className}
+        className={classNames(className, blockId)}
         style={{
           backgroundColor: backgroundColor || undefined,
           ...getBorderCSSValue({ attributes }),

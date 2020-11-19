@@ -110,7 +110,7 @@ registerBlockType('gutenbee/justified-gallery', {
   },
   deprecated,
   edit: JustifiedGalleryEdit,
-  save({ attributes }) {
+  save({ attributes, className }) {
     const {
       uniqueId,
       type,
@@ -128,8 +128,9 @@ registerBlockType('gutenbee/justified-gallery', {
 
     return (
       <div
-        id={blockId}
         className={classNames({
+          [blockId]: true,
+          [className]: !!className,
           'wp-block-gutenbee-gallery-columns': type === GALLERY_TYPE.COLUMNS,
           'wp-block-gutenbee-gallery-justified':
             type === GALLERY_TYPE.JUSTIFIED,

@@ -6,6 +6,7 @@
 
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
+import classNames from 'classnames';
 
 import SlideshowEdit from './edit';
 import { LINKTO } from '../../components/gallery/constants';
@@ -166,8 +167,7 @@ registerBlockType('gutenbee/slideshow', {
 
     return (
       <div
-        id={blockId}
-        className={className}
+        className={classNames(className, blockId)}
         data-fade={animationStyle === 'fade'}
         data-autoplay={autoplay}
         data-arrows={arrowNav}

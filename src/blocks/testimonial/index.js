@@ -18,6 +18,7 @@ import TestimonialEdit from './edit';
 import getBlockId from '../../util/getBlockId';
 import TestimonialStyle from './style';
 import TestimonialBlockIcon from './block-icon';
+import deprecated from './deprecated';
 
 registerBlockType('gutenbee/testimonial', {
   title: __('GutenBee Testimonial'),
@@ -133,6 +134,7 @@ registerBlockType('gutenbee/testimonial', {
       default: getDefaultSpacingValue(),
     },
   },
+  deprecated,
   edit: TestimonialEdit,
   save: ({ attributes, className }) => {
     const {
@@ -149,10 +151,10 @@ registerBlockType('gutenbee/testimonial', {
       avatarPosition,
       sizeSlug,
     } = attributes;
-    const id = getBlockId(uniqueId);
+    const blockId = getBlockId(uniqueId);
 
     const blockProps = {
-      className: classNames(className, {
+      className: classNames(className, blockId, {
         [`has-text-align-${align}`]: align,
         [`gutenbee-testimonial-avatar-${avatarPosition}`]: avatarPosition,
       }),
@@ -162,7 +164,7 @@ registerBlockType('gutenbee/testimonial', {
       <img
         src={url}
         alt={alt}
-        className={id ? `wp-image-${id}` : null}
+        className={blockId ? `wp-image-${blockId}` : null}
         title={title}
       />
     );
@@ -236,7 +238,6 @@ registerBlockType('gutenbee/testimonial', {
 
     return (
       <blockquote
-        id={id}
         {...blockProps}
         style={{
           backgroundColor: backgroundColor ? backgroundColor : undefined,

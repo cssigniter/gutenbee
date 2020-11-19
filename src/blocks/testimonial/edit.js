@@ -164,7 +164,7 @@ const TestimonialEdit = ({
   );
 
   const blockProps = {
-    className: classNames(className, {
+    className: classNames(className, blockId, {
       [`has-text-align-${align}`]: align,
       [`gutenbee-testimonial-avatar-${avatarPosition}`]: avatarPosition,
     }),
@@ -307,7 +307,6 @@ const TestimonialEdit = ({
   return (
     <Fragment>
       <BlockQuotation
-        id={blockId}
         {...blockProps}
         style={{
           backgroundColor: backgroundColor ? backgroundColor : undefined,

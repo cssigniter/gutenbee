@@ -19,6 +19,7 @@ import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
 } from '../../components/controls/box-shadow-controls/helpers';
+import deprecated from './deprecated';
 
 registerBlockType('gutenbee/image', {
   title: __('GutenBee Image'),
@@ -135,8 +136,9 @@ registerBlockType('gutenbee/image', {
       return { 'data-align': align, 'data-resized': !!width };
     }
   },
+  deprecated,
   edit: ImageEdit,
-  save: ({ attributes }) => {
+  save: ({ attributes, className }) => {
     const {
       uniqueId,
       url,
@@ -206,7 +208,7 @@ registerBlockType('gutenbee/image', {
 
     if ('left' === align || 'right' === align || 'center' === align) {
       return (
-        <div id={blockId} style={style}>
+        <div className={classNames(blockId, className)} style={style}>
           <ImageStyle attributes={attributes} />
           <figure className={classes}>{figure}</figure>
         </div>
@@ -214,7 +216,7 @@ registerBlockType('gutenbee/image', {
     }
 
     return (
-      <figure id={blockId} className={classes} style={style}>
+      <figure className={classNames(blockId, className, classes)} style={style}>
         <ImageStyle attributes={attributes} />
         {figure}
       </figure>

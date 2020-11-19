@@ -32,6 +32,7 @@ import BorderControls from '../../components/controls/border-controls';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
+import classNames from 'classnames';
 
 const ALLOWED_MEDIA_TYPES = ['video'];
 const VIDEO_POSTER_ALLOWED_MEDIA_TYPES = ['image'];
@@ -275,8 +276,7 @@ const VideoEdit = ({
 
       <VideoStyle attributes={attributes} />
       <figure
-        id={getBlockId(uniqueId)}
-        className={className}
+        className={classNames(getBlockId(uniqueId), className)}
         style={{
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),

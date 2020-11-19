@@ -10,20 +10,20 @@ import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
 } from '../../../components/controls/box-shadow-controls/helpers';
-import StyleSheet from '../../../components/stylesheet';
 import Rule from '../../../components/stylesheet/Rule';
 import borderControlAttributes from '../../../components/controls/border-controls/attributes';
+import StyleSheetV1 from '../../../components/stylesheet/deprecated/v1';
 
 const SpacerStyle = ({ attributes, children }) => {
   const { uniqueId, height, blockMargin } = attributes;
   const blockId = getBlockId(uniqueId);
 
   return (
-    <StyleSheet id={blockId}>
+    <StyleSheetV1 id={blockId}>
       <Rule value={height} rule="{ height: %s; }" unit="px" />
       <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
       {children}
-    </StyleSheet>
+    </StyleSheetV1>
   );
 };
 

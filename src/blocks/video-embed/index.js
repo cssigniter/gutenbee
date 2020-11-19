@@ -1,5 +1,6 @@
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
+import classNames from 'classnames';
 
 import getBlockId from '../../util/getBlockId';
 import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
@@ -13,6 +14,7 @@ import {
 } from '../../components/controls/box-shadow-controls/helpers';
 import { getVideoInfo } from './util';
 import VideoEmbedBlockIcon from './block-icon';
+import deprecated from './deprecated';
 
 registerBlockType('gutenbee/video-embed', {
   title: __('GutenBee Video Embed'),
@@ -20,6 +22,9 @@ registerBlockType('gutenbee/video-embed', {
   icon: VideoEmbedBlockIcon,
   category: 'gutenbee',
   keywords: [__('video'), __('movie'), __('embed'), __('YouTube'), __('Vimeo')],
+  supports: {
+    anchor: true,
+  },
   attributes: {
     uniqueId: {
       type: 'string',
@@ -74,8 +79,9 @@ registerBlockType('gutenbee/video-embed', {
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
   },
+  deprecated,
   edit: VideoEmbedEdit,
-  save: ({ attributes }) => {
+  save: ({ attributes, className }) => {
     const {
       uniqueId,
       lazyLoad,
@@ -101,8 +107,11 @@ registerBlockType('gutenbee/video-embed', {
 
     return (
       <div
-        id={blockId}
-        className="gutenbee-video-embed-block-wrapper"
+        className={classNames(
+          className,
+          blockId,
+          'gutenbee-video-embed-block-wrapper',
+        )}
         style={{
           backgroundColor: backgroundColor ? backgroundColor : undefined,
           ...getBorderCSSValue({ attributes }),

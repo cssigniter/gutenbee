@@ -84,24 +84,25 @@ registerBlockType('gutenbee/heading', {
   deprecated,
   transforms,
   edit: HeadingEdit,
-  save: ({ attributes }) => {
+  save: ({ attributes, className }) => {
     const { uniqueId, content, level, textColor, backgroundColor } = attributes;
     const tagName = 'h' + level;
 
-    const className = classNames({
+    const blockId = getBlockId(uniqueId);
+
+    const classes = classNames({
+      [className]: !!className,
+      [blockId]: true,
       'has-text-color': !!textColor,
       'has-background-color': !!backgroundColor,
     });
-
-    const blockId = getBlockId(uniqueId);
 
     return (
       <Fragment>
         <HeadingStyle attributes={attributes} />
 
         <RichText.Content
-          id={blockId}
-          className={className ? className : undefined}
+          className={classes}
           tagName={tagName}
           style={{
             color: textColor ? textColor : undefined,

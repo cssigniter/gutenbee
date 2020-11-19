@@ -17,6 +17,7 @@ import FoodMenuStyle from './style';
 import getBlockId from '../../util/getBlockId';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import FoodMenuIcon from './block-icon';
+import deprecated from './deprecated';
 
 registerBlockType('gutenbee/food-menu', {
   title: __('GutenBee Food Menu'),
@@ -54,14 +55,14 @@ registerBlockType('gutenbee/food-menu', {
       default: getDefaultSpacingValue(),
     },
   },
+  deprecated,
   edit: FoodMenuEdit,
   save: ({ className, attributes }) => {
     const { uniqueId, columns, backgroundColor } = attributes;
 
     return (
       <div
-        id={getBlockId(uniqueId)}
-        className={classNames(className, {
+        className={classNames(className, getBlockId(uniqueId), {
           'wp-block-gutenbee-food-menu': true,
           [`gutenbee-food-menu-columns-desktop-${columns.desktop}`]: true,
           [`gutenbee-food-menu-columns-tablet-${columns.tablet}`]: true,

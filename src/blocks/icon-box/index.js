@@ -55,9 +55,9 @@ const IconBox = ({ className, attributes }) => {
 
   return (
     <div
-      id={blockId}
       className={classNames({
-        [className]: true,
+        [className]: !!className,
+        [blockId]: true,
         [`wp-block-gutenbee-iconbox-align-${align}`]: true,
         [`wp-block-gutenbee-iconbox-content-align-${contentAlign}`]: !!contentAlign,
       })}
@@ -139,9 +139,9 @@ const IconBoxEditBlock = ({
   return (
     <Fragment>
       <div
-        id={blockId}
         className={classNames({
-          [className]: true,
+          [blockId]: true,
+          [className]: !!className,
           [`wp-block-gutenbee-iconbox-align-${align}`]: true,
           [`wp-block-gutenbee-iconbox-content-align-${contentAlign}`]: !!contentAlign,
         })}

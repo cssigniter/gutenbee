@@ -167,8 +167,8 @@ const ParagraphBlock = ({
       <ParagraphStyle attributes={attributes} />
 
       <div
-        id={blockId}
         className={classnames({
+          [blockId]: true,
           'gutenbee-block-paragraph': true,
           [backgroundColor.class]: backgroundColor.class,
           [textColor.class]: textColor.class,

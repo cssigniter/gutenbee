@@ -1,9 +1,10 @@
 /**
- * Progress Bar block
+ * Image Comparison block
  */
 
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
+import classNames from 'classnames';
 
 import ImageComparisonEdit from './edit';
 import ImageComparisonBlockIcon from './block-icon';
@@ -75,13 +76,12 @@ registerBlockType('gutenbee/image-comparison', {
 
     return (
       <div
-        id={blockId}
         style={{
           backgroundColor: backgroundColor || undefined,
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),
         }}
-        className={className}
+        className={classNames(className, blockId)}
       >
         <div className="wp-block-gutenbee-comparison-wrap" data-offset={offset}>
           <ImageComparisonStyle attributes={attributes} />

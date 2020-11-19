@@ -5,6 +5,7 @@
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 import { RichText } from 'wp.blockEditor';
+import classNames from 'classnames';
 
 import ProgressBarEdit from './edit';
 import ProgressBarBlockIcon from './block-icon';
@@ -41,8 +42,7 @@ const ProgressBar = ({ className, attributes }) => {
 
   return (
     <div
-      id={blockId}
-      className={className}
+      className={classNames(blockId, className)}
       style={{
         backgroundColor: backgroundColor || undefined,
         ...getBorderCSSValue({ attributes }),

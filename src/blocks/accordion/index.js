@@ -5,6 +5,7 @@
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 import { RichText } from 'wp.blockEditor';
+import classNames from 'classnames';
 
 import AccordionBlockIcon from './block-icon';
 import AccordionsEdit from './edit';
@@ -29,8 +30,10 @@ const Accordion = ({ className, attributes }) => {
 
   return (
     <div
-      id={blockId}
-      className={className}
+      className={classNames({
+        [blockId]: true,
+        [className]: !!className,
+      })}
       data-collapse-others={collapseOthers}
     >
       <AccordionStyle attributes={attributes} />
@@ -76,6 +79,9 @@ registerBlockType('gutenbee/accordion', {
   icon: AccordionBlockIcon,
   category: 'gutenbee',
   keywords: [__('accordion'), __('tabs')],
+  supports: {
+    anchor: true,
+  },
   attributes: {
     uniqueId: {
       type: 'string',

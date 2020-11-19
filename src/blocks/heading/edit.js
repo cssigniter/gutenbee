@@ -9,6 +9,7 @@ import {
   AlignmentToolbar,
 } from 'wp.blockEditor';
 import { createBlock } from 'wp.blocks';
+import classNames from 'classnames';
 
 import HeadingToolbar from './heading-toolbar';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
@@ -71,13 +72,12 @@ function HeadingEdit({
       </HeadingStyle>
 
       <div
-        id={blockId}
         style={{
           backgroundColor: backgroundColor ? backgroundColor : undefined,
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),
         }}
-        className="gutenbee-heading-wrap"
+        className={classNames(blockId, 'gutenbee-heading-wrap')}
       >
         <RichText
           identifier="content"

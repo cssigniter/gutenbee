@@ -5,6 +5,7 @@
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 import { RichText } from 'wp.blockEditor';
+import classNames from 'classnames';
 
 import CountdownEdit from './edit';
 import { capitalize } from '../../util/text';
@@ -76,8 +77,7 @@ const CountDown = ({ attributes, className }) => {
 
   return (
     <div
-      id={blockId}
-      className={className}
+      className={classNames(className, blockId)}
       data-date={date}
       style={{
         backgroundColor: backgroundColor || undefined,

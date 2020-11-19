@@ -3,6 +3,7 @@ import { __ } from 'wp.i18n';
 import { InnerBlocks, __experimentalBlock as Block } from 'wp.blockEditor';
 import { InspectorControls } from 'wp.blockEditor';
 import { PanelBody, SelectControl } from 'wp.components';
+import classNames from 'classnames';
 
 import useUniqueId from '../../../hooks/useUniqueId';
 import getBlockId from '../../../util/getBlockId';
@@ -29,13 +30,12 @@ const FoodMenuItemEdit = ({
   return (
     <Fragment>
       <div
-        id={blockId}
         style={{
           backgroundColor: backgroundColor ? backgroundColor : undefined,
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),
         }}
-        className={className}
+        className={classNames(className, blockId)}
       >
         <InnerBlocks
           template={[

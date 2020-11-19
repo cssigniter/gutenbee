@@ -4,6 +4,7 @@
 
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
+import classNames from 'classnames';
 
 import GoogleMapsEdit from './edit';
 import mapStyles from './map-styles';
@@ -123,8 +124,7 @@ registerBlockType('gutenbee/google-maps', {
 
     return (
       <div
-        id={blockId}
-        className={className}
+        className={classNames(className, blockId)}
         style={{
           backgroundColor: backgroundColor || undefined,
           ...getBorderCSSValue({ attributes }),

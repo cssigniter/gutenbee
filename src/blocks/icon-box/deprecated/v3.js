@@ -10,20 +10,20 @@ import {
 } from '../../../components/controls/box-shadow-controls/helpers';
 import getBlockId from '../../../util/getBlockId';
 import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
-import StyleSheet from '../../../components/stylesheet';
 import Rule from '../../../components/stylesheet/Rule';
 import Icon from '../../icon/Icon';
+import StyleSheetV1 from '../../../components/stylesheet/deprecated/v1';
 
 const IconBoxStyle = ({ attributes, children }) => {
   const { uniqueId, blockPadding, blockMargin } = attributes;
   const blockId = getBlockId(uniqueId);
 
   return (
-    <StyleSheet id={blockId}>
+    <StyleSheetV1 id={blockId}>
       <Rule value={blockMargin} rule="{ margin: %s; }" unit="px" />
       <Rule value={blockPadding} rule="{ padding: %s; }" unit="px" />
       {children}
-    </StyleSheet>
+    </StyleSheetV1>
   );
 };
 

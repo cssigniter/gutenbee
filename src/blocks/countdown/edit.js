@@ -9,6 +9,7 @@ import {
 } from 'wp.components';
 import { InspectorControls, RichText } from 'wp.blockEditor';
 import moment from 'moment';
+import classNames from 'classnames';
 
 import { capitalize } from '../../util/text';
 import CountdownTimer from '../../util/CountdownTimer';
@@ -147,8 +148,7 @@ const CountdownEdit = ({
   return (
     <Fragment>
       <div
-        id={blockId}
-        className={className}
+        className={classNames(className, blockId)}
         ref={clock}
         style={{
           backgroundColor: backgroundColor || undefined,

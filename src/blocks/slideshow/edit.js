@@ -9,6 +9,7 @@ import {
   Notice,
 } from 'wp.components';
 import { InspectorControls } from 'wp.blockEditor';
+import classNames from 'classnames';
 
 import MarginControls from '../../components/controls/margin-controls';
 import Slideshow from '../../components/slideshow/Slideshow';
@@ -81,8 +82,7 @@ const SlideshowEdit = ({
   return (
     <Fragment>
       <Slideshow
-        id={blockId}
-        className={className}
+        className={classNames(className, blockId)}
         attributes={attributes}
         setAttributes={setAttributes}
         isSelected={isSelected}

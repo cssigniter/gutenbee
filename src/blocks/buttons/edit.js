@@ -4,12 +4,12 @@ import { Fragment } from 'wp.element';
 import { InnerBlocks } from 'wp.blockEditor';
 import { InspectorControls } from 'wp.blockEditor';
 import { PanelBody, SelectControl } from 'wp.components';
-import classnames from 'classnames';
+import classNames from 'classnames';
 
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 import useUniqueId from '../../hooks/useUniqueId';
 import getBlockId from '../../util/getBlockId';
-import { BREAKPOINT_NAMES } from '../../components/stylesheet/StyleSheet';
+import { BREAKPOINT_NAMES } from '../../components/stylesheet/helpers';
 import MarginControls from '../../components/controls/margin-controls';
 import ButtonsStyle from './style';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
@@ -32,8 +32,7 @@ const ButtonsEdit = ({ attributes, setAttributes, className, clientId }) => {
   return (
     <Fragment>
       <div
-        id={blockId}
-        className={classnames(className, {
+        className={classNames(className, blockId, {
           [desktopAlignment]: true,
         })}
         style={{
