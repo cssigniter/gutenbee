@@ -43,11 +43,11 @@ const BannerStyle = ({ attributes, children }) => {
       />
       <Rule
         value={verticalContentAlignment}
-        rule=".wp-block-gutenbee-banner.[root] .wp-block-gutenbee-banner-inner { justify-content: %s; }"
+        rule=".wp-block-gutenbee-banner.[root] { align-items: %s; }"
       />
       <Rule
         value={horizontalContentAlignment}
-        rule=".wp-block-gutenbee-banner.[root] .wp-block-gutenbee-banner-inner { align-items: %s; }"
+        rule=".wp-block-gutenbee-banner.[root] { justify-content: %s; }"
       />
       {children}
     </StyleSheet>
