@@ -27,7 +27,12 @@ import PopoverColorControl from '../../components/controls/advanced-color-contro
 import { getVideoInfo } from './utils';
 import VideoBackground from './VideoBackground';
 
-const BannerBlockEdit = ({ attributes, setAttributes, clientId }) => {
+const BannerBlockEdit = ({
+  attributes,
+  setAttributes,
+  clientId,
+  className,
+}) => {
   useUniqueId({ attributes, setAttributes, clientId });
   const {
     uniqueId,
@@ -64,9 +69,10 @@ const BannerBlockEdit = ({ attributes, setAttributes, clientId }) => {
   };
 
   const blockId = getBlockId(uniqueId);
-  const className = 'wp-block-gutenbee-banner';
 
   const classes = classNames(blockId, className);
+
+  const baseClass = 'wp-block-gutenbee-banner';
 
   return (
     <Fragment>
@@ -76,8 +82,8 @@ const BannerBlockEdit = ({ attributes, setAttributes, clientId }) => {
           color: textColor,
         }}
       >
-        {bannerUrl && <span className={`${className}-link-placeholder`} />}
-        <div className={`${className}-inner`}>
+        {bannerUrl && <span className={`${baseClass}-link-placeholder`} />}
+        <div className={`${baseClass}-inner`}>
           <InnerBlocks
             templateLock={false}
             renderAppender={
@@ -89,14 +95,14 @@ const BannerBlockEdit = ({ attributes, setAttributes, clientId }) => {
         </div>
         {overlayBackgroundColor && (
           <div
-            className={`${className}-background-overlay`}
+            className={`${baseClass}-background-overlay`}
             style={{
               backgroundColor: overlayBackgroundColor,
             }}
           />
         )}
         <div
-          className={`${className}-background`}
+          className={`${baseClass}-background`}
           style={{
             backgroundColor,
             ...getBackgroundImageStyle(backgroundImage),

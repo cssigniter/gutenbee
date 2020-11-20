@@ -19,11 +19,12 @@ import {
 } from '../../components/controls/box-shadow-controls/helpers';
 import BannerBlockEdit from './edit';
 import { getVideoInfo } from './utils';
+import BannerBlockIcon from './block-icon';
 
 registerBlockType('gutenbee/banner', {
   title: __('GutenBee Banner'),
   description: __('A versatile block for creating banners of any kind.'),
-  icon: 'smiley',
+  icon: BannerBlockIcon,
   category: 'gutenbee',
   keywords: [__('banner'), __('hero'), __('section')],
   attributes: {
@@ -90,7 +91,7 @@ registerBlockType('gutenbee/banner', {
     ...boxShadowControlAttributes(),
   },
   edit: BannerBlockEdit,
-  save: ({ attributes }) => {
+  save: ({ attributes, className }) => {
     const {
       uniqueId,
       bannerUrl,
@@ -102,7 +103,7 @@ registerBlockType('gutenbee/banner', {
       overlayBackgroundColor,
     } = attributes;
 
-    const className = getBlockDefaultClassName('gutenbee/banner');
+    const baseClass = getBlockDefaultClassName('gutenbee/banner');
 
     const { parallax, parallaxSpeed } = backgroundImage;
 
@@ -111,7 +112,7 @@ registerBlockType('gutenbee/banner', {
       : null;
 
     const bannerInner = (
-      <div className={`${className}-inner`}>
+      <div className={`${baseClass}-inner`}>
         <InnerBlocks.Content />
       </div>
     );
@@ -120,14 +121,14 @@ registerBlockType('gutenbee/banner', {
       <Fragment>
         {overlayBackgroundColor && (
           <div
-            className={`${className}-background-overlay`}
+            className={`${baseClass}-background-overlay`}
             style={{
               backgroundColor: overlayBackgroundColor,
             }}
           />
         )}
         <div
-          className={classNames(`${className}-background`, {
+          className={classNames(`${baseClass}-background`, {
             'gutenbee-parallax': parallax,
           })}
           data-parallax-speed={parallaxSpeed}
@@ -168,7 +169,7 @@ registerBlockType('gutenbee/banner', {
             href={bannerUrl}
             target={newTab && '_blank'}
             rel={newTab && 'noopener noreferrer'}
-            className={`${className}-link`}
+            className={`${baseClass}-link`}
           />
         )}
         {bannerInner}
