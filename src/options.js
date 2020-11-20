@@ -2,6 +2,7 @@ import { unregisterBlockType } from 'wp.blocks';
 
 export const blocks = [
   'accordion',
+  'banner',
   'buttons',
   'container',
   'countdown',

@@ -1,63 +1,41 @@
-/**
- * Container block
- */
-
 import { __ } from 'wp.i18n';
-import { registerBlockType } from 'wp.blocks';
+import { registerBlockType, getBlockDefaultClassName } from 'wp.blocks';
 import { InnerBlocks } from 'wp.blockEditor';
 import classNames from 'classnames';
+import { Fragment } from 'wp.element';
 
-// This is a check to see if we are in Gutenberg 7.x which supports
-// this and load the appropriate Edit component
-import { __experimentalBlockVariationPicker } from 'wp.blockEditor';
-
-import ContainerBlockEditLegacy from './edit-legacy';
-import ContainerBlockEdit from './edit';
 import { getBackgroundImageStyle } from '../../components/controls/background-controls/helpers';
-import ContainerStyle from './style';
-import ContainerBlockIcon from './block-icon';
+import BannerStyle from './style';
 import getBlockId from '../../util/getBlockId';
 import {
   getDefaultResponsiveValue,
   getDefaultSpacingValue,
 } from '../../components/controls/responsive-control/default-values';
-import variations from './variations';
 import borderControlAttributes from '../../components/controls/border-controls/attributes';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
 } from '../../components/controls/box-shadow-controls/helpers';
-import deprecated from './deprecated';
+import BannerBlockEdit from './edit';
 import { getVideoInfo } from './utils';
 
-registerBlockType('gutenbee/container', {
-  title: __('GutenBee Container'),
-  description: __('A versatile container for your blocks.'),
-  icon: ContainerBlockIcon,
+registerBlockType('gutenbee/banner', {
+  title: __('GutenBee Banner'),
+  description: __('A versatile block for creating banners of any kind.'),
+  icon: 'smiley',
   category: 'gutenbee',
-  keywords: [__('container'), __('wrapper'), __('row'), __('section')],
-  supports: {
-    align: ['wide', 'full'],
-    anchor: true,
-    html: false,
-  },
-  isMultiBlock: true,
+  keywords: [__('banner'), __('hero'), __('section')],
   attributes: {
     uniqueId: {
       type: 'string',
     },
-    gutter: {
+    bannerUrl: {
       type: 'string',
-      default: 'lg',
     },
-    columnDirection: {
-      type: 'object',
-      default: {
-        desktop: '',
-        tablet: '',
-        mobile: '',
-      },
+    newTab: {
+      type: 'boolean',
+      default: false,
     },
     textColor: {
       type: 'string',
@@ -96,25 +74,9 @@ registerBlockType('gutenbee/container', {
       type: 'object',
       default: getDefaultSpacingValue(),
     },
-    wideAlign: {
-      type: 'boolean',
-      default: false,
-    },
-    themeGrid: {
-      type: 'boolean',
-      default: false,
-    },
     containerHeight: {
       type: 'object',
       default: getDefaultResponsiveValue(),
-    },
-    innerContentWidth: {
-      type: 'object',
-      default: getDefaultResponsiveValue({
-        desktop: '',
-        tablet: '',
-        mobile: '',
-      }),
     },
     verticalContentAlignment: {
       type: 'object',
@@ -127,30 +89,20 @@ registerBlockType('gutenbee/container', {
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
   },
-  deprecated,
-  getEditWrapperProps(attributes) {
-    const { themeGrid } = attributes;
-
-    if (themeGrid) {
-      return { 'data-theme-grid': themeGrid };
-    }
-  },
-  variations,
-  edit: !!__experimentalBlockVariationPicker
-    ? ContainerBlockEdit
-    : ContainerBlockEditLegacy,
-  save: ({ attributes, className }) => {
+  edit: BannerBlockEdit,
+  save: ({ attributes }) => {
     const {
       uniqueId,
+      bannerUrl,
+      newTab,
       textColor,
       backgroundColor,
       backgroundVideoURL,
       backgroundImage,
-      gutter,
       overlayBackgroundColor,
-      themeGrid,
-      columnDirection,
     } = attributes;
+
+    const className = getBlockDefaultClassName('gutenbee/banner');
 
     const { parallax, parallaxSpeed } = backgroundImage;
 
@@ -158,43 +110,24 @@ registerBlockType('gutenbee/container', {
       ? getVideoInfo(backgroundVideoURL)
       : null;
 
-    return (
-      <div
-        className={classNames(className, getBlockId(uniqueId), {
-          'has-parallax': parallax,
-          'theme-grid': themeGrid,
-          'row-reverse-desktop': columnDirection.desktop === 'row-reverse',
-          'row-reverse-tablet': columnDirection.tablet === 'row-reverse',
-          'row-reverse-mobile': columnDirection.mobile === 'row-reverse',
-        })}
-        style={{
-          color: textColor,
-        }}
-      >
-        <ContainerStyle attributes={attributes} />
-        <div className="wp-block-gutenbee-container-inner">
+    const bannerInner = (
+      <div className={`${className}-inner`}>
+        <InnerBlocks.Content />
+      </div>
+    );
+
+    const bannerBackground = (
+      <Fragment>
+        {overlayBackgroundColor && (
           <div
-            className={classNames({
-              'wp-block-gutenbee-container-row': true,
-              [`wp-block-gutenbee-container-${gutter}`]: true,
-            })}
-          >
-            <InnerBlocks.Content />
-          </div>
-
-          {overlayBackgroundColor && (
-            <div
-              className="wp-block-gutenbee-container-background-overlay"
-              style={{
-                backgroundColor: overlayBackgroundColor,
-              }}
-            />
-          )}
-        </div>
-
+            className={`${className}-background-overlay`}
+            style={{
+              backgroundColor: overlayBackgroundColor,
+            }}
+          />
+        )}
         <div
-          className={classNames({
-            'wp-block-gutenbee-container-background': true,
+          className={classNames(`${className}-background`, {
             'gutenbee-parallax': parallax,
           })}
           data-parallax-speed={parallaxSpeed}
@@ -218,6 +151,29 @@ registerBlockType('gutenbee/container', {
             </div>
           )}
         </div>
+      </Fragment>
+    );
+
+    return (
+      <div
+        className={classNames(className, getBlockId(uniqueId), {
+          'has-parallax': parallax,
+        })}
+        style={{
+          color: textColor,
+        }}
+      >
+        {bannerUrl && (
+          <a
+            href={bannerUrl}
+            target={newTab && '_blank'}
+            rel={newTab && 'noopener noreferrer'}
+            className={`${className}-link`}
+          />
+        )}
+        {bannerInner}
+        {bannerBackground}
+        <BannerStyle attributes={attributes} />
       </div>
     );
   },

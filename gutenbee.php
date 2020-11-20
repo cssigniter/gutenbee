@@ -127,6 +127,7 @@ function gutenbee_get_setting_block_names() {
 	// index.js file, after `gutenbee/XYZ`, XYZ is the block's key).
 	return array(
 		'accordion'         => __( 'Accordion Block', 'gutenbee' ),
+		'banner'            => __( 'Banner Block', 'gutenbee' ),
 		'buttons'           => __( 'Button Block', 'gutenbee' ),
 		'container'         => __( 'Container Block', 'gutenbee' ),
 		'countdown'         => __( 'Countdown Block', 'gutenbee' ),
@@ -163,6 +164,11 @@ function gutenbee_get_blocks_info() {
 	return array(
 		'gutenbee/accordion'         => array(
 			'label'       => __( 'Accordion Block', 'gutenbee' ),
+			'enqueue_js'  => true,
+			'enqueue_css' => true,
+		),
+		'gutenbee/banner'            => array(
+			'label'       => __( 'Banner Block', 'gutenbee' ),
 			'enqueue_js'  => true,
 			'enqueue_css' => true,
 		),

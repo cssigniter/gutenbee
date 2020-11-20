@@ -21,6 +21,7 @@ import './blocks/accordion/script';
 import './blocks/tabs/script';
 import './blocks/video-embed/script';
 import './blocks/container/script';
+import './blocks/banner/script';
 
 // TODO only import this if there is an active lottie block
 // import '@lottiefiles/lottie-player';

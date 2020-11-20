@@ -11,6 +11,7 @@ import './components/controls/responsive-control/store';
 //
 // Blocks
 //
+import './blocks/banner';
 import './blocks/divider';
 import './blocks/slideshow';
 import './blocks/icon';

@@ -6,7 +6,7 @@ jQuery($ => {
   /* -----------------------------------------
 	 Video Backgrounds
 	 ----------------------------------------- */
-  var $videoBg = $('.wp-block-gutenbee-container .wp-block-gutenbee-video-bg');
+  var $videoBg = $('.wp-block-gutenbee-banner .wp-block-gutenbee-video-bg');
   var $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
 
   // YouTube videos
