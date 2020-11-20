@@ -2600,6 +2600,7 @@
   display: flex;
   position: relative;
   z-index: 1;
+  overflow: hidden;
 }
 
 .wp-block-gutenbee-banner-background {
@@ -2618,7 +2619,7 @@
   }
 }
 
-.wp-block-gutenbee-banner iframe {
+.wp-block-gutenbee-banner-background iframe {
   position: absolute;
   top: 50%;
   left: 50%;

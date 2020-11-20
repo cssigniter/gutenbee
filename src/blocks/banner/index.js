@@ -75,7 +75,7 @@ registerBlockType('gutenbee/banner', {
       type: 'object',
       default: getDefaultSpacingValue(),
     },
-    containerHeight: {
+    bannerHeight: {
       type: 'object',
       default: getDefaultResponsiveValue(),
     },
@@ -113,7 +113,9 @@ registerBlockType('gutenbee/banner', {
 
     const bannerInner = (
       <div className={`${baseClass}-inner`}>
-        <InnerBlocks.Content />
+        <div className={`${baseClass}-inner-wrapper`}>
+          <InnerBlocks.Content />
+        </div>
       </div>
     );
 

@@ -12,7 +12,7 @@ const propTypes = {
 const BannerStyle = ({ attributes, children }) => {
   const {
     uniqueId,
-    containerHeight,
+    bannerHeight,
     blockPadding,
     blockMargin,
     verticalContentAlignment,
@@ -23,7 +23,7 @@ const BannerStyle = ({ attributes, children }) => {
   return (
     <StyleSheet id={blockId}>
       <Rule
-        value={containerHeight}
+        value={bannerHeight}
         rule=".wp-block-gutenbee-banner.[root] { height: %s; }"
         unit="px"
         edgeCase={{

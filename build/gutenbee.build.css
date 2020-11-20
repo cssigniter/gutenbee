@@ -3476,6 +3476,7 @@ div[data-type="gutenbee/button"] {
   display: flex;
   position: relative;
   z-index: 1;
+  overflow: hidden;
 }
 
 .wp-block-gutenbee-banner-background {
@@ -3494,7 +3495,7 @@ div[data-type="gutenbee/button"] {
   }
 }
 
-.wp-block-gutenbee-banner iframe {
+.wp-block-gutenbee-banner-background iframe {
   position: absolute;
   top: 50%;
   left: 50%;

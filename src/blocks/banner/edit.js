@@ -43,7 +43,7 @@ const BannerBlockEdit = ({
     backgroundVideoURL,
     backgroundImage,
     overlayBackgroundColor,
-    containerHeight,
+    bannerHeight,
     verticalContentAlignment,
     horizontalContentAlignment,
   } = attributes;
@@ -127,14 +127,14 @@ const BannerBlockEdit = ({
             {breakpoint => (
               <Fragment>
                 <RangeControl
-                  label={__('Container Height (px)')}
+                  label={__('Banner Height (px)')}
                   min={-1}
                   max={1200}
-                  value={containerHeight[breakpoint]}
+                  value={bannerHeight[breakpoint]}
                   onChange={value =>
                     setAttributes({
-                      containerHeight: {
-                        ...containerHeight,
+                      bannerHeight: {
+                        ...bannerHeight,
                         [breakpoint]: value != null ? value : '',
                       },
                     })
@@ -191,7 +191,7 @@ const BannerBlockEdit = ({
                   })
                 }
                 help={__(
-                  'The content alignment settings apply when Container Height and/or the Content Width are set.',
+                  'The content alignment settings apply when Banner Height is set.',
                 )}
               />
             )}
