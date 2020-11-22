@@ -7,7 +7,7 @@ import { withSelect } from 'wp.data';
 import startCase from 'lodash.startcase';
 import classNames from 'classnames';
 
-import ImagePlaceholder from '../../components/image-placeholder/ImagePlaceholder';
+import ImagePlaceholder from '../image-placeholder/ImagePlaceholder';
 import GalleryItem from './GalleryItem';
 import { LINKTO } from './constants';
 

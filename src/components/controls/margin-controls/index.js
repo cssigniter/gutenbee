@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import { TextControl } from 'wp.components';
+
 import { capitalize } from '../../../util/text';
 
 const propTypes = {

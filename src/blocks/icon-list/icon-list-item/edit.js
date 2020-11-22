@@ -9,7 +9,6 @@ import {
 } from 'wp.components';
 import classNames from 'classnames';
 import { createBlock } from 'wp.blocks';
-
 import ReactSelect from 'react-select';
 import startCase from 'lodash.startcase';
 

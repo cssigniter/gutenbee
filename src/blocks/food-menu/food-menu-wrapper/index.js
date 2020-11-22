@@ -1,6 +1,7 @@
 import { registerBlockType } from 'wp.blocks';
 import { __ } from 'wp.i18n';
 import { InnerBlocks, __experimentalBlock as Block } from 'wp.blockEditor';
+
 import FoodMenuItemIcon from '../food-menu-item/block-icon';
 
 registerBlockType('gutenbee/food-menu-wrapper', {

@@ -77,8 +77,7 @@ export const onYouTubeAPIReady = videoEmbed => {
   }
 
   const dataset = videoEmbed.dataset;
-  // eslint-disable-next-line no-unused-vars
-  const ytPlayer = new window.YT.Player(videoEmbed, {
+  new window.YT.Player(videoEmbed, {
     videoId: dataset.videoId,
     playerVars: {
       autoplay: 0,
@@ -114,8 +113,7 @@ export const onVimeoAPIReady = videoEmbed => {
 
   const dataset = videoEmbed.dataset;
 
-  // eslint-disable-next-line no-unused-vars
-  const player = new window.Vimeo.Player(videoEmbed, {
+  new window.Vimeo.Player(videoEmbed, {
     id: dataset.videoId,
     loop: 0,
     autoplay: 0,

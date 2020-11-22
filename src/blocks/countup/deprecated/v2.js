@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { RichText } from 'wp.blockEditor';
+
 import {
   getDefaultResponsiveValue,
   getDefaultSpacingValue,

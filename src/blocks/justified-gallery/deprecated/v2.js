@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 import { GALLERY_TYPE } from '../edit';
 import { LAST_ROW } from '../constants';
 import { LINKTO } from '../../../components/gallery/constants';
@@ -8,7 +10,6 @@ import {
   getBoxShadowCSSValue,
 } from '../../../components/controls/box-shadow-controls/helpers';
 import getBlockId from '../../../util/getBlockId';
-import classNames from 'classnames';
 import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
 import StyleSheetV1 from '../../../components/stylesheet/deprecated/v1';
 import Rule from '../../../components/stylesheet/Rule';

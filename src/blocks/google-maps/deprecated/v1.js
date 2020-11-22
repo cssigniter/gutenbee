@@ -1,5 +1,6 @@
-import mapStyles from '../map-styles';
 import get from 'lodash.get';
+
+import mapStyles from '../map-styles';
 import { getMarginSettingStyles } from '../../../components/controls/margin-controls/margin-settings';
 import {
   getDefaultResponsiveValue,

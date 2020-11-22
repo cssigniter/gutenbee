@@ -5,10 +5,10 @@ import {
   getBoxShadowCSSValue,
 } from '../../../components/controls/box-shadow-controls/helpers';
 import getBlockId from '../../../util/getBlockId';
-import { getVideoInfo } from '../util';
 import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
 import StyleSheetV1 from '../../../components/stylesheet/deprecated/v1';
 import Rule from '../../../components/stylesheet/Rule';
+import { getVideoProviderInfoByUrl } from '../../../util/video/providers';
 
 const VideoEmbedStyle = ({ attributes, children }) => {
   const { uniqueId, blockPadding, blockMargin } = attributes;
@@ -101,7 +101,7 @@ const v1 = {
       return null;
     }
 
-    const videoInfo = getVideoInfo(videoUrl);
+    const videoInfo = getVideoProviderInfoByUrl(videoUrl);
 
     return (
       <div

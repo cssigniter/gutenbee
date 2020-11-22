@@ -18,8 +18,8 @@ import {
   getBoxShadowCSSValue,
 } from '../../components/controls/box-shadow-controls/helpers';
 import BannerBlockEdit from './edit';
-import { getVideoInfo } from './utils';
 import BannerBlockIcon from './block-icon';
+import { getVideoProviderInfoByUrl } from '../../util/video/providers';
 
 registerBlockType('gutenbee/banner', {
   title: __('GutenBee Banner'),
@@ -112,7 +112,7 @@ registerBlockType('gutenbee/banner', {
     const { parallax, parallaxSpeed } = backgroundImage;
 
     const videoInfo = backgroundVideoURL
-      ? getVideoInfo(backgroundVideoURL)
+      ? getVideoProviderInfoByUrl(backgroundVideoURL)
       : null;
 
     const bannerInner = (

@@ -11,6 +11,7 @@ import {
 } from 'wp.components';
 import { InspectorControls } from 'wp.blockEditor';
 import ServerSideRender from 'wp.serverSideRender';
+
 import MultiSelectCheckboxControl from '../../components/controls/multi-select-checkbox-control';
 
 const propTypes = {

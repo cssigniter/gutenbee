@@ -1,5 +1,6 @@
 import { Fragment } from 'wp.element';
 import { RichText } from 'wp.blockEditor';
+import classNames from 'classnames';
 
 import {
   getDefaultResponsiveValue,
@@ -10,7 +11,6 @@ import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
 } from '../../../components/controls/box-shadow-controls/helpers';
-import classNames from 'classnames';
 import getBlockId from '../../../util/getBlockId';
 import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
 import StyleSheetV1 from '../../../components/stylesheet/deprecated/v1';

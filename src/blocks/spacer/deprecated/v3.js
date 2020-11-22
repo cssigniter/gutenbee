@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 import {
   getDefaultBackgroundImageValue,
   getDefaultResponsiveValue,
@@ -9,7 +11,6 @@ import {
   getBoxShadowCSSValue,
 } from '../../../components/controls/box-shadow-controls/helpers';
 import getBlockId from '../../../util/getBlockId';
-import classNames from 'classnames';
 import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
 import { getBackgroundImageStyle } from '../../../components/controls/background-controls/helpers';
 import StyleSheetV1 from '../../../components/stylesheet/deprecated/v1';

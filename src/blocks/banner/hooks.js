@@ -1,5 +1,6 @@
-import { onYouTubeAPIReady, onVimeoAPIReady } from './utils';
 import { useEffect } from 'wp.element';
+
+import { onYouTubeAPIReady, onVimeoAPIReady } from './utils';
 
 const createYouTubeApiScript = () => {
   const tag = document.createElement('script');

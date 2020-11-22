@@ -5,7 +5,6 @@ import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
 } from '../../../components/controls/box-shadow-controls/helpers';
-
 import Rule from '../../../components/stylesheet/Rule';
 import getBlockId from '../../../util/getBlockId';
 import { getDefaultSpacingValue } from '../../../components/controls/responsive-control/default-values';

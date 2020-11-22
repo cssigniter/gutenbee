@@ -2,6 +2,7 @@ import { Fragment } from 'wp.element';
 import { RichText } from 'wp.blockEditor';
 import classNames from 'classnames';
 import { isEmpty } from 'lodash';
+
 import {
   getDefaultResponsiveValue,
   getDefaultSpacingValue,

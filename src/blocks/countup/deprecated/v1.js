@@ -3,7 +3,6 @@ import { RichText } from 'wp.blockEditor';
 import { getColorClassName } from 'wp.blockEditor';
 
 import { getMarginSettingStyles } from '../../../components/controls/margin-controls/margin-settings';
-
 import {
   getDefaultResponsiveValue,
   getDefaultSpacingValue,

@@ -10,12 +10,12 @@ import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
 } from '../../../components/controls/box-shadow-controls/helpers';
-import { getVideoInfo } from '../../video-embed/util';
 import getBlockId from '../../../util/getBlockId';
 import { getBackgroundImageStyle } from '../../../components/controls/background-controls/helpers';
 import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
 import StyleSheetV1 from '../../../components/stylesheet/deprecated/v1';
 import Rule from '../../../components/stylesheet/Rule';
+import { getVideoProviderInfoByUrl } from '../../../util/video/providers';
 
 const ContainerStyle = ({ attributes, children }) => {
   const {
@@ -162,7 +162,7 @@ const v2 = {
     const { parallax, parallaxSpeed } = backgroundImage;
 
     const videoInfo = backgroundVideoURL
-      ? getVideoInfo(backgroundVideoURL)
+      ? getVideoProviderInfoByUrl(backgroundVideoURL)
       : null;
 
     return (
