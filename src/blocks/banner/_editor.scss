@@ -1,36 +1,18 @@
 @import 'common';
 
 .wp-block-gutenbee-banner {
-    &-link-placeholder {
-        position: absolute;
-        display: block;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index: 1;
-        cursor: pointer;
-    }
+  &-link-placeholder {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    cursor: pointer;
+  }
 
-    &-inner {
-        z-index: 2;
-    }
-
-    .gutenbee-video-bg-wrapper {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-
-        .gutenbee-video-bg-inner-wrapper,
-        .gutenbee-video-bg {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 100%;
-          height: 100%;
-          transform: translate(-50%, -50%);
-        }
-      }
+  &-inner {
+    z-index: 2;
+  }
 }

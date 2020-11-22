@@ -58,12 +58,13 @@ const ColumnBlockEdit = ({
   } = attributes;
 
   const customClass = 'wp-block-gutenbee-column';
+  const blockId = getBlockId(uniqueId);
 
   return (
     <Fragment>
       <ColumnStyle attributes={attributes} />
 
-      <div className={classNames(className, getBlockId(uniqueId))}>
+      <div id={blockId} className={classNames(className, blockId)}>
         <div
           className={`${customClass}-content`}
           style={{

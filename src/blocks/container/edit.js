@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'wp.element';
+import { Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { compose } from 'wp.compose';
 import {
@@ -11,20 +11,21 @@ import { times, dropRight, get } from 'lodash';
 import classNames from 'classnames';
 
 import { getBackgroundImageStyle } from '../../components/controls/background-controls/helpers';
-
 import useUniqueId from '../../hooks/useUniqueId';
 import ContainerStyle from './style';
 import getBlockId from '../../util/getBlockId';
 import {
   createBlocksFromInnerBlocksTemplate,
   getMappedColumnWidths,
+  onVimeoApiReady,
+  onYouTubeApiReady,
 } from './utils';
 import Rule from '../../components/stylesheet/Rule';
 import ContainerInspectorControls from './inspector-controls';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
-import { getVideoInfo } from './utils';
-import VideoBackground from './VideoBackground';
+import { useVideoEmbed } from '../../util/video/useVideoEmbed';
+import VideoBackgroundEditor from '../../util/video/components/VideoBackgroundEditor';
 
 const propTypes = {
   className: PropTypes.string.isRequired,
@@ -40,6 +41,7 @@ const ContainerBlockEdit = ({
   setAttributes,
   clientId,
   updateColumns,
+  className,
 }) => {
   const {
     uniqueId,
@@ -78,14 +80,19 @@ const ContainerBlockEdit = ({
     clientId,
   });
 
-  const [videoInfo, setVideoInfo] = useState(
-    backgroundVideoURL ? getVideoInfo(backgroundVideoURL) : null,
-  );
-
   const blockId = getBlockId(uniqueId);
-  const className = 'wp-block-gutenbee-container';
+  const classes = classNames(className, blockId);
 
-  const classes = classNames(blockId, className);
+  const { videoInfo, videoEmbedRef, handleVideoUrlChange } = useVideoEmbed({
+    url: backgroundVideoURL,
+    onVideoUrlChange: url => {
+      setAttributes({
+        backgroundVideoURL: url,
+      });
+    },
+    onYouTubeApiReady,
+    onVimeoApiReady,
+  });
 
   return (
     <Fragment>
@@ -98,6 +105,7 @@ const ContainerBlockEdit = ({
 
       {hasInnerBlocks ? (
         <div
+          id={blockId}
           className={classes}
           style={{
             color: textColor,
@@ -133,10 +141,10 @@ const ContainerBlockEdit = ({
           >
             {backgroundVideoURL &&
               !['unsupported'].includes(videoInfo.provider) && (
-                <VideoBackground
+                <VideoBackgroundEditor
                   key={backgroundVideoURL}
-                  url={backgroundVideoURL}
                   videoInfo={videoInfo}
+                  videoEmbedRef={videoEmbedRef}
                 />
               )}
           </div>
@@ -175,7 +183,7 @@ const ContainerBlockEdit = ({
           updateColumns={updateColumns}
           columnCount={count}
           videoInfo={videoInfo}
-          setVideoInfo={setVideoInfo}
+          handleBackgroundVideoUrlChange={handleVideoUrlChange}
         />
       )}
     </Fragment>

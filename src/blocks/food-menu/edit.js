@@ -4,7 +4,7 @@ import { Fragment } from 'wp.element';
 import { InnerBlocks, __experimentalBlock as Block } from 'wp.blockEditor';
 import { InspectorControls } from 'wp.blockEditor';
 import { PanelBody, RangeControl } from 'wp.components';
-import classnames from 'classnames';
+import classNames from 'classnames';
 
 import getBlockId from '../../util/getBlockId';
 import useUniqueId from '../../hooks/useUniqueId';
@@ -34,7 +34,8 @@ const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
   return (
     <Fragment>
       <div
-        className={classnames(className, blockId, {
+        id={blockId}
+        className={classNames(className, blockId, {
           [`gutenbee-food-menu-columns-desktop-${columns.desktop}`]: true,
           [`gutenbee-food-menu-columns-tablet-${columns.tablet}`]: true,
           [`gutenbee-food-menu-columns-mobile-${columns.mobile}`]: true,

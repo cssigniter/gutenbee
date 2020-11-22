@@ -40,6 +40,7 @@ const SpacerEdit = ({
       <SpacerStyle attributes={attributes} />
       <div>
         <ResizableBox
+          id={blockId}
           style={{
             backgroundColor: backgroundColor || undefined,
             ...getBackgroundImageStyle(backgroundImage),

@@ -79,6 +79,7 @@ registerBlockType('gutenbee/image-comparison', {
 
     return (
       <div
+        id={blockId}
         style={{
           backgroundColor: backgroundColor || undefined,
           ...getBorderCSSValue({ attributes }),

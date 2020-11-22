@@ -72,13 +72,13 @@ export const getVideoInfo = url => {
  *
  */
 export const onYouTubeAPIReady = videoEmbed => {
-  if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
+  if (typeof YT === 'undefined' || typeof window.YT.Player === 'undefined') {
     return setTimeout(onYouTubeAPIReady.bind(null, videoEmbed), 333);
   }
 
   const dataset = videoEmbed.dataset;
   // eslint-disable-next-line no-unused-vars
-  const ytPlayer = new YT.Player(videoEmbed, {
+  const ytPlayer = new window.YT.Player(videoEmbed, {
     videoId: dataset.videoId,
     playerVars: {
       autoplay: 0,
@@ -105,14 +105,17 @@ export const onYouTubeAPIReady = videoEmbed => {
  *
  */
 export const onVimeoAPIReady = videoEmbed => {
-  if (typeof Vimeo === 'undefined' || typeof Vimeo.Player === 'undefined') {
+  if (
+    typeof Vimeo === 'undefined' ||
+    typeof window.Vimeo.Player === 'undefined'
+  ) {
     return setTimeout(onVimeoAPIReady.bind(null, videoEmbed), 333);
   }
 
   const dataset = videoEmbed.dataset;
 
   // eslint-disable-next-line no-unused-vars
-  const player = new Vimeo.Player(videoEmbed, {
+  const player = new window.Vimeo.Player(videoEmbed, {
     id: dataset.videoId,
     loop: 0,
     autoplay: 0,

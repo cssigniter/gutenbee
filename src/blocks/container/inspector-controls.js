@@ -15,7 +15,6 @@ import ResponsiveControl from '../../components/controls/responsive-control/Resp
 import BorderControls from '../../components/controls/border-controls';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
-import { getVideoInfo } from '../video-embed/util';
 
 const ContainerInspectorControls = ({
   attributes,
@@ -23,7 +22,7 @@ const ContainerInspectorControls = ({
   updateColumns,
   columnCount,
   videoInfo,
-  setVideoInfo,
+  handleBackgroundVideoUrlChange,
 }) => {
   const supports =
     window.__GUTENBEE_SETTINGS__.theme_supports['container'] || {};
@@ -41,13 +40,6 @@ const ContainerInspectorControls = ({
     overlayBackgroundColor,
     backgroundVideoURL,
   } = attributes;
-
-  const onBackgroundVideoUrlChange = newUrl => {
-    setAttributes({
-      backgroundVideoURL: newUrl,
-    });
-    setVideoInfo(getVideoInfo(newUrl));
-  };
 
   return (
     <Fragment>
@@ -218,12 +210,14 @@ const ContainerInspectorControls = ({
                 {__('Embed URL error. Please enter a YouTube or Vimeo URL.')}
               </span>
             )}
+
           <TextControl
             label={__('Video Background URL.')}
-            onChange={onBackgroundVideoUrlChange}
+            onChange={handleBackgroundVideoUrlChange}
             type="text"
             value={backgroundVideoURL}
           />
+
           {backgroundVideoURL && (
             <span className="gutenbee-controls-notice">
               {__(

@@ -207,6 +207,7 @@ const ImageEdit = ({
       <ImageStyle attributes={attributes} />
 
       <figure
+        id={blockId}
         className={classNames(className, blockId)}
         style={{
           backgroundColor: backgroundColor || undefined,

@@ -6,15 +6,15 @@ import getBlockId from '../../util/getBlockId';
 import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
 import VideoEmbedEdit from './edit';
 import VideoEmbedStyle from './style';
-import borderControlAttributes from '../../components/controls/border-controls/attributes';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
 } from '../../components/controls/box-shadow-controls/helpers';
-import { getVideoInfo } from './util';
+import borderControlAttributes from '../../components/controls/border-controls/attributes';
 import VideoEmbedBlockIcon from './block-icon';
 import deprecated from './deprecated';
+import { getVideoProviderInfoByUrl } from '../../util/video/providers';
 
 registerBlockType('gutenbee/video-embed', {
   title: __('GutenBee Video Embed'),
@@ -103,10 +103,11 @@ registerBlockType('gutenbee/video-embed', {
       return null;
     }
 
-    const videoInfo = getVideoInfo(videoUrl);
+    const videoInfo = getVideoProviderInfoByUrl(videoUrl);
 
     return (
       <div
+        id={blockId}
         className={classNames(
           className,
           blockId,

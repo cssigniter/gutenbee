@@ -127,6 +127,35 @@
   content: "\E002";
 }
 
+.wp-block-gutenbee-video-bg-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  -webkit-transition: opacity .18s ease;
+  transition: opacity .18s ease;
+}
+
+.wp-block-gutenbee-video-bg-wrapper.visible {
+  opacity: 1;
+}
+
+.wp-block-gutenbee-video-bg-wrapper .wp-block-gutenbee-video-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
 .editor-block-list__layout > [data-type^="gutenbee"]:first-child > .editor-block-list__block-edit > [data-block] > div[class*="wp-block"] {
   margin-top: 0 !important;
 }
@@ -1812,33 +1841,6 @@
   width: 100%;
 }
 
-.wp-block-gutenbee-container .wp-block-gutenbee-video-bg-wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  opacity: 0;
-}
-
-.wp-block-gutenbee-container .wp-block-gutenbee-video-bg-wrapper.visible {
-  opacity: 1;
-}
-
-.wp-block-gutenbee-container .wp-block-gutenbee-video-bg-wrapper .wp-block-gutenbee-video-bg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
 .wp-block-gutenbee-container-row {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2666,32 +2668,5 @@
 
 .wp-block-gutenbee-banner-inner-wrapper {
   z-index: 10;
-}
-
-.wp-block-gutenbee-banner .wp-block-gutenbee-video-bg-wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  opacity: 0;
-}
-
-.wp-block-gutenbee-banner .wp-block-gutenbee-video-bg-wrapper.visible {
-  opacity: 1;
-}
-
-.wp-block-gutenbee-banner .wp-block-gutenbee-video-bg-wrapper .wp-block-gutenbee-video-bg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
 }
 

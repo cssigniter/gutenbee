@@ -148,6 +148,7 @@ const CountdownEdit = ({
   return (
     <Fragment>
       <div
+        id={blockId}
         className={classNames(className, blockId)}
         ref={clock}
         style={{

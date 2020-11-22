@@ -208,7 +208,11 @@ registerBlockType('gutenbee/image', {
 
     if ('left' === align || 'right' === align || 'center' === align) {
       return (
-        <div className={classNames(className, blockId)} style={style}>
+        <div
+          id={blockId}
+          className={classNames(className, blockId)}
+          style={style}
+        >
           <ImageStyle attributes={attributes} />
           <figure className={classes}>{figure}</figure>
         </div>
@@ -216,7 +220,11 @@ registerBlockType('gutenbee/image', {
     }
 
     return (
-      <figure className={classNames(className, blockId, classes)} style={style}>
+      <figure
+        id={blockId}
+        className={classNames(className, blockId, classes)}
+        style={style}
+      >
         <ImageStyle attributes={attributes} />
         {figure}
       </figure>

@@ -42,6 +42,7 @@ const ProgressBar = ({ className, attributes }) => {
 
   return (
     <div
+      id={blockId}
       className={classNames(className, blockId)}
       style={{
         backgroundColor: backgroundColor || undefined,

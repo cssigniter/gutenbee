@@ -11,7 +11,10 @@ jQuery($ => {
 
   // YouTube videos
   function onYouTubeAPIReady($videoBg) {
-    if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
+    if (
+      typeof window.YT === 'undefined' ||
+      typeof window.YT.Player === 'undefined'
+    ) {
       return setTimeout(onYouTubeAPIReady.bind(null, $videoBg), 333);
     }
 
@@ -21,7 +24,7 @@ jQuery($ => {
       .data('video-id');
     var video = $videoBg.attr('id');
     // eslint-disable-next-line no-unused-vars
-    var ytPlayer = new YT.Player(video, {
+    var ytPlayer = new window.YT.Player(video, {
       videoId: videoId,
       playerVars: {
         autoplay: 1,
@@ -40,7 +43,7 @@ jQuery($ => {
           event.target.mute();
         },
         onStateChange: function(event) {
-          if (event.data === YT.PlayerState.PLAYING) {
+          if (event.data === window.YT.PlayerState.PLAYING) {
             $videoWrap.addClass('visible');
             adjustVideoSize($videoWrap);
           }
@@ -51,7 +54,10 @@ jQuery($ => {
 
   // Vimeo videos
   function onVimeoAPIReady($videoBg) {
-    if (typeof Vimeo === 'undefined' || typeof Vimeo.Player === 'undefined') {
+    if (
+      typeof Vimeo === 'undefined' ||
+      typeof window.Vimeo.Player === 'undefined'
+    ) {
       return setTimeout(onVimeoAPIReady.bind(null, $videoBg), 333);
     }
 
@@ -60,7 +66,7 @@ jQuery($ => {
       .parents('.wp-block-gutenbee-video-bg-wrapper')
       .data('video-id');
 
-    var player = new Vimeo.Player($videoBg, {
+    var player = new window.Vimeo.Player($videoBg, {
       id: videoId,
       loop: true,
       autoplay: true,

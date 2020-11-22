@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState, useCallback } from 'wp.element';
+import { Fragment, useRef, useState } from 'wp.element';
 import {
   BaseControl,
   Button,
@@ -15,7 +15,8 @@ import {
   MediaUploadCheck,
   BlockControls,
 } from 'wp.blockEditor';
-import { __, _x } from 'wp.i18n';
+import { __, _x, sprintf } from 'wp.i18n';
+import classNames from 'classnames';
 
 import MarginControls from '../../components/controls/margin-controls';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
@@ -27,9 +28,8 @@ import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-contr
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 import VideoEmbedStyle from './style';
-import { getVideoInfo } from './util';
-import { useVideoEmbed } from './hooks';
-import classNames from 'classnames';
+import { onVimeoApiReady, onYouTubeApiReady } from './util';
+import { useVideoEmbed } from '../../util/video/useVideoEmbed';
 
 const VIDEO_POSTER_ALLOWED_MEDIA_TYPES = ['image'];
 
@@ -65,23 +65,17 @@ const VideoEmbedEdit = ({
   const [interactive, setInteractive] = useState(false);
   const coverImageImageButtonRef = useRef();
   const overlayRef = useRef();
-  const [videoEmbedRef, setVideoEmbedRef] = useState(null);
-  const [videoInfo, setVideoInfo] = useState(
-    videoUrl ? getVideoInfo(videoUrl) : null,
-  );
 
-  const onVideoEmbedRef = useCallback(node => {
-    if (node !== null) {
-      setVideoEmbedRef(node);
-    }
-  }, []);
-
-  const onVideoUrlChange = newUrl => {
-    setAttributes({
-      videoUrl: newUrl,
-    });
-    setVideoInfo(getVideoInfo(newUrl));
-  };
+  const { videoInfo, handleVideoUrlChange, videoEmbedRef } = useVideoEmbed({
+    url: videoUrl,
+    onVideoUrlChange: url => {
+      setAttributes({
+        videoUrl: url,
+      });
+    },
+    onYouTubeApiReady,
+    onVimeoApiReady,
+  });
 
   const onCoverImageSelect = image => {
     setAttributes({ coverImage: image.url });
@@ -101,8 +95,6 @@ const VideoEmbedEdit = ({
     setInteractive(false);
   }
 
-  useVideoEmbed(videoEmbedRef, videoInfo);
-
   if (editing) {
     return (
       <Placeholder
@@ -114,29 +106,32 @@ const VideoEmbedEdit = ({
       >
         <form
           onSubmit={event => {
-            if (event) {
-              event.preventDefault();
-            }
+            event?.preventDefault();
             setEditing(false);
           }}
         >
-          {videoUrl && videoInfo.provider === 'unsupported' && (
-            <span className="gutenbee-embed-error">
-              {__('Embed URL error. Please enter a YouTube or Vimeo URL.')}
-            </span>
-          )}
           <input
             type="url"
             value={videoUrl}
             className="components-placeholder__input"
             aria-label={__('embed-url')}
             placeholder={__('Enter URL to embed here…')}
-            onChange={event => onVideoUrlChange(event.target.value)}
+            onChange={event => handleVideoUrlChange(event.target.value)}
           />
           {videoUrl && 'unsupported' !== videoInfo.provider && (
             <Button isPrimary type="submit">
               {_x('Embed', 'button label')}
             </Button>
+          )}
+
+          {videoInfo?.provider === 'unsupported' && (
+            <div className="components-placeholder__error">
+              <div className="components-placeholder__instructions">
+                {__(
+                  'Embed URL error. Please enter a valid YouTube or Vimeo URL.',
+                )}
+              </div>
+            </div>
           )}
         </form>
       </Placeholder>
@@ -146,6 +141,7 @@ const VideoEmbedEdit = ({
   return (
     <Fragment>
       <div
+        id={blockId}
         className={classNames(
           className,
           blockId,
@@ -171,10 +167,11 @@ const VideoEmbedEdit = ({
             data-video-start={startTime}
             data-video-end={endTime}
             data-video-type={videoInfo.provider}
-            ref={onVideoEmbedRef}
+            ref={videoEmbedRef}
           >
             <div id={`video-${blockId}`} />
           </div>
+
           {coverImage && !hideOnClick && (
             <div
               ref={overlayRef}

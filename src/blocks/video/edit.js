@@ -123,6 +123,7 @@ const VideoEdit = ({
   };
 
   const videoPosterDescription = `video-block__poster-image-description-${instanceId}`;
+  const blockId = getBlockId(uniqueId);
 
   if (editing) {
     return (
@@ -276,7 +277,8 @@ const VideoEdit = ({
 
       <VideoStyle attributes={attributes} />
       <figure
-        className={classNames(className, getBlockId(uniqueId))}
+        blockId={blockId}
+        className={classNames(className, blockId)}
         style={{
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),

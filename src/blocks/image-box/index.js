@@ -45,6 +45,7 @@ const ImageBox = ({ className, attributes }) => {
 
   return (
     <div
+      id={blockId}
       className={classNames(className, blockId, {
         [`wp-block-gutenbee-imagebox-align-${imageAlign}`]: true,
         [`wp-block-gutenbee-imagebox-content-align-${contentAlign}`]: !!contentAlign,

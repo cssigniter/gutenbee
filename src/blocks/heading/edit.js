@@ -77,6 +77,7 @@ function HeadingEdit({
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),
         }}
+        id={blockId}
         className={classNames(
           'wp-block-gutenbee-heading',
           blockId,

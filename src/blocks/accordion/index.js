@@ -30,10 +30,8 @@ const Accordion = ({ className, attributes }) => {
 
   return (
     <div
-      className={classNames({
-        [className]: !!className,
-        [blockId]: true,
-      })}
+      id={blockId}
+      className={classNames(className, blockId)}
       data-collapse-others={collapseOthers}
     >
       <AccordionStyle attributes={attributes} />

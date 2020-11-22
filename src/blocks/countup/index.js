@@ -39,6 +39,7 @@ const CountupRender = ({ attributes, className }) => {
 
   return (
     <div
+      id={blockId}
       className={classNames({
         [className]: !!className,
         [blockId]: true,

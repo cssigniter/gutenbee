@@ -67,12 +67,7 @@ const ButtonEdit = ({ attributes, setAttributes, className, clientId }) => {
 
   return (
     <Fragment>
-      <div
-        className={classNames({
-          [className]: !!className,
-          [blockId]: true,
-        })}
-      >
+      <div id={blockId} className={classNames(className, blockId)}>
         <ButtonStyle attributes={attributes} />
         <RichText
           placeholder={__('Add text…')}

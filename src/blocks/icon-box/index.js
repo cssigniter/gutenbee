@@ -55,6 +55,7 @@ const IconBox = ({ className, attributes }) => {
 
   return (
     <div
+      id={blockId}
       className={classNames({
         [className]: !!className,
         [blockId]: true,
@@ -139,6 +140,7 @@ const IconBoxEditBlock = ({
   return (
     <Fragment>
       <div
+        id={blockId}
         className={classNames({
           [className]: !!className,
           [blockId]: true,

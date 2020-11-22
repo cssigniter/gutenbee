@@ -27,6 +27,9 @@ registerBlockType('gutenbee/banner', {
   icon: BannerBlockIcon,
   category: 'gutenbee',
   keywords: [__('banner'), __('hero'), __('section')],
+  supports: {
+    anchor: true,
+  },
   attributes: {
     uniqueId: {
       type: 'string',
@@ -103,6 +106,7 @@ registerBlockType('gutenbee/banner', {
       overlayBackgroundColor,
     } = attributes;
 
+    const blockId = getBlockId(uniqueId);
     const baseClass = getBlockDefaultClassName('gutenbee/banner');
 
     const { parallax, parallaxSpeed } = backgroundImage;
@@ -148,7 +152,7 @@ registerBlockType('gutenbee/banner', {
               data-video-type={videoInfo && videoInfo.provider}
             >
               <div
-                id={`video-${getBlockId(uniqueId)}`}
+                id={`video-${blockId}`}
                 className="wp-block-gutenbee-video-bg"
               />
             </div>
@@ -159,7 +163,8 @@ registerBlockType('gutenbee/banner', {
 
     return (
       <div
-        className={classNames(className, getBlockId(uniqueId), {
+        id={blockId}
+        className={classNames(className, blockId, {
           'has-parallax': parallax,
         })}
         style={{

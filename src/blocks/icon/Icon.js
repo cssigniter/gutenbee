@@ -54,7 +54,7 @@ const Icon = ({
   }
 
   return (
-    <div className={wrapperClasses}>
+    <div id={id} className={wrapperClasses}>
       <IconStyle id={id} attributes={{ uniqueId, blockMargin, blockPadding }} />
       <span
         className="gutenbee-icon-block-icon-wrap"

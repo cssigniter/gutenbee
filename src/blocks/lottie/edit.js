@@ -93,6 +93,7 @@ const LottieEdit = ({ attributes, setAttributes, clientId, className }) => {
         </MediaUploadCheck>
       ) : (
         <div
+          id={blockId}
           className={classNames(className, blockId)}
           style={{
             ...getBorderCSSValue({ attributes }),

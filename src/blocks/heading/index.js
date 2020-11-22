@@ -103,6 +103,7 @@ registerBlockType('gutenbee/heading', {
         <HeadingStyle attributes={attributes} />
 
         <RichText.Content
+          id={blockId}
           className={classes}
           tagName={tagName}
           style={{

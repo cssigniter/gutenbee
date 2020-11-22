@@ -127,6 +127,7 @@ registerBlockType('gutenbee/google-maps', {
 
     return (
       <div
+        id={blockId}
         className={classNames(className, blockId)}
         style={{
           backgroundColor: backgroundColor || undefined,

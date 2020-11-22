@@ -5,10 +5,10 @@ import { withSelect } from 'wp.data';
 import { IconButton, Toolbar, PanelBody, SelectControl } from 'wp.components';
 import { MediaUpload, InspectorControls, BlockControls } from 'wp.blockEditor';
 import SlickSlider from 'react-slick';
+import startCase from 'lodash.startcase';
 
 import ImagePlaceholder from '../image-placeholder/ImagePlaceholder';
 import { LINKTO } from '../gallery/constants';
-import startCase from 'lodash.startcase';
 
 class Slideshow extends Component {
   static propTypes = {

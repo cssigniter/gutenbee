@@ -157,6 +157,7 @@ registerBlockType('gutenbee/testimonial', {
     const blockId = getBlockId(uniqueId);
 
     const blockProps = {
+      blockId,
       className: classNames(className, blockId, {
         [`has-text-align-${align}`]: align,
         [`gutenbee-testimonial-avatar-${avatarPosition}`]: avatarPosition,

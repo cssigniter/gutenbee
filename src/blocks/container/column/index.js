@@ -34,7 +34,7 @@ registerBlockType('gutenbee/column', {
     inserter: false,
     reusable: false,
     html: false,
-    anchor: false,
+    anchor: true,
   },
   attributes: {
     uniqueId: {
@@ -109,9 +109,12 @@ registerBlockType('gutenbee/column', {
       backgroundImage,
     } = attributes;
 
+    const blockId = getBlockId(uniqueId);
+
     return (
       <div
-        className={classNames(className, getBlockId(uniqueId), {
+        id={blockId}
+        className={classNames(className, blockId, {
           'wp-block-gutenbee-column': true,
         })}
       >

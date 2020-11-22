@@ -131,6 +131,7 @@ registerBlockType('gutenbee/justified-gallery', {
 
     return (
       <div
+        id={blockId}
         className={classNames(className, blockId, {
           'wp-block-gutenbee-gallery-columns': type === GALLERY_TYPE.COLUMNS,
           'wp-block-gutenbee-gallery-justified':

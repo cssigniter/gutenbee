@@ -136,9 +136,10 @@ registerBlockType('gutenbee/paragraph', {
         <ParagraphStyle attributes={attributes} />
 
         <RichText.Content
+          id={blockId}
+          className={classes}
           tagName="p"
           style={styles}
-          className={classes}
           value={content}
         />
       </Fragment>

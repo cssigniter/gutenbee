@@ -1,27 +1,29 @@
 import jQuery from 'jquery';
 
+import {
+  maybeLoadVimeoApi,
+  maybeLoadYouTubeApi,
+} from '../../util/video/providers';
+
 jQuery($ => {
-  var $window = $(window);
+  const $window = $(window);
 
   /* -----------------------------------------
 	 Video Backgrounds
 	 ----------------------------------------- */
-  var $videoBg = $('.wp-block-gutenbee-container .wp-block-gutenbee-video-bg');
-  var $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
+  const $videoBg = $(
+    '.wp-block-gutenbee-container .wp-block-gutenbee-video-bg',
+  );
+  const $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
 
   // YouTube videos
-  function onYouTubeAPIReady($videoBg) {
-    if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
-      return setTimeout(onYouTubeAPIReady.bind(null, $videoBg), 333);
-    }
-
-    var $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
-    var videoId = $videoBg
+  function onYouTubeApiReady($videoBg) {
+    const $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
+    const videoId = $videoBg
       .parents('.wp-block-gutenbee-video-bg-wrapper')
       .data('video-id');
-    var video = $videoBg.attr('id');
-    // eslint-disable-next-line no-unused-vars
-    var ytPlayer = new YT.Player(video, {
+    const video = $videoBg.attr('id');
+    new window.YT.Player(video, {
       videoId: videoId,
       playerVars: {
         autoplay: 1,
@@ -40,7 +42,7 @@ jQuery($ => {
           event.target.mute();
         },
         onStateChange: function(event) {
-          if (event.data === YT.PlayerState.PLAYING) {
+          if (event.data === window.YT.PlayerState.PLAYING) {
             $videoWrap.addClass('visible');
             adjustVideoSize($videoWrap);
           }
@@ -50,17 +52,13 @@ jQuery($ => {
   }
 
   // Vimeo videos
-  function onVimeoAPIReady($videoBg) {
-    if (typeof Vimeo === 'undefined' || typeof Vimeo.Player === 'undefined') {
-      return setTimeout(onVimeoAPIReady.bind(null, $videoBg), 333);
-    }
-
-    var $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
-    var videoId = $videoBg
+  function onVimeoApiReady($videoBg) {
+    const $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
+    const videoId = $videoBg
       .parents('.wp-block-gutenbee-video-bg-wrapper')
       .data('video-id');
 
-    var player = new Vimeo.Player($videoBg, {
+    const player = new window.Vimeo.Player($videoBg, {
       id: videoId,
       loop: true,
       autoplay: true,
@@ -78,25 +76,25 @@ jQuery($ => {
     });
   }
 
-  var videoResizeTimer;
+  let videoResizeTimer;
 
   $window.on('resize.ciVideo', function() {
     clearTimeout(videoResizeTimer);
     videoResizeTimer = setTimeout(function() {
       $videoWrap.each(function() {
-        var $this = $(this);
+        const $this = $(this);
         adjustVideoSize($this);
       });
     }, 350);
   });
 
   function getVideoSize($videoWrap) {
-    var containerWidth = $videoWrap.outerWidth();
-    var containerHeight = $videoWrap.outerHeight();
-    var aspectRatio = 16 / 9;
-    var ratioWidth = containerWidth / aspectRatio;
-    var ratioHeight = containerHeight * aspectRatio;
-    var isWidthFixed = containerWidth / containerHeight > aspectRatio;
+    const containerWidth = $videoWrap.outerWidth();
+    const containerHeight = $videoWrap.outerHeight();
+    const aspectRatio = 16 / 9;
+    const ratioWidth = containerWidth / aspectRatio;
+    const ratioHeight = containerHeight * aspectRatio;
+    const isWidthFixed = containerWidth / containerHeight > aspectRatio;
 
     return {
       width: isWidthFixed ? containerWidth : ratioHeight,
@@ -105,7 +103,7 @@ jQuery($ => {
   }
 
   function adjustVideoSize($videoWrap) {
-    var size = getVideoSize($videoWrap);
+    const size = getVideoSize($videoWrap);
 
     $videoWrap.find('iframe').css({
       width: size.width + 'px',
@@ -114,27 +112,18 @@ jQuery($ => {
   }
 
   if ($videoBg.length && window.innerWidth > 1080) {
-    $videoBg.each(function() {
-      var $this = $(this);
-      var firstScript = $('script');
-      var videoType = $this
+    $videoBg.each(async function() {
+      const $this = $(this);
+      const videoType = $this
         .parents('.wp-block-gutenbee-video-bg-wrapper')
         .data('video-type');
 
       if (videoType === 'youtube') {
-        if (!$('#youtube-api-script').length) {
-          var tag = $('<script />', { id: 'youtube-api-script' });
-          tag.attr('src', 'https://www.youtube.com/player_api');
-          firstScript.parent().prepend(tag);
-        }
-        onYouTubeAPIReady($this);
+        await maybeLoadYouTubeApi();
+        onYouTubeApiReady($this);
       } else if (videoType === 'vimeo') {
-        if (!$('#vimeo-api-script').length) {
-          var tag = $('<script />', { id: 'vimeo-api-script' });
-          tag.attr('src', 'https://player.vimeo.com/api/player.js');
-          firstScript.parent().prepend(tag);
-        }
-        onVimeoAPIReady($this);
+        await maybeLoadVimeoApi();
+        onVimeoApiReady($this);
       }
     });
   }

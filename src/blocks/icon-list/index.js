@@ -103,6 +103,7 @@ registerBlockType('gutenbee/icon-list', {
 
     return (
       <div
+        id={blockId}
         className={classNames(blockId, 'wp-block-gutenbee-list-icon-wrapper')}
         style={{
           backgroundColor: backgroundColor ? backgroundColor : undefined,

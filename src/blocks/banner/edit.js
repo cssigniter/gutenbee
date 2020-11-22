@@ -69,14 +69,13 @@ const BannerBlockEdit = ({
   };
 
   const blockId = getBlockId(uniqueId);
-
   const classes = classNames(blockId, className);
-
   const baseClass = 'wp-block-gutenbee-banner';
 
   return (
     <Fragment>
       <div
+        id={blockId}
         className={classes}
         style={{
           color: textColor,

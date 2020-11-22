@@ -32,6 +32,7 @@ const ButtonsEdit = ({ attributes, setAttributes, className, clientId }) => {
   return (
     <Fragment>
       <div
+        id={blockId}
         className={classNames(className, blockId, {
           [desktopAlignment]: true,
         })}

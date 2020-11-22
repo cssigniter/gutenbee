@@ -114,9 +114,12 @@ registerBlockType('gutenbee/video', {
       src,
       playsInline,
     } = attributes;
+    const blockId = getBlockId(uniqueId);
+
     return (
       <figure
-        className={classNames(className, getBlockId(uniqueId))}
+        id={blockId}
+        className={classNames(className, blockId)}
         style={{
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),

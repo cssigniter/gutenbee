@@ -133,6 +133,7 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
   return (
     <Fragment>
       <div
+        id={blockId}
         className={classNames(blockId, 'wp-block-gutenbee-list-icon-wrapper')}
         style={{
           backgroundColor: backgroundColor ? backgroundColor : undefined,

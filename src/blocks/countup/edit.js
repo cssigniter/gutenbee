@@ -85,6 +85,7 @@ const CountupEdit = ({
   return (
     <Fragment>
       <div
+        id={blockId}
         className={classNames({
           [className]: !!className,
           [blockId]: true,

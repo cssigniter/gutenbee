@@ -164,6 +164,7 @@ const TestimonialEdit = ({
   );
 
   const blockProps = {
+    id: blockId,
     className: classNames(className, blockId, {
       [`has-text-align-${align}`]: align,
       [`gutenbee-testimonial-avatar-${avatarPosition}`]: avatarPosition,
@@ -220,7 +221,6 @@ const TestimonialEdit = ({
             // translators: placeholder text used for the quote
             __('Write quote…')
           }
-          __unstableOnSplitMiddle={() => createBlock('core/paragraph')}
           textAlign={align}
         />
       </div>

@@ -62,10 +62,12 @@ registerBlockType('gutenbee/food-menu', {
   edit: FoodMenuEdit,
   save: ({ className, attributes }) => {
     const { uniqueId, columns, backgroundColor } = attributes;
+    const blockId = getBlockId(uniqueId);
 
     return (
       <div
-        className={classNames(className, getBlockId(uniqueId), {
+        id={blockId}
+        className={classNames(className, blockId, {
           'wp-block-gutenbee-food-menu': true,
           [`gutenbee-food-menu-columns-desktop-${columns.desktop}`]: true,
           [`gutenbee-food-menu-columns-tablet-${columns.tablet}`]: true,

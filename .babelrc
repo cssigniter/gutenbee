@@ -1,7 +1,7 @@
 {
   "presets": [
     [
-      "env",
+      "@babel/preset-env",
       {
         "modules": false,
         "targets": {
@@ -10,16 +10,18 @@
           ]
         }
       }
-    ]
-  ],
-  "plugins": [
-    "transform-object-rest-spread",
-    "transform-class-properties",
+    ],
     [
-      "transform-react-jsx",
+      "@babel/preset-react",
       {
         "pragma": "wp.element.createElement"
       }
     ]
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-optional-chaining",
+    "@babel/plugin-proposal-nullish-coalescing-operator"
   ]
 }

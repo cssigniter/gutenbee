@@ -1,5 +1,10 @@
 import jQuery from 'jquery';
 
+import {
+  maybeLoadVimeoApi,
+  maybeLoadYouTubeApi,
+} from '../../util/video/providers';
+
 jQuery($ => {
   const $videoEmbed = $('.gutenbee-video-embed');
   const $videoWrap = $videoEmbed.parents('.gutenbee-video-embed-wrapper');
@@ -9,11 +14,7 @@ jQuery($ => {
   };
 
   // YouTube videos
-  const onYouTubeAPIReady = videoEmbed => {
-    if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
-      return setTimeout(onYouTubeAPIReady.bind(null, videoEmbed), 333);
-    }
-
+  const onYouTubeApiReady = videoEmbed => {
     const $dataset = videoEmbed[0].dataset;
     const $video = $(videoEmbed)
       .find('div')
@@ -21,7 +22,7 @@ jQuery($ => {
     const $overlay = $(videoEmbed).siblings('.gutenbee-video-embed-overlay');
 
     // eslint-disable-next-line no-unused-vars
-    const ytPlayer = new YT.Player($video, {
+    const ytPlayer = new window.YT.Player($video, {
       videoId: $dataset.videoId,
       playerVars: {
         autoplay: $dataset.videoAutoplay
@@ -66,7 +67,7 @@ jQuery($ => {
           }
         },
         onStateChange: event => {
-          if (event.data === YT.PlayerState.PLAYING) {
+          if (event.data === window.YT.PlayerState.PLAYING) {
             $overlay.fadeOut();
           }
         },
@@ -75,15 +76,11 @@ jQuery($ => {
   };
 
   // Vimeo videos
-  const onVimeoAPIReady = videoEmbed => {
-    if (typeof Vimeo === 'undefined' || typeof Vimeo.Player === 'undefined') {
-      return setTimeout(onVimeoAPIReady.bind(null, videoEmbed), 333);
-    }
-
+  const onVimeoApiReady = videoEmbed => {
     const $dataset = videoEmbed[0].dataset;
     const $overlay = $(videoEmbed).siblings('.gutenbee-video-embed-overlay');
 
-    const player = new Vimeo.Player(videoEmbed, {
+    const player = new window.Vimeo.Player(videoEmbed, {
       id: $dataset.videoId,
       loop: $dataset.videoLoop ? attrState($dataset.videoLoop) : 0,
       autoplay: $dataset.videoAutoplay ? attrState($dataset.videoAutoplay) : 0,
@@ -125,6 +122,18 @@ jQuery($ => {
     });
   };
 
+  const createEmbed = async (firstScript, videoType, videoEmbed) => {
+    if (videoType === 'youtube') {
+      await maybeLoadYouTubeApi();
+      onYouTubeApiReady(videoEmbed);
+    }
+
+    if (videoType === 'vimeo') {
+      await maybeLoadVimeoApi();
+      onVimeoApiReady(videoEmbed);
+    }
+  };
+
   $videoWrap.on('click', function() {
     const $this = $(this);
     const embedLoaded = $this.find('iframe').length;
@@ -138,28 +147,11 @@ jQuery($ => {
     if (embedLoaded) {
       return;
     }
+
     $overlay.find('div').removeClass('play-button');
     $overlay.find('div').addClass('gutenbee-spinner');
     createEmbed($firstScript, videoType, $videoEmbed);
   });
-
-  const createEmbed = (firstScript, videoType, videoEmbed) => {
-    if (videoType === 'youtube') {
-      if (!$('#youtube-api-script').length) {
-        const tag = $('<script />', { id: 'youtube-api-script' });
-        tag.attr('src', 'https://www.youtube.com/player_api');
-        firstScript.parent().prepend(tag);
-      }
-      onYouTubeAPIReady(videoEmbed);
-    } else if (videoType === 'vimeo') {
-      if (!$('#vimeo-api-script').length) {
-        const tag = $('<script />', { id: 'vimeo-api-script' });
-        tag.attr('src', 'https://player.vimeo.com/api/player.js');
-        firstScript.parent().prepend(tag);
-      }
-      onVimeoAPIReady(videoEmbed);
-    }
-  };
 
   $videoEmbed.each(function() {
     const $this = $(this);

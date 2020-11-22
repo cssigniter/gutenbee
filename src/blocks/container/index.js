@@ -6,7 +6,6 @@ import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 import { InnerBlocks } from 'wp.blockEditor';
 import classNames from 'classnames';
-
 // This is a check to see if we are in Gutenberg 7.x which supports
 // this and load the appropriate Edit component
 import { __experimentalBlockVariationPicker } from 'wp.blockEditor';
@@ -29,7 +28,8 @@ import {
   getBoxShadowCSSValue,
 } from '../../components/controls/box-shadow-controls/helpers';
 import deprecated from './deprecated';
-import { getVideoInfo } from './utils';
+import { getVideoProviderInfoByUrl } from '../../util/video/providers';
+import VideoBackgroundFrontEnd from '../../util/video/components/VideoBackgroundFrontend';
 
 registerBlockType('gutenbee/container', {
   title: __('GutenBee Container'),
@@ -155,12 +155,15 @@ registerBlockType('gutenbee/container', {
     const { parallax, parallaxSpeed } = backgroundImage;
 
     const videoInfo = backgroundVideoURL
-      ? getVideoInfo(backgroundVideoURL)
+      ? getVideoProviderInfoByUrl(backgroundVideoURL)
       : null;
+
+    const blockId = getBlockId(uniqueId);
 
     return (
       <div
-        className={classNames(className, getBlockId(uniqueId), {
+        id={blockId}
+        className={classNames(className, blockId, {
           'has-parallax': parallax,
           'theme-grid': themeGrid,
           'row-reverse-desktop': columnDirection.desktop === 'row-reverse',
@@ -205,18 +208,10 @@ registerBlockType('gutenbee/container', {
             ...getBoxShadowCSSValue({ attributes }),
           }}
         >
-          {backgroundVideoURL && !['unsupported'].includes(videoInfo.provider) && (
-            <div
-              className="wp-block-gutenbee-video-bg-wrapper"
-              data-video-id={videoInfo && videoInfo.id}
-              data-video-type={videoInfo && videoInfo.provider}
-            >
-              <div
-                id={`video-${getBlockId(uniqueId)}`}
-                className="wp-block-gutenbee-video-bg"
-              />
-            </div>
-          )}
+          {backgroundVideoURL &&
+            !['unsupported'].includes(videoInfo.provider) && (
+              <VideoBackgroundFrontEnd id={blockId} videoInfo={videoInfo} />
+            )}
         </div>
       </div>
     );

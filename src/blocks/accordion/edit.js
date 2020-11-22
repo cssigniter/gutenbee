@@ -133,12 +133,7 @@ const AccordionsEdit = ({
   return (
     <Fragment>
       <AccordionStyle attributes={attributes} />
-      <div
-        className={classNames({
-          [blockId]: true,
-          [className]: !!className,
-        })}
-      >
+      <div id={blockId} className={classNames(className, blockId)}>
         {tabs.map((tab, index) => (
           <div className="wp-block-gutenbee-accordion-item">
             <div

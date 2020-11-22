@@ -72,6 +72,7 @@ const JustifiedGalleryEdit = ({
 
   return (
     <Gallery
+      id={blockId}
       className={classNames(className, blockId, {
         [`gutenbee-columns-${columns}`]: type === GALLERY_TYPE.COLUMNS,
       })}

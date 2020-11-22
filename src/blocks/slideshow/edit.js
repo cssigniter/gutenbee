@@ -82,6 +82,7 @@ const SlideshowEdit = ({
   return (
     <Fragment>
       <Slideshow
+        id={blockId}
         className={classNames(className, blockId)}
         attributes={attributes}
         setAttributes={setAttributes}

@@ -9,7 +9,7 @@ const useUniqueId = ({ attributes, setAttributes, clientId }) => {
 
   useEffect(() => {
     if (!uniqueId || ids.includes(uniqueId)) {
-      const newId = clientId.substr(2, 9);
+      const newId = clientId.substr(2, 14);
       ids.push(newId);
       setAttributes({ uniqueId: newId });
       return;

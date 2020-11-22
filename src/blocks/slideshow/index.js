@@ -170,6 +170,7 @@ registerBlockType('gutenbee/slideshow', {
 
     return (
       <div
+        id={blockId}
         className={classNames(className, blockId)}
         data-fade={animationStyle === 'fade'}
         data-autoplay={autoplay}

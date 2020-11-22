@@ -60,6 +60,7 @@ registerBlockType('gutenbee/spacer', {
 
     return (
       <div
+        id={blockId}
         className={classNames(className, blockId, {
           'has-parallax': parallax,
         })}

@@ -1,5 +1,4 @@
 import { Fragment, useState } from 'wp.element';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import {
@@ -15,6 +14,7 @@ import {
 } from 'wp.components';
 import { InspectorControls, MediaUpload } from 'wp.blockEditor';
 import get from 'lodash.get';
+import classNames from 'classnames';
 
 import Map from './Map';
 import mapStyles from './map-styles';
@@ -124,6 +124,7 @@ const GoogleMapsEdit = ({
             }
             containerElement={
               <div
+                id={blockId}
                 className={classNames(className, blockId)}
                 style={{
                   backgroundColor: backgroundColor || undefined,

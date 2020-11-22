@@ -12,7 +12,8 @@
   },
   "plugins": [
     "babel",
-    "react"
+    "react",
+    "import"
   ],
   "settings": {
     "react": {
@@ -21,14 +22,16 @@
   },
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "es6": true
   },
   "globals": {
     "wp": true,
     "window": true,
     "document": true,
     "jQuery": true,
-    "$": true
+    "$": true,
+    "__GUTENBEE_SETTINGS__": true
   },
   "rules": {
     "eqeqeq": ["error", "always",
@@ -47,6 +50,7 @@
       }
     ],
     "babel/semi": "error",
+    "no-undef": "error",
     "no-console": "warn",
     "jsx-quotes": ["error", "prefer-double"],
     "func-style": ["off", "expression"],
@@ -97,6 +101,19 @@
       "rule": "^(is|has)[A-Z]([A-Za-z0-9]?)+"
     }],
     "react/no-typos": "error",
-    "react/jsx-curly-brace-presence": ["error", { "props": "never", "children": "never" }]
+    "react/jsx-curly-brace-presence": ["error", { "props": "never", "children": "never" }],
+    "import/no-self-import": "error",
+    "import/no-useless-path-segments": "error",
+    "import/first": "error",
+    "import/order": ["error", {
+      "groups": [
+        "builtin",
+        ["internal", "external"]
+      ],
+      "newlines-between": "always"
+    }],
+    "import/newline-after-import": "error",
+    "import/default": "error",
+    "import/export": "error"
   }
 }

@@ -77,6 +77,7 @@ const CountDown = ({ attributes, className }) => {
 
   return (
     <div
+      id={blockId}
       className={classNames(className, blockId)}
       data-date={date}
       style={{

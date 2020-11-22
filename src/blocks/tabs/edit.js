@@ -130,7 +130,7 @@ const TabsEdit = ({
 
   return (
     <Fragment>
-      <div className={classNames(className, blockId)}>
+      <div id={blockId} className={classNames(className, blockId)}>
         <TabsStyle attributes={attributes} />
 
         <div className="wp-block-gutenbee-tabs-nav">

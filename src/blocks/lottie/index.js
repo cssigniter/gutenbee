@@ -106,6 +106,7 @@ registerBlockType('gutenbee/lottie', {
 
     return (
       <div
+        id={blockId}
         className={classNames(className, blockId)}
         style={{
           ...getBorderCSSValue({ attributes }),

@@ -48,6 +48,7 @@ export const Divider = ({ className, attributes, ...props }) => {
 
   return (
     <div
+      id={blockId}
       className={classNames(className, blockId, {
         [`align-${align}`]: true,
       })}
