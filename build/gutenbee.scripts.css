@@ -2689,10 +2689,6 @@ body.logged-in .gutenbee-hidden-logged-in {
   height: 100%;
   top: 0;
   left: 0;
-  z-index: 1;
-}
-
-.wp-block-gutenbee-banner-inner-wrapper {
-  z-index: 10;
+  z-index: 100;
 }
 

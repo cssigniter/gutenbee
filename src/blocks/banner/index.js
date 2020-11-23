@@ -20,6 +20,7 @@ import {
 import BannerBlockEdit from './edit';
 import BannerBlockIcon from './block-icon';
 import { getVideoProviderInfoByUrl } from '../../util/video/providers';
+import VideoBackgroundFrontEnd from '../../util/video/components/VideoBackgroundFrontend';
 
 registerBlockType('gutenbee/banner', {
   title: __('GutenBee Banner'),
@@ -38,6 +39,10 @@ registerBlockType('gutenbee/banner', {
       type: 'string',
     },
     newTab: {
+      type: 'boolean',
+      default: false,
+    },
+    hasInnerButton: {
       type: 'boolean',
       default: false,
     },
@@ -99,6 +104,7 @@ registerBlockType('gutenbee/banner', {
       uniqueId,
       bannerUrl,
       newTab,
+      hasInnerButton,
       textColor,
       backgroundColor,
       backgroundVideoURL,
@@ -145,18 +151,10 @@ registerBlockType('gutenbee/banner', {
             ...getBoxShadowCSSValue({ attributes }),
           }}
         >
-          {backgroundVideoURL && !['unsupported'].includes(videoInfo.provider) && (
-            <div
-              className="wp-block-gutenbee-video-bg-wrapper"
-              data-video-id={videoInfo && videoInfo.id}
-              data-video-type={videoInfo && videoInfo.provider}
-            >
-              <div
-                id={`video-${blockId}`}
-                className="wp-block-gutenbee-video-bg"
-              />
-            </div>
-          )}
+          {backgroundVideoURL &&
+            !['unsupported'].includes(videoInfo.provider) && (
+              <VideoBackgroundFrontEnd id={blockId} videoInfo={videoInfo} />
+            )}
         </div>
       </Fragment>
     );
@@ -171,7 +169,7 @@ registerBlockType('gutenbee/banner', {
           color: textColor,
         }}
       >
-        {bannerUrl && (
+        {bannerUrl && !hasInnerButton && (
           <a
             href={bannerUrl}
             target={newTab && '_blank'}

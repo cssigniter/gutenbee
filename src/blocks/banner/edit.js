@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'wp.element';
+import { Fragment } from 'wp.element';
 import classNames from 'classnames';
 import { __ } from 'wp.i18n';
 import { InspectorControls, InnerBlocks } from 'wp.blockEditor';
@@ -23,8 +23,9 @@ import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
-import VideoBackground from './VideoBackground';
-import { getVideoProviderInfoByUrl } from '../../util/video/providers';
+import { useVideoEmbed } from '../../util/video/useVideoEmbed';
+import VideoBackgroundEditor from '../../util/video/components/VideoBackgroundEditor';
+import { onVimeoApiReady, onYouTubeApiReady } from './utils';
 
 const BannerBlockEdit = ({
   attributes,
@@ -37,6 +38,7 @@ const BannerBlockEdit = ({
     uniqueId,
     bannerUrl,
     newTab,
+    hasInnerButton,
     textColor,
     backgroundColor,
     backgroundVideoURL,
@@ -47,29 +49,56 @@ const BannerBlockEdit = ({
     horizontalContentAlignment,
   } = attributes;
 
-  const hasInnerBlocks = useSelect(
-    select => {
-      const { getBlock } = select('core/block-editor');
-      const block = getBlock(clientId);
-      return !!(block && block.innerBlocks.length);
-    },
-    [clientId],
-  );
+  const { innerBlocks } = useSelect(select => {
+    const [parent] = select('core/block-editor').getBlocksByClientId(clientId);
+    const { innerBlocks } = parent;
+    return {
+      innerBlocks,
+    };
+  });
 
-  const [videoInfo, setVideoInfo] = useState(
-    backgroundVideoURL ? getVideoProviderInfoByUrl(backgroundVideoURL) : null,
-  );
-
-  const onBackgroundVideoUrlChange = newUrl => {
-    setAttributes({
-      backgroundVideoURL: newUrl,
-    });
-    setVideoInfo(getVideoProviderInfoByUrl(newUrl));
+  const hasInnerBlocks = innerBlocks => {
+    return !!innerBlocks.length;
   };
+
+  const hasButtonUrl = innerBlocks => {
+    innerBlocks.forEach(innerBlock => {
+      if (['gutenbee/buttons', 'gutenbee/button'].includes(innerBlock.name)) {
+        if (innerBlock.attributes.url && hasInnerButton === false) {
+          setAttributes({
+            hasInnerButton: true,
+          });
+        } else if (!innerBlock.attributes.url && hasInnerButton === true) {
+          setAttributes({
+            hasInnerButton: false,
+          });
+        }
+
+        if (innerBlock.innerBlocks) {
+          hasButtonUrl(innerBlock.innerBlocks);
+        }
+      }
+    });
+  };
+
+  if (innerBlocks) {
+    hasButtonUrl(innerBlocks);
+  }
 
   const blockId = getBlockId(uniqueId);
   const classes = classNames(blockId, className);
   const baseClass = 'wp-block-gutenbee-banner';
+
+  const { videoInfo, videoEmbedRef, handleVideoUrlChange } = useVideoEmbed({
+    url: backgroundVideoURL,
+    onVideoUrlChange: url => {
+      setAttributes({
+        backgroundVideoURL: url,
+      });
+    },
+    onYouTubeApiReady,
+    onVimeoApiReady,
+  });
 
   return (
     <Fragment>
@@ -80,12 +109,14 @@ const BannerBlockEdit = ({
           color: textColor,
         }}
       >
-        {bannerUrl && <span className={`${baseClass}-link-placeholder`} />}
+        {bannerUrl && !hasInnerButton && (
+          <span className={`${baseClass}-link-placeholder`} />
+        )}
         <div className={`${baseClass}-inner`}>
           <InnerBlocks
             templateLock={false}
             renderAppender={
-              hasInnerBlocks
+              hasInnerBlocks(innerBlocks)
                 ? undefined
                 : () => <InnerBlocks.ButtonBlockAppender />
             }
@@ -110,10 +141,10 @@ const BannerBlockEdit = ({
         >
           {backgroundVideoURL &&
             !['unsupported'].includes(videoInfo.provider) && (
-              <VideoBackground
+              <VideoBackgroundEditor
                 key={backgroundVideoURL}
-                url={backgroundVideoURL}
                 videoInfo={videoInfo}
+                videoEmbedRef={videoEmbedRef}
               />
             )}
         </div>
@@ -234,7 +265,7 @@ const BannerBlockEdit = ({
             )}
           <TextControl
             label={__('Video Background URL.')}
-            onChange={onBackgroundVideoUrlChange}
+            onChange={handleVideoUrlChange}
             type="text"
             value={backgroundVideoURL}
           />
