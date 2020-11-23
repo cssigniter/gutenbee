@@ -104,7 +104,7 @@ registerBlockType('gutenbee/icon-list', {
     return (
       <div
         id={blockId}
-        className={classNames(blockId, 'wp-block-gutenbee-list-icon-wrapper')}
+        className={classNames(className, blockId)}
         style={{
           backgroundColor: backgroundColor ? backgroundColor : undefined,
           ...getBorderCSSValue({ attributes }),
@@ -112,8 +112,8 @@ registerBlockType('gutenbee/icon-list', {
         }}
       >
         <ul
-          className={classNames(className, {
-            'wp-block-gutenbee-icon-list': true,
+          className={classNames({
+            'wp-block-gutenbee-icon-list-element': true,
             'wp-block-gutenbee-list-inline': layout === 'inline',
             'wp-block-gutenbee-list-block-link': blockLink === 'block',
           })}

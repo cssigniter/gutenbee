@@ -32,22 +32,22 @@ const IconListStyle = ({ attributes, children }) => {
       <Fragment>
         <Rule
           value={itemSpacing}
-          rule=".wp-block-gutenbee-icon-list li.wp-block-gutenbee-icon-list-item:not(:last-child) { padding-right: calc( %s/2 ); }"
+          rule=".wp-block-gutenbee-icon-list-element li.wp-block-gutenbee-icon-list-item:not(:last-child) { padding-right: calc( %s/2 ); }"
           unit="px"
         />
         <Rule
           value={itemSpacing}
-          rule=".wp-block-gutenbee-icon-list li.wp-block-gutenbee-icon-list-item:not(:last-child) { margin-right: calc( %s/2 ); }"
+          rule=".wp-block-gutenbee-icon-list-element li.wp-block-gutenbee-icon-list-item:not(:last-child) { margin-right: calc( %s/2 ); }"
           unit="px"
         />
         <Rule
           value={separatorWidth}
-          rule=".wp-block-gutenbee-icon-list li.wp-block-gutenbee-icon-list-item:not(:last-child) { border-right: solid %s; }"
+          rule=".wp-block-gutenbee-icon-list-element li.wp-block-gutenbee-icon-list-item:not(:last-child) { border-right: solid %s; }"
           unit="px"
         />
         <Rule
           value={align}
-          rule=".wp-block-gutenbee-icon-list { justify-content: %s; }"
+          rule=".wp-block-gutenbee-icon-list-element { justify-content: %s; }"
           unit=""
         />
       </Fragment>
@@ -55,12 +55,12 @@ const IconListStyle = ({ attributes, children }) => {
       <Fragment>
         <Rule
           value={itemSpacing}
-          rule=".wp-block-gutenbee-icon-list li.wp-block-gutenbee-icon-list-item:not(:last-child) { padding-bottom: calc( %s/2 ); }"
+          rule=".wp-block-gutenbee-icon-list-element li.wp-block-gutenbee-icon-list-item:not(:last-child) { padding-bottom: calc( %s/2 ); }"
           unit="px"
         />
         <Rule
           value={itemSpacing}
-          rule=".wp-block-gutenbee-icon-list li.wp-block-gutenbee-icon-list-item:not(:last-child) { margin-bottom: calc( %s/2 ); }"
+          rule=".wp-block-gutenbee-icon-list-element li.wp-block-gutenbee-icon-list-item:not(:last-child) { margin-bottom: calc( %s/2 ); }"
           unit="px"
         />
         <Rule
@@ -70,7 +70,7 @@ const IconListStyle = ({ attributes, children }) => {
         />
         <Rule
           value={separatorWidth}
-          rule=".wp-block-gutenbee-icon-list li.wp-block-gutenbee-icon-list-item:not(:last-child) { border-bottom: solid %s; }"
+          rule=".wp-block-gutenbee-icon-list-element li.wp-block-gutenbee-icon-list-item:not(:last-child) { border-bottom: solid %s; }"
           unit="px"
         />
       </Fragment>
@@ -90,7 +90,7 @@ const IconListStyle = ({ attributes, children }) => {
       />
       <Rule
         value={separatorColor}
-        rule=".wp-block-gutenbee-icon-list li.wp-block-gutenbee-icon-list-item:not(:last-child) { border-color: %s; }"
+        rule=".wp-block-gutenbee-icon-list-element li.wp-block-gutenbee-icon-list-item:not(:last-child) { border-color: %s; }"
         unit=""
       />
       <Rule value={color} rule="{ color: %s; }" unit="" />

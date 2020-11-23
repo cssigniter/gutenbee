@@ -134,7 +134,7 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
     <Fragment>
       <div
         id={blockId}
-        className={classNames(blockId, 'wp-block-gutenbee-list-icon-wrapper')}
+        className={classNames(className, blockId)}
         style={{
           backgroundColor: backgroundColor ? backgroundColor : undefined,
           ...getBorderCSSValue({ attributes }),
@@ -142,7 +142,8 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
         }}
       >
         <ul
-          className={classNames(className, {
+          className={classNames({
+            'wp-block-gutenbee-icon-list-element': true,
             'wp-block-gutenbee-list-inline': layout === 'inline',
             'wp-block-gutenbee-list-block-link': blockLink === 'block',
           })}
