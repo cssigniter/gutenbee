@@ -156,6 +156,32 @@
   transform: translate(-50%, -50%);
 }
 
+@media (min-width: 992px) {
+  .gutenbee-hidden-desktop {
+    display: none !important;
+  }
+}
+
+@media (max-width: 991px) and (min-width: 576px) {
+  .gutenbee-hidden-tablet {
+    display: none !important;
+  }
+}
+
+@media (max-width: 575px) {
+  .gutenbee-hidden-mobile {
+    display: none !important;
+  }
+}
+
+body:not(.logged-in) .gutenbee-hidden-logged-out {
+  display: none !important;
+}
+
+body.logged-in .gutenbee-hidden-logged-in {
+  display: none !important;
+}
+
 .editor-block-list__layout > [data-type^="gutenbee"]:first-child > .editor-block-list__block-edit > [data-block] > div[class*="wp-block"] {
   margin-top: 0 !important;
 }

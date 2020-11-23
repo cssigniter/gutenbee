@@ -7,6 +7,8 @@
 
 @import 'inc/common';
 @import '../util/video/components/VideoBackgroundFrontend/style';
+@import '../components/controls/breakpoint-visibility-control/style';
+@import '../components/controls/auth-visibility-control/style';
 
 @import 'inc/global-resets';
 @import '../blocks/divider/style';

@@ -894,6 +894,10 @@
   box-shadow: inset 0 0 0 2px #fff;
 }
 
+.gutenbee-visibility-control .components-base-control__label {
+  display: block;
+}
+
 .wp-block-gutenbee-video-bg-wrapper {
   position: absolute;
   top: 0;

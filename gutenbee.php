@@ -190,7 +190,7 @@ function gutenbee_get_blocks_info() {
 		'gutenbee/column'            => array(
 			'label'       => __( 'Column Block', 'gutenbee' ),
 			'enqueue_js'  => false,
-			'enqueue_css' => false,
+			'enqueue_css' => true,
 		),
 		'gutenbee/countdown'         => array(
 			'label'       => __( 'Countdown Block', 'gutenbee' ),
@@ -215,7 +215,7 @@ function gutenbee_get_blocks_info() {
 		'gutenbee/heading'           => array(
 			'label'       => __( 'Heading Block', 'gutenbee' ),
 			'enqueue_js'  => false,
-			'enqueue_css' => false,
+			'enqueue_css' => true,
 		),
 		'gutenbee/icon'              => array(
 			'label'       => __( 'Icon Block', 'gutenbee' ),
@@ -235,7 +235,7 @@ function gutenbee_get_blocks_info() {
 		'gutenbee/image'             => array(
 			'label'       => __( 'Image Block', 'gutenbee' ),
 			'enqueue_js'  => false,
-			'enqueue_css' => false,
+			'enqueue_css' => true,
 		),
 		'gutenbee/imagebox'          => array(
 			'label'       => __( 'Image Box Block', 'gutenbee' ),
@@ -260,7 +260,7 @@ function gutenbee_get_blocks_info() {
 		'gutenbee/paragraph'         => array(
 			'label'       => __( 'Paragraph Block', 'gutenbee' ),
 			'enqueue_js'  => false,
-			'enqueue_css' => false,
+			'enqueue_css' => true,
 		),
 		'gutenbee/post-types'        => array(
 			'label'       => __( 'Post Types Block', 'gutenbee' ),

@@ -19,6 +19,8 @@ import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
 } from '../../components/controls/box-shadow-controls/helpers';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 registerBlockType('gutenbee/paragraph', {
   title: __('GutenBee Paragraph'),
@@ -90,6 +92,21 @@ registerBlockType('gutenbee/paragraph', {
       type: 'object',
       default: getDefaultSpacingValue(),
     },
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      }),
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    },
   },
   deprecated,
   edit: ParagraphEdit,
@@ -102,6 +119,8 @@ registerBlockType('gutenbee/paragraph', {
       textColor,
       customBackgroundColor,
       customTextColor,
+      blockBreakpointVisibility,
+      blockAuthVisibility,
     } = attributes;
 
     const blockId = getBlockId(uniqueId);
@@ -116,6 +135,8 @@ registerBlockType('gutenbee/paragraph', {
       'wp-block-gutenbee-paragraph',
       className,
       blockId,
+      getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+      getAuthVisibilityClasses(blockAuthVisibility),
       {
         'has-text-color': textColor || customTextColor,
         'has-drop-cap': dropCap,

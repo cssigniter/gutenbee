@@ -1,0 +1,18 @@
+.gutenbee-hidden-desktop {
+  @media (min-width: 992px) {
+    display: none !important;
+  }
+}
+
+.gutenbee-hidden-tablet {
+  @media (max-width: 991px) and (min-width: 576px) {
+    display: none !important;
+  }
+}
+
+.gutenbee-hidden-mobile {
+  @media (max-width: 575px) {
+    display: none !important;
+  }
+}
+

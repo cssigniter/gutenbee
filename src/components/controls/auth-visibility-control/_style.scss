@@ -1,0 +1,11 @@
+body:not(.logged-in) {
+  .gutenbee-hidden-logged-out {
+    display: none !important;
+  }
+}
+
+body.logged-in {
+  .gutenbee-hidden-logged-in {
+    display: none !important;
+  }
+}

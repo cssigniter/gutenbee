@@ -1,4 +1,4 @@
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { PanelBody, ToggleControl, withFallbackStyles } from 'wp.components';
@@ -11,6 +11,7 @@ import {
 } from 'wp.blockEditor';
 import { createBlock } from 'wp.blocks';
 import { compose } from 'wp.compose';
+
 import useUniqueId from '../../hooks/useUniqueId';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 import MarginControls from '../../components/controls/margin-controls';
@@ -21,6 +22,10 @@ import { getBorderCSSValue } from '../../components/controls/border-controls/hel
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
+import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 
 const { getComputedStyle } = window;
 
@@ -58,6 +63,8 @@ const ParagraphBlock = ({
     dropCap,
     placeholder,
     fontSize,
+    blockBreakpointVisibility,
+    blockAuthVisibility,
   } = attributes;
 
   useUniqueId({ attributes, setAttributes, clientId });
@@ -162,17 +169,43 @@ const ParagraphBlock = ({
             )}
           </ResponsiveControl>
         </PanelBody>
+
+        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+          <BreakpointVisibilityControl
+            values={blockBreakpointVisibility}
+            onChange={values => {
+              setAttributes({
+                blockBreakpointVisibility: values,
+              });
+            }}
+          />
+
+          <AuthVisibilityControl
+            values={blockAuthVisibility}
+            onChange={values => {
+              setAttributes({
+                blockAuthVisibility: values,
+              });
+            }}
+          />
+        </PanelBody>
       </InspectorControls>
 
       <ParagraphStyle attributes={attributes} />
 
       <div
         id={blockId}
-        className={classnames(className, blockId, {
-          'gutenbee-block-paragraph': true,
-          [backgroundColor.class]: backgroundColor.class,
-          [textColor.class]: textColor.class,
-        })}
+        className={classNames(
+          className,
+          blockId,
+          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+          getAuthVisibilityClasses(blockAuthVisibility),
+          {
+            'gutenbee-block-paragraph': true,
+            [backgroundColor.class]: backgroundColor.class,
+            [textColor.class]: textColor.class,
+          },
+        )}
         style={{
           backgroundColor: backgroundColor.color,
           color: textColor.color,
@@ -183,7 +216,7 @@ const ParagraphBlock = ({
         <RichText
           identifier="content"
           tagName="p"
-          className={classnames('gutenbee-block-paragraph', {
+          className={classNames('gutenbee-block-paragraph', {
             'has-drop-cap': dropCap,
             [`has-text-align-${align}`]: align,
           })}
