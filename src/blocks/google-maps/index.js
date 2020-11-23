@@ -5,10 +5,10 @@
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 import classNames from 'classnames';
+import get from 'lodash.get';
 
 import GoogleMapsEdit from './edit';
 import mapStyles from './map-styles';
-import get from 'lodash.get';
 import GoogleMapsBlockIcon from './block-icon';
 import {
   getDefaultResponsiveValue,

@@ -22,6 +22,8 @@ import {
 import { __, sprintf } from 'wp.i18n';
 import { compose, withInstanceId } from 'wp.compose';
 import { withSelect } from 'wp.data';
+import classNames from 'classnames';
+
 import MarginControls from '../../components/controls/margin-controls';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 import useUniqueId from '../../hooks/useUniqueId';
@@ -32,7 +34,6 @@ import BorderControls from '../../components/controls/border-controls';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
-import classNames from 'classnames';
 
 const ALLOWED_MEDIA_TYPES = ['video'];
 const VIDEO_POSTER_ALLOWED_MEDIA_TYPES = ['image'];
@@ -92,7 +93,10 @@ const VideoEdit = ({
   };
 
   const onUploadError = message => {
+    // TODO [nvourva] Fix these undefined variables
+    // eslint-disable-next-line no-undef
     noticeOperations.removeAllNotices();
+    // eslint-disable-next-line no-undef
     noticeOperations.createErrorNotice(message);
   };
 

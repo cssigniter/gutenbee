@@ -214,6 +214,8 @@ const TestimonialEdit = ({
           onRemove={forward => {
             const hasEmptyCitation = !citation || citation.length === 0;
             if (!forward && hasEmptyCitation) {
+              // TODO [nvourva] Fix this undefined variable
+              // eslint-disable-next-line no-undef
               onReplace([]);
             }
           }}

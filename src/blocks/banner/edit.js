@@ -18,14 +18,13 @@ import MarginControls from '../../components/controls/margin-controls';
 import BannerStyle from './style';
 import BackgroundControls from '../../components/controls/background-controls';
 import getBlockId from '../../util/getBlockId';
-
 import BorderControls from '../../components/controls/border-controls';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
-import { getVideoInfo } from './utils';
 import VideoBackground from './VideoBackground';
+import { getVideoProviderInfoByUrl } from '../../util/video/providers';
 
 const BannerBlockEdit = ({
   attributes,
@@ -58,14 +57,14 @@ const BannerBlockEdit = ({
   );
 
   const [videoInfo, setVideoInfo] = useState(
-    backgroundVideoURL ? getVideoInfo(backgroundVideoURL) : null,
+    backgroundVideoURL ? getVideoProviderInfoByUrl(backgroundVideoURL) : null,
   );
 
   const onBackgroundVideoUrlChange = newUrl => {
     setAttributes({
       backgroundVideoURL: newUrl,
     });
-    setVideoInfo(getVideoInfo(newUrl));
+    setVideoInfo(getVideoProviderInfoByUrl(newUrl));
   };
 
   const blockId = getBlockId(uniqueId);
