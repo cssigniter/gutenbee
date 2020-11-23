@@ -19,6 +19,8 @@ import getBlockId from '../../util/getBlockId';
 import TestimonialStyle from './style';
 import TestimonialBlockIcon from './block-icon';
 import deprecated from './deprecated';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 registerBlockType('gutenbee/testimonial', {
   title: __('GutenBee Testimonial'),
@@ -136,6 +138,21 @@ registerBlockType('gutenbee/testimonial', {
       type: 'object',
       default: getDefaultSpacingValue(),
     },
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      }),
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    },
   },
   deprecated,
   edit: TestimonialEdit,
@@ -153,15 +170,23 @@ registerBlockType('gutenbee/testimonial', {
       info,
       avatarPosition,
       sizeSlug,
+      blockBreakpointVisibility,
+      blockAuthVisibility,
     } = attributes;
     const blockId = getBlockId(uniqueId);
 
     const blockProps = {
       blockId,
-      className: classNames(className, blockId, {
-        [`has-text-align-${align}`]: align,
-        [`gutenbee-testimonial-avatar-${avatarPosition}`]: avatarPosition,
-      }),
+      className: classNames(
+        className,
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+        {
+          [`has-text-align-${align}`]: align,
+          [`gutenbee-testimonial-avatar-${avatarPosition}`]: avatarPosition,
+        },
+      ),
     };
 
     const image = (

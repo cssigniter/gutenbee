@@ -3,7 +3,10 @@ import { registerBlockType } from 'wp.blocks';
 import classNames from 'classnames';
 
 import getBlockId from '../../util/getBlockId';
-import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../components/controls/responsive-control/default-values';
 import VideoEmbedEdit from './edit';
 import VideoEmbedStyle from './style';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
@@ -15,6 +18,8 @@ import borderControlAttributes from '../../components/controls/border-controls/a
 import VideoEmbedBlockIcon from './block-icon';
 import deprecated from './deprecated';
 import { getVideoProviderInfoByUrl } from '../../util/video/providers';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 registerBlockType('gutenbee/video-embed', {
   title: __('GutenBee Video Embed'),
@@ -78,6 +83,21 @@ registerBlockType('gutenbee/video-embed', {
     },
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      }),
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    },
   },
   deprecated,
   edit: VideoEmbedEdit,
@@ -95,6 +115,8 @@ registerBlockType('gutenbee/video-embed', {
       startTime,
       endTime,
       backgroundColor,
+      blockBreakpointVisibility,
+      blockAuthVisibility,
     } = attributes;
 
     const blockId = getBlockId(uniqueId);
@@ -111,6 +133,8 @@ registerBlockType('gutenbee/video-embed', {
         className={classNames(
           className,
           blockId,
+          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+          getAuthVisibilityClasses(blockAuthVisibility),
           'gutenbee-video-embed-block-wrapper',
         )}
         style={{

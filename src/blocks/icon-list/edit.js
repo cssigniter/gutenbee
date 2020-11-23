@@ -75,27 +75,27 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
       <Fragment>
         <Rule
           value={itemSpacing}
-          rule="li.wp-block-gutenbee-icon-list-item { margin-right: calc( %s/2 ); }"
+          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { margin-right: calc( %s/2 ); }"
           unit="px"
         />
         <Rule
           value={itemSpacing}
-          rule="li.wp-block-gutenbee-icon-list-item { padding-right: calc( %s/2 ); }"
+          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { padding-right: calc( %s/2 ); }"
           unit="px"
         />
         <Rule
           value={separatorWidth}
-          rule="li.wp-block-gutenbee-icon-list-item { border-right: solid %s; }"
+          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { border-right: solid %s; }"
           unit="px"
         />
         <Rule
           value={separatorColor}
-          rule="li.wp-block-gutenbee-icon-list-item { border-color: %s; }"
+          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { border-color: %s; }"
           unit=""
         />
         <Rule
           value={0}
-          rule="div > .wp-block:last-child li.wp-block-gutenbee-icon-list-item { border: %1$s; margin-right: %1$s; padding-right: %1$s; }"
+          rule=".wp-block-gutenbee-icon-list.[root] div > .wp-block:last-child li.wp-block-gutenbee-icon-list-item { border: %1$s; margin-right: %1$s; padding-right: %1$s; }"
           unit=""
         />
       </Fragment>
@@ -103,27 +103,27 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
       <Fragment>
         <Rule
           value={itemSpacing}
-          rule="li.wp-block-gutenbee-icon-list-item { margin-bottom: calc( %s/2 ); }"
+          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { margin-bottom: calc( %s/2 ); }"
           unit="px"
         />
         <Rule
           value={itemSpacing}
-          rule="li.wp-block-gutenbee-icon-list-item { padding-bottom: calc( %s/2 ); }"
+          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { padding-bottom: calc( %s/2 ); }"
           unit="px"
         />
         <Rule
           value={separatorWidth}
-          rule="li.wp-block-gutenbee-icon-list-item { border-bottom: solid %s; }"
+          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { border-bottom: solid %s; }"
           unit="px"
         />
         <Rule
           value={separatorColor}
-          rule="li.wp-block-gutenbee-icon-list-item { border-color: %s; }"
+          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { border-color: %s; }"
           unit=""
         />
         <Rule
           value={0}
-          rule="div > .wp-block:last-child li.wp-block-gutenbee-icon-list-item { border: %1$s; margin-bottom: %1$s; padding-bottom: %1$s; }"
+          rule=".wp-block-gutenbee-icon-list.[root] div > .wp-block:last-child li.wp-block-gutenbee-icon-list-item { border: %1$s; margin-bottom: %1$s; padding-bottom: %1$s; }"
           unit=""
         />
       </Fragment>

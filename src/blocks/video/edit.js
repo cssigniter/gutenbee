@@ -34,6 +34,10 @@ import BorderControls from '../../components/controls/border-controls';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
+import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 
 const ALLOWED_MEDIA_TYPES = ['video'];
 const VIDEO_POSTER_ALLOWED_MEDIA_TYPES = ['image'];
@@ -58,6 +62,8 @@ const VideoEdit = ({
     poster,
     preload,
     src,
+    blockBreakpointVisibility,
+    blockAuthVisibility,
   } = attributes;
 
   const videoPlayerRef = useRef();
@@ -277,12 +283,36 @@ const VideoEdit = ({
             )}
           </ResponsiveControl>
         </PanelBody>
+        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+          <BreakpointVisibilityControl
+            values={blockBreakpointVisibility}
+            onChange={values => {
+              setAttributes({
+                blockBreakpointVisibility: values,
+              });
+            }}
+          />
+
+          <AuthVisibilityControl
+            values={blockAuthVisibility}
+            onChange={values => {
+              setAttributes({
+                blockAuthVisibility: values,
+              });
+            }}
+          />
+        </PanelBody>
       </InspectorControls>
 
       <VideoStyle attributes={attributes} />
       <figure
         blockId={blockId}
-        className={classNames(className, blockId)}
+        className={classNames(
+          className,
+          blockId,
+          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+          getAuthVisibilityClasses(blockAuthVisibility),
+        )}
         style={{
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),

@@ -11,7 +11,10 @@ import classNames from 'classnames';
 import SlideshowEdit from './edit';
 import { LINKTO } from '../../components/gallery/constants';
 import SlideshowBlockIcon from './block-icon';
-import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../components/controls/responsive-control/default-values';
 import SlideshowStyle from './style';
 import getBlockId from '../../util/getBlockId';
 import deprecated from './deprecated';
@@ -21,6 +24,8 @@ import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
 } from '../../components/controls/box-shadow-controls/helpers';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 registerBlockType('gutenbee/slideshow', {
   title: __('GutenBee Slideshow'),
@@ -144,6 +149,21 @@ registerBlockType('gutenbee/slideshow', {
     },
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      }),
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    },
   },
   deprecated,
   edit: SlideshowEdit,
@@ -165,13 +185,20 @@ registerBlockType('gutenbee/slideshow', {
       arrowsColor,
       dotsColor,
       backgroundColor,
+      blockBreakpointVisibility,
+      blockAuthVisibility,
     } = attributes;
     const blockId = getBlockId(uniqueId);
 
     return (
       <div
         id={blockId}
-        className={classNames(className, blockId)}
+        className={classNames(
+          className,
+          blockId,
+          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+          getAuthVisibilityClasses(blockAuthVisibility),
+        )}
         data-fade={animationStyle === 'fade'}
         data-autoplay={autoplay}
         data-arrows={arrowNav}

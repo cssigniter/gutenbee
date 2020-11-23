@@ -13,13 +13,18 @@ import getBlockId from '../../util/getBlockId';
 import GalleryStyle from './style';
 import deprecated from './deprecated';
 import { LAST_ROW } from './constants';
-import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../components/controls/responsive-control/default-values';
 import borderControlAttributes from '../../components/controls/border-controls/attributes';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
 } from '../../components/controls/box-shadow-controls/helpers';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 registerBlockType('gutenbee/justified-gallery', {
   title: __('GutenBee Gallery'),
@@ -110,6 +115,21 @@ registerBlockType('gutenbee/justified-gallery', {
     },
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      }),
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    },
   },
   deprecated,
   edit: JustifiedGalleryEdit,
@@ -125,6 +145,8 @@ registerBlockType('gutenbee/justified-gallery', {
       randomize,
       linkTo,
       backgroundColor,
+      blockBreakpointVisibility,
+      blockAuthVisibility,
     } = attributes;
 
     const blockId = getBlockId(uniqueId);
@@ -132,12 +154,18 @@ registerBlockType('gutenbee/justified-gallery', {
     return (
       <div
         id={blockId}
-        className={classNames(className, blockId, {
-          'wp-block-gutenbee-gallery-columns': type === GALLERY_TYPE.COLUMNS,
-          'wp-block-gutenbee-gallery-justified':
-            type === GALLERY_TYPE.JUSTIFIED,
-          [`gutenbee-columns-${columns}`]: type === GALLERY_TYPE.COLUMNS,
-        })}
+        className={classNames(
+          className,
+          blockId,
+          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+          getAuthVisibilityClasses(blockAuthVisibility),
+          {
+            'wp-block-gutenbee-gallery-columns': type === GALLERY_TYPE.COLUMNS,
+            'wp-block-gutenbee-gallery-justified':
+              type === GALLERY_TYPE.JUSTIFIED,
+            [`gutenbee-columns-${columns}`]: type === GALLERY_TYPE.COLUMNS,
+          },
+        )}
         data-gallery-type={type}
         data-row-height={rowHeight}
         data-margins={margins}

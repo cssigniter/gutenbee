@@ -11,6 +11,10 @@ import TabsStyle from './style';
 import useUniqueId from '../../hooks/useUniqueId';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
+import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -54,6 +58,8 @@ const TabsEdit = ({
     tabContentBackgroundColor,
     tabContentTextColor,
     borderColor,
+    blockBreakpointVisibility,
+    blockAuthVisibility,
   } = attributes;
 
   useUniqueId({ attributes, setAttributes, clientId });
@@ -130,7 +136,15 @@ const TabsEdit = ({
 
   return (
     <Fragment>
-      <div id={blockId} className={classNames(className, blockId)}>
+      <div
+        id={blockId}
+        className={classNames(
+          className,
+          blockId,
+          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+          getAuthVisibilityClasses(blockAuthVisibility),
+        )}
+      >
         <TabsStyle attributes={attributes} />
 
         <div className="wp-block-gutenbee-tabs-nav">
@@ -278,6 +292,25 @@ const TabsEdit = ({
                 />
               )}
             </ResponsiveControl>
+          </PanelBody>
+          <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+            <BreakpointVisibilityControl
+              values={blockBreakpointVisibility}
+              onChange={values => {
+                setAttributes({
+                  blockBreakpointVisibility: values,
+                });
+              }}
+            />
+
+            <AuthVisibilityControl
+              values={blockAuthVisibility}
+              onChange={values => {
+                setAttributes({
+                  blockAuthVisibility: values,
+                });
+              }}
+            />
           </PanelBody>
         </InspectorControls>
       )}

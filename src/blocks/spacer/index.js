@@ -19,6 +19,8 @@ import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
 } from '../../components/controls/box-shadow-controls/helpers';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 registerBlockType('gutenbee/spacer', {
   title: __('GutenBee Spacer'),
@@ -50,20 +52,47 @@ registerBlockType('gutenbee/spacer', {
     },
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      }),
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    },
   },
   edit: SpacerEdit,
   deprecated,
   save: ({ attributes, className }) => {
-    const { uniqueId, backgroundColor, backgroundImage } = attributes;
+    const {
+      uniqueId,
+      backgroundColor,
+      backgroundImage,
+      blockBreakpointVisibility,
+      blockAuthVisibility,
+    } = attributes;
     const blockId = getBlockId(uniqueId);
     const { parallax, parallaxSpeed } = backgroundImage;
 
     return (
       <div
         id={blockId}
-        className={classNames(className, blockId, {
-          'has-parallax': parallax,
-        })}
+        className={classNames(
+          className,
+          blockId,
+          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+          getAuthVisibilityClasses(blockAuthVisibility),
+          {
+            'has-parallax': parallax,
+          },
+        )}
         style={{
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),

@@ -22,6 +22,10 @@ import BorderControls from '../../components/controls/border-controls';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
+import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -74,6 +78,8 @@ const SlideshowEdit = ({
     dotsColor,
     dotsBackgroundColor,
     backgroundColor,
+    blockBreakpointVisibility,
+    blockAuthVisibility,
   } = attributes;
 
   useUniqueId({ attributes, setAttributes, clientId });
@@ -83,7 +89,12 @@ const SlideshowEdit = ({
     <Fragment>
       <Slideshow
         id={blockId}
-        className={classNames(className, blockId)}
+        className={classNames(
+          className,
+          blockId,
+          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+          getAuthVisibilityClasses(blockAuthVisibility),
+        )}
         attributes={attributes}
         setAttributes={setAttributes}
         isSelected={isSelected}
@@ -293,6 +304,25 @@ const SlideshowEdit = ({
                   />
                 )}
               </ResponsiveControl>
+            </PanelBody>
+            <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+              <BreakpointVisibilityControl
+                values={blockBreakpointVisibility}
+                onChange={values => {
+                  setAttributes({
+                    blockBreakpointVisibility: values,
+                  });
+                }}
+              />
+
+              <AuthVisibilityControl
+                values={blockAuthVisibility}
+                onChange={values => {
+                  setAttributes({
+                    blockAuthVisibility: values,
+                  });
+                }}
+              />
             </PanelBody>
           </InspectorControls>
         )}
