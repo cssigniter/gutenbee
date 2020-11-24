@@ -21,6 +21,8 @@ import BannerBlockEdit from './edit';
 import BannerBlockIcon from './block-icon';
 import { getVideoProviderInfoByUrl } from '../../util/video/providers';
 import VideoBackgroundFrontEnd from '../../util/video/components/VideoBackgroundFrontend';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 registerBlockType('gutenbee/banner', {
   title: __('GutenBee Banner'),
@@ -97,6 +99,21 @@ registerBlockType('gutenbee/banner', {
     },
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      }),
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    },
   },
   edit: BannerBlockEdit,
   save: ({ attributes, className }) => {
@@ -110,6 +127,8 @@ registerBlockType('gutenbee/banner', {
       backgroundVideoURL,
       backgroundImage,
       overlayBackgroundColor,
+      blockBreakpointVisibility,
+      blockAuthVisibility,
     } = attributes;
 
     const blockId = getBlockId(uniqueId);
@@ -162,9 +181,15 @@ registerBlockType('gutenbee/banner', {
     return (
       <div
         id={blockId}
-        className={classNames(className, blockId, {
-          'has-parallax': parallax,
-        })}
+        className={classNames(
+          className,
+          blockId,
+          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+          getAuthVisibilityClasses(blockAuthVisibility),
+          {
+            'has-parallax': parallax,
+          },
+        )}
         style={{
           color: textColor,
         }}

@@ -896,6 +896,7 @@
 
 .gutenbee-visibility-control .components-base-control__label {
   display: block;
+  margin-bottom: 15px;
 }
 
 .wp-block-gutenbee-video-bg-wrapper {

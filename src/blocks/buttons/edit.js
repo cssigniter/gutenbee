@@ -13,16 +13,24 @@ import { BREAKPOINT_NAMES } from '../../components/stylesheet/helpers';
 import MarginControls from '../../components/controls/margin-controls';
 import ButtonsStyle from './style';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
+import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
+import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 
 const propTypes = {
   attributes: PropTypes.object.isRequired,
-  setAttributes: PropTypes.string.isRequired,
+  setAttributes: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired,
   clientId: PropTypes.string.isRequired,
 };
 
 const ButtonsEdit = ({ attributes, setAttributes, className, clientId }) => {
-  const { uniqueId, align, backgroundColor } = attributes;
+  const {
+    uniqueId,
+    align,
+    backgroundColor,
+    blockBreakpointVisibility,
+    blockAuthVisibility,
+  } = attributes;
   const desktopAlignment = align[BREAKPOINT_NAMES.desktop];
 
   useUniqueId({ attributes, setAttributes, clientId });
@@ -106,6 +114,26 @@ const ButtonsEdit = ({ attributes, setAttributes, className, clientId }) => {
               />
             )}
           </ResponsiveControl>
+        </PanelBody>
+
+        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+          <BreakpointVisibilityControl
+            values={blockBreakpointVisibility}
+            onChange={values => {
+              setAttributes({
+                blockBreakpointVisibility: values,
+              });
+            }}
+          />
+
+          <AuthVisibilityControl
+            values={blockAuthVisibility}
+            onChange={values => {
+              setAttributes({
+                blockAuthVisibility: values,
+              });
+            }}
+          />
         </PanelBody>
       </InspectorControls>
     </Fragment>

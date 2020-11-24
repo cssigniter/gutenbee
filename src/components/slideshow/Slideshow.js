@@ -2,7 +2,7 @@ import { Component, Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import { withSelect } from 'wp.data';
-import { IconButton, Toolbar, PanelBody, SelectControl } from 'wp.components';
+import { Button, Toolbar, PanelBody, SelectControl } from 'wp.components';
 import { MediaUpload, InspectorControls, BlockControls } from 'wp.blockEditor';
 import SlickSlider from 'react-slick';
 import startCase from 'lodash.startcase';
@@ -137,7 +137,10 @@ class Slideshow extends Component {
           >
             {images.map(image => {
               return (
-                <div className="wp-block-gutenbee-slideshow-item">
+                <div
+                  key={image?.id}
+                  className="wp-block-gutenbee-slideshow-item"
+                >
                   <img src={image.url} alt={image.alt} />
                 </div>
               );
@@ -157,7 +160,7 @@ class Slideshow extends Component {
                     gallery
                     value={images.map(img => img.id)}
                     render={({ open }) => (
-                      <IconButton
+                      <Button
                         className="components-toolbar__control"
                         label={__('Edit Slideshow')}
                         icon="edit"

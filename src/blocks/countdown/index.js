@@ -23,6 +23,8 @@ import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
 } from '../../components/controls/box-shadow-controls/helpers';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 const CountDown = ({ attributes, className }) => {
   const {
@@ -35,6 +37,8 @@ const CountDown = ({ attributes, className }) => {
     labelTopMargin,
     labelTextColor,
     numberBackgroundColor,
+    blockBreakpointVisibility,
+    blockAuthVisibility,
   } = attributes;
 
   const blockId = getBlockId(uniqueId);
@@ -78,7 +82,12 @@ const CountDown = ({ attributes, className }) => {
   return (
     <div
       id={blockId}
-      className={classNames(className, blockId)}
+      className={classNames(
+        className,
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+      )}
       data-date={date}
       style={{
         backgroundColor: backgroundColor || undefined,
@@ -199,6 +208,21 @@ registerBlockType('gutenbee/countdown', {
     },
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      }),
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    },
   },
   deprecated,
   edit: CountdownEdit,

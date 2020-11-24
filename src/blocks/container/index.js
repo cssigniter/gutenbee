@@ -30,6 +30,8 @@ import {
 import deprecated from './deprecated';
 import { getVideoProviderInfoByUrl } from '../../util/video/providers';
 import VideoBackgroundFrontEnd from '../../util/video/components/VideoBackgroundFrontend';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 registerBlockType('gutenbee/container', {
   title: __('GutenBee Container'),
@@ -126,6 +128,21 @@ registerBlockType('gutenbee/container', {
     },
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      }),
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    },
   },
   deprecated,
   getEditWrapperProps(attributes) {
@@ -150,6 +167,8 @@ registerBlockType('gutenbee/container', {
       overlayBackgroundColor,
       themeGrid,
       columnDirection,
+      blockBreakpointVisibility,
+      blockAuthVisibility,
     } = attributes;
 
     const { parallax, parallaxSpeed } = backgroundImage;
@@ -163,13 +182,19 @@ registerBlockType('gutenbee/container', {
     return (
       <div
         id={blockId}
-        className={classNames(className, blockId, {
-          'has-parallax': parallax,
-          'theme-grid': themeGrid,
-          'row-reverse-desktop': columnDirection.desktop === 'row-reverse',
-          'row-reverse-tablet': columnDirection.tablet === 'row-reverse',
-          'row-reverse-mobile': columnDirection.mobile === 'row-reverse',
-        })}
+        className={classNames(
+          className,
+          blockId,
+          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+          getAuthVisibilityClasses(blockAuthVisibility),
+          {
+            'has-parallax': parallax,
+            'theme-grid': themeGrid,
+            'row-reverse-desktop': columnDirection.desktop === 'row-reverse',
+            'row-reverse-tablet': columnDirection.tablet === 'row-reverse',
+            'row-reverse-mobile': columnDirection.mobile === 'row-reverse',
+          },
+        )}
         style={{
           color: textColor,
         }}

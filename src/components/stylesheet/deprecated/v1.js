@@ -15,7 +15,7 @@ import {
 } from '../../controls/margin-controls/margin-settings';
 
 const propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.array]),
   id: PropTypes.string,
 };
 

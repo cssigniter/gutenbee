@@ -11,7 +11,10 @@ import classNames from 'classnames';
 
 import ImageBoxEditBlock from './edit';
 import ImageBoxBlockIcon from './block-icon';
-import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../components/controls/responsive-control/default-values';
 import ImageBoxStyle from './style';
 import getBlockId from '../../util/getBlockId';
 import deprecated from './deprecated';
@@ -21,6 +24,8 @@ import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
 } from '../../components/controls/box-shadow-controls/helpers';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 const ImageBox = ({ className, attributes }) => {
   const {
@@ -39,6 +44,8 @@ const ImageBox = ({ className, attributes }) => {
     textColor,
     titleColor,
     backgroundColor,
+    blockBreakpointVisibility,
+    blockAuthVisibility,
   } = attributes;
 
   const blockId = getBlockId(uniqueId);
@@ -46,10 +53,16 @@ const ImageBox = ({ className, attributes }) => {
   return (
     <div
       id={blockId}
-      className={classNames(className, blockId, {
-        [`wp-block-gutenbee-imagebox-align-${imageAlign}`]: true,
-        [`wp-block-gutenbee-imagebox-content-align-${contentAlign}`]: !!contentAlign,
-      })}
+      className={classNames(
+        className,
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+        {
+          [`wp-block-gutenbee-imagebox-align-${imageAlign}`]: true,
+          [`wp-block-gutenbee-imagebox-content-align-${contentAlign}`]: !!contentAlign,
+        },
+      )}
       style={{
         backgroundColor: backgroundColor || undefined,
         ...getBorderCSSValue({ attributes }),
@@ -57,15 +70,18 @@ const ImageBox = ({ className, attributes }) => {
       }}
     >
       <ImageBoxStyle attributes={attributes} />
-      <figure className="wp-block-gutenbee-imagebox-figure">
-        <img
-          src={url}
-          alt={alt}
-          style={{
-            width: imageWidth ? `${imageWidth}px` : undefined,
-          }}
-        />
-      </figure>
+
+      {url && (
+        <figure className="wp-block-gutenbee-imagebox-figure">
+          <img
+            src={url}
+            alt={alt}
+            style={{
+              width: imageWidth ? `${imageWidth}px` : undefined,
+            }}
+          />
+        </figure>
+      )}
 
       <div className="wp-block-gutenbee-imagebox-content">
         {!RichText.isEmpty(titleContent) && (
@@ -187,6 +203,21 @@ registerBlockType('gutenbee/imagebox', {
     },
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      }),
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    },
   },
   deprecated,
   edit: ImageBoxEditBlock,

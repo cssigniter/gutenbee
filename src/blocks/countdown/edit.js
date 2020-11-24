@@ -24,6 +24,8 @@ import { getBorderCSSValue } from '../../components/controls/border-controls/hel
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
+import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
+import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -90,6 +92,8 @@ const CountdownEdit = ({
     labelFontSize,
     labelTopMargin,
     maxWidth,
+    blockBreakpointVisibility,
+    blockAuthVisibility,
   } = attributes;
 
   useUniqueId({ attributes, setAttributes, clientId });
@@ -326,6 +330,26 @@ const CountdownEdit = ({
                 />
               )}
             </ResponsiveControl>
+          </PanelBody>
+
+          <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+            <BreakpointVisibilityControl
+              values={blockBreakpointVisibility}
+              onChange={values => {
+                setAttributes({
+                  blockBreakpointVisibility: values,
+                });
+              }}
+            />
+
+            <AuthVisibilityControl
+              values={blockAuthVisibility}
+              onChange={values => {
+                setAttributes({
+                  blockAuthVisibility: values,
+                });
+              }}
+            />
           </PanelBody>
         </InspectorControls>
       )}

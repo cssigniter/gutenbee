@@ -18,7 +18,10 @@ import IconSelectValue from './IconSelectValue';
 import IconBlockIcon from './block-icon';
 import MarginControls from '../../components/controls/margin-controls';
 import { capitalize } from '../../util/text';
-import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../components/controls/responsive-control/default-values';
 import useUniqueId from '../../hooks/useUniqueId';
 import getBlockId from '../../util/getBlockId';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
@@ -26,6 +29,8 @@ import deprecated from './deprecated';
 import { boxShadowControlAttributes } from '../../components/controls/box-shadow-controls/helpers';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
+import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
+import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 
 export const iconAttributes = {
   uniqueId: {
@@ -74,6 +79,21 @@ export const iconAttributes = {
     default: getDefaultSpacingValue(),
   },
   ...boxShadowControlAttributes('icon'),
+  blockBreakpointVisibility: {
+    type: 'object',
+    default: getDefaultResponsiveValue({
+      desktop: false,
+      tablet: false,
+      mobile: false,
+    }),
+  },
+  blockAuthVisibility: {
+    type: 'object',
+    default: {
+      loggedIn: false,
+      loggedOut: false,
+    },
+  },
 };
 
 export const IconSettings = ({
@@ -95,6 +115,8 @@ export const IconSettings = ({
     excludeAlignment,
     blockMargin,
     blockPadding,
+    blockBreakpointVisibility,
+    blockAuthVisibility,
   } = attributes;
 
   return (
@@ -237,6 +259,28 @@ export const IconSettings = ({
               />
             )}
           </ResponsiveControl>
+        )}
+
+        {blockBreakpointVisibility && blockAuthVisibility && (
+          <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+            <BreakpointVisibilityControl
+              values={blockBreakpointVisibility}
+              onChange={values => {
+                setAttributes({
+                  blockBreakpointVisibility: values,
+                });
+              }}
+            />
+
+            <AuthVisibilityControl
+              values={blockAuthVisibility}
+              onChange={values => {
+                setAttributes({
+                  blockAuthVisibility: values,
+                });
+              }}
+            />
+          </PanelBody>
         )}
 
         {children}

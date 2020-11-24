@@ -11,6 +11,8 @@ import AccordionStyle from './style';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 import getBlockId from '../../util/getBlockId';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
+import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
+import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -53,6 +55,8 @@ const AccordionsEdit = ({
     tabContentBackgroundColor,
     borderColor,
     collapseOthers,
+    blockBreakpointVisibility,
+    blockAuthVisibility,
   } = attributes;
 
   useUniqueId({ attributes, setAttributes, clientId });
@@ -135,7 +139,7 @@ const AccordionsEdit = ({
       <AccordionStyle attributes={attributes} />
       <div id={blockId} className={classNames(className, blockId)}>
         {tabs.map((tab, index) => (
-          <div className="wp-block-gutenbee-accordion-item">
+          <div key={index} className="wp-block-gutenbee-accordion-item">
             <div
               className="wp-block-gutenbee-accordion-item-title"
               onClick={() => onTabToggle(index)}
@@ -265,6 +269,26 @@ const AccordionsEdit = ({
                 />
               )}
             </ResponsiveControl>
+          </PanelBody>
+
+          <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+            <BreakpointVisibilityControl
+              values={blockBreakpointVisibility}
+              onChange={values => {
+                setAttributes({
+                  blockBreakpointVisibility: values,
+                });
+              }}
+            />
+
+            <AuthVisibilityControl
+              values={blockAuthVisibility}
+              onChange={values => {
+                setAttributes({
+                  blockAuthVisibility: values,
+                });
+              }}
+            />
           </PanelBody>
         </InspectorControls>
       )}

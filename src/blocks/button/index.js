@@ -3,7 +3,10 @@ import { __ } from 'wp.i18n';
 import { RichText } from 'wp.blockEditor';
 import classNames from 'classnames';
 
-import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../components/controls/responsive-control/default-values';
 import ButtonEdit from './edit';
 import ButtonStyle from './style';
 import getBlockId from '../../util/getBlockId';
@@ -15,6 +18,8 @@ import {
   getBoxShadowCSSValue,
 } from '../../components/controls/box-shadow-controls/helpers';
 import deprecated from './deprecated';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 registerBlockType('gutenbee/button', {
   title: __('GutenBee Button'),
@@ -70,6 +75,21 @@ registerBlockType('gutenbee/button', {
       type: 'object',
       default: getDefaultSpacingValue(),
     },
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      }),
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    },
   },
   deprecated,
   edit: ButtonEdit,
@@ -82,12 +102,22 @@ registerBlockType('gutenbee/button', {
       rel,
       text,
       url,
+      blockBreakpointVisibility,
+      blockAuthVisibility,
     } = attributes;
 
     const blockId = getBlockId(uniqueId);
 
     return (
-      <div id={blockId} className={classNames(className, blockId)}>
+      <div
+        id={blockId}
+        className={classNames(
+          className,
+          blockId,
+          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+          getAuthVisibilityClasses(blockAuthVisibility),
+        )}
+      >
         <ButtonStyle attributes={attributes} />
         <RichText.Content
           tagName="a"

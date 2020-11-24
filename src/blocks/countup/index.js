@@ -25,6 +25,8 @@ import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
 } from '../../components/controls/box-shadow-controls/helpers';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 const CountupRender = ({ attributes, className }) => {
   const {
@@ -34,17 +36,23 @@ const CountupRender = ({ attributes, className }) => {
     backgroundColor,
     titleTopMargin,
     uniqueId,
+    blockBreakpointVisibility,
+    blockAuthVisibility,
   } = attributes;
   const blockId = getBlockId(uniqueId);
 
   return (
     <div
       id={blockId}
-      className={classNames({
-        [className]: !!className,
-        [blockId]: true,
-        [`wp-block-gutenbee-countup-align-${align}`]: !!align,
-      })}
+      className={classNames(
+        className,
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+        {
+          [`wp-block-gutenbee-countup-align-${align}`]: !!align,
+        },
+      )}
       style={{
         backgroundColor: backgroundColor || undefined,
         ...getBorderCSSValue({ attributes }),
@@ -144,6 +152,21 @@ registerBlockType('gutenbee/countup', {
     },
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      }),
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    },
   },
   deprecated,
   edit: CountupEdit,

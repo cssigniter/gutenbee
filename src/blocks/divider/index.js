@@ -12,6 +12,7 @@ import DividerBlockIcon from './block-icon';
 import DividerEdit from './edit';
 import {
   getDefaultBackgroundImageValue,
+  getDefaultResponsiveValue,
   getDefaultSpacingValue,
 } from '../../components/controls/responsive-control/default-values';
 import getBlockId from '../../util/getBlockId';
@@ -24,6 +25,8 @@ import {
   getBoxShadowCSSValue,
 } from '../../components/controls/box-shadow-controls/helpers';
 import borderControlAttributes from '../../components/controls/border-controls/attributes';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 export const BORDER_STYLES = {
   SOLID: 'solid',
@@ -43,15 +46,23 @@ export const Divider = ({ className, attributes, ...props }) => {
     uniqueId,
     backgroundColor,
     backgroundImage,
+    blockBreakpointVisibility,
+    blockAuthVisibility,
   } = attributes;
   const blockId = getBlockId(uniqueId);
 
   return (
     <div
       id={blockId}
-      className={classNames(className, blockId, {
-        [`align-${align}`]: true,
-      })}
+      className={classNames(
+        className,
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+        {
+          [`align-${align}`]: true,
+        },
+      )}
       style={{
         height,
         backgroundColor: backgroundColor || undefined,
@@ -131,6 +142,21 @@ registerBlockType('gutenbee/divider', {
     },
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      }),
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    },
   },
   deprecated,
   edit: DividerEdit,

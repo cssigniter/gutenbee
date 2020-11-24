@@ -9,10 +9,15 @@ import classNames from 'classnames';
 
 import AccordionBlockIcon from './block-icon';
 import AccordionsEdit from './edit';
-import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../components/controls/responsive-control/default-values';
 import AccordionStyle from './style';
 import getBlockId from '../../util/getBlockId';
 import deprecated from './deprecated';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 const Accordion = ({ className, attributes }) => {
   const {
@@ -24,6 +29,8 @@ const Accordion = ({ className, attributes }) => {
     tabContentBackgroundColor,
     tabContentTextColor,
     collapseOthers,
+    blockBreakpointVisibility,
+    blockAuthVisibility,
   } = attributes;
 
   const blockId = getBlockId(uniqueId);
@@ -31,7 +38,12 @@ const Accordion = ({ className, attributes }) => {
   return (
     <div
       id={blockId}
-      className={classNames(className, blockId)}
+      className={classNames(
+        className,
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+      )}
       data-collapse-others={collapseOthers}
     >
       <AccordionStyle attributes={attributes} />
@@ -124,6 +136,21 @@ registerBlockType('gutenbee/accordion', {
     blockMargin: {
       type: 'object',
       default: getDefaultSpacingValue(),
+    },
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      }),
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false,
+      },
     },
   },
   deprecated,

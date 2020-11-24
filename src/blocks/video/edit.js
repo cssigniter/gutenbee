@@ -1,9 +1,8 @@
 import { Fragment, useRef, useEffect, useState } from 'wp.element';
 import {
   BaseControl,
-  Button,
   Disabled,
-  IconButton,
+  Button,
   PanelBody,
   SelectControl,
   ToggleControl,
@@ -160,7 +159,7 @@ const VideoEdit = ({
     <Fragment>
       <BlockControls>
         <Toolbar>
-          <IconButton
+          <Button
             className="components-icon-button components-toolbar__control"
             label={__('Edit video')}
             onClick={switchToEditing}

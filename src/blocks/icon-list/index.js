@@ -18,6 +18,8 @@ import getBlockId from '../../util/getBlockId';
 import IconListEdit from './edit';
 import IconListStyle from './style';
 import IconListBlockIcon from './block-icon';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 registerBlockType('gutenbee/icon-list', {
   title: __('GutenBee Icon List'),
@@ -94,17 +96,44 @@ registerBlockType('gutenbee/icon-list', {
       type: 'object',
       default: getDefaultSpacingValue(),
     },
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      }),
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    },
   },
   deprecated,
   edit: IconListEdit,
   save: ({ className, attributes }) => {
-    const { uniqueId, blockLink, layout, backgroundColor } = attributes;
+    const {
+      uniqueId,
+      blockLink,
+      layout,
+      backgroundColor,
+      blockBreakpointVisibility,
+      blockAuthVisibility,
+    } = attributes;
     const blockId = getBlockId(uniqueId);
 
     return (
       <div
         id={blockId}
-        className={classNames(className, blockId)}
+        className={classNames(
+          className,
+          blockId,
+          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+          getAuthVisibilityClasses(blockAuthVisibility),
+        )}
         style={{
           backgroundColor: backgroundColor ? backgroundColor : undefined,
           ...getBorderCSSValue({ attributes }),

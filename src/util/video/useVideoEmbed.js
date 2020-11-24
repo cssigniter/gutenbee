@@ -19,7 +19,7 @@ const useVideoEmbed = ({
    * The video embed's ref callback.
    */
   const videoEmbedRef = useCallback(node => {
-    if (node !== null) {
+    if (node != null) {
       setRef(node);
     }
   }, []);

@@ -26,6 +26,8 @@ import PopoverColorControl from '../../components/controls/advanced-color-contro
 import { useVideoEmbed } from '../../util/video/useVideoEmbed';
 import VideoBackgroundEditor from '../../util/video/components/VideoBackgroundEditor';
 import { onVimeoApiReady, onYouTubeApiReady } from './utils';
+import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
+import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 
 const BannerBlockEdit = ({
   attributes,
@@ -47,6 +49,8 @@ const BannerBlockEdit = ({
     bannerHeight,
     verticalContentAlignment,
     horizontalContentAlignment,
+    blockBreakpointVisibility,
+    blockAuthVisibility,
   } = attributes;
 
   const { innerBlocks } = useSelect(select => {
@@ -334,6 +338,26 @@ const BannerBlockEdit = ({
               />
             )}
           </ResponsiveControl>
+        </PanelBody>
+
+        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+          <BreakpointVisibilityControl
+            values={blockBreakpointVisibility}
+            onChange={values => {
+              setAttributes({
+                blockBreakpointVisibility: values,
+              });
+            }}
+          />
+
+          <AuthVisibilityControl
+            values={blockAuthVisibility}
+            onChange={values => {
+              setAttributes({
+                blockAuthVisibility: values,
+              });
+            }}
+          />
         </PanelBody>
       </InspectorControls>
     </Fragment>

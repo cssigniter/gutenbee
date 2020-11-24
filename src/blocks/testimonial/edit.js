@@ -10,7 +10,7 @@ import {
   PanelBody,
   SelectControl,
   Toolbar,
-  IconButton,
+  Button,
   TextareaControl,
   RangeControl,
 } from 'wp.components';
@@ -342,7 +342,7 @@ const TestimonialEdit = ({
         {url && (
           <Fragment>
             <Toolbar>
-              <IconButton
+              <Button
                 className={classNames(
                   'components-icon-button components-toolbar__control',
                   { 'is-active': isEditing },
@@ -352,7 +352,8 @@ const TestimonialEdit = ({
                 onClick={toggleIsEditing}
                 icon="format-image"
               />
-              <IconButton
+
+              <Button
                 className={classNames(
                   'components-icon-button components-toolbar__control',
                   { 'is-active': isEditing },
@@ -360,7 +361,7 @@ const TestimonialEdit = ({
                 label={__('Remove image')}
                 aria-pressed={isEditing}
                 onClick={onImageSelect}
-                icon="no"
+                icon="trash"
               />
             </Toolbar>
           </Fragment>

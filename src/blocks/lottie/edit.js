@@ -9,7 +9,6 @@ import {
   PanelBody,
   Button,
   Toolbar,
-  IconButton,
 } from 'wp.components';
 import {
   MediaUploadCheck,
@@ -107,7 +106,7 @@ const LottieEdit = ({ attributes, setAttributes, clientId, className }) => {
 
       <BlockControls>
         <Toolbar>
-          <IconButton
+          <Button
             className="components-icon-button components-toolbar__control"
             label={__('Edit animation')}
             onClick={() => setEditing(prevEditing => !prevEditing)}

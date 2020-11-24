@@ -20,6 +20,8 @@ import {
   getBoxShadowCSSValue,
 } from '../../components/controls/box-shadow-controls/helpers';
 import deprecated from './deprecated';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 registerBlockType('gutenbee/image', {
   title: __('GutenBee Image'),
@@ -123,6 +125,21 @@ registerBlockType('gutenbee/image', {
     },
     ...borderControlAttributes('image'),
     ...boxShadowControlAttributes('image'),
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      }),
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    },
   },
   getEditWrapperProps(attributes) {
     const { align, width } = attributes;
@@ -153,6 +170,8 @@ registerBlockType('gutenbee/image', {
       sizeSlug,
       title,
       backgroundColor,
+      blockBreakpointVisibility,
+      blockAuthVisibility,
     } = attributes;
 
     const newRel = isEmpty(rel) ? undefined : rel;
@@ -210,7 +229,12 @@ registerBlockType('gutenbee/image', {
       return (
         <div
           id={blockId}
-          className={classNames(className, blockId)}
+          className={classNames(
+            className,
+            blockId,
+            getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+            getAuthVisibilityClasses(blockAuthVisibility),
+          )}
           style={style}
         >
           <ImageStyle attributes={attributes} />
@@ -222,7 +246,13 @@ registerBlockType('gutenbee/image', {
     return (
       <figure
         id={blockId}
-        className={classNames(className, blockId, classes)}
+        className={classNames(
+          className,
+          blockId,
+          classes,
+          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+          getAuthVisibilityClasses(blockAuthVisibility),
+        )}
         style={style}
       >
         <ImageStyle attributes={attributes} />

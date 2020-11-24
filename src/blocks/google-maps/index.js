@@ -23,6 +23,8 @@ import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
 } from '../../components/controls/box-shadow-controls/helpers';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 registerBlockType('gutenbee/google-maps', {
   title: __('GutenBee Google Maps'),
@@ -93,6 +95,21 @@ registerBlockType('gutenbee/google-maps', {
     },
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      }),
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    },
   },
   deprecated,
   edit: GoogleMapsEdit,
@@ -108,6 +125,8 @@ registerBlockType('gutenbee/google-maps', {
       customStyles,
       markerImageUrl,
       backgroundColor,
+      blockBreakpointVisibility,
+      blockAuthVisibility,
     } = attributes;
 
     const blockId = getBlockId(uniqueId);
@@ -128,7 +147,12 @@ registerBlockType('gutenbee/google-maps', {
     return (
       <div
         id={blockId}
-        className={classNames(className, blockId)}
+        className={classNames(
+          className,
+          blockId,
+          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+          getAuthVisibilityClasses(blockAuthVisibility),
+        )}
         style={{
           backgroundColor: backgroundColor || undefined,
           ...getBorderCSSValue({ attributes }),

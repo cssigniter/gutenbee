@@ -5,6 +5,10 @@
  * @returns {string}
  */
 export const getBreakpointVisibilityClassNames = values => {
+  if (!values) {
+    return undefined;
+  }
+
   return Object.keys(values)
     .reduce((classes, breakpoint) => {
       if (values[breakpoint]) {

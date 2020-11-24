@@ -7,7 +7,7 @@ import PopoverColorControl from '../advanced-color-control/PopoverColorControl';
 
 const propTypes = {
   attributes: PropTypes.object.isRequired,
-  setAttributes: PropTypes.object.isRequired,
+  setAttributes: PropTypes.func.isRequired,
 };
 
 const BoxShadowControls = ({

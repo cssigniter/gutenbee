@@ -1,7 +1,7 @@
 import { Component, Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __, sprintf } from 'wp.i18n';
-import { IconButton, Toolbar, PanelBody, SelectControl } from 'wp.components';
+import { Button, Toolbar, PanelBody, SelectControl } from 'wp.components';
 import { MediaUpload, InspectorControls, BlockControls } from 'wp.blockEditor';
 import { withSelect } from 'wp.data';
 import startCase from 'lodash.startcase';
@@ -135,7 +135,7 @@ class Gallery extends Component {
               gallery
               value={images.map(img => img.id)}
               render={({ open }) => (
-                <IconButton
+                <Button
                   className="components-toolbar__control"
                   label={sprintf(__('Edit %s'), label)}
                   icon="edit"

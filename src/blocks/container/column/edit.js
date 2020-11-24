@@ -28,6 +28,8 @@ import BoxShadowControls from '../../../components/controls/box-shadow-controls'
 import { getBoxShadowCSSValue } from '../../../components/controls/box-shadow-controls/helpers';
 import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
 import PopoverColorControl from '../../../components/controls/advanced-color-control/PopoverColorControl';
+import BreakpointVisibilityControl from '../../../components/controls/breakpoint-visibility-control';
+import AuthVisibilityControl from '../../../components/controls/auth-visibility-control';
 
 const propTypes = {
   className: PropTypes.string.isRequired,
@@ -55,6 +57,8 @@ const ColumnBlockEdit = ({
     backgroundImage,
     verticalContentAlignment,
     horizontalContentAlignment,
+    blockBreakpointVisibility,
+    blockAuthVisibility,
   } = attributes;
 
   const customClass = 'wp-block-gutenbee-column';
@@ -203,6 +207,26 @@ const ColumnBlockEdit = ({
           <BoxShadowControls
             attributes={attributes}
             setAttributes={setAttributes}
+          />
+        </PanelBody>
+
+        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+          <BreakpointVisibilityControl
+            values={blockBreakpointVisibility}
+            onChange={values => {
+              setAttributes({
+                blockBreakpointVisibility: values,
+              });
+            }}
+          />
+
+          <AuthVisibilityControl
+            values={blockAuthVisibility}
+            onChange={values => {
+              setAttributes({
+                blockAuthVisibility: values,
+              });
+            }}
           />
         </PanelBody>
       </InspectorControls>

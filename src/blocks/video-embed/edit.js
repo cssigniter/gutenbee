@@ -6,7 +6,6 @@ import {
   Placeholder,
   ToggleControl,
   TextControl,
-  IconButton,
   Toolbar,
 } from 'wp.components';
 import {
@@ -161,8 +160,9 @@ const VideoEmbedEdit = ({
           ...getBoxShadowCSSValue({ attributes }),
         }}
       >
+        <VideoEmbedStyle attributes={attributes} />
+
         <div className="gutenbee-video-embed-wrapper">
-          <VideoEmbedStyle attributes={attributes} />
           <div
             className="gutenbee-video-embed"
             data-video-lazy={lazyLoad}
@@ -200,7 +200,7 @@ const VideoEmbedEdit = ({
       </div>
       <BlockControls>
         <Toolbar>
-          <IconButton
+          <Button
             className="components-icon-button components-toolbar__control"
             label={__('Change video URL')}
             onClick={() => setEditing(true)}

@@ -20,6 +20,8 @@ import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
 } from '../../components/controls/box-shadow-controls/helpers';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 registerBlockType('gutenbee/heading', {
   title: __('GutenBee Heading'),
@@ -80,23 +82,50 @@ registerBlockType('gutenbee/heading', {
       type: 'object',
       default: getDefaultSpacingValue(),
     },
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      }),
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    },
   },
   deprecated,
   transforms,
   edit: HeadingEdit,
   save: ({ attributes, className }) => {
-    const { uniqueId, content, level, textColor, backgroundColor } = attributes;
+    const {
+      uniqueId,
+      content,
+      level,
+      textColor,
+      backgroundColor,
+      blockBreakpointVisibility,
+      blockAuthVisibility,
+    } = attributes;
     const tagName = 'h' + level;
 
     const blockId = getBlockId(uniqueId);
 
-    const classes = classNames({
-      'wp-block-gutenbee-heading': true,
-      [className]: !!className,
-      [blockId]: true,
-      'has-text-color': !!textColor,
-      'has-background-color': !!backgroundColor,
-    });
+    const classes = classNames(
+      className,
+      'wp-block-gutenbee-heading',
+      blockId,
+      getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+      getAuthVisibilityClasses(blockAuthVisibility),
+      {
+        'has-text-color': !!textColor,
+        'has-background-color': !!backgroundColor,
+      },
+    );
 
     return (
       <Fragment>

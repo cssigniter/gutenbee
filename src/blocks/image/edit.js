@@ -15,7 +15,7 @@ import {
   TextareaControl,
   RangeControl,
   Toolbar,
-  IconButton,
+  Button,
 } from 'wp.components';
 import { compose } from 'wp.compose';
 import { withSelect } from 'wp.data';
@@ -33,6 +33,8 @@ import { getBorderCSSValue } from '../../components/controls/border-controls/hel
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
+import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
+import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 
 const propTypes = {
   attributes: PropTypes.object.isRequired,
@@ -73,6 +75,8 @@ const ImageEdit = ({
     caption,
     backgroundColor,
     href,
+    blockBreakpointVisibility,
+    blockAuthVisibility,
   } = attributes;
 
   useUniqueId({ attributes, setAttributes, clientId });
@@ -154,7 +158,7 @@ const ImageEdit = ({
       {url && (
         <Fragment>
           <Toolbar>
-            <IconButton
+            <Button
               className={classNames(
                 'components-icon-button components-toolbar__control',
                 { 'is-active': isEditing },
@@ -330,6 +334,26 @@ const ImageEdit = ({
               />
             )}
           </ResponsiveControl>
+        </PanelBody>
+
+        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+          <BreakpointVisibilityControl
+            values={blockBreakpointVisibility}
+            onChange={values => {
+              setAttributes({
+                blockBreakpointVisibility: values,
+              });
+            }}
+          />
+
+          <AuthVisibilityControl
+            values={blockAuthVisibility}
+            onChange={values => {
+              setAttributes({
+                blockAuthVisibility: values,
+              });
+            }}
+          />
         </PanelBody>
       </InspectorControls>
     </Fragment>

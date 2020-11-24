@@ -15,7 +15,10 @@ import Icon from '../icon/Icon';
 import IconBoxBlockIcon from './block-icon';
 import MarginControls from '../../components/controls/margin-controls';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
-import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../components/controls/responsive-control/default-values';
 import useUniqueId from '../../hooks/useUniqueId';
 import getBlockId from '../../util/getBlockId';
 import deprecated from './deprecated';
@@ -32,6 +35,10 @@ import {
 } from '../../components/controls/box-shadow-controls/helpers';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
+import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 
 const IconBox = ({ className, attributes }) => {
   const {
@@ -49,6 +56,8 @@ const IconBox = ({ className, attributes }) => {
     titleColor,
     textColor,
     backgroundColor,
+    blockBreakpointVisibility,
+    blockAuthVisibility,
   } = attributes;
 
   const blockId = getBlockId(uniqueId);
@@ -56,12 +65,16 @@ const IconBox = ({ className, attributes }) => {
   return (
     <div
       id={blockId}
-      className={classNames({
-        [className]: !!className,
-        [blockId]: true,
-        [`wp-block-gutenbee-iconbox-align-${align}`]: true,
-        [`wp-block-gutenbee-iconbox-content-align-${contentAlign}`]: !!contentAlign,
-      })}
+      className={classNames(
+        className,
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+        {
+          [`wp-block-gutenbee-iconbox-align-${align}`]: true,
+          [`wp-block-gutenbee-iconbox-content-align-${contentAlign}`]: !!contentAlign,
+        },
+      )}
       style={{
         backgroundColor: backgroundColor || undefined,
         ...getBorderCSSValue({ attributes }),
@@ -132,6 +145,8 @@ const IconBoxEditBlock = ({
     titleColor,
     textColor,
     backgroundColor,
+    blockBreakpointVisibility,
+    blockAuthVisibility,
   } = attributes;
 
   useUniqueId({ attributes, setAttributes, clientId });
@@ -202,7 +217,12 @@ const IconBoxEditBlock = ({
               setAttributes={setAttributes}
               excludeAlignment
               attributes={{
-                ...omit(attributes, ['blockMargin', 'blockPadding']),
+                ...omit(attributes, [
+                  'blockMargin',
+                  'blockPadding',
+                  'blockBreakpointVisibility',
+                  'blockAuthVisibility',
+                ]),
               }}
             >
               <ResponsiveControl>
@@ -334,6 +354,26 @@ const IconBoxEditBlock = ({
               )}
             </ResponsiveControl>
           </PanelBody>
+
+          <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+            <BreakpointVisibilityControl
+              values={blockBreakpointVisibility}
+              onChange={values => {
+                setAttributes({
+                  blockBreakpointVisibility: values,
+                });
+              }}
+            />
+
+            <AuthVisibilityControl
+              values={blockAuthVisibility}
+              onChange={values => {
+                setAttributes({
+                  blockAuthVisibility: values,
+                });
+              }}
+            />
+          </PanelBody>
         </InspectorControls>
       )}
     </Fragment>
@@ -412,6 +452,21 @@ registerBlockType('gutenbee/iconbox', {
     },
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      }),
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    },
   },
   deprecated,
   edit: IconBoxEditBlock,

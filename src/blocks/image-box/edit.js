@@ -12,7 +12,7 @@ import {
 } from 'wp.blockEditor';
 import {
   PanelBody,
-  IconButton,
+  Button,
   SelectControl,
   RangeControl,
   Toolbar,
@@ -34,6 +34,8 @@ import { getBorderCSSValue } from '../../components/controls/border-controls/hel
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
+import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
+import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 
 const propTypes = {
   className: PropTypes.string.isRequired,
@@ -69,6 +71,8 @@ const ImageBoxEditBlock = ({
     textColor,
     titleColor,
     backgroundColor,
+    blockBreakpointVisibility,
+    blockAuthVisibility,
   } = attributes;
 
   useUniqueId({ attributes, setAttributes, clientId });
@@ -164,7 +168,7 @@ const ImageBoxEditBlock = ({
                 allowedTypes={['image']}
                 value={id}
                 render={({ open }) => (
-                  <IconButton
+                  <Button
                     className="components-toolbar__control"
                     label={__('Edit Image')}
                     icon="format-image"
@@ -330,6 +334,26 @@ const ImageBoxEditBlock = ({
                   />
                 )}
               </ResponsiveControl>
+            </PanelBody>
+
+            <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+              <BreakpointVisibilityControl
+                values={blockBreakpointVisibility}
+                onChange={values => {
+                  setAttributes({
+                    blockBreakpointVisibility: values,
+                  });
+                }}
+              />
+
+              <AuthVisibilityControl
+                values={blockAuthVisibility}
+                onChange={values => {
+                  setAttributes({
+                    blockAuthVisibility: values,
+                  });
+                }}
+              />
             </PanelBody>
           </InspectorControls>
         </Fragment>

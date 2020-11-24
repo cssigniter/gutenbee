@@ -24,6 +24,8 @@ import {
 } from '../../../components/controls/box-shadow-controls/helpers';
 import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
 import deprecated from './deprecated';
+import { getBreakpointVisibilityClassNames } from '../../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../../components/controls/auth-visibility-control/helpers';
 
 registerBlockType('gutenbee/column', {
   title: __('GutenBee Column'),
@@ -86,6 +88,21 @@ registerBlockType('gutenbee/column', {
     },
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      }),
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    },
   },
   getEditWrapperProps(attributes) {
     const { width } = attributes;
@@ -107,6 +124,8 @@ registerBlockType('gutenbee/column', {
       textColor,
       backgroundColor,
       backgroundImage,
+      blockBreakpointVisibility,
+      blockAuthVisibility,
     } = attributes;
 
     const blockId = getBlockId(uniqueId);
@@ -114,9 +133,15 @@ registerBlockType('gutenbee/column', {
     return (
       <div
         id={blockId}
-        className={classNames(className, blockId, {
-          'wp-block-gutenbee-column': true,
-        })}
+        className={classNames(
+          className,
+          blockId,
+          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+          getAuthVisibilityClasses(blockAuthVisibility),
+          {
+            'wp-block-gutenbee-column': true,
+          },
+        )}
       >
         <ColumnStyle attributes={attributes}>
           <Rule

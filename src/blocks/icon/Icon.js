@@ -3,6 +3,8 @@ import classNames from 'classnames';
 import { VIEWS } from './constants';
 import IconStyle from './style';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 const Icon = ({
   id,
@@ -19,18 +21,24 @@ const Icon = ({
   colorSecondary,
   blockMargin,
   blockPadding,
+  blockBreakpointVisibility,
+  blockAuthVisibility,
   ...attributes
 }) => {
   const IconComponent = require(`./svg/${icon}.svg`).default;
 
-  const wrapperClasses = classNames({
-    [className]: !!className,
-    [id]: !!id,
-    'gutenbee-icon-block': true,
-    [`align-${align || 'left'}`]: true,
-    [`gutenbee-icon-block-${view}`]: !!view,
-    [`gutenbee-icon-block-shape-${shape}`]: !!shape && view !== VIEWS.DEFAULT, // Ignore shape if we are on the default view
-  });
+  const wrapperClasses = classNames(
+    className,
+    id,
+    getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+    getAuthVisibilityClasses(blockAuthVisibility),
+    {
+      'gutenbee-icon-block': true,
+      [`align-${align || 'left'}`]: true,
+      [`gutenbee-icon-block-${view}`]: !!view,
+      [`gutenbee-icon-block-shape-${shape}`]: !!shape && view !== VIEWS.DEFAULT, // Ignore shape if we are on the default view
+    },
+  );
 
   const iconClasses = classNames({
     [`${className}-icon`]: !!className,

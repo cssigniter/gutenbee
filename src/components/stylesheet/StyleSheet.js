@@ -9,7 +9,7 @@ import {
 } from './helpers';
 
 const propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.array]),
   id: PropTypes.string,
 };
 

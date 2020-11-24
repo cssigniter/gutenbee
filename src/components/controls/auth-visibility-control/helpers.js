@@ -7,6 +7,10 @@
 import { camelToKebab } from '../../../util/text';
 
 export const getAuthVisibilityClasses = values => {
+  if (!values) {
+    return undefined;
+  }
+
   return Object.keys(values)
     .reduce((classes, auth) => {
       if (values[auth]) {

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
-import { Toolbar, BaseControl } from 'wp.components';
+import { BaseControl, ToggleControl } from 'wp.components';
 import { desktop, tablet, mobile } from '@wordpress/icons';
 
 import { BREAKPOINT_NAMES } from '../../stylesheet/helpers';
@@ -40,31 +40,29 @@ const propTypes = {
 const BreakpointVisibilityControl = ({
   values,
   onChange,
-  label = __('Hide block on'),
-  isCollapsed = false,
+  label = __('Viewport visibility'),
 }) => {
   return (
     <BaseControl className="gutenbee-visibility-control">
       <BaseControl.VisualLabel>{label}</BaseControl.VisualLabel>
-      <Toolbar
-        isCollapsed={isCollapsed}
-        label={label}
-        icon=""
-        controls={BREAKPOINT_VISIBILITY_CONTROLS.map(control => {
-          const isActive = !!values[control.breakpoint];
 
-          return {
-            ...control,
-            isActive,
-            role: isCollapsed ? 'menuitemradio' : undefined,
-            onClick: () =>
+      {BREAKPOINT_VISIBILITY_CONTROLS.map(control => {
+        const isActive = !!values[control.breakpoint];
+
+        return (
+          <ToggleControl
+            key={control.breakpoint}
+            label={control.title}
+            checked={isActive}
+            onChange={() =>
               onChange({
                 ...values,
                 [control.breakpoint]: !isActive,
-              }),
-          };
-        })}
-      />
+              })
+            }
+          />
+        );
+      })}
     </BaseControl>
   );
 };

@@ -18,6 +18,8 @@ import getBlockId from '../../util/getBlockId';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import FoodMenuIcon from './block-icon';
 import deprecated from './deprecated';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 registerBlockType('gutenbee/food-menu', {
   title: __('GutenBee Food Menu'),
@@ -57,22 +59,49 @@ registerBlockType('gutenbee/food-menu', {
       type: 'object',
       default: getDefaultSpacingValue(),
     },
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      }),
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    },
   },
   deprecated,
   edit: FoodMenuEdit,
   save: ({ className, attributes }) => {
-    const { uniqueId, columns, backgroundColor } = attributes;
+    const {
+      uniqueId,
+      columns,
+      backgroundColor,
+      blockBreakpointVisibility,
+      blockAuthVisibility,
+    } = attributes;
     const blockId = getBlockId(uniqueId);
 
     return (
       <div
         id={blockId}
-        className={classNames(className, blockId, {
-          'wp-block-gutenbee-food-menu': true,
-          [`gutenbee-food-menu-columns-desktop-${columns.desktop}`]: true,
-          [`gutenbee-food-menu-columns-tablet-${columns.tablet}`]: true,
-          [`gutenbee-food-menu-columns-mobile-${columns.mobile}`]: true,
-        })}
+        className={classNames(
+          className,
+          blockId,
+          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+          getAuthVisibilityClasses(blockAuthVisibility),
+          {
+            'wp-block-gutenbee-food-menu': true,
+            [`gutenbee-food-menu-columns-desktop-${columns.desktop}`]: true,
+            [`gutenbee-food-menu-columns-tablet-${columns.tablet}`]: true,
+            [`gutenbee-food-menu-columns-mobile-${columns.mobile}`]: true,
+          },
+        )}
         style={{
           backgroundColor: backgroundColor ? backgroundColor : undefined,
           ...getBorderCSSValue({ attributes }),

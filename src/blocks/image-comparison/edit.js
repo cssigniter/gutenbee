@@ -3,12 +3,7 @@ import PropTypes from 'prop-types';
 import { compose } from 'wp.compose';
 import { __ } from 'wp.i18n';
 import { InspectorControls, MediaUpload } from 'wp.blockEditor';
-import {
-  IconButton,
-  RangeControl,
-  SelectControl,
-  PanelBody,
-} from 'wp.components';
+import { Button, RangeControl, SelectControl, PanelBody } from 'wp.components';
 import { withSelect } from 'wp.data';
 import startCase from 'lodash.startcase';
 import get from 'lodash.get';
@@ -139,7 +134,7 @@ const ImageComparisonEdit = ({
                 allowedTypes={['image']}
                 value={idA}
                 render={({ open }) => (
-                  <IconButton
+                  <Button
                     className="components-toolbar__control"
                     label={__('Edit Image')}
                     icon="format-image"
@@ -181,7 +176,7 @@ const ImageComparisonEdit = ({
                 allowedTypes={['image']}
                 value={idB}
                 render={({ open }) => (
-                  <IconButton
+                  <Button
                     className="components-toolbar__control"
                     label={__('Edit Image')}
                     icon="format-image"

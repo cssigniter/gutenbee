@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { Component } from 'wp.element';
-import { IconButton, Spinner } from 'wp.components';
+import { Button, Spinner } from 'wp.components';
 import { __ } from 'wp.i18n';
 import { BACKSPACE, DELETE } from 'wp.keycodes';
 import { withSelect } from 'wp.data';
@@ -57,8 +57,8 @@ class GalleryItem extends Component {
       >
         {isSelected && (
           <div className="gutenbee-gallery-item-inline-menu">
-            <IconButton
-              icon="no-alt"
+            <Button
+              icon="trash"
               onClick={onRemove}
               className="gutenbee-gallery-item-remove"
               label={__('Remove Image')}

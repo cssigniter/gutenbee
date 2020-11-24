@@ -15,6 +15,8 @@ import ResponsiveControl from '../../components/controls/responsive-control/Resp
 import BorderControls from '../../components/controls/border-controls';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
+import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
+import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 
 const ContainerInspectorControls = ({
   attributes,
@@ -39,6 +41,8 @@ const ContainerInspectorControls = ({
     themeGrid,
     overlayBackgroundColor,
     backgroundVideoURL,
+    blockBreakpointVisibility,
+    blockAuthVisibility,
   } = attributes;
 
   return (
@@ -283,6 +287,26 @@ const ContainerInspectorControls = ({
               />
             )}
           </ResponsiveControl>
+        </PanelBody>
+
+        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+          <BreakpointVisibilityControl
+            values={blockBreakpointVisibility}
+            onChange={values => {
+              setAttributes({
+                blockBreakpointVisibility: values,
+              });
+            }}
+          />
+
+          <AuthVisibilityControl
+            values={blockAuthVisibility}
+            onChange={values => {
+              setAttributes({
+                blockAuthVisibility: values,
+              });
+            }}
+          />
         </PanelBody>
       </InspectorControls>
     </Fragment>
