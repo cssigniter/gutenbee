@@ -106,6 +106,15 @@ const youTubeUrlPatterns = [
 const vimeoUrlPatterns = [/^https?:\/\/(www\.)?vimeo\.com\/.+/i];
 
 /**
+ * Self hosted video URL patterns.
+ *
+ * @type {RegExp[]}
+ */
+const selfHostedVideoUrlPatterns = [
+  /([a-zA-Z0-9\s_\\.\-\(\):])+(.webm|.mkv|.avi|.mov|.mp4|.ogg)/i,
+];
+
+/**
  * Returns the Vimeo video ID based on the URL provided.
  *
  * @param {string} url The YouTube video URL.
@@ -155,6 +164,7 @@ export const getVideoProviderInfoByUrl = (url = '') => {
     return {
       id: getYouTubeIdByUrl(url),
       provider: 'youtube',
+      url,
     };
   }
 
@@ -162,6 +172,15 @@ export const getVideoProviderInfoByUrl = (url = '') => {
     return {
       id: getVimeoIdByUrl(url),
       provider: 'vimeo',
+      url,
+    };
+  }
+
+  if (matchesPatterns(url, selfHostedVideoUrlPatterns)) {
+    return {
+      id: url,
+      provider: 'self',
+      url,
     };
   }
 

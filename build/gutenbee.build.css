@@ -918,6 +918,19 @@
   transform: translate(-50%, -50%);
 }
 
+.gutenbee-video-bg-control-input-wrap {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.gutenbee-video-bg-control-input-wrap .components-button {
+  position: relative;
+  top: 26px;
+  height: 30px;
+}
+
 .wp-block-gutenbee-divider {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2512,6 +2525,7 @@
   }
 }
 
+.wp-block-gutenbee-container-background video,
 .wp-block-gutenbee-container-background iframe {
   position: absolute;
   top: 50%;
@@ -2522,6 +2536,8 @@
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   max-width: none;
+  -o-object-fit: none;
+  object-fit: none;
 }
 
 .wp-block-gutenbee-container-background-overlay {
@@ -3500,6 +3516,7 @@ div[data-type="gutenbee/button"] {
   }
 }
 
+.wp-block-gutenbee-banner-background video,
 .wp-block-gutenbee-banner-background iframe {
   position: absolute;
   top: 50%;
@@ -3510,6 +3527,8 @@ div[data-type="gutenbee/button"] {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   max-width: none;
+  -o-object-fit: none;
+  object-fit: none;
 }
 
 .wp-block-gutenbee-banner-background-overlay {

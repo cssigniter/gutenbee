@@ -17,7 +17,19 @@ const VideoBackgroundFrontEnd = ({ id, className, videoInfo }) => {
       data-video-id={videoInfo?.id}
       data-video-type={videoInfo?.provider}
     >
-      <div id={`video-${id}`} className="wp-block-gutenbee-video-bg" />
+      {videoInfo.provider === 'self' ? (
+        <video
+          id={`video-${id}`}
+          src={videoInfo.url}
+          className="wp-block-gutenbee-video-bg"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+      ) : (
+        <div id={`video-${id}`} className="wp-block-gutenbee-video-bg" />
+      )}
     </div>
   );
 };

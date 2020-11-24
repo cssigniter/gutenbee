@@ -113,7 +113,7 @@ jQuery($ => {
   function adjustVideoSize($videoWrap) {
     var size = getVideoSize($videoWrap);
 
-    $videoWrap.find('iframe').css({
+    $videoWrap.find('iframe, video').css({
       width: size.width + 'px',
       height: size.height + 'px',
     });
@@ -141,6 +141,9 @@ jQuery($ => {
           firstScript.parent().prepend(tag);
         }
         onVimeoAPIReady($this);
+      } else if (videoType === 'self') {
+        $videoWrap.addClass('visible');
+        adjustVideoSize($videoWrap);
       }
     });
   }

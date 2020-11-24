@@ -23,6 +23,7 @@
       background-attachment: scroll !important;
     }
 
+    video,
     iframe {
       position: absolute;
       top: 50%;
@@ -32,6 +33,7 @@
       pointer-events: none;
       transform: translate(-50%, -50%);
       max-width: none;
+      object-fit: none;
     }
   }
 

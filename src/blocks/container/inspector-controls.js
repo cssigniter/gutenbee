@@ -1,12 +1,13 @@
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
-import { InspectorControls } from 'wp.blockEditor';
+import { InspectorControls, MediaUpload } from 'wp.blockEditor';
 import {
   PanelBody,
   SelectControl,
   RangeControl,
   CheckboxControl,
   TextControl,
+  Button,
 } from 'wp.components';
 
 import MarginControls from '../../components/controls/margin-controls';
@@ -209,18 +210,40 @@ const ContainerInspectorControls = ({
           />
 
           {backgroundVideoURL &&
-            !['youtube', 'vimeo'].includes(videoInfo.provider) && (
+            !['youtube', 'vimeo', 'self'].includes(videoInfo.provider) && (
               <span className="gutenbee-embed-error">
-                {__('Embed URL error. Please enter a YouTube or Vimeo URL.')}
+                {__(
+                  'Embed URL error. Please enter a YouTube, Vimeo, or self hosted video URL.',
+                )}
               </span>
             )}
 
-          <TextControl
-            label={__('Video Background URL.')}
-            onChange={handleBackgroundVideoUrlChange}
-            type="text"
-            value={backgroundVideoURL}
-          />
+          <div className="gutenbee-video-bg-control-input-wrap">
+            <TextControl
+              label={__('Video Background URL.')}
+              onChange={handleBackgroundVideoUrlChange}
+              type="text"
+              value={backgroundVideoURL}
+            />
+
+            <MediaUpload
+              onSelect={video => {
+                handleBackgroundVideoUrlChange(
+                  `${video?.url}?w=${video?.width}&h=${video?.height}`,
+                );
+              }}
+              allowedTypes={['video']}
+              render={({ open }) => (
+                <Button
+                  isSecondary
+                  className="components-toolbar__control"
+                  label={__('Select video')}
+                  icon="format-video"
+                  onClick={open}
+                />
+              )}
+            />
+          </div>
 
           {backgroundVideoURL && (
             <span className="gutenbee-controls-notice">

@@ -31,6 +31,17 @@ const VideoBackgroundEditor = ({ videoInfo, videoEmbedRef }) => {
           height: `${videoHeight}px`,
         }}
       >
+        <video
+          className="gutenbee-video-bg"
+          src={videoInfo.url}
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            display: videoInfo?.provider === 'self' ? 'block' : 'none',
+          }}
+        />
         <div
           className="gutenbee-video-bg"
           data-video-id={videoInfo.id}
@@ -39,9 +50,14 @@ const VideoBackgroundEditor = ({ videoInfo, videoEmbedRef }) => {
           style={{
             width: `${videoWidth}px`,
             height: `${videoHeight}px`,
+            display:
+              !!videoInfo?.provider &&
+              videoInfo.provider !== 'self' &&
+              videoInfo.provider !== 'unsupported'
+                ? 'block'
+                : 'none',
           }}
         />
-
         <div />
       </div>
     </div>
