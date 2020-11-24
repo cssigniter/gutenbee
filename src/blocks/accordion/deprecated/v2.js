@@ -122,6 +122,20 @@ const v2 = {
       default: getDefaultSpacingValue(),
     },
   },
+  migrate: attributes => {
+    return {
+      ...attributes,
+      blockBreakpointVisibility: {
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      },
+      blockAuthVisibility: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    };
+  },
   save: ({ className, attributes }) => (
     <Accordion className={className} attributes={attributes} />
   ),

@@ -149,6 +149,20 @@ const v3 = {
     },
     ...boxShadowControlAttributes('icon'),
   },
+  migrate: attributes => {
+    return {
+      ...attributes,
+      blockBreakpointVisibility: {
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      },
+      blockAuthVisibility: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    };
+  },
   save({ className, attributes }) {
     const id = getBlockId(attributes.uniqueId);
     return <IconV3 id={id} className={className} {...attributes} />;

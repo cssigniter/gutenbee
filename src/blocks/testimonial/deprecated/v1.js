@@ -162,6 +162,20 @@ const v1 = {
       default: getDefaultSpacingValue(),
     },
   },
+  migrate: attributes => {
+    return {
+      ...attributes,
+      blockBreakpointVisibility: {
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      },
+      blockAuthVisibility: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    };
+  },
   save: ({ attributes, className }) => {
     const {
       uniqueId,

@@ -52,6 +52,20 @@ const v3 = {
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
   },
+  migrate: attributes => {
+    return {
+      ...attributes,
+      blockBreakpointVisibility: {
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      },
+      blockAuthVisibility: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    };
+  },
   save: ({ attributes, className }) => {
     const { uniqueId, backgroundColor, backgroundImage } = attributes;
     const blockId = getBlockId(uniqueId);

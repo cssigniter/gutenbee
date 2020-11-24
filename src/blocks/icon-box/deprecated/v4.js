@@ -168,6 +168,20 @@ const v4 = {
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
   },
+  migrate: attributes => {
+    return {
+      ...attributes,
+      blockBreakpointVisibility: {
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      },
+      blockAuthVisibility: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    };
+  },
   save({ className, attributes }) {
     return <IconBox className={className} attributes={attributes} />;
   },

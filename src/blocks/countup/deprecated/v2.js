@@ -156,6 +156,20 @@ const v2 = {
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
   },
+  migrate: attributes => {
+    return {
+      ...attributes,
+      blockBreakpointVisibility: {
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      },
+      blockAuthVisibility: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    };
+  },
   save({ attributes, className }) {
     return <CountupRender attributes={attributes} className={className} />;
   },

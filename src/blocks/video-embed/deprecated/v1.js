@@ -79,6 +79,20 @@ const v1 = {
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
   },
+  migrate: attributes => {
+    return {
+      ...attributes,
+      blockBreakpointVisibility: {
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      },
+      blockAuthVisibility: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    };
+  },
   save: ({ attributes }) => {
     const {
       uniqueId,

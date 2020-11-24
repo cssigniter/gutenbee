@@ -48,8 +48,19 @@ const v1 = {
       default: getDefaultSpacingValue(),
     },
   },
-  migrate(attributes) {
-    return attributes;
+  migrate: attributes => {
+    return {
+      ...attributes,
+      blockBreakpointVisibility: {
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      },
+      blockAuthVisibility: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    };
   },
   save: ({ attributes }) => {
     const { uniqueId, backgroundColor } = attributes;
@@ -70,39 +81,3 @@ const v1 = {
 };
 
 export default v1;
-
-// registerBlockType('gutenbee/buttons', {
-//   title: __('GutenBee Button Group'),
-//   description: __(
-//     'Prompt visitors to take action with a group of button-style links',
-//   ),
-//   icon: ButtonsBlockIcon,
-//   category: 'gutenbee',
-//   keywords: [__('link'), __('button'), __('call to action')],
-//   attributes: {
-//     uniqueId: {
-//       type: 'string',
-//     },
-//     align: {
-//       type: 'object',
-//       default: getDefaultResponsiveValue({
-//         desktop: 'flex-start',
-//         tablet: '',
-//         mobile: '',
-//       }),
-//     },
-//     backgroundColor: {
-//       type: 'string',
-//     },
-//     blockPadding: {
-//       type: 'object',
-//       default: getDefaultSpacingValue(),
-//     },
-//     blockMargin: {
-//       type: 'object',
-//       default: getDefaultSpacingValue(),
-//     },
-//   },
-//   edit: ButtonsEdit,
-// ,
-// });
