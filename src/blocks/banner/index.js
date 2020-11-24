@@ -44,10 +44,6 @@ registerBlockType('gutenbee/banner', {
       type: 'boolean',
       default: false,
     },
-    hasInnerButton: {
-      type: 'boolean',
-      default: false,
-    },
     textColor: {
       type: 'string',
     },
@@ -121,7 +117,6 @@ registerBlockType('gutenbee/banner', {
       uniqueId,
       bannerUrl,
       newTab,
-      hasInnerButton,
       textColor,
       backgroundColor,
       backgroundVideoURL,
@@ -194,7 +189,7 @@ registerBlockType('gutenbee/banner', {
           color: textColor,
         }}
       >
-        {bannerUrl && !hasInnerButton && (
+        {bannerUrl && (
           <a
             href={bannerUrl}
             target={newTab && '_blank'}

@@ -41,7 +41,6 @@ const BannerBlockEdit = ({
     uniqueId,
     bannerUrl,
     newTab,
-    hasInnerButton,
     textColor,
     backgroundColor,
     backgroundVideoURL,
@@ -54,41 +53,14 @@ const BannerBlockEdit = ({
     blockAuthVisibility,
   } = attributes;
 
-  const { innerBlocks } = useSelect(select => {
-    const [parent] = select('core/block-editor').getBlocksByClientId(clientId);
-    const { innerBlocks } = parent;
-    return {
-      innerBlocks,
-    };
-  });
-
-  const hasInnerBlocks = innerBlocks => {
-    return !!innerBlocks.length;
-  };
-
-  const hasButtonUrl = innerBlocks => {
-    innerBlocks.forEach(innerBlock => {
-      if (['gutenbee/buttons', 'gutenbee/button'].includes(innerBlock.name)) {
-        if (innerBlock.attributes.url && hasInnerButton === false) {
-          setAttributes({
-            hasInnerButton: true,
-          });
-        } else if (!innerBlock.attributes.url && hasInnerButton === true) {
-          setAttributes({
-            hasInnerButton: false,
-          });
-        }
-
-        if (innerBlock.innerBlocks) {
-          hasButtonUrl(innerBlock.innerBlocks);
-        }
-      }
-    });
-  };
-
-  if (innerBlocks) {
-    hasButtonUrl(innerBlocks);
-  }
+  const hasInnerBlocks = useSelect(
+    select => {
+      const { getBlock } = select('core/block-editor');
+      const block = getBlock(clientId);
+      return !!(block && block.innerBlocks.length);
+    },
+    [clientId],
+  );
 
   const blockId = getBlockId(uniqueId);
   const classes = classNames(blockId, className);
@@ -114,14 +86,12 @@ const BannerBlockEdit = ({
           color: textColor,
         }}
       >
-        {bannerUrl && !hasInnerButton && (
-          <span className={`${baseClass}-link-placeholder`} />
-        )}
+        {bannerUrl && <span className={`${baseClass}-link-placeholder`} />}
         <div className={`${baseClass}-inner`}>
           <InnerBlocks
             templateLock={false}
             renderAppender={
-              hasInnerBlocks(innerBlocks)
+              hasInnerBlocks
                 ? undefined
                 : () => <InnerBlocks.ButtonBlockAppender />
             }

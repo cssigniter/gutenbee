@@ -69,6 +69,11 @@ const IconListStyle = ({ attributes, children }) => {
           unit=""
         />
         <Rule
+          value={align}
+          rule=".wp-block-gutenbee-icon-list.[root] .wp-block-gutenbee-list-block-link a { justify-content: %s; }"
+          unit=""
+        />
+        <Rule
           value={separatorWidth}
           rule=".wp-block-gutenbee-icon-list.[root] .wp-block-gutenbee-icon-list-element li.wp-block-gutenbee-icon-list-item:not(:last-child) { border-bottom: solid %s; }"
           unit="px"
