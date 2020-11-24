@@ -1842,8 +1842,6 @@ body.logged-in .gutenbee-hidden-logged-in {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   max-width: none;
-  -o-object-fit: none;
-  object-fit: none;
 }
 
 .wp-block-gutenbee-container-background-overlay {
@@ -2662,8 +2660,6 @@ ul.wp-block-gutenbee-icon-list {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   max-width: none;
-  -o-object-fit: none;
-  object-fit: none;
 }
 
 .wp-block-gutenbee-banner-background-overlay {

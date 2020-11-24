@@ -34,7 +34,6 @@ const VideoBackgroundEditor = ({ videoInfo, videoEmbedRef }) => {
         <video
           className="gutenbee-video-bg"
           src={videoInfo.url}
-          autoPlay
           loop
           muted
           playsInline

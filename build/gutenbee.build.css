@@ -908,7 +908,8 @@
 }
 
 .wp-block-gutenbee-video-bg-inner-wrapper,
-.wp-block-gutenbee-video-bg {
+.wp-block-gutenbee-video-bg,
+.gutenbee-video-bg {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -916,6 +917,11 @@
   height: 100%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+}
+
+.wp-block-gutenbee-video-bg-wrapper video {
+  -o-object-fit: cover;
+  object-fit: cover;
 }
 
 .gutenbee-video-bg-control-input-wrap {
@@ -2536,8 +2542,6 @@
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   max-width: none;
-  -o-object-fit: none;
-  object-fit: none;
 }
 
 .wp-block-gutenbee-container-background-overlay {
@@ -3527,8 +3531,6 @@ div[data-type="gutenbee/button"] {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   max-width: none;
-  -o-object-fit: none;
-  object-fit: none;
 }
 
 .wp-block-gutenbee-banner-background-overlay {
