@@ -82,6 +82,7 @@ const ContainerBlockEdit = ({
 
   const blockId = getBlockId(uniqueId);
   const classes = classNames(className, blockId);
+  const baseClass = 'wp-block-gutenbee-container';
 
   const { videoInfo, videoEmbedRef, handleVideoUrlChange } = useVideoEmbed({
     url: backgroundVideoURL,
@@ -111,8 +112,8 @@ const ContainerBlockEdit = ({
             color: textColor,
           }}
         >
-          <div className={`${className}-inner`}>
-            <div className={`${className}-row`}>
+          <div className={`${baseClass}-inner`}>
+            <div className={`${baseClass}-row`}>
               <InnerBlocks
                 allowedBlocks={['gutenbee/column']}
                 __experimentalMoverDirection="horizontal"
@@ -124,14 +125,14 @@ const ContainerBlockEdit = ({
 
           {overlayBackgroundColor && (
             <div
-              className={`${className}-background-overlay`}
+              className={`${baseClass}-background-overlay`}
               style={{
                 backgroundColor: overlayBackgroundColor,
               }}
             />
           )}
           <div
-            className={`${className}-background`}
+            className={`${baseClass}-background`}
             style={{
               backgroundColor,
               ...getBackgroundImageStyle(backgroundImage),
