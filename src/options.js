@@ -22,6 +22,7 @@ export const blocks = [
   'progress-bar',
   'spacer',
   'slideshow',
+  'tab-slider',
   'tabs',
   'testimonial',
   'video',

@@ -147,6 +147,7 @@ function gutenbee_get_setting_block_names() {
 		'progress-bar'      => __( 'Progress Bar Block', 'gutenbee' ),
 		'spacer'            => __( 'Spacer Block', 'gutenbee' ),
 		'slideshow'         => __( 'Slideshow Block', 'gutenbee' ),
+		'tab-slider'    => __( 'Tab Slider Block', 'gutenbee' ),
 		'tabs'              => __( 'Tabs Block', 'gutenbee' ),
 		'testimonial'       => __( 'Testimonial Block', 'gutenbee' ),
 		'video'             => __( 'Video Block', 'gutenbee' ),
@@ -227,7 +228,7 @@ function gutenbee_get_blocks_info() {
 			'enqueue_js'  => false,
 			'enqueue_css' => true,
 		),
-		'gutenbee/icon-list'           => array(
+		'gutenbee/icon-list'         => array(
 			'label'       => __( 'Icon List Block', 'gutenbee' ),
 			'enqueue_js'  => false,
 			'enqueue_css' => true,
@@ -282,6 +283,11 @@ function gutenbee_get_blocks_info() {
 			'enqueue_js'  => true,
 			'enqueue_css' => true,
 		),
+		'gutenbee/tab-slider'    => array(
+			'label'       => __( 'Tab Slider Block', 'gutenbee' ),
+			'enqueue_js'  => true,
+			'enqueue_css' => true,
+		),
 		'gutenbee/tabs'              => array(
 			'label'       => __( 'Tabs Block', 'gutenbee' ),
 			'enqueue_js'  => true,
@@ -297,7 +303,7 @@ function gutenbee_get_blocks_info() {
 			'enqueue_js'  => false,
 			'enqueue_css' => true,
 		),
-		'gutenbee/video-embed'             => array(
+		'gutenbee/video-embed'       => array(
 			'label'       => __( 'Video Embed Block', 'gutenbee' ),
 			'enqueue_js'  => true,
 			'enqueue_css' => true,

@@ -1,0 +1,15 @@
+.wp-block-gutenbee-tab-slider {
+    > .block-editor-inner-blocks {
+        > .block-editor-block-list__layout {
+            display: flex;
+        }
+    }
+
+    div[data-type="gutenbee/tab-slider-nav-column"] {
+        flex: 1 1 25%;
+    }
+
+    div[data-type="gutenbee/tab-slider-content-column"] {
+        flex: 1 1 75%;
+    }
+}
