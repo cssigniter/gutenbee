@@ -62,6 +62,14 @@ registerBlockType('gutenbee/button', {
     backgroundColor: {
       type: 'string',
     },
+    fontSize: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: '',
+        tablet: '',
+        mobile: '',
+      }),
+    },
     textColor: {
       type: 'string',
     },

@@ -1,7 +1,7 @@
 import { Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
-import { InspectorControls, RichText } from 'wp.blockEditor';
+import { InspectorControls, RichText, FontSizePicker } from 'wp.blockEditor';
 import { PanelBody, TextControl, ToggleControl } from 'wp.components';
 import classNames from 'classnames';
 
@@ -35,6 +35,7 @@ const ButtonEdit = ({ attributes, setAttributes, className, clientId }) => {
     text,
     rel,
     linkTarget,
+    fontSize,
     textColor,
     backgroundColor,
     blockBreakpointVisibility,
@@ -112,6 +113,21 @@ const ButtonEdit = ({ attributes, setAttributes, className, clientId }) => {
         </PanelBody>
 
         <PanelBody title={__('Block Appearance')} initialOpen={false}>
+          <ResponsiveControl>
+            {breakpoint => (
+              <FontSizePicker
+                value={fontSize[breakpoint]}
+                onChange={value =>
+                  setAttributes({
+                    fontSize: {
+                      ...fontSize,
+                      [breakpoint]: value != null ? value : '',
+                    },
+                  })
+                }
+              />
+            )}
+          </ResponsiveControl>
           <PopoverColorControl
             label={__('Text Color')}
             value={textColor || ''}

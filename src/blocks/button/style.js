@@ -10,7 +10,7 @@ const propTypes = {
 };
 
 const ButtonStyle = ({ attributes, children }) => {
-  const { uniqueId, blockPadding, blockMargin } = attributes;
+  const { uniqueId, blockPadding, blockMargin, fontSize } = attributes;
   const blockId = getBlockId(uniqueId);
 
   return (
@@ -23,6 +23,11 @@ const ButtonStyle = ({ attributes, children }) => {
       <Rule
         value={blockPadding}
         rule=".wp-block-gutenbee-button.[root] .gutenbee-block-button-link { padding: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={fontSize}
+        rule=".wp-block-gutenbee-button.[root] .gutenbee-block-button-link { font-size: %s; }"
         unit="px"
       />
 
