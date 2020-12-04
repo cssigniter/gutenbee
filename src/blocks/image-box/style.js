@@ -10,7 +10,15 @@ const propTypes = {
 };
 
 const ImageBoxStyle = ({ attributes, children }) => {
-  const { uniqueId, blockPadding, blockMargin, imageMargin } = attributes;
+  const {
+    uniqueId,
+    blockPadding,
+    blockMargin,
+    imageMargin,
+    titleFontSize,
+    textFontSize,
+    imageWidth,
+  } = attributes;
   const blockId = getBlockId(uniqueId);
 
   return (
@@ -28,6 +36,21 @@ const ImageBoxStyle = ({ attributes, children }) => {
       <Rule
         value={imageMargin}
         rule=".wp-block-gutenbee-imagebox.[root] .wp-block-gutenbee-imagebox-figure { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={titleFontSize}
+        rule=".wp-block-gutenbee-imagebox.[root] .wp-block-gutenbee-imagebox-title { font-size: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={textFontSize}
+        rule=".wp-block-gutenbee-imagebox.[root] .wp-block-gutenbee-imagebox-text { font-size: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={imageWidth}
+        rule=".wp-block-gutenbee-imagebox.[root] .wp-block-gutenbee-imagebox-figure img { width: %s; }"
         unit="px"
       />
       {children}

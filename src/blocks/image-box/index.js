@@ -32,13 +32,10 @@ const ImageBox = ({ className, attributes }) => {
     uniqueId,
     titleContent,
     titleNodeLevel,
-    titleFontSize,
     textContent,
-    textFontSize,
     url,
     alt,
     imageAlign,
-    imageWidth,
     contentAlign,
     titleBottomSpacing,
     textColor,
@@ -73,13 +70,7 @@ const ImageBox = ({ className, attributes }) => {
 
       {url && (
         <figure className="wp-block-gutenbee-imagebox-figure">
-          <img
-            src={url}
-            alt={alt}
-            style={{
-              width: imageWidth ? `${imageWidth}px` : undefined,
-            }}
-          />
+          <img src={url} alt={alt} />
         </figure>
       )}
 
@@ -91,7 +82,6 @@ const ImageBox = ({ className, attributes }) => {
             className="wp-block-gutenbee-imagebox-title"
             style={{
               color: titleColor || undefined,
-              fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
               marginBottom:
                 titleBottomSpacing != null
                   ? `${titleBottomSpacing}px`
@@ -107,7 +97,6 @@ const ImageBox = ({ className, attributes }) => {
             className="wp-block-gutenbee-imagebox-text"
             style={{
               color: textColor || undefined,
-              fontSize: textFontSize ? `${textFontSize}px` : undefined,
             }}
           />
         )}
@@ -139,7 +128,8 @@ registerBlockType('gutenbee/imagebox', {
       default: 3,
     },
     titleFontSize: {
-      type: 'number',
+      type: 'object',
+      default: getDefaultResponsiveValue(),
     },
     titleBottomSpacing: {
       type: 'number',
@@ -150,7 +140,8 @@ registerBlockType('gutenbee/imagebox', {
       default: '',
     },
     textFontSize: {
-      type: 'number',
+      type: 'object',
+      default: getDefaultResponsiveValue(),
     },
     url: {
       type: 'string',
@@ -173,8 +164,12 @@ registerBlockType('gutenbee/imagebox', {
       default: 'left',
     },
     imageWidth: {
-      type: 'number',
-      default: 160,
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: 160,
+        tablet: 160,
+        mobile: 160,
+      }),
     },
     contentAlign: {
       type: 'string',

@@ -1,7 +1,10 @@
 import { RichText } from 'wp.blockEditor';
 import classNames from 'classnames';
 
-import { getDefaultSpacingValue } from '../../../components/controls/responsive-control/default-values';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../../components/controls/responsive-control/default-values';
 import borderControlAttributes from '../../../components/controls/border-controls/attributes';
 import {
   boxShadowControlAttributes,
@@ -201,6 +204,27 @@ const v3 = {
         loggedIn: false,
         loggedOut: false,
       },
+      titleFontSize: attributes.titleFontSize
+        ? {
+            desktop: attributes.titleFontSize,
+            tablet: attributes.titleFontSize,
+            mobile: attributes.titleFontSize,
+          }
+        : getDefaultResponsiveValue(),
+      textFontSize: attributes.textFontSize
+        ? {
+            desktop: attributes.textFontSize,
+            tablet: attributes.textFontSize,
+            mobile: attributes.textFontSize,
+          }
+        : getDefaultResponsiveValue(),
+      imageWidth: attributes.imageWidth
+        ? {
+            desktop: attributes.imageWidth,
+            tablet: attributes.imageWidth,
+            mobile: attributes.imageWidth,
+          }
+        : getDefaultResponsiveValue(),
     };
   },
   save({ className, attributes }) {

@@ -97,13 +97,7 @@ const ImageBoxEditBlock = ({
       >
         <figure className="wp-block-gutenbee-imagebox-figure">
           {url ? (
-            <img
-              src={url}
-              alt={alt}
-              style={{
-                width: imageWidth ? `${imageWidth}px` : undefined,
-              }}
-            />
+            <img src={url} alt={alt} />
           ) : (
             <ImagePlaceholder
               icon="format-image"
@@ -114,9 +108,6 @@ const ImageBoxEditBlock = ({
                   url: uploadedImage.url,
                   alt: uploadedImage.alt,
                 });
-              }}
-              style={{
-                width: imageWidth ? `${imageWidth}px` : undefined,
               }}
             />
           )}
@@ -131,7 +122,6 @@ const ImageBoxEditBlock = ({
             placeholder={__('Write heading…')}
             style={{
               color: titleColor || undefined,
-              fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
               marginBottom:
                 titleBottomSpacing != null
                   ? `${titleBottomSpacing}px`
@@ -147,7 +137,6 @@ const ImageBoxEditBlock = ({
             placeholder={__('Write content…')}
             style={{
               color: textColor || undefined,
-              fontSize: textFontSize ? `${textFontSize}px` : undefined,
             }}
           />
         </div>
@@ -207,19 +196,28 @@ const ImageBoxEditBlock = ({
                 />
               )}
 
-              <RangeControl
-                className="range-control-size"
-                label={__('Image Width')}
-                value={imageWidth}
-                initialPosition={160}
-                onChange={value => {
-                  setAttributes({ imageWidth: value });
-                }}
-                min={10}
-                max={2000}
-                beforeIcon="format-image"
-                afterIcon="format-image"
-              />
+              <ResponsiveControl>
+                {breakpoint => (
+                  <RangeControl
+                    className="range-control-size"
+                    label={__('Image Width')}
+                    value={imageWidth[breakpoint]}
+                    initialPosition={160}
+                    onChange={value =>
+                      setAttributes({
+                        imageWidth: {
+                          ...imageWidth,
+                          [breakpoint]: value != null ? value : '',
+                        },
+                      })
+                    }
+                    min={10}
+                    max={2000}
+                    beforeIcon="format-image"
+                    afterIcon="format-image"
+                  />
+                )}
+              </ResponsiveControl>
 
               <ResponsiveControl>
                 {breakpoint => (
@@ -254,11 +252,22 @@ const ImageBoxEditBlock = ({
                 }
               />
 
-              <FontSizePickerLabel
-                value={titleFontSize}
-                label={__('Heading Font Size')}
-                onChange={value => setAttributes({ titleFontSize: value })}
-              />
+              <ResponsiveControl>
+                {breakpoint => (
+                  <FontSizePickerLabel
+                    value={titleFontSize[breakpoint]}
+                    label={__('Heading Font Size')}
+                    onChange={value =>
+                      setAttributes({
+                        titleFontSize: {
+                          ...titleFontSize,
+                          [breakpoint]: value != null ? value : '',
+                        },
+                      })
+                    }
+                  />
+                )}
+              </ResponsiveControl>
 
               <RangeControl
                 label={__('Heading Bottom Margin')}
@@ -272,11 +281,22 @@ const ImageBoxEditBlock = ({
                 max={200}
               />
 
-              <FontSizePickerLabel
-                value={textFontSize}
-                label={__('Text Font Size')}
-                onChange={value => setAttributes({ textFontSize: value })}
-              />
+              <ResponsiveControl>
+                {breakpoint => (
+                  <FontSizePickerLabel
+                    value={textFontSize[breakpoint]}
+                    label={__('Text Font Size')}
+                    onChange={value =>
+                      setAttributes({
+                        textFontSize: {
+                          ...textFontSize,
+                          [breakpoint]: value != null ? value : '',
+                        },
+                      })
+                    }
+                  />
+                )}
+              </ResponsiveControl>
             </PanelBody>
 
             <PanelBody title={__('Block Appearance')} initialOpen={false}>
