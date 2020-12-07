@@ -71,6 +71,25 @@ Note that if you want to use the Google Maps block you will also need a Google M
 
 == Changelog ==
 
+= 2.8.0 =
+* Added Banner block.
+* Added support for video background in the Container block.
+* Added filters 'gutenbee_enqueue_frontend_styles' and 'gutenbee_enqueue_frontend_scripts' to force enqueueing frontend assets.
+* UPDATED: Convert all internal block inline CSS rules from ID based to class based.
+* Merge all identical selector CSS rules in block inline styles.
+* Fixed an issue where in some blocks "undefined" would appear as a class.
+* Fixed an issue where the video block would break in the editor when adding padding/margin.
+* Added support for anchor links on all blocks.
+* Fixed issue where an empty element was output when no avatar was selected, or no quote text was set, in the Testimonial block.
+* Fixed minor spacing issues in the Testimonial element.
+* Added Toolbar button to clear avatar on the Testimonial block.
+* Added Visibility settings on all blocks.
+* Fixed an issue in the Video Embed block that caused it to crash in the editor when changing padding and margin settings.
+* Added self hosted video support for video backgrounds.
+* Added per Button font size control.
+* Fixed some undefined variables.
+* Fixed an issue where the border radius would not be migrated on Buttons.
+
 = 2.7.0 =
 * Added new "Icon List" block.
 * Added new "Testimonial" block.
