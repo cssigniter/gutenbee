@@ -86,7 +86,13 @@ const v1 = {
       borderColor: attributes.borderColor,
       borderWidth: undefined,
       borderStyle: undefined,
-      borderRadius: undefined,
+      borderRadius:
+        attributes.borderRadius != null ? attributes.borderRadius : undefined,
+      fontSize: {
+        desktop: '',
+        tablet: '',
+        mobile: '',
+      },
     };
   },
   save: ({ attributes }) => {

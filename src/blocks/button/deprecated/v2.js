@@ -91,6 +91,11 @@ const v2 = {
         loggedIn: false,
         loggedOut: false,
       },
+      fontSize: {
+        desktop: '',
+        tablet: '',
+        mobile: '',
+      },
     };
   },
   save: ({ attributes }) => {
