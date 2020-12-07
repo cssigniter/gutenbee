@@ -45,9 +45,7 @@ const IconBox = ({ className, attributes }) => {
     uniqueId,
     titleNodeLevel,
     titleContent,
-    titleFontSize,
     textContent,
-    textFontSize,
     align,
     contentAlign,
     iconMargin,
@@ -98,7 +96,6 @@ const IconBox = ({ className, attributes }) => {
             className="wp-block-gutenbee-iconbox-title"
             style={{
               color: titleColor || undefined,
-              fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
               marginBottom:
                 titleBottomSpacing != null
                   ? `${titleBottomSpacing}px`
@@ -114,7 +111,6 @@ const IconBox = ({ className, attributes }) => {
             className="wp-block-gutenbee-iconbox-text"
             style={{
               color: textColor || undefined,
-              fontSize: textFontSize ? `${textFontSize}px` : undefined,
             }}
           />
         )}
@@ -187,7 +183,6 @@ const IconBoxEditBlock = ({
             placeholder={__('Write heading…')}
             style={{
               color: titleColor || undefined,
-              fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
               marginBottom:
                 titleBottomSpacing != null
                   ? `${titleBottomSpacing}px`
@@ -203,7 +198,6 @@ const IconBoxEditBlock = ({
             placeholder={__('Write content…')}
             style={{
               color: textColor || undefined,
-              fontSize: textFontSize ? `${textFontSize}px` : undefined,
             }}
           />
         </div>
@@ -273,11 +267,24 @@ const IconBoxEditBlock = ({
               onChange={newLevel => setAttributes({ titleNodeLevel: newLevel })}
             />
 
-            <FontSizePickerLabel
-              value={titleFontSize}
-              label={__('Heading Font Size')}
-              onChange={value => setAttributes({ titleFontSize: value })}
-            />
+            <ResponsiveControl>
+              {breakpoint => {
+                return (
+                  <FontSizePickerLabel
+                    value={titleFontSize[breakpoint]}
+                    label={__('Heading Font Size')}
+                    onChange={value =>
+                      setAttributes({
+                        titleFontSize: {
+                          ...titleFontSize,
+                          [breakpoint]: value || '',
+                        },
+                      })
+                    }
+                  />
+                );
+              }}
+            </ResponsiveControl>
 
             <RangeControl
               label={__('Heading Bottom Margin')}
@@ -291,11 +298,24 @@ const IconBoxEditBlock = ({
               max={200}
             />
 
-            <FontSizePickerLabel
-              value={textFontSize}
-              label={__('Text Font Size')}
-              onChange={value => setAttributes({ textFontSize: value })}
-            />
+            <ResponsiveControl>
+              {breakpoint => {
+                return (
+                  <FontSizePickerLabel
+                    value={textFontSize[breakpoint]}
+                    label={__('Text Font Size')}
+                    onChange={value => {
+                      setAttributes({
+                        textFontSize: {
+                          ...textFontSize,
+                          [breakpoint]: value || '',
+                        },
+                      });
+                    }}
+                  />
+                );
+              }}
+            </ResponsiveControl>
           </PanelBody>
 
           <PanelBody title={__('Block Appearance')} initialOpen={false}>
@@ -407,7 +427,8 @@ registerBlockType('gutenbee/iconbox', {
       default: 3,
     },
     titleFontSize: {
-      type: 'number',
+      type: 'object',
+      default: getDefaultResponsiveValue(),
     },
     textContent: {
       source: 'html',
@@ -415,7 +436,8 @@ registerBlockType('gutenbee/iconbox', {
       default: '',
     },
     textFontSize: {
-      type: 'number',
+      type: 'object',
+      default: getDefaultResponsiveValue(),
     },
     align: {
       type: 'string',

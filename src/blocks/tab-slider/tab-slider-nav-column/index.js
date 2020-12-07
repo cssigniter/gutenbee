@@ -1,4 +1,4 @@
-import { registerBlockType } from 'wp.blocks';
+import { registerTODOBlockType } from 'wp.blocks';
 import classNames from 'classnames';
 import { __ } from 'wp.i18n';
 import { InnerBlocks } from 'wp.blockEditor';
@@ -6,7 +6,7 @@ import { InnerBlocks } from 'wp.blockEditor';
 import getBlockId from '../../../util/getBlockId';
 import TabSliderNavColumnEdit from './edit';
 
-registerBlockType('gutenbee/tab-slider-nav-column', {
+registerTODOBlockType('gutenbee/tab-slider-nav-column', {
   title: __('GutenBee Tab Slider Navigation Column'),
   description: __('The navigation column for the tab slider.'),
   parent: ['gutenbee/tab-slider'],

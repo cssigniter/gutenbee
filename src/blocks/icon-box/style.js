@@ -10,7 +10,13 @@ const propTypes = {
 };
 
 const IconBoxStyle = ({ attributes, children }) => {
-  const { uniqueId, blockPadding, blockMargin } = attributes;
+  const {
+    uniqueId,
+    blockPadding,
+    blockMargin,
+    textFontSize,
+    titleFontSize,
+  } = attributes;
   const blockId = getBlockId(uniqueId);
 
   return (
@@ -23,6 +29,16 @@ const IconBoxStyle = ({ attributes, children }) => {
       <Rule
         value={blockPadding}
         rule=".wp-block-gutenbee-iconbox.[root] { padding: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={textFontSize}
+        rule=".wp-block-gutenbee-iconbox.[root] .wp-block-gutenbee-iconbox-text { font-size: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={titleFontSize}
+        rule=".wp-block-gutenbee-iconbox.[root] .wp-block-gutenbee-iconbox-title { font-size: %s; }"
         unit="px"
       />
       {children}

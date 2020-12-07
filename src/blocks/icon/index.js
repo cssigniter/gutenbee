@@ -49,8 +49,12 @@ export const iconAttributes = {
     default: 'add-bag',
   },
   size: {
-    type: 'number',
-    default: 40,
+    type: 'object',
+    default: getDefaultResponsiveValue({
+      desktop: 40,
+      tablet: '',
+      mobile: '',
+    }),
   },
   padding: {
     type: 'number',
@@ -165,13 +169,26 @@ export const IconSettings = ({
         />
       )}
 
-      <RangeControl
-        label={__('Icon Size (px)')}
-        min={1}
-        max={100}
-        value={size}
-        onChange={value => setAttributes({ size: value })}
-      />
+      <ResponsiveControl>
+        {breakpoint => {
+          return (
+            <RangeControl
+              label={__('Icon Size (px)')}
+              min={1}
+              max={100}
+              value={size[breakpoint]}
+              onChange={value =>
+                setAttributes({
+                  size: {
+                    ...size,
+                    [breakpoint]: value != null ? value : '',
+                  },
+                })
+              }
+            />
+          );
+        }}
+      </ResponsiveControl>
 
       {view !== VIEWS.DEFAULT && (
         <RangeControl

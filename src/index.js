@@ -42,11 +42,11 @@ import './blocks/icon-list';
 import './blocks/icon-list/icon-list-item';
 import './blocks/testimonial';
 import './blocks/video-embed';
-import './blocks/tab-slider';
-import './blocks/tab-slider/tab-slider-nav-column';
-import './blocks/tab-slider/tab-slider-nav';
-import './blocks/tab-slider/tab-slider-content-column';
-import './blocks/tab-slider/tab-slider-content';
+// import './blocks/tab-slider';
+// import './blocks/tab-slider/tab-slider-nav-column';
+// import './blocks/tab-slider/tab-slider-nav';
+// import './blocks/tab-slider/tab-slider-content-column';
+// import './blocks/tab-slider/tab-slider-content';
 // import './blocks/lottie';
 
 //

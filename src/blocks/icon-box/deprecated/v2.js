@@ -1,7 +1,7 @@
 import { RichText } from 'wp.blockEditor';
 import classNames from 'classnames';
 
-import { Icon, attributes } from '../../icon/deprecated/v2';
+import { IconV2, attributes } from '../../icon/deprecated/v2';
 import { getDefaultSpacingValue } from '../../../components/controls/responsive-control/default-values';
 import borderControlAttributes from '../../../components/controls/border-controls/attributes';
 import {
@@ -66,7 +66,7 @@ const IconBox = ({ className, attributes }) => {
       }}
     >
       <Style attributes={attributes} />
-      <Icon
+      <IconV2
         id={`${blockId}-icon`}
         {...{
           ...attributes,

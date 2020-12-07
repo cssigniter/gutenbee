@@ -10,7 +10,7 @@ import getBlockId from '../../../util/getBlockId';
 import { getDefaultSpacingValue } from '../../../components/controls/responsive-control/default-values';
 import StyleSheetV1 from '../../../components/stylesheet/deprecated/v1';
 
-const IconStyle = ({ id, attributes, children }) => {
+const IconV2Style = ({ id, attributes, children }) => {
   const { uniqueId, blockPadding, blockMargin } = attributes;
   const blockId = id || getBlockId(uniqueId);
 
@@ -72,7 +72,7 @@ export const attributes = {
   ...boxShadowControlAttributes('icon'),
 };
 
-export const Icon = ({
+export const IconV2 = ({
   id,
   uniqueId,
   className,
@@ -122,7 +122,10 @@ export const Icon = ({
 
   return (
     <div id={id} className={wrapperClasses}>
-      <IconStyle id={id} attributes={{ uniqueId, blockMargin, blockPadding }} />
+      <IconV2Style
+        id={id}
+        attributes={{ uniqueId, blockMargin, blockPadding }}
+      />
       <span
         className="gutenbee-icon-block-icon-wrap"
         style={{
@@ -149,6 +152,6 @@ export default {
   },
   save({ className, attributes }) {
     const id = getBlockId(attributes.uniqueId);
-    return <Icon id={id} className={className} {...attributes} />;
+    return <IconV2 id={id} className={className} {...attributes} />;
   },
 };

@@ -11,7 +11,7 @@ const propTypes = {
 };
 
 const IconStyle = ({ id, attributes, children }) => {
-  const { uniqueId, blockPadding, blockMargin } = attributes;
+  const { uniqueId, blockPadding, blockMargin, size } = attributes;
   const blockId = id || getBlockId(uniqueId);
 
   return (
@@ -24,6 +24,21 @@ const IconStyle = ({ id, attributes, children }) => {
       <Rule
         value={blockPadding}
         rule=".wp-block-gutenbee-icon.[root] { padding: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={size}
+        rule=".gutenbee-icon-block.[root] .gutenbee-icon-block-icon-wrap { font-size: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={size}
+        rule=".gutenbee-icon-block.[root] svg { width: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={size}
+        rule=".gutenbee-icon-block.[root] svg { height: %s; }"
         unit="px"
       />
       {children}

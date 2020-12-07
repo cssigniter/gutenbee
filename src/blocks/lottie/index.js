@@ -3,7 +3,7 @@
  */
 
 import { __ } from 'wp.i18n';
-import { registerBlockType } from 'wp.blocks';
+import { registerTODOBlockType } from 'wp.blocks';
 import classNames from 'classnames';
 
 import { getDefaultSpacingValue } from '../../components/controls/responsive-control/default-values';
@@ -17,7 +17,7 @@ import { getBorderCSSValue } from '../../components/controls/border-controls/hel
 import getBlockId from '../../util/getBlockId';
 import LottieStyle from './style';
 
-registerBlockType('gutenbee/lottie', {
+registerTODOBlockType('gutenbee/lottie', {
   title: __('GutenBee Lottie Player'),
   description: __('Embed Lottie animations on your pages.'),
   category: 'gutenbee',

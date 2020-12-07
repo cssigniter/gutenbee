@@ -63,11 +63,13 @@ const Icon = ({
 
   return (
     <div id={id} className={wrapperClasses}>
-      <IconStyle id={id} attributes={{ uniqueId, blockMargin, blockPadding }} />
+      <IconStyle
+        id={id}
+        attributes={{ uniqueId, blockMargin, blockPadding, size }}
+      />
       <span
         className="gutenbee-icon-block-icon-wrap"
         style={{
-          fontSize: `${size}px`,
           color,
           backgroundColor,
           borderColor,
@@ -80,10 +82,6 @@ const Icon = ({
         <IconComponent
           className={iconClasses}
           preserveAspectRatio="xMidYMid meet"
-          style={{
-            width: `${size}px`,
-            height: `${size}px`,
-          }}
         />
       </span>
     </div>

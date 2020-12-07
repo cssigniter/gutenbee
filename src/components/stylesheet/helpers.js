@@ -238,6 +238,10 @@ export const defaultGetStylesArrayFromChildren = ({
   const mappedRules = rules.reduce((acc, child) => {
     const { value, rule, unit, edgeCase, breakpointLimit } = child.props;
 
+    if (value == null) {
+      return acc;
+    }
+
     if (typeof value !== 'object' || !('desktop' in value)) {
       // We don't have a responsive setting, add the rules in the
       // desktop breakpoint

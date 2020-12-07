@@ -102,6 +102,11 @@ const ImageBoxEditBlock = ({
             <ImagePlaceholder
               icon="format-image"
               label={__('Image')}
+              style={{
+                width: imageWidth.desktop
+                  ? `${imageWidth.desktop}px`
+                  : undefined,
+              }}
               onSelectImage={uploadedImage => {
                 setAttributes({
                   id: uploadedImage.id,
@@ -202,12 +207,11 @@ const ImageBoxEditBlock = ({
                     className="range-control-size"
                     label={__('Image Width')}
                     value={imageWidth[breakpoint]}
-                    initialPosition={160}
                     onChange={value =>
                       setAttributes({
                         imageWidth: {
                           ...imageWidth,
-                          [breakpoint]: value != null ? value : '',
+                          [breakpoint]: value || '',
                         },
                       })
                     }
@@ -261,7 +265,7 @@ const ImageBoxEditBlock = ({
                       setAttributes({
                         titleFontSize: {
                           ...titleFontSize,
-                          [breakpoint]: value != null ? value : '',
+                          [breakpoint]: value || '',
                         },
                       })
                     }
@@ -290,7 +294,7 @@ const ImageBoxEditBlock = ({
                       setAttributes({
                         textFontSize: {
                           ...textFontSize,
-                          [breakpoint]: value != null ? value : '',
+                          [breakpoint]: value || '',
                         },
                       })
                     }

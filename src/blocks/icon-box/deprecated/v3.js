@@ -1,7 +1,6 @@
 import { RichText } from 'wp.blockEditor';
 import classNames from 'classnames';
 
-import { iconAttributes } from '../../icon';
 import { getDefaultSpacingValue } from '../../../components/controls/responsive-control/default-values';
 import borderControlAttributes from '../../../components/controls/border-controls/attributes';
 import {
@@ -11,8 +10,8 @@ import {
 import getBlockId from '../../../util/getBlockId';
 import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
 import Rule from '../../../components/stylesheet/Rule';
-import Icon from '../../icon/Icon';
 import StyleSheetV1 from '../../../components/stylesheet/deprecated/v1';
+import iconV3, { IconV3 } from '../../icon/deprecated/v3';
 
 const IconBoxStyle = ({ attributes, children }) => {
   const { uniqueId, blockPadding, blockMargin } = attributes;
@@ -62,7 +61,7 @@ const IconBox = ({ className, attributes }) => {
       }}
     >
       <IconBoxStyle attributes={attributes} />
-      <Icon
+      <IconV3
         id={`${blockId}-icon`}
         {...{
           ...attributes,
@@ -105,7 +104,7 @@ const IconBox = ({ className, attributes }) => {
 
 const deprecated = {
   attributes: {
-    ...iconAttributes,
+    ...iconV3.attributes,
     uniqueId: {
       type: 'string',
     },
@@ -173,8 +172,30 @@ const deprecated = {
   migrate(attributes) {
     return {
       ...attributes,
-      textFontSize: attributes.textFontSize || undefined,
-      titleFontSize: attributes.titleFontSize || undefined,
+      blockBreakpointVisibility: {
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      },
+      blockAuthVisibility: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+      size: {
+        desktop: attributes.size || 40,
+        tablet: '',
+        mobile: '',
+      },
+      textFontSize: {
+        desktop: attributes.textFontSize || '',
+        tablet: '',
+        mobile: '',
+      },
+      titleFontSize: {
+        desktop: attributes.titleFontSize || '',
+        tablet: '',
+        mobile: '',
+      },
     };
   },
   save({ className, attributes }) {

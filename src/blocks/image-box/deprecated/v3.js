@@ -1,19 +1,16 @@
 import { RichText } from 'wp.blockEditor';
 import classNames from 'classnames';
 
-import {
-  getDefaultResponsiveValue,
-  getDefaultSpacingValue,
-} from '../../../components/controls/responsive-control/default-values';
-import borderControlAttributes from '../../../components/controls/border-controls/attributes';
+import { getDefaultSpacingValue } from '../../../components/controls/responsive-control/default-values';
+import getBlockId from '../../../util/getBlockId';
+import Rule from '../../../components/stylesheet/Rule';
+import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
 import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
 } from '../../../components/controls/box-shadow-controls/helpers';
-import getBlockId from '../../../util/getBlockId';
-import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
+import borderControlAttributes from '../../../components/controls/border-controls/attributes';
 import StyleSheetV1 from '../../../components/stylesheet/deprecated/v1';
-import Rule from '../../../components/stylesheet/Rule';
 
 const ImageBoxStyle = ({ attributes, children }) => {
   const { uniqueId, blockPadding, blockMargin, imageMargin } = attributes;
@@ -192,7 +189,7 @@ const v3 = {
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
   },
-  migrate: attributes => {
+  migrate(attributes) {
     return {
       ...attributes,
       blockBreakpointVisibility: {
@@ -204,27 +201,21 @@ const v3 = {
         loggedIn: false,
         loggedOut: false,
       },
-      titleFontSize: attributes.titleFontSize
-        ? {
-            desktop: attributes.titleFontSize,
-            tablet: attributes.titleFontSize,
-            mobile: attributes.titleFontSize,
-          }
-        : getDefaultResponsiveValue(),
-      textFontSize: attributes.textFontSize
-        ? {
-            desktop: attributes.textFontSize,
-            tablet: attributes.textFontSize,
-            mobile: attributes.textFontSize,
-          }
-        : getDefaultResponsiveValue(),
-      imageWidth: attributes.imageWidth
-        ? {
-            desktop: attributes.imageWidth,
-            tablet: attributes.imageWidth,
-            mobile: attributes.imageWidth,
-          }
-        : getDefaultResponsiveValue(),
+      textFontSize: {
+        desktop: attributes.textFontSize || '',
+        tablet: '',
+        mobile: '',
+      },
+      titleFontSize: {
+        desktop: attributes.titleFontSize || '',
+        tablet: '',
+        mobile: '',
+      },
+      imageWidth: {
+        desktop: attributes.imageWidth || 160,
+        tablet: undefined,
+        mobile: undefined,
+      },
     };
   },
   save({ className, attributes }) {

@@ -194,8 +194,30 @@ const v2 = {
   migrate(attributes) {
     return {
       ...attributes,
-      textFontSize: attributes.textFontSize || undefined,
-      titleFontSize: attributes.titleFontSize || undefined,
+      blockBreakpointVisibility: {
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      },
+      blockAuthVisibility: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+      textFontSize: {
+        desktop: attributes.textFontSize || '',
+        tablet: '',
+        mobile: '',
+      },
+      titleFontSize: {
+        desktop: attributes.titleFontSize || '',
+        tablet: '',
+        mobile: '',
+      },
+      imageWidth: {
+        desktop: attributes.imageWidth || 160,
+        tablet: undefined,
+        mobile: undefined,
+      },
     };
   },
   save({ className, attributes }) {

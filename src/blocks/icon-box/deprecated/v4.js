@@ -1,7 +1,6 @@
 import { RichText } from 'wp.blockEditor';
 import classNames from 'classnames';
 
-import { iconAttributes } from '../../icon';
 import { getDefaultSpacingValue } from '../../../components/controls/responsive-control/default-values';
 import borderControlAttributes from '../../../components/controls/border-controls/attributes';
 import {
@@ -12,7 +11,7 @@ import getBlockId from '../../../util/getBlockId';
 import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
 import StyleSheetV1 from '../../../components/stylesheet/deprecated/v1';
 import Rule from '../../../components/stylesheet/Rule';
-import { IconV3 } from '../../icon/deprecated/v3';
+import iconV3Deprecation, { IconV3 } from '../../icon/deprecated/v3';
 
 const IconBoxStyle = ({ attributes, children }) => {
   const { uniqueId, blockPadding, blockMargin } = attributes;
@@ -105,7 +104,7 @@ const IconBox = ({ className, attributes }) => {
 
 const v4 = {
   attributes: {
-    ...iconAttributes,
+    ...iconV3Deprecation.attributes,
     uniqueId: {
       type: 'string',
     },
@@ -179,6 +178,21 @@ const v4 = {
       blockAuthVisibility: {
         loggedIn: false,
         loggedOut: false,
+      },
+      size: {
+        desktop: attributes.size || 40,
+        tablet: '',
+        mobile: '',
+      },
+      textFontSize: {
+        desktop: attributes.textFontSize || '',
+        tablet: '',
+        mobile: '',
+      },
+      titleFontSize: {
+        desktop: attributes.titleFontSize || '',
+        tablet: '',
+        mobile: '',
       },
     };
   },

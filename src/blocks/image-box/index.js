@@ -129,7 +129,11 @@ registerBlockType('gutenbee/imagebox', {
     },
     titleFontSize: {
       type: 'object',
-      default: getDefaultResponsiveValue(),
+      default: getDefaultResponsiveValue({
+        desktop: undefined,
+        tablet: undefined,
+        mobile: undefined,
+      }),
     },
     titleBottomSpacing: {
       type: 'number',
@@ -141,7 +145,11 @@ registerBlockType('gutenbee/imagebox', {
     },
     textFontSize: {
       type: 'object',
-      default: getDefaultResponsiveValue(),
+      default: getDefaultResponsiveValue({
+        desktop: undefined,
+        tablet: undefined,
+        mobile: undefined,
+      }),
     },
     url: {
       type: 'string',
@@ -167,8 +175,8 @@ registerBlockType('gutenbee/imagebox', {
       type: 'object',
       default: getDefaultResponsiveValue({
         desktop: 160,
-        tablet: 160,
-        mobile: 160,
+        tablet: undefined,
+        mobile: undefined,
       }),
     },
     contentAlign: {

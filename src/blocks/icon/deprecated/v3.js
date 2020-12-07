@@ -161,6 +161,11 @@ const v3 = {
         loggedIn: false,
         loggedOut: false,
       },
+      size: {
+        desktop: attributes.size || 40,
+        tablet: '',
+        mobile: '',
+      },
     };
   },
   save({ className, attributes }) {
