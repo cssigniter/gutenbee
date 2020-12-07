@@ -49,6 +49,7 @@ const VideoEdit = ({
   setAttributes,
   attributes,
   clientId,
+  noticeOperations,
 }) => {
   const {
     uniqueId,
@@ -98,10 +99,7 @@ const VideoEdit = ({
   };
 
   const onUploadError = message => {
-    // TODO [nvourva] Fix these undefined variables
-    // eslint-disable-next-line no-undef
     noticeOperations.removeAllNotices();
-    // eslint-disable-next-line no-undef
     noticeOperations.createErrorNotice(message);
   };
 

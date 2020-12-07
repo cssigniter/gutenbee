@@ -45,6 +45,7 @@ const propTypes = {
   className: PropTypes.string,
   imageSizes: PropTypes.object,
   image: PropTypes.object,
+  onReplace: PropTypes.func,
 };
 
 export const pickRelevantMediaFiles = image => {
@@ -65,6 +66,7 @@ const TestimonialEdit = ({
   clientId,
   imageSizes,
   image,
+  onReplace,
 }) => {
   const {
     uniqueId,
@@ -226,8 +228,6 @@ const TestimonialEdit = ({
           onRemove={forward => {
             const hasEmptyCitation = !citation || citation.length === 0;
             if (!forward && hasEmptyCitation) {
-              // TODO [nvourva] Fix this undefined variable
-              // eslint-disable-next-line no-undef
               onReplace([]);
             }
           }}
