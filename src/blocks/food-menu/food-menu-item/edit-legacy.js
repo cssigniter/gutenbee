@@ -1,10 +1,7 @@
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
-import {
-  InspectorControls,
-  useBlockProps,
-  __experimentalUseInnerBlocksProps as useInnerBlocksProps,
-} from 'wp.blockEditor';
+import { InnerBlocks, __experimentalBlock as Block } from 'wp.blockEditor';
+import { InspectorControls } from 'wp.blockEditor';
 import { PanelBody, SelectControl } from 'wp.components';
 import classNames from 'classnames';
 
@@ -30,24 +27,6 @@ const FoodMenuItemEdit = ({
   useUniqueId({ attributes, setAttributes, clientId });
   const blockId = getBlockId(uniqueId);
 
-  const innerBlocksProps = useInnerBlocksProps(useBlockProps(), {
-    templateLock: 'all',
-    template: [
-      [
-        'gutenbee/image',
-        {
-          caption: '',
-          width: {
-            desktop: 180,
-            tablet: '',
-            mobile: '',
-          },
-        },
-      ],
-      ['gutenbee/food-menu-wrapper', {}],
-    ],
-  });
-
   return (
     <Fragment>
       <div
@@ -58,7 +37,24 @@ const FoodMenuItemEdit = ({
         }}
         className={classNames(className, blockId)}
       >
-        <div {...innerBlocksProps} />
+        <InnerBlocks
+          template={[
+            [
+              'gutenbee/image',
+              {
+                caption: '',
+                width: {
+                  desktop: 180,
+                  tablet: '',
+                  mobile: '',
+                },
+              },
+            ],
+            ['gutenbee/food-menu-wrapper', {}],
+          ]}
+          templateLock="all"
+          __experimentalTagName={Block.div}
+        />
         <FoodMenuItemEditStyle attributes={attributes} />
       </div>
 

@@ -1,11 +1,8 @@
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import { Fragment } from 'wp.element';
-import {
-  InspectorControls,
-  useBlockProps,
-  __experimentalUseInnerBlocksProps as useInnerBlocksProps,
-} from 'wp.blockEditor';
+import { InnerBlocks, __experimentalBlock as Block } from 'wp.blockEditor';
+import { InspectorControls } from 'wp.blockEditor';
 import { PanelBody, RangeControl } from 'wp.components';
 import classNames from 'classnames';
 
@@ -43,13 +40,6 @@ const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
   useUniqueId({ attributes, setAttributes, clientId });
   const blockId = getBlockId(uniqueId);
 
-  const innerBlocksProps = useInnerBlocksProps(useBlockProps(), {
-    allowedBlocks: ['gutenbee/food-menu-item'],
-    template: ['gutenbee/food-menu-item'],
-    __experimentalUIParts: { hasSelectedUI: false },
-    __experimentalMoverDirection: 'vertical',
-  });
-
   return (
     <Fragment>
       <div
@@ -65,7 +55,13 @@ const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
           ...getBoxShadowCSSValue({ attributes }),
         }}
       >
-        <div {...innerBlocksProps} />
+        <InnerBlocks
+          allowedBlocks={['gutenbee/food-menu-item']}
+          template={[['gutenbee/food-menu-item']]}
+          __experimentalUIParts={{ hasSelectedUI: false }}
+          __experimentalMoverDirection="vertical"
+          __experimentalTagName={Block.div}
+        />
 
         <FoodMenuStyle attributes={attributes}>
           <Rule
