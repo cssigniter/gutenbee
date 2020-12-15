@@ -45,7 +45,7 @@ const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
 
   const innerBlocksProps = useInnerBlocksProps(useBlockProps(), {
     allowedBlocks: ['gutenbee/food-menu-item'],
-    template: ['gutenbee/food-menu-item'],
+    template: [['gutenbee/food-menu-item']],
     __experimentalUIParts: { hasSelectedUI: false },
     __experimentalMoverDirection: 'vertical',
   });
