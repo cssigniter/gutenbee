@@ -2,7 +2,7 @@
 Contributors: cssigniterteam, silencerius, nvourva, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 5.4
-Tested up to: 5.5.3
+Tested up to: 5.6
 Stable tag: 2.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
@@ -24,6 +24,7 @@ https://www.youtube.com/watch?v=Wv_zwREKi68
 **Blocks:**
 
 * **Accordion**: Organize your content into accordion elements. All the content including titles can be edited directly in the WordPress editor and you can choose any color combination from the block’s settings.
+* **Banner**: Create beautiful and flexible banners on your site to capture user attention. Supports video backgrounds.
 * **Buttons**: Actionable content needs clickable buttons. Add one or more buttons, tweak their colors, borders and alignment and you're all set!
 * **Countdown**: Have an upcoming event? Pick a date directly inside the editor screen, choose your layout, colors, and typography and you’re ready!
 * **CountUp**: Maybe not every block counts, but this one does! Pick a starting and ending number, add a suffix or prefix, style it and you’re done!
@@ -70,6 +71,10 @@ Note that if you want to use the Google Maps block you will also need a Google M
 7. Tabs or Accordions, group your content the way you want.
 
 == Changelog ==
+
+= 2.8.1 =
+* Fixed an issue with inner block wrappers caused by changes made in Gutenberg v9.2 / WordPress 5.6
+* Fixed an issue where some blocks would force the inspector controls to extend past the viewport.
 
 = 2.8.0 =
 * Added Banner block.
