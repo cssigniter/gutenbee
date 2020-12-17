@@ -2695,3 +2695,107 @@ ul.wp-block-gutenbee-icon-list {
   z-index: 100;
 }
 
+.wp-block-gutenbee-review {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  margin: 0;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+}
+
+.wp-block-gutenbee-review .entry-rating-final-score {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 25%;
+  flex: 1 1 25%;
+}
+
+@media screen and (max-width: 992px) {
+  .wp-block-gutenbee-review .entry-rating-final-score {
+    padding: 0 20px;
+  }
+}
+
+.wp-block-gutenbee-review .entry-rating-final-score p {
+  margin-bottom: 0;
+}
+
+.wp-block-gutenbee-review .entry-rating-final-score {
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.wp-block-gutenbee-review .entry-rating-final-score strong {
+  font-weight: bold;
+  letter-spacing: -.1em;
+  line-height: .8;
+}
+
+.wp-block-gutenbee-review .entry-rating-scores {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 75%;
+  flex: 1 1 75%;
+}
+
+.wp-block-gutenbee-review-item {
+  margin: 1px 0;
+}
+
+.wp-block-gutenbee-review-item-outer {
+  position: relative;
+  display: block;
+  background-color: #f8f8f8;
+  height: 30px;
+  line-height: 1;
+  font-size: 14px;
+}
+
+.wp-block-gutenbee-review-item-inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #0085ba;
+  color: #fff;
+  height: 100%;
+  padding: 0;
+  max-width: 100%;
+}
+
+.wp-block-gutenbee-review-item-title {
+  margin-bottom: 10px;
+}
+
+.wp-block-gutenbee-review-item-inner-title {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-right: 5px;
+  padding-left: 10px;
+  line-height: 1.2;
+}
+
+.wp-block-gutenbee-review-item-percentage {
+  margin-left: auto;
+  padding-right: 10px;
+  line-height: 1.2;
+}
+

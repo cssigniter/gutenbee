@@ -1,0 +1,12 @@
+@import './common';
+
+.wp-block-gutenbee-review {
+    .block-editor-block-list__block {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    [data-type="gutenbee/review"] {
+        flex: 1 1 75%;
+    }
+}

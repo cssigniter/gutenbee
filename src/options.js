@@ -20,6 +20,7 @@ export const blocks = [
   'paragraph',
   'post-types',
   'progress-bar',
+  'review',
   'spacer',
   'slideshow',
   'tab-slider',

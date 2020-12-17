@@ -42,6 +42,8 @@ import './blocks/icon-list';
 import './blocks/icon-list/icon-list-item';
 import './blocks/testimonial';
 import './blocks/video-embed';
+import './blocks/review/review-item';
+import './blocks/review';
 // import './blocks/tab-slider';
 // import './blocks/tab-slider/tab-slider-nav-column';
 // import './blocks/tab-slider/tab-slider-nav';

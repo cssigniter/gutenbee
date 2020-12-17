@@ -1,0 +1,36 @@
+@import './common';
+
+.wp-block-gutenbee-review-item {
+  .editor-rich-text {
+    p {
+      margin: 0;
+    }
+  }
+}
+
+.wp-block-gutenbee-review-item-inner {
+  .editor-rich-text__tinymce {
+    &.mce-content-body {
+      line-height: 1.2;
+    }
+  }
+
+  .editor-rich-text {
+    overflow: hidden;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .components-autocomplete {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.wp-block-gutenbee-review-item-title {
+  &.mce-content-body {
+    font-size: inherit;
+  }
+}

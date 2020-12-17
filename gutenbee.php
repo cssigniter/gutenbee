@@ -145,9 +145,10 @@ function gutenbee_get_setting_block_names() {
 		'paragraph'         => __( 'Paragraph Block', 'gutenbee' ),
 		'post-types'        => __( 'Post Types Block', 'gutenbee' ),
 		'progress-bar'      => __( 'Progress Bar Block', 'gutenbee' ),
+		'review'            => __( 'Review Block', 'gutenbee' ),
 		'spacer'            => __( 'Spacer Block', 'gutenbee' ),
 		'slideshow'         => __( 'Slideshow Block', 'gutenbee' ),
-		'tab-slider'    => __( 'Tab Slider Block', 'gutenbee' ),
+		'tab-slider'        => __( 'Tab Slider Block', 'gutenbee' ),
 		'tabs'              => __( 'Tabs Block', 'gutenbee' ),
 		'testimonial'       => __( 'Testimonial Block', 'gutenbee' ),
 		'video'             => __( 'Video Block', 'gutenbee' ),
@@ -270,6 +271,11 @@ function gutenbee_get_blocks_info() {
 		),
 		'gutenbee/progress-bar'      => array(
 			'label'       => __( 'Progress Block', 'gutenbee' ),
+			'enqueue_js'  => false,
+			'enqueue_css' => true,
+		),
+		'gutenbee/review'      => array(
+			'label'       => __( 'Review Block', 'gutenbee' ),
 			'enqueue_js'  => false,
 			'enqueue_css' => true,
 		),

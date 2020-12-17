@@ -1,0 +1,45 @@
+.wp-block-gutenbee-review-item {
+  margin: 1px 0;
+}
+
+.wp-block-gutenbee-review-item-outer {
+  position: relative;
+  display: block;
+  background-color: $grey-light;
+  height: 30px;
+  line-height: 1;
+  font-size: 14px;
+}
+
+.wp-block-gutenbee-review-item-inner {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: $blue;
+  color: $white;
+  height: 100%;
+  padding: 0;
+  max-width: 100%;
+}
+
+.wp-block-gutenbee-review-item-title {
+  margin-bottom: 10px;
+}
+
+.wp-block-gutenbee-review-item-inner-title {
+  flex-grow: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-right: 5px;
+  padding-left: 10px;
+  line-height: 1.2;
+}
+
+.wp-block-gutenbee-review-item-percentage {
+  margin-left: auto;
+  padding-right: 10px;
+  line-height: 1.2;
+}
