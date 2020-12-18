@@ -31,6 +31,7 @@ registerBlockType('gutenbee/review', {
     },
     score: {
       type: 'string',
+      default: '5.0',
     },
     scoreSize: {
       type: 'object',
@@ -97,7 +98,8 @@ registerBlockType('gutenbee/review', {
     const {
       uniqueId,
       score,
-      textColor,
+      scoreColor,
+      contentColor,
       backgroundColor,
       content,
       blockBreakpointVisibility,
@@ -121,10 +123,12 @@ registerBlockType('gutenbee/review', {
         }}
       >
         <div className="entry-rating-final-score">
-          <strong>{score}</strong>
+          <strong style={{ color: scoreColor ? scoreColor : undefined }}>
+            {score}
+          </strong>
           <RichText.Content
             tagName="p"
-            style={{ color: textColor ? textColor : undefined }}
+            style={{ color: contentColor ? contentColor : undefined }}
             value={content}
           />
         </div>

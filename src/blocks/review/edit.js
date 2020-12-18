@@ -8,6 +8,7 @@ import {
   __experimentalUseInnerBlocksProps as useInnerBlocksProps,
 } from 'wp.blockEditor';
 import { PanelBody, RangeControl } from 'wp.components';
+import { useSelect } from 'wp.data';
 import classNames from 'classnames';
 
 import getBlockId from '../../util/getBlockId';
@@ -56,6 +57,33 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
     __experimentalMoverDirection: 'vertical',
   });
 
+  useSelect(select => {
+    const [parent] = select('core/block-editor').getBlocksByClientId(clientId);
+    const { innerBlocks } = parent;
+
+    if (innerBlocks.length === 0) {
+      return;
+    }
+
+    const averageScore = () => {
+      let totalScore = innerBlocks.reduce(
+        (acc, currVal) => acc + currVal.attributes.percentage,
+        0,
+      );
+
+      let average = (totalScore / innerBlocks.length).toFixed(1);
+      return average;
+    };
+
+    if (score !== averageScore()) {
+      setAttributes({ score: averageScore() });
+    }
+
+    return {
+      innerBlocks,
+    };
+  });
+
   return (
     <Fragment>
       <div
@@ -68,7 +96,13 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
         }}
       >
         <div className="entry-rating-final-score">
-          <strong>{score}</strong>
+          <strong
+            style={{
+              color: scoreColor,
+            }}
+          >
+            {score}
+          </strong>
           <RichText
             tagName="p"
             identifier="value"
@@ -85,6 +119,9 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
               // translators: placeholder text used for the review verdict
               __('Verdict')
             }
+            style={{
+              color: contentColor,
+            }}
           />
         </div>
         <div {...innerBlocksProps} />

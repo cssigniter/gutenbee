@@ -52,10 +52,10 @@ const ReviewItemEdit = ({
   });
 
   const averageScore = () => {
-    let totalScore = 0;
-    innerBlocks.forEach(block => {
-      totalScore += block.attributes.percentage;
-    });
+    let totalScore = innerBlocks.reduce(
+      (acc, currVal) => acc + currVal.attributes.percentage,
+      0,
+    );
 
     let average = (totalScore / innerBlocks.length).toFixed(1);
     return average;

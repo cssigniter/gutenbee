@@ -39,7 +39,7 @@ const ReviewStyle = ({ attributes, children }) => {
       />
       <Rule
         value={contentSize}
-        rule=".wp-block-gutenbee-review.[root] .entry-rating-final-score div { font-size: %s; }"
+        rule=".wp-block-gutenbee-review.[root] .entry-rating-final-score p { font-size: %s; }"
         unit="px"
       />
       <Rule

@@ -7,10 +7,7 @@
 
     .entry-rating-final-score {
         flex: 1 1 25%;
-
-        @media screen and (max-width: 992px ) {
-            padding: 0 20px;
-        }
+        padding: 0 20px;
 
         p {
             margin-bottom: 0;

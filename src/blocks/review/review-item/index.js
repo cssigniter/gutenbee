@@ -64,6 +64,7 @@ registerBlockType('gutenbee/review-item', {
   description: __('Create review items'),
   icon: 'smiley',
   category: 'gutenbee',
+  parent: ['gutenbee/review'],
   keywords: [__('review'), __('review item')],
   supports: {
     anchor: true,
