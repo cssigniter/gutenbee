@@ -1,8 +1,7 @@
 import { registerBlockType } from 'wp.blocks';
 import { __ } from 'wp.i18n';
-import { InnerBlocks } from 'wp.blockEditor';
+import { InnerBlocks, RichText } from 'wp.blockEditor';
 import classNames from 'classnames';
-import { RichText } from 'wp.blockEditor';
 
 import getBlockId from '../../util/getBlockId';
 import ReviewEdit from './edit';
@@ -126,11 +125,13 @@ registerBlockType('gutenbee/review', {
           <strong style={{ color: scoreColor ? scoreColor : undefined }}>
             {score}
           </strong>
-          <RichText.Content
-            tagName="p"
-            style={{ color: contentColor ? contentColor : undefined }}
-            value={content}
-          />
+          {content && (
+            <RichText.Content
+              tagName="p"
+              style={{ color: contentColor ? contentColor : undefined }}
+              value={content}
+            />
+          )}
         </div>
         <div className="entry-rating-scores">
           <InnerBlocks.Content />

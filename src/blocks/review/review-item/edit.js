@@ -90,28 +90,21 @@ const ReviewItemEdit = ({
               disableLineBreaks={true}
               onChange={value => setAttributes({ innerTitle: value })}
               className="wp-block-gutenbee-review-item-inner-title"
-              placeholder={__('Write inner title…')}
+              placeholder={__('Review Category')}
               isSelected={isSelected && editable === 'innerTitle'}
               onFocus={() => setEditable('innerTitle')}
-              onRemove={onRemove}
+              onRemove={innerBlocks.length > 1 ? onRemove : false}
               onReplace={onReplace}
               onSplit={value => {
                 if (!value) {
                   return createBlock('gutenbee/review-item', {
-                    barBackgroundColor: barBackgroundColor || undefined,
-                    progressBackgroundColor:
-                      progressBackgroundColor || undefined,
-                    textColor: textColor || undefined,
-                    displayPercentage: displayPercentage,
+                    ...attributes,
+                    innerTitle: undefined,
                   });
                 }
                 return createBlock('gutenbee/review-item', {
                   ...attributes,
                   innerTitle: value,
-                  barBackgroundColor: barBackgroundColor || undefined,
-                  progressBackgroundColor: progressBackgroundColor || undefined,
-                  textColor: textColor || undefined,
-                  displayPercentage: displayPercentage,
                 });
               }}
             />
