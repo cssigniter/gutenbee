@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import getBlockId from '../../util/getBlockId';
 import ReviewEdit from './edit';
 import ReviewStyle from './style';
+import Rule from '../../components/stylesheet/Rule';
 import {
   getDefaultResponsiveValue,
   getDefaultSpacingValue,
@@ -63,6 +64,27 @@ registerBlockType('gutenbee/review', {
     barHeight: {
       type: 'number',
     },
+    barTextColor: {
+      type: 'string',
+    },
+    displayPercentage: {
+      type: 'boolean',
+      default: true,
+    },
+    reviewItemFontSize: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: '12',
+        tablet: '',
+        mobile: '',
+      }),
+    },
+    progressBackgroundColor: {
+      type: 'string',
+    },
+    barBackgroundColor: {
+      type: 'string',
+    },
     backgroundColor: {
       type: 'string',
     },
@@ -101,6 +123,9 @@ registerBlockType('gutenbee/review', {
       contentColor,
       backgroundColor,
       content,
+      barTextColor,
+      progressBackgroundColor,
+      barBackgroundColor,
       blockBreakpointVisibility,
       blockAuthVisibility,
     } = attributes;
@@ -136,7 +161,23 @@ registerBlockType('gutenbee/review', {
         <div className="entry-rating-scores">
           <InnerBlocks.Content />
         </div>
-        <ReviewStyle attributes={attributes} />
+        <ReviewStyle attributes={attributes}>
+          <Rule
+            value={barTextColor}
+            rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-item-inner { color: %s; }"
+            unit=""
+          />
+          <Rule
+            value={progressBackgroundColor}
+            rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-item-inner { background-color: %s; }"
+            unit=""
+          />
+          <Rule
+            value={barBackgroundColor}
+            rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-item-outer { background-color: %s; }"
+            unit=""
+          />
+        </ReviewStyle>
       </div>
     );
   },

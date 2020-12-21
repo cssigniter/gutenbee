@@ -4,40 +4,20 @@ import { RichText } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import ReviewItemEdit from './edit';
-// import ReviewItemBlockIcon from './block-icon';
-import { getDefaultResponsiveValue } from '../../../components/controls/responsive-control/default-values';
-import ReviewItemStyle from './style';
 import getBlockId from '../../../util/getBlockId';
 
 const ReviewItem = ({ className, attributes }) => {
-  const {
-    uniqueId,
-    innerTitle,
-    percentage,
-    displayPercentage,
-    textColor,
-    barBackgroundColor,
-    progressBackgroundColor,
-  } = attributes;
+  const { uniqueId, innerTitle, percentage, displayPercentage } = attributes;
 
   const blockId = getBlockId(uniqueId);
 
   return (
     <div id={blockId} className={classNames(className, blockId)}>
-      <ReviewItemStyle attributes={attributes} />
-
-      <div
-        className="wp-block-gutenbee-review-item-outer"
-        style={{
-          backgroundColor: barBackgroundColor || undefined,
-        }}
-      >
+      <div className="wp-block-gutenbee-review-item-outer">
         <div
           className="wp-block-gutenbee-review-item-inner"
           style={{
             width: `${percentage * 10}%`,
-            backgroundColor: progressBackgroundColor || undefined,
-            color: textColor || undefined,
           }}
         >
           {!RichText.isEmpty(innerTitle) && (
@@ -85,20 +65,6 @@ registerBlockType('gutenbee/review-item', {
     displayPercentage: {
       type: 'boolean',
       default: true,
-    },
-    textColor: {
-      type: 'string',
-    },
-    barBackgroundColor: {
-      type: 'string',
-    },
-    progressBackgroundColor: {
-      type: 'string',
-    },
-
-    innerTitleFontSize: {
-      type: 'object',
-      default: getDefaultResponsiveValue({ desktop: 14 }),
     },
   },
   edit: ReviewItemEdit,

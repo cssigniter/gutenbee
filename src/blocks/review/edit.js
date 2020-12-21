@@ -7,7 +7,7 @@ import {
   useBlockProps,
   __experimentalUseInnerBlocksProps as useInnerBlocksProps,
 } from 'wp.blockEditor';
-import { PanelBody, RangeControl } from 'wp.components';
+import { PanelBody, RangeControl, ToggleControl } from 'wp.components';
 import { useSelect } from 'wp.data';
 import classNames from 'classnames';
 
@@ -22,6 +22,7 @@ import BorderControls from '../../components/controls/border-controls';
 import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
 import ReviewStyle from './style';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
+import Rule from '../../components/stylesheet/Rule';
 import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 
@@ -42,6 +43,11 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
     contentSize,
     contentColor,
     barHeight,
+    barTextColor,
+    displayPercentage,
+    reviewItemFontSize,
+    progressBackgroundColor,
+    barBackgroundColor,
     backgroundColor,
     blockBreakpointVisibility,
     blockAuthVisibility,
@@ -59,13 +65,14 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
 
   useSelect(select => {
     const [parent] = select('core/block-editor').getBlocksByClientId(clientId);
+
     const { innerBlocks } = parent;
 
-    if (innerBlocks.length === 0) {
-      return;
-    }
-
     const averageScore = () => {
+      if (innerBlocks.length === 0) {
+        return false;
+      }
+
       let totalScore = innerBlocks.reduce(
         (acc, currVal) => acc + currVal.attributes.percentage,
         0,
@@ -75,13 +82,9 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
       return average;
     };
 
-    if (score !== averageScore()) {
+    if (averageScore() !== false && score !== averageScore()) {
       setAttributes({ score: averageScore() });
     }
-
-    return {
-      innerBlocks,
-    };
   });
 
   return (
@@ -126,10 +129,26 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
         </div>
         <div {...innerBlocksProps} />
       </div>
-      <ReviewStyle attributes={attributes} />
+      <ReviewStyle attributes={attributes}>
+        <Rule
+          value={barTextColor}
+          rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-item-inner { color: %s; }"
+          unit=""
+        />
+        <Rule
+          value={progressBackgroundColor}
+          rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-item-inner { background-color: %s; }"
+          unit=""
+        />
+        <Rule
+          value={barBackgroundColor}
+          rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-item-outer { background-color: %s; }"
+          unit=""
+        />
+      </ReviewStyle>
 
       <InspectorControls>
-        <PanelBody title={__('Block Appearance')} initialOpen>
+        <PanelBody title={__('Score & Verdict Options')} initialOpen>
           <ResponsiveControl>
             {breakpoint => (
               <FontSizePickerLabel
@@ -178,6 +197,32 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
               setAttributes({ contentColor: value });
             }}
           />
+        </PanelBody>
+        <PanelBody title={__('Review Item Options')} initialOpen={false}>
+          <ToggleControl
+            label={__('Display rating')}
+            checked={displayPercentage}
+            onChange={value => {
+              setAttributes({ displayPercentage: value });
+            }}
+          />
+
+          <ResponsiveControl>
+            {breakpoint => (
+              <FontSizePickerLabel
+                label={__('Bar Text Font Size')}
+                value={reviewItemFontSize[breakpoint]}
+                onChange={value =>
+                  setAttributes({
+                    reviewItemFontSize: {
+                      ...reviewItemFontSize,
+                      [breakpoint]: value != null ? value : '',
+                    },
+                  })
+                }
+              />
+            )}
+          </ResponsiveControl>
 
           <RangeControl
             label={__('Bar height (px)')}
@@ -188,6 +233,30 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
             step={1}
           />
 
+          <PopoverColorControl
+            label={__('Bar Text Color')}
+            value={barTextColor || ''}
+            defaultValue={barTextColor || ''}
+            onChange={value => setAttributes({ barTextColor: value })}
+          />
+
+          <PopoverColorControl
+            label={__('Progress Background Color')}
+            value={progressBackgroundColor || ''}
+            defaultValue={progressBackgroundColor || ''}
+            onChange={value =>
+              setAttributes({ progressBackgroundColor: value })
+            }
+          />
+
+          <PopoverColorControl
+            label={__('Bar Background Color')}
+            value={barBackgroundColor || ''}
+            defaultValue={barBackgroundColor || ''}
+            onChange={value => setAttributes({ barBackgroundColor: value })}
+          />
+        </PanelBody>
+        <PanelBody title={__('Block Appearance')} initialOpen={false}>
           <PopoverColorControl
             value={backgroundColor}
             defaultValue={backgroundColor || ''}

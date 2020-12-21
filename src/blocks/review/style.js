@@ -15,6 +15,7 @@ const ReviewStyle = ({ attributes, children }) => {
     scoreSize,
     contentSize,
     barHeight,
+    reviewItemFontSize,
     blockPadding,
     blockMargin,
   } = attributes;
@@ -45,6 +46,11 @@ const ReviewStyle = ({ attributes, children }) => {
       <Rule
         value={barHeight}
         rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-item-outer { height: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={reviewItemFontSize}
+        rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-item-outer { font-size: %s; }"
         unit="px"
       />
       {children}
