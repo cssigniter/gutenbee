@@ -66,6 +66,10 @@ registerBlockType('gutenbee/video-embed', {
       type: 'boolean',
       default: false,
     },
+    sticky: {
+      type: 'boolean',
+      default: false,
+    },
     branding: {
       type: 'boolean',
       default: true,
@@ -111,6 +115,7 @@ registerBlockType('gutenbee/video-embed', {
       autoplay,
       mute,
       loop,
+      sticky,
       branding,
       startTime,
       endTime,
@@ -136,6 +141,7 @@ registerBlockType('gutenbee/video-embed', {
           getBreakpointVisibilityClassNames(blockBreakpointVisibility),
           getAuthVisibilityClasses(blockAuthVisibility),
           'gutenbee-video-embed-block-wrapper',
+          sticky && 'wp-block-gutenbee-video-embed-sticky',
         )}
         style={{
           backgroundColor: backgroundColor ? backgroundColor : undefined,

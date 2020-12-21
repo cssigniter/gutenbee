@@ -55,6 +55,7 @@ const VideoEmbedEdit = ({
     autoplay,
     mute,
     loop,
+    sticky,
     branding,
     backgroundColor,
     blockBreakpointVisibility,
@@ -282,6 +283,11 @@ const VideoEmbedEdit = ({
               onChange={value => setAttributes({ lazyLoad: value })}
             />
           )}
+          <ToggleControl
+            label={__('Stick to bottom on scroll')}
+            checked={sticky}
+            onChange={value => setAttributes({ sticky: value })}
+          />
           <TextControl
             label={__('Start time in seconds.')}
             onChange={value => setAttributes({ startTime: value })}

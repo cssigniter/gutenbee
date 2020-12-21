@@ -169,4 +169,35 @@ jQuery($ => {
       createEmbed(firstScript, $dataset.videoType, $this);
     }
   });
+
+  var $window = $(window);
+  var $stickyWrap = $('.wp-block-gutenbee-video-embed-sticky');
+  var $stickyVideoWrap = $stickyWrap.find('.gutenbee-video-embed-wrapper');
+  var videoWrapHeight = $stickyWrap.outerHeight();
+  var offset = 50;
+
+  if ($stickyWrap.length) {
+    $window.on('scroll', function() {
+      var windowScrollTop = $window.scrollTop();
+      var videoBottom = videoWrapHeight + $stickyWrap.offset().top;
+
+      if (windowScrollTop > videoBottom + offset) {
+        if (
+          !$stickyVideoWrap.hasClass('closed') &&
+          !$stickyVideoWrap.hasClass('stuck')
+        ) {
+          $stickyVideoWrap.addClass('stuck');
+          $stickyVideoWrap.append('<span class="close">x</span>');
+          var $close = $($stickyVideoWrap).find('.close');
+          $close.on('click', function() {
+            $stickyVideoWrap.removeClass('stuck');
+            $stickyVideoWrap.addClass('closed');
+          });
+        }
+      } else {
+        $stickyVideoWrap.removeClass('stuck');
+        $stickyVideoWrap.find('.close').remove();
+      }
+    });
+  }
 });
