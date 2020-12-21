@@ -3621,7 +3621,7 @@ div[data-type="gutenbee/button"] {
   line-height: .8;
 }
 
-.wp-block-gutenbee-review .block-editor-block-list__block {
+.wp-block-gutenbee-review .block-editor-block-list__block.wp-block {
   margin-top: 0;
   margin-bottom: 0;
 }
