@@ -1,0 +1,15 @@
+.gutenbee-high-contrast {
+    .block-editor-button-block-appender {
+        box-shadow: inset 0 0 0 1px yellow;
+
+        svg {
+            fill: yellow;
+        }
+
+        &:hover {
+            svg {
+            fill: currentColor;
+            }
+        }
+    }
+}

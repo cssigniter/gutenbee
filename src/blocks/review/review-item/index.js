@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 import ReviewItemEdit from './edit';
 import getBlockId from '../../../util/getBlockId';
+import ReviewItemBlockIcon from './block-icon';
 
 const ReviewItem = ({ className, attributes }) => {
   const { uniqueId, innerTitle, percentage, displayPercentage } = attributes;
@@ -42,7 +43,7 @@ const ReviewItem = ({ className, attributes }) => {
 registerBlockType('gutenbee/review-item', {
   title: __('GutenBee Review Item'),
   description: __('Create review items'),
-  icon: 'smiley',
+  icon: ReviewItemBlockIcon,
   category: 'gutenbee',
   parent: ['gutenbee/review'],
   keywords: [__('review'), __('review item')],

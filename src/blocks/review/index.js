@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import getBlockId from '../../util/getBlockId';
 import ReviewEdit from './edit';
 import ReviewStyle from './style';
+import ReviewBlockIcon from './block-icon';
 import Rule from '../../components/stylesheet/Rule';
 import {
   getDefaultResponsiveValue,
@@ -23,6 +24,7 @@ import { getAuthVisibilityClasses } from '../../components/controls/auth-visibil
 registerBlockType('gutenbee/review', {
   title: __('GutenBee Review'),
   description: __('Creates reviews.'),
+  icon: ReviewBlockIcon,
   category: 'gutenbee',
   keywords: [__('review'), __('rating')],
   attributes: {

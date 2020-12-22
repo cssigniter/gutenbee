@@ -186,10 +186,21 @@ jQuery($ => {
           !$stickyVideoWrap.hasClass('closed') &&
           !$stickyVideoWrap.hasClass('stuck')
         ) {
+          $stickyWrap.height(videoWrapHeight);
           $stickyVideoWrap.addClass('stuck');
           $stickyVideoWrap.append('<span class="close">x</span>');
           var $close = $($stickyVideoWrap).find('.close');
           $close.on('click', function() {
+            var $videoId = $(this)
+              .siblings('.gutenbee-video-embed')
+              .find('iframe')
+              .attr('id');
+            document
+              .getElementById($videoId)
+              .contentWindow.postMessage(
+                '{"event":"command","func":"pauseVideo","args":""}',
+                '*',
+              );
             $stickyVideoWrap.removeClass('stuck');
             $stickyVideoWrap.addClass('closed');
           });
