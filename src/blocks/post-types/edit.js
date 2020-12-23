@@ -101,7 +101,7 @@ const PostTypesEdit = ({
     gridSpacing,
     masonry,
     categoryFilters,
-    postTagIds,
+    postTagSlugs,
   } = attributes;
 
   const supports = window.__GUTENBEE_SETTINGS__.theme_supports['post-types'];
@@ -124,7 +124,7 @@ const PostTypesEdit = ({
 
       // Reset the post tags if we switch a post type.
       if (postType !== 'post') {
-        setAttributes({ postTagIds: [] });
+        setAttributes({ postTagSlugs: [] });
       }
     },
     [postType],
@@ -201,12 +201,12 @@ const PostTypesEdit = ({
             {postTags?.length > 0 && postType === 'post' && (
               <MultiSelectCheckboxControl
                 label={__('Tags')}
-                value={postTagIds}
+                value={postTagSlugs}
                 options={postTags.map(p => ({
-                  value: p.id,
+                  value: p.slug,
                   label: p.name,
                 }))}
-                onChange={value => setAttributes({ postTagIds: value })}
+                onChange={value => setAttributes({ postTagSlugs: value })}
               />
             )}
 

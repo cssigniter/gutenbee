@@ -106,10 +106,10 @@
 					'type'    => 'string',
 					'default' => 'desc',
 				),
-				'postTagIds' => array(
+				'postTagSlugs' => array(
 					'type'    => 'array',
 					'items'   => array(
-						'type' => 'number',
+						'type' => 'string',
 					),
 					'default' => array(),
 				),
@@ -191,8 +191,7 @@
 		$offset            = $attributes['offset'];
 		$order             = $attributes['order'];
 		$order_by          = $attributes['orderBy'];
-		// TODO DEV: Implement
-		$post_tag_ids      = $attributes['postTagIds'];
+		$post_tag_slugs    = $attributes['postTagSlugs'];
 		$excluded_post_ids = $attributes['excludedPostIds'];
 		$included_post_ids = $attributes['includedPostIds'];
 		$author_id         = intval( $attributes['authorId'] );
@@ -205,7 +204,6 @@
 		$grid_effect      = $attributes['gridEffect'];
 		$category_filters = (bool) $attributes['categoryFilters'];
 		$class_name       = $attributes['className'];
-
 
 		$post_type_taxonomies = get_object_taxonomies( $post_type, 'objects' );
 		if ( $post_type_taxonomies ) {
@@ -267,6 +265,16 @@
 				'field'            => 'term_id',
 				'terms'            => $term_id,
 				'include_children' => true,
+			);
+
+			$get_terms_args['child_of'] = $term_id;
+		}
+
+		if ( ! empty( $post_tag_slugs ) && is_array( $post_tag_slugs ) ) {
+			$tax_query_args[] = array(
+				'taxonomy' => 'post_tag',
+				'field'    => 'slug',
+				'terms'    => $post_tag_slugs,
 			);
 
 			$get_terms_args['child_of'] = $term_id;

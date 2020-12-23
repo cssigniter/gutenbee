@@ -62,7 +62,7 @@ registerBlockType('gutenbee/post-types', {
       type: 'array',
       default: [],
     },
-    postTagIds: {
+    postTagSlugs: {
       type: 'array',
       default: [],
     },
