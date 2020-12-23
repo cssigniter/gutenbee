@@ -66,6 +66,12 @@ const propTypes = {
   taxonomy: PropTypes.shape({
     id: PropTypes.number,
   }),
+  postTags: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.number,
+    }),
+  ),
 };
 
 const PostTypesEdit = ({
@@ -77,6 +83,7 @@ const PostTypesEdit = ({
   posts,
   terms,
   taxonomy,
+  postTags,
 }) => {
   const {
     postType,
@@ -94,6 +101,7 @@ const PostTypesEdit = ({
     gridSpacing,
     masonry,
     categoryFilters,
+    postTagIds,
   } = attributes;
 
   const supports = window.__GUTENBEE_SETTINGS__.theme_supports['post-types'];
@@ -112,6 +120,11 @@ const PostTypesEdit = ({
 
       if (newColumnLimits.max < columns) {
         setAttributes({ columns: newColumnLimits.max || 3 });
+      }
+
+      // Reset the post tags if we switch a post type.
+      if (postType !== 'post') {
+        setAttributes({ postTagIds: [] });
       }
     },
     [postType],
@@ -184,6 +197,18 @@ const PostTypesEdit = ({
                 setAttributes({ authorId: value !== '' ? value : '' })
               }
             />
+
+            {postTags?.length > 0 && postType === 'post' && (
+              <MultiSelectCheckboxControl
+                label={__('Tags')}
+                value={postTagIds}
+                options={postTags.map(p => ({
+                  value: p.id,
+                  label: p.name,
+                }))}
+                onChange={value => setAttributes({ postTagIds: value })}
+              />
+            )}
 
             {posts && posts.length && (
               <MultiSelectCheckboxControl
@@ -363,6 +388,7 @@ const withData = withSelect((select, ownProps) => {
     terms: taxonomy
       ? getEntityRecords('taxonomy', taxonomy.slug, { per_page: -1 })
       : [],
+    postTags: getEntityRecords('taxonomy', 'post_tag', { per_page: -1 }) || [],
   };
 });
 

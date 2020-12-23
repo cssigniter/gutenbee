@@ -106,6 +106,13 @@
 					'type'    => 'string',
 					'default' => 'desc',
 				),
+				'postTagIds' => array(
+					'type'    => 'array',
+					'items'   => array(
+						'type' => 'number',
+					),
+					'default' => array(),
+				),
 				'excludedPostIds' => array(
 					'type'    => 'array',
 					'items'   => array(
@@ -184,6 +191,8 @@
 		$offset            = $attributes['offset'];
 		$order             = $attributes['order'];
 		$order_by          = $attributes['orderBy'];
+		// TODO DEV: Implement
+		$post_tag_ids      = $attributes['postTagIds'];
 		$excluded_post_ids = $attributes['excludedPostIds'];
 		$included_post_ids = $attributes['includedPostIds'];
 		$author_id         = intval( $attributes['authorId'] );
