@@ -34,6 +34,7 @@
 			'gridEffect'      => false,
 			'masonry'         => false,
 			'categoryFilters' => false,
+			'selectImageSize' => false,
 		);
 	}
 
@@ -203,7 +204,6 @@
 		$term_id           = intval( $attributes['termId'] );
 		$columns           = intval( $attributes['columns'] );
 		$grid_spacing      = $attributes['gridSpacing'];
-		// TODO DEV: Implement this.
 		$image_size_slug   = $attributes['imageSizeSlug'];
 
 		$masonry          = (bool) $attributes['masonry'];
@@ -341,6 +341,15 @@
 		$container_classes = apply_filters( 'gutenbee_post_types_container_classes', $container_classes, $attributes );
 		$container_classes = array_unique( array_filter( $container_classes ) );
 
+		$item_template_vars = array(
+			'image-size' => false, // Don't force a default image size. Let templates decide for themselves.
+		);
+
+		$available_image_sizes = array_merge( array( 'full' ), get_intermediate_image_sizes() );
+		if ( ! empty( $image_size_slug ) && in_array( $image_size_slug, $available_image_sizes, true ) ) {
+			$item_template_vars['image-size'] = $image_size_slug;
+		}
+
 		if ( $q->have_posts() ) {
 			ob_start();
 
@@ -372,12 +381,12 @@
 				<div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>"><?php
 
 				if ( 1 === $columns ) {
-					gutenbee_get_template_part( 'post-types', 'article-media', get_post_type() );
+					gutenbee_get_template_part( 'post-types', 'article-media', get_post_type(), $item_template_vars );
 				} else {
 					if ( $masonry ) {
-						gutenbee_get_template_part( 'post-types', 'article-default-tall', get_post_type() );
+						gutenbee_get_template_part( 'post-types', 'article-default-tall', get_post_type(), $item_template_vars );
 					} else {
-						gutenbee_get_template_part( 'post-types', 'article-default', get_post_type() );
+						gutenbee_get_template_part( 'post-types', 'article-default', get_post_type(), $item_template_vars );
 					}
 				}
 

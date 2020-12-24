@@ -1,3 +1,7 @@
+<?php
+/** @var array $args */
+$image_size = ! empty( $args['image-size'] ) ? $args['image-size'] : 'post-thumbnail';
+?>
 <article
 	id="gutenbee-post-types-<?php the_ID(); ?>"
 	<?php post_class( 'gutenbee-post-types-item gutenbee-post-types-item-media' ); ?>
@@ -5,7 +9,7 @@
 	<?php if ( has_post_thumbnail() ) : ?>
 		<figure class="gutenbee-post-types-item-thumb">
 			<a href="<?php the_permalink(); ?>">
-				<?php the_post_thumbnail(); ?>
+				<?php the_post_thumbnail( $image_size ); ?>
 			</a>
 		</figure>
 	<?php endif; ?>

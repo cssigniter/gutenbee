@@ -411,7 +411,7 @@ function gutenbee_get_columns_classes( $columns ) {
 	return apply_filters( 'gutenbee_get_columns_classes', $classes, $columns );
 }
 
-function gutenbee_get_template_part( $block, $slug, $name = '', $template_vars = array() ) {
+function gutenbee_get_template_part( $block, $slug, $name = '', $args = array() ) {
 	$templates = array();
 	$name      = (string) $name;
 	if ( '' !== $name ) {
@@ -420,14 +420,14 @@ function gutenbee_get_template_part( $block, $slug, $name = '', $template_vars =
 
 	$templates[] = "{$slug}.php";
 
-	$located = gutenbee_locate_template( $block, $templates );
+	$located = gutenbee_locate_template( $block, $templates, $args );
 
 	if ( ! empty( $located ) ) {
 		include $located;
 	}
 }
 
-function gutenbee_locate_template( $block, $templates ) {
+function gutenbee_locate_template( $block, $templates, $args ) {
 	$plugin_path = plugin_dir_path( __FILE__ );
 
 	// The templates path in the plugin, i.e. defaults/fallback. E.g. src/blocks/post-types/templates/
@@ -445,7 +445,7 @@ function gutenbee_locate_template( $block, $templates ) {
 	// Try to find a theme-overridden template.
 	$located = locate_template( $theme_templates, false );
 
-	$located = apply_filters( 'gutenbee_locate_template', $located, $block, $theme_templates, $templates, $theme_path, $default_path );
+	$located = apply_filters( 'gutenbee_locate_template', $located, $block, $theme_templates, $templates, $theme_path, $default_path, $args );
 
 	if ( empty( $located ) ) {
 		// Nope. Try the plugin templates instead.

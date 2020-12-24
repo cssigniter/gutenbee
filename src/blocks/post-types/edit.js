@@ -350,8 +350,7 @@ const PostTypesEdit = ({
               />
             )}
 
-            {imageSizes?.length > 0 && (
-              // TODO DEV: Need to show this only if the theme supports it.
+            {supports.selectImageSize && imageSizes?.length > 0 && (
               <SelectControl
                 label={__('Image Size')}
                 value={imageSizeSlug}
