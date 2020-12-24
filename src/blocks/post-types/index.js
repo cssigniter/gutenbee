@@ -90,6 +90,10 @@ registerBlockType('gutenbee/post-types', {
       type: 'string',
       default: '',
     },
+    imageSizeSlug: {
+      type: 'string',
+      default: '',
+    },
   },
 
   edit: PostTypesEdit,

@@ -72,6 +72,12 @@ const propTypes = {
       name: PropTypes.number,
     }),
   ),
+  imageSizes: PropTypes.arrayOf(
+    PropTypes.shape({
+      slug: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    }),
+  ),
 };
 
 const PostTypesEdit = ({
@@ -84,6 +90,7 @@ const PostTypesEdit = ({
   terms,
   taxonomy,
   postTags,
+  imageSizes,
 }) => {
   const {
     postType,
@@ -102,6 +109,7 @@ const PostTypesEdit = ({
     masonry,
     categoryFilters,
     postTagSlugs,
+    imageSizeSlug,
   } = attributes;
 
   const supports = window.__GUTENBEE_SETTINGS__.theme_supports['post-types'];
@@ -341,6 +349,25 @@ const PostTypesEdit = ({
                 onChange={value => setAttributes({ categoryFilters: value })}
               />
             )}
+
+            {imageSizes?.length > 0 && (
+              // TODO DEV: Need to show this only if the theme supports it.
+              <SelectControl
+                label={__('Image Size')}
+                value={imageSizeSlug}
+                options={[
+                  {
+                    value: '',
+                    label: __(''),
+                  },
+                  ...imageSizes.map(imageSize => ({
+                    value: imageSize.slug,
+                    label: imageSize.name,
+                  })),
+                ]}
+                onChange={value => setAttributes({ imageSizeSlug: value })}
+              />
+            )}
           </PanelBody>
         </InspectorControls>
       )}
@@ -366,6 +393,8 @@ const withData = withSelect((select, ownProps) => {
   const { getPostTypes, getAuthors, getTaxonomies, getEntityRecords } = select(
     'core',
   );
+  const { getSettings } = select('core/block-editor');
+  const { imageSizes } = getSettings();
 
   const postTypes = getPostTypes() || [];
   const authors = getAuthors();
@@ -389,6 +418,7 @@ const withData = withSelect((select, ownProps) => {
       ? getEntityRecords('taxonomy', taxonomy.slug, { per_page: -1 })
       : [],
     postTags: getEntityRecords('taxonomy', 'post_tag', { per_page: -1 }) || [],
+    imageSizes,
   };
 });
 

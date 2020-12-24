@@ -151,6 +151,10 @@
 					'type'    => 'string',
 					'default' => '',
 				),
+				'imageSizeSlug' => array(
+					'type'    => 'string',
+					'default' => '',
+				),
 			),
 			'render_callback' => 'gutenbee_block_post_types_render_callback',
 		) );
@@ -199,6 +203,8 @@
 		$term_id           = intval( $attributes['termId'] );
 		$columns           = intval( $attributes['columns'] );
 		$grid_spacing      = $attributes['gridSpacing'];
+		// TODO DEV: Implement this.
+		$image_size_slug   = $attributes['imageSizeSlug'];
 
 		$masonry          = (bool) $attributes['masonry'];
 		$grid_effect      = $attributes['gridEffect'];
