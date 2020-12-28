@@ -34,7 +34,7 @@
 			'gridEffect'      => false,
 			'masonry'         => false,
 			'categoryFilters' => false,
-			'selectImageSize' => false,
+			'selectImageSize' => array(),
 		);
 	}
 
