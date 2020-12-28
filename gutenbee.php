@@ -56,8 +56,6 @@ function gutenbee_enqueue_editor_assets() {
 		'wp-keycodes',
 		'wp-html-entities',
 		'wp-server-side-render',
-		'wp-plugins',
-		'wp-edit-post',
 	), GUTENBEE_PLUGIN_VERSION, true );
 
 	wp_localize_script( 'gutenbee', '__GUTENBEE_SETTINGS__', gutenbee_get_settings() );
@@ -527,17 +525,6 @@ function gutenbee_mime_types( $mimes ) {
 	$mimes['json'] = 'application/json';
 	return $mimes;
 }
-
-register_post_meta( '', 'gutenbee_single_item_editor_width', array(
-	'show_in_rest' => array(
-		'schema' => array(
-			'type'    => 'number',
-			'default' => isset( get_option( 'gutenbee_general_settings' )['editor-width-value'] ) ? get_option( 'gutenbee_general_settings' )['editor-width-value'] : 680,
-		),
-	),
-	'single'       => true,
-	'type'         => 'number',
-) );
 
 require_once untrailingslashit( dirname( __FILE__ ) ) . '/inc/options.php';
 require_once untrailingslashit( dirname( __FILE__ ) ) . '/src/blocks/container/block.php';

@@ -30,8 +30,6 @@ const wplib = [
   'htmlEntities',
   'serverSideRender',
   'icons',
-  'plugins',
-  'editPost',
 ];
 
 const webpackConfig = {
