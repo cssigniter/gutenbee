@@ -526,6 +526,16 @@ function gutenbee_mime_types( $mimes ) {
 	return $mimes;
 }
 
+add_filter( 'plugin_action_links_gutenbee/gutenbee.php', 'gutenbee_settings_link' );
+function gutenbee_settings_link( $links ) {
+	$action_links = array(
+		'settings' => '<a href="' . admin_url( 'admin.php?page=gutenbee' ) . '" aria-label="' . esc_attr__( 'View GutenBee settings', 'gutenbee' ) . '">' . esc_html__( 'Settings', 'gutenbee' ) . '</a>',
+	);
+
+	return array_merge( $action_links, $links );
+}
+
+
 require_once untrailingslashit( dirname( __FILE__ ) ) . '/inc/options.php';
 require_once untrailingslashit( dirname( __FILE__ ) ) . '/src/blocks/container/block.php';
 require_once untrailingslashit( dirname( __FILE__ ) ) . '/src/blocks/post-types/block.php';
