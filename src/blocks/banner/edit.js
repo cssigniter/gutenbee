@@ -16,7 +16,6 @@ import useUniqueId from '../../hooks/useUniqueId';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 import { getBackgroundImageStyle } from '../../components/controls/background-controls/helpers';
 import MarginControls from '../../components/controls/margin-controls';
-import BannerStyle from './style';
 import BackgroundControls from '../../components/controls/background-controls';
 import getBlockId from '../../util/getBlockId';
 import BorderControls from '../../components/controls/border-controls';
@@ -29,6 +28,53 @@ import VideoBackgroundEditor from '../../util/video/components/VideoBackgroundEd
 import { onVimeoApiReady, onYouTubeApiReady } from './utils';
 import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
+import StyleSheet from '../../components/stylesheet';
+import Rule from '../../components/stylesheet/Rule';
+
+const BannerEditStyle = ({ attributes, children }) => {
+  const {
+    uniqueId,
+    bannerHeight,
+    blockPadding,
+    blockMargin,
+    verticalContentAlignment,
+    horizontalContentAlignment,
+  } = attributes;
+  const blockId = getBlockId(uniqueId);
+
+  return (
+    <StyleSheet id={blockId}>
+      <Rule
+        value={bannerHeight}
+        rule=".wp-block-gutenbee-banner.[root] { height: %s; }"
+        unit="px"
+        edgeCase={{
+          edge: -1,
+          value: '100vh',
+        }}
+      />
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-banner.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-banner.[root] .wp-block-gutenbee-banner-inner { padding: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={horizontalContentAlignment}
+        rule=".wp-block-gutenbee-banner.[root] .wp-block-gutenbee-banner-inner { align-items: %s; }"
+      />
+      <Rule
+        value={verticalContentAlignment}
+        rule=".wp-block-gutenbee-banner.[root] .wp-block-gutenbee-banner-inner { justify-content: %s; }"
+      />
+      {children}
+    </StyleSheet>
+  );
+};
 
 const BannerBlockEdit = ({
   attributes,
@@ -123,7 +169,7 @@ const BannerBlockEdit = ({
               />
             )}
         </div>
-        <BannerStyle attributes={attributes} />
+        <BannerEditStyle attributes={attributes} />
       </div>
       <InspectorControls>
         <PanelBody title={__('Layout Settings')} initialOpen>

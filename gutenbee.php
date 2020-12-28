@@ -56,6 +56,8 @@ function gutenbee_enqueue_editor_assets() {
 		'wp-keycodes',
 		'wp-html-entities',
 		'wp-server-side-render',
+		'wp-plugins',
+		'wp-edit-post',
 	), GUTENBEE_PLUGIN_VERSION, true );
 
 	wp_localize_script( 'gutenbee', '__GUTENBEE_SETTINGS__', gutenbee_get_settings() );
@@ -98,10 +100,13 @@ function gutenbee_enqueue_frontend_block_assets() {
 	}
 }
 
-add_action( 'admin_enqueue_scripts', 'gutenbee_admin_styles' );
+add_action( 'admin_enqueue_scripts', 'gutenbee_admin_assets' );
 
-function gutenbee_admin_styles() {
+function gutenbee_admin_assets() {
 	wp_enqueue_style( 'gutenbee-admin-styles', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/assets/css/admin.css', array(), GUTENBEE_PLUGIN_VERSION );
+	wp_enqueue_script( 'wp-color-picker' );
+	wp_enqueue_style( 'wp-color-picker' );
+	wp_enqueue_script( 'gutenbee-admin-scripts', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/assets/js/admin.js', array(), GUTENBEE_PLUGIN_VERSION, true );
 }
 
 // GutenBee's block category
@@ -329,6 +334,14 @@ function gutenbee_get_blocks_info() {
  */
 function gutenbee_get_settings() {
 	$settings = get_option( 'gutenbee_settings' );
+	$general_settings = get_option( 'gutenbee_general_settings' );
+
+	if ( $settings && $general_settings ) {
+		$settings = array_merge( $settings, $general_settings );
+	} elseif ( $general_settings ) {
+		$settings = $general_settings;
+	}
+
 	$settings = gutenbee_validate_settings( $settings );
 
 	/**
@@ -355,8 +368,12 @@ function gutenbee_get_settings() {
  */
 function gutenbee_validate_settings( $settings ) {
 	$defaults = array(
-		'active_google-maps'  => 1,
-		'google_maps_api_key' => '',
+		'active_google-maps'   => 1,
+		'google_maps_api_key'  => '',
+		'active_high-contrast' => 0,
+		'high-contrast-color'  => '#ffff00',
+		'active_editor-width'  => 0,
+		'editor-width-value'   => 680,
 	);
 	foreach ( gutenbee_get_setting_block_names() as $id => $name ) {
 		$defaults[ 'active_' . $id ] = 1;
@@ -510,6 +527,17 @@ function gutenbee_mime_types( $mimes ) {
 	$mimes['json'] = 'application/json';
 	return $mimes;
 }
+
+register_post_meta( '', 'gutenbee_single_item_editor_width', array(
+	'show_in_rest' => array(
+		'schema' => array(
+			'type'    => 'number',
+			'default' => isset( get_option( 'gutenbee_general_settings' )['editor-width-value'] ) ? get_option( 'gutenbee_general_settings' )['editor-width-value'] : 680,
+		),
+	),
+	'single'       => true,
+	'type'         => 'number',
+) );
 
 require_once untrailingslashit( dirname( __FILE__ ) ) . '/inc/options.php';
 require_once untrailingslashit( dirname( __FILE__ ) ) . '/src/blocks/container/block.php';

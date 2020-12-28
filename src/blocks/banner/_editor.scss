@@ -1,6 +1,8 @@
 @import 'common';
 
 .wp-block-gutenbee-banner {
+  min-height: 100px;
+
   &-link-placeholder {
     position: absolute;
     display: block;
@@ -14,5 +16,6 @@
 
   &-inner {
     z-index: 2;
+    flex: 1 1 100%;
   }
 }

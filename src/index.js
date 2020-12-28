@@ -56,3 +56,4 @@ import './blocks/review';
 //
 import './options';
 import './category-icon';
+import './sidebar';

@@ -1,19 +1,26 @@
 <?php
 	class Gutenbee_Settings {
 		protected $settings = false;
+		protected $general_settings = false;
 
 		public function __construct() {
 			add_action( 'init', array( $this, 'init' ) );
 
 			add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
 			add_action( 'admin_init', array( $this, 'settings_init' ) );
+			add_action( 'admin_head', array( $this, 'create_high_contrast_styles' ) );
+			add_action( 'admin_head', array( $this, 'create_editor_width_styles' ) );
 		}
 
 		public function init() {
 			// Don't use gutenbee_get_settings() here, as any extra/dynamically added (via filter) settings will end up
 			// getting stored into the option array. See self::settings_sanitize().
+
 			$this->settings = get_option( 'gutenbee_settings' );
 			$this->settings = gutenbee_validate_settings( $this->settings );
+
+			$this->general_settings = get_option( 'gutenbee_general_settings' );
+			$this->general_settings = gutenbee_validate_settings( $this->general_settings );
 		}
 
 		public function add_admin_menu() {
@@ -23,11 +30,22 @@
 		public function settings_sanitize( $settings ) {
 			$new_settings = $this->settings;
 
-			$new_settings['active_google-maps']  = isset( $settings['active_google-maps'] ) && 1 === intval( $settings['active_google-maps'] );
+			$new_settings['active_google-maps']  = $settings['active_google-maps'];
 			$new_settings['google_maps_api_key'] = isset( $settings['google_maps_api_key'] ) ? sanitize_text_field( $settings['google_maps_api_key'] ) : '';
 			foreach ( gutenbee_get_setting_block_names() as $id => $name ) {
 				$new_settings[ 'active_' . $id ] = isset( $settings[ 'active_' . $id ] ) && 1 === intval( $settings[ 'active_' . $id ] );
 			}
+
+			return $new_settings;
+		}
+
+		public function general_settings_sanitize( $settings ) {
+			$new_settings = [];
+			$new_settings['active_high-contrast'] = isset($settings['active_high-contrast']) && 1 === intval($settings['active_high-contrast']);
+			$new_settings['high-contrast-color']  = isset( $settings['high-contrast-color'] ) ? sanitize_text_field( $settings['high-contrast-color'] ) : '';
+
+			$new_settings['active_editor-width'] = isset($settings['active_editor-width']) && 1 === intval( $settings['active_editor-width'] );
+			$new_settings['editor-width-value']  = isset($settings['editor-width-value']) ? intval( $settings['editor-width-value'] ) : 680;
 
 			return $new_settings;
 		}
@@ -40,6 +58,15 @@
 				__( 'GutenBee Settings', 'gutenbee' ),
 				array( $this, 'settings_section_callback' ),
 				'gutenbee'
+			);
+
+			register_setting( 'gutenbee_general', 'gutenbee_general_settings', array( $this, 'general_settings_sanitize' ) );
+
+			add_settings_section(
+				'gutenbee_general_settings_section',
+				__( 'GutenBee General Options', 'gutenbee' ),
+				array( $this, 'general_settings_section_callback' ),
+				'gutenbee_general_settings'
 			);
 
 			$simple_block_settings = gutenbee_get_setting_block_names();
@@ -73,19 +100,95 @@
 				'gutenbee',
 				'gutenbee_settings_section'
 			);
+
+			add_settings_field(
+				'active_high-contrast',
+				__('Enable high contrast styles', 'gutenbee'),
+				array($this, 'general_checkbox_render'),
+				'gutenbee_general_settings',
+				'gutenbee_general_settings_section',
+				array('id' => 'high-contrast')
+			);
+
+			add_settings_field(
+				'high-contrast-color',
+				__('High contrast color', 'gutenbee'),
+				array($this, 'color_input_render'),
+				'gutenbee_general_settings',
+				'gutenbee_general_settings_section',
+				array('id' => 'high-contrast-color')
+			);
+
+			add_settings_field(
+				'active_editor-width',
+				__('Enable custom editor width', 'gutenbee'),
+				array($this, 'general_checkbox_render'),
+				'gutenbee_general_settings',
+				'gutenbee_general_settings_section',
+				array('id' => 'editor-width')
+			);
+
+			add_settings_field(
+				'editor-width-value',
+				__('Editor width (in px)', 'gutenbee'),
+				array($this, 'width_input_render'),
+				'gutenbee_general_settings',
+				'gutenbee_general_settings_section',
+				array('id' => 'editor-width-value')
+			);
 		}
 
 		public function settings_section_callback() {
 			echo '<p>' . esc_html__( 'Use the checkboxes below to enable or disable your new blocks.', 'gutenbee' ) . '</p>';
 		}
 
+		public function general_settings_section_callback() {
+			echo '<p>' . esc_html__( 'General plugin configuration.', 'gutenbee' ) . '</p>';
+		}
+
 		public function checkbox_render( $args ) {
-			$id = $args['id'];
+			$id    = $args['id'];
 			?>
 			<input
 				type="checkbox"
 				name="gutenbee_settings[active_<?php echo esc_attr( $id ); ?>]"
 				<?php checked( $this->settings[ 'active_' . $id ] ); ?>
+				value="1"
+			>
+			<?php
+		}
+
+		public function color_input_render( $args ) {
+			$id    = $args['id'];
+			?>
+			<input
+				id="gutenbee_general_settings-<?php echo esc_attr( $id ); ?>"
+				type="text"
+				name="gutenbee_general_settings[<?php echo esc_attr( $id ); ?>]"
+				value="<?php echo esc_attr($this->general_settings[ $id ]); ?>"
+			>
+			<?php
+		}
+
+		public function width_input_render( $args ) {
+			$id    = $args['id'];
+			?>
+			<input
+				id="gutenbee_general_settings-<?php echo esc_attr( $id ); ?>"
+				type="number"
+				name="gutenbee_general_settings[<?php echo esc_attr( $id ); ?>]"
+				value="<?php echo esc_attr($this->general_settings[ $id ]); ?>"
+			>
+			<?php
+		}
+
+		public function general_checkbox_render( $args ) {
+			$id    = $args['id'];
+			?>
+			<input
+				type="checkbox"
+				name="gutenbee_general_settings[active_<?php echo esc_attr( $id ); ?>]"
+				<?php checked( $this->general_settings[ 'active_' . $id ] ); ?>
 				value="1"
 			>
 			<?php
@@ -115,14 +218,28 @@
 		}
 
 		public function options_page() {
+			$active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'general_options';
 			?>
 			<div class="wrap">
 				<div class="gutenbee-settings-container">
 					<div class="gutenbee-settings-content">
+
+						<h2 class="nav-tab-wrapper">
+							<a href="?page=gutenbee&tab=general_options" class="nav-tab <?php echo $active_tab == 'general_options' ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'General Options', 'gutenbee' ); ?></a>
+							<a href="?page=gutenbee&tab=settings_section" class="nav-tab <?php echo $active_tab == 'settings_section' ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Block Options', 'gutenbee' ); ?></a>
+						</h2>
 						<form action="options.php" method="post" class="gutenbee-settings-form">
 							<?php
-								settings_fields( 'gutenbee' );
-								do_settings_sections( 'gutenbee' );
+								if ( 'general_options' === $active_tab ) {
+									settings_fields( 'gutenbee_general' );
+									do_settings_sections( 'gutenbee_general_settings' );
+								}
+
+								if ( 'settings_section' === $active_tab ) {
+									settings_fields( 'gutenbee' );
+									do_settings_sections( 'gutenbee' );
+								}
+
 								submit_button();
 							?>
 						</form>
@@ -140,6 +257,46 @@
 			</div>
 			<?php
 		}
+
+		public function create_high_contrast_styles() {
+			$screen = get_current_screen();
+			if ( ! $this->general_settings['active_high-contrast'] || ! $screen->is_block_editor ) {
+				return;
+			}
+
+			echo '<style>
+				.block-editor-button-block-appender {
+					-webkit-box-shadow: inset 0 0 0 1px ' . $this->general_settings['high-contrast-color'] . ';
+					box-shadow: inset 0 0 0 1px ' . $this->general_settings['high-contrast-color'] . ';
+				}
+
+				.block-editor-button-block-appender svg {
+					fill: ' . $this->general_settings['high-contrast-color'] . ';
+				}
+
+				.block-editor-block-list__block-popover-inserter .block-editor-inserter__toggle.components-button.has-icon, .block-editor-block-list__empty-block-inserter .block-editor-inserter__toggle.components-button.has-icon, .block-editor-block-list__insertion-point-inserter .block-editor-inserter__toggle.components-button.has-icon, .block-editor-default-block-appender .block-editor-inserter__toggle.components-button.has-icon {
+					background-color: ' . $this->general_settings['high-contrast-color'] . ';
+				}
+			</style>';
+		}
+
+		public function create_editor_width_styles() {
+			$screen = get_current_screen();
+			if ( ! $this->general_settings['active_editor-width'] || ! $screen->is_block_editor ) {
+				return;
+			}
+
+			global $post;
+
+			$single_width = get_post_meta( $post->ID, 'gutenbee_single_item_editor_width', true );
+			$custom_width = $single_width ? $single_width : $this->general_settings['editor-width-value'];
+			echo '<style id="gb-ew">
+				.wp-block {
+					max-width: ' . $custom_width . 'px;
+				}
+			</style>';
+		}
+
 	}
 
 	new Gutenbee_Settings();

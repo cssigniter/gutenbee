@@ -127,19 +127,6 @@
   content: "\E002";
 }
 
-.gutenbee-high-contrast .block-editor-button-block-appender {
-  -webkit-box-shadow: inset 0 0 0 1px yellow;
-  box-shadow: inset 0 0 0 1px yellow;
-}
-
-.gutenbee-high-contrast .block-editor-button-block-appender svg {
-  fill: yellow;
-}
-
-.gutenbee-high-contrast .block-editor-button-block-appender:hover svg {
-  fill: currentColor;
-}
-
 .wp-block-gutenbee-video-bg-wrapper {
   position: absolute;
   top: 50%;
