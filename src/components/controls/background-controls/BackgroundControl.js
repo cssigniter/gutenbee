@@ -15,6 +15,7 @@ const propTypes = {
   attributes: PropTypes.object.isRequired,
   label: PropTypes.string,
   supportsParallax: PropTypes.bool,
+  supportsZoom: PropTypes.bool,
 };
 
 const BackgroundControls = ({
@@ -23,6 +24,7 @@ const BackgroundControls = ({
   attributes,
   label = __('Background'),
   supportsParallax,
+  supportsZoom,
 }) => {
   const backgroundImage = attributes[attributeKey];
   const setBackgroundSetting = setting => {
@@ -42,7 +44,10 @@ const BackgroundControls = ({
     attachment,
     parallax,
     parallaxSpeed,
+    zoom,
   } = backgroundImage;
+
+  const { backgroundVideoURL } = attributes;
 
   return (
     <div className="gutenbee-control-background">
@@ -164,7 +169,22 @@ const BackgroundControls = ({
           onChange={value => setBackgroundSetting({ size: value })}
         />
       </div>
-
+      {supportsZoom && !!url && !backgroundVideoURL && (
+        <ToggleControl
+          label={__('Enable zoom')}
+          checked={zoom}
+          onChange={value => setBackgroundSetting({ zoom: value })}
+          help={
+            zoom
+              ? __(
+                  'The background image zooms when hovered. Parallax must be disabled.',
+                )
+              : __(
+                  'Toggle to enable background image zoom. Parallax must be disabled.',
+                )
+          }
+        />
+      )}
       {supportsParallax && !!url && (
         <Fragment>
           <ToggleControl

@@ -275,6 +275,7 @@ const ContainerInspectorControls = ({
             attributes={attributes}
             attributeKey="backgroundImage"
             supportsParallax
+            supportsZoom
           />
 
           <BorderControls

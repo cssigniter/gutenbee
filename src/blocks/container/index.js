@@ -171,7 +171,7 @@ registerBlockType('gutenbee/container', {
       blockAuthVisibility,
     } = attributes;
 
-    const { parallax, parallaxSpeed } = backgroundImage;
+    const { parallax, parallaxSpeed, zoom } = backgroundImage;
 
     const videoInfo = backgroundVideoURL
       ? getVideoProviderInfoByUrl(backgroundVideoURL)
@@ -189,6 +189,7 @@ registerBlockType('gutenbee/container', {
           getAuthVisibilityClasses(blockAuthVisibility),
           {
             'has-parallax': parallax,
+            'gutenbee-zoom': zoom && !parallax,
             'theme-grid': themeGrid,
             'row-reverse-desktop': columnDirection.desktop === 'row-reverse',
             'row-reverse-tablet': columnDirection.tablet === 'row-reverse',

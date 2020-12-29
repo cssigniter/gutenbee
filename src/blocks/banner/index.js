@@ -129,7 +129,7 @@ registerBlockType('gutenbee/banner', {
     const blockId = getBlockId(uniqueId);
     const baseClass = getBlockDefaultClassName('gutenbee/banner');
 
-    const { parallax, parallaxSpeed } = backgroundImage;
+    const { parallax, parallaxSpeed, zoom } = backgroundImage;
 
     const videoInfo = backgroundVideoURL
       ? getVideoProviderInfoByUrl(backgroundVideoURL)
@@ -183,6 +183,7 @@ registerBlockType('gutenbee/banner', {
           getAuthVisibilityClasses(blockAuthVisibility),
           {
             'has-parallax': parallax,
+            'gutenbee-zoom': zoom && !parallax,
           },
         )}
         style={{

@@ -127,6 +127,20 @@
   content: "\E002";
 }
 
+.gutenbee-zoom {
+  overflow: hidden;
+}
+
+.gutenbee-zoom:hover > div[class*="-background"], .gutenbee-zoom:focus > div[class*="-background"] {
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+.gutenbee-zoom > div[class*="-background"] {
+  -webkit-transition: all .5s;
+  transition: all .5s;
+}
+
 .wp-block-gutenbee-video-bg-wrapper {
   position: absolute;
   top: 50%;

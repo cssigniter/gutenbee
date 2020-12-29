@@ -80,8 +80,12 @@ const ContainerBlockEdit = ({
     clientId,
   });
 
+  const { zoom, parallax } = backgroundImage;
+
   const blockId = getBlockId(uniqueId);
-  const classes = classNames(className, blockId);
+  const classes = classNames(className, blockId, {
+    'gutenbee-zoom': zoom && !parallax,
+  });
   const baseClass = 'wp-block-gutenbee-container';
 
   const { videoInfo, videoEmbedRef, handleVideoUrlChange } = useVideoEmbed({

@@ -108,8 +108,12 @@ const BannerBlockEdit = ({
     [clientId],
   );
 
+  const { zoom, parallax } = backgroundImage;
+
   const blockId = getBlockId(uniqueId);
-  const classes = classNames(blockId, className);
+  const classes = classNames(blockId, className, {
+    'gutenbee-zoom': zoom && !parallax,
+  });
   const baseClass = 'wp-block-gutenbee-banner';
 
   const { videoInfo, videoEmbedRef, handleVideoUrlChange } = useVideoEmbed({
@@ -343,6 +347,7 @@ const BannerBlockEdit = ({
             attributes={attributes}
             attributeKey="backgroundImage"
             supportsParallax
+            supportsZoom
           />
 
           <BorderControls
