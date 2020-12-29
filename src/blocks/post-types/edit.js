@@ -350,23 +350,24 @@ const PostTypesEdit = ({
               />
             )}
 
-            {supports.selectImageSize && imageSizes?.length > 0 && (
-              <SelectControl
-                label={__('Image Size')}
-                value={imageSizeSlug}
-                options={[
-                  {
-                    value: '',
-                    label: __(''),
-                  },
-                  ...imageSizes.map(imageSize => ({
-                    value: imageSize.slug,
-                    label: imageSize.name,
-                  })),
-                ]}
-                onChange={value => setAttributes({ imageSizeSlug: value })}
-              />
-            )}
+            {supports.selectImageSize?.includes?.(postType) &&
+              imageSizes?.length > 0 && (
+                <SelectControl
+                  label={__('Image Size')}
+                  value={imageSizeSlug}
+                  options={[
+                    {
+                      value: '',
+                      label: __(''),
+                    },
+                    ...imageSizes.map(imageSize => ({
+                      value: imageSize.slug,
+                      label: imageSize.name,
+                    })),
+                  ]}
+                  onChange={value => setAttributes({ imageSizeSlug: value })}
+                />
+              )}
           </PanelBody>
         </InspectorControls>
       )}

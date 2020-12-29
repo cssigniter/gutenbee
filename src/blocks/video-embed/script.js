@@ -188,7 +188,7 @@ jQuery($ => {
         ) {
           $stickyWrap.height(videoWrapHeight);
           $stickyVideoWrap.addClass('stuck');
-          $stickyVideoWrap.append('<span class="close">x</span>');
+          $stickyVideoWrap.append('<span class="close">×</span>');
           var $close = $($stickyVideoWrap).find('.close');
           $close.on('click', function() {
             var $videoId = $(this)
