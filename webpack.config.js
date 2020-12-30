@@ -3,6 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autoprefixer = require('autoprefixer');
+const CSSMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -150,6 +151,14 @@ const webpackConfig = {
 
 if (NODE_ENV === 'production') {
   delete webpackConfig.devtool;
+
+  webpackConfig.optimization = {
+    ...webpackConfig.optimization,
+    minimizer: [
+      ...(webpackConfig.optimization.minimizer || []),
+      new CSSMinimizerPlugin(),
+    ],
+  };
 }
 
 module.exports = webpackConfig;

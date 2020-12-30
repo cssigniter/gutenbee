@@ -1,28 +1,29 @@
 .wp-block-gutenbee-review {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  align-items: center;
+  align-self: flex-start;
+
+  .entry-rating-final-score {
+    flex: 1 1 25%;
+    padding: 0 20px;
+    text-align: center;
     display: flex;
-    width: 100%;
-    margin: 0;
-    align-items: center;
-    align-self: flex-start;
+    flex-direction: column;
 
-    .entry-rating-final-score {
-        flex: 1 1 25%;
-        padding: 0 20px;
-
-        p {
-            margin-bottom: 0;
-        }
+    p {
+      margin-bottom: 0;
     }
 
-    .entry-rating-final-score {
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-
-        strong {
-            font-weight: bold;
-            letter-spacing: -.1em;
-            line-height: .8;
-        }
+    strong {
+      font-weight: bold;
+      letter-spacing: -.1em;
+      line-height: .8;
     }
+
+    @media (max-width: 767px) {
+      padding-left: 0;
+    }
+  }
 }
