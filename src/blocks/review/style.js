@@ -35,12 +35,12 @@ const ReviewStyle = ({ attributes, children }) => {
       />
       <Rule
         value={scoreSize}
-        rule=".wp-block-gutenbee-review.[root] .entry-rating-final-score strong { font-size: %s; }"
+        rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-rating-final-score strong { font-size: %s; }"
         unit="px"
       />
       <Rule
         value={contentSize}
-        rule=".wp-block-gutenbee-review.[root] .entry-rating-final-score p { font-size: %s; }"
+        rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-rating-final-score p { font-size: %s; }"
         unit="px"
       />
       <Rule

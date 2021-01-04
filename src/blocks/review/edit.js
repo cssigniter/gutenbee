@@ -98,7 +98,7 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
           ...getBoxShadowCSSValue({ attributes }),
         }}
       >
-        <div className="entry-rating-final-score">
+        <div className="wp-block-gutenbee-review-rating-final-score">
           <strong
             style={{
               color: scoreColor,

@@ -49,7 +49,7 @@ registerBlockType('gutenbee/review', {
     content: {
       type: 'string',
       source: 'html',
-      selector: '.entry-rating-final-score p',
+      selector: '.wp-block-gutenbee-review-rating-final-score p',
       default: '',
     },
     contentSize: {
@@ -148,7 +148,7 @@ registerBlockType('gutenbee/review', {
           ...getBoxShadowCSSValue({ attributes }),
         }}
       >
-        <div className="entry-rating-final-score">
+        <div className="wp-block-gutenbee-review-rating-final-score">
           <strong style={{ color: scoreColor ? scoreColor : undefined }}>
             {score}
           </strong>
@@ -160,7 +160,7 @@ registerBlockType('gutenbee/review', {
             />
           )}
         </div>
-        <div className="entry-rating-scores">
+        <div className="wp-block-gutenbee-review-rating-scores">
           <InnerBlocks.Content />
         </div>
         <ReviewStyle attributes={attributes}>

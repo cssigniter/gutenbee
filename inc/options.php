@@ -41,11 +41,11 @@
 
 		public function general_settings_sanitize( $settings ) {
 			$new_settings = [];
-			$new_settings['active_high-contrast'] = isset($settings['active_high-contrast']) && 1 === intval($settings['active_high-contrast']);
+			$new_settings['active_high-contrast'] = isset( $settings['active_high-contrast'] ) && 1 === intval( $settings['active_high-contrast'] );
 			$new_settings['high-contrast-color']  = isset( $settings['high-contrast-color'] ) ? sanitize_text_field( $settings['high-contrast-color'] ) : '';
 
-			$new_settings['active_editor-width'] = isset($settings['active_editor-width']) && 1 === intval( $settings['active_editor-width'] );
-			$new_settings['editor-width-value']  = isset($settings['editor-width-value']) ? intval( $settings['editor-width-value'] ) : 680;
+			$new_settings['active_editor-width'] = isset( $settings['active_editor-width'] ) && 1 === intval( $settings['active_editor-width'] );
+			$new_settings['editor-width-value']  = isset( $settings['editor-width-value'] ) ? intval( $settings['editor-width-value'] ) : 680;
 
 			return $new_settings;
 		}
@@ -103,38 +103,38 @@
 
 			add_settings_field(
 				'active_high-contrast',
-				__('Enable high contrast styles', 'gutenbee'),
-				array($this, 'general_checkbox_render'),
+				__( 'Enable high contrast styles', 'gutenbee' ),
+				array( $this, 'general_checkbox_render' ),
 				'gutenbee_general_settings',
 				'gutenbee_general_settings_section',
-				array('id' => 'high-contrast')
+				array( 'id' => 'high-contrast' )
 			);
 
 			add_settings_field(
 				'high-contrast-color',
-				__('High contrast color', 'gutenbee'),
-				array($this, 'color_input_render'),
+				__( 'High contrast color', 'gutenbee' ),
+				array( $this, 'color_input_render' ),
 				'gutenbee_general_settings',
 				'gutenbee_general_settings_section',
-				array('id' => 'high-contrast-color')
+				array( 'id' => 'high-contrast-color' )
 			);
 
 			add_settings_field(
 				'active_editor-width',
-				__('Enable custom editor width', 'gutenbee'),
-				array($this, 'general_checkbox_render'),
+				__( 'Enable custom editor width', 'gutenbee' ),
+				array( $this, 'general_checkbox_render' ),
 				'gutenbee_general_settings',
 				'gutenbee_general_settings_section',
-				array('id' => 'editor-width')
+				array( 'id' => 'editor-width' )
 			);
 
 			add_settings_field(
 				'editor-width-value',
-				__('Editor width (in px)', 'gutenbee'),
-				array($this, 'width_input_render'),
+				__( 'Editor width (in px)', 'gutenbee' ),
+				array( $this, 'width_input_render' ),
 				'gutenbee_general_settings',
 				'gutenbee_general_settings_section',
-				array('id' => 'editor-width-value')
+				array( 'id' => 'editor-width-value' )
 			);
 		}
 
@@ -147,7 +147,7 @@
 		}
 
 		public function checkbox_render( $args ) {
-			$id    = $args['id'];
+			$id = $args['id'];
 			?>
 			<input
 				type="checkbox"
@@ -159,31 +159,31 @@
 		}
 
 		public function color_input_render( $args ) {
-			$id    = $args['id'];
+			$id = $args['id'];
 			?>
 			<input
 				id="gutenbee_general_settings-<?php echo esc_attr( $id ); ?>"
 				type="text"
 				name="gutenbee_general_settings[<?php echo esc_attr( $id ); ?>]"
-				value="<?php echo esc_attr($this->general_settings[ $id ]); ?>"
+				value="<?php echo esc_attr( $this->general_settings[ $id ] ); ?>"
 			>
 			<?php
 		}
 
 		public function width_input_render( $args ) {
-			$id    = $args['id'];
+			$id = $args['id'];
 			?>
 			<input
 				id="gutenbee_general_settings-<?php echo esc_attr( $id ); ?>"
 				type="number"
 				name="gutenbee_general_settings[<?php echo esc_attr( $id ); ?>]"
-				value="<?php echo esc_attr($this->general_settings[ $id ]); ?>"
+				value="<?php echo esc_attr( $this->general_settings[ $id ] ); ?>"
 			>
 			<?php
 		}
 
 		public function general_checkbox_render( $args ) {
-			$id    = $args['id'];
+			$id = $args['id'];
 			?>
 			<input
 				type="checkbox"

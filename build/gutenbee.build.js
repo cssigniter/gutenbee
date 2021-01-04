@@ -87893,11 +87893,11 @@ var style_ReviewStyle = function ReviewStyle(_ref) {
     unit: "px"
   }), wp.element.createElement(stylesheet_Rule, {
     value: scoreSize,
-    rule: ".wp-block-gutenbee-review.[root] .entry-rating-final-score strong { font-size: %s; }",
+    rule: ".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-rating-final-score strong { font-size: %s; }",
     unit: "px"
   }), wp.element.createElement(stylesheet_Rule, {
     value: contentSize,
-    rule: ".wp-block-gutenbee-review.[root] .entry-rating-final-score p { font-size: %s; }",
+    rule: ".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-rating-final-score p { font-size: %s; }",
     unit: "px"
   }), wp.element.createElement(stylesheet_Rule, {
     value: barHeight,
@@ -88030,7 +88030,7 @@ var edit_ReviewEdit = function ReviewEdit(_ref) {
       attributes: attributes
     }))
   }, wp.element.createElement("div", {
-    className: "entry-rating-final-score"
+    className: "wp-block-gutenbee-review-rating-final-score"
   }, wp.element.createElement("strong", {
     style: {
       color: scoreColor
@@ -88302,7 +88302,7 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/review', {
     content: {
       type: 'string',
       source: 'html',
-      selector: '.entry-rating-final-score p',
+      selector: '.wp-block-gutenbee-review-rating-final-score p',
       default: ''
     },
     contentSize: {
@@ -88395,7 +88395,7 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/review', {
         attributes: attributes
       }))
     }, wp.element.createElement("div", {
-      className: "entry-rating-final-score"
+      className: "wp-block-gutenbee-review-rating-final-score"
     }, wp.element.createElement("strong", {
       style: {
         color: scoreColor ? scoreColor : undefined
@@ -88407,7 +88407,7 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/review', {
       },
       value: content
     })), wp.element.createElement("div", {
-      className: "entry-rating-scores"
+      className: "wp-block-gutenbee-review-rating-scores"
     }, wp.element.createElement(external_window_wp_blockEditor_["InnerBlocks"].Content, null)), wp.element.createElement(review_style, {
       attributes: attributes
     }, wp.element.createElement(stylesheet_Rule, {
