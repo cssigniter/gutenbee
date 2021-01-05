@@ -101,10 +101,12 @@ function gutenbee_enqueue_frontend_block_assets() {
 add_action( 'admin_enqueue_scripts', 'gutenbee_admin_assets' );
 
 function gutenbee_admin_assets() {
-	wp_enqueue_style( 'gutenbee-admin-styles', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/assets/css/admin.css', array(), GUTENBEE_PLUGIN_VERSION );
-	wp_enqueue_script( 'wp-color-picker' );
-	wp_enqueue_style( 'wp-color-picker' );
-	wp_enqueue_script( 'gutenbee-admin-scripts', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/assets/js/admin.js', array(), GUTENBEE_PLUGIN_VERSION, true );
+	wp_enqueue_style( 'gutenbee-admin-styles', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/assets/css/admin.css', array(
+		'wp-color-picker',
+	), GUTENBEE_PLUGIN_VERSION );
+	wp_enqueue_script( 'gutenbee-admin-scripts', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/assets/js/admin.js', array(
+		'wp-color-picker',
+	), GUTENBEE_PLUGIN_VERSION, true );
 }
 
 // GutenBee's block category

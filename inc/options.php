@@ -40,12 +40,12 @@
 		}
 
 		public function general_settings_sanitize( $settings ) {
-			$new_settings = [];
+			$new_settings = array();
+
 			$new_settings['active_high-contrast'] = isset( $settings['active_high-contrast'] ) && 1 === intval( $settings['active_high-contrast'] );
 			$new_settings['high-contrast-color']  = isset( $settings['high-contrast-color'] ) ? sanitize_text_field( $settings['high-contrast-color'] ) : '';
-
-			$new_settings['active_editor-width'] = isset( $settings['active_editor-width'] ) && 1 === intval( $settings['active_editor-width'] );
-			$new_settings['editor-width-value']  = isset( $settings['editor-width-value'] ) ? intval( $settings['editor-width-value'] ) : 680;
+			$new_settings['active_editor-width']  = isset( $settings['active_editor-width'] ) && 1 === intval( $settings['active_editor-width'] );
+			$new_settings['editor-width-value']   = isset( $settings['editor-width-value'] ) ? intval( $settings['editor-width-value'] ) : 680;
 
 			return $new_settings;
 		}
@@ -79,7 +79,10 @@
 					array( $this, 'checkbox_render' ),
 					'gutenbee',
 					'gutenbee_settings_section',
-					array( 'id' => $key )
+					array(
+						'id'        => 'active_' . $key,
+						'label_for' => 'active_' . $key,
+					)
 				);
 			}
 
@@ -107,7 +110,10 @@
 				array( $this, 'general_checkbox_render' ),
 				'gutenbee_general_settings',
 				'gutenbee_general_settings_section',
-				array( 'id' => 'high-contrast' )
+				array(
+					'id'        => 'active_high-contrast',
+					'label_for' => 'active_high-contrast',
+				)
 			);
 
 			add_settings_field(
@@ -125,7 +131,10 @@
 				array( $this, 'general_checkbox_render' ),
 				'gutenbee_general_settings',
 				'gutenbee_general_settings_section',
-				array( 'id' => 'editor-width' )
+				array(
+					'id'        => 'active_editor-width',
+					'label_for' => 'active_editor-width',
+				)
 			);
 
 			add_settings_field(
@@ -150,9 +159,10 @@
 			$id = $args['id'];
 			?>
 			<input
+				id="<?php echo esc_attr( $id ); ?>"
 				type="checkbox"
-				name="gutenbee_settings[active_<?php echo esc_attr( $id ); ?>]"
-				<?php checked( $this->settings[ 'active_' . $id ] ); ?>
+				name="gutenbee_settings[<?php echo esc_attr( $id ); ?>]"
+				<?php checked( $this->settings[ $id ] ); ?>
 				value="1"
 			>
 			<?php
@@ -186,9 +196,10 @@
 			$id = $args['id'];
 			?>
 			<input
+				id="<?php echo esc_attr( $id ); ?>"
 				type="checkbox"
-				name="gutenbee_general_settings[active_<?php echo esc_attr( $id ); ?>]"
-				<?php checked( $this->general_settings[ 'active_' . $id ] ); ?>
+				name="gutenbee_general_settings[<?php echo esc_attr( $id ); ?>]"
+				<?php checked( $this->general_settings[ $id ] ); ?>
 				value="1"
 			>
 			<?php
