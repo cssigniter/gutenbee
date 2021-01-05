@@ -299,7 +299,7 @@
 
 			$custom_width = $this->general_settings['editor-width-value'];
 			echo '<style id="gb-ew">
-				.wp-block {
+				div.editor-styles-wrapper .wp-block {
 					max-width: ' . $custom_width . 'px;
 				}
 			</style>';
