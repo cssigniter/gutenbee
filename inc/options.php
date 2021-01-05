@@ -297,10 +297,7 @@
 				return;
 			}
 
-			global $post;
-
-			$single_width = get_post_meta( $post->ID, 'gutenbee_single_item_editor_width', true );
-			$custom_width = $single_width ? $single_width : $this->general_settings['editor-width-value'];
+			$custom_width = $this->general_settings['editor-width-value'];
 			echo '<style id="gb-ew">
 				.wp-block {
 					max-width: ' . $custom_width . 'px;
