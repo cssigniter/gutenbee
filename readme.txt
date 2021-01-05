@@ -26,11 +26,13 @@ https://www.youtube.com/watch?v=Wv_zwREKi68
 * **Accordion**: Organize your content into accordion elements. All the content including titles can be edited directly in the WordPress editor and you can choose any color combination from the block’s settings.
 * **Banner**: Create beautiful and flexible banners on your site to capture user attention. Supports video backgrounds.
 * **Buttons**: Actionable content needs clickable buttons. Add one or more buttons, tweak their colors, borders and alignment and you're all set!
+* **Container**: A powerful container block allowing content grouping or splitting in columns, complete with fully responsive settings.
 * **Countdown**: Have an upcoming event? Pick a date directly inside the editor screen, choose your layout, colors, and typography and you’re ready!
 * **CountUp**: Maybe not every block counts, but this one does! Pick a starting and ending number, add a suffix or prefix, style it and you’re done!
 * **Divider**: Provide thematic content spacing with a fancy divider, edit its style, colors, and margins.
 * **Food Menu**: Display your dishes and drink offerings in a stylish fashion.
 * **Google Maps**: Easy-peasy fancy maps with the Google Maps block. Just enter a location and save, it just works! With support for beautiful predefined map styles and Snazzy custom map styles!
+* **Heading**: A normal heading block with responsive settings.
 * **Icon**: Display icons from a custom designed, curated list of over one hundred icons, with more icons being added in regular updates!
 * **Icon Box**: Your standard icon box block on steroids. Choose from over one hundred custom designed icons, style them any way and at any size you like, add some text and you’re good to go.
 * **Icon List**: Create lists with beautiful icons instead of bullets.
@@ -38,13 +40,12 @@ https://www.youtube.com/watch?v=Wv_zwREKi68
 * **Image Box**: A standard image box with title and text block on steroids. Adjust your spacing, layout, alignment, or colors and typography.
 * **Image Comparison**: Need to showcase your photo editing skills or writing up a camera review? With the Image Comparison block you can enhance your posts with side-by-side comparison of any two photos you wish.
 * **Justified Gallery**: Create beautiful justified grid layout galleries inside any of your post or pages.
-* **Progress Bar**: Add stylish progress bars and display either progress or your skillset with the most visually captivating way.
-* **Slideshow**: Add a fancy slideshow to your posts or pages. Drag and drop your images, choose your settings and hit publish!
-* **Tabs**: Organize your content into fancy tabs. All the content including titles can be edited directly in the WordPress editor and you can choose any color combination from the block’s settings.
-* **Container**: A powerful container block allowing content grouping or splitting in columns, complete with fully responsive settings.
-* **Heading**: A normal heading block with responsive settings.
 * **Paragraph**: A variation of the core Paragraph block with responsive spacing settings.
+* **Progress Bar**: Add stylish progress bars and display either progress or your skillset with the most visually captivating way.
+* **Review**: Transform any post into a review. Score items individually, and average them out automatically.
+* **Slideshow**: Add a fancy slideshow to your posts or pages. Drag and drop your images, choose your settings and hit publish!
 * **Spacer**: Complete control spacing of elements in your posts and pages with the responsive Spacer block.
+* **Tabs**: Organize your content into fancy tabs. All the content including titles can be edited directly in the WordPress editor and you can choose any color combination from the block’s settings.
 * **Testimonial**: An easy to use block to help you display your testimonials with multiple layouts.
 * **Post Types**: List posts from any post type in a configurable grid, complete with fully responsive settings.
 * **Video**: Embed a video from your media library or upload a new one.
@@ -71,6 +72,21 @@ Note that if you want to use the Google Maps block you will also need a Google M
 7. Tabs or Accordions, group your content the way you want.
 
 == Changelog ==
+
+= 2.9.0 =
+* Added Review block.
+* Video Embed block: Added option "Stick to bottom on scroll".
+* Post Type block: Themes may now opt in to user-selectable image sizes for specific post types.
+* Added Background zoom support for the Banner & Container blocks.
+* Added Background zoom option to BackgroundControl.
+* Added plugin option to modify editor width globally.
+* Added plugin option to modify inserter & appender button colors globally.
+* Front-end styles are now minified.
+* Added link to the GutenBee settings on the plugin listing page.
+* Renamed gutenbee_admin_styles() to gutenbee_admin_assets()
+* gutenbee_get_template_part()'s 4th parameter renamed to $args, in order for template parts to be compatible with any other standard template parts, since the $args parameter was added in get_template_part().
+* Fixed initial appender size on Banner block.
+* Fixed initial minimum height of Banner block.
 
 = 2.8.1 =
 * Fixed an issue with inner block wrappers caused by changes made in Gutenberg v9.2 / WordPress 5.6
