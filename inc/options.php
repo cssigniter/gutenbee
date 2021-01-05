@@ -43,7 +43,7 @@
 			$new_settings = array();
 
 			$new_settings['active_high-contrast'] = isset( $settings['active_high-contrast'] ) && 1 === intval( $settings['active_high-contrast'] );
-			$new_settings['high-contrast-color']  = isset( $settings['high-contrast-color'] ) ? sanitize_text_field( $settings['high-contrast-color'] ) : '';
+			$new_settings['high-contrast-color']  = isset( $settings['high-contrast-color'] ) ? sanitize_hex_color( $settings['high-contrast-color'] ) : '';
 			$new_settings['active_editor-width']  = isset( $settings['active_editor-width'] ) && 1 === intval( $settings['active_editor-width'] );
 			$new_settings['editor-width-value']   = isset( $settings['editor-width-value'] ) ? intval( $settings['editor-width-value'] ) : 680;
 
@@ -71,7 +71,7 @@
 
 			$simple_block_settings = gutenbee_get_setting_block_names();
 
-			// All checkboxes
+			// All block checkboxes
 			foreach ( $simple_block_settings as $key => $label ) {
 				add_settings_field(
 					'active_' . $key,
@@ -229,15 +229,15 @@
 		}
 
 		public function options_page() {
-			$active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'general_options';
+			$active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general_options';
 			?>
 			<div class="wrap">
 				<div class="gutenbee-settings-container">
 					<div class="gutenbee-settings-content">
 
 						<h2 class="nav-tab-wrapper">
-							<a href="?page=gutenbee&tab=general_options" class="nav-tab <?php echo $active_tab == 'general_options' ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'General Options', 'gutenbee' ); ?></a>
-							<a href="?page=gutenbee&tab=settings_section" class="nav-tab <?php echo $active_tab == 'settings_section' ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Block Options', 'gutenbee' ); ?></a>
+							<a href="?page=gutenbee&tab=general_options" class="nav-tab <?php echo esc_attr( $active_tab === 'general_options' ? 'nav-tab-active' : '' ); ?>"><?php esc_html_e( 'General Options', 'gutenbee' ); ?></a>
+							<a href="?page=gutenbee&tab=settings_section" class="nav-tab <?php echo esc_attr( $active_tab === 'settings_section' ? 'nav-tab-active' : '' ); ?>"><?php esc_html_e( 'Block Options', 'gutenbee' ); ?></a>
 						</h2>
 						<form action="options.php" method="post" class="gutenbee-settings-form">
 							<?php
