@@ -537,6 +537,12 @@ function gutenbee_settings_link( $links ) {
 	return array_merge( $action_links, $links );
 }
 
+add_filter( 'excerpt_allowed_blocks', 'gutenbee_filter_excerpt_allowed_blocks' );
+function gutenbee_filter_excerpt_allowed_blocks( $allowed_blocks ) {
+	$allowed_blocks = array_merge( $allowed_blocks, array( 'gutenbee/paragraph' ) );
+
+	return $allowed_blocks;
+}
 
 require_once untrailingslashit( dirname( __FILE__ ) ) . '/inc/options.php';
 require_once untrailingslashit( dirname( __FILE__ ) ) . '/src/blocks/container/block.php';
