@@ -1,5 +1,3 @@
-import { registerBlockType } from 'wp.blocks';
-import { __, _x } from 'wp.i18n';
 import { RichText } from 'wp.blockEditor';
 import classNames from 'classnames';
 import { Fragment } from 'wp.element';
@@ -7,33 +5,21 @@ import { Fragment } from 'wp.element';
 import {
   getDefaultResponsiveValue,
   getDefaultSpacingValue,
-} from '../../components/controls/responsive-control/default-values';
-import borderControlAttributes from '../../components/controls/border-controls/attributes';
-import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+} from '../../../components/controls/responsive-control/default-values';
+import borderControlAttributes from '../../../components/controls/border-controls/attributes';
 import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
-} from '../../components/controls/box-shadow-controls/helpers';
-import TestimonialEdit from './edit';
-import getBlockId from '../../util/getBlockId';
-import TestimonialStyle from './style';
-import TestimonialBlockIcon from './block-icon';
-import deprecated from './deprecated';
-import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
-import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+} from '../../../components/controls/box-shadow-controls/helpers';
+import getBlockId from '../../../util/getBlockId';
+import { getBreakpointVisibilityClassNames } from '../../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../../components/controls/auth-visibility-control/helpers';
+import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
+import TestimonialStyle from '../style';
 
-registerBlockType('gutenbee/testimonial', {
-  title: __('GutenBee Testimonial'),
-  description: __('Displays a testimonial.'),
-  icon: TestimonialBlockIcon,
-  category: 'gutenbee',
-  keywords: [__('testimonial'), __('quote'), __('blockquote')],
-  styles: [
-    { name: 'default', label: _x('Default', 'block style'), isDefault: true },
-    { name: 'circle-mask', label: _x('Circle Mask', 'block style') },
-  ],
+const v2 = {
   supports: {
-    anchor: false,
+    anchor: true,
   },
   attributes: {
     uniqueId: {
@@ -154,8 +140,6 @@ registerBlockType('gutenbee/testimonial', {
       },
     },
   },
-  deprecated,
-  edit: TestimonialEdit,
   save: ({ attributes, className }) => {
     const {
       uniqueId,
@@ -176,7 +160,7 @@ registerBlockType('gutenbee/testimonial', {
     const blockId = getBlockId(uniqueId);
 
     const blockProps = {
-      id: blockId,
+      blockId,
       className: classNames(
         className,
         blockId,
@@ -284,4 +268,6 @@ registerBlockType('gutenbee/testimonial', {
       </blockquote>
     );
   },
-});
+};
+
+export default v2;

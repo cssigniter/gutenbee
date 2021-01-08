@@ -76,7 +76,7 @@ registerBlockType('gutenbee/tabs', {
   category: 'gutenbee',
   keywords: [__('tabs')],
   supports: {
-    anchor: true,
+    anchor: false,
   },
   attributes: {
     uniqueId: {

@@ -407,7 +407,7 @@ registerBlockType('gutenbee/iconbox', {
   category: 'gutenbee',
   keywords: [__('icon')],
   supports: {
-    anchor: true,
+    anchor: false,
   },
   attributes: {
     ...iconAttributes,

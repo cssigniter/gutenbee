@@ -10,7 +10,7 @@ const propTypes = {
 };
 
 const SpacerStyle = ({ attributes, children }) => {
-  const { uniqueId, height, blockMargin } = attributes;
+  const { uniqueId, height, blockMargin, backgroundImage } = attributes;
   const blockId = getBlockId(uniqueId);
 
   return (
@@ -24,6 +24,10 @@ const SpacerStyle = ({ attributes, children }) => {
         value={blockMargin}
         rule=".wp-block-gutenbee-spacer.[root] { margin: %s; }"
         unit="px"
+      />
+      <Rule
+        value={backgroundImage}
+        rule=".wp-block-gutenbee-spacer.[root] .wp-block-gutenbee-spacer-background { %s }"
       />
       {children}
     </StyleSheet>

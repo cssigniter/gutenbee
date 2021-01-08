@@ -10,10 +10,9 @@ import { forEach, find, difference } from 'lodash';
 
 import useUniqueId from '../../../hooks/useUniqueId';
 import ResponsiveControl from '../../../components/controls/responsive-control/ResponsiveControl';
-import { getBackgroundImageStyle } from '../../../components/controls/background-controls/helpers';
 import MarginControls from '../../../components/controls/margin-controls';
 import ColumnStyle from './style';
-import BackgroundControls from '../../../components/controls/background-controls';
+import BackgroundControls from '../../../components/controls/background-controls/BackgroundControls';
 import getBlockId from '../../../util/getBlockId';
 import {
   getAdjacentBlocks,
@@ -74,7 +73,6 @@ const ColumnBlockEdit = ({
           style={{
             color: textColor,
             backgroundColor,
-            ...getBackgroundImageStyle(backgroundImage),
             ...getBorderCSSValue({ attributes }),
             ...getBoxShadowCSSValue({ attributes }),
           }}
@@ -192,12 +190,24 @@ const ColumnBlockEdit = ({
             onChange={value => setAttributes({ backgroundColor: value })}
           />
 
-          <BackgroundControls
-            label={__('Background Image')}
-            setAttributes={setAttributes}
-            attributes={attributes}
-            attributeKey="backgroundImage"
-          />
+          <ResponsiveControl>
+            {breakpoint => {
+              return (
+                <BackgroundControls
+                  label={__('Background Image')}
+                  backgroundImageValue={backgroundImage[breakpoint]}
+                  onBackgroundImageChange={value =>
+                    setAttributes({
+                      backgroundImage: {
+                        ...backgroundImage,
+                        [breakpoint]: value,
+                      },
+                    })
+                  }
+                />
+              );
+            }}
+          </ResponsiveControl>
 
           <BorderControls
             attributes={attributes}

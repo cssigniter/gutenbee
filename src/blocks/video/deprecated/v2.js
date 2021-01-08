@@ -1,34 +1,24 @@
-import { __ } from 'wp.i18n';
-import { registerBlockType } from 'wp.blocks';
 import { RichText } from 'wp.blockEditor';
 import classNames from 'classnames';
 
-import VideoEdit from './edit';
 import {
-  getDefaultSpacingValue,
   getDefaultResponsiveValue,
-} from '../../components/controls/responsive-control/default-values';
-import getBlockId from '../../util/getBlockId';
-import VideoStyle from './style';
-import VideoBlockIcon from './block-icon';
-import borderControlAttributes from '../../components/controls/border-controls/attributes';
-import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+  getDefaultSpacingValue,
+} from '../../../components/controls/responsive-control/default-values';
+import borderControlAttributes from '../../../components/controls/border-controls/attributes';
 import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
-} from '../../components/controls/box-shadow-controls/helpers';
-import deprecated from './deprecated';
-import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
-import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+} from '../../../components/controls/box-shadow-controls/helpers';
+import getBlockId from '../../../util/getBlockId';
+import { getBreakpointVisibilityClassNames } from '../../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../../components/controls/auth-visibility-control/helpers';
+import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
+import VideoStyle from '../style';
 
-registerBlockType('gutenbee/video', {
-  title: __('GutenBee Video'),
-  description: __('Embed a video from your media library or upload a new one.'),
-  icon: VideoBlockIcon,
-  category: 'gutenbee',
-  keywords: [__('video'), __('movie')],
+const v2 = {
   supports: {
-    anchor: false,
+    anchor: true,
     align: true,
   },
   attributes: {
@@ -119,8 +109,6 @@ registerBlockType('gutenbee/video', {
       },
     },
   },
-  deprecated,
-  edit: VideoEdit,
   save: ({ attributes, className }) => {
     const {
       uniqueId,
@@ -171,4 +159,6 @@ registerBlockType('gutenbee/video', {
       </figure>
     );
   },
-});
+};
+
+export default v2;

@@ -111,8 +111,15 @@ const webpackConfig = {
             options: {
               plugins: () => [
                 autoprefixer({
-                  browsers: ['last 2 versions'],
+                  browsers: [
+                    'last 5 chrome version',
+                    'last 5 firefox version',
+                    'last 3 iOS version',
+                    'last 3 Safari version',
+                    'Android >= 8',
+                  ],
                   cascade: false,
+                  remove: true,
                 }),
               ],
             },

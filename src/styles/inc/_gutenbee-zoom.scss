@@ -1,14 +1,14 @@
 .gutenbee-zoom {
-    overflow: hidden;
+  overflow: hidden;
 
-    &:hover,
-    &:focus {
-        > div[class*="-background"] {
-            transform: scale(1.05);
-        }
-    }
-
+  &:hover,
+  &:focus {
     > div[class*="-background"] {
-        transition: all .5s;
+      transform: scale(1.05);
     }
+  }
+
+  > div[class*="-background"] {
+    transition: all .5s;
+  }
 }

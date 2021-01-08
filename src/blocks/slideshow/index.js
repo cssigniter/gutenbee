@@ -34,7 +34,7 @@ registerBlockType('gutenbee/slideshow', {
   category: 'gutenbee',
   keywords: [__('slideshow'), __('gallery')],
   supports: {
-    anchor: true,
+    anchor: false,
   },
   attributes: {
     uniqueId: {

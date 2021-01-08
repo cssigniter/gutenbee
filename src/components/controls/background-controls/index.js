@@ -1,3 +1,3 @@
-import BackgroundControls from './BackgroundControl';
+import BackgroundControls from './BackgroundControls';
 
 export default BackgroundControls;

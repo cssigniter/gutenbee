@@ -6,7 +6,7 @@ import { InspectorControls, AlignmentToolbar } from 'wp.blockEditor';
 import { BORDER_STYLES, Divider } from './index';
 import MarginControls from '../../components/controls/margin-controls';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
-import BackgroundControls from '../../components/controls/background-controls';
+import BackgroundControls from '../../components/controls/background-controls/BackgroundControls';
 import useUniqueId from '../../hooks/useUniqueId';
 import BorderControls from '../../components/controls/border-controls';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
@@ -31,6 +31,7 @@ const DividerEdit = ({
     backgroundColor,
     blockBreakpointVisibility,
     blockAuthVisibility,
+    backgroundImage,
   } = attributes;
 
   useUniqueId({ attributes, setAttributes, clientId });
@@ -102,14 +103,24 @@ const DividerEdit = ({
               defaultValue={backgroundColor || ''}
               onChange={value => setAttributes({ backgroundColor: value })}
             />
-
-            <BackgroundControls
-              label={__('Background Image')}
-              setAttributes={setAttributes}
-              attributes={attributes}
-              attributeKey="backgroundImage"
-              supportsParallax
-            />
+            <ResponsiveControl>
+              {breakpoint => {
+                return (
+                  <BackgroundControls
+                    label={__('Background Image')}
+                    backgroundImageValue={backgroundImage[breakpoint]}
+                    onBackgroundImageChange={value =>
+                      setAttributes({
+                        backgroundImage: {
+                          ...backgroundImage,
+                          [breakpoint]: value,
+                        },
+                      })
+                    }
+                  />
+                );
+              }}
+            </ResponsiveControl>
 
             <BorderControls
               attributes={attributes}

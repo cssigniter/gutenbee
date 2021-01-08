@@ -1,38 +1,75 @@
-import { __ } from 'wp.i18n';
-import { registerBlockType, getBlockDefaultClassName } from 'wp.blocks';
+import { getBlockDefaultClassName } from 'wp.blocks';
 import { InnerBlocks } from 'wp.blockEditor';
 import classNames from 'classnames';
 import { Fragment } from 'wp.element';
 
-import { getDefaultResponsiveBackgroundImageValue } from '../../components/controls/background-controls/helpers';
-import BannerStyle from './style';
-import getBlockId from '../../util/getBlockId';
+import getBlockId from '../../../util/getBlockId';
+import StyleSheet from '../../../components/stylesheet';
+import Rule from '../../../components/stylesheet/Rule';
 import {
   getDefaultResponsiveValue,
   getDefaultSpacingValue,
-} from '../../components/controls/responsive-control/default-values';
-import borderControlAttributes from '../../components/controls/border-controls/attributes';
-import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+} from '../../../components/controls/responsive-control/default-values';
+import borderControlAttributes from '../../../components/controls/border-controls/attributes';
 import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
-} from '../../components/controls/box-shadow-controls/helpers';
-import BannerBlockEdit from './edit';
-import BannerBlockIcon from './block-icon';
-import { getVideoProviderInfoByUrl } from '../../util/video/providers';
-import VideoBackgroundFrontEnd from '../../util/video/components/VideoBackgroundFrontend';
-import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
-import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
-import deprecated from './deprecated';
+} from '../../../components/controls/box-shadow-controls/helpers';
+import { getVideoProviderInfoByUrl } from '../../../util/video/providers';
+import { getBackgroundImageStyle } from '../../../components/controls/background-controls/helpers';
+import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
+import VideoBackgroundFrontEnd from '../../../util/video/components/VideoBackgroundFrontend';
+import { getBreakpointVisibilityClassNames } from '../../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../../components/controls/auth-visibility-control/helpers';
 
-registerBlockType('gutenbee/banner', {
-  title: __('GutenBee Banner'),
-  description: __('A versatile block for creating banners of any kind.'),
-  icon: BannerBlockIcon,
-  category: 'gutenbee',
-  keywords: [__('banner'), __('hero'), __('section')],
+const BannerStyle = ({ attributes, children }) => {
+  const {
+    uniqueId,
+    bannerHeight,
+    blockPadding,
+    blockMargin,
+    verticalContentAlignment,
+    horizontalContentAlignment,
+  } = attributes;
+  const blockId = getBlockId(uniqueId);
+
+  return (
+    <StyleSheet id={blockId}>
+      <Rule
+        value={bannerHeight}
+        rule=".wp-block-gutenbee-banner.[root] { height: %s; }"
+        unit="px"
+        edgeCase={{
+          edge: -1,
+          value: '100vh',
+        }}
+      />
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-banner.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-banner.[root] .wp-block-gutenbee-banner-inner { padding: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={verticalContentAlignment}
+        rule=".wp-block-gutenbee-banner.[root] { align-items: %s; }"
+      />
+      <Rule
+        value={horizontalContentAlignment}
+        rule=".wp-block-gutenbee-banner.[root] { justify-content: %s; }"
+      />
+      {children}
+    </StyleSheet>
+  );
+};
+
+const v1 = {
   supports: {
-    anchor: false,
+    anchor: true,
   },
   attributes: {
     uniqueId: {
@@ -56,12 +93,13 @@ registerBlockType('gutenbee/banner', {
     },
     backgroundImage: {
       type: 'object',
-      default: getDefaultResponsiveBackgroundImageValue(),
-    },
-    backgroundImageEffects: {
-      type: 'object',
       default: {
-        zoom: false,
+        url: '',
+        image: null,
+        repeat: 'no-repeat',
+        size: 'cover',
+        position: 'top center',
+        attachment: 'scroll',
         parallax: false,
         parallaxSpeed: 0.3,
       },
@@ -111,8 +149,39 @@ registerBlockType('gutenbee/banner', {
       },
     },
   },
-  deprecated,
-  edit: BannerBlockEdit,
+  migrate(attributes) {
+    return {
+      ...attributes,
+      backgroundImage: {
+        desktop: {
+          url: attributes.backgroundImage.url,
+          repeat: attributes.backgroundImage.repeat,
+          size: attributes.backgroundImage.size,
+          position: attributes.backgroundImage.position,
+          attachment: attributes.backgroundImage.attachment,
+        },
+        tablet: {
+          url: '',
+          repeat: 'no-repeat',
+          size: 'cover',
+          position: 'top center',
+          attachment: 'scroll',
+        },
+        mobile: {
+          url: '',
+          repeat: 'no-repeat',
+          size: 'cover',
+          position: 'top center',
+          attachment: 'scroll',
+        },
+      },
+      backgroundImageEffects: {
+        zoom: attributes.backgroundImage?.zoom ?? false,
+        parallax: attributes.backgroundImage?.parallax ?? false,
+        parallaxSpeed: attributes.backgroundImage?.parallaxSpeed ?? 0.3,
+      },
+    };
+  },
   save: ({ attributes, className }) => {
     const {
       uniqueId,
@@ -121,7 +190,7 @@ registerBlockType('gutenbee/banner', {
       textColor,
       backgroundColor,
       backgroundVideoURL,
-      backgroundImageEffects,
+      backgroundImage,
       overlayBackgroundColor,
       blockBreakpointVisibility,
       blockAuthVisibility,
@@ -130,7 +199,7 @@ registerBlockType('gutenbee/banner', {
     const blockId = getBlockId(uniqueId);
     const baseClass = getBlockDefaultClassName('gutenbee/banner');
 
-    const { parallax, parallaxSpeed, zoom } = backgroundImageEffects;
+    const { parallax, parallaxSpeed, zoom } = backgroundImage;
 
     const videoInfo = backgroundVideoURL
       ? getVideoProviderInfoByUrl(backgroundVideoURL)
@@ -161,6 +230,7 @@ registerBlockType('gutenbee/banner', {
           data-parallax-speed={parallaxSpeed}
           style={{
             backgroundColor,
+            ...getBackgroundImageStyle(backgroundImage),
             ...getBorderCSSValue({ attributes }),
             ...getBoxShadowCSSValue({ attributes }),
           }}
@@ -204,4 +274,6 @@ registerBlockType('gutenbee/banner', {
       </div>
     );
   },
-});
+};
+
+export default v1;

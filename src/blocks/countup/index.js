@@ -86,7 +86,7 @@ registerBlockType('gutenbee/countup', {
   icon: CountupBlockIcon,
   keywords: [__('counter'), __('numbers'), __('animation')],
   supports: {
-    anchor: true,
+    anchor: false,
   },
   attributes: {
     uniqueId: {

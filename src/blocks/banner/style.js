@@ -17,6 +17,7 @@ const BannerStyle = ({ attributes, children }) => {
     blockMargin,
     verticalContentAlignment,
     horizontalContentAlignment,
+    backgroundImage,
   } = attributes;
   const blockId = getBlockId(uniqueId);
 
@@ -48,6 +49,10 @@ const BannerStyle = ({ attributes, children }) => {
       <Rule
         value={horizontalContentAlignment}
         rule=".wp-block-gutenbee-banner.[root] { justify-content: %s; }"
+      />
+      <Rule
+        value={backgroundImage}
+        rule=".wp-block-gutenbee-banner.[root] .wp-block-gutenbee-banner-background { %s }"
       />
       {children}
     </StyleSheet>

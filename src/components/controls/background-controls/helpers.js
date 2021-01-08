@@ -1,3 +1,29 @@
+export const getDefaultResponsiveBackgroundImageValue = () => {
+  return {
+    desktop: {
+      url: '',
+      repeat: 'no-repeat',
+      size: 'cover',
+      position: 'top center',
+      attachment: 'scroll',
+    },
+    tablet: {
+      url: '',
+      repeat: 'no-repeat',
+      size: 'cover',
+      position: 'top center',
+      attachment: 'scroll',
+    },
+    mobile: {
+      url: '',
+      repeat: 'no-repeat',
+      size: 'cover',
+      position: 'top center',
+      attachment: 'scroll',
+    },
+  };
+};
+
 export const getBackgroundImageStyle = settings => {
   const { url, repeat, size, position, attachment } = settings;
 

@@ -10,44 +10,44 @@ import {
 } from 'wp.components';
 
 const propTypes = {
-  setAttributes: PropTypes.func.isRequired,
-  attributeKey: PropTypes.string.isRequired,
-  attributes: PropTypes.object.isRequired,
-  label: PropTypes.string,
-  supportsParallax: PropTypes.bool,
-  supportsZoom: PropTypes.bool,
+  backgroundImageValue: PropTypes.shape({
+    url: PropTypes.string,
+    repeat: PropTypes.string,
+    size: PropTypes.string,
+    position: PropTypes.string,
+    attachment: PropTypes.string,
+  }),
+  onBackgroundImageChange: PropTypes.func.isRequired,
+  zoomValue: PropTypes.bool,
+  onZoomChange: PropTypes.func,
+  parallaxValue: PropTypes.shape({
+    parallax: PropTypes.bool,
+    parallaxSpeed: PropTypes.number,
+  }),
+  onParallaxChange: PropTypes.func,
+  backgroundVideoUrlValue: PropTypes.string,
+  label: PropTypes.node,
 };
 
 const BackgroundControls = ({
-  setAttributes,
-  attributeKey,
-  attributes,
+  backgroundImageValue,
+  onBackgroundImageChange,
+  zoomValue,
+  onZoomChange,
+  parallaxValue = {},
+  onParallaxChange,
+  backgroundVideoUrlValue,
   label = __('Background'),
-  supportsParallax,
-  supportsZoom,
 }) => {
-  const backgroundImage = attributes[attributeKey];
-  const setBackgroundSetting = setting => {
-    setAttributes({
-      backgroundImage: {
-        ...backgroundImage,
-        ...setting,
-      },
+  const { url, repeat, size, position, attachment } = backgroundImageValue;
+  const { parallax, parallaxSpeed } = parallaxValue;
+
+  const onSetBackgroundImageSetting = setting => {
+    onBackgroundImageChange({
+      ...backgroundImageValue,
+      ...setting,
     });
   };
-
-  const {
-    url,
-    repeat,
-    size,
-    position,
-    attachment,
-    parallax,
-    parallaxSpeed,
-    zoom,
-  } = backgroundImage;
-
-  const { backgroundVideoURL } = attributes;
 
   return (
     <div className="gutenbee-control-background">
@@ -57,9 +57,8 @@ const BackgroundControls = ({
         {!url ? (
           <MediaUpload
             onSelect={image => {
-              setBackgroundSetting({
+              onSetBackgroundImageSetting({
                 url: image.url,
-                image,
               });
             }}
             allowedTypes={['image']}
@@ -77,9 +76,8 @@ const BackgroundControls = ({
           <Fragment>
             <MediaUpload
               onSelect={image => {
-                setBackgroundSetting({
+                onSetBackgroundImageSetting({
                   url: image.url,
-                  image,
                 });
               }}
               allowedTypes={['image']}
@@ -102,7 +100,7 @@ const BackgroundControls = ({
                       <Button
                         isDefault
                         onClick={() =>
-                          setBackgroundSetting({ url: '', image: null })
+                          onSetBackgroundImageSetting({ url: '', image: null })
                         }
                       >
                         {__('Remove')}
@@ -126,7 +124,7 @@ const BackgroundControls = ({
             { value: 'repeat-x', label: __('Tile Horizontally') },
             { value: 'repeat-y', label: __('Tile Vertically') },
           ]}
-          onChange={value => setBackgroundSetting({ repeat: value })}
+          onChange={value => onSetBackgroundImageSetting({ repeat: value })}
         />
 
         <SelectControl
@@ -143,7 +141,7 @@ const BackgroundControls = ({
             { value: 'center bottom', label: __('Bottom center') },
             { value: 'right bottom', label: __('Bottom right') },
           ]}
-          onChange={value => setBackgroundSetting({ position: value })}
+          onChange={value => onSetBackgroundImageSetting({ position: value })}
         />
       </div>
 
@@ -155,7 +153,7 @@ const BackgroundControls = ({
             { value: 'scroll', label: __('Scroll') },
             { value: 'fixed', label: __('Fixed') },
           ]}
-          onChange={value => setBackgroundSetting({ attachment: value })}
+          onChange={value => onSetBackgroundImageSetting({ attachment: value })}
         />
 
         <SelectControl
@@ -166,16 +164,19 @@ const BackgroundControls = ({
             { value: 'contain', label: __('Contain') },
             { value: 'auto', label: __('Auto') },
           ]}
-          onChange={value => setBackgroundSetting({ size: value })}
+          onChange={value => onSetBackgroundImageSetting({ size: value })}
         />
       </div>
-      {supportsZoom && !!url && !backgroundVideoURL && (
+
+      <hr />
+
+      {onZoomChange && !backgroundVideoUrlValue && (
         <ToggleControl
           label={__('Enable zoom')}
-          checked={zoom}
-          onChange={value => setBackgroundSetting({ zoom: value })}
+          checked={zoomValue}
+          onChange={value => onZoomChange(value)}
           help={
-            zoom
+            zoomValue
               ? __(
                   'The background image zooms when hovered. Parallax must be disabled.',
                 )
@@ -185,12 +186,18 @@ const BackgroundControls = ({
           }
         />
       )}
-      {supportsParallax && !!url && (
+
+      {onParallaxChange && (
         <Fragment>
           <ToggleControl
             label={__('Enable Parallax')}
             checked={parallax}
-            onChange={value => setBackgroundSetting({ parallax: value })}
+            onChange={value =>
+              onParallaxChange({
+                ...parallaxValue,
+                parallax: value,
+              })
+            }
           />
 
           <RangeControl
@@ -199,7 +206,9 @@ const BackgroundControls = ({
             min={0}
             max={1}
             step={0.1}
-            onChange={value => setBackgroundSetting({ parallaxSpeed: value })}
+            onChange={value =>
+              onParallaxChange({ ...parallaxValue, parallaxSpeed: value })
+            }
           />
         </Fragment>
       )}

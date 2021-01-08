@@ -40,6 +40,19 @@ export const isSpacingRule = rule => {
   );
 };
 
+export const isBackgroundImageRuleValue = value => {
+  if (!value) {
+    return false;
+  }
+
+  return (
+    typeof value === 'object' &&
+    'url' in value &&
+    'attachment' in value &&
+    'repeat' in value
+  );
+};
+
 const getRuleContents = rule => {
   if (!rule) {
     return '';
@@ -115,8 +128,6 @@ export const defaultGetCSSRule = ({ id, value, rule, unit = '', edgeCase }) => {
     return `.${id} ${rule}`;
   })();
 
-  // const base = `.${id} ${rule}`;
-
   //
   // Spacing control (position or margin/padding)
   //
@@ -143,6 +154,25 @@ export const defaultGetCSSRule = ({ id, value, rule, unit = '', edgeCase }) => {
 
       return !!val.trim() ? replaceBetweenCurly(base, ` ${val} `) : undefined;
     }
+  }
+
+  //
+  // Background image controls
+  //
+  if (isBackgroundImageRuleValue(value)) {
+    if (!value.url) {
+      return undefined;
+    }
+
+    const backgroundImageStyle = [
+      `background-image: url(${value.url});`,
+      `background-repeat: ${value.repeat};`,
+      `background-size: ${value.size};`,
+      `background-position: ${value.position};`,
+      `background-attachment: ${value.attachment};`,
+    ].join(' ');
+
+    return sprintf(base, backgroundImageStyle);
   }
 
   //

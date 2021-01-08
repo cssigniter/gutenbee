@@ -4,14 +4,13 @@ import classNames from 'classnames';
 
 import getBlockId from '../../util/getBlockId';
 import {
-  getDefaultBackgroundImageValue,
   getDefaultResponsiveValue,
   getDefaultSpacingValue,
 } from '../../components/controls/responsive-control/default-values';
 import SpacerStyle from './style';
 import SpacerEdit from './edit';
 import SpacerBlockIcon from './block-icon';
-import { getBackgroundImageStyle } from '../../components/controls/background-controls/helpers';
+import { getDefaultResponsiveBackgroundImageValue } from '../../components/controls/background-controls/helpers';
 import deprecated from './deprecated';
 import borderControlAttributes from '../../components/controls/border-controls/attributes';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
@@ -29,7 +28,7 @@ registerBlockType('gutenbee/spacer', {
   category: 'gutenbee',
   keywords: [__('spacer'), __('spacing'), __('distance')],
   supports: {
-    anchor: true,
+    anchor: false,
   },
   attributes: {
     uniqueId: {
@@ -48,7 +47,15 @@ registerBlockType('gutenbee/spacer', {
     },
     backgroundImage: {
       type: 'object',
-      default: getDefaultBackgroundImageValue(),
+      default: getDefaultResponsiveBackgroundImageValue(),
+    },
+    backgroundImageEffects: {
+      type: 'object',
+      default: {
+        zoom: false,
+        parallax: false,
+        parallaxSpeed: 0.3,
+      },
     },
     ...borderControlAttributes(),
     ...boxShadowControlAttributes(),
@@ -74,12 +81,12 @@ registerBlockType('gutenbee/spacer', {
     const {
       uniqueId,
       backgroundColor,
-      backgroundImage,
+      backgroundImageEffects,
       blockBreakpointVisibility,
       blockAuthVisibility,
     } = attributes;
     const blockId = getBlockId(uniqueId);
-    const { parallax, parallaxSpeed } = backgroundImage;
+    const { parallax, parallaxSpeed } = backgroundImageEffects;
 
     return (
       <div
@@ -109,7 +116,6 @@ registerBlockType('gutenbee/spacer', {
           data-parallax-speed={parallaxSpeed}
           style={{
             backgroundColor: backgroundColor || undefined,
-            ...getBackgroundImageStyle(backgroundImage),
           }}
         />
       </div>

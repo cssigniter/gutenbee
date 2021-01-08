@@ -33,7 +33,7 @@ registerBlockType('gutenbee/heading', {
   keywords: [__('title'), __('subtitle'), __('heading')],
   supports: {
     className: true,
-    anchor: true,
+    anchor: false,
   },
   example: {
     attributes: {

@@ -10,7 +10,7 @@ const propTypes = {
 };
 
 const DividerStyle = ({ attributes, children }) => {
-  const { uniqueId, blockPadding, blockMargin } = attributes;
+  const { uniqueId, blockPadding, blockMargin, backgroundImage } = attributes;
   const blockId = getBlockId(uniqueId);
 
   return (
@@ -24,6 +24,10 @@ const DividerStyle = ({ attributes, children }) => {
         value={blockPadding}
         rule=".wp-block-gutenbee-divider.[root] { padding: %s; }"
         unit="px"
+      />
+      <Rule
+        value={backgroundImage}
+        rule=".wp-block-gutenbee-divider.[root] { %s }"
       />
       {children}
     </StyleSheet>

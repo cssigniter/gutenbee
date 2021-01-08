@@ -11,7 +11,7 @@ import {
 } from 'wp.components';
 
 import MarginControls from '../../components/controls/margin-controls';
-import BackgroundControls from '../../components/controls/background-controls/BackgroundControl';
+import BackgroundControls from '../../components/controls/background-controls/BackgroundControls';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 import BorderControls from '../../components/controls/border-controls';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
@@ -44,6 +44,8 @@ const ContainerInspectorControls = ({
     backgroundVideoURL,
     blockBreakpointVisibility,
     blockAuthVisibility,
+    backgroundImage,
+    backgroundImageEffects,
   } = attributes;
 
   return (
@@ -109,14 +111,14 @@ const ContainerInspectorControls = ({
                   min={-1}
                   max={1200}
                   value={containerHeight[breakpoint]}
-                  onChange={value =>
+                  onChange={value => {
                     setAttributes({
                       containerHeight: {
                         ...containerHeight,
-                        [breakpoint]: value != null ? value : '',
+                        [breakpoint]: value != null ? value : undefined,
                       },
-                    })
-                  }
+                    });
+                  }}
                   step={1}
                   help={__(
                     'Leave blank for auto height or set to -1 for full viewport height.',
@@ -269,14 +271,46 @@ const ContainerInspectorControls = ({
             onChange={value => setAttributes({ overlayBackgroundColor: value })}
           />
 
-          <BackgroundControls
-            label={__('Background Image')}
-            setAttributes={setAttributes}
-            attributes={attributes}
-            attributeKey="backgroundImage"
-            supportsParallax
-            supportsZoom
-          />
+          <ResponsiveControl>
+            {breakpoint => {
+              return (
+                <BackgroundControls
+                  label={__('Background Image')}
+                  backgroundImageValue={backgroundImage[breakpoint]}
+                  onBackgroundImageChange={value =>
+                    setAttributes({
+                      backgroundImage: {
+                        ...backgroundImage,
+                        [breakpoint]: value,
+                      },
+                    })
+                  }
+                  zoomValue={backgroundImageEffects.zoom}
+                  onZoomChange={value =>
+                    setAttributes({
+                      backgroundImageEffects: {
+                        ...backgroundImageEffects,
+                        zoom: value,
+                      },
+                    })
+                  }
+                  parallaxValue={{
+                    parallax: backgroundImageEffects.parallax,
+                    parallaxSpeed: backgroundImageEffects.parallaxSpeed,
+                  }}
+                  onParallaxChange={value =>
+                    setAttributes({
+                      backgroundImageEffects: {
+                        ...backgroundImageEffects,
+                        ...value,
+                      },
+                    })
+                  }
+                  backgroundVideoUrlValue={backgroundVideoURL}
+                />
+              );
+            }}
+          </ResponsiveControl>
 
           <BorderControls
             attributes={attributes}

@@ -15,6 +15,34 @@ import deprecated from './deprecated';
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
+const Buttons = ({ attributes, className }) => {
+  const {
+    uniqueId,
+    backgroundColor,
+    blockBreakpointVisibility,
+    blockAuthVisibility,
+  } = attributes;
+  const blockId = getBlockId(uniqueId);
+
+  return (
+    <div
+      id={blockId}
+      className={classNames(
+        className,
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+      )}
+      style={{
+        backgroundColor: backgroundColor || undefined,
+      }}
+    >
+      <ButtonsStyle attributes={attributes} />
+      <InnerBlocks.Content />
+    </div>
+  );
+};
+
 registerBlockType('gutenbee/buttons', {
   title: __('GutenBee Button Group'),
   description: __(
@@ -68,30 +96,6 @@ registerBlockType('gutenbee/buttons', {
   deprecated,
   edit: ButtonsEdit,
   save: ({ attributes, className }) => {
-    const {
-      uniqueId,
-      backgroundColor,
-      blockBreakpointVisibility,
-      blockAuthVisibility,
-    } = attributes;
-    const blockId = getBlockId(uniqueId);
-
-    return (
-      <div
-        id={blockId}
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-        )}
-        style={{
-          backgroundColor: backgroundColor || undefined,
-        }}
-      >
-        <ButtonsStyle attributes={attributes} />
-        <InnerBlocks.Content />
-      </div>
-    );
+    return <Buttons className={className} attributes={attributes} />;
   },
 });

@@ -114,7 +114,7 @@ registerBlockType('gutenbee/progress-bar', {
   category: 'gutenbee',
   keywords: [__('progress'), __('progress bar')],
   supports: {
-    anchor: true,
+    anchor: false,
   },
   attributes: {
     uniqueId: {

@@ -4746,10 +4746,7 @@ if (false) { var throwOnDirectAccess, isValidElement, REACT_ELEMENT_TYPE; } else
 (function() { module.exports = window["wp"]["compose"]; }());
 
 /***/ }),
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4979,6 +4976,9 @@ var getVideoProviderInfoByUrl = function getVideoProviderInfoByUrl() {
 };
 
 /***/ }),
+/* 19 */,
+/* 20 */,
+/* 21 */,
 /* 22 */,
 /* 23 */,
 /* 24 */,
@@ -56457,6 +56457,31 @@ var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 var external_window_wp_element_ = __webpack_require__(6);
 
 // CONCATENATED MODULE: ./src/components/controls/background-controls/helpers.js
+var getDefaultResponsiveBackgroundImageValue = function getDefaultResponsiveBackgroundImageValue() {
+  return {
+    desktop: {
+      url: '',
+      repeat: 'no-repeat',
+      size: 'cover',
+      position: 'top center',
+      attachment: 'scroll'
+    },
+    tablet: {
+      url: '',
+      repeat: 'no-repeat',
+      size: 'cover',
+      position: 'top center',
+      attachment: 'scroll'
+    },
+    mobile: {
+      url: '',
+      repeat: 'no-repeat',
+      size: 'cover',
+      position: 'top center',
+      attachment: 'scroll'
+    }
+  };
+};
 var getBackgroundImageStyle = function getBackgroundImageStyle(settings) {
   var url = settings.url,
       repeat = settings.repeat,
@@ -56534,8 +56559,6 @@ var getMarginSettingStyles = function getMarginSettingStyles(margins, breakpoint
 // CONCATENATED MODULE: ./src/components/stylesheet/helpers.js
 var _BREAKPOINTS;
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -56551,6 +56574,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function helpers_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function helpers_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { helpers_ownKeys(Object(source), true).forEach(function (key) { helpers_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { helpers_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function helpers_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -56584,6 +56609,13 @@ var isSpacingRule = function isSpacingRule(rule) {
   }) && !exceptions.some(function (exception) {
     return rule.includes(exception);
   });
+};
+var isBackgroundImageRuleValue = function isBackgroundImageRuleValue(value) {
+  if (!value) {
+    return false;
+  }
+
+  return _typeof(value) === 'object' && 'url' in value && 'attachment' in value && 'repeat' in value;
 };
 
 var getRuleContents = function getRuleContents(rule) {
@@ -56663,8 +56695,7 @@ var helpers_defaultGetCSSRule = function defaultGetCSSRule(_ref2) {
     }
 
     return ".".concat(id, " ").concat(rule);
-  }(); // const base = `.${id} ${rule}`;
-  //
+  }(); //
   // Spacing control (position or margin/padding)
   //
 
@@ -56686,6 +56717,18 @@ var helpers_defaultGetCSSRule = function defaultGetCSSRule(_ref2) {
       }).join(' ');
       return !!val.trim() ? replaceBetweenCurly(base, " ".concat(val, " ")) : undefined;
     }
+  } //
+  // Background image controls
+  //
+
+
+  if (isBackgroundImageRuleValue(value)) {
+    if (!value.url) {
+      return undefined;
+    }
+
+    var backgroundImageStyle = ["background-image: url(".concat(value.url, ");"), "background-repeat: ".concat(value.repeat, ";"), "background-size: ".concat(value.size, ";"), "background-position: ".concat(value.position, ";"), "background-attachment: ".concat(value.attachment, ";")].join(' ');
+    return Object(external_window_wp_i18n_["sprintf"])(base, backgroundImageStyle);
   } //
   // All other controls
   //
@@ -56951,7 +56994,8 @@ var style_BannerStyle = function BannerStyle(_ref) {
       blockPadding = attributes.blockPadding,
       blockMargin = attributes.blockMargin,
       verticalContentAlignment = attributes.verticalContentAlignment,
-      horizontalContentAlignment = attributes.horizontalContentAlignment;
+      horizontalContentAlignment = attributes.horizontalContentAlignment,
+      backgroundImage = attributes.backgroundImage;
   var blockId = util_getBlockId(uniqueId);
   return wp.element.createElement(stylesheet, {
     id: blockId
@@ -56977,6 +57021,9 @@ var style_BannerStyle = function BannerStyle(_ref) {
   }), wp.element.createElement(stylesheet_Rule, {
     value: horizontalContentAlignment,
     rule: ".wp-block-gutenbee-banner.[root] { justify-content: %s; }"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: backgroundImage,
+    rule: ".wp-block-gutenbee-banner.[root] .wp-block-gutenbee-banner-background { %s }"
   }), children);
 };
 
@@ -57364,52 +57411,61 @@ var margin_controls_MarginControls = function MarginControls(_ref) {
 margin_controls_MarginControls.propTypes = margin_controls_propTypes;
 margin_controls_MarginControls.defaultProps = defaultProps;
 /* harmony default export */ var margin_controls = (margin_controls_MarginControls);
-// CONCATENATED MODULE: ./src/components/controls/background-controls/BackgroundControl.js
-function BackgroundControl_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+// CONCATENATED MODULE: ./src/components/controls/background-controls/BackgroundControls.js
+function BackgroundControls_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function BackgroundControl_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { BackgroundControl_ownKeys(Object(source), true).forEach(function (key) { BackgroundControl_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { BackgroundControl_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function BackgroundControls_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { BackgroundControls_ownKeys(Object(source), true).forEach(function (key) { BackgroundControls_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { BackgroundControls_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function BackgroundControl_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
+function BackgroundControls_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
 
-var BackgroundControl_propTypes = {
-  setAttributes: prop_types_default.a.func.isRequired,
-  attributeKey: prop_types_default.a.string.isRequired,
-  attributes: prop_types_default.a.object.isRequired,
-  label: prop_types_default.a.string,
-  supportsParallax: prop_types_default.a.bool,
-  supportsZoom: prop_types_default.a.bool
+
+
+var BackgroundControls_propTypes = {
+  backgroundImageValue: prop_types_default.a.shape({
+    url: prop_types_default.a.string,
+    repeat: prop_types_default.a.string,
+    size: prop_types_default.a.string,
+    position: prop_types_default.a.string,
+    attachment: prop_types_default.a.string
+  }),
+  onBackgroundImageChange: prop_types_default.a.func.isRequired,
+  zoomValue: prop_types_default.a.bool,
+  onZoomChange: prop_types_default.a.func,
+  parallaxValue: prop_types_default.a.shape({
+    parallax: prop_types_default.a.bool,
+    parallaxSpeed: prop_types_default.a.number
+  }),
+  onParallaxChange: prop_types_default.a.func,
+  backgroundVideoUrlValue: prop_types_default.a.string,
+  label: prop_types_default.a.node
 };
 
-var BackgroundControl_BackgroundControls = function BackgroundControls(_ref) {
-  var setAttributes = _ref.setAttributes,
-      attributeKey = _ref.attributeKey,
-      attributes = _ref.attributes,
+var BackgroundControls_BackgroundControls = function BackgroundControls(_ref) {
+  var backgroundImageValue = _ref.backgroundImageValue,
+      onBackgroundImageChange = _ref.onBackgroundImageChange,
+      zoomValue = _ref.zoomValue,
+      onZoomChange = _ref.onZoomChange,
+      _ref$parallaxValue = _ref.parallaxValue,
+      parallaxValue = _ref$parallaxValue === void 0 ? {} : _ref$parallaxValue,
+      onParallaxChange = _ref.onParallaxChange,
+      backgroundVideoUrlValue = _ref.backgroundVideoUrlValue,
       _ref$label = _ref.label,
-      label = _ref$label === void 0 ? Object(external_window_wp_i18n_["__"])('Background') : _ref$label,
-      supportsParallax = _ref.supportsParallax,
-      supportsZoom = _ref.supportsZoom;
-  var backgroundImage = attributes[attributeKey];
+      label = _ref$label === void 0 ? Object(external_window_wp_i18n_["__"])('Background') : _ref$label;
+  var url = backgroundImageValue.url,
+      repeat = backgroundImageValue.repeat,
+      size = backgroundImageValue.size,
+      position = backgroundImageValue.position,
+      attachment = backgroundImageValue.attachment;
+  var parallax = parallaxValue.parallax,
+      parallaxSpeed = parallaxValue.parallaxSpeed;
 
-  var setBackgroundSetting = function setBackgroundSetting(setting) {
-    setAttributes({
-      backgroundImage: BackgroundControl_objectSpread(BackgroundControl_objectSpread({}, backgroundImage), setting)
-    });
+  var onSetBackgroundImageSetting = function onSetBackgroundImageSetting(setting) {
+    onBackgroundImageChange(BackgroundControls_objectSpread(BackgroundControls_objectSpread({}, backgroundImageValue), setting));
   };
 
-  var url = backgroundImage.url,
-      repeat = backgroundImage.repeat,
-      size = backgroundImage.size,
-      position = backgroundImage.position,
-      attachment = backgroundImage.attachment,
-      parallax = backgroundImage.parallax,
-      parallaxSpeed = backgroundImage.parallaxSpeed,
-      zoom = backgroundImage.zoom;
-  var backgroundVideoURL = attributes.backgroundVideoURL;
   return wp.element.createElement("div", {
     className: "gutenbee-control-background"
   }, wp.element.createElement("p", {
@@ -57418,9 +57474,8 @@ var BackgroundControl_BackgroundControls = function BackgroundControls(_ref) {
     className: "gutenbee-control-background-image-wrap"
   }, !url ? wp.element.createElement(external_window_wp_blockEditor_["MediaUpload"], {
     onSelect: function onSelect(image) {
-      setBackgroundSetting({
-        url: image.url,
-        image: image
+      onSetBackgroundImageSetting({
+        url: image.url
       });
     },
     allowedTypes: ['image'],
@@ -57435,9 +57490,8 @@ var BackgroundControl_BackgroundControls = function BackgroundControls(_ref) {
     }
   }) : wp.element.createElement(external_window_wp_element_["Fragment"], null, wp.element.createElement(external_window_wp_blockEditor_["MediaUpload"], {
     onSelect: function onSelect(image) {
-      setBackgroundSetting({
-        url: image.url,
-        image: image
+      onSetBackgroundImageSetting({
+        url: image.url
       });
     },
     allowedTypes: ['image'],
@@ -57458,7 +57512,7 @@ var BackgroundControl_BackgroundControls = function BackgroundControls(_ref) {
       }, Object(external_window_wp_i18n_["__"])('Change')), wp.element.createElement(external_window_wp_components_["Button"], {
         isDefault: true,
         onClick: function onClick() {
-          return setBackgroundSetting({
+          return onSetBackgroundImageSetting({
             url: '',
             image: null
           });
@@ -57484,7 +57538,7 @@ var BackgroundControl_BackgroundControls = function BackgroundControls(_ref) {
       label: Object(external_window_wp_i18n_["__"])('Tile Vertically')
     }],
     onChange: function onChange(value) {
-      return setBackgroundSetting({
+      return onSetBackgroundImageSetting({
         repeat: value
       });
     }
@@ -57520,7 +57574,7 @@ var BackgroundControl_BackgroundControls = function BackgroundControls(_ref) {
       label: Object(external_window_wp_i18n_["__"])('Bottom right')
     }],
     onChange: function onChange(value) {
-      return setBackgroundSetting({
+      return onSetBackgroundImageSetting({
         position: value
       });
     }
@@ -57537,7 +57591,7 @@ var BackgroundControl_BackgroundControls = function BackgroundControls(_ref) {
       label: Object(external_window_wp_i18n_["__"])('Fixed')
     }],
     onChange: function onChange(value) {
-      return setBackgroundSetting({
+      return onSetBackgroundImageSetting({
         attachment: value
       });
     }
@@ -57555,26 +57609,24 @@ var BackgroundControl_BackgroundControls = function BackgroundControls(_ref) {
       label: Object(external_window_wp_i18n_["__"])('Auto')
     }],
     onChange: function onChange(value) {
-      return setBackgroundSetting({
+      return onSetBackgroundImageSetting({
         size: value
       });
     }
-  })), supportsZoom && !!url && !backgroundVideoURL && wp.element.createElement(external_window_wp_components_["ToggleControl"], {
+  })), wp.element.createElement("hr", null), onZoomChange && !backgroundVideoUrlValue && wp.element.createElement(external_window_wp_components_["ToggleControl"], {
     label: Object(external_window_wp_i18n_["__"])('Enable zoom'),
-    checked: zoom,
+    checked: zoomValue,
     onChange: function onChange(value) {
-      return setBackgroundSetting({
-        zoom: value
-      });
+      return onZoomChange(value);
     },
-    help: zoom ? Object(external_window_wp_i18n_["__"])('The background image zooms when hovered. Parallax must be disabled.') : Object(external_window_wp_i18n_["__"])('Toggle to enable background image zoom. Parallax must be disabled.')
-  }), supportsParallax && !!url && wp.element.createElement(external_window_wp_element_["Fragment"], null, wp.element.createElement(external_window_wp_components_["ToggleControl"], {
+    help: zoomValue ? Object(external_window_wp_i18n_["__"])('The background image zooms when hovered. Parallax must be disabled.') : Object(external_window_wp_i18n_["__"])('Toggle to enable background image zoom. Parallax must be disabled.')
+  }), onParallaxChange && wp.element.createElement(external_window_wp_element_["Fragment"], null, wp.element.createElement(external_window_wp_components_["ToggleControl"], {
     label: Object(external_window_wp_i18n_["__"])('Enable Parallax'),
     checked: parallax,
     onChange: function onChange(value) {
-      return setBackgroundSetting({
+      return onParallaxChange(BackgroundControls_objectSpread(BackgroundControls_objectSpread({}, parallaxValue), {}, {
         parallax: value
-      });
+      }));
     }
   }), wp.element.createElement(external_window_wp_components_["RangeControl"], {
     label: Object(external_window_wp_i18n_["__"])('Parallax Speed'),
@@ -57583,18 +57635,15 @@ var BackgroundControl_BackgroundControls = function BackgroundControls(_ref) {
     max: 1,
     step: 0.1,
     onChange: function onChange(value) {
-      return setBackgroundSetting({
+      return onParallaxChange(BackgroundControls_objectSpread(BackgroundControls_objectSpread({}, parallaxValue), {}, {
         parallaxSpeed: value
-      });
+      }));
     }
   })));
 };
 
-BackgroundControl_BackgroundControls.propTypes = BackgroundControl_propTypes;
-/* harmony default export */ var BackgroundControl = (BackgroundControl_BackgroundControls);
-// CONCATENATED MODULE: ./src/components/controls/background-controls/index.js
-
-/* harmony default export */ var background_controls = (BackgroundControl);
+BackgroundControls_BackgroundControls.propTypes = BackgroundControls_propTypes;
+/* harmony default export */ var background_controls_BackgroundControls = (BackgroundControls_BackgroundControls);
 // EXTERNAL MODULE: external "lodash"
 var external_lodash_ = __webpack_require__(12);
 var external_lodash_default = /*#__PURE__*/__webpack_require__.n(external_lodash_);
@@ -58002,7 +58051,7 @@ BoxShadowControls_BoxShadowControls.propTypes = BoxShadowControls_propTypes;
 
 /* harmony default export */ var box_shadow_controls = (box_shadow_controls_BoxShadowControls);
 // EXTERNAL MODULE: ./src/util/video/providers.js
-var providers = __webpack_require__(21);
+var providers = __webpack_require__(18);
 
 // CONCATENATED MODULE: ./src/util/video/useVideoEmbed.js
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -58715,7 +58764,6 @@ function edit_defineProperty(obj, key, value) { if (key in obj) { Object.defineP
 
 
 
-
 var edit_BannerEditStyle = function BannerEditStyle(_ref) {
   var attributes = _ref.attributes,
       children = _ref.children;
@@ -58724,7 +58772,8 @@ var edit_BannerEditStyle = function BannerEditStyle(_ref) {
       blockPadding = attributes.blockPadding,
       blockMargin = attributes.blockMargin,
       verticalContentAlignment = attributes.verticalContentAlignment,
-      horizontalContentAlignment = attributes.horizontalContentAlignment;
+      horizontalContentAlignment = attributes.horizontalContentAlignment,
+      backgroundImage = attributes.backgroundImage;
   var blockId = util_getBlockId(uniqueId);
   return wp.element.createElement(stylesheet, {
     id: blockId
@@ -58750,6 +58799,9 @@ var edit_BannerEditStyle = function BannerEditStyle(_ref) {
   }), wp.element.createElement(stylesheet_Rule, {
     value: verticalContentAlignment,
     rule: ".wp-block-gutenbee-banner.[root] .wp-block-gutenbee-banner-inner { justify-content: %s; }"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: backgroundImage,
+    rule: ".wp-block-gutenbee-banner.[root] .wp-block-gutenbee-banner-background { %s }"
   }), children);
 };
 
@@ -58770,6 +58822,7 @@ var edit_BannerBlockEdit = function BannerBlockEdit(_ref2) {
       backgroundColor = attributes.backgroundColor,
       backgroundVideoURL = attributes.backgroundVideoURL,
       backgroundImage = attributes.backgroundImage,
+      backgroundImageEffects = attributes.backgroundImageEffects,
       overlayBackgroundColor = attributes.overlayBackgroundColor,
       bannerHeight = attributes.bannerHeight,
       verticalContentAlignment = attributes.verticalContentAlignment,
@@ -58783,8 +58836,8 @@ var edit_BannerBlockEdit = function BannerBlockEdit(_ref2) {
     var block = getBlock(clientId);
     return !!(block && block.innerBlocks.length);
   }, [clientId]);
-  var zoom = backgroundImage.zoom,
-      parallax = backgroundImage.parallax;
+  var zoom = backgroundImageEffects.zoom,
+      parallax = backgroundImageEffects.parallax;
   var blockId = util_getBlockId(uniqueId);
   var classes = classnames_default()(blockId, className, {
     'gutenbee-zoom': zoom && !parallax
@@ -58827,9 +58880,9 @@ var edit_BannerBlockEdit = function BannerBlockEdit(_ref2) {
     }
   }), wp.element.createElement("div", {
     className: "".concat(baseClass, "-background"),
-    style: edit_objectSpread(edit_objectSpread(edit_objectSpread({
+    style: edit_objectSpread(edit_objectSpread({
       backgroundColor: backgroundColor
-    }, getBackgroundImageStyle(backgroundImage)), getBorderCSSValue({
+    }, getBorderCSSValue({
       attributes: attributes
     })), getBoxShadowCSSValue({
       attributes: attributes
@@ -58982,13 +59035,34 @@ var edit_BannerBlockEdit = function BannerBlockEdit(_ref2) {
         overlayBackgroundColor: value
       });
     }
-  }), wp.element.createElement(background_controls, {
-    label: Object(external_window_wp_i18n_["__"])('Background Image'),
-    setAttributes: setAttributes,
-    attributes: attributes,
-    attributeKey: "backgroundImage",
-    supportsParallax: true,
-    supportsZoom: true
+  }), wp.element.createElement(responsive_control_ResponsiveControl, null, function (breakpoint) {
+    return wp.element.createElement(background_controls_BackgroundControls, {
+      label: Object(external_window_wp_i18n_["__"])('Background Image'),
+      backgroundImageValue: backgroundImage[breakpoint],
+      onBackgroundImageChange: function onBackgroundImageChange(value) {
+        return setAttributes({
+          backgroundImage: edit_objectSpread(edit_objectSpread({}, backgroundImage), {}, edit_defineProperty({}, breakpoint, value))
+        });
+      },
+      zoomValue: backgroundImageEffects.zoom,
+      onZoomChange: function onZoomChange(value) {
+        return setAttributes({
+          backgroundImageEffects: edit_objectSpread(edit_objectSpread({}, backgroundImageEffects), {}, {
+            zoom: value
+          })
+        });
+      },
+      parallaxValue: {
+        parallax: backgroundImageEffects.parallax,
+        parallaxSpeed: backgroundImageEffects.parallaxSpeed
+      },
+      onParallaxChange: function onParallaxChange(value) {
+        return setAttributes({
+          backgroundImageEffects: edit_objectSpread(edit_objectSpread({}, backgroundImageEffects), value)
+        });
+      },
+      backgroundVideoUrlValue: backgroundVideoURL
+    });
   }), wp.element.createElement(border_controls, {
     attributes: attributes,
     setAttributes: setAttributes
@@ -59147,14 +59221,12 @@ var helpers_getAuthVisibilityClasses = function getAuthVisibilityClasses(values)
     return classes;
   }, []).join(' ');
 };
-// CONCATENATED MODULE: ./src/blocks/banner/index.js
-function banner_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+// CONCATENATED MODULE: ./src/blocks/banner/deprecated/v1.js
+function v1_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function banner_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { banner_ownKeys(Object(source), true).forEach(function (key) { banner_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { banner_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function v1_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { v1_ownKeys(Object(source), true).forEach(function (key) { v1_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { v1_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function banner_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
+function v1_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -59172,16 +59244,49 @@ function banner_defineProperty(obj, key, value) { if (key in obj) { Object.defin
 
 
 
-Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/banner', {
-  title: Object(external_window_wp_i18n_["__"])('GutenBee Banner'),
-  description: Object(external_window_wp_i18n_["__"])('A versatile block for creating banners of any kind.'),
-  icon: block_icon,
-  category: 'gutenbee',
-  keywords: [Object(external_window_wp_i18n_["__"])('banner'), Object(external_window_wp_i18n_["__"])('hero'), Object(external_window_wp_i18n_["__"])('section')],
+
+var v1_BannerStyle = function BannerStyle(_ref) {
+  var attributes = _ref.attributes,
+      children = _ref.children;
+  var uniqueId = attributes.uniqueId,
+      bannerHeight = attributes.bannerHeight,
+      blockPadding = attributes.blockPadding,
+      blockMargin = attributes.blockMargin,
+      verticalContentAlignment = attributes.verticalContentAlignment,
+      horizontalContentAlignment = attributes.horizontalContentAlignment;
+  var blockId = util_getBlockId(uniqueId);
+  return wp.element.createElement(stylesheet, {
+    id: blockId
+  }, wp.element.createElement(stylesheet_Rule, {
+    value: bannerHeight,
+    rule: ".wp-block-gutenbee-banner.[root] { height: %s; }",
+    unit: "px",
+    edgeCase: {
+      edge: -1,
+      value: '100vh'
+    }
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: blockMargin,
+    rule: ".wp-block-gutenbee-banner.[root] { margin: %s; }",
+    unit: "px"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: blockPadding,
+    rule: ".wp-block-gutenbee-banner.[root] .wp-block-gutenbee-banner-inner { padding: %s; }",
+    unit: "px"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: verticalContentAlignment,
+    rule: ".wp-block-gutenbee-banner.[root] { align-items: %s; }"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: horizontalContentAlignment,
+    rule: ".wp-block-gutenbee-banner.[root] { justify-content: %s; }"
+  }), children);
+};
+
+var v1 = {
   supports: {
     anchor: true
   },
-  attributes: banner_objectSpread(banner_objectSpread(banner_objectSpread({
+  attributes: v1_objectSpread(v1_objectSpread(v1_objectSpread({
     uniqueId: {
       type: 'string'
     },
@@ -59258,10 +59363,43 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/banner', {
       }
     }
   }),
-  edit: edit,
-  save: function save(_ref) {
-    var attributes = _ref.attributes,
-        className = _ref.className;
+  migrate: function migrate(attributes) {
+    var _attributes$backgroun, _attributes$backgroun2, _attributes$backgroun3, _attributes$backgroun4, _attributes$backgroun5, _attributes$backgroun6;
+
+    return v1_objectSpread(v1_objectSpread({}, attributes), {}, {
+      backgroundImage: {
+        desktop: {
+          url: attributes.backgroundImage.url,
+          repeat: attributes.backgroundImage.repeat,
+          size: attributes.backgroundImage.size,
+          position: attributes.backgroundImage.position,
+          attachment: attributes.backgroundImage.attachment
+        },
+        tablet: {
+          url: '',
+          repeat: 'no-repeat',
+          size: 'cover',
+          position: 'top center',
+          attachment: 'scroll'
+        },
+        mobile: {
+          url: '',
+          repeat: 'no-repeat',
+          size: 'cover',
+          position: 'top center',
+          attachment: 'scroll'
+        }
+      },
+      backgroundImageEffects: {
+        zoom: (_attributes$backgroun = (_attributes$backgroun2 = attributes.backgroundImage) === null || _attributes$backgroun2 === void 0 ? void 0 : _attributes$backgroun2.zoom) !== null && _attributes$backgroun !== void 0 ? _attributes$backgroun : false,
+        parallax: (_attributes$backgroun3 = (_attributes$backgroun4 = attributes.backgroundImage) === null || _attributes$backgroun4 === void 0 ? void 0 : _attributes$backgroun4.parallax) !== null && _attributes$backgroun3 !== void 0 ? _attributes$backgroun3 : false,
+        parallaxSpeed: (_attributes$backgroun5 = (_attributes$backgroun6 = attributes.backgroundImage) === null || _attributes$backgroun6 === void 0 ? void 0 : _attributes$backgroun6.parallaxSpeed) !== null && _attributes$backgroun5 !== void 0 ? _attributes$backgroun5 : 0.3
+      }
+    });
+  },
+  save: function save(_ref2) {
+    var attributes = _ref2.attributes,
+        className = _ref2.className;
     var uniqueId = attributes.uniqueId,
         bannerUrl = attributes.bannerUrl,
         newTab = attributes.newTab,
@@ -59293,9 +59431,190 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/banner', {
         'gutenbee-parallax': parallax
       }),
       "data-parallax-speed": parallaxSpeed,
-      style: banner_objectSpread(banner_objectSpread(banner_objectSpread({
+      style: v1_objectSpread(v1_objectSpread(v1_objectSpread({
         backgroundColor: backgroundColor
       }, getBackgroundImageStyle(backgroundImage)), getBorderCSSValue({
+        attributes: attributes
+      })), getBoxShadowCSSValue({
+        attributes: attributes
+      }))
+    }, backgroundVideoURL && !['unsupported'].includes(videoInfo.provider) && wp.element.createElement(components_VideoBackgroundFrontend, {
+      id: blockId,
+      videoInfo: videoInfo
+    })));
+    return wp.element.createElement("div", {
+      id: blockId,
+      className: classnames_default()(className, blockId, getBreakpointVisibilityClassNames(blockBreakpointVisibility), helpers_getAuthVisibilityClasses(blockAuthVisibility), {
+        'has-parallax': parallax,
+        'gutenbee-zoom': zoom && !parallax
+      }),
+      style: {
+        color: textColor
+      }
+    }, bannerUrl && wp.element.createElement("a", {
+      href: bannerUrl,
+      target: newTab && '_blank',
+      rel: newTab && 'noopener noreferrer',
+      className: "".concat(baseClass, "-link")
+    }), bannerInner, bannerBackground, wp.element.createElement(v1_BannerStyle, {
+      attributes: attributes
+    }));
+  }
+};
+/* harmony default export */ var deprecated_v1 = (v1);
+// CONCATENATED MODULE: ./src/blocks/banner/deprecated/index.js
+
+/* harmony default export */ var deprecated = ([deprecated_v1]);
+// CONCATENATED MODULE: ./src/blocks/banner/index.js
+function banner_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function banner_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { banner_ownKeys(Object(source), true).forEach(function (key) { banner_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { banner_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function banner_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/banner', {
+  title: Object(external_window_wp_i18n_["__"])('GutenBee Banner'),
+  description: Object(external_window_wp_i18n_["__"])('A versatile block for creating banners of any kind.'),
+  icon: block_icon,
+  category: 'gutenbee',
+  keywords: [Object(external_window_wp_i18n_["__"])('banner'), Object(external_window_wp_i18n_["__"])('hero'), Object(external_window_wp_i18n_["__"])('section')],
+  supports: {
+    anchor: false
+  },
+  attributes: banner_objectSpread(banner_objectSpread(banner_objectSpread({
+    uniqueId: {
+      type: 'string'
+    },
+    bannerUrl: {
+      type: 'string'
+    },
+    newTab: {
+      type: 'boolean',
+      default: false
+    },
+    textColor: {
+      type: 'string'
+    },
+    backgroundColor: {
+      type: 'string'
+    },
+    backgroundVideoURL: {
+      type: 'string'
+    },
+    backgroundImage: {
+      type: 'object',
+      default: getDefaultResponsiveBackgroundImageValue()
+    },
+    backgroundImageEffects: {
+      type: 'object',
+      default: {
+        zoom: false,
+        parallax: false,
+        parallaxSpeed: 0.3
+      }
+    },
+    overlayBackgroundColor: {
+      type: 'string'
+    },
+    overlayBackgroundColorOpacity: {
+      type: 'number',
+      default: 1
+    },
+    blockPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    blockMargin: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    bannerHeight: {
+      type: 'object',
+      default: getDefaultResponsiveValue()
+    },
+    verticalContentAlignment: {
+      type: 'object',
+      default: getDefaultResponsiveValue()
+    },
+    horizontalContentAlignment: {
+      type: 'object',
+      default: getDefaultResponsiveValue()
+    }
+  }, border_controls_attributes()), boxShadowControlAttributes()), {}, {
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false
+      })
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false
+      }
+    }
+  }),
+  deprecated: deprecated,
+  edit: edit,
+  save: function save(_ref) {
+    var attributes = _ref.attributes,
+        className = _ref.className;
+    var uniqueId = attributes.uniqueId,
+        bannerUrl = attributes.bannerUrl,
+        newTab = attributes.newTab,
+        textColor = attributes.textColor,
+        backgroundColor = attributes.backgroundColor,
+        backgroundVideoURL = attributes.backgroundVideoURL,
+        backgroundImageEffects = attributes.backgroundImageEffects,
+        overlayBackgroundColor = attributes.overlayBackgroundColor,
+        blockBreakpointVisibility = attributes.blockBreakpointVisibility,
+        blockAuthVisibility = attributes.blockAuthVisibility;
+    var blockId = util_getBlockId(uniqueId);
+    var baseClass = Object(external_window_wp_blocks_["getBlockDefaultClassName"])('gutenbee/banner');
+    var parallax = backgroundImageEffects.parallax,
+        parallaxSpeed = backgroundImageEffects.parallaxSpeed,
+        zoom = backgroundImageEffects.zoom;
+    var videoInfo = backgroundVideoURL ? Object(providers["a" /* getVideoProviderInfoByUrl */])(backgroundVideoURL) : null;
+    var bannerInner = wp.element.createElement("div", {
+      className: "".concat(baseClass, "-inner")
+    }, wp.element.createElement("div", {
+      className: "".concat(baseClass, "-inner-wrapper")
+    }, wp.element.createElement(external_window_wp_blockEditor_["InnerBlocks"].Content, null)));
+    var bannerBackground = wp.element.createElement(external_window_wp_element_["Fragment"], null, overlayBackgroundColor && wp.element.createElement("div", {
+      className: "".concat(baseClass, "-background-overlay"),
+      style: {
+        backgroundColor: overlayBackgroundColor
+      }
+    }), wp.element.createElement("div", {
+      className: classnames_default()("".concat(baseClass, "-background"), {
+        'gutenbee-parallax': parallax
+      }),
+      "data-parallax-speed": parallaxSpeed,
+      style: banner_objectSpread(banner_objectSpread({
+        backgroundColor: backgroundColor
+      }, getBorderCSSValue({
         attributes: attributes
       })), getBoxShadowCSSValue({
         attributes: attributes
@@ -59344,6 +59663,12 @@ var DividerBlockIcon = function DividerBlockIcon() {
 
 /* harmony default export */ var divider_block_icon = (DividerBlockIcon);
 // CONCATENATED MODULE: ./src/blocks/divider/edit.js
+function divider_edit_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function divider_edit_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { divider_edit_ownKeys(Object(source), true).forEach(function (key) { divider_edit_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { divider_edit_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function divider_edit_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -59373,7 +59698,8 @@ var edit_DividerEdit = function DividerEdit(_ref) {
       color = attributes.color,
       backgroundColor = attributes.backgroundColor,
       blockBreakpointVisibility = attributes.blockBreakpointVisibility,
-      blockAuthVisibility = attributes.blockAuthVisibility;
+      blockAuthVisibility = attributes.blockAuthVisibility,
+      backgroundImage = attributes.backgroundImage;
   hooks_useUniqueId({
     attributes: attributes,
     setAttributes: setAttributes,
@@ -59458,12 +59784,16 @@ var edit_DividerEdit = function DividerEdit(_ref) {
         backgroundColor: value
       });
     }
-  }), wp.element.createElement(background_controls, {
-    label: Object(external_window_wp_i18n_["__"])('Background Image'),
-    setAttributes: setAttributes,
-    attributes: attributes,
-    attributeKey: "backgroundImage",
-    supportsParallax: true
+  }), wp.element.createElement(responsive_control_ResponsiveControl, null, function (breakpoint) {
+    return wp.element.createElement(background_controls_BackgroundControls, {
+      label: Object(external_window_wp_i18n_["__"])('Background Image'),
+      backgroundImageValue: backgroundImage[breakpoint],
+      onBackgroundImageChange: function onBackgroundImageChange(value) {
+        return setAttributes({
+          backgroundImage: divider_edit_objectSpread(divider_edit_objectSpread({}, backgroundImage), {}, divider_edit_defineProperty({}, breakpoint, value))
+        });
+      }
+    });
   }), wp.element.createElement(border_controls, {
     attributes: attributes,
     setAttributes: setAttributes
@@ -59522,7 +59852,8 @@ var style_DividerStyle = function DividerStyle(_ref) {
       children = _ref.children;
   var uniqueId = attributes.uniqueId,
       blockPadding = attributes.blockPadding,
-      blockMargin = attributes.blockMargin;
+      blockMargin = attributes.blockMargin,
+      backgroundImage = attributes.backgroundImage;
   var blockId = util_getBlockId(uniqueId);
   return wp.element.createElement(stylesheet, {
     id: blockId
@@ -59534,6 +59865,9 @@ var style_DividerStyle = function DividerStyle(_ref) {
     value: blockPadding,
     rule: ".wp-block-gutenbee-divider.[root] { padding: %s; }",
     unit: "px"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: backgroundImage,
+    rule: ".wp-block-gutenbee-divider.[root] { %s }"
   }), children);
 };
 
@@ -59542,11 +59876,11 @@ style_DividerStyle.propTypes = divider_style_propTypes;
 // CONCATENATED MODULE: ./src/blocks/divider/deprecated/v1.js
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-function v1_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function deprecated_v1_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function v1_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { v1_ownKeys(Object(source), true).forEach(function (key) { v1_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { v1_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function deprecated_v1_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { deprecated_v1_ownKeys(Object(source), true).forEach(function (key) { deprecated_v1_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { deprecated_v1_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function v1_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function deprecated_v1_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 var BORDER_STYLES = {
@@ -59581,7 +59915,7 @@ var v1_Divider = function Divider(_ref) {
   }));
 };
 
-var v1 = {
+var v1_v1 = {
   attributes: {
     style: {
       type: 'string',
@@ -59609,7 +59943,7 @@ var v1 = {
     }
   },
   migrate: function migrate(attributes) {
-    return v1_objectSpread(v1_objectSpread({}, attributes), {}, {
+    return deprecated_v1_objectSpread(deprecated_v1_objectSpread({}, attributes), {}, {
       uniqueId: undefined,
       backgroundColor: undefined,
       backgroundImage: getDefaultBackgroundImageValue(),
@@ -59625,7 +59959,7 @@ var v1 = {
     }, attributes));
   }
 };
-/* harmony default export */ var deprecated_v1 = (v1);
+/* harmony default export */ var divider_deprecated_v1 = (v1_v1);
 // CONCATENATED MODULE: ./src/components/stylesheet/deprecated/v1.js
 
 
@@ -59873,28 +60207,18 @@ var v2 = {
   }
 };
 /* harmony default export */ var deprecated_v2 = (v2);
-// CONCATENATED MODULE: ./src/blocks/divider/deprecated/index.js
+// CONCATENATED MODULE: ./src/blocks/divider/deprecated/v3.js
+function v3_extends() { v3_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return v3_extends.apply(this, arguments); }
 
+function v3_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-/* harmony default export */ var deprecated = ([deprecated_v1, deprecated_v2]);
-// CONCATENATED MODULE: ./src/blocks/divider/index.js
-function divider_extends() { divider_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return divider_extends.apply(this, arguments); }
+function v3_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { v3_ownKeys(Object(source), true).forEach(function (key) { v3_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { v3_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function divider_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function v3_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function divider_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { divider_ownKeys(Object(source), true).forEach(function (key) { divider_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { divider_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function v3_objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = v3_objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
-function divider_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function divider_objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = divider_objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function divider_objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
-/**
- * Divider Block
- *
- * Provide thematic content spacing with a fancy divider
- */
+function v3_objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
 
 
@@ -59908,18 +60232,36 @@ function divider_objectWithoutPropertiesLoose(source, excluded) { if (source == 
 
 
 
+var v3_DividerStyle = function DividerStyle(_ref) {
+  var attributes = _ref.attributes,
+      children = _ref.children;
+  var uniqueId = attributes.uniqueId,
+      blockPadding = attributes.blockPadding,
+      blockMargin = attributes.blockMargin;
+  var blockId = util_getBlockId(uniqueId);
+  return wp.element.createElement(stylesheet, {
+    id: blockId
+  }, wp.element.createElement(stylesheet_Rule, {
+    value: blockMargin,
+    rule: ".wp-block-gutenbee-divider.[root] { margin: %s; }",
+    unit: "px"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: blockPadding,
+    rule: ".wp-block-gutenbee-divider.[root] { padding: %s; }",
+    unit: "px"
+  }), children);
+};
 
-
-var divider_BORDER_STYLES = {
+var v3_BORDER_STYLES = {
   SOLID: 'solid',
   DOTTED: 'dotted',
   DASHED: 'dashed',
   DOUBLE: 'double'
 };
-var divider_Divider = function Divider(_ref) {
-  var className = _ref.className,
-      attributes = _ref.attributes,
-      props = divider_objectWithoutProperties(_ref, ["className", "attributes"]);
+var v3_Divider = function Divider(_ref2) {
+  var className = _ref2.className,
+      attributes = _ref2.attributes,
+      props = v3_objectWithoutProperties(_ref2, ["className", "attributes"]);
 
   var height = attributes.height,
       style = attributes.style,
@@ -59933,10 +60275,10 @@ var divider_Divider = function Divider(_ref) {
       blockBreakpointVisibility = attributes.blockBreakpointVisibility,
       blockAuthVisibility = attributes.blockAuthVisibility;
   var blockId = util_getBlockId(uniqueId);
-  return wp.element.createElement("div", divider_extends({
+  return wp.element.createElement("div", v3_extends({
     id: blockId,
-    className: classnames_default()(className, blockId, getBreakpointVisibilityClassNames(blockBreakpointVisibility), helpers_getAuthVisibilityClasses(blockAuthVisibility), divider_defineProperty({}, "align-".concat(align), true)),
-    style: divider_objectSpread(divider_objectSpread(divider_objectSpread({
+    className: classnames_default()(className, blockId, getBreakpointVisibilityClassNames(blockBreakpointVisibility), helpers_getAuthVisibilityClasses(blockAuthVisibility), v3_defineProperty({}, "align-".concat(align), true)),
+    style: v3_objectSpread(v3_objectSpread(v3_objectSpread({
       height: height,
       backgroundColor: backgroundColor || undefined
     }, getBackgroundImageStyle(backgroundImage)), getBorderCSSValue({
@@ -59944,7 +60286,7 @@ var divider_Divider = function Divider(_ref) {
     })), getBoxShadowCSSValue({
       attributes: attributes
     }))
-  }, props), wp.element.createElement(divider_style, {
+  }, props), wp.element.createElement(v3_DividerStyle, {
     attributes: attributes
   }), wp.element.createElement("div", {
     className: "wp-block-gutenbee-divider-inner",
@@ -59956,22 +60298,17 @@ var divider_Divider = function Divider(_ref) {
     }
   }));
 };
-Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/divider', {
-  title: Object(external_window_wp_i18n_["__"])('GutenBee Divider'),
-  description: Object(external_window_wp_i18n_["__"])('A divider to indicate a thematic change in the content in style.'),
-  icon: divider_block_icon,
-  category: 'gutenbee',
-  keywords: [Object(external_window_wp_i18n_["__"])('divider'), Object(external_window_wp_i18n_["__"])('horizontal-line'), 'hr'],
+var v3 = {
   supports: {
     anchor: true
   },
-  attributes: divider_objectSpread(divider_objectSpread(divider_objectSpread({
+  attributes: v3_objectSpread(v3_objectSpread(v3_objectSpread({
     uniqueId: {
       type: 'string'
     },
     style: {
       type: 'string',
-      default: divider_BORDER_STYLES.SOLID
+      default: v3_BORDER_STYLES.SOLID
     },
     weight: {
       type: 'number',
@@ -60025,7 +60362,211 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/divider', {
       }
     }
   }),
-  deprecated: deprecated,
+  migrate: function migrate(attributes) {
+    var _attributes$backgroun, _attributes$backgroun2, _attributes$backgroun3, _attributes$backgroun4, _attributes$backgroun5, _attributes$backgroun6;
+
+    return v3_objectSpread(v3_objectSpread({}, attributes), {}, {
+      backgroundImage: {
+        desktop: {
+          url: attributes.backgroundImage.url,
+          repeat: attributes.backgroundImage.repeat,
+          size: attributes.backgroundImage.size,
+          position: attributes.backgroundImage.position,
+          attachment: attributes.backgroundImage.attachment
+        },
+        tablet: {
+          url: '',
+          repeat: 'no-repeat',
+          size: 'cover',
+          position: 'top center',
+          attachment: 'scroll'
+        },
+        mobile: {
+          url: '',
+          repeat: 'no-repeat',
+          size: 'cover',
+          position: 'top center',
+          attachment: 'scroll'
+        }
+      },
+      backgroundImageEffects: {
+        zoom: (_attributes$backgroun = (_attributes$backgroun2 = attributes.backgroundImage) === null || _attributes$backgroun2 === void 0 ? void 0 : _attributes$backgroun2.zoom) !== null && _attributes$backgroun !== void 0 ? _attributes$backgroun : false,
+        parallax: (_attributes$backgroun3 = (_attributes$backgroun4 = attributes.backgroundImage) === null || _attributes$backgroun4 === void 0 ? void 0 : _attributes$backgroun4.parallax) !== null && _attributes$backgroun3 !== void 0 ? _attributes$backgroun3 : false,
+        parallaxSpeed: (_attributes$backgroun5 = (_attributes$backgroun6 = attributes.backgroundImage) === null || _attributes$backgroun6 === void 0 ? void 0 : _attributes$backgroun6.parallaxSpeed) !== null && _attributes$backgroun5 !== void 0 ? _attributes$backgroun5 : 0.3
+      }
+    });
+  },
+  save: function save(_ref3) {
+    var className = _ref3.className,
+        attributes = _ref3.attributes;
+    return wp.element.createElement(v3_Divider, {
+      className: className,
+      attributes: attributes
+    });
+  }
+};
+/* harmony default export */ var deprecated_v3 = (v3);
+// CONCATENATED MODULE: ./src/blocks/divider/deprecated/index.js
+
+
+
+/* harmony default export */ var divider_deprecated = ([divider_deprecated_v1, deprecated_v2, deprecated_v3]);
+// CONCATENATED MODULE: ./src/blocks/divider/index.js
+function divider_extends() { divider_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return divider_extends.apply(this, arguments); }
+
+function divider_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function divider_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { divider_ownKeys(Object(source), true).forEach(function (key) { divider_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { divider_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function divider_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function divider_objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = divider_objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function divider_objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+/**
+ * Divider Block
+ *
+ * Provide thematic content spacing with a fancy divider
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var divider_BORDER_STYLES = {
+  SOLID: 'solid',
+  DOTTED: 'dotted',
+  DASHED: 'dashed',
+  DOUBLE: 'double'
+};
+var divider_Divider = function Divider(_ref) {
+  var className = _ref.className,
+      attributes = _ref.attributes,
+      props = divider_objectWithoutProperties(_ref, ["className", "attributes"]);
+
+  var height = attributes.height,
+      style = attributes.style,
+      weight = attributes.weight,
+      width = attributes.width,
+      align = attributes.align,
+      color = attributes.color,
+      uniqueId = attributes.uniqueId,
+      backgroundColor = attributes.backgroundColor,
+      blockBreakpointVisibility = attributes.blockBreakpointVisibility,
+      blockAuthVisibility = attributes.blockAuthVisibility;
+  var blockId = util_getBlockId(uniqueId);
+  return wp.element.createElement("div", divider_extends({
+    id: blockId,
+    className: classnames_default()(className, blockId, getBreakpointVisibilityClassNames(blockBreakpointVisibility), helpers_getAuthVisibilityClasses(blockAuthVisibility), divider_defineProperty({}, "align-".concat(align), true)),
+    style: divider_objectSpread(divider_objectSpread({
+      height: height,
+      backgroundColor: backgroundColor || undefined
+    }, getBorderCSSValue({
+      attributes: attributes
+    })), getBoxShadowCSSValue({
+      attributes: attributes
+    }))
+  }, props), wp.element.createElement(divider_style, {
+    attributes: attributes
+  }), wp.element.createElement("div", {
+    className: "wp-block-gutenbee-divider-inner",
+    style: {
+      borderTopStyle: style,
+      borderTopWidth: weight,
+      borderTopColor: color,
+      width: "".concat(width, "%")
+    }
+  }));
+};
+Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/divider', {
+  title: Object(external_window_wp_i18n_["__"])('GutenBee Divider'),
+  description: Object(external_window_wp_i18n_["__"])('A divider to indicate a thematic change in the content in style.'),
+  icon: divider_block_icon,
+  category: 'gutenbee',
+  keywords: [Object(external_window_wp_i18n_["__"])('divider'), Object(external_window_wp_i18n_["__"])('horizontal-line'), 'hr'],
+  supports: {
+    anchor: false
+  },
+  attributes: divider_objectSpread(divider_objectSpread(divider_objectSpread({
+    uniqueId: {
+      type: 'string'
+    },
+    style: {
+      type: 'string',
+      default: divider_BORDER_STYLES.SOLID
+    },
+    weight: {
+      type: 'number',
+      default: 1
+    },
+    width: {
+      type: 'number',
+      default: 100
+    },
+    height: {
+      type: 'number',
+      default: 10
+    },
+    align: {
+      type: 'string',
+      default: 'center'
+    },
+    color: {
+      type: 'string',
+      default: '#000000'
+    },
+    backgroundColor: {
+      type: 'string'
+    },
+    backgroundImage: {
+      type: 'object',
+      default: getDefaultResponsiveBackgroundImageValue()
+    },
+    backgroundImageEffects: {
+      type: 'object',
+      default: {
+        zoom: false,
+        parallax: false,
+        parallaxSpeed: 0.3
+      }
+    },
+    blockMargin: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    blockPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    }
+  }, border_controls_attributes()), boxShadowControlAttributes()), {}, {
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false
+      })
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false
+      }
+    }
+  }),
+  deprecated: divider_deprecated,
   edit: divider_edit,
   save: function save(_ref2) {
     var className = _ref2.className,
@@ -60757,16 +61298,16 @@ var SlideshowBlockIcon = function SlideshowBlockIcon() {
 
 /* harmony default export */ var slideshow_block_icon = (SlideshowBlockIcon);
 // CONCATENATED MODULE: ./src/blocks/slideshow/deprecated/v1.js
-function deprecated_v1_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function slideshow_deprecated_v1_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function deprecated_v1_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { deprecated_v1_ownKeys(Object(source), true).forEach(function (key) { deprecated_v1_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { deprecated_v1_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function slideshow_deprecated_v1_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { slideshow_deprecated_v1_ownKeys(Object(source), true).forEach(function (key) { slideshow_deprecated_v1_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { slideshow_deprecated_v1_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function deprecated_v1_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
+function slideshow_deprecated_v1_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
-var v1_v1 = {
+
+
+var deprecated_v1_v1 = {
   attributes: {
     images: {
       type: 'array',
@@ -60864,7 +61405,7 @@ var v1_v1 = {
     }
   },
   migrate: function migrate(attributes) {
-    return deprecated_v1_objectSpread(deprecated_v1_objectSpread({}, attributes), {}, {
+    return slideshow_deprecated_v1_objectSpread(slideshow_deprecated_v1_objectSpread({}, attributes), {}, {
       blockPadding: getDefaultSpacingValue(),
       blockMargin: {
         desktop: {
@@ -60956,7 +61497,7 @@ var v1_v1 = {
     }));
   }
 };
-/* harmony default export */ var slideshow_deprecated_v1 = (v1_v1);
+/* harmony default export */ var slideshow_deprecated_v1 = (deprecated_v1_v1);
 // CONCATENATED MODULE: ./src/blocks/slideshow/deprecated/v2.js
 function deprecated_v2_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -61243,7 +61784,7 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/slideshow', {
   category: 'gutenbee',
   keywords: [Object(external_window_wp_i18n_["__"])('slideshow'), Object(external_window_wp_i18n_["__"])('gallery')],
   supports: {
-    anchor: true
+    anchor: false
   },
   attributes: slideshow_objectSpread(slideshow_objectSpread(slideshow_objectSpread({
     uniqueId: {
@@ -64673,17 +65214,17 @@ var v2_IconV2 = function IconV2(_ref2) {
   }
 });
 // CONCATENATED MODULE: ./src/blocks/icon/deprecated/v3.js
-function v3_extends() { v3_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return v3_extends.apply(this, arguments); }
+function deprecated_v3_extends() { deprecated_v3_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return deprecated_v3_extends.apply(this, arguments); }
 
-function v3_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function deprecated_v3_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function v3_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { v3_ownKeys(Object(source), true).forEach(function (key) { v3_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { v3_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function deprecated_v3_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { deprecated_v3_ownKeys(Object(source), true).forEach(function (key) { deprecated_v3_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { deprecated_v3_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function v3_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function deprecated_v3_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function v3_objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = v3_objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function deprecated_v3_objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = deprecated_v3_objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
-function v3_objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+function deprecated_v3_objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
 
 
@@ -64731,14 +65272,14 @@ var v3_IconV3 = function IconV3(_ref2) {
       colorSecondary = _ref2.colorSecondary,
       blockMargin = _ref2.blockMargin,
       blockPadding = _ref2.blockPadding,
-      attributes = v3_objectWithoutProperties(_ref2, ["id", "uniqueId", "className", "view", "shape", "icon", "size", "padding", "borderWidth", "align", "colorPrimary", "colorSecondary", "blockMargin", "blockPadding"]);
+      attributes = deprecated_v3_objectWithoutProperties(_ref2, ["id", "uniqueId", "className", "view", "shape", "icon", "size", "padding", "borderWidth", "align", "colorPrimary", "colorSecondary", "blockMargin", "blockPadding"]);
 
   var IconComponent = __webpack_require__(105)("./".concat(icon, ".svg")).default;
 
   var wrapperClasses = classnames_default()((_classNames = {
     'gutenbee-icon-block': true
-  }, v3_defineProperty(_classNames, "align-".concat(align || 'left'), true), v3_defineProperty(_classNames, "gutenbee-icon-block-".concat(view), !!view), v3_defineProperty(_classNames, "gutenbee-icon-block-shape-".concat(shape), !!shape && view !== VIEWS.DEFAULT), v3_defineProperty(_classNames, className, !!className), _classNames));
-  var iconClasses = classnames_default()(v3_defineProperty({}, "".concat(className, "-icon"), !!className));
+  }, deprecated_v3_defineProperty(_classNames, "align-".concat(align || 'left'), true), deprecated_v3_defineProperty(_classNames, "gutenbee-icon-block-".concat(view), !!view), deprecated_v3_defineProperty(_classNames, "gutenbee-icon-block-shape-".concat(shape), !!shape && view !== VIEWS.DEFAULT), deprecated_v3_defineProperty(_classNames, className, !!className), _classNames));
+  var iconClasses = classnames_default()(deprecated_v3_defineProperty({}, "".concat(className, "-icon"), !!className));
   var color = colorPrimary;
   var backgroundColor = 'transparent';
   var borderColor = 'transparent';
@@ -64768,7 +65309,7 @@ var v3_IconV3 = function IconV3(_ref2) {
     }
   }), wp.element.createElement("span", {
     className: "gutenbee-icon-block-icon-wrap",
-    style: v3_objectSpread({
+    style: deprecated_v3_objectSpread({
       fontSize: "".concat(size, "px"),
       color: color,
       backgroundColor: backgroundColor,
@@ -64789,8 +65330,8 @@ var v3_IconV3 = function IconV3(_ref2) {
     }
   })));
 };
-var v3 = {
-  attributes: v3_objectSpread({
+var v3_v3 = {
+  attributes: deprecated_v3_objectSpread({
     uniqueId: {
       type: 'string'
     },
@@ -64838,7 +65379,7 @@ var v3 = {
     }
   }, boxShadowControlAttributes('icon')),
   migrate: function migrate(attributes) {
-    return v3_objectSpread(v3_objectSpread({}, attributes), {}, {
+    return deprecated_v3_objectSpread(deprecated_v3_objectSpread({}, attributes), {}, {
       blockBreakpointVisibility: {
         desktop: false,
         tablet: false,
@@ -64859,18 +65400,18 @@ var v3 = {
     var className = _ref3.className,
         attributes = _ref3.attributes;
     var id = util_getBlockId(attributes.uniqueId);
-    return wp.element.createElement(v3_IconV3, v3_extends({
+    return wp.element.createElement(v3_IconV3, deprecated_v3_extends({
       id: id,
       className: className
     }, attributes));
   }
 };
-/* harmony default export */ var deprecated_v3 = (v3);
+/* harmony default export */ var icon_deprecated_v3 = (v3_v3);
 // CONCATENATED MODULE: ./src/blocks/icon/deprecated/index.js
 
 
 
-/* harmony default export */ var icon_deprecated = ([icon_deprecated_v1, icon_deprecated_v2, deprecated_v3]);
+/* harmony default export */ var icon_deprecated = ([icon_deprecated_v1, icon_deprecated_v2, icon_deprecated_v3]);
 // CONCATENATED MODULE: ./src/blocks/icon/index.js
 function icon_extends() { icon_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return icon_extends.apply(this, arguments); }
 
@@ -65569,13 +66110,13 @@ var v2_deprecated = {
 };
 /* harmony default export */ var icon_box_deprecated_v2 = (v2_deprecated);
 // CONCATENATED MODULE: ./src/blocks/icon-box/deprecated/v3.js
-function deprecated_v3_extends() { deprecated_v3_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return deprecated_v3_extends.apply(this, arguments); }
+function icon_box_deprecated_v3_extends() { icon_box_deprecated_v3_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return icon_box_deprecated_v3_extends.apply(this, arguments); }
 
-function deprecated_v3_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function icon_box_deprecated_v3_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function deprecated_v3_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { deprecated_v3_ownKeys(Object(source), true).forEach(function (key) { deprecated_v3_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { deprecated_v3_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function icon_box_deprecated_v3_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { icon_box_deprecated_v3_ownKeys(Object(source), true).forEach(function (key) { icon_box_deprecated_v3_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { icon_box_deprecated_v3_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function deprecated_v3_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function icon_box_deprecated_v3_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -65630,8 +66171,8 @@ var v3_IconBox = function IconBox(_ref2) {
   var blockId = util_getBlockId(uniqueId);
   return wp.element.createElement("div", {
     id: blockId,
-    className: classnames_default()((_classNames = {}, deprecated_v3_defineProperty(_classNames, className, true), deprecated_v3_defineProperty(_classNames, "wp-block-gutenbee-iconbox-align-".concat(align), true), deprecated_v3_defineProperty(_classNames, "wp-block-gutenbee-iconbox-content-align-".concat(contentAlign), !!contentAlign), _classNames)),
-    style: deprecated_v3_objectSpread(deprecated_v3_objectSpread({
+    className: classnames_default()((_classNames = {}, icon_box_deprecated_v3_defineProperty(_classNames, className, true), icon_box_deprecated_v3_defineProperty(_classNames, "wp-block-gutenbee-iconbox-align-".concat(align), true), icon_box_deprecated_v3_defineProperty(_classNames, "wp-block-gutenbee-iconbox-content-align-".concat(contentAlign), !!contentAlign), _classNames)),
+    style: icon_box_deprecated_v3_objectSpread(icon_box_deprecated_v3_objectSpread({
       backgroundColor: backgroundColor || undefined
     }, getBorderCSSValue({
       attributes: attributes
@@ -65640,9 +66181,9 @@ var v3_IconBox = function IconBox(_ref2) {
     }))
   }, wp.element.createElement(v3_IconBoxStyle, {
     attributes: attributes
-  }), wp.element.createElement(v3_IconV3, deprecated_v3_extends({
+  }), wp.element.createElement(v3_IconV3, icon_box_deprecated_v3_extends({
     id: "".concat(blockId, "-icon")
-  }, deprecated_v3_objectSpread(deprecated_v3_objectSpread({}, attributes), {}, {
+  }, icon_box_deprecated_v3_objectSpread(icon_box_deprecated_v3_objectSpread({}, attributes), {}, {
     blockMargin: iconMargin,
     blockPadding: iconPadding
   }))), wp.element.createElement("div", {
@@ -65668,7 +66209,7 @@ var v3_IconBox = function IconBox(_ref2) {
 };
 
 var v3_deprecated = {
-  attributes: deprecated_v3_objectSpread(deprecated_v3_objectSpread(deprecated_v3_objectSpread({}, deprecated_v3.attributes), {}, {
+  attributes: icon_box_deprecated_v3_objectSpread(icon_box_deprecated_v3_objectSpread(icon_box_deprecated_v3_objectSpread({}, icon_deprecated_v3.attributes), {}, {
     uniqueId: {
       type: 'string'
     },
@@ -65732,7 +66273,7 @@ var v3_deprecated = {
     }
   }, border_controls_attributes()), boxShadowControlAttributes()),
   migrate: function migrate(attributes) {
-    return deprecated_v3_objectSpread(deprecated_v3_objectSpread({}, attributes), {}, {
+    return icon_box_deprecated_v3_objectSpread(icon_box_deprecated_v3_objectSpread({}, attributes), {}, {
       blockBreakpointVisibility: {
         desktop: false,
         tablet: false,
@@ -65869,7 +66410,7 @@ var v4_IconBox = function IconBox(_ref2) {
 };
 
 var v4 = {
-  attributes: v4_objectSpread(v4_objectSpread(v4_objectSpread({}, deprecated_v3.attributes), {}, {
+  attributes: v4_objectSpread(v4_objectSpread(v4_objectSpread({}, icon_deprecated_v3.attributes), {}, {
     uniqueId: {
       type: 'string'
     },
@@ -66496,7 +67037,7 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/iconbox', {
   category: 'gutenbee',
   keywords: [Object(external_window_wp_i18n_["__"])('icon')],
   supports: {
-    anchor: true
+    anchor: false
   },
   attributes: icon_box_objectSpread(icon_box_objectSpread(icon_box_objectSpread(icon_box_objectSpread({}, iconAttributes), {}, {
     uniqueId: {
@@ -67072,7 +67613,7 @@ var v1_ImageBox = function ImageBox(_ref) {
   })));
 };
 
-var deprecated_v1_v1 = {
+var image_box_deprecated_v1_v1 = {
   attributes: {
     titleContent: {
       source: 'html',
@@ -67189,7 +67730,7 @@ var deprecated_v1_v1 = {
     });
   }
 };
-/* harmony default export */ var image_box_deprecated_v1 = (deprecated_v1_v1);
+/* harmony default export */ var image_box_deprecated_v1 = (image_box_deprecated_v1_v1);
 // CONCATENATED MODULE: ./src/blocks/image-box/deprecated/v2.js
 function image_box_deprecated_v2_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -67518,7 +68059,7 @@ var v3_ImageBox = function ImageBox(_ref2) {
   })));
 };
 
-var v3_v3 = {
+var deprecated_v3_v3 = {
   attributes: image_box_deprecated_v3_objectSpread(image_box_deprecated_v3_objectSpread({
     uniqueId: {
       type: 'string'
@@ -67633,7 +68174,7 @@ var v3_v3 = {
     });
   }
 };
-/* harmony default export */ var image_box_deprecated_v3 = (v3_v3);
+/* harmony default export */ var image_box_deprecated_v3 = (deprecated_v3_v3);
 // CONCATENATED MODULE: ./src/blocks/image-box/deprecated/index.js
 
 
@@ -68696,7 +69237,7 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/countup', {
   icon: countup_block_icon,
   keywords: [Object(external_window_wp_i18n_["__"])('counter'), Object(external_window_wp_i18n_["__"])('numbers'), Object(external_window_wp_i18n_["__"])('animation')],
   supports: {
-    anchor: true
+    anchor: false
   },
   attributes: countup_objectSpread(countup_objectSpread(countup_objectSpread({
     uniqueId: {
@@ -70860,7 +71401,7 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/progress-bar',
   category: 'gutenbee',
   keywords: [Object(external_window_wp_i18n_["__"])('progress'), Object(external_window_wp_i18n_["__"])('progress bar')],
   supports: {
-    anchor: true
+    anchor: false
   },
   attributes: progress_bar_objectSpread(progress_bar_objectSpread(progress_bar_objectSpread({
     uniqueId: {
@@ -73647,7 +74188,7 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/countdown', {
   icon: countdown_block_icon,
   keywords: [Object(external_window_wp_i18n_["__"])('counter'), Object(external_window_wp_i18n_["__"])('numbers'), Object(external_window_wp_i18n_["__"])('countdown')],
   supports: {
-    anchor: true
+    anchor: false
   },
   attributes: countdown_objectSpread(countdown_objectSpread(countdown_objectSpread({
     uniqueId: {
@@ -75315,7 +75856,7 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/tabs', {
   category: 'gutenbee',
   keywords: [Object(external_window_wp_i18n_["__"])('tabs')],
   supports: {
-    anchor: true
+    anchor: false
   },
   attributes: {
     uniqueId: {
@@ -76124,7 +76665,8 @@ var style_ContainerStyle = function ContainerStyle(_ref) {
       blockPadding = attributes.blockPadding,
       blockMargin = attributes.blockMargin,
       verticalContentAlignment = attributes.verticalContentAlignment,
-      horizontalContentAlignment = attributes.horizontalContentAlignment;
+      horizontalContentAlignment = attributes.horizontalContentAlignment,
+      backgroundImage = attributes.backgroundImage;
   var blockId = util_getBlockId(uniqueId);
   return wp.element.createElement(stylesheet, {
     id: blockId
@@ -76158,6 +76700,9 @@ var style_ContainerStyle = function ContainerStyle(_ref) {
   }), wp.element.createElement(stylesheet_Rule, {
     value: horizontalContentAlignment,
     rule: ".wp-block-gutenbee-container.[root] { justify-content: %s; }"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: backgroundImage,
+    rule: ".wp-block-gutenbee-container.[root] .wp-block-gutenbee-container-background { %s }"
   }), children);
 };
 
@@ -76542,7 +77087,9 @@ var inspector_controls_ContainerInspectorControls = function ContainerInspectorC
       overlayBackgroundColor = attributes.overlayBackgroundColor,
       backgroundVideoURL = attributes.backgroundVideoURL,
       blockBreakpointVisibility = attributes.blockBreakpointVisibility,
-      blockAuthVisibility = attributes.blockAuthVisibility;
+      blockAuthVisibility = attributes.blockAuthVisibility,
+      backgroundImage = attributes.backgroundImage,
+      backgroundImageEffects = attributes.backgroundImageEffects;
   return wp.element.createElement(external_window_wp_element_["Fragment"], null, wp.element.createElement(external_window_wp_blockEditor_["InspectorControls"], null, wp.element.createElement(external_window_wp_components_["PanelBody"], {
     title: Object(external_window_wp_i18n_["__"])('Layout Settings'),
     initialOpen: true
@@ -76611,8 +77158,8 @@ var inspector_controls_ContainerInspectorControls = function ContainerInspectorC
       max: 1200,
       value: containerHeight[breakpoint],
       onChange: function onChange(value) {
-        return setAttributes({
-          containerHeight: inspector_controls_objectSpread(inspector_controls_objectSpread({}, containerHeight), {}, inspector_controls_defineProperty({}, breakpoint, value != null ? value : ''))
+        setAttributes({
+          containerHeight: inspector_controls_objectSpread(inspector_controls_objectSpread({}, containerHeight), {}, inspector_controls_defineProperty({}, breakpoint, value != null ? value : undefined))
         });
       },
       step: 1,
@@ -76735,13 +77282,34 @@ var inspector_controls_ContainerInspectorControls = function ContainerInspectorC
         overlayBackgroundColor: value
       });
     }
-  }), wp.element.createElement(BackgroundControl, {
-    label: Object(external_window_wp_i18n_["__"])('Background Image'),
-    setAttributes: setAttributes,
-    attributes: attributes,
-    attributeKey: "backgroundImage",
-    supportsParallax: true,
-    supportsZoom: true
+  }), wp.element.createElement(responsive_control_ResponsiveControl, null, function (breakpoint) {
+    return wp.element.createElement(background_controls_BackgroundControls, {
+      label: Object(external_window_wp_i18n_["__"])('Background Image'),
+      backgroundImageValue: backgroundImage[breakpoint],
+      onBackgroundImageChange: function onBackgroundImageChange(value) {
+        return setAttributes({
+          backgroundImage: inspector_controls_objectSpread(inspector_controls_objectSpread({}, backgroundImage), {}, inspector_controls_defineProperty({}, breakpoint, value))
+        });
+      },
+      zoomValue: backgroundImageEffects.zoom,
+      onZoomChange: function onZoomChange(value) {
+        return setAttributes({
+          backgroundImageEffects: inspector_controls_objectSpread(inspector_controls_objectSpread({}, backgroundImageEffects), {}, {
+            zoom: value
+          })
+        });
+      },
+      parallaxValue: {
+        parallax: backgroundImageEffects.parallax,
+        parallaxSpeed: backgroundImageEffects.parallaxSpeed
+      },
+      onParallaxChange: function onParallaxChange(value) {
+        return setAttributes({
+          backgroundImageEffects: inspector_controls_objectSpread(inspector_controls_objectSpread({}, backgroundImageEffects), value)
+        });
+      },
+      backgroundVideoUrlValue: backgroundVideoURL
+    });
   }), wp.element.createElement(border_controls, {
     attributes: attributes,
     setAttributes: setAttributes
@@ -77090,7 +77658,6 @@ function container_edit_defineProperty(obj, key, value) { if (key in obj) { Obje
 
 
 
-
 var container_edit_propTypes = {
   className: prop_types_default.a.string.isRequired,
   attributes: prop_types_default.a.object.isRequired,
@@ -77110,7 +77677,7 @@ var edit_ContainerBlockEdit = function ContainerBlockEdit(_ref) {
       textColor = attributes.textColor,
       backgroundColor = attributes.backgroundColor,
       backgroundVideoURL = attributes.backgroundVideoURL,
-      backgroundImage = attributes.backgroundImage,
+      backgroundImageEffects = attributes.backgroundImageEffects,
       columnDirection = attributes.columnDirection,
       overlayBackgroundColor = attributes.overlayBackgroundColor;
 
@@ -77142,8 +77709,8 @@ var edit_ContainerBlockEdit = function ContainerBlockEdit(_ref) {
     setAttributes: setAttributes,
     clientId: clientId
   });
-  var zoom = backgroundImage.zoom,
-      parallax = backgroundImage.parallax;
+  var zoom = backgroundImageEffects.zoom,
+      parallax = backgroundImageEffects.parallax;
   var blockId = util_getBlockId(uniqueId);
   var classes = classnames_default()(className, blockId, {
     'gutenbee-zoom': zoom && !parallax
@@ -77186,14 +77753,16 @@ var edit_ContainerBlockEdit = function ContainerBlockEdit(_ref) {
     __experimentalPassedProps: {}
   }))), overlayBackgroundColor && wp.element.createElement("div", {
     className: "".concat(baseClass, "-background-overlay"),
-    style: {
+    style: container_edit_objectSpread({
       backgroundColor: overlayBackgroundColor
-    }
+    }, getBorderCSSValue({
+      attributes: attributes
+    }))
   }), wp.element.createElement("div", {
     className: "".concat(baseClass, "-background"),
-    style: container_edit_objectSpread(container_edit_objectSpread(container_edit_objectSpread({
+    style: container_edit_objectSpread(container_edit_objectSpread({
       backgroundColor: backgroundColor
-    }, getBackgroundImageStyle(backgroundImage)), getBorderCSSValue({
+    }, getBorderCSSValue({
       attributes: attributes
     })), getBoxShadowCSSValue({
       attributes: attributes
@@ -77905,25 +78474,12 @@ var container_deprecated_v2_v2 = {
   }
 };
 /* harmony default export */ var container_deprecated_v2 = (container_deprecated_v2_v2);
-// CONCATENATED MODULE: ./src/blocks/container/deprecated/index.js
+// CONCATENATED MODULE: ./src/blocks/container/deprecated/v3.js
+function container_deprecated_v3_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
+function container_deprecated_v3_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { container_deprecated_v3_ownKeys(Object(source), true).forEach(function (key) { container_deprecated_v3_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { container_deprecated_v3_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-/* harmony default export */ var container_deprecated = ([container_deprecated_v1, container_deprecated_v2]);
-// CONCATENATED MODULE: ./src/blocks/container/index.js
-function container_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function container_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { container_ownKeys(Object(source), true).forEach(function (key) { container_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { container_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function container_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-/**
- * Container block
- */
-
-
-
- // This is a check to see if we are in Gutenberg 7.x which supports
-// this and load the appropriate Edit component
+function container_deprecated_v3_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -77940,21 +78496,59 @@ function container_defineProperty(obj, key, value) { if (key in obj) { Object.de
 
 
 
+var v3_ContainerStyle = function ContainerStyle(_ref) {
+  var attributes = _ref.attributes,
+      children = _ref.children;
+  var uniqueId = attributes.uniqueId,
+      containerHeight = attributes.containerHeight,
+      innerContentWidth = attributes.innerContentWidth,
+      blockPadding = attributes.blockPadding,
+      blockMargin = attributes.blockMargin,
+      verticalContentAlignment = attributes.verticalContentAlignment,
+      horizontalContentAlignment = attributes.horizontalContentAlignment;
+  var blockId = util_getBlockId(uniqueId);
+  return wp.element.createElement(stylesheet, {
+    id: blockId
+  }, wp.element.createElement(stylesheet_Rule, {
+    value: containerHeight,
+    rule: ".wp-block-gutenbee-container.[root] { height: %s; }",
+    unit: "px",
+    edgeCase: {
+      edge: -1,
+      value: '100vh'
+    }
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: blockMargin,
+    rule: ".wp-block-gutenbee-container.[root] { margin: %s; }",
+    unit: "px"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: blockPadding,
+    rule: ".wp-block-gutenbee-container.[root] { padding: %s; }",
+    unit: "px"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: innerContentWidth,
+    rule: ".wp-block-gutenbee-container.[root] .wp-block-gutenbee-container-inner { width: %s; }",
+    unit: "px",
+    edgeCase: {
+      edge: -1,
+      value: '100%'
+    }
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: verticalContentAlignment,
+    rule: ".wp-block-gutenbee-container.[root] { align-items: %s; }"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: horizontalContentAlignment,
+    rule: ".wp-block-gutenbee-container.[root] { justify-content: %s; }"
+  }), children);
+};
 
-
-Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/container', {
-  title: Object(external_window_wp_i18n_["__"])('GutenBee Container'),
-  description: Object(external_window_wp_i18n_["__"])('A versatile container for your blocks.'),
-  icon: container_block_icon,
-  category: 'gutenbee',
-  keywords: [Object(external_window_wp_i18n_["__"])('container'), Object(external_window_wp_i18n_["__"])('wrapper'), Object(external_window_wp_i18n_["__"])('row'), Object(external_window_wp_i18n_["__"])('section')],
+var container_deprecated_v3_v3 = {
   supports: {
     align: ['wide', 'full'],
     anchor: true,
     html: false
   },
-  isMultiBlock: true,
-  attributes: container_objectSpread(container_objectSpread(container_objectSpread({
+  attributes: container_deprecated_v3_objectSpread(container_deprecated_v3_objectSpread(container_deprecated_v3_objectSpread({
     uniqueId: {
       type: 'string'
     },
@@ -78052,21 +78646,43 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/container', {
       }
     }
   }),
-  deprecated: container_deprecated,
-  getEditWrapperProps: function getEditWrapperProps(attributes) {
-    var themeGrid = attributes.themeGrid;
+  migrate: function migrate(attributes) {
+    var _attributes$backgroun, _attributes$backgroun2, _attributes$backgroun3, _attributes$backgroun4, _attributes$backgroun5, _attributes$backgroun6;
 
-    if (themeGrid) {
-      return {
-        'data-theme-grid': themeGrid
-      };
-    }
+    return container_deprecated_v3_objectSpread(container_deprecated_v3_objectSpread({}, attributes), {}, {
+      backgroundImage: {
+        desktop: {
+          url: attributes.backgroundImage.url,
+          repeat: attributes.backgroundImage.repeat,
+          size: attributes.backgroundImage.size,
+          position: attributes.backgroundImage.position,
+          attachment: attributes.backgroundImage.attachment
+        },
+        tablet: {
+          url: '',
+          repeat: 'no-repeat',
+          size: 'cover',
+          position: 'top center',
+          attachment: 'scroll'
+        },
+        mobile: {
+          url: '',
+          repeat: 'no-repeat',
+          size: 'cover',
+          position: 'top center',
+          attachment: 'scroll'
+        }
+      },
+      backgroundImageEffects: {
+        zoom: (_attributes$backgroun = (_attributes$backgroun2 = attributes.backgroundImage) === null || _attributes$backgroun2 === void 0 ? void 0 : _attributes$backgroun2.zoom) !== null && _attributes$backgroun !== void 0 ? _attributes$backgroun : false,
+        parallax: (_attributes$backgroun3 = (_attributes$backgroun4 = attributes.backgroundImage) === null || _attributes$backgroun4 === void 0 ? void 0 : _attributes$backgroun4.parallax) !== null && _attributes$backgroun3 !== void 0 ? _attributes$backgroun3 : false,
+        parallaxSpeed: (_attributes$backgroun5 = (_attributes$backgroun6 = attributes.backgroundImage) === null || _attributes$backgroun6 === void 0 ? void 0 : _attributes$backgroun6.parallaxSpeed) !== null && _attributes$backgroun5 !== void 0 ? _attributes$backgroun5 : 0.3
+      }
+    });
   },
-  variations: container_variations,
-  edit: !!external_window_wp_blockEditor_["__experimentalBlockVariationPicker"] ? container_edit : edit_legacy,
-  save: function save(_ref) {
-    var attributes = _ref.attributes,
-        className = _ref.className;
+  save: function save(_ref2) {
+    var attributes = _ref2.attributes,
+        className = _ref2.className;
     var uniqueId = attributes.uniqueId,
         textColor = attributes.textColor,
         backgroundColor = attributes.backgroundColor,
@@ -78096,12 +78712,12 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/container', {
       style: {
         color: textColor
       }
-    }, wp.element.createElement(container_style, {
+    }, wp.element.createElement(v3_ContainerStyle, {
       attributes: attributes
     }), wp.element.createElement("div", {
       className: "wp-block-gutenbee-container-inner"
     }, wp.element.createElement("div", {
-      className: classnames_default()(container_defineProperty({
+      className: classnames_default()(container_deprecated_v3_defineProperty({
         'wp-block-gutenbee-container-row': true
       }, "wp-block-gutenbee-container-".concat(gutter), true))
     }, wp.element.createElement(external_window_wp_blockEditor_["InnerBlocks"].Content, null)), overlayBackgroundColor && wp.element.createElement("div", {
@@ -78115,9 +78731,235 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/container', {
         'gutenbee-parallax': parallax
       }),
       "data-parallax-speed": parallaxSpeed,
-      style: container_objectSpread(container_objectSpread(container_objectSpread({
+      style: container_deprecated_v3_objectSpread(container_deprecated_v3_objectSpread(container_deprecated_v3_objectSpread({
         backgroundColor: backgroundColor
       }, getBackgroundImageStyle(backgroundImage)), getBorderCSSValue({
+        attributes: attributes
+      })), getBoxShadowCSSValue({
+        attributes: attributes
+      }))
+    }, backgroundVideoURL && !['unsupported'].includes(videoInfo.provider) && wp.element.createElement(components_VideoBackgroundFrontend, {
+      id: blockId,
+      videoInfo: videoInfo
+    })));
+  }
+};
+/* harmony default export */ var container_deprecated_v3 = (container_deprecated_v3_v3);
+// CONCATENATED MODULE: ./src/blocks/container/deprecated/index.js
+
+
+
+/* harmony default export */ var container_deprecated = ([container_deprecated_v1, container_deprecated_v2, container_deprecated_v3]);
+// CONCATENATED MODULE: ./src/blocks/container/index.js
+function container_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function container_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { container_ownKeys(Object(source), true).forEach(function (key) { container_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { container_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function container_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+/**
+ * Container block
+ */
+
+
+
+ // This is a check to see if we are in Gutenberg 7.x which supports
+// this and load the appropriate Edit component
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/container', {
+  title: Object(external_window_wp_i18n_["__"])('GutenBee Container'),
+  description: Object(external_window_wp_i18n_["__"])('A versatile container for your blocks.'),
+  icon: container_block_icon,
+  category: 'gutenbee',
+  keywords: [Object(external_window_wp_i18n_["__"])('container'), Object(external_window_wp_i18n_["__"])('wrapper'), Object(external_window_wp_i18n_["__"])('row'), Object(external_window_wp_i18n_["__"])('section')],
+  supports: {
+    align: ['wide', 'full'],
+    anchor: false,
+    html: false
+  },
+  isMultiBlock: true,
+  attributes: container_objectSpread(container_objectSpread(container_objectSpread({
+    uniqueId: {
+      type: 'string'
+    },
+    gutter: {
+      type: 'string',
+      default: 'lg'
+    },
+    columnDirection: {
+      type: 'object',
+      default: {
+        desktop: '',
+        tablet: '',
+        mobile: ''
+      }
+    },
+    textColor: {
+      type: 'string'
+    },
+    backgroundColor: {
+      type: 'string'
+    },
+    backgroundVideoURL: {
+      type: 'string'
+    },
+    backgroundImage: {
+      type: 'object',
+      default: getDefaultResponsiveBackgroundImageValue()
+    },
+    backgroundImageEffects: {
+      type: 'object',
+      default: {
+        zoom: false,
+        parallax: false,
+        parallaxSpeed: 0.3
+      }
+    },
+    overlayBackgroundColor: {
+      type: 'string'
+    },
+    overlayBackgroundColorOpacity: {
+      type: 'number',
+      default: 1
+    },
+    blockPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    blockMargin: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    wideAlign: {
+      type: 'boolean',
+      default: false
+    },
+    themeGrid: {
+      type: 'boolean',
+      default: false
+    },
+    containerHeight: {
+      type: 'object',
+      default: getDefaultResponsiveValue()
+    },
+    innerContentWidth: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: '',
+        tablet: '',
+        mobile: ''
+      })
+    },
+    verticalContentAlignment: {
+      type: 'object',
+      default: getDefaultResponsiveValue()
+    },
+    horizontalContentAlignment: {
+      type: 'object',
+      default: getDefaultResponsiveValue()
+    }
+  }, border_controls_attributes()), boxShadowControlAttributes()), {}, {
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false
+      })
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false
+      }
+    }
+  }),
+  deprecated: container_deprecated,
+  getEditWrapperProps: function getEditWrapperProps(attributes) {
+    var themeGrid = attributes.themeGrid;
+
+    if (themeGrid) {
+      return {
+        'data-theme-grid': themeGrid
+      };
+    }
+  },
+  variations: container_variations,
+  edit: !!external_window_wp_blockEditor_["__experimentalBlockVariationPicker"] ? container_edit : edit_legacy,
+  save: function save(_ref) {
+    var attributes = _ref.attributes,
+        className = _ref.className;
+    var uniqueId = attributes.uniqueId,
+        textColor = attributes.textColor,
+        backgroundColor = attributes.backgroundColor,
+        backgroundVideoURL = attributes.backgroundVideoURL,
+        backgroundImageEffects = attributes.backgroundImageEffects,
+        gutter = attributes.gutter,
+        overlayBackgroundColor = attributes.overlayBackgroundColor,
+        themeGrid = attributes.themeGrid,
+        columnDirection = attributes.columnDirection,
+        blockBreakpointVisibility = attributes.blockBreakpointVisibility,
+        blockAuthVisibility = attributes.blockAuthVisibility;
+    var parallax = backgroundImageEffects.parallax,
+        parallaxSpeed = backgroundImageEffects.parallaxSpeed,
+        zoom = backgroundImageEffects.zoom;
+    var videoInfo = backgroundVideoURL ? Object(providers["a" /* getVideoProviderInfoByUrl */])(backgroundVideoURL) : null;
+    var blockId = util_getBlockId(uniqueId);
+    return wp.element.createElement("div", {
+      id: blockId,
+      className: classnames_default()(className, blockId, getBreakpointVisibilityClassNames(blockBreakpointVisibility), helpers_getAuthVisibilityClasses(blockAuthVisibility), {
+        'has-parallax': parallax,
+        'gutenbee-zoom': zoom && !parallax,
+        'theme-grid': themeGrid,
+        'row-reverse-desktop': columnDirection.desktop === 'row-reverse',
+        'row-reverse-tablet': columnDirection.tablet === 'row-reverse',
+        'row-reverse-mobile': columnDirection.mobile === 'row-reverse'
+      }),
+      style: {
+        color: textColor
+      }
+    }, wp.element.createElement(container_style, {
+      attributes: attributes
+    }), wp.element.createElement("div", {
+      className: "wp-block-gutenbee-container-inner"
+    }, wp.element.createElement("div", {
+      className: classnames_default()(container_defineProperty({
+        'wp-block-gutenbee-container-row': true
+      }, "wp-block-gutenbee-container-".concat(gutter), true))
+    }, wp.element.createElement(external_window_wp_blockEditor_["InnerBlocks"].Content, null)), overlayBackgroundColor && wp.element.createElement("div", {
+      className: "wp-block-gutenbee-container-background-overlay",
+      style: container_objectSpread({
+        backgroundColor: overlayBackgroundColor
+      }, getBorderCSSValue({
+        attributes: attributes
+      }))
+    })), wp.element.createElement("div", {
+      className: classnames_default()({
+        'wp-block-gutenbee-container-background': true,
+        'gutenbee-parallax': parallax
+      }),
+      "data-parallax-speed": parallaxSpeed,
+      style: container_objectSpread(container_objectSpread({
+        backgroundColor: backgroundColor
+      }, getBorderCSSValue({
         attributes: attributes
       })), getBoxShadowCSSValue({
         attributes: attributes
@@ -78140,7 +78982,8 @@ var style_ColumnStyle = function ColumnStyle(_ref) {
       blockPadding = attributes.blockPadding,
       blockMargin = attributes.blockMargin,
       verticalContentAlignment = attributes.verticalContentAlignment,
-      horizontalContentAlignment = attributes.horizontalContentAlignment;
+      horizontalContentAlignment = attributes.horizontalContentAlignment,
+      backgroundImage = attributes.backgroundImage;
   var blockId = util_getBlockId(uniqueId);
   return wp.element.createElement(stylesheet, {
     id: blockId
@@ -78158,6 +79001,9 @@ var style_ColumnStyle = function ColumnStyle(_ref) {
   }), wp.element.createElement(stylesheet_Rule, {
     value: verticalContentAlignment,
     rule: ".wp-block-gutenbee-column.[root] .wp-block-gutenbee-column-content { justify-content: %s; }"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: backgroundImage,
+    rule: ".wp-block-gutenbee-column.[root] .wp-block-gutenbee-column-content { %s }"
   }), children);
 };
 
@@ -78180,7 +79026,6 @@ function column_edit_ownKeys(object, enumerableOnly) { var keys = Object.keys(ob
 function column_edit_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { column_edit_ownKeys(Object(source), true).forEach(function (key) { column_edit_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { column_edit_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function column_edit_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -78245,10 +79090,10 @@ var edit_ColumnBlockEdit = function ColumnBlockEdit(_ref) {
     className: classnames_default()(className, blockId)
   }, wp.element.createElement("div", {
     className: "".concat(customClass, "-content"),
-    style: column_edit_objectSpread(column_edit_objectSpread(column_edit_objectSpread({
+    style: column_edit_objectSpread(column_edit_objectSpread({
       color: textColor,
       backgroundColor: backgroundColor
-    }, getBackgroundImageStyle(backgroundImage)), getBorderCSSValue({
+    }, getBorderCSSValue({
       attributes: attributes
     })), getBoxShadowCSSValue({
       attributes: attributes
@@ -78354,11 +79199,16 @@ var edit_ColumnBlockEdit = function ColumnBlockEdit(_ref) {
         backgroundColor: value
       });
     }
-  }), wp.element.createElement(background_controls, {
-    label: Object(external_window_wp_i18n_["__"])('Background Image'),
-    setAttributes: setAttributes,
-    attributes: attributes,
-    attributeKey: "backgroundImage"
+  }), wp.element.createElement(responsive_control_ResponsiveControl, null, function (breakpoint) {
+    return wp.element.createElement(background_controls_BackgroundControls, {
+      label: Object(external_window_wp_i18n_["__"])('Background Image'),
+      backgroundImageValue: backgroundImage[breakpoint],
+      onBackgroundImageChange: function onBackgroundImageChange(value) {
+        return setAttributes({
+          backgroundImage: column_edit_objectSpread(column_edit_objectSpread({}, backgroundImage), {}, column_edit_defineProperty({}, breakpoint, value))
+        });
+      }
+    });
   }), wp.element.createElement(border_controls, {
     attributes: attributes,
     setAttributes: setAttributes
@@ -78603,19 +79453,12 @@ var column_deprecated_v1_v1 = {
   }
 };
 /* harmony default export */ var column_deprecated_v1 = (column_deprecated_v1_v1);
-// CONCATENATED MODULE: ./src/blocks/container/column/deprecated/index.js
+// CONCATENATED MODULE: ./src/blocks/container/column/deprecated/v2.js
+function column_deprecated_v2_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-/* harmony default export */ var column_deprecated = ([column_deprecated_v1]);
-// CONCATENATED MODULE: ./src/blocks/container/column/index.js
-function column_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function column_deprecated_v2_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { column_deprecated_v2_ownKeys(Object(source), true).forEach(function (key) { column_deprecated_v2_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { column_deprecated_v2_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function column_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { column_ownKeys(Object(source), true).forEach(function (key) { column_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { column_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function column_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-/**
- * Column block
- */
+function column_deprecated_v2_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -78630,21 +79473,42 @@ function column_defineProperty(obj, key, value) { if (key in obj) { Object.defin
 
 
 
+var v2_ColumnStyle = function ColumnStyle(_ref) {
+  var attributes = _ref.attributes,
+      children = _ref.children;
+  var uniqueId = attributes.uniqueId,
+      blockPadding = attributes.blockPadding,
+      blockMargin = attributes.blockMargin,
+      verticalContentAlignment = attributes.verticalContentAlignment,
+      horizontalContentAlignment = attributes.horizontalContentAlignment;
+  var blockId = util_getBlockId(uniqueId);
+  return wp.element.createElement(stylesheet, {
+    id: blockId
+  }, wp.element.createElement(stylesheet_Rule, {
+    value: blockMargin,
+    rule: ".wp-block-gutenbee-column.[root] .wp-block-gutenbee-column-content { margin: %s; }",
+    unit: "px"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: blockPadding,
+    rule: ".wp-block-gutenbee-column.[root] .wp-block-gutenbee-column-content { padding: %s; }",
+    unit: "px"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: horizontalContentAlignment,
+    rule: ".wp-block-gutenbee-column.[root] .wp-block-gutenbee-column-content { align-items: %s; }"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: verticalContentAlignment,
+    rule: ".wp-block-gutenbee-column.[root] .wp-block-gutenbee-column-content { justify-content: %s; }"
+  }), children);
+};
 
-
-
-Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/column', {
-  title: Object(external_window_wp_i18n_["__"])('GutenBee Column'),
-  category: 'gutenbee',
-  description: Object(external_window_wp_i18n_["__"])('A single column within a container block.'),
-  icon: column_block_icon,
+var column_deprecated_v2_v2 = {
   supports: {
     inserter: false,
     reusable: false,
     html: false,
     anchor: true
   },
-  attributes: column_objectSpread(column_objectSpread(column_objectSpread({
+  attributes: column_deprecated_v2_objectSpread(column_deprecated_v2_objectSpread(column_deprecated_v2_objectSpread({
     uniqueId: {
       type: 'string',
       default: ''
@@ -78709,6 +79573,182 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/column', {
       }
     }
   }),
+  migrate: function migrate(attributes) {
+    var _attributes$backgroun, _attributes$backgroun2, _attributes$backgroun3, _attributes$backgroun4, _attributes$backgroun5, _attributes$backgroun6;
+
+    return column_deprecated_v2_objectSpread(column_deprecated_v2_objectSpread({}, attributes), {}, {
+      backgroundImage: {
+        desktop: {
+          url: attributes.backgroundImage.url,
+          repeat: attributes.backgroundImage.repeat,
+          size: attributes.backgroundImage.size,
+          position: attributes.backgroundImage.position,
+          attachment: attributes.backgroundImage.attachment
+        },
+        tablet: {
+          url: '',
+          repeat: 'no-repeat',
+          size: 'cover',
+          position: 'top center',
+          attachment: 'scroll'
+        },
+        mobile: {
+          url: '',
+          repeat: 'no-repeat',
+          size: 'cover',
+          position: 'top center',
+          attachment: 'scroll'
+        }
+      },
+      backgroundImageEffects: {
+        zoom: (_attributes$backgroun = (_attributes$backgroun2 = attributes.backgroundImage) === null || _attributes$backgroun2 === void 0 ? void 0 : _attributes$backgroun2.zoom) !== null && _attributes$backgroun !== void 0 ? _attributes$backgroun : false,
+        parallax: (_attributes$backgroun3 = (_attributes$backgroun4 = attributes.backgroundImage) === null || _attributes$backgroun4 === void 0 ? void 0 : _attributes$backgroun4.parallax) !== null && _attributes$backgroun3 !== void 0 ? _attributes$backgroun3 : false,
+        parallaxSpeed: (_attributes$backgroun5 = (_attributes$backgroun6 = attributes.backgroundImage) === null || _attributes$backgroun6 === void 0 ? void 0 : _attributes$backgroun6.parallaxSpeed) !== null && _attributes$backgroun5 !== void 0 ? _attributes$backgroun5 : 0.3
+      }
+    });
+  },
+  save: function save(_ref2) {
+    var attributes = _ref2.attributes,
+        className = _ref2.className;
+    var width = attributes.width,
+        uniqueId = attributes.uniqueId,
+        textColor = attributes.textColor,
+        backgroundColor = attributes.backgroundColor,
+        backgroundImage = attributes.backgroundImage,
+        blockBreakpointVisibility = attributes.blockBreakpointVisibility,
+        blockAuthVisibility = attributes.blockAuthVisibility;
+    var blockId = util_getBlockId(uniqueId);
+    return wp.element.createElement("div", {
+      id: blockId,
+      className: classnames_default()(className, blockId, getBreakpointVisibilityClassNames(blockBreakpointVisibility), helpers_getAuthVisibilityClasses(blockAuthVisibility), {
+        'wp-block-gutenbee-column': true
+      })
+    }, wp.element.createElement(v2_ColumnStyle, {
+      attributes: attributes
+    }, wp.element.createElement(stylesheet_Rule, {
+      value: width,
+      rule: ".wp-block-gutenbee-column.[root] { flex-basis: %s; }",
+      unit: "%"
+    })), wp.element.createElement("div", {
+      className: "wp-block-gutenbee-column-content",
+      style: column_deprecated_v2_objectSpread(column_deprecated_v2_objectSpread(column_deprecated_v2_objectSpread({
+        color: textColor,
+        backgroundColor: backgroundColor
+      }, getBackgroundImageStyle(backgroundImage)), getBorderCSSValue({
+        attributes: attributes
+      })), getBoxShadowCSSValue({
+        attributes: attributes
+      }))
+    }, wp.element.createElement(external_window_wp_blockEditor_["InnerBlocks"].Content, null)));
+  }
+};
+/* harmony default export */ var column_deprecated_v2 = (column_deprecated_v2_v2);
+// CONCATENATED MODULE: ./src/blocks/container/column/deprecated/index.js
+
+
+/* harmony default export */ var column_deprecated = ([column_deprecated_v1, column_deprecated_v2]);
+// CONCATENATED MODULE: ./src/blocks/container/column/index.js
+function column_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function column_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { column_ownKeys(Object(source), true).forEach(function (key) { column_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { column_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function column_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+/**
+ * Column block
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/column', {
+  title: Object(external_window_wp_i18n_["__"])('GutenBee Column'),
+  category: 'gutenbee',
+  description: Object(external_window_wp_i18n_["__"])('A single column within a container block.'),
+  icon: column_block_icon,
+  supports: {
+    inserter: false,
+    reusable: false,
+    html: false,
+    anchor: true
+  },
+  attributes: column_objectSpread(column_objectSpread(column_objectSpread({
+    uniqueId: {
+      type: 'string',
+      default: ''
+    },
+    width: {
+      type: 'object',
+      default: {
+        desktop: '',
+        tablet: 100,
+        mobile: 100
+      }
+    },
+    textColor: {
+      type: 'string'
+    },
+    backgroundColor: {
+      type: 'string'
+    },
+    backgroundImage: {
+      type: 'object',
+      default: getDefaultResponsiveBackgroundImageValue()
+    },
+    backgroundImageEffects: {
+      type: 'object',
+      default: {
+        zoom: false,
+        parallax: false,
+        parallaxSpeed: 0.3
+      }
+    },
+    blockPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    blockMargin: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    verticalContentAlignment: {
+      type: 'object',
+      default: getDefaultResponsiveValue()
+    },
+    horizontalContentAlignment: {
+      type: 'object',
+      default: getDefaultResponsiveValue()
+    }
+  }, border_controls_attributes()), boxShadowControlAttributes()), {}, {
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false
+      })
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false
+      }
+    }
+  }),
   getEditWrapperProps: function getEditWrapperProps(attributes) {
     var width = attributes.width;
 
@@ -78729,7 +79769,6 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/column', {
         uniqueId = attributes.uniqueId,
         textColor = attributes.textColor,
         backgroundColor = attributes.backgroundColor,
-        backgroundImage = attributes.backgroundImage,
         blockBreakpointVisibility = attributes.blockBreakpointVisibility,
         blockAuthVisibility = attributes.blockAuthVisibility;
     var blockId = util_getBlockId(uniqueId);
@@ -78746,10 +79785,10 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/column', {
       unit: "%"
     })), wp.element.createElement("div", {
       className: "wp-block-gutenbee-column-content",
-      style: column_objectSpread(column_objectSpread(column_objectSpread({
+      style: column_objectSpread(column_objectSpread({
         color: textColor,
         backgroundColor: backgroundColor
-      }, getBackgroundImageStyle(backgroundImage)), getBorderCSSValue({
+      }, getBorderCSSValue({
         attributes: attributes
       })), getBoxShadowCSSValue({
         attributes: attributes
@@ -79365,7 +80404,7 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/heading', {
   keywords: [Object(external_window_wp_i18n_["__"])('title'), Object(external_window_wp_i18n_["__"])('subtitle'), Object(external_window_wp_i18n_["__"])('heading')],
   supports: {
     className: true,
-    anchor: true
+    anchor: false
   },
   example: {
     attributes: {
@@ -80060,7 +81099,7 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/paragraph', {
   keywords: [Object(external_window_wp_i18n_["__"])('text'), Object(external_window_wp_i18n_["__"])('content'), Object(external_window_wp_i18n_["__"])('paragraph')],
   supports: {
     className: true,
-    anchor: true
+    anchor: false
   },
   example: {
     attributes: {
@@ -81061,7 +82100,8 @@ var style_SpacerStyle = function SpacerStyle(_ref) {
       children = _ref.children;
   var uniqueId = attributes.uniqueId,
       height = attributes.height,
-      blockMargin = attributes.blockMargin;
+      blockMargin = attributes.blockMargin,
+      backgroundImage = attributes.backgroundImage;
   var blockId = util_getBlockId(uniqueId);
   return wp.element.createElement(stylesheet, {
     id: blockId
@@ -81073,6 +82113,9 @@ var style_SpacerStyle = function SpacerStyle(_ref) {
     value: blockMargin,
     rule: ".wp-block-gutenbee-spacer.[root] { margin: %s; }",
     unit: "px"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: backgroundImage,
+    rule: ".wp-block-gutenbee-spacer.[root] .wp-block-gutenbee-spacer-background { %s }"
   }), children);
 };
 
@@ -81121,6 +82164,7 @@ var edit_SpacerEdit = function SpacerEdit(_ref) {
   var height = attributes.height,
       backgroundColor = attributes.backgroundColor,
       backgroundImage = attributes.backgroundImage,
+      backgroundImageEffects = attributes.backgroundImageEffects,
       uniqueId = attributes.uniqueId,
       blockBreakpointVisibility = attributes.blockBreakpointVisibility,
       blockAuthVisibility = attributes.blockAuthVisibility;
@@ -81133,11 +82177,14 @@ var edit_SpacerEdit = function SpacerEdit(_ref) {
   var blockId = util_getBlockId(uniqueId);
   return wp.element.createElement(external_window_wp_element_["Fragment"], null, wp.element.createElement(spacer_style, {
     attributes: attributes
-  }), wp.element.createElement("div", null, wp.element.createElement(external_window_wp_components_["ResizableBox"], {
+  }, wp.element.createElement(stylesheet_Rule, {
+    value: backgroundImage,
+    rule: ".wp-block-gutenbee-spacer.[root] { %s }"
+  })), wp.element.createElement("div", null, wp.element.createElement(external_window_wp_components_["ResizableBox"], {
     id: blockId,
-    style: spacer_edit_objectSpread(spacer_edit_objectSpread(spacer_edit_objectSpread({
+    style: spacer_edit_objectSpread(spacer_edit_objectSpread({
       backgroundColor: backgroundColor || undefined
-    }, getBackgroundImageStyle(backgroundImage)), getBorderCSSValue({
+    }, getBorderCSSValue({
       attributes: attributes
     })), getBoxShadowCSSValue({
       attributes: attributes
@@ -81198,12 +82245,25 @@ var edit_SpacerEdit = function SpacerEdit(_ref) {
         backgroundColor: value
       });
     }
-  }), wp.element.createElement(background_controls, {
-    label: Object(external_window_wp_i18n_["__"])('Background Image'),
-    setAttributes: setAttributes,
-    attributes: attributes,
-    attributeKey: "backgroundImage",
-    supportsParallax: true
+  }), wp.element.createElement(responsive_control_ResponsiveControl, null, function (breakpoint) {
+    return wp.element.createElement(background_controls_BackgroundControls, {
+      label: Object(external_window_wp_i18n_["__"])('Background Image'),
+      backgroundImageValue: backgroundImage[breakpoint],
+      onBackgroundImageChange: function onBackgroundImageChange(value) {
+        return setAttributes({
+          backgroundImage: spacer_edit_objectSpread(spacer_edit_objectSpread({}, backgroundImage), {}, spacer_edit_defineProperty({}, breakpoint, value))
+        });
+      },
+      parallaxValue: {
+        parallax: backgroundImageEffects.parallax,
+        parallaxSpeed: backgroundImageEffects.parallaxSpeed
+      },
+      onParallaxChange: function onParallaxChange(value) {
+        return setAttributes({
+          backgroundImageEffects: spacer_edit_objectSpread(spacer_edit_objectSpread({}, backgroundImageEffects), value)
+        });
+      }
+    });
   }), wp.element.createElement(border_controls, {
     attributes: attributes,
     setAttributes: setAttributes
@@ -81433,7 +82493,7 @@ var v3_SpacerStyle = function SpacerStyle(_ref) {
   }), children);
 };
 
-var deprecated_v3_v3 = {
+var spacer_deprecated_v3_v3 = {
   attributes: spacer_deprecated_v3_objectSpread(spacer_deprecated_v3_objectSpread({
     uniqueId: {
       type: 'string'
@@ -81503,18 +82563,13 @@ var deprecated_v3_v3 = {
     }));
   }
 };
-/* harmony default export */ var spacer_deprecated_v3 = (deprecated_v3_v3);
-// CONCATENATED MODULE: ./src/blocks/spacer/deprecated/index.js
+/* harmony default export */ var spacer_deprecated_v3 = (spacer_deprecated_v3_v3);
+// CONCATENATED MODULE: ./src/blocks/spacer/deprecated/v4.js
+function deprecated_v4_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
+function deprecated_v4_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { deprecated_v4_ownKeys(Object(source), true).forEach(function (key) { deprecated_v4_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { deprecated_v4_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-
-/* harmony default export */ var spacer_deprecated = ([spacer_deprecated_v1, spacer_deprecated_v2, spacer_deprecated_v3]);
-// CONCATENATED MODULE: ./src/blocks/spacer/index.js
-function spacer_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function spacer_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { spacer_ownKeys(Object(source), true).forEach(function (key) { spacer_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { spacer_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function spacer_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function deprecated_v4_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -81528,19 +82583,31 @@ function spacer_defineProperty(obj, key, value) { if (key in obj) { Object.defin
 
 
 
+var v4_SpacerStyle = function SpacerStyle(_ref) {
+  var attributes = _ref.attributes,
+      children = _ref.children;
+  var uniqueId = attributes.uniqueId,
+      height = attributes.height,
+      blockMargin = attributes.blockMargin;
+  var blockId = util_getBlockId(uniqueId);
+  return wp.element.createElement(stylesheet, {
+    id: blockId
+  }, wp.element.createElement(stylesheet_Rule, {
+    value: height,
+    rule: ".wp-block-gutenbee-spacer.[root] { height: %s; }",
+    unit: "px"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: blockMargin,
+    rule: ".wp-block-gutenbee-spacer.[root] { margin: %s; }",
+    unit: "px"
+  }), children);
+};
 
-
-
-Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/spacer', {
-  title: Object(external_window_wp_i18n_["__"])('GutenBee Spacer'),
-  description: Object(external_window_wp_i18n_["__"])('Add white space between blocks and customize its height.'),
-  icon: spacer_block_icon,
-  category: 'gutenbee',
-  keywords: [Object(external_window_wp_i18n_["__"])('spacer'), Object(external_window_wp_i18n_["__"])('spacing'), Object(external_window_wp_i18n_["__"])('distance')],
+var v4_v4 = {
   supports: {
     anchor: true
   },
-  attributes: spacer_objectSpread(spacer_objectSpread(spacer_objectSpread({
+  attributes: deprecated_v4_objectSpread(deprecated_v4_objectSpread(deprecated_v4_objectSpread({
     uniqueId: {
       type: 'string'
     },
@@ -81578,11 +82645,43 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/spacer', {
       }
     }
   }),
-  edit: spacer_edit,
-  deprecated: spacer_deprecated,
-  save: function save(_ref) {
-    var attributes = _ref.attributes,
-        className = _ref.className;
+  migrate: function migrate(attributes) {
+    var _attributes$backgroun, _attributes$backgroun2, _attributes$backgroun3, _attributes$backgroun4, _attributes$backgroun5, _attributes$backgroun6;
+
+    return deprecated_v4_objectSpread(deprecated_v4_objectSpread({}, attributes), {}, {
+      backgroundImage: {
+        desktop: {
+          url: attributes.backgroundImage.url,
+          repeat: attributes.backgroundImage.repeat,
+          size: attributes.backgroundImage.size,
+          position: attributes.backgroundImage.position,
+          attachment: attributes.backgroundImage.attachment
+        },
+        tablet: {
+          url: '',
+          repeat: 'no-repeat',
+          size: 'cover',
+          position: 'top center',
+          attachment: 'scroll'
+        },
+        mobile: {
+          url: '',
+          repeat: 'no-repeat',
+          size: 'cover',
+          position: 'top center',
+          attachment: 'scroll'
+        }
+      },
+      backgroundImageEffects: {
+        zoom: (_attributes$backgroun = (_attributes$backgroun2 = attributes.backgroundImage) === null || _attributes$backgroun2 === void 0 ? void 0 : _attributes$backgroun2.zoom) !== null && _attributes$backgroun !== void 0 ? _attributes$backgroun : false,
+        parallax: (_attributes$backgroun3 = (_attributes$backgroun4 = attributes.backgroundImage) === null || _attributes$backgroun4 === void 0 ? void 0 : _attributes$backgroun4.parallax) !== null && _attributes$backgroun3 !== void 0 ? _attributes$backgroun3 : false,
+        parallaxSpeed: (_attributes$backgroun5 = (_attributes$backgroun6 = attributes.backgroundImage) === null || _attributes$backgroun6 === void 0 ? void 0 : _attributes$backgroun6.parallaxSpeed) !== null && _attributes$backgroun5 !== void 0 ? _attributes$backgroun5 : 0.3
+      }
+    });
+  },
+  save: function save(_ref2) {
+    var attributes = _ref2.attributes,
+        className = _ref2.className;
     var uniqueId = attributes.uniqueId,
         backgroundColor = attributes.backgroundColor,
         backgroundImage = attributes.backgroundImage,
@@ -81591,6 +82690,128 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/spacer', {
     var blockId = util_getBlockId(uniqueId);
     var parallax = backgroundImage.parallax,
         parallaxSpeed = backgroundImage.parallaxSpeed;
+    return wp.element.createElement("div", {
+      id: blockId,
+      className: classnames_default()(className, blockId, getBreakpointVisibilityClassNames(blockBreakpointVisibility), helpers_getAuthVisibilityClasses(blockAuthVisibility), {
+        'has-parallax': parallax
+      }),
+      style: deprecated_v4_objectSpread(deprecated_v4_objectSpread({}, getBorderCSSValue({
+        attributes: attributes
+      })), getBoxShadowCSSValue({
+        attributes: attributes
+      })),
+      "aria-hidden": true
+    }, wp.element.createElement(v4_SpacerStyle, {
+      attributes: attributes
+    }), wp.element.createElement("div", {
+      className: classnames_default()({
+        'wp-block-gutenbee-spacer-background': true,
+        'gutenbee-parallax': parallax
+      }),
+      "data-parallax-speed": parallaxSpeed,
+      style: deprecated_v4_objectSpread({
+        backgroundColor: backgroundColor || undefined
+      }, getBackgroundImageStyle(backgroundImage))
+    }));
+  }
+};
+/* harmony default export */ var spacer_deprecated_v4 = (v4_v4);
+// CONCATENATED MODULE: ./src/blocks/spacer/deprecated/index.js
+
+
+
+
+/* harmony default export */ var spacer_deprecated = ([spacer_deprecated_v1, spacer_deprecated_v2, spacer_deprecated_v3, spacer_deprecated_v4]);
+// CONCATENATED MODULE: ./src/blocks/spacer/index.js
+function spacer_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function spacer_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { spacer_ownKeys(Object(source), true).forEach(function (key) { spacer_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { spacer_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function spacer_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/spacer', {
+  title: Object(external_window_wp_i18n_["__"])('GutenBee Spacer'),
+  description: Object(external_window_wp_i18n_["__"])('Add white space between blocks and customize its height.'),
+  icon: spacer_block_icon,
+  category: 'gutenbee',
+  keywords: [Object(external_window_wp_i18n_["__"])('spacer'), Object(external_window_wp_i18n_["__"])('spacing'), Object(external_window_wp_i18n_["__"])('distance')],
+  supports: {
+    anchor: false
+  },
+  attributes: spacer_objectSpread(spacer_objectSpread(spacer_objectSpread({
+    uniqueId: {
+      type: 'string'
+    },
+    height: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: 100
+      })
+    },
+    blockMargin: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    backgroundColor: {
+      type: 'string'
+    },
+    backgroundImage: {
+      type: 'object',
+      default: getDefaultResponsiveBackgroundImageValue()
+    },
+    backgroundImageEffects: {
+      type: 'object',
+      default: {
+        zoom: false,
+        parallax: false,
+        parallaxSpeed: 0.3
+      }
+    }
+  }, border_controls_attributes()), boxShadowControlAttributes()), {}, {
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false
+      })
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false
+      }
+    }
+  }),
+  edit: spacer_edit,
+  deprecated: spacer_deprecated,
+  save: function save(_ref) {
+    var attributes = _ref.attributes,
+        className = _ref.className;
+    var uniqueId = attributes.uniqueId,
+        backgroundColor = attributes.backgroundColor,
+        backgroundImageEffects = attributes.backgroundImageEffects,
+        blockBreakpointVisibility = attributes.blockBreakpointVisibility,
+        blockAuthVisibility = attributes.blockAuthVisibility;
+    var blockId = util_getBlockId(uniqueId);
+    var parallax = backgroundImageEffects.parallax,
+        parallaxSpeed = backgroundImageEffects.parallaxSpeed;
     return wp.element.createElement("div", {
       id: blockId,
       className: classnames_default()(className, blockId, getBreakpointVisibilityClassNames(blockBreakpointVisibility), helpers_getAuthVisibilityClasses(blockAuthVisibility), {
@@ -81610,9 +82831,9 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/spacer', {
         'gutenbee-parallax': parallax
       }),
       "data-parallax-speed": parallaxSpeed,
-      style: spacer_objectSpread({
+      style: {
         backgroundColor: backgroundColor || undefined
-      }, getBackgroundImageStyle(backgroundImage))
+      }
     }));
   }
 });
@@ -82134,9 +83355,161 @@ var video_deprecated_v1_v1 = {
   }
 };
 /* harmony default export */ var video_deprecated_v1 = (video_deprecated_v1_v1);
+// CONCATENATED MODULE: ./src/blocks/video/deprecated/v2.js
+function video_deprecated_v2_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function video_deprecated_v2_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { video_deprecated_v2_ownKeys(Object(source), true).forEach(function (key) { video_deprecated_v2_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { video_deprecated_v2_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function video_deprecated_v2_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+
+
+var video_deprecated_v2_v2 = {
+  supports: {
+    anchor: true,
+    align: true
+  },
+  attributes: video_deprecated_v2_objectSpread(video_deprecated_v2_objectSpread(video_deprecated_v2_objectSpread({
+    uniqueId: {
+      type: 'string'
+    },
+    autoplay: {
+      type: 'boolean',
+      source: 'attribute',
+      selector: 'video',
+      attribute: 'autoplay'
+    },
+    caption: {
+      type: 'string',
+      source: 'html',
+      selector: 'figcaption'
+    },
+    controls: {
+      type: 'boolean',
+      source: 'attribute',
+      selector: 'video',
+      attribute: 'controls',
+      default: true
+    },
+    id: {
+      type: 'number'
+    },
+    loop: {
+      type: 'boolean',
+      source: 'attribute',
+      selector: 'video',
+      attribute: 'loop'
+    },
+    muted: {
+      type: 'boolean',
+      source: 'attribute',
+      selector: 'video',
+      attribute: 'muted'
+    },
+    poster: {
+      type: 'string',
+      source: 'attribute',
+      selector: 'video',
+      attribute: 'poster'
+    },
+    preload: {
+      type: 'string',
+      source: 'attribute',
+      selector: 'video',
+      attribute: 'preload',
+      default: 'metadata'
+    },
+    src: {
+      type: 'string',
+      source: 'attribute',
+      selector: 'video',
+      attribute: 'src'
+    },
+    playsInline: {
+      type: 'boolean',
+      source: 'attribute',
+      selector: 'video',
+      attribute: 'playsinline'
+    },
+    blockPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    blockMargin: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    }
+  }, border_controls_attributes()), boxShadowControlAttributes()), {}, {
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false
+      })
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false
+      }
+    }
+  }),
+  save: function save(_ref) {
+    var attributes = _ref.attributes,
+        className = _ref.className;
+    var uniqueId = attributes.uniqueId,
+        autoplay = attributes.autoplay,
+        caption = attributes.caption,
+        controls = attributes.controls,
+        loop = attributes.loop,
+        muted = attributes.muted,
+        poster = attributes.poster,
+        preload = attributes.preload,
+        src = attributes.src,
+        playsInline = attributes.playsInline,
+        blockBreakpointVisibility = attributes.blockBreakpointVisibility,
+        blockAuthVisibility = attributes.blockAuthVisibility;
+    var blockId = util_getBlockId(uniqueId);
+    return wp.element.createElement("figure", {
+      id: blockId,
+      className: classnames_default()(className, blockId, getBreakpointVisibilityClassNames(blockBreakpointVisibility), helpers_getAuthVisibilityClasses(blockAuthVisibility)),
+      style: video_deprecated_v2_objectSpread(video_deprecated_v2_objectSpread({}, getBorderCSSValue({
+        attributes: attributes
+      })), getBoxShadowCSSValue({
+        attributes: attributes
+      }))
+    }, wp.element.createElement(video_style, {
+      attributes: attributes
+    }), src && wp.element.createElement("video", {
+      autoPlay: autoplay,
+      controls: controls,
+      loop: loop,
+      muted: muted,
+      poster: poster,
+      preload: preload !== 'metadata' ? preload : undefined,
+      src: src,
+      playsInline: playsInline
+    }), !external_window_wp_blockEditor_["RichText"].isEmpty(caption) && wp.element.createElement(external_window_wp_blockEditor_["RichText"].Content, {
+      tagName: "figcaption",
+      value: caption
+    }));
+  }
+};
+/* harmony default export */ var video_deprecated_v2 = (video_deprecated_v2_v2);
 // CONCATENATED MODULE: ./src/blocks/video/deprecated/index.js
 
-/* harmony default export */ var video_deprecated = ([video_deprecated_v1]);
+
+/* harmony default export */ var video_deprecated = ([video_deprecated_v1, video_deprecated_v2]);
 // CONCATENATED MODULE: ./src/blocks/video/index.js
 function video_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -82166,7 +83539,7 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/video', {
   category: 'gutenbee',
   keywords: [Object(external_window_wp_i18n_["__"])('video'), Object(external_window_wp_i18n_["__"])('movie')],
   supports: {
-    anchor: true,
+    anchor: false,
     align: true
   },
   attributes: video_objectSpread(video_objectSpread(video_objectSpread({
@@ -83297,9 +84670,81 @@ var buttons_deprecated_v1_v1 = {
   }
 };
 /* harmony default export */ var buttons_deprecated_v1 = (buttons_deprecated_v1_v1);
+// CONCATENATED MODULE: ./src/blocks/buttons/deprecated/v2.js
+
+
+
+
+
+
+
+var buttons_deprecated_v2_v2 = {
+  supports: {
+    anchor: true
+  },
+  attributes: {
+    uniqueId: {
+      type: 'string'
+    },
+    align: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: 'flex-start',
+        tablet: '',
+        mobile: ''
+      })
+    },
+    backgroundColor: {
+      type: 'string'
+    },
+    blockPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    blockMargin: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false
+      })
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false
+      }
+    }
+  },
+  save: function save(_ref) {
+    var attributes = _ref.attributes,
+        className = _ref.className;
+    var uniqueId = attributes.uniqueId,
+        backgroundColor = attributes.backgroundColor,
+        blockBreakpointVisibility = attributes.blockBreakpointVisibility,
+        blockAuthVisibility = attributes.blockAuthVisibility;
+    var blockId = util_getBlockId(uniqueId);
+    return wp.element.createElement("div", {
+      id: blockId,
+      className: classnames_default()(className, blockId, getBreakpointVisibilityClassNames(blockBreakpointVisibility), helpers_getAuthVisibilityClasses(blockAuthVisibility)),
+      style: {
+        backgroundColor: backgroundColor || undefined
+      }
+    }, wp.element.createElement(buttons_style, {
+      attributes: attributes
+    }), wp.element.createElement(external_window_wp_blockEditor_["InnerBlocks"].Content, null));
+  }
+};
+/* harmony default export */ var buttons_deprecated_v2 = (buttons_deprecated_v2_v2);
 // CONCATENATED MODULE: ./src/blocks/buttons/deprecated/index.js
 
-/* harmony default export */ var buttons_deprecated = ([buttons_deprecated_v1]);
+
+/* harmony default export */ var buttons_deprecated = ([buttons_deprecated_v1, buttons_deprecated_v2]);
 // CONCATENATED MODULE: ./src/blocks/buttons/index.js
 
 
@@ -83312,6 +84757,26 @@ var buttons_deprecated_v1_v1 = {
 
 
 
+
+
+var buttons_Buttons = function Buttons(_ref) {
+  var attributes = _ref.attributes,
+      className = _ref.className;
+  var uniqueId = attributes.uniqueId,
+      backgroundColor = attributes.backgroundColor,
+      blockBreakpointVisibility = attributes.blockBreakpointVisibility,
+      blockAuthVisibility = attributes.blockAuthVisibility;
+  var blockId = util_getBlockId(uniqueId);
+  return wp.element.createElement("div", {
+    id: blockId,
+    className: classnames_default()(className, blockId, getBreakpointVisibilityClassNames(blockBreakpointVisibility), helpers_getAuthVisibilityClasses(blockAuthVisibility)),
+    style: {
+      backgroundColor: backgroundColor || undefined
+    }
+  }, wp.element.createElement(buttons_style, {
+    attributes: attributes
+  }), wp.element.createElement(external_window_wp_blockEditor_["InnerBlocks"].Content, null));
+};
 
 Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/buttons', {
   title: Object(external_window_wp_i18n_["__"])('GutenBee Button Group'),
@@ -83363,23 +84828,13 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/buttons', {
   },
   deprecated: buttons_deprecated,
   edit: buttons_edit,
-  save: function save(_ref) {
-    var attributes = _ref.attributes,
-        className = _ref.className;
-    var uniqueId = attributes.uniqueId,
-        backgroundColor = attributes.backgroundColor,
-        blockBreakpointVisibility = attributes.blockBreakpointVisibility,
-        blockAuthVisibility = attributes.blockAuthVisibility;
-    var blockId = util_getBlockId(uniqueId);
-    return wp.element.createElement("div", {
-      id: blockId,
-      className: classnames_default()(className, blockId, getBreakpointVisibilityClassNames(blockBreakpointVisibility), helpers_getAuthVisibilityClasses(blockAuthVisibility)),
-      style: {
-        backgroundColor: backgroundColor || undefined
-      }
-    }, wp.element.createElement(buttons_style, {
+  save: function save(_ref2) {
+    var attributes = _ref2.attributes,
+        className = _ref2.className;
+    return wp.element.createElement(buttons_Buttons, {
+      className: className,
       attributes: attributes
-    }), wp.element.createElement(external_window_wp_blockEditor_["InnerBlocks"].Content, null));
+    });
   }
 });
 // CONCATENATED MODULE: ./src/blocks/food-menu/food-menu-item/style.js
@@ -84460,9 +85915,104 @@ var food_menu_deprecated_v1_v1 = {
   }
 };
 /* harmony default export */ var food_menu_deprecated_v1 = (food_menu_deprecated_v1_v1);
+// CONCATENATED MODULE: ./src/blocks/food-menu/deprecated/v2.js
+function food_menu_deprecated_v2_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function food_menu_deprecated_v2_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { food_menu_deprecated_v2_ownKeys(Object(source), true).forEach(function (key) { food_menu_deprecated_v2_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { food_menu_deprecated_v2_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function food_menu_deprecated_v2_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+
+
+var food_menu_deprecated_v2_v2 = {
+  supports: {
+    anchor: true
+  },
+  attributes: food_menu_deprecated_v2_objectSpread(food_menu_deprecated_v2_objectSpread(food_menu_deprecated_v2_objectSpread({
+    uniqueId: {
+      type: 'string'
+    },
+    columns: {
+      type: 'object',
+      default: {
+        desktop: 1,
+        tablet: 1,
+        mobile: 1
+      }
+    },
+    gutter: {
+      type: 'object',
+      default: getDefaultResponsiveValue()
+    },
+    backgroundColor: {
+      type: 'string'
+    }
+  }, border_controls_attributes()), boxShadowControlAttributes()), {}, {
+    blockPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    blockMargin: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false
+      })
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false
+      }
+    }
+  }),
+  save: function save(_ref) {
+    var _classNames;
+
+    var className = _ref.className,
+        attributes = _ref.attributes;
+    var uniqueId = attributes.uniqueId,
+        columns = attributes.columns,
+        backgroundColor = attributes.backgroundColor,
+        blockBreakpointVisibility = attributes.blockBreakpointVisibility,
+        blockAuthVisibility = attributes.blockAuthVisibility;
+    var blockId = util_getBlockId(uniqueId);
+    return wp.element.createElement("div", {
+      id: blockId,
+      className: classnames_default()(className, blockId, getBreakpointVisibilityClassNames(blockBreakpointVisibility), helpers_getAuthVisibilityClasses(blockAuthVisibility), (_classNames = {
+        'wp-block-gutenbee-food-menu': true
+      }, food_menu_deprecated_v2_defineProperty(_classNames, "gutenbee-food-menu-columns-desktop-".concat(columns.desktop), true), food_menu_deprecated_v2_defineProperty(_classNames, "gutenbee-food-menu-columns-tablet-".concat(columns.tablet), true), food_menu_deprecated_v2_defineProperty(_classNames, "gutenbee-food-menu-columns-mobile-".concat(columns.mobile), true), _classNames)),
+      style: food_menu_deprecated_v2_objectSpread(food_menu_deprecated_v2_objectSpread({
+        backgroundColor: backgroundColor ? backgroundColor : undefined
+      }, getBorderCSSValue({
+        attributes: attributes
+      })), getBoxShadowCSSValue({
+        attributes: attributes
+      }))
+    }, wp.element.createElement(food_menu_style, {
+      attributes: attributes
+    }), wp.element.createElement(external_window_wp_blockEditor_["InnerBlocks"].Content, null));
+  }
+};
+/* harmony default export */ var food_menu_deprecated_v2 = (food_menu_deprecated_v2_v2);
 // CONCATENATED MODULE: ./src/blocks/food-menu/deprecated/index.js
 
-/* harmony default export */ var food_menu_deprecated = ([food_menu_deprecated_v1]);
+
+/* harmony default export */ var food_menu_deprecated = ([food_menu_deprecated_v1, food_menu_deprecated_v2]);
 // CONCATENATED MODULE: ./src/blocks/food-menu/index.js
 function food_menu_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -84493,7 +86043,7 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/food-menu', {
   category: 'gutenbee',
   keywords: [Object(external_window_wp_i18n_["__"])('food'), Object(external_window_wp_i18n_["__"])('menu')],
   supports: {
-    anchor: true
+    anchor: false
   },
   attributes: food_menu_objectSpread(food_menu_objectSpread(food_menu_objectSpread({
     uniqueId: {
@@ -86538,9 +88088,241 @@ var testimonial_deprecated_v1_v1 = {
   }
 };
 /* harmony default export */ var testimonial_deprecated_v1 = (testimonial_deprecated_v1_v1);
+// CONCATENATED MODULE: ./src/blocks/testimonial/deprecated/v2.js
+function testimonial_deprecated_v2_extends() { testimonial_deprecated_v2_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return testimonial_deprecated_v2_extends.apply(this, arguments); }
+
+function testimonial_deprecated_v2_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function testimonial_deprecated_v2_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { testimonial_deprecated_v2_ownKeys(Object(source), true).forEach(function (key) { testimonial_deprecated_v2_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { testimonial_deprecated_v2_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function testimonial_deprecated_v2_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+
+
+
+var testimonial_deprecated_v2_v2 = {
+  supports: {
+    anchor: true
+  },
+  attributes: testimonial_deprecated_v2_objectSpread(testimonial_deprecated_v2_objectSpread(testimonial_deprecated_v2_objectSpread({
+    uniqueId: {
+      type: 'string'
+    },
+    url: {
+      type: 'string',
+      source: 'attribute',
+      selector: 'img',
+      attribute: 'src'
+    },
+    alt: {
+      type: 'string',
+      source: 'attribute',
+      selector: 'img',
+      attribute: 'alt',
+      default: ''
+    },
+    title: {
+      type: 'string',
+      source: 'attribute',
+      selector: 'img',
+      attribute: 'title'
+    },
+    id: {
+      type: 'number'
+    },
+    width: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: '150',
+        tablet: '',
+        mobile: ''
+      })
+    },
+    content: {
+      type: 'string',
+      source: 'html',
+      selector: '.wp-block-testimonial-content-wrapper',
+      multiline: 'p',
+      default: ''
+    },
+    sizeSlug: {
+      type: 'string'
+    },
+    citation: {
+      type: 'string',
+      source: 'html',
+      selector: 'cite',
+      default: ''
+    },
+    info: {
+      type: 'string',
+      source: 'html',
+      selector: '.gutenbee-block-testimonial__info',
+      default: ''
+    },
+    align: {
+      type: 'string'
+    },
+    avatarPosition: {
+      type: 'string',
+      default: 'top'
+    },
+    contentSize: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: '17',
+        tablet: '',
+        mobile: ''
+      })
+    },
+    citationSize: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: '17',
+        tablet: '',
+        mobile: ''
+      })
+    },
+    infoSize: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: '15',
+        tablet: '',
+        mobile: ''
+      })
+    },
+    textColor: {
+      type: 'string'
+    },
+    backgroundColor: {
+      type: 'string'
+    }
+  }, border_controls_attributes()), boxShadowControlAttributes()), {}, {
+    blockPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    blockMargin: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false
+      })
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false
+      }
+    }
+  }),
+  save: function save(_ref) {
+    var _classNames, _classNames2;
+
+    var attributes = _ref.attributes,
+        className = _ref.className;
+    var uniqueId = attributes.uniqueId,
+        textColor = attributes.textColor,
+        backgroundColor = attributes.backgroundColor,
+        align = attributes.align,
+        url = attributes.url,
+        alt = attributes.alt,
+        title = attributes.title,
+        content = attributes.content,
+        citation = attributes.citation,
+        info = attributes.info,
+        avatarPosition = attributes.avatarPosition,
+        sizeSlug = attributes.sizeSlug,
+        blockBreakpointVisibility = attributes.blockBreakpointVisibility,
+        blockAuthVisibility = attributes.blockAuthVisibility;
+    var blockId = util_getBlockId(uniqueId);
+    var blockProps = {
+      blockId: blockId,
+      className: classnames_default()(className, blockId, getBreakpointVisibilityClassNames(blockBreakpointVisibility), helpers_getAuthVisibilityClasses(blockAuthVisibility), (_classNames = {}, testimonial_deprecated_v2_defineProperty(_classNames, "has-text-align-".concat(align), align), testimonial_deprecated_v2_defineProperty(_classNames, "gutenbee-testimonial-avatar-".concat(avatarPosition), avatarPosition), _classNames))
+    };
+    var image = wp.element.createElement("img", {
+      src: url,
+      alt: alt,
+      className: blockId ? "wp-image-".concat(blockId) : null,
+      title: title
+    });
+    var classes = classnames_default()((_classNames2 = {}, testimonial_deprecated_v2_defineProperty(_classNames2, "size-".concat(sizeSlug), sizeSlug), testimonial_deprecated_v2_defineProperty(_classNames2, 'gutenbee-testimonial-avatar', true), _classNames2));
+
+    var renderContent = function renderContent() {
+      return wp.element.createElement(external_window_wp_element_["Fragment"], null, !external_window_wp_blockEditor_["RichText"].isEmpty(content) && wp.element.createElement("div", {
+        className: "wp-block-testimonial-content-wrapper"
+      }, wp.element.createElement(external_window_wp_blockEditor_["RichText"].Content, {
+        multiline: true,
+        value: content
+      })));
+    };
+
+    var renderCitation = function renderCitation() {
+      return wp.element.createElement(external_window_wp_element_["Fragment"], null, !external_window_wp_blockEditor_["RichText"].isEmpty(citation) && wp.element.createElement(external_window_wp_blockEditor_["RichText"].Content, {
+        tagName: "cite",
+        className: "gutenbee-block-testimonial__citation",
+        value: citation,
+        style: {
+          color: textColor ? textColor : undefined
+        }
+      }));
+    };
+
+    var renderInfo = function renderInfo() {
+      return wp.element.createElement(external_window_wp_element_["Fragment"], null, !external_window_wp_blockEditor_["RichText"].isEmpty(info) && wp.element.createElement(external_window_wp_blockEditor_["RichText"].Content, {
+        tagName: "p",
+        className: "gutenbee-block-testimonial__info",
+        value: info
+      }));
+    };
+
+    var renderTestimonialLayout = function renderTestimonialLayout() {
+      if (['left', 'right'].includes(avatarPosition)) {
+        return wp.element.createElement(external_window_wp_element_["Fragment"], null, url && wp.element.createElement("figure", {
+          className: classes
+        }, image), wp.element.createElement("div", {
+          className: "gutenbee-testimonial-content-citation-wrapper"
+        }, renderContent(), renderCitation(), renderInfo()));
+      } else {
+        return wp.element.createElement(external_window_wp_element_["Fragment"], null, url && wp.element.createElement("figure", {
+          className: classes
+        }, image), renderContent(), renderCitation(), renderInfo());
+      }
+    };
+
+    return wp.element.createElement("blockquote", testimonial_deprecated_v2_extends({}, blockProps, {
+      style: testimonial_deprecated_v2_objectSpread(testimonial_deprecated_v2_objectSpread({
+        backgroundColor: backgroundColor ? backgroundColor : undefined,
+        color: textColor ? textColor : undefined
+      }, getBorderCSSValue({
+        attributes: attributes
+      })), getBoxShadowCSSValue({
+        attributes: attributes
+      }))
+    }), renderTestimonialLayout(), wp.element.createElement(testimonial_style, {
+      attributes: attributes
+    }));
+  }
+};
+/* harmony default export */ var testimonial_deprecated_v2 = (testimonial_deprecated_v2_v2);
 // CONCATENATED MODULE: ./src/blocks/testimonial/deprecated/index.js
 
-/* harmony default export */ var testimonial_deprecated = ([testimonial_deprecated_v1]);
+
+/* harmony default export */ var testimonial_deprecated = ([testimonial_deprecated_v1, testimonial_deprecated_v2]);
 // CONCATENATED MODULE: ./src/blocks/testimonial/index.js
 function testimonial_extends() { testimonial_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return testimonial_extends.apply(this, arguments); }
 
@@ -86581,7 +88363,7 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/testimonial', 
     label: Object(external_window_wp_i18n_["_x"])('Circle Mask', 'block style')
   }],
   supports: {
-    anchor: true
+    anchor: false
   },
   attributes: testimonial_objectSpread(testimonial_objectSpread(testimonial_objectSpread({
     uniqueId: {
@@ -86724,7 +88506,7 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/testimonial', 
         blockAuthVisibility = attributes.blockAuthVisibility;
     var blockId = util_getBlockId(uniqueId);
     var blockProps = {
-      blockId: blockId,
+      id: blockId,
       className: classnames_default()(className, blockId, getBreakpointVisibilityClassNames(blockBreakpointVisibility), helpers_getAuthVisibilityClasses(blockAuthVisibility), (_classNames = {}, testimonial_defineProperty(_classNames, "has-text-align-".concat(align), align), testimonial_defineProperty(_classNames, "gutenbee-testimonial-avatar-".concat(avatarPosition), avatarPosition), _classNames))
     };
     var image = wp.element.createElement("img", {
@@ -87439,9 +89221,167 @@ var video_embed_deprecated_v1_v1 = {
   }
 };
 /* harmony default export */ var video_embed_deprecated_v1 = (video_embed_deprecated_v1_v1);
+// CONCATENATED MODULE: ./src/blocks/video-embed/deprecated/v2.js
+function video_embed_deprecated_v2_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function video_embed_deprecated_v2_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { video_embed_deprecated_v2_ownKeys(Object(source), true).forEach(function (key) { video_embed_deprecated_v2_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { video_embed_deprecated_v2_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function video_embed_deprecated_v2_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+
+
+var video_embed_deprecated_v2_v2 = {
+  supports: {
+    anchor: true
+  },
+  attributes: video_embed_deprecated_v2_objectSpread(video_embed_deprecated_v2_objectSpread(video_embed_deprecated_v2_objectSpread({
+    uniqueId: {
+      type: 'string'
+    },
+    videoUrl: {
+      type: 'string'
+    },
+    lazyLoad: {
+      type: 'boolean',
+      default: false
+    },
+    coverImage: {
+      type: 'string'
+    },
+    startTime: {
+      type: 'string'
+    },
+    endTime: {
+      type: 'string'
+    },
+    controls: {
+      type: 'boolean',
+      default: true
+    },
+    autoplay: {
+      type: 'boolean',
+      default: false
+    },
+    mute: {
+      type: 'boolean',
+      default: false
+    },
+    loop: {
+      type: 'boolean',
+      default: false
+    },
+    sticky: {
+      type: 'boolean',
+      default: false
+    },
+    branding: {
+      type: 'boolean',
+      default: true
+    },
+    backgroundColor: {
+      type: 'string'
+    },
+    blockPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    blockMargin: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    }
+  }, border_controls_attributes()), boxShadowControlAttributes()), {}, {
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false
+      })
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false
+      }
+    }
+  }),
+  save: function save(_ref) {
+    var attributes = _ref.attributes,
+        className = _ref.className;
+    var uniqueId = attributes.uniqueId,
+        lazyLoad = attributes.lazyLoad,
+        videoUrl = attributes.videoUrl,
+        coverImage = attributes.coverImage,
+        controls = attributes.controls,
+        autoplay = attributes.autoplay,
+        mute = attributes.mute,
+        loop = attributes.loop,
+        sticky = attributes.sticky,
+        branding = attributes.branding,
+        startTime = attributes.startTime,
+        endTime = attributes.endTime,
+        backgroundColor = attributes.backgroundColor,
+        blockBreakpointVisibility = attributes.blockBreakpointVisibility,
+        blockAuthVisibility = attributes.blockAuthVisibility;
+    var blockId = util_getBlockId(uniqueId);
+
+    if (!videoUrl) {
+      return null;
+    }
+
+    var videoInfo = Object(providers["a" /* getVideoProviderInfoByUrl */])(videoUrl);
+    return wp.element.createElement("div", {
+      id: blockId,
+      className: classnames_default()(className, blockId, getBreakpointVisibilityClassNames(blockBreakpointVisibility), helpers_getAuthVisibilityClasses(blockAuthVisibility), 'gutenbee-video-embed-block-wrapper', sticky && 'wp-block-gutenbee-video-embed-sticky'),
+      style: video_embed_deprecated_v2_objectSpread(video_embed_deprecated_v2_objectSpread({
+        backgroundColor: backgroundColor ? backgroundColor : undefined
+      }, getBorderCSSValue({
+        attributes: attributes
+      })), getBoxShadowCSSValue({
+        attributes: attributes
+      }))
+    }, wp.element.createElement("div", {
+      className: "gutenbee-video-embed-wrapper"
+    }, wp.element.createElement(video_embed_style, {
+      attributes: attributes
+    }), wp.element.createElement("div", {
+      className: "gutenbee-video-embed",
+      "data-video-lazy": lazyLoad,
+      "data-video-id": videoInfo.id,
+      "data-video-controls": controls,
+      "data-video-autoplay": autoplay,
+      "data-video-mute": mute,
+      "data-video-loop": loop,
+      "data-video-branding": branding,
+      "data-video-start": startTime,
+      "data-video-end": endTime,
+      "data-video-type": videoInfo.provider
+    }, wp.element.createElement("div", {
+      id: "video-".concat(blockId)
+    }), wp.element.createElement("div", {
+      className: "gutenbee-spinner"
+    })), coverImage && wp.element.createElement("div", {
+      className: "gutenbee-video-embed-overlay",
+      style: {
+        backgroundImage: 'url(' + coverImage + ')'
+      }
+    }, wp.element.createElement("div", null))));
+  }
+};
+/* harmony default export */ var video_embed_deprecated_v2 = (video_embed_deprecated_v2_v2);
 // CONCATENATED MODULE: ./src/blocks/video-embed/deprecated/index.js
 
-/* harmony default export */ var video_embed_deprecated = ([video_embed_deprecated_v1]);
+
+/* harmony default export */ var video_embed_deprecated = ([video_embed_deprecated_v1, video_embed_deprecated_v2]);
 // CONCATENATED MODULE: ./src/blocks/video-embed/index.js
 function video_embed_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -87471,7 +89411,7 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/video-embed', 
   category: 'gutenbee',
   keywords: [Object(external_window_wp_i18n_["__"])('video'), Object(external_window_wp_i18n_["__"])('movie'), Object(external_window_wp_i18n_["__"])('embed'), Object(external_window_wp_i18n_["__"])('YouTube'), Object(external_window_wp_i18n_["__"])('Vimeo')],
   supports: {
-    anchor: true
+    anchor: false
   },
   attributes: video_embed_objectSpread(video_embed_objectSpread(video_embed_objectSpread({
     uniqueId: {

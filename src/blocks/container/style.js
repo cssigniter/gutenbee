@@ -18,6 +18,7 @@ const ContainerStyle = ({ attributes, children }) => {
     blockMargin,
     verticalContentAlignment,
     horizontalContentAlignment,
+    backgroundImage,
   } = attributes;
   const blockId = getBlockId(uniqueId);
 
@@ -58,6 +59,10 @@ const ContainerStyle = ({ attributes, children }) => {
       <Rule
         value={horizontalContentAlignment}
         rule=".wp-block-gutenbee-container.[root] { justify-content: %s; }"
+      />
+      <Rule
+        value={backgroundImage}
+        rule=".wp-block-gutenbee-container.[root] .wp-block-gutenbee-container-background { %s }"
       />
       {children}
     </StyleSheet>

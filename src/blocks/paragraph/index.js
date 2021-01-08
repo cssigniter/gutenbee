@@ -30,7 +30,7 @@ registerBlockType('gutenbee/paragraph', {
   keywords: [__('text'), __('content'), __('paragraph')],
   supports: {
     className: true,
-    anchor: true,
+    anchor: false,
   },
   example: {
     attributes: {

@@ -14,9 +14,8 @@ import { useSelect } from 'wp.data';
 
 import useUniqueId from '../../hooks/useUniqueId';
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
-import { getBackgroundImageStyle } from '../../components/controls/background-controls/helpers';
 import MarginControls from '../../components/controls/margin-controls';
-import BackgroundControls from '../../components/controls/background-controls';
+import BackgroundControls from '../../components/controls/background-controls/BackgroundControls';
 import getBlockId from '../../util/getBlockId';
 import BorderControls from '../../components/controls/border-controls';
 import BoxShadowControls from '../../components/controls/box-shadow-controls';
@@ -39,6 +38,7 @@ const BannerEditStyle = ({ attributes, children }) => {
     blockMargin,
     verticalContentAlignment,
     horizontalContentAlignment,
+    backgroundImage,
   } = attributes;
   const blockId = getBlockId(uniqueId);
 
@@ -71,6 +71,10 @@ const BannerEditStyle = ({ attributes, children }) => {
         value={verticalContentAlignment}
         rule=".wp-block-gutenbee-banner.[root] .wp-block-gutenbee-banner-inner { justify-content: %s; }"
       />
+      <Rule
+        value={backgroundImage}
+        rule=".wp-block-gutenbee-banner.[root] .wp-block-gutenbee-banner-background { %s }"
+      />
       {children}
     </StyleSheet>
   );
@@ -91,6 +95,7 @@ const BannerBlockEdit = ({
     backgroundColor,
     backgroundVideoURL,
     backgroundImage,
+    backgroundImageEffects,
     overlayBackgroundColor,
     bannerHeight,
     verticalContentAlignment,
@@ -108,7 +113,7 @@ const BannerBlockEdit = ({
     [clientId],
   );
 
-  const { zoom, parallax } = backgroundImage;
+  const { zoom, parallax } = backgroundImageEffects;
 
   const blockId = getBlockId(uniqueId);
   const classes = classNames(blockId, className, {
@@ -159,7 +164,6 @@ const BannerBlockEdit = ({
           className={`${baseClass}-background`}
           style={{
             backgroundColor,
-            ...getBackgroundImageStyle(backgroundImage),
             ...getBorderCSSValue({ attributes }),
             ...getBoxShadowCSSValue({ attributes }),
           }}
@@ -341,14 +345,46 @@ const BannerBlockEdit = ({
             onChange={value => setAttributes({ overlayBackgroundColor: value })}
           />
 
-          <BackgroundControls
-            label={__('Background Image')}
-            setAttributes={setAttributes}
-            attributes={attributes}
-            attributeKey="backgroundImage"
-            supportsParallax
-            supportsZoom
-          />
+          <ResponsiveControl>
+            {breakpoint => {
+              return (
+                <BackgroundControls
+                  label={__('Background Image')}
+                  backgroundImageValue={backgroundImage[breakpoint]}
+                  onBackgroundImageChange={value =>
+                    setAttributes({
+                      backgroundImage: {
+                        ...backgroundImage,
+                        [breakpoint]: value,
+                      },
+                    })
+                  }
+                  zoomValue={backgroundImageEffects.zoom}
+                  onZoomChange={value =>
+                    setAttributes({
+                      backgroundImageEffects: {
+                        ...backgroundImageEffects,
+                        zoom: value,
+                      },
+                    })
+                  }
+                  parallaxValue={{
+                    parallax: backgroundImageEffects.parallax,
+                    parallaxSpeed: backgroundImageEffects.parallaxSpeed,
+                  }}
+                  onParallaxChange={value =>
+                    setAttributes({
+                      backgroundImageEffects: {
+                        ...backgroundImageEffects,
+                        ...value,
+                      },
+                    })
+                  }
+                  backgroundVideoUrlValue={backgroundVideoURL}
+                />
+              );
+            }}
+          </ResponsiveControl>
 
           <BorderControls
             attributes={attributes}

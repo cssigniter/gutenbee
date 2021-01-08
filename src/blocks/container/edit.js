@@ -10,7 +10,6 @@ import { createBlock } from 'wp.blocks';
 import { times, dropRight, get } from 'lodash';
 import classNames from 'classnames';
 
-import { getBackgroundImageStyle } from '../../components/controls/background-controls/helpers';
 import useUniqueId from '../../hooks/useUniqueId';
 import ContainerStyle from './style';
 import getBlockId from '../../util/getBlockId';
@@ -48,7 +47,7 @@ const ContainerBlockEdit = ({
     textColor,
     backgroundColor,
     backgroundVideoURL,
-    backgroundImage,
+    backgroundImageEffects,
     columnDirection,
     overlayBackgroundColor,
   } = attributes;
@@ -80,7 +79,7 @@ const ContainerBlockEdit = ({
     clientId,
   });
 
-  const { zoom, parallax } = backgroundImage;
+  const { zoom, parallax } = backgroundImageEffects;
 
   const blockId = getBlockId(uniqueId);
   const classes = classNames(className, blockId, {
@@ -132,6 +131,7 @@ const ContainerBlockEdit = ({
               className={`${baseClass}-background-overlay`}
               style={{
                 backgroundColor: overlayBackgroundColor,
+                ...getBorderCSSValue({ attributes }),
               }}
             />
           )}
@@ -139,7 +139,6 @@ const ContainerBlockEdit = ({
             className={`${baseClass}-background`}
             style={{
               backgroundColor,
-              ...getBackgroundImageStyle(backgroundImage),
               ...getBorderCSSValue({ attributes }),
               ...getBoxShadowCSSValue({ attributes }),
             }}

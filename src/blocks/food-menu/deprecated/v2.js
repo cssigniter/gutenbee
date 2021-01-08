@@ -1,35 +1,24 @@
-import { registerBlockType } from 'wp.blocks';
-import { __ } from 'wp.i18n';
-import { InnerBlocks, __experimentalUseInnerBlocksProps } from 'wp.blockEditor';
+import { InnerBlocks } from 'wp.blockEditor';
 import classNames from 'classnames';
 
-import FoodMenuEdit from './edit';
-import FoodMenuEditLegacy from './edit-legacy';
-import {
-  getDefaultResponsiveValue,
-  getDefaultSpacingValue,
-} from '../../components/controls/responsive-control/default-values';
-import borderControlAttributes from '../../components/controls/border-controls/attributes';
+import getBlockId from '../../../util/getBlockId';
+import { getBreakpointVisibilityClassNames } from '../../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../../components/controls/auth-visibility-control/helpers';
+import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
 import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
-} from '../../components/controls/box-shadow-controls/helpers';
-import FoodMenuStyle from './style';
-import getBlockId from '../../util/getBlockId';
-import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
-import FoodMenuIcon from './block-icon';
-import deprecated from './deprecated';
-import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
-import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+} from '../../../components/controls/box-shadow-controls/helpers';
+import FoodMenuStyle from '../style';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../../components/controls/responsive-control/default-values';
+import borderControlAttributes from '../../../components/controls/border-controls/attributes';
 
-registerBlockType('gutenbee/food-menu', {
-  title: __('GutenBee Food Menu'),
-  description: __('List your favorite dishes.'),
-  icon: FoodMenuIcon,
-  category: 'gutenbee',
-  keywords: [__('food'), __('menu')],
+const v2 = {
   supports: {
-    anchor: false,
+    anchor: true,
   },
   attributes: {
     uniqueId: {
@@ -76,8 +65,6 @@ registerBlockType('gutenbee/food-menu', {
       },
     },
   },
-  deprecated,
-  edit: !!__experimentalUseInnerBlocksProps ? FoodMenuEdit : FoodMenuEditLegacy,
   save: ({ className, attributes }) => {
     const {
       uniqueId,
@@ -114,4 +101,6 @@ registerBlockType('gutenbee/food-menu', {
       </div>
     );
   },
-});
+};
+
+export default v2;

@@ -10,7 +10,7 @@ import classNames from 'classnames';
 import ColumnBlockEdit from './edit';
 import getBlockId from '../../../util/getBlockId';
 import ColumnStyle from './style';
-import { getBackgroundImageStyle } from '../../../components/controls/background-controls/helpers';
+import { getDefaultResponsiveBackgroundImageValue } from '../../../components/controls/background-controls/helpers';
 import Rule from '../../../components/stylesheet/Rule';
 import {
   getDefaultResponsiveValue,
@@ -59,13 +59,12 @@ registerBlockType('gutenbee/column', {
     },
     backgroundImage: {
       type: 'object',
+      default: getDefaultResponsiveBackgroundImageValue(),
+    },
+    backgroundImageEffects: {
+      type: 'object',
       default: {
-        url: '',
-        image: null,
-        repeat: 'no-repeat',
-        size: 'cover',
-        position: 'top center',
-        attachment: 'scroll',
+        zoom: false,
         parallax: false,
         parallaxSpeed: 0.3,
       },
@@ -123,7 +122,6 @@ registerBlockType('gutenbee/column', {
       uniqueId,
       textColor,
       backgroundColor,
-      backgroundImage,
       blockBreakpointVisibility,
       blockAuthVisibility,
     } = attributes;
@@ -156,7 +154,6 @@ registerBlockType('gutenbee/column', {
           style={{
             color: textColor,
             backgroundColor,
-            ...getBackgroundImageStyle(backgroundImage),
             ...getBorderCSSValue({ attributes }),
             ...getBoxShadowCSSValue({ attributes }),
           }}

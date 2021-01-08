@@ -8,10 +8,9 @@ import { withDispatch } from 'wp.data';
 
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 import useUniqueId from '../../hooks/useUniqueId';
-import { getBackgroundImageStyle } from '../../components/controls/background-controls/helpers';
 import getBlockId from '../../util/getBlockId';
 import SpacerStyle from './style';
-import BackgroundControls from '../../components/controls/background-controls';
+import BackgroundControls from '../../components/controls/background-controls/BackgroundControls';
 import MarginControls from '../../components/controls/margin-controls';
 import BorderControls from '../../components/controls/border-controls';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
@@ -22,6 +21,7 @@ import BreakpointVisibilityControl from '../../components/controls/breakpoint-vi
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
+import Rule from '../../components/stylesheet/Rule';
 
 const SpacerEdit = ({
   attributes,
@@ -37,6 +37,7 @@ const SpacerEdit = ({
     height,
     backgroundColor,
     backgroundImage,
+    backgroundImageEffects,
     uniqueId,
     blockBreakpointVisibility,
     blockAuthVisibility,
@@ -48,13 +49,17 @@ const SpacerEdit = ({
 
   return (
     <Fragment>
-      <SpacerStyle attributes={attributes} />
+      <SpacerStyle attributes={attributes}>
+        <Rule
+          value={backgroundImage}
+          rule=".wp-block-gutenbee-spacer.[root] { %s }"
+        />
+      </SpacerStyle>
       <div>
         <ResizableBox
           id={blockId}
           style={{
             backgroundColor: backgroundColor || undefined,
-            ...getBackgroundImageStyle(backgroundImage),
             ...getBorderCSSValue({ attributes }),
             ...getBoxShadowCSSValue({ attributes }),
           }}
@@ -129,13 +134,36 @@ const SpacerEdit = ({
             onChange={value => setAttributes({ backgroundColor: value })}
           />
 
-          <BackgroundControls
-            label={__('Background Image')}
-            setAttributes={setAttributes}
-            attributes={attributes}
-            attributeKey="backgroundImage"
-            supportsParallax
-          />
+          <ResponsiveControl>
+            {breakpoint => {
+              return (
+                <BackgroundControls
+                  label={__('Background Image')}
+                  backgroundImageValue={backgroundImage[breakpoint]}
+                  onBackgroundImageChange={value =>
+                    setAttributes({
+                      backgroundImage: {
+                        ...backgroundImage,
+                        [breakpoint]: value,
+                      },
+                    })
+                  }
+                  parallaxValue={{
+                    parallax: backgroundImageEffects.parallax,
+                    parallaxSpeed: backgroundImageEffects.parallaxSpeed,
+                  }}
+                  onParallaxChange={value =>
+                    setAttributes({
+                      backgroundImageEffects: {
+                        ...backgroundImageEffects,
+                        ...value,
+                      },
+                    })
+                  }
+                />
+              );
+            }}
+          </ResponsiveControl>
 
           <BorderControls
             attributes={attributes}

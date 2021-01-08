@@ -1,31 +1,43 @@
-/**
- * Divider Block
- *
- * Provide thematic content spacing with a fancy divider
- */
-
-import { __ } from 'wp.i18n';
-import { registerBlockType } from 'wp.blocks';
 import classNames from 'classnames';
 
-import DividerBlockIcon from './block-icon';
-import DividerEdit from './edit';
-import {
-  getDefaultResponsiveValue,
-  getDefaultSpacingValue,
-} from '../../components/controls/responsive-control/default-values';
-import getBlockId from '../../util/getBlockId';
-import DividerStyle from './style';
-import { getDefaultResponsiveBackgroundImageValue } from '../../components/controls/background-controls/helpers';
-import deprecated from './deprecated';
-import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import getBlockId from '../../../util/getBlockId';
+import StyleSheet from '../../../components/stylesheet';
+import Rule from '../../../components/stylesheet/Rule';
 import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
-} from '../../components/controls/box-shadow-controls/helpers';
-import borderControlAttributes from '../../components/controls/border-controls/attributes';
-import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
-import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+} from '../../../components/controls/box-shadow-controls/helpers';
+import borderControlAttributes from '../../../components/controls/border-controls/attributes';
+import {
+  getDefaultBackgroundImageValue,
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../../components/controls/responsive-control/default-values';
+import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
+import { getBackgroundImageStyle } from '../../../components/controls/background-controls/helpers';
+import { getAuthVisibilityClasses } from '../../../components/controls/auth-visibility-control/helpers';
+import { getBreakpointVisibilityClassNames } from '../../../components/controls/breakpoint-visibility-control/helpers';
+
+const DividerStyle = ({ attributes, children }) => {
+  const { uniqueId, blockPadding, blockMargin } = attributes;
+  const blockId = getBlockId(uniqueId);
+
+  return (
+    <StyleSheet id={blockId}>
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-divider.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-divider.[root] { padding: %s; }"
+        unit="px"
+      />
+      {children}
+    </StyleSheet>
+  );
+};
 
 export const BORDER_STYLES = {
   SOLID: 'solid',
@@ -44,6 +56,7 @@ export const Divider = ({ className, attributes, ...props }) => {
     color,
     uniqueId,
     backgroundColor,
+    backgroundImage,
     blockBreakpointVisibility,
     blockAuthVisibility,
   } = attributes;
@@ -64,6 +77,7 @@ export const Divider = ({ className, attributes, ...props }) => {
       style={{
         height,
         backgroundColor: backgroundColor || undefined,
+        ...getBackgroundImageStyle(backgroundImage),
         ...getBorderCSSValue({ attributes }),
         ...getBoxShadowCSSValue({ attributes }),
       }}
@@ -83,16 +97,9 @@ export const Divider = ({ className, attributes, ...props }) => {
   );
 };
 
-registerBlockType('gutenbee/divider', {
-  title: __('GutenBee Divider'),
-  description: __(
-    'A divider to indicate a thematic change in the content in style.',
-  ),
-  icon: DividerBlockIcon,
-  category: 'gutenbee',
-  keywords: [__('divider'), __('horizontal-line'), 'hr'],
+const v3 = {
   supports: {
-    anchor: false,
+    anchor: true,
   },
   attributes: {
     uniqueId: {
@@ -127,15 +134,7 @@ registerBlockType('gutenbee/divider', {
     },
     backgroundImage: {
       type: 'object',
-      default: getDefaultResponsiveBackgroundImageValue(),
-    },
-    backgroundImageEffects: {
-      type: 'object',
-      default: {
-        zoom: false,
-        parallax: false,
-        parallaxSpeed: 0.3,
-      },
+      default: getDefaultBackgroundImageValue(),
     },
     blockMargin: {
       type: 'object',
@@ -163,9 +162,42 @@ registerBlockType('gutenbee/divider', {
       },
     },
   },
-  deprecated,
-  edit: DividerEdit,
+  migrate(attributes) {
+    return {
+      ...attributes,
+      backgroundImage: {
+        desktop: {
+          url: attributes.backgroundImage.url,
+          repeat: attributes.backgroundImage.repeat,
+          size: attributes.backgroundImage.size,
+          position: attributes.backgroundImage.position,
+          attachment: attributes.backgroundImage.attachment,
+        },
+        tablet: {
+          url: '',
+          repeat: 'no-repeat',
+          size: 'cover',
+          position: 'top center',
+          attachment: 'scroll',
+        },
+        mobile: {
+          url: '',
+          repeat: 'no-repeat',
+          size: 'cover',
+          position: 'top center',
+          attachment: 'scroll',
+        },
+      },
+      backgroundImageEffects: {
+        zoom: attributes.backgroundImage?.zoom ?? false,
+        parallax: attributes.backgroundImage?.parallax ?? false,
+        parallaxSpeed: attributes.backgroundImage?.parallaxSpeed ?? 0.3,
+      },
+    };
+  },
   save({ className, attributes }) {
     return <Divider className={className} attributes={attributes} />;
   },
-});
+};
+
+export default v3;
