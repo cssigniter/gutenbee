@@ -297,9 +297,12 @@
 				return;
 			}
 
+			// TODO - revisit these
 			$custom_width = $this->general_settings['editor-width-value'];
 			echo '<style id="gb-ew">
-				div.editor-styles-wrapper .wp-block {
+				div.editor-styles-wrapper .wp-block,
+				div.editor-styles-wrapper [data-type="gutenbee/container"][data-theme-grid] > .wp-block-gutenbee-container  > .wp-block-gutenbee-container-inner,
+				div.editor-styles-wrapper [data-type="gutenbee/container"][data-theme-grid] > .wp-block > .wp-block-gutenbee-container > .wp-block-gutenbee-container-inner {
 					max-width: ' . $custom_width . 'px;
 				}
 			</style>';

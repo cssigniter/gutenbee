@@ -113,6 +113,8 @@ const ContainerBlockEdit = ({
           className={classes}
           style={{
             color: textColor,
+            ...getBorderCSSValue({ attributes }),
+            ...getBoxShadowCSSValue({ attributes }),
           }}
         >
           <div className={`${baseClass}-inner`}>
@@ -131,27 +133,28 @@ const ContainerBlockEdit = ({
               className={`${baseClass}-background-overlay`}
               style={{
                 backgroundColor: overlayBackgroundColor,
-                ...getBorderCSSValue({ attributes }),
               }}
             />
           )}
-          <div
-            className={`${baseClass}-background`}
-            style={{
-              backgroundColor,
-              ...getBorderCSSValue({ attributes }),
-              ...getBoxShadowCSSValue({ attributes }),
-            }}
-          >
-            {backgroundVideoURL &&
-              !['unsupported'].includes(videoInfo.provider) && (
-                <VideoBackgroundEditor
-                  key={backgroundVideoURL}
-                  videoInfo={videoInfo}
-                  videoEmbedRef={videoEmbedRef}
-                />
-              )}
-          </div>
+
+          {(backgroundColor || backgroundVideoURL) && (
+            <div
+              className={`${baseClass}-background`}
+              style={{
+                backgroundColor,
+                ...getBoxShadowCSSValue({ attributes }),
+              }}
+            >
+              {backgroundVideoURL &&
+                !['unsupported'].includes(videoInfo.provider) && (
+                  <VideoBackgroundEditor
+                    key={backgroundVideoURL}
+                    videoInfo={videoInfo}
+                    videoEmbedRef={videoEmbedRef}
+                  />
+                )}
+            </div>
+          )}
         </div>
       ) : (
         <div>

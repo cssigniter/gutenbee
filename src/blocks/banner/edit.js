@@ -139,6 +139,8 @@ const BannerBlockEdit = ({
         className={classes}
         style={{
           color: textColor,
+          ...getBorderCSSValue({ attributes }),
+          ...getBoxShadowCSSValue({ attributes }),
         }}
       >
         {bannerUrl && <span className={`${baseClass}-link-placeholder`} />}
@@ -164,8 +166,6 @@ const BannerBlockEdit = ({
           className={`${baseClass}-background`}
           style={{
             backgroundColor,
-            ...getBorderCSSValue({ attributes }),
-            ...getBoxShadowCSSValue({ attributes }),
           }}
         >
           {backgroundVideoURL &&

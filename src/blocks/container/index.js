@@ -6,11 +6,7 @@ import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 import { InnerBlocks } from 'wp.blockEditor';
 import classNames from 'classnames';
-// This is a check to see if we are in Gutenberg 7.x which supports
-// this and load the appropriate Edit component
-import { __experimentalBlockVariationPicker } from 'wp.blockEditor';
 
-import ContainerBlockEditLegacy from './edit-legacy';
 import ContainerBlockEdit from './edit';
 import { getDefaultResponsiveBackgroundImageValue } from '../../components/controls/background-controls/helpers';
 import ContainerStyle from './style';
@@ -152,9 +148,7 @@ registerBlockType('gutenbee/container', {
     }
   },
   variations,
-  edit: !!__experimentalBlockVariationPicker
-    ? ContainerBlockEdit
-    : ContainerBlockEditLegacy,
+  edit: ContainerBlockEdit,
   save: ({ attributes, className }) => {
     const {
       uniqueId,
@@ -197,6 +191,8 @@ registerBlockType('gutenbee/container', {
         )}
         style={{
           color: textColor,
+          ...getBorderCSSValue({ attributes }),
+          ...getBoxShadowCSSValue({ attributes }),
         }}
       >
         <ContainerStyle attributes={attributes} />
@@ -215,7 +211,6 @@ registerBlockType('gutenbee/container', {
               className="wp-block-gutenbee-container-background-overlay"
               style={{
                 backgroundColor: overlayBackgroundColor,
-                ...getBorderCSSValue({ attributes }),
               }}
             />
           )}
@@ -229,7 +224,6 @@ registerBlockType('gutenbee/container', {
           data-parallax-speed={parallaxSpeed}
           style={{
             backgroundColor,
-            ...getBorderCSSValue({ attributes }),
             ...getBoxShadowCSSValue({ attributes }),
           }}
         >

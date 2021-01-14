@@ -161,8 +161,6 @@ registerBlockType('gutenbee/banner', {
           data-parallax-speed={parallaxSpeed}
           style={{
             backgroundColor,
-            ...getBorderCSSValue({ attributes }),
-            ...getBoxShadowCSSValue({ attributes }),
           }}
         >
           {backgroundVideoURL &&
@@ -188,6 +186,8 @@ registerBlockType('gutenbee/banner', {
         )}
         style={{
           color: textColor,
+          ...getBorderCSSValue({ attributes }),
+          ...getBoxShadowCSSValue({ attributes }),
         }}
       >
         {bannerUrl && (

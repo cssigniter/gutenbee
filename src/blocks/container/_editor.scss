@@ -36,6 +36,7 @@
         flex: 1 1 auto;
         width: 100%;
         min-width: 0;
+        max-width: 100%;
         padding-left: 0;
         padding-right: 0;
         flex-basis: calc(50% - 44px);
@@ -163,7 +164,8 @@
     }
 
     > .wp-block-gutenbee-container  > .wp-block-gutenbee-container-inner {
-      max-width: 1110px;
+      // TODO - revisit these
+      max-width: 940px;
       margin-left: auto;
       margin-right: auto;
       padding-left: $block-padding;
@@ -171,7 +173,7 @@
     }
 
     > .wp-block > .wp-block-gutenbee-container  > .wp-block-gutenbee-container-inner {
-      max-width: 1110px;
+      max-width: 940px;
       margin-left: auto;
       margin-right: auto
     }

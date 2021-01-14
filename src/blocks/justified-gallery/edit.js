@@ -99,140 +99,138 @@ const JustifiedGalleryEdit = ({
       }}
     >
       <GalleryStyle attributes={attributes} />
-      {isSelected && (
-        <InspectorControls>
-          <PanelBody title={__('Gallery Settings')}>
-            <SelectControl
-              label={__('Gallery Type')}
-              value={type}
-              options={[
-                {
-                  value: GALLERY_TYPE.COLUMNS,
-                  label: 'Columns',
-                },
-                {
-                  value: GALLERY_TYPE.JUSTIFIED,
-                  label: 'Justified',
-                },
-              ]}
-              onChange={value => setAttributes({ type: value })}
-            />
+      <InspectorControls>
+        <PanelBody title={__('Gallery Settings')}>
+          <SelectControl
+            label={__('Gallery Type')}
+            value={type}
+            options={[
+              {
+                value: GALLERY_TYPE.COLUMNS,
+                label: 'Columns',
+              },
+              {
+                value: GALLERY_TYPE.JUSTIFIED,
+                label: 'Justified',
+              },
+            ]}
+            onChange={value => setAttributes({ type: value })}
+          />
 
-            {type === GALLERY_TYPE.COLUMNS && (
-              <Fragment>
-                <RangeControl
-                  label={__('Columns')}
-                  min={1}
-                  max={6}
-                  value={columns}
-                  onChange={value => setAttributes({ columns: value })}
-                  step={1}
-                />
-              </Fragment>
+          {type === GALLERY_TYPE.COLUMNS && (
+            <Fragment>
+              <RangeControl
+                label={__('Columns')}
+                min={1}
+                max={6}
+                value={columns}
+                onChange={value => setAttributes({ columns: value })}
+                step={1}
+              />
+            </Fragment>
+          )}
+
+          {type === GALLERY_TYPE.JUSTIFIED && (
+            <Fragment>
+              <RangeControl
+                label={__('Row Height')}
+                min={0}
+                max={600}
+                value={rowHeight}
+                onChange={value => setAttributes({ rowHeight: value })}
+                step={5}
+              />
+
+              <RangeControl
+                label={__('Margins')}
+                min={0}
+                max={50}
+                value={margins}
+                onChange={value => setAttributes({ margins: value })}
+                step={1}
+              />
+
+              <SelectControl
+                label={__('Last Row')}
+                value={lastRow}
+                options={Object.keys(LAST_ROW).map(key => ({
+                  value: LAST_ROW[key],
+                  label: capitalizeSentence(startCase(key)),
+                }))}
+                onChange={value => setAttributes({ lastRow: value })}
+              />
+
+              <ToggleControl
+                label={__('Randomize')}
+                checked={randomize}
+                onChange={value => setAttributes({ randomize: value })}
+              />
+            </Fragment>
+          )}
+        </PanelBody>
+
+        <PanelBody title={__('Block Appearance')} initialOpen={false}>
+          <PopoverColorControl
+            label={__('Background Color')}
+            value={backgroundColor || ''}
+            defaultValue={backgroundColor || ''}
+            onChange={value => setAttributes({ backgroundColor: value })}
+          />
+
+          <BorderControls
+            attributes={attributes}
+            setAttributes={setAttributes}
+          />
+
+          <BoxShadowControls
+            attributes={attributes}
+            setAttributes={setAttributes}
+          />
+
+          <ResponsiveControl>
+            {breakpoint => (
+              <MarginControls
+                label={__('Padding (px)')}
+                attributeKey="blockPadding"
+                attributes={attributes}
+                setAttributes={setAttributes}
+                breakpoint={breakpoint}
+              />
             )}
+          </ResponsiveControl>
 
-            {type === GALLERY_TYPE.JUSTIFIED && (
-              <Fragment>
-                <RangeControl
-                  label={__('Row Height')}
-                  min={0}
-                  max={600}
-                  value={rowHeight}
-                  onChange={value => setAttributes({ rowHeight: value })}
-                  step={5}
-                />
-
-                <RangeControl
-                  label={__('Margins')}
-                  min={0}
-                  max={50}
-                  value={margins}
-                  onChange={value => setAttributes({ margins: value })}
-                  step={1}
-                />
-
-                <SelectControl
-                  label={__('Last Row')}
-                  value={lastRow}
-                  options={Object.keys(LAST_ROW).map(key => ({
-                    value: LAST_ROW[key],
-                    label: capitalizeSentence(startCase(key)),
-                  }))}
-                  onChange={value => setAttributes({ lastRow: value })}
-                />
-
-                <ToggleControl
-                  label={__('Randomize')}
-                  checked={randomize}
-                  onChange={value => setAttributes({ randomize: value })}
-                />
-              </Fragment>
+          <ResponsiveControl>
+            {breakpoint => (
+              <MarginControls
+                label={__('Margin (px)')}
+                attributeKey="blockMargin"
+                attributes={attributes}
+                setAttributes={setAttributes}
+                breakpoint={breakpoint}
+              />
             )}
-          </PanelBody>
+          </ResponsiveControl>
+        </PanelBody>
+        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+          <BreakpointVisibilityControl
+            values={blockBreakpointVisibility}
+            onChange={values => {
+              setAttributes({
+                blockBreakpointVisibility: values,
+              });
+            }}
+          />
 
-          <PanelBody title={__('Block Appearance')} initialOpen={false}>
-            <PopoverColorControl
-              label={__('Background Color')}
-              value={backgroundColor || ''}
-              defaultValue={backgroundColor || ''}
-              onChange={value => setAttributes({ backgroundColor: value })}
-            />
-
-            <BorderControls
-              attributes={attributes}
-              setAttributes={setAttributes}
-            />
-
-            <BoxShadowControls
-              attributes={attributes}
-              setAttributes={setAttributes}
-            />
-
-            <ResponsiveControl>
-              {breakpoint => (
-                <MarginControls
-                  label={__('Padding (px)')}
-                  attributeKey="blockPadding"
-                  attributes={attributes}
-                  setAttributes={setAttributes}
-                  breakpoint={breakpoint}
-                />
-              )}
-            </ResponsiveControl>
-
-            <ResponsiveControl>
-              {breakpoint => (
-                <MarginControls
-                  label={__('Margin (px)')}
-                  attributeKey="blockMargin"
-                  attributes={attributes}
-                  setAttributes={setAttributes}
-                  breakpoint={breakpoint}
-                />
-              )}
-            </ResponsiveControl>
-          </PanelBody>
-          <PanelBody title={__('Visibility Settings')} initialOpen={false}>
-            <BreakpointVisibilityControl
-              values={blockBreakpointVisibility}
-              onChange={values => {
-                setAttributes({
-                  blockBreakpointVisibility: values,
-                });
-              }}
-            />
-
-            <AuthVisibilityControl
-              values={blockAuthVisibility}
-              onChange={values => {
-                setAttributes({
-                  blockAuthVisibility: values,
-                });
-              }}
-            />
-          </PanelBody>
-        </InspectorControls>
-      )}
+          <AuthVisibilityControl
+            values={blockAuthVisibility}
+            onChange={values => {
+              setAttributes({
+                blockAuthVisibility: values,
+              });
+            }}
+          />
+        </PanelBody>
+      </InspectorControls>
     </Gallery>
   );
 };
