@@ -93,7 +93,7 @@
 				array( $this, 'checkbox_render' ),
 				'gutenbee',
 				'gutenbee_settings_section',
-				array( 'id' => 'google-maps' )
+				array( 'id' => 'active_google-maps' )
 			);
 
 			add_settings_field(
