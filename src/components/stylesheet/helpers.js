@@ -308,7 +308,7 @@ export const defaultGetStylesArrayFromChildren = ({
         breakpointLimit,
       });
 
-      if (styleRule != null) {
+      if (styleRule != null && styleBreakpoint) {
         styleBreakpoint.rules.push(styleRule);
       }
     });

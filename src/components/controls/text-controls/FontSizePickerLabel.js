@@ -4,11 +4,13 @@ import { FontSizePicker } from 'wp.blockEditor';
 const propTypes = {
   value: PropTypes.number,
   onChange: PropTypes.func.isRequired,
+  label: PropTypes.node,
 };
 
-const FontSizePickerLabel = ({ value, onChange, ...props }) => {
+const FontSizePickerLabel = ({ value, onChange, label, ...props }) => {
   return (
     <div className="gutenbee-font-size-picker-label">
+      {label && <p className="components-base-control__label">{label}</p>}
       <FontSizePicker label="" value={value} onChange={onChange} {...props} />
     </div>
   );

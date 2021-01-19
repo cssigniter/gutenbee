@@ -1,33 +1,72 @@
-import { registerBlockType } from 'wp.blocks';
-import { __ } from 'wp.i18n';
 import { InnerBlocks, RichText } from 'wp.blockEditor';
 import classNames from 'classnames';
 
-import getBlockId from '../../util/getBlockId';
-import ReviewEdit from './edit';
-import ReviewStyle from './style';
-import ReviewBlockIcon from './block-icon';
-import Rule from '../../components/stylesheet/Rule';
+import Rule from '../../../components/stylesheet/Rule';
+import getBlockId from '../../../util/getBlockId';
+import StyleSheet from '../../../components/stylesheet';
 import {
   getDefaultResponsiveValue,
   getDefaultSpacingValue,
-} from '../../components/controls/responsive-control/default-values';
-import borderControlAttributes from '../../components/controls/border-controls/attributes';
+} from '../../../components/controls/responsive-control/default-values';
+import { getBreakpointVisibilityClassNames } from '../../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../../components/controls/auth-visibility-control/helpers';
+import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
 import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
-} from '../../components/controls/box-shadow-controls/helpers';
-import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
-import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
-import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
-import deprecated from './deprecated';
+} from '../../../components/controls/box-shadow-controls/helpers';
+import borderControlAttributes from '../../../components/controls/border-controls/attributes';
 
-registerBlockType('gutenbee/review', {
-  title: __('GutenBee Review'),
-  description: __('Creates reviews.'),
-  icon: ReviewBlockIcon,
-  category: 'gutenbee',
-  keywords: [__('review'), __('rating')],
+const ReviewStyle = ({ attributes, children }) => {
+  const {
+    uniqueId,
+    scoreSize,
+    contentSize,
+    barHeight,
+    reviewItemFontSize,
+    blockPadding,
+    blockMargin,
+  } = attributes;
+  const blockId = getBlockId(uniqueId);
+
+  return (
+    <StyleSheet id={blockId}>
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-review.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-review.[root] { padding: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={scoreSize}
+        rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-rating-final-score strong { font-size: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={contentSize}
+        rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-rating-final-score p { font-size: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={barHeight}
+        rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-item-outer { height: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={reviewItemFontSize}
+        rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-item-outer { font-size: %s; }"
+        unit="px"
+      />
+      {children}
+    </StyleSheet>
+  );
+};
+
+const v1 = {
   attributes: {
     uniqueId: {
       type: 'string',
@@ -50,7 +89,7 @@ registerBlockType('gutenbee/review', {
     content: {
       type: 'string',
       source: 'html',
-      selector: '.wp-block-gutenbee-review-rating-final-score-subtitle',
+      selector: '.wp-block-gutenbee-review-rating-final-score p',
       default: '',
     },
     contentSize: {
@@ -117,8 +156,10 @@ registerBlockType('gutenbee/review', {
       },
     },
   },
-  deprecated,
-  edit: ReviewEdit,
+  migrate(attributes) {
+    // TODO migrate selector attributes
+    return attributes;
+  },
   save: ({ attributes, className }) => {
     const {
       uniqueId,
@@ -151,16 +192,12 @@ registerBlockType('gutenbee/review', {
         }}
       >
         <div className="wp-block-gutenbee-review-rating-final-score">
-          <p
-            className="wp-block-gutenbee-review-rating-final-score-value"
-            style={{ color: scoreColor ? scoreColor : undefined }}
-          >
+          <strong style={{ color: scoreColor ? scoreColor : undefined }}>
             {score}
-          </p>
+          </strong>
           {content && (
             <RichText.Content
               tagName="p"
-              className="wp-block-gutenbee-review-rating-final-score-subtitle"
               style={{ color: contentColor ? contentColor : undefined }}
               value={content}
             />
@@ -189,4 +226,6 @@ registerBlockType('gutenbee/review', {
       </div>
     );
   },
-});
+};
+
+export default v1;

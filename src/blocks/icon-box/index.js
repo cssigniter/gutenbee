@@ -205,45 +205,56 @@ const IconBoxEditBlock = ({
 
       {isSelected && (
         <InspectorControls>
-          <PanelBody title={__('Icon Settings')} initialOpen={false}>
-            <IconSettings
-              className={className}
-              setAttributes={setAttributes}
-              excludeAlignment
-              attributes={{
-                ...omit(attributes, [
-                  'blockMargin',
-                  'blockPadding',
-                  'blockBreakpointVisibility',
-                  'blockAuthVisibility',
-                ]),
-              }}
-            >
-              <ResponsiveControl>
-                {breakpoint => (
-                  <MarginControls
-                    label={__('Padding (px)')}
-                    attributeKey="iconPadding"
-                    attributes={attributes}
-                    setAttributes={setAttributes}
-                    breakpoint={breakpoint}
-                  />
-                )}
-              </ResponsiveControl>
+          <IconSettings
+            className={className}
+            setAttributes={setAttributes}
+            alignmentOptions={[
+              {
+                value: 'left',
+                label: __('Left'),
+              },
+              {
+                value: 'center',
+                label: __('Top'),
+              },
+              {
+                value: 'right',
+                label: __('Right'),
+              },
+            ]}
+            attributes={{
+              ...omit(attributes, [
+                'blockMargin',
+                'blockPadding',
+                'blockBreakpointVisibility',
+                'blockAuthVisibility',
+              ]),
+            }}
+          >
+            <ResponsiveControl>
+              {breakpoint => (
+                <MarginControls
+                  label={__('Padding (px)')}
+                  attributeKey="iconPadding"
+                  attributes={attributes}
+                  setAttributes={setAttributes}
+                  breakpoint={breakpoint}
+                />
+              )}
+            </ResponsiveControl>
 
-              <ResponsiveControl>
-                {breakpoint => (
-                  <MarginControls
-                    label={__('Margin (px)')}
-                    attributeKey="iconMargin"
-                    attributes={attributes}
-                    setAttributes={setAttributes}
-                    breakpoint={breakpoint}
-                  />
-                )}
-              </ResponsiveControl>
-            </IconSettings>
-          </PanelBody>
+            <ResponsiveControl>
+              {breakpoint => (
+                <MarginControls
+                  label={__('Margin (px)')}
+                  attributeKey="iconMargin"
+                  attributes={attributes}
+                  setAttributes={setAttributes}
+                  breakpoint={breakpoint}
+                />
+              )}
+            </ResponsiveControl>
+          </IconSettings>
 
           <PanelBody title={__('Content Settings')} initialOpen={false}>
             <SelectControl

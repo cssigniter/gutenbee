@@ -17,7 +17,6 @@ import Icon from './Icon';
 import IconSelectValue from './IconSelectValue';
 import IconBlockIcon from './block-icon';
 import MarginControls from '../../components/controls/margin-controls';
-import { capitalize } from '../../util/text';
 import {
   getDefaultResponsiveValue,
   getDefaultSpacingValue,
@@ -105,6 +104,20 @@ export const IconSettings = ({
   setAttributes,
   attributes,
   children,
+  alignmentOptions = [
+    {
+      value: 'left',
+      label: __('Left'),
+    },
+    {
+      value: 'center',
+      label: __('Center'),
+    },
+    {
+      value: 'right',
+      label: __('Right'),
+    },
+  ],
 }) => {
   const {
     view,
@@ -116,7 +129,6 @@ export const IconSettings = ({
     align,
     colorPrimary,
     colorSecondary,
-    excludeAlignment,
     blockMargin,
     blockPadding,
     blockBreakpointVisibility,
@@ -125,108 +137,101 @@ export const IconSettings = ({
 
   return (
     <Fragment>
-      <BaseControl id="icon-select" label={__('Icon')}>
-        <ReactSelect
-          aria-labelledby="icon-select"
-          onChange={value => setAttributes({ icon: value || 'add-bag' })}
-          value={icon}
-          options={icons.map(value => ({ value, label: startCase(value) }))}
-          simpleValue
-          valueRenderer={({ value, label }) => (
-            <IconSelectValue value={value} label={label} />
-          )}
-          optionRenderer={({ value, label }) => (
-            <IconSelectValue
-              value={value}
-              label={label}
-              className={className}
-            />
-          )}
-          clearable={false}
-        />
-      </BaseControl>
-
-      <SelectControl
-        label={__('View')}
-        value={view}
-        onChange={value => setAttributes({ view: value })}
-        options={[
-          { value: VIEWS.DEFAULT, label: __('Default') },
-          { value: VIEWS.STACKED, label: __('Stacked') },
-          { value: VIEWS.FRAMED, label: __('Framed') },
-        ]}
-      />
-
-      {view !== VIEWS.DEFAULT && (
+      <PanelBody>
+        <BaseControl id="icon-select" label={__('Icon')}>
+          <ReactSelect
+            aria-labelledby="icon-select"
+            onChange={value => setAttributes({ icon: value || 'add-bag' })}
+            value={icon}
+            options={icons.map(value => ({ value, label: startCase(value) }))}
+            simpleValue
+            valueRenderer={({ value, label }) => (
+              <IconSelectValue value={value} label={label} />
+            )}
+            optionRenderer={({ value, label }) => (
+              <IconSelectValue
+                value={value}
+                label={label}
+                className={className}
+              />
+            )}
+            clearable={false}
+          />
+        </BaseControl>
         <SelectControl
-          label={__('Shape')}
-          value={shape}
-          onChange={value => setAttributes({ shape: value })}
+          label={__('View')}
+          value={view}
+          onChange={value => setAttributes({ view: value })}
           options={[
-            { value: SHAPES.CIRCLE, label: __('Circle') },
-            { value: SHAPES.SQUARE, label: __('Square') },
+            { value: VIEWS.DEFAULT, label: __('Default') },
+            { value: VIEWS.STACKED, label: __('Stacked') },
+            { value: VIEWS.FRAMED, label: __('Framed') },
           ]}
         />
-      )}
-
-      <ResponsiveControl>
-        {breakpoint => {
-          return (
-            <RangeControl
-              label={__('Icon Size (px)')}
-              min={1}
-              max={100}
-              value={size[breakpoint]}
-              onChange={value =>
-                setAttributes({
-                  size: {
-                    ...size,
-                    [breakpoint]: value != null ? value : '',
-                  },
-                })
-              }
-            />
-          );
-        }}
-      </ResponsiveControl>
-
-      {view !== VIEWS.DEFAULT && (
-        <RangeControl
-          label={__('Padding (em)')}
-          min={1}
-          max={10}
-          step={0.1}
-          value={padding}
-          onChange={value => setAttributes({ padding: value })}
-        />
-      )}
-
-      {view === VIEWS.FRAMED && (
-        <RangeControl
-          label={__('Border Size (px)')}
-          min={1}
-          max={50}
-          step={1}
-          value={borderWidth}
-          onChange={value => setAttributes({ borderWidth: value })}
-        />
-      )}
-
-      {!excludeAlignment && (
-        <Fragment>
+        {view !== VIEWS.DEFAULT && (
           <SelectControl
-            label={__('Alignment')}
-            value={align}
-            options={['left', 'center', 'right'].map(option => ({
-              value: option,
-              label: capitalize(option),
-            }))}
-            onChange={value => {
-              setAttributes({ align: value || 'left' });
-            }}
+            label={__('Shape')}
+            value={shape}
+            onChange={value => setAttributes({ shape: value })}
+            options={[
+              { value: SHAPES.CIRCLE, label: __('Circle') },
+              { value: SHAPES.SQUARE, label: __('Square') },
+            ]}
           />
-        </Fragment>
-      )}
+        )}
+        <ResponsiveControl>
+          {breakpoint => {
+            return (
+              <RangeControl
+                label={__('Icon Size (px)')}
+                min={1}
+                max={100}
+                value={size[breakpoint]}
+                onChange={value =>
+                  setAttributes({
+                    size: {
+                      ...size,
+                      [breakpoint]: value != null ? value : '',
+                    },
+                  })
+                }
+              />
+            );
+          }}
+        </ResponsiveControl>
+        {view !== VIEWS.DEFAULT && (
+          <RangeControl
+            label={__('Padding (em)')}
+            min={1}
+            max={10}
+            step={0.1}
+            value={padding}
+            onChange={value => setAttributes({ padding: value })}
+          />
+        )}
+        {view === VIEWS.FRAMED && (
+          <RangeControl
+            label={__('Border Size (px)')}
+            min={1}
+            max={50}
+            step={1}
+            value={borderWidth}
+            onChange={value => setAttributes({ borderWidth: value })}
+          />
+        )}
+
+        <SelectControl
+          label={__('Alignment')}
+          value={align}
+          options={alignmentOptions.map(option => ({
+            value: option.value,
+            label: option.label,
+          }))}
+          onChange={value => {
+            setAttributes({ align: value || 'left' });
+          }}
+        />
+      </PanelBody>
 
       <PanelBody title={__('Icon Appearance')} initialOpen={false}>
         <PopoverColorControl
@@ -321,13 +326,11 @@ const IconEdit = ({
       <Icon id={blockId} className={className} {...attributes} />
       {isSelected && (
         <InspectorControls>
-          <PanelBody>
-            <IconSettings
-              className={className}
-              setAttributes={setAttributes}
-              attributes={attributes}
-            />
-          </PanelBody>
+          <IconSettings
+            className={className}
+            setAttributes={setAttributes}
+            attributes={attributes}
+          />
         </InspectorControls>
       )}
     </Fragment>

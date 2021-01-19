@@ -99,15 +99,17 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
         }}
       >
         <div className="wp-block-gutenbee-review-rating-final-score">
-          <strong
+          <p
+            className="wp-block-gutenbee-review-rating-final-score-value"
             style={{
               color: scoreColor,
             }}
           >
             {score}
-          </strong>
+          </p>
           <RichText
             tagName="p"
+            className="wp-block-gutenbee-review-rating-final-score-subtitle"
             identifier="value"
             multiline={false}
             disableLineBreaks={true}

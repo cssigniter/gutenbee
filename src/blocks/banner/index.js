@@ -130,7 +130,7 @@ registerBlockType('gutenbee/banner', {
     const blockId = getBlockId(uniqueId);
     const baseClass = getBlockDefaultClassName('gutenbee/banner');
 
-    const { parallax, parallaxSpeed, zoom } = backgroundImageEffects;
+    const { parallax, parallaxSpeed, zoom } = backgroundImageEffects ?? {};
 
     const videoInfo = backgroundVideoURL
       ? getVideoProviderInfoByUrl(backgroundVideoURL)
@@ -194,7 +194,7 @@ registerBlockType('gutenbee/banner', {
           <a
             href={bannerUrl}
             target={newTab && '_blank'}
-            rel={newTab && 'noopener noreferrer'}
+            rel={newTab && 'noopener'}
             className={`${baseClass}-link`}
           />
         )}

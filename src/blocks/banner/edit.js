@@ -113,7 +113,7 @@ const BannerBlockEdit = ({
     [clientId],
   );
 
-  const { zoom, parallax } = backgroundImageEffects;
+  const { zoom, parallax } = backgroundImageEffects ?? {};
 
   const blockId = getBlockId(uniqueId);
   const classes = classNames(blockId, className, {

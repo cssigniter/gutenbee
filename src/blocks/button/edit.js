@@ -26,7 +26,7 @@ const propTypes = {
   isSelected: PropTypes.bool,
 };
 
-const NEW_TAB_REL = 'noreferrer noopener';
+const NEW_TAB_REL = 'noopener';
 
 const ButtonEdit = ({ attributes, setAttributes, className, clientId }) => {
   const {

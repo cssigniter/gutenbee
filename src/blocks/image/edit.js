@@ -7,6 +7,7 @@ import {
   InspectorControls,
   MediaPlaceholder,
   RichText,
+  BlockIcon,
 } from 'wp.blockEditor';
 import {
   PanelBody,
@@ -21,6 +22,7 @@ import { compose } from 'wp.compose';
 import { withSelect } from 'wp.data';
 import { pick, get, map, isEmpty } from 'lodash';
 import classNames from 'classnames';
+import { image as imageIcon } from '@wordpress/icons';
 
 import useUniqueId from '../../hooks/useUniqueId';
 import getBlockId from '../../util/getBlockId';
@@ -185,7 +187,7 @@ const ImageEdit = ({
 
   const mediaUploader = (
     <MediaPlaceholder
-      icon="format-image"
+      icon={<BlockIcon icon={imageIcon} />}
       labels={labels}
       onSelect={onImageSelect}
       allowedTypes={['image']}

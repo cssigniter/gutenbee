@@ -86,7 +86,7 @@ registerBlockType('gutenbee/spacer', {
       blockAuthVisibility,
     } = attributes;
     const blockId = getBlockId(uniqueId);
-    const { parallax, parallaxSpeed } = backgroundImageEffects;
+    const { parallax, parallaxSpeed } = backgroundImageEffects ?? {};
 
     return (
       <div

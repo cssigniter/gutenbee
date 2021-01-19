@@ -16,6 +16,8 @@ const IconBoxStyle = ({ attributes, children }) => {
     blockMargin,
     textFontSize,
     titleFontSize,
+    iconMargin,
+    iconPadding,
   } = attributes;
   const blockId = getBlockId(uniqueId);
 
@@ -29,6 +31,16 @@ const IconBoxStyle = ({ attributes, children }) => {
       <Rule
         value={blockPadding}
         rule=".wp-block-gutenbee-iconbox.[root] { padding: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={iconMargin}
+        rule=".wp-block-gutenbee-iconbox.[root] .gutenbee-icon-block { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={iconPadding}
+        rule=".wp-block-gutenbee-iconbox.[root] .gutenbee-icon-block { padding: %s; }"
         unit="px"
       />
       <Rule

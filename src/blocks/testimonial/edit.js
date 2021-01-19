@@ -4,6 +4,7 @@ import {
   BlockControls,
   AlignmentToolbar,
   MediaPlaceholder,
+  BlockIcon,
 } from 'wp.blockEditor';
 import {
   BlockQuotation,
@@ -20,6 +21,7 @@ import { __ } from 'wp.i18n';
 import classNames from 'classnames';
 import { pick, get, map, isEmpty } from 'lodash';
 import { RichText, InspectorControls } from 'wp.blockEditor';
+import { image as imageIcon } from '@wordpress/icons';
 
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
@@ -159,7 +161,7 @@ const TestimonialEdit = ({
 
   const mediaUploader = (
     <MediaPlaceholder
-      icon="format-image"
+      icon={<BlockIcon icon={imageIcon} />}
       labels={labels}
       onSelect={onImageSelect}
       allowedTypes={['image']}

@@ -164,7 +164,7 @@ registerBlockType('gutenbee/container', {
       blockAuthVisibility,
     } = attributes;
 
-    const { parallax, parallaxSpeed, zoom } = backgroundImageEffects;
+    const { parallax, parallaxSpeed, zoom } = backgroundImageEffects ?? {};
 
     const videoInfo = backgroundVideoURL
       ? getVideoProviderInfoByUrl(backgroundVideoURL)
