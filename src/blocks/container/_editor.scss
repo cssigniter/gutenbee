@@ -164,8 +164,7 @@
     }
 
     > .wp-block-gutenbee-container  > .wp-block-gutenbee-container-inner {
-      // TODO - revisit these
-      max-width: 940px;
+      max-width: 100%;
       margin-left: auto;
       margin-right: auto;
       padding-left: $block-padding;
@@ -173,7 +172,7 @@
     }
 
     > .wp-block > .wp-block-gutenbee-container  > .wp-block-gutenbee-container-inner {
-      max-width: 940px;
+      max-width: 100%;
       margin-left: auto;
       margin-right: auto
     }

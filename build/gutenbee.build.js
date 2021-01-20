@@ -65016,7 +65016,7 @@ var icon_IconSettings = function IconSettings(_ref) {
       setAttributes: setAttributes,
       breakpoint: breakpoint
     });
-  }), blockBreakpointVisibility && blockAuthVisibility && wp.element.createElement(external_window_wp_components_["PanelBody"], {
+  }), children), blockBreakpointVisibility && blockAuthVisibility && wp.element.createElement(external_window_wp_components_["PanelBody"], {
     title: Object(external_window_wp_i18n_["__"])('Visibility Settings'),
     initialOpen: false
   }, wp.element.createElement(breakpoint_visibility_control, {
@@ -65033,7 +65033,7 @@ var icon_IconSettings = function IconSettings(_ref) {
         blockAuthVisibility: values
       });
     }
-  })), children));
+  })));
 };
 
 var icon_IconEdit = function IconEdit(_ref4) {

@@ -283,30 +283,30 @@ export const IconSettings = ({
           </ResponsiveControl>
         )}
 
-        {blockBreakpointVisibility && blockAuthVisibility && (
-          <PanelBody title={__('Visibility Settings')} initialOpen={false}>
-            <BreakpointVisibilityControl
-              values={blockBreakpointVisibility}
-              onChange={values => {
-                setAttributes({
-                  blockBreakpointVisibility: values,
-                });
-              }}
-            />
-
-            <AuthVisibilityControl
-              values={blockAuthVisibility}
-              onChange={values => {
-                setAttributes({
-                  blockAuthVisibility: values,
-                });
-              }}
-            />
-          </PanelBody>
-        )}
-
         {children}
       </PanelBody>
+
+      {blockBreakpointVisibility && blockAuthVisibility && (
+        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+          <BreakpointVisibilityControl
+            values={blockBreakpointVisibility}
+            onChange={values => {
+              setAttributes({
+                blockBreakpointVisibility: values,
+              });
+            }}
+          />
+
+          <AuthVisibilityControl
+            values={blockAuthVisibility}
+            onChange={values => {
+              setAttributes({
+                blockAuthVisibility: values,
+              });
+            }}
+          />
+        </PanelBody>
+      )}
     </Fragment>
   );
 };

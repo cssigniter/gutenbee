@@ -6,14 +6,6 @@
   color: $white;
   line-height: 1;
 
-  > :first-child {
-    margin-left: 0;
-  }
-
-  > :last-child {
-    margin-right: 0;
-  }
-
   .wp-block-gutenbee-countdown-item {
     text-align: center;
     background-color: $blue;
@@ -24,6 +16,14 @@
     margin: 0 3px;
     flex-grow: 1;
     flex-basis: 0;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 
   .gutenbee-countdown-number {
