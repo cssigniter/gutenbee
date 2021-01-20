@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Fragment, useState } from 'wp.element';
+import { Fragment, useState, useEffect } from 'wp.element';
 import { __ } from 'wp.i18n';
 import {
   BlockAlignmentToolbar,
@@ -18,8 +18,7 @@ import {
   Toolbar,
   Button,
 } from 'wp.components';
-import { compose } from 'wp.compose';
-import { withSelect } from 'wp.data';
+import { useSelect } from 'wp.data';
 import { pick, get, map, isEmpty } from 'lodash';
 import classNames from 'classnames';
 import { image as imageIcon } from '@wordpress/icons';
@@ -57,13 +56,22 @@ export const pickRelevantMediaFiles = image => {
   return imageProps;
 };
 
+/**
+ * @enum LINK_DESTINATION
+ * @type {{ATTACHMENT: string, CUSTOM: string, MEDIA: string, NONE: string}}
+ */
+const LINK_DESTINATION = {
+  NONE: 'none',
+  MEDIA: 'media',
+  ATTACHMENT: 'attachment',
+  CUSTOM: 'custom',
+};
+
 const ImageEdit = ({
   attributes,
   setAttributes,
   className,
   clientId,
-  imageSizes,
-  image,
   isSelected,
 }) => {
   const {
@@ -79,11 +87,34 @@ const ImageEdit = ({
     href,
     blockBreakpointVisibility,
     blockAuthVisibility,
+    linkDestination,
   } = attributes;
 
   useUniqueId({ attributes, setAttributes, clientId });
-
   const blockId = getBlockId(uniqueId);
+
+  const { image, imageSizes } = useSelect(
+    select => {
+      const { getMedia } = select('core');
+      const { getSettings } = select('core/block-editor');
+      const { imageSizes } = getSettings();
+
+      return {
+        image: id && isSelected ? getMedia(id) : null,
+        imageSizes,
+      };
+    },
+    [id, isSelected],
+  );
+
+  useEffect(() => {
+    // For backwards compatibility
+    if (linkDestination === LINK_DESTINATION.NONE && !!href) {
+      setAttributes({
+        linkDestination: LINK_DESTINATION.CUSTOM,
+      });
+    }
+  }, []);
 
   const [isEditing, setIsEditing] = useState(!url);
   const toggleIsEditing = () => setIsEditing(prev => !prev);
@@ -284,13 +315,65 @@ const ImageEdit = ({
             />
           )}
 
-          <TextControl
-            type="url"
-            label={__('Image Link')}
-            value={href}
-            onChange={value => setAttributes({ href: value })}
-            placeholder="https://"
-          />
+          {image && (
+            <SelectControl
+              label={__('Image Link')}
+              value={linkDestination}
+              options={[
+                { value: LINK_DESTINATION.NONE, label: 'None' },
+                { value: LINK_DESTINATION.MEDIA, label: __('Media') },
+                { value: LINK_DESTINATION.ATTACHMENT, label: __('Attachment') },
+                { value: LINK_DESTINATION.CUSTOM, label: __('Custom URL') },
+              ]}
+              onChange={value => {
+                if (value === LINK_DESTINATION.NONE) {
+                  setAttributes({
+                    href: '',
+                    linkDestination: value,
+                  });
+
+                  return;
+                }
+
+                if (value === LINK_DESTINATION.MEDIA) {
+                  setAttributes({
+                    href: image.source_url ?? '',
+                    linkDestination: value,
+                  });
+
+                  return;
+                }
+
+                if (value === LINK_DESTINATION.ATTACHMENT) {
+                  setAttributes({
+                    href: image.link ?? '',
+                    linkDestination: value,
+                  });
+
+                  return;
+                }
+
+                if (value === LINK_DESTINATION.CUSTOM) {
+                  setAttributes({
+                    href: '',
+                    linkDestination: value,
+                  });
+
+                  return;
+                }
+              }}
+            />
+          )}
+
+          {linkDestination === LINK_DESTINATION.CUSTOM && (
+            <TextControl
+              type="url"
+              label={__('Custom URL')}
+              value={href}
+              onChange={value => setAttributes({ href: value })}
+              placeholder="https://"
+            />
+          )}
         </PanelBody>
 
         <PanelBody title={__('Block Appearance')} initialOpen={false}>
@@ -364,22 +447,4 @@ const ImageEdit = ({
 
 ImageEdit.propTypes = propTypes;
 
-export default compose(
-  withSelect((select, props) => {
-    const { getMedia } = select('core');
-    const { getSettings } = select('core/block-editor');
-    const {
-      attributes: { id },
-      isSelected,
-    } = props;
-    const { mediaUpload, imageSizes, isRTL, maxWidth } = getSettings();
-
-    return {
-      image: id && isSelected ? getMedia(id) : null,
-      maxWidth,
-      isRTL,
-      imageSizes,
-      mediaUpload,
-    };
-  }),
-)(ImageEdit);
+export default ImageEdit;

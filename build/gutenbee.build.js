@@ -4741,12 +4741,6 @@ if (false) { var throwOnDirectAccess, isValidElement, REACT_ELEMENT_TYPE; } else
 /* 15 */,
 /* 16 */,
 /* 17 */
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["compose"]; }());
-
-/***/ }),
-/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4976,7 +4970,13 @@ var getVideoProviderInfoByUrl = function getVideoProviderInfoByUrl() {
 };
 
 /***/ }),
-/* 19 */,
+/* 18 */,
+/* 19 */
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["compose"]; }());
+
+/***/ }),
 /* 20 */,
 /* 21 */,
 /* 22 */,
@@ -56623,7 +56623,7 @@ var useUniqueId_useUniqueId = function useUniqueId(_ref) {
 
 /* harmony default export */ var hooks_useUniqueId = (useUniqueId_useUniqueId);
 // EXTERNAL MODULE: external {"window":["wp","compose"]}
-var external_window_wp_compose_ = __webpack_require__(17);
+var external_window_wp_compose_ = __webpack_require__(19);
 
 // CONCATENATED MODULE: ./src/components/controls/responsive-control/ResponsiveControl.js
 
@@ -57421,7 +57421,7 @@ BoxShadowControls_BoxShadowControls.propTypes = BoxShadowControls_propTypes;
 
 /* harmony default export */ var box_shadow_controls = (box_shadow_controls_BoxShadowControls);
 // EXTERNAL MODULE: ./src/util/video/providers.js
-var providers = __webpack_require__(18);
+var providers = __webpack_require__(17);
 
 // CONCATENATED MODULE: ./src/util/video/useVideoEmbed.js
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -80634,7 +80634,6 @@ function image_edit_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 var image_edit_propTypes = {
   attributes: prop_types_default.a.object.isRequired,
   setAttributes: prop_types_default.a.func.isRequired,
@@ -80648,14 +80647,23 @@ var edit_pickRelevantMediaFiles = function pickRelevantMediaFiles(image) {
   imageProps.url = Object(external_lodash_["get"])(image, ['sizes', 'large', 'url']) || Object(external_lodash_["get"])(image, ['media_details', 'sizes', 'large', 'source_url']) || image.url;
   return imageProps;
 };
+/**
+ * @enum LINK_DESTINATION
+ * @type {{ATTACHMENT: string, CUSTOM: string, MEDIA: string, NONE: string}}
+ */
+
+var LINK_DESTINATION = {
+  NONE: 'none',
+  MEDIA: 'media',
+  ATTACHMENT: 'attachment',
+  CUSTOM: 'custom'
+};
 
 var edit_ImageEdit = function ImageEdit(_ref) {
   var attributes = _ref.attributes,
       setAttributes = _ref.setAttributes,
       className = _ref.className,
       clientId = _ref.clientId,
-      imageSizes = _ref.imageSizes,
-      image = _ref.image,
       isSelected = _ref.isSelected;
   var uniqueId = attributes.uniqueId,
       id = attributes.id,
@@ -80668,13 +80676,41 @@ var edit_ImageEdit = function ImageEdit(_ref) {
       backgroundColor = attributes.backgroundColor,
       href = attributes.href,
       blockBreakpointVisibility = attributes.blockBreakpointVisibility,
-      blockAuthVisibility = attributes.blockAuthVisibility;
+      blockAuthVisibility = attributes.blockAuthVisibility,
+      linkDestination = attributes.linkDestination;
   hooks_useUniqueId({
     attributes: attributes,
     setAttributes: setAttributes,
     clientId: clientId
   });
   var blockId = util_getBlockId(uniqueId);
+
+  var _useSelect = Object(external_window_wp_data_["useSelect"])(function (select) {
+    var _select = select('core'),
+        getMedia = _select.getMedia;
+
+    var _select2 = select('core/block-editor'),
+        getSettings = _select2.getSettings;
+
+    var _getSettings = getSettings(),
+        imageSizes = _getSettings.imageSizes;
+
+    return {
+      image: id && isSelected ? getMedia(id) : null,
+      imageSizes: imageSizes
+    };
+  }, [id, isSelected]),
+      image = _useSelect.image,
+      imageSizes = _useSelect.imageSizes;
+
+  Object(external_window_wp_element_["useEffect"])(function () {
+    // For backwards compatibility
+    if (linkDestination === LINK_DESTINATION.NONE && !!href) {
+      setAttributes({
+        linkDestination: LINK_DESTINATION.CUSTOM
+      });
+    }
+  }, []);
 
   var _useState = Object(external_window_wp_element_["useState"])(!url),
       _useState2 = image_edit_slicedToArray(_useState, 2),
@@ -80861,9 +80897,62 @@ var edit_ImageEdit = function ImageEdit(_ref) {
     value: sizeSlug,
     options: imageSizeOptions,
     onChange: onImageSizeUpdate
-  }), wp.element.createElement(external_window_wp_components_["TextControl"], {
-    type: "url",
+  }), image && wp.element.createElement(external_window_wp_components_["SelectControl"], {
     label: Object(external_window_wp_i18n_["__"])('Image Link'),
+    value: linkDestination,
+    options: [{
+      value: LINK_DESTINATION.NONE,
+      label: 'None'
+    }, {
+      value: LINK_DESTINATION.MEDIA,
+      label: Object(external_window_wp_i18n_["__"])('Media')
+    }, {
+      value: LINK_DESTINATION.ATTACHMENT,
+      label: Object(external_window_wp_i18n_["__"])('Attachment')
+    }, {
+      value: LINK_DESTINATION.CUSTOM,
+      label: Object(external_window_wp_i18n_["__"])('Custom URL')
+    }],
+    onChange: function onChange(value) {
+      if (value === LINK_DESTINATION.NONE) {
+        setAttributes({
+          href: '',
+          linkDestination: value
+        });
+        return;
+      }
+
+      if (value === LINK_DESTINATION.MEDIA) {
+        var _image$source_url;
+
+        setAttributes({
+          href: (_image$source_url = image.source_url) !== null && _image$source_url !== void 0 ? _image$source_url : '',
+          linkDestination: value
+        });
+        return;
+      }
+
+      if (value === LINK_DESTINATION.ATTACHMENT) {
+        var _image$link;
+
+        setAttributes({
+          href: (_image$link = image.link) !== null && _image$link !== void 0 ? _image$link : '',
+          linkDestination: value
+        });
+        return;
+      }
+
+      if (value === LINK_DESTINATION.CUSTOM) {
+        setAttributes({
+          href: '',
+          linkDestination: value
+        });
+        return;
+      }
+    }
+  }), linkDestination === LINK_DESTINATION.CUSTOM && wp.element.createElement(external_window_wp_components_["TextControl"], {
+    type: "url",
+    label: Object(external_window_wp_i18n_["__"])('Custom URL'),
     value: href,
     onChange: function onChange(value) {
       return setAttributes({
@@ -80928,30 +81017,7 @@ var edit_ImageEdit = function ImageEdit(_ref) {
 };
 
 edit_ImageEdit.propTypes = image_edit_propTypes;
-/* harmony default export */ var image_edit = (Object(external_window_wp_compose_["compose"])(Object(external_window_wp_data_["withSelect"])(function (select, props) {
-  var _select = select('core'),
-      getMedia = _select.getMedia;
-
-  var _select2 = select('core/block-editor'),
-      getSettings = _select2.getSettings;
-
-  var id = props.attributes.id,
-      isSelected = props.isSelected;
-
-  var _getSettings = getSettings(),
-      mediaUpload = _getSettings.mediaUpload,
-      imageSizes = _getSettings.imageSizes,
-      isRTL = _getSettings.isRTL,
-      maxWidth = _getSettings.maxWidth;
-
-  return {
-    image: id && isSelected ? getMedia(id) : null,
-    maxWidth: maxWidth,
-    isRTL: isRTL,
-    imageSizes: imageSizes,
-    mediaUpload: mediaUpload
-  };
-}))(edit_ImageEdit));
+/* harmony default export */ var image_edit = (edit_ImageEdit);
 // CONCATENATED MODULE: ./src/blocks/image/block-icon.js
 var ImageBlockIcon = function ImageBlockIcon() {
   return wp.element.createElement("svg", {
