@@ -119,13 +119,13 @@ if (false) { var throwOnDirectAccess, isValidElement, REACT_ELEMENT_TYPE; } else
 /* 3 */
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["wp"]["components"]; }());
+(function() { module.exports = window["wp"]["blockEditor"]; }());
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["wp"]["blockEditor"]; }());
+(function() { module.exports = window["wp"]["components"]; }());
 
 /***/ }),
 /* 5 */
@@ -4985,248 +4985,6 @@ var getVideoProviderInfoByUrl = function getVideoProviderInfoByUrl() {
 /* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(889), __esModule: true };
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-exports.default = function (instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-};
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _defineProperty = __webpack_require__(201);
-
-var _defineProperty2 = _interopRequireDefault(_defineProperty);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      (0, _defineProperty2.default)(target, descriptor.key, descriptor);
-    }
-  }
-
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _typeof2 = __webpack_require__(202);
-
-var _typeof3 = _interopRequireDefault(_typeof2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return call && ((typeof call === "undefined" ? "undefined" : (0, _typeof3.default)(call)) === "object" || typeof call === "function") ? call : self;
-};
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _setPrototypeOf = __webpack_require__(917);
-
-var _setPrototypeOf2 = _interopRequireDefault(_setPrototypeOf);
-
-var _create = __webpack_require__(921);
-
-var _create2 = _interopRequireDefault(_create);
-
-var _typeof2 = __webpack_require__(202);
-
-var _typeof3 = _interopRequireDefault(_typeof2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : (0, _typeof3.default)(superClass)));
-  }
-
-  subClass.prototype = (0, _create2.default)(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) _setPrototypeOf2.default ? (0, _setPrototypeOf2.default)(subClass, superClass) : subClass.__proto__ = superClass;
-};
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-if (false) { var throwOnDirectAccess, isValidElement, REACT_ELEMENT_TYPE; } else {
-  // By explicitly using `prop-types` you are opting into new production behavior.
-  // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(957)();
-}
-
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _defineProperty = __webpack_require__(201);
-
-var _defineProperty2 = _interopRequireDefault(_defineProperty);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (obj, key, value) {
-  if (key in obj) {
-    (0, _defineProperty2.default)(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-};
-
-/***/ }),
-/* 32 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true,
-})
-var MAP = (exports.MAP = "__SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
-
-// export const SKELETON = `__SECRET_SKELETON_DO_NOT_USE_OR_YOU_WILL_BE_FIRED`;
-
-var MARKER = (exports.MARKER =
-  "__SECRET_MARKER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
-
-var MARKER_WITH_LABEL = (exports.MARKER_WITH_LABEL =
-  "__SECRET_MARKER_WITH_LABEL_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
-
-var RECTANGLE = (exports.RECTANGLE =
-  "__SECRET_RECTANGLE_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
-
-var POLYLINE = (exports.POLYLINE =
-  "__SECRET_POLYLINE_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
-
-var POLYGON = (exports.POLYGON =
-  "__SECRET_POLYGON_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
-
-var CIRCLE = (exports.CIRCLE =
-  "__SECRET_CIRCLE_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
-
-var KML_LAYER = (exports.KML_LAYER =
-  "__SECRET_KML_LAYER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
-
-var DIRECTIONS_RENDERER = (exports.DIRECTIONS_RENDERER =
-  "__SECRET_DIRECTIONS_RENDERER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
-
-var HEATMAP_LAYER = (exports.HEATMAP_LAYER =
-  "__SECRET_HEATMAP_LAYER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
-
-var FUSION_TABLES_LAYER = (exports.FUSION_TABLES_LAYER =
-  "__SECRET_FUSION_TABLES_LAYER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
-
-var ANCHOR = (exports.ANCHOR =
-  "__SECRET_ANCHOR_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
-
-var INFO_WINDOW = (exports.INFO_WINDOW =
-  "__SECRET_INFO_WINDOW_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
-
-var OVERLAY_VIEW = (exports.OVERLAY_VIEW =
-  "__SECRET_OVERLAY_VIEW_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
-
-var GROUND_LAYER = (exports.GROUND_LAYER =
-  "__SECRET_GROUND_LAYER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
-
-var DRAWING_MANAGER = (exports.DRAWING_MANAGER =
-  "__SECRET_DRAWING_MANAGER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
-
-var SEARCH_BOX = (exports.SEARCH_BOX =
-  "__SECRET_SEARCH_BOX_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
-
-var MARKER_CLUSTERER = (exports.MARKER_CLUSTERER =
-  "__SECRET_MARKER_CLUSTERER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
-
-var INFO_BOX = (exports.INFO_BOX =
-  "__SECRET_INFO_BOX_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
-
-var TRAFFIC_LAYER = (exports.TRAFFIC_LAYER =
-  "__SECRET_TRAFFIC_LAYER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
-
-var STREET_VIEW_PANORAMA = (exports.STREET_VIEW_PANORAMA =
-  "__SECRET_STREET_VIEW_PANORAMA_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
-
-var BICYCLING_LAYER = (exports.BICYCLING_LAYER =
-  "__SECRET_BICYCLING_LAYER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
-
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
 /* WEBPACK VAR INJECTION */(function(global) {/**
  * lodash (Custom Build) <https://lodash.com/>
  * Build: `lodash modularize exports="npm" -o ./`
@@ -6160,6 +5918,248 @@ function get(object, path, defaultValue) {
 module.exports = get;
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(63)))
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(889), __esModule: true };
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+exports.default = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _defineProperty = __webpack_require__(201);
+
+var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      (0, _defineProperty2.default)(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _typeof2 = __webpack_require__(202);
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return call && ((typeof call === "undefined" ? "undefined" : (0, _typeof3.default)(call)) === "object" || typeof call === "function") ? call : self;
+};
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _setPrototypeOf = __webpack_require__(917);
+
+var _setPrototypeOf2 = _interopRequireDefault(_setPrototypeOf);
+
+var _create = __webpack_require__(921);
+
+var _create2 = _interopRequireDefault(_create);
+
+var _typeof2 = __webpack_require__(202);
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : (0, _typeof3.default)(superClass)));
+  }
+
+  subClass.prototype = (0, _create2.default)(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      enumerable: false,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf2.default ? (0, _setPrototypeOf2.default)(subClass, superClass) : subClass.__proto__ = superClass;
+};
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+if (false) { var throwOnDirectAccess, isValidElement, REACT_ELEMENT_TYPE; } else {
+  // By explicitly using `prop-types` you are opting into new production behavior.
+  // http://fb.me/prop-types-in-prod
+  module.exports = __webpack_require__(957)();
+}
+
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _defineProperty = __webpack_require__(201);
+
+var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (obj, key, value) {
+  if (key in obj) {
+    (0, _defineProperty2.default)(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+};
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true,
+})
+var MAP = (exports.MAP = "__SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
+
+// export const SKELETON = `__SECRET_SKELETON_DO_NOT_USE_OR_YOU_WILL_BE_FIRED`;
+
+var MARKER = (exports.MARKER =
+  "__SECRET_MARKER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
+
+var MARKER_WITH_LABEL = (exports.MARKER_WITH_LABEL =
+  "__SECRET_MARKER_WITH_LABEL_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
+
+var RECTANGLE = (exports.RECTANGLE =
+  "__SECRET_RECTANGLE_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
+
+var POLYLINE = (exports.POLYLINE =
+  "__SECRET_POLYLINE_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
+
+var POLYGON = (exports.POLYGON =
+  "__SECRET_POLYGON_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
+
+var CIRCLE = (exports.CIRCLE =
+  "__SECRET_CIRCLE_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
+
+var KML_LAYER = (exports.KML_LAYER =
+  "__SECRET_KML_LAYER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
+
+var DIRECTIONS_RENDERER = (exports.DIRECTIONS_RENDERER =
+  "__SECRET_DIRECTIONS_RENDERER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
+
+var HEATMAP_LAYER = (exports.HEATMAP_LAYER =
+  "__SECRET_HEATMAP_LAYER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
+
+var FUSION_TABLES_LAYER = (exports.FUSION_TABLES_LAYER =
+  "__SECRET_FUSION_TABLES_LAYER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
+
+var ANCHOR = (exports.ANCHOR =
+  "__SECRET_ANCHOR_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
+
+var INFO_WINDOW = (exports.INFO_WINDOW =
+  "__SECRET_INFO_WINDOW_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
+
+var OVERLAY_VIEW = (exports.OVERLAY_VIEW =
+  "__SECRET_OVERLAY_VIEW_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
+
+var GROUND_LAYER = (exports.GROUND_LAYER =
+  "__SECRET_GROUND_LAYER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
+
+var DRAWING_MANAGER = (exports.DRAWING_MANAGER =
+  "__SECRET_DRAWING_MANAGER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
+
+var SEARCH_BOX = (exports.SEARCH_BOX =
+  "__SECRET_SEARCH_BOX_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
+
+var MARKER_CLUSTERER = (exports.MARKER_CLUSTERER =
+  "__SECRET_MARKER_CLUSTERER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
+
+var INFO_BOX = (exports.INFO_BOX =
+  "__SECRET_INFO_BOX_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
+
+var TRAFFIC_LAYER = (exports.TRAFFIC_LAYER =
+  "__SECRET_TRAFFIC_LAYER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
+
+var STREET_VIEW_PANORAMA = (exports.STREET_VIEW_PANORAMA =
+  "__SECRET_STREET_VIEW_PANORAMA_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
+
+var BICYCLING_LAYER = (exports.BICYCLING_LAYER =
+  "__SECRET_BICYCLING_LAYER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED")
+
 
 /***/ }),
 /* 34 */
@@ -41621,25 +41621,25 @@ var _objectWithoutProperties3 = _interopRequireDefault(
   _objectWithoutProperties2
 )
 
-var _getPrototypeOf = __webpack_require__(25)
+var _getPrototypeOf = __webpack_require__(26)
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf)
 
-var _classCallCheck2 = __webpack_require__(26)
+var _classCallCheck2 = __webpack_require__(27)
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2)
 
-var _createClass2 = __webpack_require__(27)
+var _createClass2 = __webpack_require__(28)
 
 var _createClass3 = _interopRequireDefault(_createClass2)
 
-var _possibleConstructorReturn2 = __webpack_require__(28)
+var _possibleConstructorReturn2 = __webpack_require__(29)
 
 var _possibleConstructorReturn3 = _interopRequireDefault(
   _possibleConstructorReturn2
 )
 
-var _inherits2 = __webpack_require__(29)
+var _inherits2 = __webpack_require__(30)
 
 var _inherits3 = _interopRequireDefault(_inherits2)
 
@@ -41659,7 +41659,7 @@ var _canUseDom2 = _interopRequireDefault(_canUseDom)
 
 var _recompose = __webpack_require__(231)
 
-var _propTypes = __webpack_require__(30)
+var _propTypes = __webpack_require__(31)
 
 var _propTypes2 = _interopRequireDefault(_propTypes)
 
@@ -44122,29 +44122,29 @@ var _objectWithoutProperties3 = _interopRequireDefault(
   _objectWithoutProperties2
 )
 
-var _defineProperty2 = __webpack_require__(31)
+var _defineProperty2 = __webpack_require__(32)
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2)
 
-var _getPrototypeOf = __webpack_require__(25)
+var _getPrototypeOf = __webpack_require__(26)
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf)
 
-var _classCallCheck2 = __webpack_require__(26)
+var _classCallCheck2 = __webpack_require__(27)
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2)
 
-var _createClass2 = __webpack_require__(27)
+var _createClass2 = __webpack_require__(28)
 
 var _createClass3 = _interopRequireDefault(_createClass2)
 
-var _possibleConstructorReturn2 = __webpack_require__(28)
+var _possibleConstructorReturn2 = __webpack_require__(29)
 
 var _possibleConstructorReturn3 = _interopRequireDefault(
   _possibleConstructorReturn2
 )
 
-var _inherits2 = __webpack_require__(29)
+var _inherits2 = __webpack_require__(30)
 
 var _inherits3 = _interopRequireDefault(_inherits2)
 
@@ -44164,7 +44164,7 @@ var _invariant2 = _interopRequireDefault(_invariant)
 
 var _recompose = __webpack_require__(231)
 
-var _propTypes = __webpack_require__(30)
+var _propTypes = __webpack_require__(31)
 
 var _propTypes2 = _interopRequireDefault(_propTypes)
 
@@ -44172,7 +44172,7 @@ var _react = __webpack_require__(0)
 
 var _react2 = _interopRequireDefault(_react)
 
-var _constants = __webpack_require__(32)
+var _constants = __webpack_require__(33)
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj }
@@ -44329,7 +44329,7 @@ Object.defineProperty(exports, "__esModule", {
 })
 exports.GoogleMap = exports.Map = undefined
 
-var _defineProperty2 = __webpack_require__(31)
+var _defineProperty2 = __webpack_require__(32)
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2)
 
@@ -44337,25 +44337,25 @@ var _toConsumableArray2 = __webpack_require__(962)
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2)
 
-var _getPrototypeOf = __webpack_require__(25)
+var _getPrototypeOf = __webpack_require__(26)
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf)
 
-var _classCallCheck2 = __webpack_require__(26)
+var _classCallCheck2 = __webpack_require__(27)
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2)
 
-var _possibleConstructorReturn2 = __webpack_require__(28)
+var _possibleConstructorReturn2 = __webpack_require__(29)
 
 var _possibleConstructorReturn3 = _interopRequireDefault(
   _possibleConstructorReturn2
 )
 
-var _createClass2 = __webpack_require__(27)
+var _createClass2 = __webpack_require__(28)
 
 var _createClass3 = _interopRequireDefault(_createClass2)
 
-var _inherits2 = __webpack_require__(29)
+var _inherits2 = __webpack_require__(30)
 
 var _inherits3 = _interopRequireDefault(_inherits2)
 
@@ -44367,13 +44367,13 @@ var _react = __webpack_require__(0)
 
 var _react2 = _interopRequireDefault(_react)
 
-var _propTypes = __webpack_require__(30)
+var _propTypes = __webpack_require__(31)
 
 var _propTypes2 = _interopRequireDefault(_propTypes)
 
 var _MapChildHelper = __webpack_require__(34)
 
-var _constants = __webpack_require__(32)
+var _constants = __webpack_require__(33)
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj }
@@ -47960,29 +47960,29 @@ Object.defineProperty(exports, "__esModule", {
 })
 exports.Circle = undefined
 
-var _defineProperty2 = __webpack_require__(31)
+var _defineProperty2 = __webpack_require__(32)
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2)
 
-var _getPrototypeOf = __webpack_require__(25)
+var _getPrototypeOf = __webpack_require__(26)
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf)
 
-var _classCallCheck2 = __webpack_require__(26)
+var _classCallCheck2 = __webpack_require__(27)
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2)
 
-var _createClass2 = __webpack_require__(27)
+var _createClass2 = __webpack_require__(28)
 
 var _createClass3 = _interopRequireDefault(_createClass2)
 
-var _possibleConstructorReturn2 = __webpack_require__(28)
+var _possibleConstructorReturn2 = __webpack_require__(29)
 
 var _possibleConstructorReturn3 = _interopRequireDefault(
   _possibleConstructorReturn2
 )
 
-var _inherits2 = __webpack_require__(29)
+var _inherits2 = __webpack_require__(30)
 
 var _inherits3 = _interopRequireDefault(_inherits2)
 
@@ -47990,13 +47990,13 @@ var _react = __webpack_require__(0)
 
 var _react2 = _interopRequireDefault(_react)
 
-var _propTypes = __webpack_require__(30)
+var _propTypes = __webpack_require__(31)
 
 var _propTypes2 = _interopRequireDefault(_propTypes)
 
 var _MapChildHelper = __webpack_require__(34)
 
-var _constants = __webpack_require__(32)
+var _constants = __webpack_require__(33)
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj }
@@ -48342,29 +48342,29 @@ Object.defineProperty(exports, "__esModule", {
 })
 exports.Marker = undefined
 
-var _defineProperty2 = __webpack_require__(31)
+var _defineProperty2 = __webpack_require__(32)
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2)
 
-var _getPrototypeOf = __webpack_require__(25)
+var _getPrototypeOf = __webpack_require__(26)
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf)
 
-var _classCallCheck2 = __webpack_require__(26)
+var _classCallCheck2 = __webpack_require__(27)
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2)
 
-var _createClass2 = __webpack_require__(27)
+var _createClass2 = __webpack_require__(28)
 
 var _createClass3 = _interopRequireDefault(_createClass2)
 
-var _possibleConstructorReturn2 = __webpack_require__(28)
+var _possibleConstructorReturn2 = __webpack_require__(29)
 
 var _possibleConstructorReturn3 = _interopRequireDefault(
   _possibleConstructorReturn2
 )
 
-var _inherits2 = __webpack_require__(29)
+var _inherits2 = __webpack_require__(30)
 
 var _inherits3 = _interopRequireDefault(_inherits2)
 
@@ -48380,13 +48380,13 @@ var _react = __webpack_require__(0)
 
 var _react2 = _interopRequireDefault(_react)
 
-var _propTypes = __webpack_require__(30)
+var _propTypes = __webpack_require__(31)
 
 var _propTypes2 = _interopRequireDefault(_propTypes)
 
 var _MapChildHelper = __webpack_require__(34)
 
-var _constants = __webpack_require__(32)
+var _constants = __webpack_require__(33)
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj }
@@ -49000,29 +49000,29 @@ Object.defineProperty(exports, "__esModule", {
 })
 exports.Polyline = undefined
 
-var _defineProperty2 = __webpack_require__(31)
+var _defineProperty2 = __webpack_require__(32)
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2)
 
-var _getPrototypeOf = __webpack_require__(25)
+var _getPrototypeOf = __webpack_require__(26)
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf)
 
-var _classCallCheck2 = __webpack_require__(26)
+var _classCallCheck2 = __webpack_require__(27)
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2)
 
-var _createClass2 = __webpack_require__(27)
+var _createClass2 = __webpack_require__(28)
 
 var _createClass3 = _interopRequireDefault(_createClass2)
 
-var _possibleConstructorReturn2 = __webpack_require__(28)
+var _possibleConstructorReturn2 = __webpack_require__(29)
 
 var _possibleConstructorReturn3 = _interopRequireDefault(
   _possibleConstructorReturn2
 )
 
-var _inherits2 = __webpack_require__(29)
+var _inherits2 = __webpack_require__(30)
 
 var _inherits3 = _interopRequireDefault(_inherits2)
 
@@ -49030,13 +49030,13 @@ var _react = __webpack_require__(0)
 
 var _react2 = _interopRequireDefault(_react)
 
-var _propTypes = __webpack_require__(30)
+var _propTypes = __webpack_require__(31)
 
 var _propTypes2 = _interopRequireDefault(_propTypes)
 
 var _MapChildHelper = __webpack_require__(34)
 
-var _constants = __webpack_require__(32)
+var _constants = __webpack_require__(33)
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj }
@@ -49337,29 +49337,29 @@ Object.defineProperty(exports, "__esModule", {
 })
 exports.Polygon = undefined
 
-var _defineProperty2 = __webpack_require__(31)
+var _defineProperty2 = __webpack_require__(32)
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2)
 
-var _getPrototypeOf = __webpack_require__(25)
+var _getPrototypeOf = __webpack_require__(26)
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf)
 
-var _classCallCheck2 = __webpack_require__(26)
+var _classCallCheck2 = __webpack_require__(27)
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2)
 
-var _createClass2 = __webpack_require__(27)
+var _createClass2 = __webpack_require__(28)
 
 var _createClass3 = _interopRequireDefault(_createClass2)
 
-var _possibleConstructorReturn2 = __webpack_require__(28)
+var _possibleConstructorReturn2 = __webpack_require__(29)
 
 var _possibleConstructorReturn3 = _interopRequireDefault(
   _possibleConstructorReturn2
 )
 
-var _inherits2 = __webpack_require__(29)
+var _inherits2 = __webpack_require__(30)
 
 var _inherits3 = _interopRequireDefault(_inherits2)
 
@@ -49367,13 +49367,13 @@ var _react = __webpack_require__(0)
 
 var _react2 = _interopRequireDefault(_react)
 
-var _propTypes = __webpack_require__(30)
+var _propTypes = __webpack_require__(31)
 
 var _propTypes2 = _interopRequireDefault(_propTypes)
 
 var _MapChildHelper = __webpack_require__(34)
 
-var _constants = __webpack_require__(32)
+var _constants = __webpack_require__(33)
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj }
@@ -49695,29 +49695,29 @@ Object.defineProperty(exports, "__esModule", {
 })
 exports.Rectangle = undefined
 
-var _defineProperty2 = __webpack_require__(31)
+var _defineProperty2 = __webpack_require__(32)
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2)
 
-var _getPrototypeOf = __webpack_require__(25)
+var _getPrototypeOf = __webpack_require__(26)
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf)
 
-var _classCallCheck2 = __webpack_require__(26)
+var _classCallCheck2 = __webpack_require__(27)
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2)
 
-var _createClass2 = __webpack_require__(27)
+var _createClass2 = __webpack_require__(28)
 
 var _createClass3 = _interopRequireDefault(_createClass2)
 
-var _possibleConstructorReturn2 = __webpack_require__(28)
+var _possibleConstructorReturn2 = __webpack_require__(29)
 
 var _possibleConstructorReturn3 = _interopRequireDefault(
   _possibleConstructorReturn2
 )
 
-var _inherits2 = __webpack_require__(29)
+var _inherits2 = __webpack_require__(30)
 
 var _inherits3 = _interopRequireDefault(_inherits2)
 
@@ -49725,13 +49725,13 @@ var _react = __webpack_require__(0)
 
 var _react2 = _interopRequireDefault(_react)
 
-var _propTypes = __webpack_require__(30)
+var _propTypes = __webpack_require__(31)
 
 var _propTypes2 = _interopRequireDefault(_propTypes)
 
 var _MapChildHelper = __webpack_require__(34)
 
-var _constants = __webpack_require__(32)
+var _constants = __webpack_require__(33)
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj }
@@ -50038,29 +50038,29 @@ Object.defineProperty(exports, "__esModule", {
 })
 exports.InfoWindow = undefined
 
-var _defineProperty2 = __webpack_require__(31)
+var _defineProperty2 = __webpack_require__(32)
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2)
 
-var _getPrototypeOf = __webpack_require__(25)
+var _getPrototypeOf = __webpack_require__(26)
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf)
 
-var _classCallCheck2 = __webpack_require__(26)
+var _classCallCheck2 = __webpack_require__(27)
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2)
 
-var _createClass2 = __webpack_require__(27)
+var _createClass2 = __webpack_require__(28)
 
 var _createClass3 = _interopRequireDefault(_createClass2)
 
-var _possibleConstructorReturn2 = __webpack_require__(28)
+var _possibleConstructorReturn2 = __webpack_require__(29)
 
 var _possibleConstructorReturn3 = _interopRequireDefault(
   _possibleConstructorReturn2
 )
 
-var _inherits2 = __webpack_require__(29)
+var _inherits2 = __webpack_require__(30)
 
 var _inherits3 = _interopRequireDefault(_inherits2)
 
@@ -50088,13 +50088,13 @@ var _reactDom = __webpack_require__(56)
 
 var _reactDom2 = _interopRequireDefault(_reactDom)
 
-var _propTypes = __webpack_require__(30)
+var _propTypes = __webpack_require__(31)
 
 var _propTypes2 = _interopRequireDefault(_propTypes)
 
 var _MapChildHelper = __webpack_require__(34)
 
-var _constants = __webpack_require__(32)
+var _constants = __webpack_require__(33)
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj }
@@ -50378,29 +50378,29 @@ var _extends2 = __webpack_require__(1066)
 
 var _extends3 = _interopRequireDefault(_extends2)
 
-var _defineProperty2 = __webpack_require__(31)
+var _defineProperty2 = __webpack_require__(32)
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2)
 
-var _getPrototypeOf = __webpack_require__(25)
+var _getPrototypeOf = __webpack_require__(26)
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf)
 
-var _classCallCheck2 = __webpack_require__(26)
+var _classCallCheck2 = __webpack_require__(27)
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2)
 
-var _createClass2 = __webpack_require__(27)
+var _createClass2 = __webpack_require__(28)
 
 var _createClass3 = _interopRequireDefault(_createClass2)
 
-var _possibleConstructorReturn2 = __webpack_require__(28)
+var _possibleConstructorReturn2 = __webpack_require__(29)
 
 var _possibleConstructorReturn3 = _interopRequireDefault(
   _possibleConstructorReturn2
 )
 
-var _inherits2 = __webpack_require__(29)
+var _inherits2 = __webpack_require__(30)
 
 var _inherits3 = _interopRequireDefault(_inherits2)
 
@@ -50436,7 +50436,7 @@ var _reactDom = __webpack_require__(56)
 
 var _reactDom2 = _interopRequireDefault(_reactDom)
 
-var _propTypes = __webpack_require__(30)
+var _propTypes = __webpack_require__(31)
 
 var _propTypes2 = _interopRequireDefault(_propTypes)
 
@@ -50444,7 +50444,7 @@ var _MapChildHelper = __webpack_require__(34)
 
 var _OverlayViewHelper = __webpack_require__(1077)
 
-var _constants = __webpack_require__(32)
+var _constants = __webpack_require__(33)
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj }
@@ -51144,29 +51144,29 @@ Object.defineProperty(exports, "__esModule", {
 })
 exports.GroundOverlay = undefined
 
-var _defineProperty2 = __webpack_require__(31)
+var _defineProperty2 = __webpack_require__(32)
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2)
 
-var _getPrototypeOf = __webpack_require__(25)
+var _getPrototypeOf = __webpack_require__(26)
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf)
 
-var _classCallCheck2 = __webpack_require__(26)
+var _classCallCheck2 = __webpack_require__(27)
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2)
 
-var _createClass2 = __webpack_require__(27)
+var _createClass2 = __webpack_require__(28)
 
 var _createClass3 = _interopRequireDefault(_createClass2)
 
-var _possibleConstructorReturn2 = __webpack_require__(28)
+var _possibleConstructorReturn2 = __webpack_require__(29)
 
 var _possibleConstructorReturn3 = _interopRequireDefault(
   _possibleConstructorReturn2
 )
 
-var _inherits2 = __webpack_require__(29)
+var _inherits2 = __webpack_require__(30)
 
 var _inherits3 = _interopRequireDefault(_inherits2)
 
@@ -51178,13 +51178,13 @@ var _react = __webpack_require__(0)
 
 var _react2 = _interopRequireDefault(_react)
 
-var _propTypes = __webpack_require__(30)
+var _propTypes = __webpack_require__(31)
 
 var _propTypes2 = _interopRequireDefault(_propTypes)
 
 var _MapChildHelper = __webpack_require__(34)
 
-var _constants = __webpack_require__(32)
+var _constants = __webpack_require__(33)
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj }
@@ -51393,29 +51393,29 @@ Object.defineProperty(exports, "__esModule", {
 })
 exports.DirectionsRenderer = undefined
 
-var _defineProperty2 = __webpack_require__(31)
+var _defineProperty2 = __webpack_require__(32)
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2)
 
-var _getPrototypeOf = __webpack_require__(25)
+var _getPrototypeOf = __webpack_require__(26)
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf)
 
-var _classCallCheck2 = __webpack_require__(26)
+var _classCallCheck2 = __webpack_require__(27)
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2)
 
-var _createClass2 = __webpack_require__(27)
+var _createClass2 = __webpack_require__(28)
 
 var _createClass3 = _interopRequireDefault(_createClass2)
 
-var _possibleConstructorReturn2 = __webpack_require__(28)
+var _possibleConstructorReturn2 = __webpack_require__(29)
 
 var _possibleConstructorReturn3 = _interopRequireDefault(
   _possibleConstructorReturn2
 )
 
-var _inherits2 = __webpack_require__(29)
+var _inherits2 = __webpack_require__(30)
 
 var _inherits3 = _interopRequireDefault(_inherits2)
 
@@ -51423,13 +51423,13 @@ var _react = __webpack_require__(0)
 
 var _react2 = _interopRequireDefault(_react)
 
-var _propTypes = __webpack_require__(30)
+var _propTypes = __webpack_require__(31)
 
 var _propTypes2 = _interopRequireDefault(_propTypes)
 
 var _MapChildHelper = __webpack_require__(34)
 
-var _constants = __webpack_require__(32)
+var _constants = __webpack_require__(33)
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj }
@@ -51646,29 +51646,29 @@ Object.defineProperty(exports, "__esModule", {
 })
 exports.FusionTablesLayer = undefined
 
-var _defineProperty2 = __webpack_require__(31)
+var _defineProperty2 = __webpack_require__(32)
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2)
 
-var _getPrototypeOf = __webpack_require__(25)
+var _getPrototypeOf = __webpack_require__(26)
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf)
 
-var _classCallCheck2 = __webpack_require__(26)
+var _classCallCheck2 = __webpack_require__(27)
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2)
 
-var _createClass2 = __webpack_require__(27)
+var _createClass2 = __webpack_require__(28)
 
 var _createClass3 = _interopRequireDefault(_createClass2)
 
-var _possibleConstructorReturn2 = __webpack_require__(28)
+var _possibleConstructorReturn2 = __webpack_require__(29)
 
 var _possibleConstructorReturn3 = _interopRequireDefault(
   _possibleConstructorReturn2
 )
 
-var _inherits2 = __webpack_require__(29)
+var _inherits2 = __webpack_require__(30)
 
 var _inherits3 = _interopRequireDefault(_inherits2)
 
@@ -51676,13 +51676,13 @@ var _react = __webpack_require__(0)
 
 var _react2 = _interopRequireDefault(_react)
 
-var _propTypes = __webpack_require__(30)
+var _propTypes = __webpack_require__(31)
 
 var _propTypes2 = _interopRequireDefault(_propTypes)
 
 var _MapChildHelper = __webpack_require__(34)
 
-var _constants = __webpack_require__(32)
+var _constants = __webpack_require__(33)
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj }
@@ -51824,29 +51824,29 @@ Object.defineProperty(exports, "__esModule", {
 })
 exports.KmlLayer = undefined
 
-var _defineProperty2 = __webpack_require__(31)
+var _defineProperty2 = __webpack_require__(32)
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2)
 
-var _getPrototypeOf = __webpack_require__(25)
+var _getPrototypeOf = __webpack_require__(26)
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf)
 
-var _classCallCheck2 = __webpack_require__(26)
+var _classCallCheck2 = __webpack_require__(27)
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2)
 
-var _createClass2 = __webpack_require__(27)
+var _createClass2 = __webpack_require__(28)
 
 var _createClass3 = _interopRequireDefault(_createClass2)
 
-var _possibleConstructorReturn2 = __webpack_require__(28)
+var _possibleConstructorReturn2 = __webpack_require__(29)
 
 var _possibleConstructorReturn3 = _interopRequireDefault(
   _possibleConstructorReturn2
 )
 
-var _inherits2 = __webpack_require__(29)
+var _inherits2 = __webpack_require__(30)
 
 var _inherits3 = _interopRequireDefault(_inherits2)
 
@@ -51854,13 +51854,13 @@ var _react = __webpack_require__(0)
 
 var _react2 = _interopRequireDefault(_react)
 
-var _propTypes = __webpack_require__(30)
+var _propTypes = __webpack_require__(31)
 
 var _propTypes2 = _interopRequireDefault(_propTypes)
 
 var _MapChildHelper = __webpack_require__(34)
 
-var _constants = __webpack_require__(32)
+var _constants = __webpack_require__(33)
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj }
@@ -52099,29 +52099,29 @@ Object.defineProperty(exports, "__esModule", {
 })
 exports.TrafficLayer = undefined
 
-var _defineProperty2 = __webpack_require__(31)
+var _defineProperty2 = __webpack_require__(32)
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2)
 
-var _getPrototypeOf = __webpack_require__(25)
+var _getPrototypeOf = __webpack_require__(26)
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf)
 
-var _classCallCheck2 = __webpack_require__(26)
+var _classCallCheck2 = __webpack_require__(27)
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2)
 
-var _createClass2 = __webpack_require__(27)
+var _createClass2 = __webpack_require__(28)
 
 var _createClass3 = _interopRequireDefault(_createClass2)
 
-var _possibleConstructorReturn2 = __webpack_require__(28)
+var _possibleConstructorReturn2 = __webpack_require__(29)
 
 var _possibleConstructorReturn3 = _interopRequireDefault(
   _possibleConstructorReturn2
 )
 
-var _inherits2 = __webpack_require__(29)
+var _inherits2 = __webpack_require__(30)
 
 var _inherits3 = _interopRequireDefault(_inherits2)
 
@@ -52129,13 +52129,13 @@ var _react = __webpack_require__(0)
 
 var _react2 = _interopRequireDefault(_react)
 
-var _propTypes = __webpack_require__(30)
+var _propTypes = __webpack_require__(31)
 
 var _propTypes2 = _interopRequireDefault(_propTypes)
 
 var _MapChildHelper = __webpack_require__(34)
 
-var _constants = __webpack_require__(32)
+var _constants = __webpack_require__(33)
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj }
@@ -52267,29 +52267,29 @@ Object.defineProperty(exports, "__esModule", {
 })
 exports.StreetViewPanorama = undefined
 
-var _defineProperty2 = __webpack_require__(31)
+var _defineProperty2 = __webpack_require__(32)
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2)
 
-var _getPrototypeOf = __webpack_require__(25)
+var _getPrototypeOf = __webpack_require__(26)
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf)
 
-var _classCallCheck2 = __webpack_require__(26)
+var _classCallCheck2 = __webpack_require__(27)
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2)
 
-var _createClass2 = __webpack_require__(27)
+var _createClass2 = __webpack_require__(28)
 
 var _createClass3 = _interopRequireDefault(_createClass2)
 
-var _possibleConstructorReturn2 = __webpack_require__(28)
+var _possibleConstructorReturn2 = __webpack_require__(29)
 
 var _possibleConstructorReturn3 = _interopRequireDefault(
   _possibleConstructorReturn2
 )
 
-var _inherits2 = __webpack_require__(29)
+var _inherits2 = __webpack_require__(30)
 
 var _inherits3 = _interopRequireDefault(_inherits2)
 
@@ -52301,13 +52301,13 @@ var _react = __webpack_require__(0)
 
 var _react2 = _interopRequireDefault(_react)
 
-var _propTypes = __webpack_require__(30)
+var _propTypes = __webpack_require__(31)
 
 var _propTypes2 = _interopRequireDefault(_propTypes)
 
 var _MapChildHelper = __webpack_require__(34)
 
-var _constants = __webpack_require__(32)
+var _constants = __webpack_require__(33)
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj }
@@ -52713,29 +52713,29 @@ Object.defineProperty(exports, "__esModule", {
 })
 exports.BicyclingLayer = undefined
 
-var _defineProperty2 = __webpack_require__(31)
+var _defineProperty2 = __webpack_require__(32)
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2)
 
-var _getPrototypeOf = __webpack_require__(25)
+var _getPrototypeOf = __webpack_require__(26)
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf)
 
-var _classCallCheck2 = __webpack_require__(26)
+var _classCallCheck2 = __webpack_require__(27)
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2)
 
-var _createClass2 = __webpack_require__(27)
+var _createClass2 = __webpack_require__(28)
 
 var _createClass3 = _interopRequireDefault(_createClass2)
 
-var _possibleConstructorReturn2 = __webpack_require__(28)
+var _possibleConstructorReturn2 = __webpack_require__(29)
 
 var _possibleConstructorReturn3 = _interopRequireDefault(
   _possibleConstructorReturn2
 )
 
-var _inherits2 = __webpack_require__(29)
+var _inherits2 = __webpack_require__(30)
 
 var _inherits3 = _interopRequireDefault(_inherits2)
 
@@ -52743,13 +52743,13 @@ var _react = __webpack_require__(0)
 
 var _react2 = _interopRequireDefault(_react)
 
-var _propTypes = __webpack_require__(30)
+var _propTypes = __webpack_require__(31)
 
 var _propTypes2 = _interopRequireDefault(_propTypes)
 
 var _MapChildHelper = __webpack_require__(34)
 
-var _constants = __webpack_require__(32)
+var _constants = __webpack_require__(33)
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj }
@@ -55817,7 +55817,7 @@ var external_window_wp_i18n_ = __webpack_require__(1);
 var external_window_wp_blocks_ = __webpack_require__(10);
 
 // EXTERNAL MODULE: external {"window":["wp","blockEditor"]}
-var external_window_wp_blockEditor_ = __webpack_require__(4);
+var external_window_wp_blockEditor_ = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/classnames/index.js
 var classnames = __webpack_require__(5);
@@ -56592,7 +56592,7 @@ var getBoxShadowCSSValue = function getBoxShadowCSSValue(_ref2) {
   };
 };
 // EXTERNAL MODULE: external {"window":["wp","components"]}
-var external_window_wp_components_ = __webpack_require__(3);
+var external_window_wp_components_ = __webpack_require__(4);
 
 // CONCATENATED MODULE: ./src/hooks/useUniqueId.js
  // Keep a list of existing ids here
@@ -70059,10 +70059,224 @@ var justified_gallery_deprecated_v2_v2 = {
   }
 };
 /* harmony default export */ var justified_gallery_deprecated_v2 = (justified_gallery_deprecated_v2_v2);
+// CONCATENATED MODULE: ./src/blocks/justified-gallery/deprecated/v3.js
+function justified_gallery_deprecated_v3_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function justified_gallery_deprecated_v3_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { justified_gallery_deprecated_v3_ownKeys(Object(source), true).forEach(function (key) { justified_gallery_deprecated_v3_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { justified_gallery_deprecated_v3_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function justified_gallery_deprecated_v3_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var v3_GalleryStyle = function GalleryStyle(_ref) {
+  var attributes = _ref.attributes,
+      children = _ref.children;
+  var uniqueId = attributes.uniqueId,
+      blockPadding = attributes.blockPadding,
+      blockMargin = attributes.blockMargin;
+  var blockId = util_getBlockId(uniqueId);
+  return wp.element.createElement(stylesheet, {
+    id: blockId
+  }, wp.element.createElement(stylesheet_Rule, {
+    value: blockMargin,
+    rule: ".wp-block-gutenbee-justified-gallery.[root] { margin: %s; }",
+    unit: "px"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: blockPadding,
+    rule: ".wp-block-gutenbee-justified-gallery.[root] { padding: %s; }",
+    unit: "px"
+  }), children);
+};
+
+var justified_gallery_deprecated_v3_v3 = {
+  supports: {
+    anchor: true
+  },
+  attributes: justified_gallery_deprecated_v3_objectSpread(justified_gallery_deprecated_v3_objectSpread(justified_gallery_deprecated_v3_objectSpread({
+    uniqueId: {
+      type: 'string'
+    },
+    type: {
+      type: 'string',
+      default: GALLERY_TYPE.COLUMNS
+    },
+    images: {
+      type: 'array',
+      default: [],
+      source: 'query',
+      selector: '.wp-block-gutenbee-gallery-item',
+      query: {
+        url: {
+          source: 'attribute',
+          selector: 'img',
+          attribute: 'src'
+        },
+        alt: {
+          source: 'attribute',
+          selector: 'img',
+          attribute: 'alt',
+          default: ''
+        },
+        id: {
+          source: 'attribute',
+          selector: 'img',
+          attribute: 'data-id'
+        },
+        link: {
+          source: 'attribute',
+          selector: 'img',
+          attribute: 'data-link'
+        }
+      }
+    },
+    columns: {
+      type: 'number',
+      default: 3
+    },
+    rowHeight: {
+      type: 'number',
+      default: 120
+    },
+    margins: {
+      type: 'number',
+      default: 1
+    },
+    lastRow: {
+      type: 'string',
+      default: LAST_ROW.NO_JUSTIFY
+    },
+    randomize: {
+      type: 'boolean',
+      default: false
+    },
+    linkTo: {
+      type: 'string',
+      default: LINKTO.NONE
+    },
+    size: {
+      type: 'string',
+      default: 'full'
+    },
+    blockPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    blockMargin: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    backgroundColor: {
+      type: 'string'
+    }
+  }, border_controls_attributes()), boxShadowControlAttributes()), {}, {
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false
+      })
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false
+      }
+    }
+  }),
+  migrate: function migrate(attributes) {
+    return attributes;
+  },
+  save: function save(_ref2) {
+    var attributes = _ref2.attributes,
+        className = _ref2.className;
+    var uniqueId = attributes.uniqueId,
+        type = attributes.type,
+        columns = attributes.columns,
+        images = attributes.images,
+        rowHeight = attributes.rowHeight,
+        margins = attributes.margins,
+        lastRow = attributes.lastRow,
+        randomize = attributes.randomize,
+        linkTo = attributes.linkTo,
+        backgroundColor = attributes.backgroundColor,
+        blockBreakpointVisibility = attributes.blockBreakpointVisibility,
+        blockAuthVisibility = attributes.blockAuthVisibility;
+    var blockId = util_getBlockId(uniqueId);
+    return wp.element.createElement("div", {
+      id: blockId,
+      className: classnames_default()(className, blockId, getBreakpointVisibilityClassNames(blockBreakpointVisibility), helpers_getAuthVisibilityClasses(blockAuthVisibility), justified_gallery_deprecated_v3_defineProperty({
+        'wp-block-gutenbee-gallery-columns': type === GALLERY_TYPE.COLUMNS,
+        'wp-block-gutenbee-gallery-justified': type === GALLERY_TYPE.JUSTIFIED
+      }, "gutenbee-columns-".concat(columns), type === GALLERY_TYPE.COLUMNS)),
+      "data-gallery-type": type,
+      "data-row-height": rowHeight,
+      "data-margins": margins,
+      "data-last-row": lastRow,
+      "data-randomize": randomize,
+      style: justified_gallery_deprecated_v3_objectSpread(justified_gallery_deprecated_v3_objectSpread({
+        backgroundColor: backgroundColor || undefined
+      }, getBorderCSSValue({
+        attributes: attributes
+      })), getBoxShadowCSSValue({
+        attributes: attributes
+      }))
+    }, wp.element.createElement(v3_GalleryStyle, {
+      attributes: attributes
+    }), wp.element.createElement("div", {
+      className: "wp-block-gutenbee-gallery-content"
+    }, images.map(function (image) {
+      var href;
+
+      switch (linkTo) {
+        case LINKTO.MEDIA:
+          href = image.url;
+          break;
+
+        case LINKTO.ATTACHMENT:
+          href = image.link;
+          break;
+
+        default:
+          break;
+      }
+
+      var img = wp.element.createElement("img", {
+        src: image.url,
+        alt: image.alt || '',
+        "data-id": image.id,
+        "data-link": image.link,
+        className: "wp-block-gutenbee-gallery-item-image"
+      });
+      return wp.element.createElement("div", {
+        className: "wp-block-gutenbee-gallery-item",
+        key: image.id || image.url
+      }, !!href ? wp.element.createElement("a", {
+        className: "wp-block-gutenbee-gallery-item-link",
+        href: href
+      }, img) : img);
+    })));
+  }
+};
+/* harmony default export */ var justified_gallery_deprecated_v3 = (justified_gallery_deprecated_v3_v3);
 // CONCATENATED MODULE: ./src/blocks/justified-gallery/deprecated/index.js
 
 
-/* harmony default export */ var justified_gallery_deprecated = ([justified_gallery_deprecated_v1, justified_gallery_deprecated_v2]);
+
+/* harmony default export */ var justified_gallery_deprecated = ([justified_gallery_deprecated_v1, justified_gallery_deprecated_v2, justified_gallery_deprecated_v3]);
 // CONCATENATED MODULE: ./src/blocks/justified-gallery/index.js
 function justified_gallery_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -70096,7 +70310,7 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/justified-gall
   category: 'gutenbee',
   keywords: [Object(external_window_wp_i18n_["__"])('justified'), Object(external_window_wp_i18n_["__"])('gallery')],
   supports: {
-    anchor: true
+    anchor: false
   },
   attributes: justified_gallery_objectSpread(justified_gallery_objectSpread(justified_gallery_objectSpread({
     uniqueId: {
@@ -71125,7 +71339,7 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/progress-bar',
   }
 });
 // EXTERNAL MODULE: ./node_modules/lodash.get/index.js
-var lodash_get = __webpack_require__(33);
+var lodash_get = __webpack_require__(25);
 var lodash_get_default = /*#__PURE__*/__webpack_require__.n(lodash_get);
 
 // CONCATENATED MODULE: ./src/blocks/image-comparison/style.js
@@ -71696,10 +71910,151 @@ var image_comparison_deprecated_v2_v2 = {
   }
 };
 /* harmony default export */ var image_comparison_deprecated_v2 = (image_comparison_deprecated_v2_v2);
+// CONCATENATED MODULE: ./src/blocks/image-comparison/deprecated/v3.js
+function image_comparison_deprecated_v3_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function image_comparison_deprecated_v3_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { image_comparison_deprecated_v3_ownKeys(Object(source), true).forEach(function (key) { image_comparison_deprecated_v3_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { image_comparison_deprecated_v3_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function image_comparison_deprecated_v3_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+
+
+
+var v3_ImageComparisonStyle = function ImageComparisonStyle(_ref) {
+  var attributes = _ref.attributes,
+      children = _ref.children;
+  var uniqueId = attributes.uniqueId,
+      blockPadding = attributes.blockPadding,
+      blockMargin = attributes.blockMargin;
+  var blockId = util_getBlockId(uniqueId);
+  return wp.element.createElement(stylesheet, {
+    id: blockId
+  }, wp.element.createElement(stylesheet_Rule, {
+    value: blockMargin,
+    rule: ".wp-block-gutenbee-image-comparison.[root] { margin: %s; }",
+    unit: "px"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: blockPadding,
+    rule: ".wp-block-gutenbee-image-comparison.[root] { padding: %s; }",
+    unit: "px"
+  }), children);
+};
+
+var image_comparison_deprecated_v3_v3 = {
+  supports: {
+    anchor: true
+  },
+  attributes: image_comparison_deprecated_v3_objectSpread(image_comparison_deprecated_v3_objectSpread(image_comparison_deprecated_v3_objectSpread({
+    uniqueId: {
+      type: 'string'
+    },
+    urlA: {
+      type: 'string',
+      source: 'attribute',
+      selector: '.img-1',
+      attribute: 'src'
+    },
+    idA: {
+      type: 'number'
+    },
+    urlB: {
+      type: 'string',
+      source: 'attribute',
+      selector: '.img-2',
+      attribute: 'src'
+    },
+    idB: {
+      type: 'number'
+    },
+    offset: {
+      type: 'number',
+      default: 50
+    },
+    imageSize: {
+      type: 'string'
+    },
+    blockMargin: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    blockPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    backgroundColor: {
+      type: 'string'
+    }
+  }, border_controls_attributes()), boxShadowControlAttributes()), {}, {
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false
+      })
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false
+      }
+    }
+  }),
+  migrate: function migrate(attributes) {
+    return attributes;
+  },
+  save: function save(_ref2) {
+    var className = _ref2.className,
+        attributes = _ref2.attributes;
+    var uniqueId = attributes.uniqueId,
+        urlA = attributes.urlA,
+        urlB = attributes.urlB,
+        offset = attributes.offset,
+        backgroundColor = attributes.backgroundColor,
+        blockBreakpointVisibility = attributes.blockBreakpointVisibility,
+        blockAuthVisibility = attributes.blockAuthVisibility;
+    var blockId = util_getBlockId(uniqueId);
+    return wp.element.createElement("div", {
+      id: blockId,
+      style: image_comparison_deprecated_v3_objectSpread(image_comparison_deprecated_v3_objectSpread({
+        backgroundColor: backgroundColor || undefined
+      }, getBorderCSSValue({
+        attributes: attributes
+      })), getBoxShadowCSSValue({
+        attributes: attributes
+      })),
+      className: classnames_default()(className, blockId, getBreakpointVisibilityClassNames(blockBreakpointVisibility), helpers_getAuthVisibilityClasses(blockAuthVisibility))
+    }, wp.element.createElement("div", {
+      className: "wp-block-gutenbee-comparison-wrap",
+      "data-offset": offset
+    }, wp.element.createElement(v3_ImageComparisonStyle, {
+      attributes: attributes
+    }), urlA && wp.element.createElement("img", {
+      className: "img-1",
+      src: urlA,
+      alt: ""
+    }), urlB && wp.element.createElement("img", {
+      className: "img-2",
+      src: urlB,
+      alt: ""
+    })));
+  }
+};
+/* harmony default export */ var image_comparison_deprecated_v3 = (image_comparison_deprecated_v3_v3);
 // CONCATENATED MODULE: ./src/blocks/image-comparison/deprecated/index.js
 
 
-/* harmony default export */ var image_comparison_deprecated = ([image_comparison_deprecated_v1, image_comparison_deprecated_v2]);
+
+/* harmony default export */ var image_comparison_deprecated = ([image_comparison_deprecated_v1, image_comparison_deprecated_v2, image_comparison_deprecated_v3]);
 // CONCATENATED MODULE: ./src/blocks/image-comparison/index.js
 function image_comparison_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -71731,7 +72086,7 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/image-comparis
   category: 'gutenbee',
   keywords: [Object(external_window_wp_i18n_["__"])('image comparison'), Object(external_window_wp_i18n_["__"])('comparison'), Object(external_window_wp_i18n_["__"])('diff')],
   supports: {
-    anchor: true
+    anchor: false
   },
   attributes: image_comparison_objectSpread(image_comparison_objectSpread(image_comparison_objectSpread({
     uniqueId: {
@@ -72699,10 +73054,192 @@ var google_maps_deprecated_v2_v2 = {
   }
 };
 /* harmony default export */ var google_maps_deprecated_v2 = (google_maps_deprecated_v2_v2);
+// CONCATENATED MODULE: ./src/blocks/google-maps/deprecated/v3.js
+function google_maps_deprecated_v3_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function google_maps_deprecated_v3_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { google_maps_deprecated_v3_ownKeys(Object(source), true).forEach(function (key) { google_maps_deprecated_v3_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { google_maps_deprecated_v3_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function google_maps_deprecated_v3_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var v3_GoogleMapsStyle = function GoogleMapsStyle(_ref) {
+  var attributes = _ref.attributes,
+      children = _ref.children;
+  var uniqueId = attributes.uniqueId,
+      blockPadding = attributes.blockPadding,
+      blockMargin = attributes.blockMargin,
+      height = attributes.height;
+  var blockId = util_getBlockId(uniqueId);
+  return wp.element.createElement(stylesheet, {
+    id: blockId
+  }, wp.element.createElement(stylesheet_Rule, {
+    value: blockMargin,
+    rule: ".wp-block-gutenbee-google-maps.[root] { margin: %s; }",
+    unit: "px"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: blockPadding,
+    rule: ".wp-block-gutenbee-google-maps.[root] { padding: %s; }",
+    unit: "px"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: height,
+    rule: ".wp-block-gutenbee-google-maps.[root] { height: %s; }",
+    unit: "px"
+  }), children);
+};
+
+var google_maps_deprecated_v3_v3 = {
+  supports: {
+    anchor: true
+  },
+  attributes: google_maps_deprecated_v3_objectSpread(google_maps_deprecated_v3_objectSpread(google_maps_deprecated_v3_objectSpread({
+    uniqueId: {
+      type: 'string'
+    },
+    latitude: {
+      type: 'string',
+      default: '37.585636'
+    },
+    longitude: {
+      type: 'string',
+      default: '26.127548'
+    },
+    zoom: {
+      type: 'number',
+      default: 10
+    },
+    height: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: 280,
+        tablet: 280,
+        mobile: 280
+      })
+    },
+    preventScroll: {
+      type: 'boolean',
+      default: true
+    },
+    styleId: {
+      type: 'string',
+      default: ''
+    },
+    infoWindow: {
+      type: 'string',
+      default: ''
+    },
+    customStyles: {
+      type: 'string',
+      default: ''
+    },
+    markerImageUrl: {
+      type: 'string',
+      default: ''
+    },
+    markerImageId: {
+      type: 'number'
+    },
+    blockPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    blockMargin: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    backgroundColor: {
+      type: 'string'
+    }
+  }, border_controls_attributes()), boxShadowControlAttributes()), {}, {
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false
+      })
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false
+      }
+    }
+  }),
+  migrate: function migrate(attributes) {
+    return attributes;
+  },
+  save: function save(_ref2) {
+    var className = _ref2.className,
+        attributes = _ref2.attributes;
+    var uniqueId = attributes.uniqueId,
+        latitude = attributes.latitude,
+        longitude = attributes.longitude,
+        zoom = attributes.zoom,
+        preventScroll = attributes.preventScroll,
+        styleId = attributes.styleId,
+        infoWindow = attributes.infoWindow,
+        customStyles = attributes.customStyles,
+        markerImageUrl = attributes.markerImageUrl,
+        backgroundColor = attributes.backgroundColor,
+        blockBreakpointVisibility = attributes.blockBreakpointVisibility,
+        blockAuthVisibility = attributes.blockAuthVisibility;
+    var blockId = util_getBlockId(uniqueId);
+
+    var getCustomStyles = function getCustomStyles() {
+      try {
+        return JSON.parse(customStyles);
+      } catch (error) {
+        return undefined;
+      }
+    };
+
+    var predefinedMapStyle = map_styles.find(function (_ref3) {
+      var id = _ref3.id;
+      return id === styleId;
+    });
+    var mapStyle = customStyles ? getCustomStyles() : lodash_get_default()(predefinedMapStyle, 'style');
+    return wp.element.createElement("div", {
+      id: blockId,
+      className: classnames_default()(className, blockId, getBreakpointVisibilityClassNames(blockBreakpointVisibility), helpers_getAuthVisibilityClasses(blockAuthVisibility)),
+      style: google_maps_deprecated_v3_objectSpread(google_maps_deprecated_v3_objectSpread({
+        backgroundColor: backgroundColor || undefined
+      }, getBorderCSSValue({
+        attributes: attributes
+      })), getBoxShadowCSSValue({
+        attributes: attributes
+      }))
+    }, wp.element.createElement(v3_GoogleMapsStyle, {
+      attributes: attributes
+    }), wp.element.createElement("div", {
+      "data-latitude": latitude,
+      "data-longitude": longitude,
+      "data-zoom": zoom,
+      "data-prevent-scroll": preventScroll,
+      "data-map-style": mapStyle && JSON.stringify(mapStyle),
+      "data-info-window": infoWindow,
+      "data-marker-icon": markerImageUrl
+    }));
+  }
+};
+/* harmony default export */ var google_maps_deprecated_v3 = (google_maps_deprecated_v3_v3);
 // CONCATENATED MODULE: ./src/blocks/google-maps/deprecated/index.js
 
 
-/* harmony default export */ var google_maps_deprecated = ([google_maps_deprecated_v1, google_maps_deprecated_v2]);
+
+/* harmony default export */ var google_maps_deprecated = ([google_maps_deprecated_v1, google_maps_deprecated_v2, google_maps_deprecated_v3]);
 // CONCATENATED MODULE: ./src/blocks/google-maps/index.js
 function google_maps_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -72736,7 +73273,7 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/google-maps', 
   category: 'gutenbee',
   keywords: [Object(external_window_wp_i18n_["__"])('maps'), Object(external_window_wp_i18n_["__"])('google')],
   supports: {
-    anchor: true
+    anchor: false
   },
   attributes: google_maps_objectSpread(google_maps_objectSpread(google_maps_objectSpread({
     uniqueId: {
@@ -85761,9 +86298,240 @@ var icon_list_deprecated_v1_v1 = {
   }
 };
 /* harmony default export */ var icon_list_deprecated_v1 = (icon_list_deprecated_v1_v1);
+// CONCATENATED MODULE: ./src/blocks/icon-list/deprecated/v2.js
+function icon_list_deprecated_v2_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function icon_list_deprecated_v2_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { icon_list_deprecated_v2_ownKeys(Object(source), true).forEach(function (key) { icon_list_deprecated_v2_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { icon_list_deprecated_v2_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function icon_list_deprecated_v2_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var v2_IconListStyle = function IconListStyle(_ref) {
+  var attributes = _ref.attributes,
+      children = _ref.children;
+  var uniqueId = attributes.uniqueId,
+      blockPadding = attributes.blockPadding,
+      blockMargin = attributes.blockMargin,
+      fontSize = attributes.fontSize,
+      iconSize = attributes.iconSize,
+      itemSpacing = attributes.itemSpacing,
+      layout = attributes.layout,
+      align = attributes.align,
+      separatorWidth = attributes.separatorWidth,
+      separatorColor = attributes.separatorColor,
+      color = attributes.color,
+      iconColor = attributes.iconColor;
+  var blockId = util_getBlockId(uniqueId);
+
+  var renderLayoutSpecificRules = function renderLayoutSpecificRules() {
+    return layout === 'inline' ? wp.element.createElement(external_window_wp_element_["Fragment"], null, wp.element.createElement(stylesheet_Rule, {
+      value: itemSpacing,
+      rule: ".wp-block-gutenbee-icon-list.[root] .wp-block-gutenbee-icon-list-element li.wp-block-gutenbee-icon-list-item:not(:last-child) { padding-right: calc( %s/2 ); }",
+      unit: "px"
+    }), wp.element.createElement(stylesheet_Rule, {
+      value: itemSpacing,
+      rule: ".wp-block-gutenbee-icon-list.[root] .wp-block-gutenbee-icon-list-element li.wp-block-gutenbee-icon-list-item:not(:last-child) { margin-right: calc( %s/2 ); }",
+      unit: "px"
+    }), wp.element.createElement(stylesheet_Rule, {
+      value: separatorWidth,
+      rule: ".wp-block-gutenbee-icon-list.[root] .wp-block-gutenbee-icon-list-element li.wp-block-gutenbee-icon-list-item:not(:last-child) { border-right: solid %s; }",
+      unit: "px"
+    }), wp.element.createElement(stylesheet_Rule, {
+      value: align,
+      rule: ".wp-block-gutenbee-icon-list.[root] .wp-block-gutenbee-icon-list-element { justify-content: %s; }",
+      unit: ""
+    })) : wp.element.createElement(external_window_wp_element_["Fragment"], null, wp.element.createElement(stylesheet_Rule, {
+      value: itemSpacing,
+      rule: ".wp-block-gutenbee-icon-list.[root] .wp-block-gutenbee-icon-list-element li.wp-block-gutenbee-icon-list-item:not(:last-child) { padding-bottom: calc( %s/2 ); }",
+      unit: "px"
+    }), wp.element.createElement(stylesheet_Rule, {
+      value: itemSpacing,
+      rule: ".wp-block-gutenbee-icon-list.[root] .wp-block-gutenbee-icon-list-element li.wp-block-gutenbee-icon-list-item:not(:last-child) { margin-bottom: calc( %s/2 ); }",
+      unit: "px"
+    }), wp.element.createElement(stylesheet_Rule, {
+      value: align,
+      rule: ".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { justify-content: %s; }",
+      unit: ""
+    }), wp.element.createElement(stylesheet_Rule, {
+      value: align,
+      rule: ".wp-block-gutenbee-icon-list.[root] .wp-block-gutenbee-list-block-link a { justify-content: %s; }",
+      unit: ""
+    }), wp.element.createElement(stylesheet_Rule, {
+      value: separatorWidth,
+      rule: ".wp-block-gutenbee-icon-list.[root] .wp-block-gutenbee-icon-list-element li.wp-block-gutenbee-icon-list-item:not(:last-child) { border-bottom: solid %s; }",
+      unit: "px"
+    }));
+  };
+
+  return wp.element.createElement(stylesheet, {
+    id: blockId
+  }, wp.element.createElement(stylesheet_Rule, {
+    value: blockMargin,
+    rule: ".wp-block-gutenbee-icon-list.[root] { margin: %s; }",
+    unit: "px"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: blockPadding,
+    rule: ".wp-block-gutenbee-icon-list.[root] { padding: %s; }",
+    unit: "px"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: fontSize,
+    rule: ".wp-block-gutenbee-icon-list.[root] { font-size: %s; }",
+    unit: "px"
+  }), renderLayoutSpecificRules(), wp.element.createElement(stylesheet_Rule, {
+    value: iconSize,
+    rule: ".wp-block-gutenbee-icon-list.[root] .gutenbee-icon-block-icon-wrap svg { width: %1$s; height: %1$s; }",
+    unit: "px"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: separatorColor,
+    rule: ".wp-block-gutenbee-icon-list.[root] .wp-block-gutenbee-icon-list-element li.wp-block-gutenbee-icon-list-item:not(:last-child) { border-color: %s; }",
+    unit: ""
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: color,
+    rule: "{ color: %s; }",
+    unit: ""
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: iconColor,
+    rule: ".wp-block-gutenbee-icon-list.[root] .gutenbee-icon-block-icon-wrap { color: %s; }",
+    unit: ""
+  }), children);
+};
+
+var icon_list_deprecated_v2_v2 = {
+  supports: {
+    anchor: true
+  },
+  attributes: icon_list_deprecated_v2_objectSpread(icon_list_deprecated_v2_objectSpread(icon_list_deprecated_v2_objectSpread({
+    uniqueId: {
+      type: 'string'
+    },
+    layout: {
+      type: 'string',
+      default: 'default'
+    },
+    itemSpacing: {
+      type: 'object',
+      default: getDefaultResponsiveValue()
+    },
+    fontSize: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: '18',
+        tablet: '',
+        mobile: ''
+      })
+    },
+    iconSize: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: '24',
+        tablet: '',
+        mobile: ''
+      })
+    },
+    align: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: 'left',
+        tablet: 'left',
+        mobile: 'left'
+      })
+    },
+    blockLink: {
+      type: 'string',
+      default: 'inline'
+    },
+    separatorWidth: {
+      type: 'integer',
+      default: 0
+    },
+    separatorColor: {
+      type: 'string'
+    },
+    iconColor: {
+      type: 'string'
+    },
+    color: {
+      type: 'string'
+    },
+    backgroundColor: {
+      type: 'string'
+    }
+  }, border_controls_attributes()), boxShadowControlAttributes()), {}, {
+    blockPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    blockMargin: {
+      type: 'object',
+      default: getDefaultSpacingValue()
+    },
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false
+      })
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false
+      }
+    }
+  }),
+  migrate: function migrate(attributes) {
+    return attributes;
+  },
+  save: function save(_ref2) {
+    var className = _ref2.className,
+        attributes = _ref2.attributes;
+    var uniqueId = attributes.uniqueId,
+        blockLink = attributes.blockLink,
+        layout = attributes.layout,
+        backgroundColor = attributes.backgroundColor,
+        blockBreakpointVisibility = attributes.blockBreakpointVisibility,
+        blockAuthVisibility = attributes.blockAuthVisibility;
+    var blockId = util_getBlockId(uniqueId);
+    return wp.element.createElement("div", {
+      id: blockId,
+      className: classnames_default()(className, blockId, getBreakpointVisibilityClassNames(blockBreakpointVisibility), helpers_getAuthVisibilityClasses(blockAuthVisibility)),
+      style: icon_list_deprecated_v2_objectSpread(icon_list_deprecated_v2_objectSpread({
+        backgroundColor: backgroundColor ? backgroundColor : undefined
+      }, getBorderCSSValue({
+        attributes: attributes
+      })), getBoxShadowCSSValue({
+        attributes: attributes
+      }))
+    }, wp.element.createElement("ul", {
+      className: classnames_default()({
+        'wp-block-gutenbee-icon-list-element': true,
+        'wp-block-gutenbee-list-inline': layout === 'inline',
+        'wp-block-gutenbee-list-block-link': blockLink === 'block'
+      })
+    }, wp.element.createElement(external_window_wp_blockEditor_["InnerBlocks"].Content, null)), wp.element.createElement(v2_IconListStyle, {
+      attributes: attributes
+    }));
+  }
+};
+/* harmony default export */ var icon_list_deprecated_v2 = (icon_list_deprecated_v2_v2);
 // CONCATENATED MODULE: ./src/blocks/icon-list/deprecated/index.js
 
-/* harmony default export */ var icon_list_deprecated = ([icon_list_deprecated_v1]);
+
+/* harmony default export */ var icon_list_deprecated = ([icon_list_deprecated_v1, icon_list_deprecated_v2]);
 // CONCATENATED MODULE: ./src/blocks/icon-list/style.js
 
 
@@ -86313,7 +87081,7 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/icon-list', {
   category: 'gutenbee',
   keywords: [Object(external_window_wp_i18n_["__"])('icon'), Object(external_window_wp_i18n_["__"])('list')],
   supports: {
-    anchor: true
+    anchor: false
   },
   attributes: icon_list_objectSpread(icon_list_objectSpread(icon_list_objectSpread({
     uniqueId: {

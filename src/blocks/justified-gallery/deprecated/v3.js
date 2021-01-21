@@ -1,41 +1,49 @@
-/**
- * Justified Gallery block
- */
-
-import { __ } from 'wp.i18n';
-import { registerBlockType } from 'wp.blocks';
 import classNames from 'classnames';
 
-import JustifiedGalleryEdit, { GALLERY_TYPE } from './edit';
-import { LINKTO } from '../../components/gallery/constants';
-import JustifiedGalleryBlockIcon from './block-icon';
-import getBlockId from '../../util/getBlockId';
-import GalleryStyle from './style';
-import deprecated from './deprecated';
-import { LAST_ROW } from './constants';
-import {
-  getDefaultResponsiveValue,
-  getDefaultSpacingValue,
-} from '../../components/controls/responsive-control/default-values';
-import borderControlAttributes from '../../components/controls/border-controls/attributes';
-import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import { getBreakpointVisibilityClassNames } from '../../../components/controls/breakpoint-visibility-control/helpers';
+import getBlockId from '../../../util/getBlockId';
+import { getAuthVisibilityClasses } from '../../../components/controls/auth-visibility-control/helpers';
+import { GALLERY_TYPE } from '../edit';
+import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
 import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
-} from '../../components/controls/box-shadow-controls/helpers';
-import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
-import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+} from '../../../components/controls/box-shadow-controls/helpers';
+import StyleSheet from '../../../components/stylesheet';
+import Rule from '../../../components/stylesheet/Rule';
+import { LINKTO } from '../../../components/gallery/constants';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../../components/controls/responsive-control/default-values';
+import borderControlAttributes from '../../../components/controls/border-controls/attributes';
+import { LAST_ROW } from '../constants';
 
-registerBlockType('gutenbee/justified-gallery', {
-  title: __('GutenBee Gallery'),
-  description: __(
-    'Create high quality columnized or justified image galleries.',
-  ),
-  icon: JustifiedGalleryBlockIcon,
-  category: 'gutenbee',
-  keywords: [__('justified'), __('gallery')],
+const GalleryStyle = ({ attributes, children }) => {
+  const { uniqueId, blockPadding, blockMargin } = attributes;
+  const blockId = getBlockId(uniqueId);
+
+  return (
+    <StyleSheet id={blockId}>
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-justified-gallery.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-justified-gallery.[root] { padding: %s; }"
+        unit="px"
+      />
+
+      {children}
+    </StyleSheet>
+  );
+};
+
+const v3 = {
   supports: {
-    anchor: false,
+    anchor: true,
   },
   attributes: {
     uniqueId: {
@@ -131,8 +139,9 @@ registerBlockType('gutenbee/justified-gallery', {
       },
     },
   },
-  deprecated,
-  edit: JustifiedGalleryEdit,
+  migrate(attributes) {
+    return attributes;
+  },
   save({ attributes, className }) {
     const {
       uniqueId,
@@ -225,4 +234,6 @@ registerBlockType('gutenbee/justified-gallery', {
       </div>
     );
   },
-});
+};
+
+export default v3;

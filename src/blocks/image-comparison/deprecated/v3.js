@@ -1,37 +1,45 @@
-/**
- * Image Comparison block
- */
-
-import { __ } from 'wp.i18n';
-import { registerBlockType } from 'wp.blocks';
 import classNames from 'classnames';
 
-import ImageComparisonEdit from './edit';
-import ImageComparisonBlockIcon from './block-icon';
+import getBlockId from '../../../util/getBlockId';
+import StyleSheet from '../../../components/stylesheet';
+import Rule from '../../../components/stylesheet/Rule';
 import {
   getDefaultResponsiveValue,
   getDefaultSpacingValue,
-} from '../../components/controls/responsive-control/default-values';
-import getBlockId from '../../util/getBlockId';
-import ImageComparisonStyle from './style';
-import deprecated from './deprecated';
-import borderControlAttributes from '../../components/controls/border-controls/attributes';
-import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+} from '../../../components/controls/responsive-control/default-values';
+import borderControlAttributes from '../../../components/controls/border-controls/attributes';
 import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
-} from '../../components/controls/box-shadow-controls/helpers';
-import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
-import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+} from '../../../components/controls/box-shadow-controls/helpers';
+import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
+import { getBreakpointVisibilityClassNames } from '../../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../../components/controls/auth-visibility-control/helpers';
 
-registerBlockType('gutenbee/image-comparison', {
-  title: __('GutenBee Image Comparison'),
-  description: __('Highlight the differences between two images.'),
-  icon: ImageComparisonBlockIcon,
-  category: 'gutenbee',
-  keywords: [__('image comparison'), __('comparison'), __('diff')],
+const ImageComparisonStyle = ({ attributes, children }) => {
+  const { uniqueId, blockPadding, blockMargin } = attributes;
+  const blockId = getBlockId(uniqueId);
+
+  return (
+    <StyleSheet id={blockId}>
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-image-comparison.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-image-comparison.[root] { padding: %s; }"
+        unit="px"
+      />
+      {children}
+    </StyleSheet>
+  );
+};
+
+const v3 = {
   supports: {
-    anchor: false,
+    anchor: true,
   },
   attributes: {
     uniqueId: {
@@ -91,8 +99,9 @@ registerBlockType('gutenbee/image-comparison', {
       },
     },
   },
-  deprecated,
-  edit: ImageComparisonEdit,
+  migrate(attributes) {
+    return attributes;
+  },
   save: ({ className, attributes }) => {
     const {
       uniqueId,
@@ -129,4 +138,6 @@ registerBlockType('gutenbee/image-comparison', {
       </div>
     );
   },
-});
+};
+
+export default v3;

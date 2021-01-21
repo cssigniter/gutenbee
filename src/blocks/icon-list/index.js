@@ -28,7 +28,7 @@ registerBlockType('gutenbee/icon-list', {
   category: 'gutenbee',
   keywords: [__('icon'), __('list')],
   supports: {
-    anchor: true,
+    anchor: false,
   },
   attributes: {
     uniqueId: {

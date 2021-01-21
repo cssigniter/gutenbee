@@ -1,39 +1,52 @@
-/**
- * Google Maps block
- */
-
-import { __ } from 'wp.i18n';
-import { registerBlockType } from 'wp.blocks';
 import classNames from 'classnames';
 import get from 'lodash.get';
 
-import GoogleMapsEdit from './edit';
-import mapStyles from './map-styles';
-import GoogleMapsBlockIcon from './block-icon';
+import mapStyles from '../map-styles';
+import getBlockId from '../../../util/getBlockId';
+import StyleSheet from '../../../components/stylesheet';
+import Rule from '../../../components/stylesheet/Rule';
 import {
   getDefaultResponsiveValue,
   getDefaultSpacingValue,
-} from '../../components/controls/responsive-control/default-values';
-import getBlockId from '../../util/getBlockId';
-import GoogleMapsStyle from './style';
-import deprecated from './deprecated';
-import borderControlAttributes from '../../components/controls/border-controls/attributes';
-import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+} from '../../../components/controls/responsive-control/default-values';
+import borderControlAttributes from '../../../components/controls/border-controls/attributes';
 import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
-} from '../../components/controls/box-shadow-controls/helpers';
-import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
-import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+} from '../../../components/controls/box-shadow-controls/helpers';
+import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
+import { getAuthVisibilityClasses } from '../../../components/controls/auth-visibility-control/helpers';
+import { getBreakpointVisibilityClassNames } from '../../../components/controls/breakpoint-visibility-control/helpers';
 
-registerBlockType('gutenbee/google-maps', {
-  title: __('GutenBee Google Maps'),
-  description: __('Create fancy Google Maps'),
-  icon: GoogleMapsBlockIcon,
-  category: 'gutenbee',
-  keywords: [__('maps'), __('google')],
+const GoogleMapsStyle = ({ attributes, children }) => {
+  const { uniqueId, blockPadding, blockMargin, height } = attributes;
+  const blockId = getBlockId(uniqueId);
+
+  return (
+    <StyleSheet id={blockId}>
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-google-maps.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-google-maps.[root] { padding: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={height}
+        rule=".wp-block-gutenbee-google-maps.[root] { height: %s; }"
+        unit="px"
+      />
+      {children}
+    </StyleSheet>
+  );
+};
+
+const v3 = {
   supports: {
-    anchor: false,
+    anchor: true,
   },
   attributes: {
     uniqueId: {
@@ -111,8 +124,9 @@ registerBlockType('gutenbee/google-maps', {
       },
     },
   },
-  deprecated,
-  edit: GoogleMapsEdit,
+  migrate(attributes) {
+    return attributes;
+  },
   save: ({ className, attributes }) => {
     const {
       uniqueId,
@@ -173,4 +187,6 @@ registerBlockType('gutenbee/google-maps', {
       </div>
     );
   },
-});
+};
+
+export default v3;
