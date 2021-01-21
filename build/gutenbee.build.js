@@ -90542,7 +90542,6 @@ var review_deprecated_v1_v1 = {
     }
   }),
   migrate: function migrate(attributes) {
-    // TODO migrate selector attributes
     return attributes;
   },
   save: function save(_ref2) {

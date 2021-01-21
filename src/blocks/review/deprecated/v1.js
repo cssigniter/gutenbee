@@ -157,7 +157,6 @@ const v1 = {
     },
   },
   migrate(attributes) {
-    // TODO migrate selector attributes
     return attributes;
   },
   save: ({ attributes, className }) => {

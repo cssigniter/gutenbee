@@ -9,6 +9,12 @@
   margin: 0;
   padding: 0;
   position: relative;
+
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 }
 
 .block-editor-block-list__block[data-type="gutenbee/image"][data-align="center"] {

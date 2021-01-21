@@ -1,0 +1,8 @@
+// Clearfix
+.wp-block-gutenbee-image {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
