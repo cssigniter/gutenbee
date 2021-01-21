@@ -139,24 +139,22 @@ const ContainerBlockEdit = ({
             />
           )}
 
-          {(backgroundColor || backgroundVideoURL) && (
-            <div
-              className={`${baseClass}-background`}
-              style={{
-                backgroundColor,
-                ...getBoxShadowCSSValue({ attributes }),
-              }}
-            >
-              {backgroundVideoURL &&
-                !['unsupported'].includes(videoInfo.provider) && (
-                  <VideoBackgroundEditor
-                    key={backgroundVideoURL}
-                    videoInfo={videoInfo}
-                    videoEmbedRef={videoEmbedRef}
-                  />
-                )}
-            </div>
-          )}
+          <div
+            className={`${baseClass}-background`}
+            style={{
+              backgroundColor,
+              ...getBoxShadowCSSValue({ attributes }),
+            }}
+          >
+            {backgroundVideoURL &&
+              !['unsupported'].includes(videoInfo.provider) && (
+                <VideoBackgroundEditor
+                  key={backgroundVideoURL}
+                  videoInfo={videoInfo}
+                  videoEmbedRef={videoEmbedRef}
+                />
+              )}
+          </div>
         </div>
       ) : (
         <div>

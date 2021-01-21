@@ -77563,7 +77563,7 @@ var edit_ContainerBlockEdit = function ContainerBlockEdit(_ref) {
     style: {
       backgroundColor: overlayBackgroundColor
     }
-  }), (backgroundColor || backgroundVideoURL) && wp.element.createElement("div", {
+  }), wp.element.createElement("div", {
     className: "".concat(baseClass, "-background"),
     style: container_edit_objectSpread({
       backgroundColor: backgroundColor
