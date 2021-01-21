@@ -218,7 +218,7 @@ const PostTypesEdit = ({
               />
             )}
 
-            {posts && posts.length && (
+            {posts && posts.length > 0 && (
               <MultiSelectCheckboxControl
                 label={__('Excluded Posts')}
                 value={excludedPostIds}
@@ -230,7 +230,7 @@ const PostTypesEdit = ({
               />
             )}
 
-            {posts && posts.length && (
+            {posts && posts.length > 0 && (
               <MultiSelectCheckboxControl
                 label={__('Included Posts')}
                 value={includedPostIds}

@@ -2,8 +2,6 @@
   display: flex;
   position: relative;
   z-index: 1;
-  // TODO maybe reinstate this
-  //overflow: hidden;
 
   &-description {
     display: block;
@@ -46,4 +44,8 @@
     left: 0;
     z-index: -1;
   }
+}
+
+.gutenbee-overflow-hidden {
+  overflow: hidden;
 }

@@ -50,6 +50,7 @@ const ContainerBlockEdit = ({
     backgroundImageEffects,
     columnDirection,
     overlayBackgroundColor,
+    overflow,
   } = attributes;
 
   const { count, variations, blockType, defaultVariation } = useSelect(
@@ -84,6 +85,7 @@ const ContainerBlockEdit = ({
   const blockId = getBlockId(uniqueId);
   const classes = classNames(className, blockId, {
     'gutenbee-zoom': zoom && !parallax,
+    'gutenbee-overflow-hidden': overflow,
   });
   const baseClass = 'wp-block-gutenbee-container';
 

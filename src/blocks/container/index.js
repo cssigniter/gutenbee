@@ -138,6 +138,10 @@ registerBlockType('gutenbee/container', {
         loggedOut: false,
       },
     },
+    overflow: {
+      type: 'boolean',
+      default: false,
+    },
   },
   deprecated,
   getEditWrapperProps(attributes) {
@@ -162,6 +166,7 @@ registerBlockType('gutenbee/container', {
       columnDirection,
       blockBreakpointVisibility,
       blockAuthVisibility,
+      overflow,
     } = attributes;
 
     const { parallax, parallaxSpeed, zoom } = backgroundImageEffects ?? {};
@@ -187,6 +192,7 @@ registerBlockType('gutenbee/container', {
             'row-reverse-desktop': columnDirection.desktop === 'row-reverse',
             'row-reverse-tablet': columnDirection.tablet === 'row-reverse',
             'row-reverse-mobile': columnDirection.mobile === 'row-reverse',
+            'gutenbee-overflow-hidden': overflow,
           },
         )}
         style={{

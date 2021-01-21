@@ -46,6 +46,7 @@ const ContainerInspectorControls = ({
     blockAuthVisibility,
     backgroundImage,
     backgroundImageEffects,
+    overflow,
   } = attributes;
 
   return (
@@ -101,6 +102,13 @@ const ContainerInspectorControls = ({
               { value: 'xl', label: __('Extra Large (40px)') },
             ]}
             onChange={value => setAttributes({ gutter: value })}
+          />
+
+          <CheckboxControl
+            label={__('Disable outside gutters')}
+            value="on"
+            checked={overflow}
+            onChange={() => setAttributes({ overflow: !overflow })}
           />
 
           <ResponsiveControl>

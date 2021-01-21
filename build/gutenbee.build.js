@@ -119,13 +119,13 @@ if (false) { var throwOnDirectAccess, isValidElement, REACT_ELEMENT_TYPE; } else
 /* 3 */
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["wp"]["blockEditor"]; }());
+(function() { module.exports = window["wp"]["components"]; }());
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["wp"]["components"]; }());
+(function() { module.exports = window["wp"]["blockEditor"]; }());
 
 /***/ }),
 /* 5 */
@@ -55817,7 +55817,7 @@ var external_window_wp_i18n_ = __webpack_require__(1);
 var external_window_wp_blocks_ = __webpack_require__(10);
 
 // EXTERNAL MODULE: external {"window":["wp","blockEditor"]}
-var external_window_wp_blockEditor_ = __webpack_require__(3);
+var external_window_wp_blockEditor_ = __webpack_require__(4);
 
 // EXTERNAL MODULE: ./node_modules/classnames/index.js
 var classnames = __webpack_require__(5);
@@ -56592,7 +56592,7 @@ var getBoxShadowCSSValue = function getBoxShadowCSSValue(_ref2) {
   };
 };
 // EXTERNAL MODULE: external {"window":["wp","components"]}
-var external_window_wp_components_ = __webpack_require__(4);
+var external_window_wp_components_ = __webpack_require__(3);
 
 // CONCATENATED MODULE: ./src/hooks/useUniqueId.js
  // Keep a list of existing ids here
@@ -75847,7 +75847,7 @@ var edit_PostTypesEdit = function PostTypesEdit(_ref) {
         postTagSlugs: value
       });
     }
-  }), posts && posts.length && wp.element.createElement(multi_select_checkbox_control, {
+  }), posts && posts.length > 0 && wp.element.createElement(multi_select_checkbox_control, {
     label: Object(external_window_wp_i18n_["__"])('Excluded Posts'),
     value: excludedPostIds,
     options: posts.map(function (p) {
@@ -75861,7 +75861,7 @@ var edit_PostTypesEdit = function PostTypesEdit(_ref) {
         excludedPostIds: value
       });
     }
-  }), posts && posts.length && wp.element.createElement(multi_select_checkbox_control, {
+  }), posts && posts.length > 0 && wp.element.createElement(multi_select_checkbox_control, {
     label: Object(external_window_wp_i18n_["__"])('Included Posts'),
     value: includedPostIds,
     options: posts.map(function (p) {
@@ -76608,7 +76608,8 @@ var inspector_controls_ContainerInspectorControls = function ContainerInspectorC
       blockBreakpointVisibility = attributes.blockBreakpointVisibility,
       blockAuthVisibility = attributes.blockAuthVisibility,
       backgroundImage = attributes.backgroundImage,
-      backgroundImageEffects = attributes.backgroundImageEffects;
+      backgroundImageEffects = attributes.backgroundImageEffects,
+      overflow = attributes.overflow;
   return wp.element.createElement(external_window_wp_element_["Fragment"], null, wp.element.createElement(external_window_wp_blockEditor_["InspectorControls"], null, wp.element.createElement(external_window_wp_components_["PanelBody"], {
     title: Object(external_window_wp_i18n_["__"])('Layout Settings'),
     initialOpen: true
@@ -76668,6 +76669,15 @@ var inspector_controls_ContainerInspectorControls = function ContainerInspectorC
     onChange: function onChange(value) {
       return setAttributes({
         gutter: value
+      });
+    }
+  }), wp.element.createElement(external_window_wp_components_["CheckboxControl"], {
+    label: Object(external_window_wp_i18n_["__"])('Disable outside gutters'),
+    value: "on",
+    checked: overflow,
+    onChange: function onChange() {
+      return setAttributes({
+        overflow: !overflow
       });
     }
   }), wp.element.createElement(responsive_control_ResponsiveControl, null, function (breakpoint) {
@@ -76930,7 +76940,8 @@ var edit_ContainerBlockEdit = function ContainerBlockEdit(_ref) {
       backgroundVideoURL = attributes.backgroundVideoURL,
       backgroundImageEffects = attributes.backgroundImageEffects,
       columnDirection = attributes.columnDirection,
-      overlayBackgroundColor = attributes.overlayBackgroundColor;
+      overlayBackgroundColor = attributes.overlayBackgroundColor,
+      overflow = attributes.overflow;
 
   var _useSelect = Object(external_window_wp_data_["useSelect"])(function (select) {
     var _select = select('core/blocks'),
@@ -76967,7 +76978,8 @@ var edit_ContainerBlockEdit = function ContainerBlockEdit(_ref) {
 
   var blockId = util_getBlockId(uniqueId);
   var classes = classnames_default()(className, blockId, {
-    'gutenbee-zoom': zoom && !parallax
+    'gutenbee-zoom': zoom && !parallax,
+    'gutenbee-overflow-hidden': overflow
   });
   var baseClass = 'wp-block-gutenbee-container';
 
@@ -78211,6 +78223,10 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/container', {
         loggedIn: false,
         loggedOut: false
       }
+    },
+    overflow: {
+      type: 'boolean',
+      default: false
     }
   }),
   deprecated: container_deprecated,
@@ -78238,7 +78254,8 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/container', {
         themeGrid = attributes.themeGrid,
         columnDirection = attributes.columnDirection,
         blockBreakpointVisibility = attributes.blockBreakpointVisibility,
-        blockAuthVisibility = attributes.blockAuthVisibility;
+        blockAuthVisibility = attributes.blockAuthVisibility,
+        overflow = attributes.overflow;
 
     var _ref2 = backgroundImageEffects !== null && backgroundImageEffects !== void 0 ? backgroundImageEffects : {},
         parallax = _ref2.parallax,
@@ -78255,7 +78272,8 @@ Object(external_window_wp_blocks_["registerBlockType"])('gutenbee/container', {
         'theme-grid': themeGrid,
         'row-reverse-desktop': columnDirection.desktop === 'row-reverse',
         'row-reverse-tablet': columnDirection.tablet === 'row-reverse',
-        'row-reverse-mobile': columnDirection.mobile === 'row-reverse'
+        'row-reverse-mobile': columnDirection.mobile === 'row-reverse',
+        'gutenbee-overflow-hidden': overflow
       }),
       style: container_objectSpread(container_objectSpread({
         color: textColor
