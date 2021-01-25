@@ -1,6 +1,6 @@
 {
   "name": "gutenbee",
-  "version": "2.9.1.1",
+  "version": "2.9.0.1",
   "license": "GPL-2.0-or-later",
   "devDependencies": {
     "@babel/cli": "7.12.7",
