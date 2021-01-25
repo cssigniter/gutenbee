@@ -107,6 +107,44 @@ const ImageEdit = ({
     [id, isSelected],
   );
 
+  const onImageLinkDestinationChange = destination => {
+    if (destination === LINK_DESTINATION.NONE) {
+      setAttributes({
+        href: '',
+        linkDestination: destination,
+      });
+
+      return;
+    }
+
+    if (destination === LINK_DESTINATION.MEDIA) {
+      setAttributes({
+        href: image.source_url ?? '',
+        linkDestination: destination,
+      });
+
+      return;
+    }
+
+    if (destination === LINK_DESTINATION.ATTACHMENT) {
+      setAttributes({
+        href: image.link ?? '',
+        linkDestination: destination,
+      });
+
+      return;
+    }
+
+    if (destination === LINK_DESTINATION.CUSTOM) {
+      setAttributes({
+        href: href ?? '',
+        linkDestination: destination,
+      });
+
+      return;
+    }
+  };
+
   useEffect(() => {
     // For backwards compatibility
     if (linkDestination === LINK_DESTINATION.NONE && !!href) {
@@ -115,6 +153,15 @@ const ImageEdit = ({
       });
     }
   }, []);
+
+  useEffect(
+    () => {
+      if (image && isSelected) {
+        onImageLinkDestinationChange(linkDestination);
+      }
+    },
+    [image],
+  );
 
   const [isEditing, setIsEditing] = useState(!url);
   const toggleIsEditing = () => setIsEditing(prev => !prev);
@@ -325,43 +372,7 @@ const ImageEdit = ({
                 { value: LINK_DESTINATION.ATTACHMENT, label: __('Attachment') },
                 { value: LINK_DESTINATION.CUSTOM, label: __('Custom URL') },
               ]}
-              onChange={value => {
-                if (value === LINK_DESTINATION.NONE) {
-                  setAttributes({
-                    href: '',
-                    linkDestination: value,
-                  });
-
-                  return;
-                }
-
-                if (value === LINK_DESTINATION.MEDIA) {
-                  setAttributes({
-                    href: image.source_url ?? '',
-                    linkDestination: value,
-                  });
-
-                  return;
-                }
-
-                if (value === LINK_DESTINATION.ATTACHMENT) {
-                  setAttributes({
-                    href: image.link ?? '',
-                    linkDestination: value,
-                  });
-
-                  return;
-                }
-
-                if (value === LINK_DESTINATION.CUSTOM) {
-                  setAttributes({
-                    href: '',
-                    linkDestination: value,
-                  });
-
-                  return;
-                }
-              }}
+              onChange={onImageLinkDestinationChange}
             />
           )}
 

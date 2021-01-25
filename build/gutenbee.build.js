@@ -81512,6 +81512,44 @@ var edit_ImageEdit = function ImageEdit(_ref) {
       image = _useSelect.image,
       imageSizes = _useSelect.imageSizes;
 
+  var onImageLinkDestinationChange = function onImageLinkDestinationChange(destination) {
+    if (destination === LINK_DESTINATION.NONE) {
+      setAttributes({
+        href: '',
+        linkDestination: destination
+      });
+      return;
+    }
+
+    if (destination === LINK_DESTINATION.MEDIA) {
+      var _image$source_url;
+
+      setAttributes({
+        href: (_image$source_url = image.source_url) !== null && _image$source_url !== void 0 ? _image$source_url : '',
+        linkDestination: destination
+      });
+      return;
+    }
+
+    if (destination === LINK_DESTINATION.ATTACHMENT) {
+      var _image$link;
+
+      setAttributes({
+        href: (_image$link = image.link) !== null && _image$link !== void 0 ? _image$link : '',
+        linkDestination: destination
+      });
+      return;
+    }
+
+    if (destination === LINK_DESTINATION.CUSTOM) {
+      setAttributes({
+        href: href !== null && href !== void 0 ? href : '',
+        linkDestination: destination
+      });
+      return;
+    }
+  };
+
   Object(external_window_wp_element_["useEffect"])(function () {
     // For backwards compatibility
     if (linkDestination === LINK_DESTINATION.NONE && !!href) {
@@ -81520,6 +81558,11 @@ var edit_ImageEdit = function ImageEdit(_ref) {
       });
     }
   }, []);
+  Object(external_window_wp_element_["useEffect"])(function () {
+    if (image && isSelected) {
+      onImageLinkDestinationChange(linkDestination);
+    }
+  }, [image]);
 
   var _useState = Object(external_window_wp_element_["useState"])(!url),
       _useState2 = image_edit_slicedToArray(_useState, 2),
@@ -81722,43 +81765,7 @@ var edit_ImageEdit = function ImageEdit(_ref) {
       value: LINK_DESTINATION.CUSTOM,
       label: Object(external_window_wp_i18n_["__"])('Custom URL')
     }],
-    onChange: function onChange(value) {
-      if (value === LINK_DESTINATION.NONE) {
-        setAttributes({
-          href: '',
-          linkDestination: value
-        });
-        return;
-      }
-
-      if (value === LINK_DESTINATION.MEDIA) {
-        var _image$source_url;
-
-        setAttributes({
-          href: (_image$source_url = image.source_url) !== null && _image$source_url !== void 0 ? _image$source_url : '',
-          linkDestination: value
-        });
-        return;
-      }
-
-      if (value === LINK_DESTINATION.ATTACHMENT) {
-        var _image$link;
-
-        setAttributes({
-          href: (_image$link = image.link) !== null && _image$link !== void 0 ? _image$link : '',
-          linkDestination: value
-        });
-        return;
-      }
-
-      if (value === LINK_DESTINATION.CUSTOM) {
-        setAttributes({
-          href: '',
-          linkDestination: value
-        });
-        return;
-      }
-    }
+    onChange: onImageLinkDestinationChange
   }), linkDestination === LINK_DESTINATION.CUSTOM && wp.element.createElement(external_window_wp_components_["TextControl"], {
     type: "url",
     label: Object(external_window_wp_i18n_["__"])('Custom URL'),
@@ -84897,6 +84904,33 @@ var buttons_deprecated_v1_v1 = {
 
 
 
+
+
+var v2_ButtonsStyle = function ButtonsStyle(_ref) {
+  var attributes = _ref.attributes,
+      children = _ref.children;
+  var uniqueId = attributes.uniqueId,
+      align = attributes.align,
+      blockPadding = attributes.blockPadding,
+      blockMargin = attributes.blockMargin;
+  var blockId = util_getBlockId(uniqueId);
+  return wp.element.createElement(stylesheet, {
+    id: blockId
+  }, wp.element.createElement(stylesheet_Rule, {
+    value: blockMargin,
+    rule: ".wp-block-gutenbee-buttons.[root] { margin: %s; }",
+    unit: "px"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: blockPadding,
+    rule: ".wp-block-gutenbee-buttons.[root] { padding: %s; }",
+    unit: "px"
+  }), wp.element.createElement(stylesheet_Rule, {
+    value: align,
+    rule: ".wp-block-gutenbee-buttons.[root] { justify-content: %s; }",
+    unit: ""
+  }), children);
+};
+
 var buttons_deprecated_v2_v2 = {
   supports: {
     anchor: true
@@ -84940,9 +84974,9 @@ var buttons_deprecated_v2_v2 = {
       }
     }
   },
-  save: function save(_ref) {
-    var attributes = _ref.attributes,
-        className = _ref.className;
+  save: function save(_ref2) {
+    var attributes = _ref2.attributes,
+        className = _ref2.className;
     var uniqueId = attributes.uniqueId,
         backgroundColor = attributes.backgroundColor,
         blockBreakpointVisibility = attributes.blockBreakpointVisibility,
@@ -84954,7 +84988,7 @@ var buttons_deprecated_v2_v2 = {
       style: {
         backgroundColor: backgroundColor || undefined
       }
-    }, wp.element.createElement(buttons_style, {
+    }, wp.element.createElement(v2_ButtonsStyle, {
       attributes: attributes
     }), wp.element.createElement(external_window_wp_blockEditor_["InnerBlocks"].Content, null));
   }
