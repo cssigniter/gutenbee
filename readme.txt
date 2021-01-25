@@ -73,6 +73,37 @@ Note that if you want to use the Google Maps block you will also need a Google M
 
 == Changelog ==
 
+= 2.10.0 =
+* Paragraph block's content can now be included in auto-generated excerpts.
+* Modernized CSS prefixes.
+* Added responsive background image on Container, Column, Banner, Spacer, Divider Blocks.
+* Fixed an issue where the responsive controls would not be clickable on dropdown controls (editor).
+* Accordion block: Fixed title background application in editor.
+* Accordion block: Fixed the title background color application in the editor.
+* Banner block: Fixed issue where box shadow would not get applied correctly.
+* Banner block: Fixed inset box shadow appearance in the editor.
+* Banner block: Fixed application of box shadow and border.
+* Banner block: Remove "noreferrer" attribute from link's rel when "new target" setting is enabled.
+* Buttons block: Remove "noreferrer" attribute from link's rel when "new target" setting is enabled.
+* Container block: Fixed a border radius issue when the block had a background overlay.
+* Container block: Fixed issue where box shadow would not get applied correctly if the zoom option was enabled on the background image.
+* Container block: Fixed an issue where the border would become clipped by parallax if it was enabled.
+* Container block: Fixed application of box shadow and border.
+* Container block: The container block's width will now fit any custom editor width.
+* Container block: Refactored width edge cases.
+* Countdown block: Adjust for the case where the default date was set and the countdown was expired.
+* Countdown block: Remove left and right margins from the first and last time element respectively.
+* Google Maps block: Fixed an issue with the settings toggle.
+* Icon block: Rearranged settings panels in editor.
+* Icon Box block: Renamed alignment settings to better reflect what they do.
+* Icon Box block: Fixed icon padding/margin.
+* Image block: Added link destination setting.
+* Image block: Fixed an issue where the image would overlap content if there was alignment in place (frontend).
+* Review block: Fixed a case where applying bold font weight to the score subtitle would change its appearance.
+* Review block: Fixed overflowing issues.
+* Review block: Removed explicit width so that it won't overlap containers if it has margin applied.
+* Tabs block: Tab navigation now becomes vertical on small viewports.
+
 = 2.9.0 =
 * Added Review block.
 * Video Embed block: Added option "Stick to bottom on scroll".
