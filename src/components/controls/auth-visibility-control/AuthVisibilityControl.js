@@ -27,7 +27,7 @@ const propTypes = {
 };
 
 const AuthVisibilityControl = ({
-  values,
+  values = {},
   onChange,
   label = __('Authentication visibility'),
 }) => {

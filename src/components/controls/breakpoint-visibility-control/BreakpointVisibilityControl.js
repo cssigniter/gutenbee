@@ -4,6 +4,7 @@ import { BaseControl, ToggleControl } from 'wp.components';
 import { desktop, tablet, mobile } from '@wordpress/icons';
 
 import { BREAKPOINT_NAMES } from '../../stylesheet/helpers';
+import { getDefaultResponsiveValue } from '../responsive-control/default-values';
 
 const BREAKPOINT_VISIBILITY_CONTROLS = [
   {
@@ -38,7 +39,7 @@ const propTypes = {
 };
 
 const BreakpointVisibilityControl = ({
-  values,
+  values = getDefaultResponsiveValue(),
   onChange,
   label = __('Viewport visibility'),
 }) => {

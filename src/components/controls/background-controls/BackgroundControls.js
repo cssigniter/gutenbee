@@ -39,7 +39,8 @@ const BackgroundControls = ({
   backgroundVideoUrlValue,
   label = __('Background'),
 }) => {
-  const { url, repeat, size, position, attachment } = backgroundImageValue;
+  const { url, repeat, size, position, attachment } =
+    backgroundImageValue ?? {};
   const { parallax, parallaxSpeed } = parallaxValue;
 
   const onSetBackgroundImageSetting = setting => {

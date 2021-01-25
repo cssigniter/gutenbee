@@ -185,11 +185,11 @@ const v3 = {
       ...attributes,
       backgroundImage: {
         desktop: {
-          url: attributes.backgroundImage.url,
-          repeat: attributes.backgroundImage.repeat,
-          size: attributes.backgroundImage.size,
-          position: attributes.backgroundImage.position,
-          attachment: attributes.backgroundImage.attachment,
+          url: attributes.backgroundImage.url ?? '',
+          repeat: attributes.backgroundImage.repeat ?? 'no-repeat',
+          size: attributes.backgroundImage.size ?? 'cover',
+          position: attributes.backgroundImage.position ?? 'top center',
+          attachment: attributes.backgroundImage.attachment ?? 'scroll',
         },
         tablet: {
           url: '',

@@ -246,9 +246,7 @@ const IconBox = ({ className, attributes }) => {
     uniqueId,
     titleNodeLevel,
     titleContent,
-    titleFontSize,
     textContent,
-    textFontSize,
     align,
     contentAlign,
     iconMargin,
@@ -257,6 +255,8 @@ const IconBox = ({ className, attributes }) => {
     titleColor,
     textColor,
     backgroundColor,
+    blockBreakpointVisibility,
+    blockAuthVisibility,
   } = attributes;
 
   const blockId = getBlockId(uniqueId);
@@ -264,11 +264,16 @@ const IconBox = ({ className, attributes }) => {
   return (
     <div
       id={blockId}
-      className={classNames({
-        [className]: true,
-        [`wp-block-gutenbee-iconbox-align-${align}`]: true,
-        [`wp-block-gutenbee-iconbox-content-align-${contentAlign}`]: !!contentAlign,
-      })}
+      className={classNames(
+        className,
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+        {
+          [`wp-block-gutenbee-iconbox-align-${align}`]: true,
+          [`wp-block-gutenbee-iconbox-content-align-${contentAlign}`]: !!contentAlign,
+        },
+      )}
       style={{
         backgroundColor: backgroundColor || undefined,
         ...getBorderCSSValue({ attributes }),
@@ -292,7 +297,6 @@ const IconBox = ({ className, attributes }) => {
             className="wp-block-gutenbee-iconbox-title"
             style={{
               color: titleColor || undefined,
-              fontSize: titleFontSize ? `${titleFontSize}px` : undefined,
               marginBottom:
                 titleBottomSpacing != null
                   ? `${titleBottomSpacing}px`
@@ -308,7 +312,6 @@ const IconBox = ({ className, attributes }) => {
             className="wp-block-gutenbee-iconbox-text"
             style={{
               color: textColor || undefined,
-              fontSize: textFontSize ? `${textFontSize}px` : undefined,
             }}
           />
         )}
@@ -318,6 +321,9 @@ const IconBox = ({ className, attributes }) => {
 };
 
 const v5 = {
+  supports: {
+    anchor: true,
+  },
   attributes: {
     ...iconV5DeprecationAttributes,
     uniqueId: {
