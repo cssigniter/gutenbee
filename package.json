@@ -1,6 +1,6 @@
 {
   "name": "gutenbee",
-  "version": "2.10.0",
+  "version": "2.10.1",
   "license": "GPL-2.0-or-later",
   "devDependencies": {
     "@babel/cli": "7.12.7",
@@ -40,6 +40,7 @@
     "prop-types": "15.6.2",
     "sass-loader": "7.0.3",
     "style-loader": "0.21.0",
+    "terser-webpack-plugin": "4.2.3",
     "webpack": "^4.16.2",
     "webpack-cli": "3.1.0"
   },

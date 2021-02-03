@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autoprefixer = require('autoprefixer');
 const CSSMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -161,8 +162,10 @@ if (NODE_ENV === 'production') {
 
   webpackConfig.optimization = {
     ...webpackConfig.optimization,
+    minimize: true,
     minimizer: [
       ...(webpackConfig.optimization.minimizer || []),
+      new TerserPlugin(),
       new CSSMinimizerPlugin(),
     ],
   };
