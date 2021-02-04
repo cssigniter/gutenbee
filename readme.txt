@@ -73,6 +73,13 @@ Note that if you want to use the Google Maps block you will also need a Google M
 
 == Changelog ==
 
+= 2.10.1 =
+* Fix an issue that prevented JavaScript assets from being minified.
+* Updated all instances of window.load to avoid a race condition causing Firefox to not run the scripts occasionally (Banner block / Slideshow block)
+* Image block: Removed clearfix styling.
+* Banner block: Fixed an issue where the banner's background image would be hidden if it was inside a container with an overlay color.
+* Slideshow block: Remove all dependencies on jquery-migrate.
+
 = 2.10.0 =
 * Paragraph block's content can now be included in auto-generated excerpts.
 * Modernized CSS prefixes.
