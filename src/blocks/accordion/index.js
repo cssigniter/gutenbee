@@ -31,6 +31,7 @@ const Accordion = ({ className, attributes }) => {
     collapseOthers,
     blockBreakpointVisibility,
     blockAuthVisibility,
+    defaultOpenTabs = [],
   } = attributes;
 
   const blockId = getBlockId(uniqueId);
@@ -48,8 +49,15 @@ const Accordion = ({ className, attributes }) => {
     >
       <AccordionStyle attributes={attributes} />
 
-      {tabs.map(tab => (
-        <div className="wp-block-gutenbee-accordion-item">
+      {tabs.map((tab, index) => (
+        <div
+          className={classNames({
+            'wp-block-gutenbee-accordion-item': true,
+            'wp-block-gutenbee-accordion-item-expanded': defaultOpenTabs?.includes(
+              index,
+            ),
+          })}
+        >
           <div
             className="wp-block-gutenbee-accordion-item-title"
             style={{
@@ -108,6 +116,9 @@ registerBlockType('gutenbee/accordion', {
     collapseOthers: {
       type: 'boolean',
       default: true,
+    },
+    defaultOpenTabs: {
+      type: 'array',
     },
     titleBackgroundColor: {
       type: 'string',

@@ -39,7 +39,7 @@ const BannerStyle = ({ attributes, children }) => {
       />
       <Rule
         value={blockPadding}
-        rule=".wp-block-gutenbee-banner.[root] .wp-block-gutenbee-banner-inner { padding: %s; }"
+        rule=".wp-block-gutenbee-banner.[root] > .wp-block-gutenbee-banner-inner { padding: %s; }"
         unit="px"
       />
       <Rule
@@ -52,7 +52,7 @@ const BannerStyle = ({ attributes, children }) => {
       />
       <Rule
         value={backgroundImage}
-        rule=".wp-block-gutenbee-banner.[root] .wp-block-gutenbee-banner-background { %s }"
+        rule=".wp-block-gutenbee-banner.[root] > .wp-block-gutenbee-banner-background { %s }"
       />
       {children}
     </StyleSheet>

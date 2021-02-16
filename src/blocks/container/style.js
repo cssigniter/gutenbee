@@ -45,7 +45,7 @@ const ContainerStyle = ({ attributes, children }) => {
       />
       <Rule
         value={innerContentWidth}
-        rule=".wp-block-gutenbee-container.[root] .wp-block-gutenbee-container-inner { width: %s; }"
+        rule=".wp-block-gutenbee-container.[root] > .wp-block-gutenbee-container-inner { width: %s; }"
         unit="px"
         edgeCase={{
           edge: -1,
@@ -62,7 +62,7 @@ const ContainerStyle = ({ attributes, children }) => {
       />
       <Rule
         value={backgroundImage}
-        rule=".wp-block-gutenbee-container.[root] .wp-block-gutenbee-container-background { %s }"
+        rule=".wp-block-gutenbee-container.[root] > .wp-block-gutenbee-container-background { %s }"
       />
       {children}
     </StyleSheet>

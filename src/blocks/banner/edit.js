@@ -60,20 +60,20 @@ const BannerEditStyle = ({ attributes, children }) => {
       />
       <Rule
         value={blockPadding}
-        rule=".wp-block-gutenbee-banner.[root] .wp-block-gutenbee-banner-inner { padding: %s; }"
+        rule=".wp-block-gutenbee-banner.[root] > .wp-block-gutenbee-banner-inner { padding: %s; }"
         unit="px"
       />
       <Rule
         value={horizontalContentAlignment}
-        rule=".wp-block-gutenbee-banner.[root] .wp-block-gutenbee-banner-inner { align-items: %s; }"
+        rule=".wp-block-gutenbee-banner.[root] > .wp-block-gutenbee-banner-inner { align-items: %s; }"
       />
       <Rule
         value={verticalContentAlignment}
-        rule=".wp-block-gutenbee-banner.[root] .wp-block-gutenbee-banner-inner { justify-content: %s; }"
+        rule=".wp-block-gutenbee-banner.[root] > .wp-block-gutenbee-banner-inner { justify-content: %s; }"
       />
       <Rule
         value={backgroundImage}
-        rule=".wp-block-gutenbee-banner.[root] .wp-block-gutenbee-banner-background { %s }"
+        rule=".wp-block-gutenbee-banner.[root] > .wp-block-gutenbee-banner-background { %s }"
       />
       {children}
     </StyleSheet>

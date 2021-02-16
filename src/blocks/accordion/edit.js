@@ -45,7 +45,6 @@ const AccordionsEdit = ({
   setAttributes,
   clientId,
 }) => {
-  const [openTabs, setOpenTabs] = useState([0]);
   const {
     uniqueId,
     tabs,
@@ -57,7 +56,12 @@ const AccordionsEdit = ({
     collapseOthers,
     blockBreakpointVisibility,
     blockAuthVisibility,
+    defaultOpenTabs = [],
   } = attributes;
+  const [activeTab, setActiveTab] = useState(0);
+  const initialOpenTabs =
+    defaultOpenTabs?.length > 0 ? defaultOpenTabs : [activeTab];
+  const [openTabs, setOpenTabs] = useState(initialOpenTabs);
 
   useUniqueId({ attributes, setAttributes, clientId });
 
@@ -67,6 +71,7 @@ const AccordionsEdit = ({
 
   const onTabToggle = (index, focus) => {
     const isExpanded = isTabExpanded(index);
+    setActiveTab(index);
 
     if (collapseOthers) {
       setOpenTabs([index]);
@@ -209,6 +214,26 @@ const AccordionsEdit = ({
               label={__('Collapse others on click')}
               checked={collapseOthers}
               onChange={value => setAttributes({ collapseOthers: value })}
+            />
+
+            <ToggleControl
+              label={__('Start current tab open')}
+              checked={defaultOpenTabs.includes(activeTab)}
+              onChange={() => {
+                if (defaultOpenTabs.includes(activeTab)) {
+                  // Uncheck
+                  setAttributes({
+                    defaultOpenTabs: defaultOpenTabs.filter(
+                      i => i !== activeTab,
+                    ),
+                  });
+                } else {
+                  // Check
+                  setAttributes({
+                    defaultOpenTabs: [...defaultOpenTabs, activeTab],
+                  });
+                }
+              }}
             />
           </PanelBody>
 
