@@ -28,7 +28,7 @@ registerBlockType('gutenbee/spacer', {
   category: 'gutenbee',
   keywords: [__('spacer'), __('spacing'), __('distance')],
   supports: {
-    anchor: false,
+    anchor: true,
   },
   attributes: {
     uniqueId: {
@@ -90,7 +90,6 @@ registerBlockType('gutenbee/spacer', {
 
     return (
       <div
-        id={blockId}
         className={classNames(
           className,
           blockId,
