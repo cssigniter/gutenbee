@@ -149,6 +149,34 @@ const v2 = {
   migrate: attributes => {
     return {
       ...attributes,
+      backgroundImage: {
+        desktop: {
+          url: attributes.backgroundImage.url ?? '',
+          repeat: attributes.backgroundImage.repeat ?? 'no-repeat',
+          size: attributes.backgroundImage.size ?? 'cover',
+          position: attributes.backgroundImage.position ?? 'top center',
+          attachment: attributes.backgroundImage.attachment ?? 'scroll',
+        },
+        tablet: {
+          url: '',
+          repeat: 'no-repeat',
+          size: 'cover',
+          position: 'top center',
+          attachment: 'scroll',
+        },
+        mobile: {
+          url: '',
+          repeat: 'no-repeat',
+          size: 'cover',
+          position: 'top center',
+          attachment: 'scroll',
+        },
+      },
+      backgroundImageEffects: {
+        zoom: attributes.backgroundImage?.zoom ?? false,
+        parallax: attributes.backgroundImage?.parallax ?? false,
+        parallaxSpeed: attributes.backgroundImage?.parallaxSpeed ?? 0.3,
+      },
       blockBreakpointVisibility: {
         desktop: false,
         tablet: false,

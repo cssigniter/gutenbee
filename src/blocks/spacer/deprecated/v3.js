@@ -55,6 +55,34 @@ const v3 = {
   migrate: attributes => {
     return {
       ...attributes,
+      backgroundImage: {
+        desktop: {
+          url: attributes.backgroundImage.url,
+          repeat: attributes.backgroundImage.repeat,
+          size: attributes.backgroundImage.size,
+          position: attributes.backgroundImage.position,
+          attachment: attributes.backgroundImage.attachment,
+        },
+        tablet: {
+          url: '',
+          repeat: 'no-repeat',
+          size: 'cover',
+          position: 'top center',
+          attachment: 'scroll',
+        },
+        mobile: {
+          url: '',
+          repeat: 'no-repeat',
+          size: 'cover',
+          position: 'top center',
+          attachment: 'scroll',
+        },
+      },
+      backgroundImageEffects: {
+        zoom: attributes.backgroundImage?.zoom ?? false,
+        parallax: attributes.backgroundImage?.parallax ?? false,
+        parallaxSpeed: attributes.backgroundImage?.parallaxSpeed ?? 0.3,
+      },
       blockBreakpointVisibility: {
         desktop: false,
         tablet: false,
