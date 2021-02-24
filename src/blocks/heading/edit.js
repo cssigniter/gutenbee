@@ -138,14 +138,14 @@ function HeadingEdit({
             {breakpoint => (
               <FontSizePickerLabel
                 value={fontSize[breakpoint]}
-                onChange={value =>
+                onChange={value => {
                   setAttributes({
                     fontSize: {
                       ...fontSize,
                       [breakpoint]: value != null ? value : '',
                     },
-                  })
-                }
+                  });
+                }}
               />
             )}
           </ResponsiveControl>

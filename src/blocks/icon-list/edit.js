@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import { Fragment } from 'wp.element';
-import { InnerBlocks, FontSizePicker } from 'wp.blockEditor';
+import { InnerBlocks } from 'wp.blockEditor';
 import { InspectorControls } from 'wp.blockEditor';
 import { PanelBody, SelectControl, RangeControl } from 'wp.components';
 import classNames from 'classnames';
@@ -20,6 +20,7 @@ import IconListStyle from './style';
 import Rule from '../../components/stylesheet/Rule';
 import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
+import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
 
 const propTypes = {
   attributes: PropTypes.object.isRequired,
@@ -247,7 +248,7 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
         >
           <ResponsiveControl>
             {breakpoint => (
-              <FontSizePicker
+              <FontSizePickerLabel
                 value={iconSize[breakpoint]}
                 onChange={value =>
                   setAttributes({
@@ -268,7 +269,7 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
         >
           <ResponsiveControl>
             {breakpoint => (
-              <FontSizePicker
+              <FontSizePickerLabel
                 value={fontSize[breakpoint]}
                 onChange={value =>
                   setAttributes({

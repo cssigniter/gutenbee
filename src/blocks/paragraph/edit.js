@@ -4,7 +4,6 @@ import { __ } from 'wp.i18n';
 import { PanelBody, ToggleControl, withFallbackStyles } from 'wp.components';
 import {
   withColors,
-  FontSizePicker,
   InspectorControls,
   RichText,
   AlignmentToolbar,
@@ -26,6 +25,7 @@ import BreakpointVisibilityControl from '../../components/controls/breakpoint-vi
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
+import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
 
 const { getComputedStyle } = window;
 
@@ -77,16 +77,16 @@ const ParagraphBlock = ({
         <PanelBody title={__('Text Settings')} className="blocks-font-size">
           <ResponsiveControl>
             {breakpoint => (
-              <FontSizePicker
+              <FontSizePickerLabel
                 value={fontSize[breakpoint]}
-                onChange={value =>
+                onChange={value => {
                   setAttributes({
                     fontSize: {
                       ...fontSize,
                       [breakpoint]: value != null ? value : '',
                     },
-                  })
-                }
+                  });
+                }}
               />
             )}
           </ResponsiveControl>
@@ -120,7 +120,7 @@ const ParagraphBlock = ({
           </ResponsiveControl>
         </PanelBody>
 
-        <PanelBody title={__('Block Appearancce')} initialOpen={false}>
+        <PanelBody title={__('Block Appearance')} initialOpen={false}>
           <PopoverColorControl
             label={__('Text Color')}
             value={textColor.color || ''}

@@ -1,7 +1,7 @@
 import { Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
-import { InspectorControls, RichText, FontSizePicker } from 'wp.blockEditor';
+import { InspectorControls, RichText } from 'wp.blockEditor';
 import { PanelBody, TextControl, ToggleControl } from 'wp.components';
 import classNames from 'classnames';
 
@@ -17,6 +17,7 @@ import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
+import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
 
 const propTypes = {
   attributes: PropTypes.object.isRequired,
@@ -115,16 +116,16 @@ const ButtonEdit = ({ attributes, setAttributes, className, clientId }) => {
         <PanelBody title={__('Block Appearance')} initialOpen={false}>
           <ResponsiveControl>
             {breakpoint => (
-              <FontSizePicker
+              <FontSizePickerLabel
                 value={fontSize[breakpoint]}
-                onChange={value =>
+                onChange={value => {
                   setAttributes({
                     fontSize: {
                       ...fontSize,
                       [breakpoint]: value != null ? value : '',
                     },
-                  })
-                }
+                  });
+                }}
               />
             )}
           </ResponsiveControl>
