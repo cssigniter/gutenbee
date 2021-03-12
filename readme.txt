@@ -2,7 +2,7 @@
 Contributors: cssigniterteam, silencerius, nvourva, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 5.4
-Tested up to: 5.6.2
+Tested up to: 5.7
 Stable tag: 2.10.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
@@ -72,6 +72,10 @@ Note that if you want to use the Google Maps block you will also need a Google M
 7. Tabs or Accordions, group your content the way you want.
 
 == Changelog ==
+
+= 2.10.4 =
+* Fixed an infinite loop that was causing the Container block to crash in WP 5.7
+* Fixed issue with color pickers where they would open and close immediately in WP 5.7
 
 = 2.10.3 =
 * Fixed an issue where custom font sizes would not be applied in the editor for the Paragraph, Heading, Button, and Icon List blocks.
