@@ -342,6 +342,8 @@
 		$container_classes = array_unique( array_filter( $container_classes ) );
 
 		$item_template_vars = array(
+			'columns'    => $columns,
+			'classes'    => array_filter( array_map( 'trim', explode( ' ', $class_name ) ) ),
 			'image-size' => false, // Don't force a default image size. Let templates decide for themselves.
 		);
 
