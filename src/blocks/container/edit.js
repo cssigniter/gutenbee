@@ -1,20 +1,16 @@
 import { Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { compose } from 'wp.compose';
-import {
-  InnerBlocks,
-  __experimentalBlockVariationPicker as ExperimentalBlockVariationPicker,
-} from 'wp.blockEditor';
-import { withDispatch, withSelect, useSelect, useDispatch } from 'wp.data';
+import { InnerBlocks } from 'wp.blockEditor';
+import { withDispatch, withSelect, useSelect } from 'wp.data';
 import { createBlock } from 'wp.blocks';
-import { times, dropRight, get } from 'lodash';
+import { times, dropRight } from 'lodash';
 import classNames from 'classnames';
 
 import useUniqueId from '../../hooks/useUniqueId';
 import ContainerStyle from './style';
 import getBlockId from '../../util/getBlockId';
 import {
-  createBlocksFromInnerBlocksTemplate,
   getMappedColumnWidths,
   onVimeoApiReady,
   onYouTubeApiReady,
@@ -25,6 +21,7 @@ import { getBorderCSSValue } from '../../components/controls/border-controls/hel
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 import { useVideoEmbed } from '../../util/video/useVideoEmbed';
 import VideoBackgroundEditor from '../../util/video/components/VideoBackgroundEditor';
+import ContainerPlaceholder from './ContainerPlaceholder';
 
 const propTypes = {
   className: PropTypes.string.isRequired,
@@ -53,24 +50,14 @@ const ContainerBlockEdit = ({
     overflow,
   } = attributes;
 
-  const { count, variations, blockType, defaultVariation } = useSelect(
+  const { count } = useSelect(
     select => {
-      const {
-        getBlockVariations,
-        getBlockType,
-        getDefaultBlockVariation,
-      } = select('core/blocks');
-
       return {
         count: select('core/block-editor').getBlockCount(clientId),
-        variations: getBlockVariations(name, 'block'),
-        defaultVariation: getDefaultBlockVariation(name, 'block'),
-        blockType: getBlockType(name),
       };
     },
-    [clientId, name],
+    [clientId],
   );
-  const { replaceInnerBlocks, selectBlock } = useDispatch('core/block-editor');
 
   const hasInnerBlocks = count > 0;
 
@@ -123,9 +110,8 @@ const ContainerBlockEdit = ({
             <div className={`${baseClass}-row`}>
               <InnerBlocks
                 allowedBlocks={['gutenbee/column']}
-                __experimentalMoverDirection="horizontal"
                 orientation="horizontal"
-                __experimentalPassedProps={{}}
+                renderAppender={false}
               />
             </div>
           </div>
@@ -157,30 +143,11 @@ const ContainerBlockEdit = ({
           </div>
         </div>
       ) : (
-        <div>
-          <ExperimentalBlockVariationPicker
-            icon={get(blockType, ['icon', 'src'])}
-            label={get(blockType, ['title'])}
-            variations={variations}
-            onSelect={(nextVariation = defaultVariation) => {
-              if (nextVariation.attributes) {
-                setAttributes(nextVariation.attributes);
-              }
-
-              if (nextVariation.innerBlocks) {
-                replaceInnerBlocks(
-                  clientId,
-                  createBlocksFromInnerBlocksTemplate(
-                    nextVariation.innerBlocks,
-                  ),
-                );
-              }
-
-              selectBlock(clientId);
-            }}
-            allowSkip
-          />
-        </div>
+        <ContainerPlaceholder
+          name={name}
+          clientId={clientId}
+          setAttributes={setAttributes}
+        />
       )}
 
       {hasInnerBlocks && (

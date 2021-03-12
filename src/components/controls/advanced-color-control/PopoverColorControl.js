@@ -138,7 +138,14 @@ const PopoverColorControl = ({
           <Tooltip text={__('Select Color')}>
             <Button
               className="gutenbee-color-icon-indicator"
-              onMouseDown={toggleVisible}
+              // Prevents from firing Popover.onClose before the onClick registers.
+              // This prevents the Popover to close and open when clicking at this trigger
+              // while it's open.
+              onMouseDown={event => {
+                event.preventDefault();
+                event.stopPropagation();
+              }}
+              onClick={toggleVisible}
             >
               <ColorIndicator
                 className="gutenbee-advanced-color-indicator"
