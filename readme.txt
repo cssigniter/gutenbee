@@ -73,6 +73,9 @@ Note that if you want to use the Google Maps block you will also need a Google M
 
 == Changelog ==
 
+= 2.10.5 =
+* Post Type block: Pass the number of columns and any classes (including block style-sourced ones) down into the item templates.
+
 = 2.10.4 =
 * Fixed an infinite loop that was causing the Container block to crash in WP 5.7
 * Fixed issue with color pickers where they would open and close immediately in WP 5.7
