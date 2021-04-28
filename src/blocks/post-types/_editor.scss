@@ -17,3 +17,16 @@
     padding: 0 5px;
   }
 }
+
+.gutenbee-post-types-block-style-item {
+  border: 1px solid #e0e0e0;
+  border-radius: 3px;
+  align-items: center;
+  justify-content: center;
+
+  .block-editor-block-preview__container,
+  .block-editor-block-styles__item-preview {
+    display: none !important;
+    height: 0 !important;
+  }
+}

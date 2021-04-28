@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'wp.element';
+import { Fragment, useEffect, useRef } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import { compose } from 'wp.compose';
@@ -13,6 +13,7 @@ import { InspectorControls } from 'wp.blockEditor';
 import ServerSideRender from 'wp.serverSideRender';
 
 import MultiSelectCheckboxControl from '../../components/controls/multi-select-checkbox-control';
+import isRenderedInEditor from '../../util/isRenderedInEditor';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -115,6 +116,7 @@ const PostTypesEdit = ({
   const supports = window.__GUTENBEE_SETTINGS__.theme_supports['post-types'];
   const postTypeColumns = window.__GUTENBEE_SETTINGS__.post_type_columns || {};
   const columnLimits = postTypeColumns[postType] || {};
+  const ref = useRef(null);
 
   // When changing a post type, check its column limits and apply different ones
   useEffect(
@@ -138,9 +140,29 @@ const PostTypesEdit = ({
     [postType],
   );
 
+  useEffect(
+    () => {
+      if (!!ref.current && !isRenderedInEditor(ref.current)) {
+        ref.current
+          .closest('.block-editor-block-styles__item')
+          ?.classList?.add('gutenbee-post-types-block-style-item');
+      }
+    },
+    [ref.current],
+  );
+
   return (
     <Fragment>
-      <ServerSideRender block="gutenbee/post-types" attributes={attributes} />
+      <div ref={ref}>
+        {isRenderedInEditor(ref.current) ? (
+          <ServerSideRender
+            block="gutenbee/post-types"
+            attributes={attributes}
+          />
+        ) : (
+          ' '
+        )}
+      </div>
 
       {isSelected && (
         <InspectorControls>
@@ -389,6 +411,18 @@ const getPostTypeTaxonomy = (taxonomies, postType) => {
 };
 
 const withData = withSelect((select, ownProps) => {
+  if (!ownProps.isSelected) {
+    return {
+      postTypes: [],
+      posts: [],
+      authors: [],
+      taxonomy: null,
+      terms: [],
+      postTags: [],
+      imageSizes: [],
+    };
+  }
+
   const excludedPostTypeSlugs = ['attachment', 'wp_block'];
   const { getPostTypes, getAuthors, getTaxonomies, getEntityRecords } = select(
     'core',
