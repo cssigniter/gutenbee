@@ -2,8 +2,8 @@
 Contributors: cssigniterteam, silencerius, nvourva, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 5.4
-Tested up to: 5.7
-Stable tag: 2.10.5
+Tested up to: 5.7.1
+Stable tag: 2.10.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
 Requires PHP: 5.6
@@ -72,6 +72,9 @@ Note that if you want to use the Google Maps block you will also need a Google M
 7. Tabs or Accordions, group your content the way you want.
 
 == Changelog ==
+
+= 2.10.6 =
+* Post Type block: Prevent block style previews from loading complete preview of the block to improve performance.
 
 = 2.10.5 =
 * Post Type block: Pass the number of columns and any classes (including block style-sourced ones) down into the item templates.
