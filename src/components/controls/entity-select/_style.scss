@@ -39,21 +39,37 @@
 
 .entity-search-values {
   margin-top: -10px;
+  max-height: 120px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border: 1px solid $input-border-color;
+  padding: 8px;
+  background-color: $white;
+  border-radius: $input-border-radius;
+  position: relative;
 }
 
 .entity-search-values-item {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   border: 1px solid #d7dade;
   border-radius: 2px;
   background-color: #efefef;
   padding: 1px 4px 1px 8px;
-  margin: 0 5px 5px 0;
+  margin: 0 0 5px;
 
   .components-button {
-    padding: 4px;
+    padding: 4px 10px;
     height: auto;
     line-height: normal;
     color: red;
   }
+}
+
+.entity-search-values-item-title {
+  flex: auto;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

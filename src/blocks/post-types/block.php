@@ -128,6 +128,14 @@
 					),
 					'default' => array(),
 				),
+				'excludedPosts' => array(
+					'type'    => 'array',
+					'default' => array(),
+				),
+				'includedPosts' => array(
+					'type'    => 'array',
+					'default' => array(),
+				),
 				'columns'         => array(
 					'type'    => 'number',
 					'default' => 3,

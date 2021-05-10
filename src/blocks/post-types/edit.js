@@ -50,8 +50,10 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected }) => {
     offset,
     orderBy,
     order,
-    excludedPostIds,
-    includedPostIds,
+    // excludedPostIds,
+    excludedPosts,
+    // includedPostIds,
+    includedPosts,
     gridEffect,
     gridSpacing,
     masonry,
@@ -202,15 +204,15 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected }) => {
             <EntitySelect
               postType={postType}
               label={__('Excluded Posts')}
-              values={excludedPostIds}
-              onChange={value => setAttributes({ excludedPostIds: value })}
+              values={excludedPosts}
+              onChange={value => setAttributes({ excludedPosts: value })}
             />
 
             <EntitySelect
               postType={postType}
               label={__('Included Posts')}
-              value={includedPostIds}
-              onChange={value => setAttributes({ includedPostIds: value })}
+              values={includedPosts}
+              onChange={value => setAttributes({ includedPosts: value })}
             />
 
             <RangeControl

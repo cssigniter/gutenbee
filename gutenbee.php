@@ -5,7 +5,7 @@
  * Description: Premium Blocks for WordPress
  * Author: The CSSIgniter Team
  * Author URI: https://www.cssigniter.com
- * Version: 2.10.6
+ * Version: 2.10.6.1
  * Text Domain: gutenbee
  * Domain Path: languages
  *

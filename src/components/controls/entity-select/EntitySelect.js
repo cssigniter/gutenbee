@@ -2,22 +2,29 @@ import { useState } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import { useSelect } from 'wp.data';
+import { useDebounce } from 'use-debounce';
 import { BaseControl, TextControl, Spinner } from 'wp.components';
 
 const propTypes = {
   label: PropTypes.string.isRequired,
   postType: PropTypes.string,
-  values: PropTypes.array,
+  values: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string,
+    }),
+  ),
   onChange: PropTypes.func.isRequired,
 };
 
 const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
   const MIN_QUERY_LENGTH = 2;
   const [query, setQuery] = useState('');
+  const [debouncedQuery] = useDebounce(query, 500);
   const [queryFocused, setQueryFocused] = useState(false);
   const results = useSelect(
     select => {
-      if (query?.length <= MIN_QUERY_LENGTH) {
+      if (debouncedQuery?.length <= MIN_QUERY_LENGTH) {
         return [];
       }
 
@@ -25,10 +32,10 @@ const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
 
       return getEntityRecords('postType', postType, {
         per_page: 15,
-        search: query,
+        search: debouncedQuery,
       });
     },
-    [query],
+    [debouncedQuery],
   );
   const loading = query?.length > MIN_QUERY_LENGTH && results === null;
   const resultsEmpty =
@@ -36,7 +43,7 @@ const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
 
   const onValuesChange = optionValue => {
     if (values.includes(optionValue)) {
-      onChange(values.filter(v => v !== optionValue));
+      onChange(values.filter(v => v.id !== optionValue.id));
       return;
     }
 
@@ -49,7 +56,7 @@ const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
         <TextControl
           label={__('Search')}
           hideLabelFromVision
-          placeholder={__('Search…')}
+          placeholder={__('Search posts…')}
           className="entity-select-search-control-input"
           value={query}
           onChange={setQuery}
@@ -90,7 +97,10 @@ const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
                   href="#"
                   onClick={event => {
                     event.preventDefault();
-                    onValuesChange(result.id);
+                    onValuesChange({
+                      id: result.id,
+                      title: result.title.raw,
+                    });
                     setQuery('');
                   }}
                 >
@@ -105,8 +115,10 @@ const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
         <div className="entity-search-values">
           {values.map(v => {
             return (
-              <span key={v} className="entity-search-values-item">
-                {v}{' '}
+              <span key={v.id} className="entity-search-values-item">
+                <span className="entity-search-values-item-title">
+                  {v.title ?? v.id}
+                </span>
                 <button
                   className="components-button"
                   onClick={() => onValuesChange(v)}
