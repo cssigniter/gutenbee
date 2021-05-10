@@ -25,7 +25,7 @@ const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
   const results = useSelect(
     select => {
       if (debouncedQuery?.length <= MIN_QUERY_LENGTH) {
-        return [];
+        return null;
       }
 
       const { getEntityRecords } = select('core');
@@ -39,7 +39,7 @@ const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
   );
   const loading = query?.length > MIN_QUERY_LENGTH && results === null;
   const resultsEmpty =
-    query?.length > MIN_QUERY_LENGTH && results?.length === 0;
+    query?.length > 0 && results != null && results?.length === 0;
 
   const onValuesChange = optionValue => {
     if (values.includes(optionValue)) {
@@ -76,7 +76,7 @@ const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
             display: queryFocused ? 'block' : 'none',
           }}
         >
-          {!loading && !resultsEmpty && query?.length < MIN_QUERY_LENGTH && (
+          {!loading && !resultsEmpty && query?.length <= MIN_QUERY_LENGTH && (
             <p>{__('Type to search...')}</p>
           )}
 
@@ -117,7 +117,7 @@ const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
             return (
               <span key={v.id} className="entity-search-values-item">
                 <span className="entity-search-values-item-title">
-                  {v.title ?? v.id}
+                  {v.title ?? `Post ID: ${v.id}`}
                 </span>
                 <button
                   className="components-button"

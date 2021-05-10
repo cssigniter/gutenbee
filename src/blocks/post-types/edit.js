@@ -77,6 +77,8 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected }) => {
   } = usePostTypesData({
     isSelected,
     selectedPostType: attributes.postType,
+    attributes,
+    setAttributes,
   });
 
   // When changing a post type, check its column limits and apply different ones
