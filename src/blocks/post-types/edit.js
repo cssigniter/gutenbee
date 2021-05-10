@@ -1,8 +1,6 @@
 import { Fragment, useEffect, useRef } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
-import { compose } from 'wp.compose';
-import { withSelect } from 'wp.data';
 import {
   SelectControl,
   RangeControl,
@@ -14,6 +12,8 @@ import ServerSideRender from 'wp.serverSideRender';
 
 import MultiSelectCheckboxControl from '../../components/controls/multi-select-checkbox-control';
 import isRenderedInEditor from '../../util/isRenderedInEditor';
+import usePostTypesData from './usePostTypesData';
+import EntitySelect from '../../components/controls/entity-select/EntitySelect';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -27,6 +27,7 @@ const propTypes = {
     offset: PropTypes.number,
     orderBy: PropTypes.string,
     order: PropTypes.string,
+    includedPostIds: PropTypes.array,
     excludedPostIds: PropTypes.array,
     gridEffect: PropTypes.string,
     gridSpacing: PropTypes.string,
@@ -36,63 +37,9 @@ const propTypes = {
   }).isRequired,
   setAttributes: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
-  postTypes: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      slug: PropTypes.string,
-    }),
-  ),
-  authors: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-    }),
-  ),
-  posts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      title: PropTypes.shape({
-        raw: PropTypes.string,
-        rendered: PropTypes.string,
-      }),
-    }),
-  ),
-  terms: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      slug: PropTypes.string,
-    }),
-  ),
-  taxonomy: PropTypes.shape({
-    id: PropTypes.number,
-  }),
-  postTags: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.number,
-    }),
-  ),
-  imageSizes: PropTypes.arrayOf(
-    PropTypes.shape({
-      slug: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-    }),
-  ),
 };
 
-const PostTypesEdit = ({
-  attributes,
-  setAttributes,
-  isSelected,
-  postTypes,
-  authors,
-  posts,
-  terms,
-  taxonomy,
-  postTags,
-  imageSizes,
-}) => {
+const PostTypesEdit = ({ attributes, setAttributes, isSelected }) => {
   const {
     postType,
     termId,
@@ -117,6 +64,18 @@ const PostTypesEdit = ({
   const postTypeColumns = window.__GUTENBEE_SETTINGS__.post_type_columns || {};
   const columnLimits = postTypeColumns[postType] || {};
   const ref = useRef(null);
+
+  const {
+    postTypes,
+    authors,
+    taxonomy,
+    terms,
+    postTags,
+    imageSizes,
+  } = usePostTypesData({
+    isSelected,
+    selectedPostType: attributes.postType,
+  });
 
   // When changing a post type, check its column limits and apply different ones
   useEffect(
@@ -164,7 +123,7 @@ const PostTypesEdit = ({
         )}
       </div>
 
-      {isSelected && (
+      {isSelected && isRenderedInEditor(ref.current) && (
         <InspectorControls>
           <PanelBody>
             <SelectControl
@@ -240,29 +199,19 @@ const PostTypesEdit = ({
               />
             )}
 
-            {posts && posts.length > 0 && (
-              <MultiSelectCheckboxControl
-                label={__('Excluded Posts')}
-                value={excludedPostIds}
-                options={posts.map(p => ({
-                  value: p.id,
-                  label: p.title.raw,
-                }))}
-                onChange={value => setAttributes({ excludedPostIds: value })}
-              />
-            )}
+            <EntitySelect
+              postType={postType}
+              label={__('Excluded Posts')}
+              values={excludedPostIds}
+              onChange={value => setAttributes({ excludedPostIds: value })}
+            />
 
-            {posts && posts.length > 0 && (
-              <MultiSelectCheckboxControl
-                label={__('Included Posts')}
-                value={includedPostIds}
-                options={posts.map(p => ({
-                  value: p.id,
-                  label: p.title.raw,
-                }))}
-                onChange={value => setAttributes({ includedPostIds: value })}
-              />
-            )}
+            <EntitySelect
+              postType={postType}
+              label={__('Included Posts')}
+              value={includedPostIds}
+              onChange={value => setAttributes({ includedPostIds: value })}
+            />
 
             <RangeControl
               label={__('Posts Per Page')}
@@ -399,61 +348,61 @@ const PostTypesEdit = ({
 
 PostTypesEdit.propTypes = propTypes;
 
-const getPostTypeTaxonomy = (taxonomies, postType) => {
-  if (!taxonomies || !postType) {
-    return null;
-  }
+// const getPostTypeTaxonomy = (taxonomies, postType) => {
+//   if (!taxonomies || !postType) {
+//     return null;
+//   }
+//
+//   // Return the first hierarchical taxonomy that's assigned to the given post type.
+//   return taxonomies.find(
+//     taxonomy => taxonomy.hierarchical && taxonomy.types.includes(postType),
+//   );
+// };
+//
+// const withData = withSelect((select, ownProps) => {
+//   if (!ownProps.isSelected) {
+//     return {
+//       postTypes: [],
+//       posts: [],
+//       authors: [],
+//       taxonomy: null,
+//       terms: [],
+//       postTags: [],
+//       imageSizes: [],
+//     };
+//   }
+//
+//   const excludedPostTypeSlugs = ['attachment', 'wp_block'];
+//   const { getPostTypes, getAuthors, getTaxonomies, getEntityRecords } = select(
+//     'core',
+//   );
+//   const { getSettings } = select('core/block-editor');
+//   const { imageSizes } = getSettings();
+//
+//   const postTypes = getPostTypes() || [];
+//   const authors = getAuthors();
+//
+//   const taxonomies = getTaxonomies();
+//   const taxonomy = getPostTypeTaxonomy(
+//     taxonomies,
+//     ownProps.attributes.postType,
+//   );
+//
+//   return {
+//     postTypes: postTypes.filter(
+//       postType => !excludedPostTypeSlugs.includes(postType.slug),
+//     ),
+//     posts: getEntityRecords('postType', ownProps.attributes.postType, {
+//       per_page: -1,
+//     }),
+//     authors,
+//     taxonomy,
+//     terms: taxonomy
+//       ? getEntityRecords('taxonomy', taxonomy.slug, { per_page: -1 })
+//       : [],
+//     postTags: getEntityRecords('taxonomy', 'post_tag', { per_page: -1 }) || [],
+//     imageSizes,
+//   };
+// });
 
-  // Return the first hierarchical taxonomy that's assigned to the given post type.
-  return taxonomies.find(
-    taxonomy => taxonomy.hierarchical && taxonomy.types.includes(postType),
-  );
-};
-
-const withData = withSelect((select, ownProps) => {
-  if (!ownProps.isSelected) {
-    return {
-      postTypes: [],
-      posts: [],
-      authors: [],
-      taxonomy: null,
-      terms: [],
-      postTags: [],
-      imageSizes: [],
-    };
-  }
-
-  const excludedPostTypeSlugs = ['attachment', 'wp_block'];
-  const { getPostTypes, getAuthors, getTaxonomies, getEntityRecords } = select(
-    'core',
-  );
-  const { getSettings } = select('core/block-editor');
-  const { imageSizes } = getSettings();
-
-  const postTypes = getPostTypes() || [];
-  const authors = getAuthors();
-
-  const taxonomies = getTaxonomies();
-  const taxonomy = getPostTypeTaxonomy(
-    taxonomies,
-    ownProps.attributes.postType,
-  );
-
-  return {
-    postTypes: postTypes.filter(
-      postType => !excludedPostTypeSlugs.includes(postType.slug),
-    ),
-    posts: getEntityRecords('postType', ownProps.attributes.postType, {
-      per_page: -1,
-    }),
-    authors,
-    taxonomy,
-    terms: taxonomy
-      ? getEntityRecords('taxonomy', taxonomy.slug, { per_page: -1 })
-      : [],
-    postTags: getEntityRecords('taxonomy', 'post_tag', { per_page: -1 }) || [],
-    imageSizes,
-  };
-});
-
-export default compose(withData)(PostTypesEdit);
+export default PostTypesEdit;
