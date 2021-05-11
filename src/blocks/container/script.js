@@ -19,9 +19,9 @@ jQuery($ => {
   // YouTube videos
   function onYouTubeApiReady($videoBg) {
     const $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
-    const videoId = $videoBg
-      .parents('.wp-block-gutenbee-video-bg-wrapper')
-      .data('video-id');
+    const videoId = $videoWrap.data('video-id');
+    const startTime = $videoWrap.data('video-start');
+
     const video = $videoBg.attr('id');
     new window.YT.Player(video, {
       videoId: videoId,
@@ -36,6 +36,7 @@ jQuery($ => {
         cc_load_policy: 0,
         iv_load_policy: 3,
         autohide: 0,
+        start: startTime || undefined,
       },
       events: {
         onReady: function(event) {
@@ -54,9 +55,8 @@ jQuery($ => {
   // Vimeo videos
   function onVimeoApiReady($videoBg) {
     const $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
-    const videoId = $videoBg
-      .parents('.wp-block-gutenbee-video-bg-wrapper')
-      .data('video-id');
+    const videoId = $videoWrap.data('video-id');
+    const startTime = $videoWrap.data('video-start');
 
     const player = new window.Vimeo.Player($videoBg, {
       id: videoId,
@@ -69,6 +69,10 @@ jQuery($ => {
     });
 
     player.setVolume(0);
+
+    if (startTime) {
+      player.setCurrentTime(startTime);
+    }
 
     player.on('play', function() {
       $videoWrap.addClass('visible');

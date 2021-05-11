@@ -7,7 +7,6 @@ import { registerBlockType } from 'wp.blocks';
 
 import PostTypesEdit from './edit';
 import PostTypesBlockIcon from './block-icon';
-import deprecated from './deprecated';
 
 registerBlockType('gutenbee/post-types', {
   title: __('GutenBee Post Types'),
@@ -59,15 +58,7 @@ registerBlockType('gutenbee/post-types', {
       type: 'array',
       default: [],
     },
-    excludedPosts: {
-      type: 'array',
-      default: [],
-    },
     includedPostIds: {
-      type: 'array',
-      default: [],
-    },
-    includedPosts: {
       type: 'array',
       default: [],
     },
@@ -104,7 +95,6 @@ registerBlockType('gutenbee/post-types', {
       default: '',
     },
   },
-  deprecated,
 
   edit: PostTypesEdit,
   save: () => null,

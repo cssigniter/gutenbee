@@ -16,6 +16,7 @@ const VideoBackgroundFrontEnd = ({ id, className, videoInfo }) => {
       className={classNames(className, 'wp-block-gutenbee-video-bg-wrapper')}
       data-video-id={videoInfo?.id}
       data-video-type={videoInfo?.provider}
+      data-video-start={videoInfo?.start || undefined}
     >
       {videoInfo.provider === 'self' ? (
         <video

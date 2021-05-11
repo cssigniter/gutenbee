@@ -7,12 +7,17 @@ import { BaseControl, TextControl, Spinner } from 'wp.components';
 
 const propTypes = {
   label: PropTypes.string.isRequired,
-  postType: PropTypes.string,
+  taxonomy: PropTypes.string,
   values: PropTypes.arrayOf(PropTypes.string),
   onChange: PropTypes.func.isRequired,
 };
 
-const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
+const TermSelect = ({
+  label,
+  taxonomy = 'post_tag',
+  values = [],
+  onChange,
+}) => {
   const MIN_QUERY_LENGTH = 2;
   const [query, setQuery] = useState('');
   const [debouncedQuery] = useDebounce(query, 500);
@@ -26,7 +31,7 @@ const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
 
       const { getEntityRecords } = select('core');
 
-      return getEntityRecords('postType', postType, {
+      return getEntityRecords('taxonomy', taxonomy, {
         per_page: 15,
         search: debouncedQuery,
       });
@@ -54,12 +59,12 @@ const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
 
       const { getEntityRecords } = select('core');
 
-      return getEntityRecords('postType', postType, {
+      return getEntityRecords('taxonomy', taxonomy, {
         per_page: -1,
-        include: values,
+        slug: values,
       });
     },
-    [values, postType],
+    [values, taxonomy],
   );
 
   return (
@@ -68,7 +73,7 @@ const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
         <TextControl
           label={__('Search')}
           hideLabelFromVision
-          placeholder={__('Search posts…')}
+          placeholder={__('Search terms…')}
           className="entity-select-search-control-input"
           value={query}
           onChange={setQuery}
@@ -109,11 +114,11 @@ const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
                   href="#"
                   onClick={event => {
                     event.preventDefault();
-                    onValuesChange(result.id);
+                    onValuesChange(result.slug);
                     setQuery('');
                   }}
                 >
-                  {result.title.raw ?? __('(No Title)')}
+                  {result.name ?? __('(No Title)')}
                 </a>
               );
             })}
@@ -121,16 +126,16 @@ const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
       </div>
 
       {entities?.length > 0 && (
-        <div className="entity-search-values">
+        <div className="entity-search-values entity-search-values-inline">
           {entities.map(entity => {
             return (
               <span key={entity.id} className="entity-search-values-item">
                 <span className="entity-search-values-item-title">
-                  {entity.title.raw}
+                  {entity.name}
                 </span>
                 <button
                   className="components-button"
-                  onClick={() => onValuesChange(entity.id)}
+                  onClick={() => onValuesChange(entity.slug)}
                 >
                   &times;
                 </button>
@@ -143,6 +148,6 @@ const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
   );
 };
 
-EntitySelect.propTypes = propTypes;
+TermSelect.propTypes = propTypes;
 
-export default EntitySelect;
+export default TermSelect;

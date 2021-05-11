@@ -45,6 +45,7 @@ const VideoBackgroundEditor = ({ videoInfo, videoEmbedRef }) => {
           className="gutenbee-video-bg"
           data-video-id={videoInfo.id}
           data-video-type={videoInfo.provider}
+          data-video-start={videoInfo.start}
           ref={videoEmbedRef}
           style={{
             width: `${videoWidth}px`,

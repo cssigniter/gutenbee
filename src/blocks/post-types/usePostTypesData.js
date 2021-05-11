@@ -1,4 +1,3 @@
-import { useEffect } from 'wp.element';
 import { useSelect } from 'wp.data';
 
 const getPostTypeTaxonomy = (taxonomies, postType) => {
@@ -12,12 +11,7 @@ const getPostTypeTaxonomy = (taxonomies, postType) => {
   );
 };
 
-const usePostTypesData = ({
-  isSelected,
-  selectedPostType,
-  attributes,
-  setAttributes,
-}) => {
+const usePostTypesData = ({ isSelected, selectedPostType }) => {
   const excludedPostTypeSlugs = ['attachment', 'wp_block'];
   const data = useSelect(
     select => {
@@ -27,7 +21,6 @@ const usePostTypesData = ({
           authors: [],
           taxonomy: null,
           terms: [],
-          postTags: [],
           imageSizes: [],
         };
       }
@@ -56,36 +49,11 @@ const usePostTypesData = ({
         terms: taxonomy
           ? getEntityRecords('taxonomy', taxonomy.slug, { per_page: -1 })
           : [],
-        postTags:
-          getEntityRecords('taxonomy', 'post_tag', { per_page: -1 }) || [],
         imageSizes,
       };
     },
     [isSelected, selectedPostType],
   );
-
-  // Attributes migration
-  useEffect(() => {
-    if (attributes.includedPostIds?.length > 0) {
-      setAttributes({
-        includedPostIds: [],
-        includedPosts: attributes.includedPostIds.map(id => ({
-          title: '',
-          id,
-        })),
-      });
-    }
-
-    if (attributes.excludedPostIds?.length > 0) {
-      setAttributes({
-        excludedPostIds: [],
-        excludedPosts: attributes.excludedPostIds.map(id => ({
-          title: '',
-          id,
-        })),
-      });
-    }
-  }, []);
 
   return data;
 };

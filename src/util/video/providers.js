@@ -116,12 +116,14 @@ const selfHostedVideoUrlPatterns = [
 
 /**
  * Returns the Vimeo video ID based on the URL provided.
+ * @see https://gist.github.com/takien/4077195#gistcomment-3410228
  *
  * @param {string} url The YouTube video URL.
  * @returns {string}
  */
 const getYouTubeIdByUrl = url => {
-  return url.split('v=').pop();
+  const arr = url.split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+  return undefined !== arr[2] ? arr[2].split(/[^\w-]/i)[0] : arr[0];
 };
 
 /**
@@ -150,6 +152,42 @@ const getVimeoIdByUrl = url => {
 };
 
 /**
+ * Attempts to extract the video start time from a YouTube URL.
+ *
+ * @param url The YouTube URL.
+ * @returns {string}
+ */
+const getYouTubeStartTimeFromUrl = url => {
+  if (!url) {
+    return;
+  }
+
+  const params = new URL(url).searchParams;
+  const time = params.get('t');
+
+  return time;
+};
+
+/**
+ * Attempts to extract the video start time from a YouTube URL.
+ *
+ * @param url The YouTube URL.
+ * @returns {string}
+ */
+const getVimeoStartTimeFromUrl = url => {
+  if (!url) {
+    return;
+  }
+  // Vimeo URLs are in the format of https://vimeo.com/546117812#t=10s
+  // so we convert the hash to a query param
+  const replaced = url.replace('#', '?');
+  const params = new URL(replaced).searchParams;
+  const time = params.get('t');
+
+  return time?.replace('s', '') ?? undefined;
+};
+
+/**
  * Takes in a URL and returns the matched provider's info (if any).
  *
  * @param {string} url The URL.
@@ -165,6 +203,7 @@ export const getVideoProviderInfoByUrl = (url = '') => {
       id: getYouTubeIdByUrl(url),
       provider: 'youtube',
       url,
+      start: getYouTubeStartTimeFromUrl(url),
     };
   }
 
@@ -173,6 +212,7 @@ export const getVideoProviderInfoByUrl = (url = '') => {
       id: getVimeoIdByUrl(url),
       provider: 'vimeo',
       url,
+      start: getVimeoStartTimeFromUrl(url),
     };
   }
 

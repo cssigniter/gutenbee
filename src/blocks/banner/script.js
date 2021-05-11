@@ -1,13 +1,13 @@
 import jQuery from 'jquery';
 
 jQuery($ => {
-  var $window = $(window);
+  const $window = $(window);
 
   /* -----------------------------------------
 	 Video Backgrounds
 	 ----------------------------------------- */
-  var $videoBg = $('.wp-block-gutenbee-banner .wp-block-gutenbee-video-bg');
-  var $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
+  const $videoBg = $('.wp-block-gutenbee-banner .wp-block-gutenbee-video-bg');
+  const $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
 
   // YouTube videos
   function onYouTubeAPIReady($videoBg) {
@@ -18,13 +18,12 @@ jQuery($ => {
       return setTimeout(onYouTubeAPIReady.bind(null, $videoBg), 333);
     }
 
-    var $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
-    var videoId = $videoBg
-      .parents('.wp-block-gutenbee-video-bg-wrapper')
-      .data('video-id');
-    var video = $videoBg.attr('id');
-    // eslint-disable-next-line no-unused-vars
-    var ytPlayer = new window.YT.Player(video, {
+    const $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
+    const videoId = $videoWrap.data('video-id');
+    const startTime = $videoWrap.data('video-start');
+    const video = $videoBg.attr('id');
+
+    new window.YT.Player(video, {
       videoId: videoId,
       playerVars: {
         autoplay: 1,
@@ -37,6 +36,7 @@ jQuery($ => {
         cc_load_policy: 0,
         iv_load_policy: 3,
         autohide: 0,
+        start: startTime || undefined,
       },
       events: {
         onReady: function(event) {
@@ -61,10 +61,9 @@ jQuery($ => {
       return setTimeout(onVimeoAPIReady.bind(null, $videoBg), 333);
     }
 
-    var $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
-    var videoId = $videoBg
-      .parents('.wp-block-gutenbee-video-bg-wrapper')
-      .data('video-id');
+    const $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
+    const videoId = $videoWrap.data('video-id');
+    const startTime = $videoWrap.data('video-start');
 
     var player = new window.Vimeo.Player($videoBg, {
       id: videoId,
@@ -78,31 +77,35 @@ jQuery($ => {
 
     player.setVolume(0);
 
+    if (startTime) {
+      player.setCurrentTime(startTime);
+    }
+
     player.on('play', function() {
       $videoWrap.addClass('visible');
       adjustVideoSize($videoWrap);
     });
   }
 
-  var videoResizeTimer;
+  let videoResizeTimer;
 
   $window.on('resize.ciVideo', function() {
     clearTimeout(videoResizeTimer);
     videoResizeTimer = setTimeout(function() {
       $videoWrap.each(function() {
-        var $this = $(this);
+        const $this = $(this);
         adjustVideoSize($this);
       });
     }, 350);
   });
 
   function getVideoSize($videoWrap) {
-    var containerWidth = $videoWrap.outerWidth();
-    var containerHeight = $videoWrap.outerHeight();
-    var aspectRatio = 16 / 9;
-    var ratioWidth = containerWidth / aspectRatio;
-    var ratioHeight = containerHeight * aspectRatio;
-    var isWidthFixed = containerWidth / containerHeight > aspectRatio;
+    const containerWidth = $videoWrap.outerWidth();
+    const containerHeight = $videoWrap.outerHeight();
+    const aspectRatio = 16 / 9;
+    const ratioWidth = containerWidth / aspectRatio;
+    const ratioHeight = containerHeight * aspectRatio;
+    const isWidthFixed = containerWidth / containerHeight > aspectRatio;
 
     return {
       width: isWidthFixed ? containerWidth : ratioHeight,
@@ -111,7 +114,7 @@ jQuery($ => {
   }
 
   function adjustVideoSize($videoWrap) {
-    var size = getVideoSize($videoWrap);
+    const size = getVideoSize($videoWrap);
 
     $videoWrap.find('iframe, video').css({
       width: size.width + 'px',
@@ -121,22 +124,22 @@ jQuery($ => {
 
   if ($videoBg.length && window.innerWidth > 1080) {
     $videoBg.each(function() {
-      var $this = $(this);
-      var firstScript = $('script');
-      var videoType = $this
+      const $this = $(this);
+      const firstScript = $('script');
+      const videoType = $this
         .parents('.wp-block-gutenbee-video-bg-wrapper')
         .data('video-type');
 
       if (videoType === 'youtube') {
         if (!$('#youtube-api-script').length) {
-          var tag = $('<script />', { id: 'youtube-api-script' });
+          const tag = $('<script />', { id: 'youtube-api-script' });
           tag.attr('src', 'https://www.youtube.com/player_api');
           firstScript.parent().prepend(tag);
         }
         onYouTubeAPIReady($this);
       } else if (videoType === 'vimeo') {
         if (!$('#vimeo-api-script').length) {
-          var tag = $('<script />', { id: 'vimeo-api-script' });
+          const tag = $('<script />', { id: 'vimeo-api-script' });
           tag.attr('src', 'https://player.vimeo.com/api/player.js');
           firstScript.parent().prepend(tag);
         }
