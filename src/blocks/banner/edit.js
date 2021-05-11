@@ -190,7 +190,6 @@ const BannerBlockEdit = ({
                   max={1200}
                   value={bannerHeight[breakpoint]}
                   allowReset
-                  resetFallbackValue=""
                   onChange={value => {
                     setAttributes({
                       bannerHeight: {
