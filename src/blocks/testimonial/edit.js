@@ -389,6 +389,7 @@ const TestimonialEdit = ({
                 max={2000}
                 beforeIcon="format-image"
                 afterIcon="format-image"
+                allowReset
               />
             )}
           </ResponsiveControl>

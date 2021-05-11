@@ -181,6 +181,7 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
                 min={0}
                 max={200}
                 value={itemSpacing[breakpoint]}
+                allowReset
                 onChange={value =>
                   setAttributes({
                     itemSpacing: {

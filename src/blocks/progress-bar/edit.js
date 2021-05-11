@@ -144,6 +144,7 @@ const ProgressBarEdit = ({
                   titleBottomMargin: value != null ? value : undefined,
                 });
               }}
+              allowReset
               min={0}
               max={200}
             />

@@ -119,6 +119,8 @@ const ContainerInspectorControls = ({
                   min={-1}
                   max={1200}
                   value={containerHeight[breakpoint]}
+                  allowReset
+                  resetFallbackValue=""
                   onChange={value => {
                     setAttributes({
                       containerHeight: {
@@ -144,6 +146,8 @@ const ContainerInspectorControls = ({
                   min={-1}
                   max={2500}
                   value={innerContentWidth[breakpoint]}
+                  allowReset
+                  resetFallbackValue=""
                   onChange={value => {
                     setAttributes({
                       innerContentWidth: {

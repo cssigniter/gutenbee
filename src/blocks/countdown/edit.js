@@ -259,6 +259,7 @@ const CountdownEdit = ({
               max={100}
               value={maxWidth}
               onChange={value => setAttributes({ maxWidth: value })}
+              allowReset
             />
 
             <ResponsiveControl>
@@ -298,6 +299,7 @@ const CountdownEdit = ({
             <RangeControl
               label={__('Label Top Margin')}
               value={labelTopMargin}
+              allowReset
               onChange={value => {
                 setAttributes({
                   labelTopMargin: value != null ? value : undefined,

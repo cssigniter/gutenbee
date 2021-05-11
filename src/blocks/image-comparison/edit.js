@@ -211,6 +211,7 @@ const ImageComparisonEdit = ({
               max={100}
               value={offset}
               onChange={value => setAttributes({ offset: value })}
+              allowReset
             />
 
             {imageA && imageB && availableSizes && (

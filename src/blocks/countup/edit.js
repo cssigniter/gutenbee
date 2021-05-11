@@ -204,6 +204,7 @@ const CountupEdit = ({
                 }}
                 min={0}
                 max={200}
+                allowReset
               />
 
               <ResponsiveControl>

@@ -116,6 +116,7 @@ const SpacerEdit = ({
                     },
                   })
                 }
+                allowReset
                 min={10}
                 max={500}
                 step={1}

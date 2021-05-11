@@ -215,6 +215,7 @@ const ImageBoxEditBlock = ({
                         },
                       })
                     }
+                    allowReset
                     min={10}
                     max={2000}
                     beforeIcon="format-image"
@@ -281,6 +282,7 @@ const ImageBoxEditBlock = ({
                     titleBottomSpacing: value != null ? value : undefined,
                   });
                 }}
+                allowReset
                 min={0}
                 max={200}
               />

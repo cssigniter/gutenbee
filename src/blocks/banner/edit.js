@@ -189,14 +189,16 @@ const BannerBlockEdit = ({
                   min={-1}
                   max={1200}
                   value={bannerHeight[breakpoint]}
-                  onChange={value =>
+                  allowReset
+                  resetFallbackValue=""
+                  onChange={value => {
                     setAttributes({
                       bannerHeight: {
                         ...bannerHeight,
                         [breakpoint]: value != null ? value : '',
                       },
-                    })
-                  }
+                    });
+                  }}
                   step={1}
                   help={__(
                     'Leave blank for auto height or set to -1 for full viewport height.',
