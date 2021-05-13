@@ -19,6 +19,7 @@ jQuery($ => {
   // YouTube videos
   function onYouTubeApiReady($videoBg) {
     const $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
+    const $block = $videoWrap.closest('.wp-block-gutenbee-container');
     const videoId = $videoWrap.data('video-id');
     const startTime = $videoWrap.data('video-start');
 
@@ -44,8 +45,9 @@ jQuery($ => {
         },
         onStateChange: function(event) {
           if (event.data === window.YT.PlayerState.PLAYING) {
-            $videoWrap.addClass('visible');
             adjustVideoSize($videoWrap);
+            $videoWrap.addClass('visible');
+            $block.addClass('gutenbee-video-loaded');
           }
         },
       },
@@ -55,6 +57,7 @@ jQuery($ => {
   // Vimeo videos
   function onVimeoApiReady($videoBg) {
     const $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
+    const $block = $videoWrap.closest('.wp-block-gutenbee-container');
     const videoId = $videoWrap.data('video-id');
     const startTime = $videoWrap.data('video-start');
 
@@ -75,8 +78,9 @@ jQuery($ => {
     }
 
     player.on('play', function() {
-      $videoWrap.addClass('visible');
       adjustVideoSize($videoWrap);
+      $videoWrap.addClass('visible');
+      $block.addClass('gutenbee-video-loaded');
     });
   }
 
@@ -121,6 +125,8 @@ jQuery($ => {
       const videoType = $this
         .parents('.wp-block-gutenbee-video-bg-wrapper')
         .data('video-type');
+      const $videoWrap = $this.parents('.wp-block-gutenbee-video-bg-wrapper');
+      const $block = $this.closest('.wp-block-gutenbee-container');
 
       if (videoType === 'youtube') {
         await maybeLoadYouTubeApi();
@@ -129,8 +135,9 @@ jQuery($ => {
         await maybeLoadVimeoApi();
         onVimeoApiReady($this);
       } else if (videoType === 'self') {
-        $videoWrap.addClass('visible');
         adjustVideoSize($videoWrap);
+        $videoWrap.addClass('visible');
+        $block.addClass('gutenbee-video-loaded');
       }
     });
   }

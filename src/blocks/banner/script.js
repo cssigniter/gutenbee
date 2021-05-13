@@ -19,6 +19,7 @@ jQuery($ => {
     }
 
     const $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
+    const $block = $videoWrap.closest('.wp-block-gutenbee-banner');
     const videoId = $videoWrap.data('video-id');
     const startTime = $videoWrap.data('video-start');
     const video = $videoBg.attr('id');
@@ -44,8 +45,9 @@ jQuery($ => {
         },
         onStateChange: function(event) {
           if (event.data === window.YT.PlayerState.PLAYING) {
-            $videoWrap.addClass('visible');
             adjustVideoSize($videoWrap);
+            $videoWrap.addClass('visible');
+            $block.addClass('gutenbee-video-loaded');
           }
         },
       },
@@ -62,6 +64,7 @@ jQuery($ => {
     }
 
     const $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
+    const $block = $videoWrap.closest('.wp-block-gutenbee-banner');
     const videoId = $videoWrap.data('video-id');
     const startTime = $videoWrap.data('video-start');
 
@@ -82,8 +85,9 @@ jQuery($ => {
     }
 
     player.on('play', function() {
-      $videoWrap.addClass('visible');
       adjustVideoSize($videoWrap);
+      $videoWrap.addClass('visible');
+      $block.addClass('gutenbee-video-loaded');
     });
   }
 
@@ -129,6 +133,8 @@ jQuery($ => {
       const videoType = $this
         .parents('.wp-block-gutenbee-video-bg-wrapper')
         .data('video-type');
+      const $videoWrap = $this.parents('.wp-block-gutenbee-video-bg-wrapper');
+      const $block = $this.closest('.wp-block-gutenbee-banner');
 
       if (videoType === 'youtube') {
         if (!$('#youtube-api-script').length) {
@@ -146,6 +152,7 @@ jQuery($ => {
         onVimeoAPIReady($this);
       } else if (videoType === 'self') {
         $videoWrap.addClass('visible');
+        $block.addClass('gutenbee-video-loaded');
         adjustVideoSize($videoWrap);
       }
     });

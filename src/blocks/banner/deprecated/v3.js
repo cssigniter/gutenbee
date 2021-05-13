@@ -1,36 +1,101 @@
-import { __ } from 'wp.i18n';
-import { registerBlockType, getBlockDefaultClassName } from 'wp.blocks';
+import { getBlockDefaultClassName } from 'wp.blocks';
 import { InnerBlocks } from 'wp.blockEditor';
 import classNames from 'classnames';
 import { Fragment } from 'wp.element';
 
-import { getDefaultResponsiveBackgroundImageValue } from '../../components/controls/background-controls/helpers';
-import BannerStyle from './style';
-import getBlockId from '../../util/getBlockId';
+import StyleSheet from '../../../components/stylesheet';
+import Rule from '../../../components/stylesheet/Rule';
+import getBlockId from '../../../util/getBlockId';
+import { getDefaultResponsiveBackgroundImageValue } from '../../../components/controls/background-controls/helpers';
 import {
   getDefaultResponsiveValue,
   getDefaultSpacingValue,
-} from '../../components/controls/responsive-control/default-values';
-import borderControlAttributes from '../../components/controls/border-controls/attributes';
-import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+} from '../../../components/controls/responsive-control/default-values';
+import borderControlAttributes from '../../../components/controls/border-controls/attributes';
 import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
-} from '../../components/controls/box-shadow-controls/helpers';
-import BannerBlockEdit from './edit';
-import BannerBlockIcon from './block-icon';
-import { getVideoProviderInfoByUrl } from '../../util/video/providers';
-import VideoBackgroundFrontEnd from '../../util/video/components/VideoBackgroundFrontend';
-import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
-import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
-import deprecated from './deprecated';
+} from '../../../components/controls/box-shadow-controls/helpers';
+import { getVideoProviderInfoByUrl } from '../../../util/video/providers';
+import { getBreakpointVisibilityClassNames } from '../../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../../components/controls/auth-visibility-control/helpers';
+import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
 
-registerBlockType('gutenbee/banner', {
-  title: __('GutenBee Banner'),
-  description: __('A versatile block for creating banners of any kind.'),
-  icon: BannerBlockIcon,
-  category: 'gutenbee',
-  keywords: [__('banner'), __('hero'), __('section')],
+const VideoBackgroundFrontEnd = ({ id, className, videoInfo }) => {
+  return (
+    <div
+      className={classNames(className, 'wp-block-gutenbee-video-bg-wrapper')}
+      data-video-id={videoInfo?.id}
+      data-video-type={videoInfo?.provider}
+    >
+      {videoInfo.provider === 'self' ? (
+        <video
+          id={`video-${id}`}
+          src={videoInfo.url}
+          className="wp-block-gutenbee-video-bg"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+      ) : (
+        <div id={`video-${id}`} className="wp-block-gutenbee-video-bg" />
+      )}
+    </div>
+  );
+};
+
+const BannerStyle = ({ attributes, children }) => {
+  const {
+    uniqueId,
+    bannerHeight,
+    blockPadding,
+    blockMargin,
+    verticalContentAlignment,
+    horizontalContentAlignment,
+    backgroundImage,
+  } = attributes;
+  const blockId = getBlockId(uniqueId);
+
+  return (
+    <StyleSheet id={blockId}>
+      <Rule
+        value={bannerHeight}
+        rule=".wp-block-gutenbee-banner.[root] { height: %s; }"
+        unit="px"
+        edgeCase={{
+          edge: -1,
+          value: '100vh',
+        }}
+      />
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-banner.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-banner.[root] > .wp-block-gutenbee-banner-inner { padding: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={verticalContentAlignment}
+        rule=".wp-block-gutenbee-banner.[root] { align-items: %s; }"
+      />
+      <Rule
+        value={horizontalContentAlignment}
+        rule=".wp-block-gutenbee-banner.[root] { justify-content: %s; }"
+      />
+      <Rule
+        value={backgroundImage}
+        rule=".wp-block-gutenbee-banner.[root] > .wp-block-gutenbee-banner-background { %s }"
+      />
+      {children}
+    </StyleSheet>
+  );
+};
+
+const v3 = {
   supports: {
     anchor: false,
   },
@@ -111,8 +176,6 @@ registerBlockType('gutenbee/banner', {
       },
     },
   },
-  deprecated,
-  edit: BannerBlockEdit,
   save: ({ attributes, className }) => {
     const {
       uniqueId,
@@ -125,7 +188,6 @@ registerBlockType('gutenbee/banner', {
       overlayBackgroundColor,
       blockBreakpointVisibility,
       blockAuthVisibility,
-      backgroundImage,
     } = attributes;
 
     const blockId = getBlockId(uniqueId);
@@ -183,9 +245,6 @@ registerBlockType('gutenbee/banner', {
           {
             'has-parallax': parallax,
             'gutenbee-zoom': zoom && !parallax,
-            'has-background-image': !!backgroundImage?.desktop?.url,
-            'has-background-video': !!videoInfo?.url,
-            'has-background-overlay': !!overlayBackgroundColor,
           },
         )}
         style={{
@@ -204,18 +263,10 @@ registerBlockType('gutenbee/banner', {
         )}
         {bannerInner}
         {bannerBackground}
-
         <BannerStyle attributes={attributes} />
-
-        {!!videoInfo?.url && (
-          <div
-            style={{
-              backgroundColor: overlayBackgroundColor || undefined,
-            }}
-            className="gutenbee-block-spinner"
-          />
-        )}
       </div>
     );
   },
-});
+};
+
+export default v3;

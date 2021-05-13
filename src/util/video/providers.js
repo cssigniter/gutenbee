@@ -169,9 +169,9 @@ const getYouTubeStartTimeFromUrl = url => {
 };
 
 /**
- * Attempts to extract the video start time from a YouTube URL.
+ * Attempts to extract the video start time from a Vimeo URL.
  *
- * @param url The YouTube URL.
+ * @param url The Vimeo URL.
  * @returns {string}
  */
 const getVimeoStartTimeFromUrl = url => {

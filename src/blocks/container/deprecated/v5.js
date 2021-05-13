@@ -1,46 +1,113 @@
-/**
- * Container block
- */
-
-import { __ } from 'wp.i18n';
-import { registerBlockType } from 'wp.blocks';
-import { InnerBlocks } from 'wp.blockEditor';
 import classNames from 'classnames';
+import { InnerBlocks } from 'wp.blockEditor';
 
-import ContainerBlockEdit from './edit';
-import { getDefaultResponsiveBackgroundImageValue } from '../../components/controls/background-controls/helpers';
-import ContainerStyle from './style';
-import ContainerBlockIcon from './block-icon';
-import getBlockId from '../../util/getBlockId';
+import { getDefaultResponsiveBackgroundImageValue } from '../../../components/controls/background-controls/helpers';
 import {
   getDefaultResponsiveValue,
   getDefaultSpacingValue,
-} from '../../components/controls/responsive-control/default-values';
-import variations from './variations';
-import borderControlAttributes from '../../components/controls/border-controls/attributes';
-import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+} from '../../../components/controls/responsive-control/default-values';
+import borderControlAttributes from '../../../components/controls/border-controls/attributes';
 import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
-} from '../../components/controls/box-shadow-controls/helpers';
-import deprecated from './deprecated';
-import { getVideoProviderInfoByUrl } from '../../util/video/providers';
-import VideoBackgroundFrontEnd from '../../util/video/components/VideoBackgroundFrontend';
-import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
-import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+} from '../../../components/controls/box-shadow-controls/helpers';
+import { getVideoProviderInfoByUrl } from '../../../util/video/providers';
+import getBlockId from '../../../util/getBlockId';
+import { getBreakpointVisibilityClassNames } from '../../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../../components/controls/auth-visibility-control/helpers';
+import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
+import StyleSheet from '../../../components/stylesheet';
+import Rule from '../../../components/stylesheet/Rule';
 
-registerBlockType('gutenbee/container', {
-  title: __('GutenBee Container'),
-  description: __('A versatile container for your blocks.'),
-  icon: ContainerBlockIcon,
-  category: 'gutenbee',
-  keywords: [__('container'), __('wrapper'), __('row'), __('section')],
+const VideoBackgroundFrontEnd = ({ id, className, videoInfo }) => {
+  return (
+    <div
+      className={classNames(className, 'wp-block-gutenbee-video-bg-wrapper')}
+      data-video-id={videoInfo?.id}
+      data-video-type={videoInfo?.provider}
+    >
+      {videoInfo.provider === 'self' ? (
+        <video
+          id={`video-${id}`}
+          src={videoInfo.url}
+          className="wp-block-gutenbee-video-bg"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+      ) : (
+        <div id={`video-${id}`} className="wp-block-gutenbee-video-bg" />
+      )}
+    </div>
+  );
+};
+const ContainerStyle = ({ attributes, children }) => {
+  const {
+    uniqueId,
+    containerHeight,
+    innerContentWidth,
+    blockPadding,
+    blockMargin,
+    verticalContentAlignment,
+    horizontalContentAlignment,
+    backgroundImage,
+  } = attributes;
+  const blockId = getBlockId(uniqueId);
+
+  return (
+    <StyleSheet id={blockId}>
+      <Rule
+        value={containerHeight}
+        rule=".wp-block-gutenbee-container.[root] { height: %s; }"
+        unit="px"
+        edgeCase={{
+          edge: -1,
+          value: '100vh',
+        }}
+      />
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-container.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-container.[root] { padding: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={innerContentWidth}
+        rule=".wp-block-gutenbee-container.[root] > .wp-block-gutenbee-container-inner { width: %s; }"
+        unit="px"
+        edgeCase={{
+          edge: -1,
+          value: '100%',
+        }}
+      />
+      <Rule
+        value={verticalContentAlignment}
+        rule=".wp-block-gutenbee-container.[root] { align-items: %s; }"
+      />
+      <Rule
+        value={horizontalContentAlignment}
+        rule=".wp-block-gutenbee-container.[root] { justify-content: %s; }"
+      />
+      <Rule
+        value={backgroundImage}
+        rule=".wp-block-gutenbee-container.[root] > .wp-block-gutenbee-container-background { %s }"
+      />
+      {children}
+    </StyleSheet>
+  );
+};
+
+const v5 = {
   supports: {
     align: ['wide', 'full'],
     anchor: false,
     html: false,
   },
-  isMultiBlock: true,
   attributes: {
     uniqueId: {
       type: 'string',
@@ -143,16 +210,6 @@ registerBlockType('gutenbee/container', {
       default: false,
     },
   },
-  deprecated,
-  getEditWrapperProps(attributes) {
-    const { themeGrid } = attributes;
-
-    if (themeGrid) {
-      return { 'data-theme-grid': themeGrid };
-    }
-  },
-  variations,
-  edit: ContainerBlockEdit,
   save: ({ attributes, className }) => {
     const {
       uniqueId,
@@ -166,7 +223,6 @@ registerBlockType('gutenbee/container', {
       columnDirection,
       blockBreakpointVisibility,
       blockAuthVisibility,
-      backgroundImage,
       overflow,
     } = attributes;
 
@@ -190,9 +246,6 @@ registerBlockType('gutenbee/container', {
             'has-parallax': parallax,
             'gutenbee-zoom': zoom && !parallax,
             'theme-grid': themeGrid,
-            'has-background-image': !!backgroundImage?.desktop?.url,
-            'has-background-video': !!videoInfo?.url,
-            'has-background-overlay': !!overlayBackgroundColor,
             'row-reverse-desktop': columnDirection.desktop === 'row-reverse',
             'row-reverse-tablet': columnDirection.tablet === 'row-reverse',
             'row-reverse-mobile': columnDirection.mobile === 'row-reverse',
@@ -233,7 +286,7 @@ registerBlockType('gutenbee/container', {
           })}
           data-parallax-speed={parallaxSpeed}
           style={{
-            backgroundColor: backgroundColor || undefined,
+            backgroundColor,
             ...getBoxShadowCSSValue({ attributes }),
           }}
         >
@@ -242,16 +295,9 @@ registerBlockType('gutenbee/container', {
               <VideoBackgroundFrontEnd id={blockId} videoInfo={videoInfo} />
             )}
         </div>
-
-        {!!videoInfo?.url && (
-          <div
-            style={{
-              backgroundColor: overlayBackgroundColor || undefined,
-            }}
-            className="gutenbee-block-spinner"
-          />
-        )}
       </div>
     );
   },
-});
+};
+
+export default v5;
