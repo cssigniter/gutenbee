@@ -28,14 +28,14 @@ export const maybeLoadYouTubeApi = () => {
   ) {
     const tag = document.createElement('script');
     tag.id = 'gutenbee-youtube-api-script';
-    tag.src = 'https://www.youtube.com/iframe_api';
+    tag.src = 'https://www.youtube.com/player_api';
     const firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   }
 
   const apiLoaded = resolve => {
     if (!youTubeApiLoaded()) {
-      setTimeout(() => apiLoaded(resolve), 333);
+      setTimeout(() => apiLoaded(resolve), 500);
       return;
     }
 
@@ -66,7 +66,7 @@ export const maybeLoadVimeoApi = async () => {
 
   const apiLoaded = resolve => {
     if (!vimeoApiLoaded()) {
-      setTimeout(() => apiLoaded(resolve), 333);
+      setTimeout(() => apiLoaded(resolve), 500);
       return;
     }
 

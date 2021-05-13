@@ -1,5 +1,10 @@
 import jQuery from 'jquery';
 
+import {
+  maybeLoadVimeoApi,
+  maybeLoadYouTubeApi,
+} from '../../util/video/providers';
+
 jQuery($ => {
   const $window = $(window);
 
@@ -11,13 +16,6 @@ jQuery($ => {
 
   // YouTube videos
   function onYouTubeAPIReady($videoBg) {
-    if (
-      typeof window.YT === 'undefined' ||
-      typeof window.YT.Player === 'undefined'
-    ) {
-      return setTimeout(onYouTubeAPIReady.bind(null, $videoBg), 333);
-    }
-
     const $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
     const $block = $videoWrap.closest('.wp-block-gutenbee-banner');
     const videoId = $videoWrap.data('video-id');
@@ -56,19 +54,12 @@ jQuery($ => {
 
   // Vimeo videos
   function onVimeoAPIReady($videoBg) {
-    if (
-      typeof Vimeo === 'undefined' ||
-      typeof window.Vimeo.Player === 'undefined'
-    ) {
-      return setTimeout(onVimeoAPIReady.bind(null, $videoBg), 333);
-    }
-
     const $videoWrap = $videoBg.parents('.wp-block-gutenbee-video-bg-wrapper');
     const $block = $videoWrap.closest('.wp-block-gutenbee-banner');
     const videoId = $videoWrap.data('video-id');
     const startTime = $videoWrap.data('video-start');
 
-    var player = new window.Vimeo.Player($videoBg, {
+    const player = new window.Vimeo.Player($videoBg, {
       id: videoId,
       loop: true,
       autoplay: true,
@@ -127,9 +118,8 @@ jQuery($ => {
   }
 
   if ($videoBg.length && window.innerWidth > 1080) {
-    $videoBg.each(function() {
+    $videoBg.each(async function() {
       const $this = $(this);
-      const firstScript = $('script');
       const videoType = $this
         .parents('.wp-block-gutenbee-video-bg-wrapper')
         .data('video-type');
@@ -137,18 +127,10 @@ jQuery($ => {
       const $block = $this.closest('.wp-block-gutenbee-banner');
 
       if (videoType === 'youtube') {
-        if (!$('#youtube-api-script').length) {
-          const tag = $('<script />', { id: 'youtube-api-script' });
-          tag.attr('src', 'https://www.youtube.com/player_api');
-          firstScript.parent().prepend(tag);
-        }
+        await maybeLoadYouTubeApi();
         onYouTubeAPIReady($this);
       } else if (videoType === 'vimeo') {
-        if (!$('#vimeo-api-script').length) {
-          const tag = $('<script />', { id: 'vimeo-api-script' });
-          tag.attr('src', 'https://player.vimeo.com/api/player.js');
-          firstScript.parent().prepend(tag);
-        }
+        await maybeLoadVimeoApi();
         onVimeoAPIReady($this);
       } else if (videoType === 'self') {
         $videoWrap.addClass('visible');

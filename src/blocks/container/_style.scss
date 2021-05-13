@@ -138,11 +138,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  display: flex;
   align-items: center;
   justify-content: center;
   background-color: rgba($black, .5);
   transition: opacity .5s ease;
+  display: none;
 
   &::after {
     @include spinner($size: 80px);
@@ -152,5 +152,13 @@
   .gutenbee-video-loaded & {
     opacity: 0;
     pointer-events: none;
+  }
+
+  .has-background-video & {
+    display: flex;
+  }
+
+  @media (max-width: 1080px) {
+    display: none !important;
   }
 }
