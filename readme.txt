@@ -2,7 +2,7 @@
 Contributors: cssigniterteam, silencerius, nvourva, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 5.4
-Tested up to: 5.7.1
+Tested up to: 5.7.2
 Stable tag: 2.10.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
@@ -72,6 +72,12 @@ Note that if you want to use the Google Maps block you will also need a Google M
 7. Tabs or Accordions, group your content the way you want.
 
 == Changelog ==
+
+= 2.11.0 =
+* Post Type block: Improve performance by creating new searchable controls for Tags and Posts.
+* Banner & Container block: Added support for start time in video backgrounds.
+* Banner & Container block: Added loading indicator for video backgrounds.
+* Fixed an issue where some Range Slider controls would not be reset.
 
 = 2.10.6 =
 * Post Type block: Prevent block style previews from loading complete preview of the block to improve performance.
