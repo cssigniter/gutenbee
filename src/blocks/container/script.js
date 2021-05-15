@@ -41,9 +41,12 @@ jQuery($ => {
       },
       events: {
         onReady: function(event) {
+          console.log('readyyyy', event);
           event.target.mute();
+          event.target.playVideo();
         },
         onStateChange: function(event) {
+          console.log('onStateChange', event);
           if (event.data === window.YT.PlayerState.PLAYING) {
             adjustVideoSize($videoWrap);
             $videoWrap.addClass('visible');
