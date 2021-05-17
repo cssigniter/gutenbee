@@ -46,7 +46,11 @@ jQuery($ => {
         end: parseInt($dataset.videoEnd, 10) || undefined,
       },
       events: {
-        onReady: () => {
+        onReady: event => {
+          if ('true' === $dataset.videoAutoplay) {
+            event.target.playVideo();
+          }
+
           if ('true' === $dataset.videoAutoplay && $overlay.length) {
             $overlay.fadeOut();
           } else if (

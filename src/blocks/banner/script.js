@@ -40,6 +40,7 @@ jQuery($ => {
       events: {
         onReady: function(event) {
           event.target.mute();
+          event.target.playVideo();
         },
         onStateChange: function(event) {
           if (event.data === window.YT.PlayerState.PLAYING) {
@@ -133,9 +134,11 @@ jQuery($ => {
         await maybeLoadVimeoApi();
         onVimeoAPIReady($this);
       } else if (videoType === 'self') {
-        $videoWrap.addClass('visible');
-        $block.addClass('gutenbee-video-loaded');
         adjustVideoSize($videoWrap);
+        $videoWrap.find('video').on('play', () => {
+          $videoWrap.addClass('visible');
+          $block.addClass('gutenbee-video-loaded');
+        });
       }
     });
   }

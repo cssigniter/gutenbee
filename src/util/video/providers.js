@@ -35,7 +35,7 @@ export const maybeLoadYouTubeApi = () => {
 
   const apiLoaded = resolve => {
     if (!youTubeApiLoaded()) {
-      setTimeout(() => apiLoaded(resolve), 500);
+      setTimeout(() => apiLoaded(resolve), 350);
       return;
     }
 
@@ -66,7 +66,7 @@ export const maybeLoadVimeoApi = async () => {
 
   const apiLoaded = resolve => {
     if (!vimeoApiLoaded()) {
-      setTimeout(() => apiLoaded(resolve), 500);
+      setTimeout(() => apiLoaded(resolve), 350);
       return;
     }
 
