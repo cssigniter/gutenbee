@@ -78,6 +78,7 @@ Note that if you want to use the Google Maps block you will also need a Google M
 * Banner & Container block: Added support for start time in video backgrounds.
 * Banner & Container block: Added loading indicator for video backgrounds.
 * Fixed an issue where some Range Slider controls would not be reset.
+* Improved background video loading.
 
 = 2.10.6 =
 * Post Type block: Prevent block style previews from loading complete preview of the block to improve performance.
