@@ -149,7 +149,7 @@
 
 .gutenbee-block-spinner {
   position: absolute;
-  bottom: 25px;
+  bottom: clamp(25px, 8%, 8%);
   left: 50%;
   transform: translateX(-50%);
   background-color: transparent !important;
