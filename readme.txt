@@ -73,6 +73,15 @@ Note that if you want to use the Google Maps block you will also need a Google M
 
 == Changelog ==
 
+= 2.11.1 =
+* Updated positioning of the video background spinner on the bottom center of the Container and Banner block.
+* Fixed an issue where background overlay would sometimes disappear when a video background started playing in Safari.
+* Fixed an issue where self hosted video backgrounds would not start in Firefox.
+* Moved video background controls below the background image control (editor).
+* Slideshow block: Arrow navigation now uses inline SVGs.
+* Updated all "Circle Mask" block styles on Image and Testimonial blocks to "Rounded".
+
+
 = 2.11.0 =
 * Post Type block: Improve performance by creating new searchable controls for Tags and Posts.
 * Banner & Container block: Added support for start time in video backgrounds.
