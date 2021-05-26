@@ -78,7 +78,7 @@ jQuery($ => {
       player.setCurrentTime(startTime);
     }
 
-    player.on('play', function() {
+    player.on('playing', function() {
       adjustVideoSize($videoWrap);
       $videoWrap.addClass('visible');
       $block.addClass('gutenbee-video-loaded');
@@ -136,7 +136,6 @@ jQuery($ => {
         await maybeLoadVimeoApi();
         onVimeoApiReady($this);
       } else if (videoType === 'self') {
-        adjustVideoSize($videoWrap);
         $videoWrap.find('video').on('play', () => {
           $videoWrap.addClass('visible');
           $block.addClass('gutenbee-video-loaded');

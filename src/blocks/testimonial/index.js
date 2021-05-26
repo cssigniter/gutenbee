@@ -30,7 +30,7 @@ registerBlockType('gutenbee/testimonial', {
   keywords: [__('testimonial'), __('quote'), __('blockquote')],
   styles: [
     { name: 'default', label: _x('Default', 'block style'), isDefault: true },
-    { name: 'circle-mask', label: _x('Circle Mask', 'block style') },
+    { name: 'rounded', label: _x('Rounded', 'block style') },
   ],
   supports: {
     anchor: false,

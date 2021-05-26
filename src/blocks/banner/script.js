@@ -134,7 +134,6 @@ jQuery($ => {
         await maybeLoadVimeoApi();
         onVimeoAPIReady($this);
       } else if (videoType === 'self') {
-        adjustVideoSize($videoWrap);
         $videoWrap.find('video').on('play', () => {
           $videoWrap.addClass('visible');
           $block.addClass('gutenbee-video-loaded');

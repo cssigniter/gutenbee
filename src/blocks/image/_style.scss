@@ -1,0 +1,8 @@
+.wp-block-gutenbee-image {
+  &.is-style-circle-mask,
+  &.is-style-rounded {
+    img {
+      border-radius: 999px;
+    }
+  }
+}

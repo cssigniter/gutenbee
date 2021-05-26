@@ -41,7 +41,7 @@ registerBlockType('gutenbee/image', {
   },
   styles: [
     { name: 'default', label: _x('Default', 'block style'), isDefault: true },
-    { name: 'circle-mask', label: _x('Circle Mask', 'block style') },
+    { name: 'rounded', label: _x('Rounded', 'block style') },
   ],
   attributes: {
     uniqueId: {

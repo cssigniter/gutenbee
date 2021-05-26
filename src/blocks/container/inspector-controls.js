@@ -221,50 +221,6 @@ const ContainerInspectorControls = ({
             }}
           />
 
-          {backgroundVideoURL &&
-            !['youtube', 'vimeo', 'self'].includes(videoInfo.provider) && (
-              <span className="gutenbee-embed-error">
-                {__(
-                  'Embed URL error. Please enter a YouTube, Vimeo, or self hosted video URL.',
-                )}
-              </span>
-            )}
-
-          <div className="gutenbee-video-bg-control-input-wrap">
-            <TextControl
-              label={__('Video Background URL.')}
-              onChange={handleBackgroundVideoUrlChange}
-              type="text"
-              value={backgroundVideoURL}
-            />
-
-            <MediaUpload
-              onSelect={video => {
-                handleBackgroundVideoUrlChange(
-                  `${video?.url}?w=${video?.width}&h=${video?.height}`,
-                );
-              }}
-              allowedTypes={['video']}
-              render={({ open }) => (
-                <Button
-                  isSecondary
-                  className="components-toolbar__control"
-                  label={__('Select video')}
-                  icon="format-video"
-                  onClick={open}
-                />
-              )}
-            />
-          </div>
-
-          {backgroundVideoURL && (
-            <span className="gutenbee-controls-notice">
-              {__(
-                'Make sure you set a background image below when using this option. The image will appear before the video starts playing and on mobile devices where background videos are not available.',
-              )}
-            </span>
-          )}
-
           <PopoverColorControl
             value={backgroundColor}
             defaultValue={backgroundColor || ''}
@@ -321,6 +277,50 @@ const ContainerInspectorControls = ({
               );
             }}
           </ResponsiveControl>
+
+          {backgroundVideoURL &&
+            !['youtube', 'vimeo', 'self'].includes(videoInfo.provider) && (
+              <span className="gutenbee-embed-error">
+                {__(
+                  'Embed URL error. Please enter a YouTube, Vimeo, or self hosted video URL.',
+                )}
+              </span>
+            )}
+
+          <div className="gutenbee-video-bg-control-input-wrap">
+            <TextControl
+              label={__('Video Background URL')}
+              onChange={handleBackgroundVideoUrlChange}
+              type="text"
+              value={backgroundVideoURL}
+            />
+
+            <MediaUpload
+              onSelect={video => {
+                handleBackgroundVideoUrlChange(
+                  `${video?.url}?w=${video?.width}&h=${video?.height}`,
+                );
+              }}
+              allowedTypes={['video']}
+              render={({ open }) => (
+                <Button
+                  isSecondary
+                  className="components-toolbar__control"
+                  label={__('Select video')}
+                  icon="format-video"
+                  onClick={open}
+                />
+              )}
+            />
+          </div>
+
+          {backgroundVideoURL && (
+            <span className="gutenbee-controls-notice">
+              {__(
+                'Make sure you set a background image above when using this option. The image will appear before the video starts playing and on mobile devices where background videos are not available.',
+              )}
+            </span>
+          )}
 
           <BorderControls
             attributes={attributes}

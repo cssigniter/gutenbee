@@ -15,7 +15,22 @@
   &-inner {
     width: 100%;
   }
+
+  // Temporary fix for Safari: The background overlay color is randomly
+  // overlapped by the video when it starts playing (in some cases).
+  // Remove when the container block refactor is complete.
+  &.has-background-video {
+    .wp-block-gutenbee-container-row {
+      position: relative;
+      z-index: 1;
+    }
+
+    .wp-block-gutenbee-container-background-overlay {
+      z-index: 0;
+    }
+  }
 }
+
 
 .wp-block-gutenbee-container-row {
   display: flex;
@@ -134,18 +149,16 @@
 
 .gutenbee-block-spinner {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba($black, .5);
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: transparent !important;
   transition: opacity .25s ease .2s, visibility 0s ease .35s;
   display: none;
+  z-index: 2;
 
   &::after {
-    @include spinner($size: 80px);
+    @include spinner($size: 40px, $border-width: 4px, $opacity: 0.4);
     content: "";
   }
 

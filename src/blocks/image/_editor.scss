@@ -15,6 +15,13 @@
     display: table;
     clear: both;
   }
+
+  &.is-style-circle-mask,
+  &.is-style-rounded {
+    img {
+      border-radius: 999px;
+    }
+  }
 }
 
 .block-editor-block-list__block[data-type="gutenbee/image"][data-align="center"] {

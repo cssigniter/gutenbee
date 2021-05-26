@@ -27,22 +27,17 @@
       line-height: normal;
       background: none;
       color: currentColor;
-      width: auto;
-      height: auto;
+      width: 52px;
+      height: 52px;
       border: 0;
       min-width: auto;
       max-width: 100%;
-      padding: 20px;
+      padding: 0;
       margin: 0;
       font-size: 0;
       box-shadow: none;
       cursor: pointer;
       font-style: normal;
-
-      &::before {
-        font-family: "gutenbee";
-        font-size: 24px;
-      }
 
       &:hover,
       &:active,
@@ -55,34 +50,20 @@
         text-decoration: none;
       }
 
+      svg {
+        width: 68%;
+        height: 68%;
+        fill: currentColor;
+      }
+
       &.slick-next {
         right: 0;
         left: auto;
-
-        &::before {
-          content: "\E002";
-          position: relative;
-          top: auto;
-          right: auto;
-          left: auto;
-          font-size: initial;
-          bottom: auto;
-        }
       }
 
       &.slick-prev {
         left: 0;
         right: auto;
-
-        &::before {
-          position: relative;
-          top: auto;
-          right: auto;
-          left: auto;
-          bottom: auto;
-          font-size: initial;
-          content: "\E001";
-        }
       }
     }
   }

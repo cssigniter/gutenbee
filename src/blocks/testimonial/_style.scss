@@ -114,4 +114,13 @@
       align-self: center;
     }
   }
+
+  &.is-style-circle-mask,
+  &.is-style-rounded {
+    .gutenbee-testimonial-avatar {
+      img {
+        border-radius: 999px;
+      }
+    }
+  }
 }

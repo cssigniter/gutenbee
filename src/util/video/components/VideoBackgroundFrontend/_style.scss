@@ -22,4 +22,9 @@
     pointer-events: none;
     transform: translate(-50%, -50%);
   }
+
+  video.wp-block-gutenbee-video-bg {
+    object-fit: cover;
+    object-position: center;
+  }
 }
