@@ -71,88 +71,92 @@
 	function gutenbee_block_post_types_init() {
 		register_block_type( 'gutenbee/post-types', array(
 			'attributes'      => array(
-				'postType'        => array(
+				'postType'               => array(
 					'type'    => 'string',
 					'default' => 'post',
 				),
-				'taxonomySlug'    => array(
+				'taxonomySlug'           => array(
 					'type'    => 'string',
 					'default' => '',
 				),
-				'termId'          => array(
+				'termId'                 => array(
 					'type'    => 'string',
 					'default' => '',
 				),
-				'authorId'        => array(
+				'authorId'               => array(
 					'type'    => 'string',
 					'default' => '',
 				),
-				'postsPerPage'    => array(
+				'postsPerPage'           => array(
 					'type'    => 'number',
 					'default' => 3,
 				),
-				'pagination'      => array(
+				'pagination'             => array(
 					'type'    => 'boolean',
 					'default' => false,
 				),
-				'offset'          => array(
+				'offset'                 => array(
 					'type'    => 'number',
 					'default' => 0,
 				),
-				'orderBy'         => array(
+				'orderBy'                => array(
 					'type'    => 'string',
-					'default' => 'date',
+					'default' => '',
 				),
-				'order'           => array(
+				'order'                  => array(
 					'type'    => 'string',
 					'default' => 'desc',
 				),
-				'postTagSlugs' => array(
+				'postTagSlugs'           => array(
 					'type'    => 'array',
 					'items'   => array(
 						'type' => 'string',
 					),
 					'default' => array(),
 				),
-				'excludedPostIds' => array(
-					'type'    => 'array',
-					'items'   => array(
-						'type' => 'number',
-					),
-					'default' => array(),
-				),
-				'includedPostIds' => array(
-					'type'    => 'array',
-					'items'   => array(
-						'type' => 'number',
-					),
-					'default' => array(),
-				),
-				'columns'         => array(
-					'type'    => 'number',
-					'default' => 3,
-				),
-				'gridEffect'      => array(
-					'type'    => 'string',
-					'default' => 'none',
-				),
-				'gridSpacing'     => array(
-					'type'    => 'string',
-					'default' => 'gutters',
-				),
-				'masonry'         => array(
-					'type'    => 'boolean',
-					'default' => false,
-				),
-				'categoryFilters' => array(
-					'type'    => 'boolean',
-					'default' => false,
-				),
-				'className'       => array(
+				'ignitionEventQueryType' => array(
 					'type'    => 'string',
 					'default' => '',
 				),
-				'imageSizeSlug' => array(
+				'excludedPostIds'        => array(
+					'type'    => 'array',
+					'items'   => array(
+						'type' => 'number',
+					),
+					'default' => array(),
+				),
+				'includedPostIds'        => array(
+					'type'    => 'array',
+					'items'   => array(
+						'type' => 'number',
+					),
+					'default' => array(),
+				),
+				'columns'                => array(
+					'type'    => 'number',
+					'default' => 3,
+				),
+				'gridEffect'             => array(
+					'type'    => 'string',
+					'default' => 'none',
+				),
+				'gridSpacing'            => array(
+					'type'    => 'string',
+					'default' => 'gutters',
+				),
+				'masonry'                => array(
+					'type'    => 'boolean',
+					'default' => false,
+				),
+				'categoryFilters'        => array(
+					'type'    => 'boolean',
+					'default' => false,
+				),
+				'className'              => array(
+					'type'    => 'string',
+					'default' => '',
+				),
+				'imageSizeSlug'          => array(
 					'type'    => 'string',
 					'default' => '',
 				),
@@ -190,21 +194,22 @@
 	 * @return string
 	 */
 	function gutenbee_block_post_types_render_callback( $attributes ) {
-		$post_type         = $attributes['postType'];
-		$posts_per_page    = $attributes['postsPerPage'];
-		$pagination        = (bool) $attributes['pagination'];
-		$offset            = $attributes['offset'];
-		$order             = $attributes['order'];
-		$order_by          = $attributes['orderBy'];
-		$post_tag_slugs    = $attributes['postTagSlugs'];
-		$excluded_post_ids = $attributes['excludedPostIds'];
-		$included_post_ids = $attributes['includedPostIds'];
-		$author_id         = intval( $attributes['authorId'] );
-		$taxonomy_slug     = $attributes['taxonomySlug'];
-		$term_id           = intval( $attributes['termId'] );
-		$columns           = intval( $attributes['columns'] );
-		$grid_spacing      = $attributes['gridSpacing'];
-		$image_size_slug   = $attributes['imageSizeSlug'];
+		$post_type                 = $attributes['postType'];
+		$posts_per_page            = $attributes['postsPerPage'];
+		$pagination                = (bool) $attributes['pagination'];
+		$offset                    = $attributes['offset'];
+		$order                     = $attributes['order'];
+		$order_by                  = $attributes['orderBy'];
+		$post_tag_slugs            = $attributes['postTagSlugs'];
+		$ignition_event_query_type = $attributes['ignitionEventQueryType'];
+		$excluded_post_ids         = $attributes['excludedPostIds'];
+		$included_post_ids         = $attributes['includedPostIds'];
+		$author_id                 = intval( $attributes['authorId'] );
+		$taxonomy_slug             = $attributes['taxonomySlug'];
+		$term_id                   = intval( $attributes['termId'] );
+		$columns                   = intval( $attributes['columns'] );
+		$grid_spacing              = $attributes['gridSpacing'];
+		$image_size_slug           = $attributes['imageSizeSlug'];
 
 		$masonry          = (bool) $attributes['masonry'];
 		$grid_effect      = $attributes['gridEffect'];
@@ -311,6 +316,12 @@
 				'orderby' => $order_by,
 			) );
 		}
+
+		if ( 'ignition-event' === $post_type ) {
+			// Provide context to the query.
+			$query_args['ignition_event_query'] = $ignition_event_query_type;
+		}
+
 
 		$q = new WP_Query( $query_args );
 

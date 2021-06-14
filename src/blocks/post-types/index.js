@@ -48,7 +48,7 @@ registerBlockType('gutenbee/post-types', {
     },
     orderBy: {
       type: 'string',
-      default: 'date',
+      default: '',
     },
     order: {
       type: 'string',
@@ -65,6 +65,10 @@ registerBlockType('gutenbee/post-types', {
     postTagSlugs: {
       type: 'array',
       default: [],
+    },
+    ignitionEventQueryType: {
+      type: 'string',
+      default: '',
     },
     columns: {
       type: 'number',

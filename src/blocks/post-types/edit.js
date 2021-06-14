@@ -57,6 +57,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected }) => {
     masonry,
     categoryFilters,
     postTagSlugs,
+    ignitionEventQueryType,
     imageSizeSlug,
   } = attributes;
 
@@ -87,6 +88,11 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected }) => {
       // Reset the post tags if we switch a post type.
       if (postType !== 'post') {
         setAttributes({ postTagSlugs: [] });
+      }
+
+      // Reset the ignition-event query type if we switch a post type.
+      if (postType !== 'ignition-event') {
+        setAttributes({ ignitionEventQueryType: '' });
       }
     },
     [postType],
@@ -142,6 +148,22 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected }) => {
                 }
               }}
             />
+
+            {postType === 'ignition-event' && (
+              <SelectControl
+                label={__('Events Type')}
+                value={ignitionEventQueryType}
+                options={[
+                  { label: 'All events', value: '' },
+                  { label: 'Recurring events', value: 'recurring' },
+                  { label: 'Upcoming events', value: 'future' },
+                  { label: 'Past events', value: 'past' },
+                ]}
+                onChange={value =>
+                  setAttributes({ ignitionEventQueryType: value })
+                }
+              />
+            )}
 
             {taxonomy && terms && (
               <SelectControl
