@@ -28,7 +28,7 @@ registerBlockType('gutenbee/image', {
   description: __('Insert an image to make a visual statement.'),
   icon: ImageBlockIcon,
   category: 'gutenbee',
-  keywords: ['img', __('photo')],
+  keywords: ['img', __('photo'), 'gutenbeeimage', 'imagegutenbee'],
   supports: {
     anchor: false,
   },

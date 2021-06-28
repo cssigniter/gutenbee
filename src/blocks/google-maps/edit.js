@@ -259,7 +259,9 @@ const GoogleMapsEdit = ({
               label={__('Info Window Text')}
               value={infoWindow}
               onChange={value => setAttributes({ infoWindow: value })}
-              help={__('This text will appear as a popup on the map marker.')}
+              help={__(
+                'This text will appear as a popup on the map marker. Accepts basic HTML.',
+              )}
             />
           </PanelBody>
 

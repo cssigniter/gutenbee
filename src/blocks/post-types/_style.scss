@@ -1,1 +1,18 @@
 @import 'common';
+
+.gutenbee-row-columns-1 {
+  .gutenbee-post-types-item {
+    align-items: flex-start;
+  }
+
+  .gutenbee-post-types-item-thumb {
+    margin-right: 30px;
+    width: 300px;
+    flex: none;
+
+    @include media-breakpoint-down(sm) {
+      margin-right: 0;
+      width: 100%;
+    }
+  }
+}

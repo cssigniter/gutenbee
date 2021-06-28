@@ -6,6 +6,7 @@ import {
   RangeControl,
   PanelBody,
   ToggleControl,
+  TextControl,
 } from 'wp.components';
 import { InspectorControls } from 'wp.blockEditor';
 import ServerSideRender from 'wp.serverSideRender';
@@ -59,6 +60,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected }) => {
     postTagSlugs,
     ignitionEventQueryType,
     imageSizeSlug,
+    readMoreButtonLabel,
   } = attributes;
 
   const supports = window.__GUTENBEE_SETTINGS__.theme_supports['post-types'];
@@ -355,6 +357,18 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected }) => {
                   onChange={value => setAttributes({ imageSizeSlug: value })}
                 />
               )}
+
+            {supports.readMoreButtonLabel?.includes(postType) && (
+              <TextControl
+                label={__('Button Label')}
+                onChange={value =>
+                  setAttributes({ readMoreButtonLabel: value })
+                }
+                type="text"
+                placeholder={__('Read More')}
+                value={readMoreButtonLabel}
+              />
+            )}
           </PanelBody>
         </InspectorControls>
       )}

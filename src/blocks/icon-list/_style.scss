@@ -23,7 +23,7 @@ ul.wp-block-gutenbee-icon-list {
 .wp-block-gutenbee-icon-list-item {
   margin: 0;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
 
   .wp-block-gutenbee-list-icon-link {
     display: flex;
@@ -31,6 +31,7 @@ ul.wp-block-gutenbee-icon-list {
 
   .gutenbee-icon-block-icon-wrap {
     flex-shrink: 0;
+    line-height: 0;
 
     svg {
       path {

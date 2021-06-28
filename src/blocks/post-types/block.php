@@ -31,10 +31,11 @@
 
 	function gutenbee_block_post_types_get_theme_support_defaults() {
 		return array(
-			'gridEffect'      => false,
-			'masonry'         => false,
-			'categoryFilters' => false,
-			'selectImageSize' => array(),
+			'gridEffect'          => false,
+			'masonry'             => false,
+			'categoryFilters'     => false,
+			'selectImageSize'     => array(),
+			'readMoreButtonLabel' => false,
 		);
 	}
 
@@ -160,6 +161,10 @@
 					'type'    => 'string',
 					'default' => '',
 				),
+				'readMoreButtonLabel'    => array(
+					'type'    => 'string',
+					'default' => '',
+				),
 			),
 			'render_callback' => 'gutenbee_block_post_types_render_callback',
 		) );
@@ -210,6 +215,7 @@
 		$columns                   = intval( $attributes['columns'] );
 		$grid_spacing              = $attributes['gridSpacing'];
 		$image_size_slug           = $attributes['imageSizeSlug'];
+		$read_more_button_label    = $attributes['readMoreButtonLabel'];
 
 		$masonry          = (bool) $attributes['masonry'];
 		$grid_effect      = $attributes['gridEffect'];
@@ -361,6 +367,10 @@
 		$available_image_sizes = array_merge( array( 'full' ), get_intermediate_image_sizes() );
 		if ( ! empty( $image_size_slug ) && in_array( $image_size_slug, $available_image_sizes, true ) ) {
 			$item_template_vars['image-size'] = $image_size_slug;
+		}
+
+		if (! empty ( $read_more_button_label ) ) {
+			$item_template_vars['read-more-button-label'] = $read_more_button_label;
 		}
 
 		if ( $q->have_posts() ) {

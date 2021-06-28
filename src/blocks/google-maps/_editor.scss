@@ -3,3 +3,26 @@
   align-items: center;
   justify-content: center;
 }
+
+.wp-block-gutenbee-google-maps-info-window {
+  > * {
+    margin-bottom: 12px;
+  }
+
+  strong,
+  b {
+    font-weight: bold;
+  }
+
+  em, i {
+    font-style: italic;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}

@@ -37,7 +37,10 @@ jQuery($ => {
     });
 
     const infoWindow = new google.maps.InfoWindow({
-      content: info,
+      content:
+        '<div class="wp-block-gutenbee-google-maps-info-window">' +
+        info +
+        '</div>',
       maxWidth: 350,
     });
 

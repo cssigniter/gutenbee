@@ -26,7 +26,13 @@ registerBlockType('gutenbee/video-embed', {
   description: __('Embed a video from YouTube or Vimeo.'),
   icon: VideoEmbedBlockIcon,
   category: 'gutenbee',
-  keywords: [__('video'), __('movie'), __('embed'), __('YouTube'), __('Vimeo')],
+  keywords: [
+    __('video'),
+    __('movie'),
+    __('embed'),
+    'gutenbeevideo',
+    'videogutenbee',
+  ],
   supports: {
     anchor: false,
   },

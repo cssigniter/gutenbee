@@ -26,7 +26,7 @@ registerBlockType('gutenbee/video', {
   description: __('Embed a video from your media library or upload a new one.'),
   icon: VideoBlockIcon,
   category: 'gutenbee',
-  keywords: [__('video'), __('movie')],
+  keywords: [__('video'), __('movie'), 'gutenbeevideo', 'videogutenbee'],
   supports: {
     anchor: false,
     align: true,

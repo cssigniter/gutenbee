@@ -48,7 +48,12 @@ const Map = ({
               maxWidth: 350,
             }}
           >
-            <span>{infoWindow}</span>
+            <div
+              className="wp-block-gutenbee-google-maps-info-window"
+              dangerouslySetInnerHTML={{
+                __html: infoWindow,
+              }}
+            />
           </InfoWindow>
         )}
       </Marker>

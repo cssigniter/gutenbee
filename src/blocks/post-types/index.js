@@ -98,6 +98,10 @@ registerBlockType('gutenbee/post-types', {
       type: 'string',
       default: '',
     },
+    readMoreButtonLabel: {
+      type: 'string',
+      default: '',
+    },
   },
 
   edit: PostTypesEdit,

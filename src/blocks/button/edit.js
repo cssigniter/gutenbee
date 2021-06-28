@@ -2,7 +2,12 @@ import { Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import { InspectorControls, RichText } from 'wp.blockEditor';
-import { PanelBody, TextControl, ToggleControl } from 'wp.components';
+import {
+  PanelBody,
+  TextControl,
+  ToggleControl,
+  SelectControl,
+} from 'wp.components';
 import classNames from 'classnames';
 
 import useUniqueId from '../../hooks/useUniqueId';
@@ -18,6 +23,7 @@ import PopoverColorControl from '../../components/controls/advanced-color-contro
 import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
+import { buttonSizeTemplates, buttonStyleTemplates } from './templates';
 
 const propTypes = {
   attributes: PropTypes.object.isRequired,
@@ -178,6 +184,62 @@ const ButtonEdit = ({ attributes, setAttributes, className, clientId }) => {
               />
             )}
           </ResponsiveControl>
+        </PanelBody>
+
+        <PanelBody title={__('Predefined Templates')} initialOpen={false}>
+          <SelectControl
+            label={__('Button Size')}
+            onChange={value => {
+              if (!value) {
+                return;
+              }
+
+              const values = JSON.parse(value);
+
+              Object.keys(values).forEach(key => {
+                setAttributes({
+                  [key]: values[key],
+                });
+              });
+            }}
+            options={[
+              {
+                value: '',
+                label: '',
+              },
+              ...buttonSizeTemplates.map(sizeTemplate => ({
+                value: JSON.stringify(sizeTemplate.attributes),
+                label: sizeTemplate.name,
+              })),
+            ]}
+          />
+
+          <SelectControl
+            label={__('Button Style')}
+            onChange={value => {
+              if (!value) {
+                return;
+              }
+
+              const values = JSON.parse(value);
+
+              Object.keys(values).forEach(key => {
+                setAttributes({
+                  [key]: values[key],
+                });
+              });
+            }}
+            options={[
+              {
+                value: '',
+                label: '',
+              },
+              ...buttonStyleTemplates.map(sizeTemplate => ({
+                value: JSON.stringify(sizeTemplate.attributes),
+                label: sizeTemplate.name,
+              })),
+            ]}
+          />
         </PanelBody>
 
         <PanelBody title={__('Visibility Settings')} initialOpen={false}>

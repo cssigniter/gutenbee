@@ -1,0 +1,27 @@
+.gutenbee-state-tabs {
+  padding: 5px;
+  border: 1px solid $border-color;
+  border-radius: 3px;
+  margin-bottom: 12px;
+
+  > * {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  > :last-child {
+    margin-bottom: 5px;
+  }
+
+  .gutenbee-color-icon-indicator {
+    padding-right: 0;
+  }
+}
+
+.gutenbee-state-tabs-nav {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid $border-color;
+  padding: 0 0 5px;
+  margin: 0;
+}

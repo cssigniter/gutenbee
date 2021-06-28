@@ -3,7 +3,12 @@
 .wp-block-gutenbee-image-comparison {
   margin: $base-block-vertical-spacing 0;
 
-  &.twentytwenty-container {
+  img {
+    opacity: 0;
+    transition: opacity .18s ease;
+  }
+
+  .twentytwenty-container {
     img {
       position: absolute;
       background: none;
@@ -11,6 +16,7 @@
       padding: 0;
       box-shadow: none;
       margin: 0;
+      opacity: 1;
     }
   }
 }

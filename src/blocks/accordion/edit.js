@@ -13,6 +13,7 @@ import getBlockId from '../../util/getBlockId';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
+import StateTabs from '../../components/controls/state-tabs';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -144,7 +145,13 @@ const AccordionsEdit = ({
       <AccordionStyle attributes={attributes} />
       <div id={blockId} className={classNames(className, blockId)}>
         {tabs.map((tab, index) => (
-          <div key={index} className="wp-block-gutenbee-accordion-item">
+          <div
+            key={index}
+            className={classNames({
+              'wp-block-gutenbee-accordion-item': true,
+              'wp-block-gutenbee-accordion-item-expanded': isTabExpanded(index),
+            })}
+          >
             <div
               className="wp-block-gutenbee-accordion-item-title"
               onClick={() => onTabToggle(index)}
@@ -238,18 +245,41 @@ const AccordionsEdit = ({
           </PanelBody>
 
           <PanelBody title={__('Block Appearance')} initialOpen={false}>
-            <PopoverColorControl
-              label={__('Title Text Color')}
-              value={titleTextColor || ''}
-              defaultValue={titleTextColor || ''}
-              onChange={value => setAttributes({ titleTextColor: value })}
-            />
-            <PopoverColorControl
-              label={__('Title Background Color')}
-              value={titleBackgroundColor || ''}
-              defaultValue={titleBackgroundColor || ''}
-              onChange={value => setAttributes({ titleBackgroundColor: value })}
-            />
+            <StateTabs>
+              {activeState => {
+                return (
+                  <Fragment>
+                    <PopoverColorControl
+                      label={__(`Title ${activeState} Text Color`)}
+                      value={attributes[`title${activeState}TextColor`] || ''}
+                      defaultValue={
+                        attributes[`title${activeState}TextColor`] || ''
+                      }
+                      onChange={value =>
+                        setAttributes({
+                          [`title${activeState}TextColor`]: value,
+                        })
+                      }
+                    />
+                    <PopoverColorControl
+                      label={__(`Title ${activeState} Background Color`)}
+                      value={
+                        attributes[`title${activeState}BackgroundColor`] || ''
+                      }
+                      defaultValue={
+                        attributes[`title${activeState}BackgroundColor`] || ''
+                      }
+                      onChange={value =>
+                        setAttributes({
+                          [`title${activeState}BackgroundColor`]: value,
+                        })
+                      }
+                    />
+                  </Fragment>
+                );
+              }}
+            </StateTabs>
+
             <PopoverColorControl
               label={__('Content Text Color')}
               value={tabContentTextColor || ''}

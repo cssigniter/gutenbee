@@ -1,23 +1,4 @@
-/**
- * Accordion block
- */
-
-import { __ } from 'wp.i18n';
-import { registerBlockType } from 'wp.blocks';
-import { RichText } from 'wp.blockEditor';
-import classNames from 'classnames';
-
-import AccordionBlockIcon from './block-icon';
-import AccordionsEdit from './edit';
-import {
-  getDefaultResponsiveValue,
-  getDefaultSpacingValue,
-} from '../../components/controls/responsive-control/default-values';
-import AccordionStyle from './style';
-import getBlockId from '../../util/getBlockId';
-import deprecated from './deprecated';
-import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
-import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+// TODO decide if we're migrating this or keeping styles with important
 
 const Accordion = ({ className, attributes }) => {
   const {
@@ -124,23 +105,7 @@ registerBlockType('gutenbee/accordion', {
       type: 'string',
       default: '',
     },
-    titleActiveBackgroundColor: {
-      type: 'string',
-      default: '',
-    },
-    titleHoverBackgroundColor: {
-      type: 'string',
-      default: '',
-    },
     titleTextColor: {
-      type: 'string',
-      default: '',
-    },
-    titleActiveTextColor: {
-      type: 'string',
-      default: '',
-    },
-    titleHoverTextColor: {
       type: 'string',
       default: '',
     },

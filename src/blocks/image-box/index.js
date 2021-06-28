@@ -110,7 +110,13 @@ registerBlockType('gutenbee/imagebox', {
   description: __('An image box with a title and a description.'),
   icon: ImageBoxBlockIcon,
   category: 'gutenbee',
-  keywords: [__('image'), __('image box'), __('media')],
+  keywords: [
+    __('image'),
+    __('image box'),
+    __('media'),
+    'gutenbeeimage',
+    'imagegutenbee',
+  ],
   supports: {
     anchor: true,
   },
