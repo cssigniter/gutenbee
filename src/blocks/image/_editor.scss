@@ -5,16 +5,13 @@
   }
 }
 
-.wp-block-gutenbee-image {
+figure.wp-block-gutenbee-image:not(.wp-block) {
   margin: 0;
+}
+
+.wp-block-gutenbee-image {
   padding: 0;
   position: relative;
-
-  &::after {
-    content: "";
-    display: table;
-    clear: both;
-  }
 
   &.is-style-circle-mask,
   &.is-style-rounded {
@@ -35,3 +32,44 @@
 		margin-right: auto;
 	}
 }
+
+[data-align="wide"] > .wp-block-gutenbee-image,
+[data-align="full"] > .wp-block-gutenbee-image {
+  img {
+    width: 100%;
+  }
+}
+
+.wp-block[data-align="left"],
+.wp-block[data-align="center"],
+.wp-block[data-align="right"] {
+  > .wp-block-gutenbee-image {
+    display: table;
+
+    > figcaption {
+      display: table-caption;
+      caption-side: bottom;
+    }
+  }
+}
+
+.wp-block[data-align="left"] > .wp-block-gutenbee-image {
+  margin-right: 1em;
+  margin-left: 0;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.wp-block[data-align="right"] > .wp-block-gutenbee-image {
+  margin-left: 1em;
+  margin-right: 0;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.wp-block[data-align="center"] > .wp-block-gutenbee-image {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+

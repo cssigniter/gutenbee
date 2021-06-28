@@ -8,6 +8,7 @@ import {
   MediaPlaceholder,
   RichText,
   BlockIcon,
+  useBlockProps,
 } from 'wp.blockEditor';
 import {
   PanelBody,
@@ -231,6 +232,14 @@ const ImageEdit = ({
     return map(imageSizes, ({ name, slug }) => ({ value: slug, label: name }));
   })();
 
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(className, blockId),
+    style: {
+      backgroundColor: backgroundColor || undefined,
+    },
+  });
+
   const blockControls = (
     <BlockControls>
       <BlockAlignmentToolbar value={align} onChange={onAlignmentUpdate} />
@@ -279,48 +288,39 @@ const ImageEdit = ({
 
   if (isEditing || !url) {
     return (
-      <Fragment>
+      <div {...blockProps}>
         {blockControls}
         {mediaUploader}
-      </Fragment>
+      </div>
     );
   }
 
   return (
-    <Fragment>
-      <ImageStyle attributes={attributes} />
-
-      <figure
-        id={blockId}
-        className={classNames(className, blockId)}
+    <figure {...blockProps}>
+      <img
+        src={url}
+        alt={alt}
+        onDoubleClick={toggleIsEditing}
+        onClick={onImageClick}
         style={{
-          backgroundColor: backgroundColor || undefined,
+          ...getBorderCSSValue({ attributes, prefix: 'image' }),
+          ...getBoxShadowCSSValue({ attributes, prefix: 'image' }),
         }}
-      >
-        <img
-          src={url}
-          alt={alt}
-          onDoubleClick={toggleIsEditing}
-          onClick={onImageClick}
-          style={{
-            ...getBorderCSSValue({ attributes, prefix: 'image' }),
-            ...getBoxShadowCSSValue({ attributes, prefix: 'image' }),
-          }}
+      />
+
+      {(!RichText.isEmpty(caption) || isSelected) && (
+        <RichText
+          tagName="figcaption"
+          placeholder={__('Write caption…')}
+          value={caption}
+          unstableOnFocus={() => setCaptionFocused(true)}
+          onChange={value => setAttributes({ caption: value })}
+          isSelected={captionFocused}
+          inlineToolbar
         />
+      )}
 
-        {(!RichText.isEmpty(caption) || isSelected) && (
-          <RichText
-            tagName="figcaption"
-            placeholder={__('Write caption…')}
-            value={caption}
-            unstableOnFocus={() => setCaptionFocused(true)}
-            onChange={value => setAttributes({ caption: value })}
-            isSelected={captionFocused}
-            inlineToolbar
-          />
-        )}
-      </figure>
-
+      <ImageStyle attributes={attributes} />
       {blockControls}
 
       <InspectorControls>
@@ -453,7 +453,7 @@ const ImageEdit = ({
           />
         </PanelBody>
       </InspectorControls>
-    </Fragment>
+    </figure>
   );
 };
 

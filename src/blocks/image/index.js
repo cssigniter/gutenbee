@@ -1,7 +1,7 @@
 import { Fragment } from 'wp.element';
 import { __, _x } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import { RichText } from 'wp.blockEditor';
+import { RichText, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 import { isEmpty } from 'lodash';
 
@@ -26,6 +26,7 @@ import { getAuthVisibilityClasses } from '../../components/controls/auth-visibil
 registerBlockType('gutenbee/image', {
   title: __('GutenBee Image'),
   description: __('Insert an image to make a visual statement.'),
+  apiVersion: 2,
   icon: ImageBlockIcon,
   category: 'gutenbee',
   keywords: ['img', __('photo'), 'gutenbeeimage', 'imagegutenbee'],
@@ -228,14 +229,17 @@ registerBlockType('gutenbee/image', {
     if ('left' === align || 'right' === align || 'center' === align) {
       return (
         <div
+          {...useBlockProps.save({
+            id: blockId,
+            className: classNames(
+              className,
+              blockId,
+              getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+              getAuthVisibilityClasses(blockAuthVisibility),
+            ),
+            style,
+          })}
           id={blockId}
-          className={classNames(
-            className,
-            blockId,
-            getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-            getAuthVisibilityClasses(blockAuthVisibility),
-          )}
-          style={style}
         >
           <ImageStyle attributes={attributes} />
           <figure className={classes}>{figure}</figure>
@@ -245,15 +249,17 @@ registerBlockType('gutenbee/image', {
 
     return (
       <figure
-        id={blockId}
-        className={classNames(
-          className,
-          blockId,
-          classes,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-        )}
-        style={style}
+        {...useBlockProps.save({
+          id: blockId,
+          className: classNames(
+            className,
+            blockId,
+            classes,
+            getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+            getAuthVisibilityClasses(blockAuthVisibility),
+          ),
+          style,
+        })}
       >
         <ImageStyle attributes={attributes} />
         {figure}
