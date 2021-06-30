@@ -1,4 +1,36 @@
-// TODO decide if we're migrating this or keeping styles with important
+import { RichText } from 'wp.blockEditor';
+import classNames from 'classnames';
+
+import getBlockId from '../../../util/getBlockId';
+import StyleSheet from '../../../components/stylesheet';
+import Rule from '../../../components/stylesheet/Rule';
+import { getBreakpointVisibilityClassNames } from '../../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../../components/controls/auth-visibility-control/helpers';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../../components/controls/responsive-control/default-values';
+
+const AccordionStyle = ({ attributes, children }) => {
+  const { uniqueId, blockPadding, blockMargin } = attributes;
+  const blockId = getBlockId(uniqueId);
+
+  return (
+    <StyleSheet id={blockId}>
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-accordion.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-accordion.[root] { padding: %s; }"
+        unit="px"
+      />
+      {children}
+    </StyleSheet>
+  );
+};
 
 const Accordion = ({ className, attributes }) => {
   const {
@@ -72,12 +104,7 @@ const Accordion = ({ className, attributes }) => {
   );
 };
 
-registerBlockType('gutenbee/accordion', {
-  title: __('GutenBee Accordion'),
-  description: __('Display fancy accordions'),
-  icon: AccordionBlockIcon,
-  category: 'gutenbee',
-  keywords: [__('accordion'), __('tabs')],
+const v3 = {
   supports: {
     anchor: true,
   },
@@ -145,9 +172,9 @@ registerBlockType('gutenbee/accordion', {
       },
     },
   },
-  deprecated,
-  edit: AccordionsEdit,
   save: ({ className, attributes }) => (
     <Accordion className={className} attributes={attributes} />
   ),
-});
+};
+
+export default v3;

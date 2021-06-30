@@ -4,15 +4,6 @@
   border-radius: 3px;
   margin-bottom: 12px;
 
-  > * {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  > :last-child {
-    margin-bottom: 5px;
-  }
-
   .gutenbee-color-icon-indicator {
     padding-right: 0;
   }
@@ -24,4 +15,12 @@
   border-bottom: 1px solid $border-color;
   padding: 0 0 5px;
   margin: 0;
+}
+
+.gutenbee-state-tabs-content {
+  padding: 10px 10px 5px;
+
+  > :last-child {
+    margin-bottom: 0;
+  }
 }

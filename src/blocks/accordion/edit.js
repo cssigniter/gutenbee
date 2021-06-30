@@ -49,8 +49,6 @@ const AccordionsEdit = ({
   const {
     uniqueId,
     tabs,
-    titleBackgroundColor,
-    titleTextColor,
     tabContentTextColor,
     tabContentBackgroundColor,
     borderColor,
@@ -155,11 +153,6 @@ const AccordionsEdit = ({
             <div
               className="wp-block-gutenbee-accordion-item-title"
               onClick={() => onTabToggle(index)}
-              style={{
-                color: titleTextColor || undefined,
-                backgroundColor: titleBackgroundColor || undefined,
-                borderColor: borderColor || undefined,
-              }}
             >
               <PlainText
                 value={tab.title}
@@ -174,9 +167,6 @@ const AccordionsEdit = ({
                   event.stopPropagation();
                 }}
                 placeholder={__('Write title…')}
-                style={{
-                  color: titleTextColor || undefined,
-                }}
               />
             </div>
 

@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import { Fragment } from 'wp.element';
+import classNames from 'classnames';
 import { __ } from 'wp.i18n';
 import { PanelBody, ToggleControl, withFallbackStyles } from 'wp.components';
 import {
@@ -7,6 +7,7 @@ import {
   InspectorControls,
   RichText,
   AlignmentToolbar,
+  useBlockProps,
 } from 'wp.blockEditor';
 import { createBlock } from 'wp.blocks';
 import { compose } from 'wp.compose';
@@ -70,9 +71,62 @@ const ParagraphBlock = ({
   useUniqueId({ attributes, setAttributes, clientId });
 
   const blockId = getBlockId(uniqueId);
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(
+      className,
+      blockId,
+      getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+      getAuthVisibilityClasses(blockAuthVisibility),
+      {
+        'gutenbee-block-paragraph': true,
+        [backgroundColor.class]: backgroundColor.class,
+        [textColor.class]: textColor.class,
+      },
+    ),
+    style: {
+      backgroundColor: backgroundColor.color,
+      color: textColor.color,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
 
   return (
     <Fragment>
+      <div {...blockProps}>
+        <RichText
+          identifier="content"
+          tagName="p"
+          className={classNames('gutenbee-block-paragraph', {
+            'has-drop-cap': dropCap,
+            [`has-text-align-${align}`]: align,
+          })}
+          style={{
+            fontSize: fontSize.desktop ? fontSize.desktop + 'px' : undefined,
+          }}
+          value={content}
+          onChange={newContent => setAttributes({ content: newContent })}
+          onMerge={mergeBlocks}
+          onReplace={onReplace}
+          onRemove={onReplace ? () => onReplace([]) : undefined}
+          onSplit={value => {
+            if (!value) {
+              return createBlock('gutenbee/paragraph');
+            }
+
+            return createBlock('gutenbee/paragraph', {
+              ...attributes,
+              content: value,
+            });
+          }}
+          aria-label={__('Paragraph block')}
+          placeholder={placeholder || __('Start writing…')}
+          __unstableEmbedURLOnPaste
+        />
+      </div>
+      <ParagraphStyle attributes={attributes} />
+
       <InspectorControls>
         <PanelBody title={__('Text Settings')} className="blocks-font-size">
           <ResponsiveControl>
@@ -190,59 +244,6 @@ const ParagraphBlock = ({
           />
         </PanelBody>
       </InspectorControls>
-
-      <ParagraphStyle attributes={attributes} />
-
-      <div
-        id={blockId}
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-          {
-            'gutenbee-block-paragraph': true,
-            [backgroundColor.class]: backgroundColor.class,
-            [textColor.class]: textColor.class,
-          },
-        )}
-        style={{
-          backgroundColor: backgroundColor.color,
-          color: textColor.color,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-      >
-        <RichText
-          identifier="content"
-          tagName="p"
-          className={classNames('gutenbee-block-paragraph', {
-            'has-drop-cap': dropCap,
-            [`has-text-align-${align}`]: align,
-          })}
-          style={{
-            fontSize: fontSize.desktop ? fontSize.desktop + 'px' : undefined,
-          }}
-          value={content}
-          onChange={newContent => setAttributes({ content: newContent })}
-          onMerge={mergeBlocks}
-          onReplace={onReplace}
-          onRemove={onReplace ? () => onReplace([]) : undefined}
-          onSplit={value => {
-            if (!value) {
-              return createBlock('gutenbee/paragraph');
-            }
-
-            return createBlock('gutenbee/paragraph', {
-              ...attributes,
-              content: value,
-            });
-          }}
-          aria-label={__('Paragraph block')}
-          placeholder={placeholder || __('Start writing…')}
-          __unstableEmbedURLOnPaste
-        />
-      </div>
     </Fragment>
   );
 };

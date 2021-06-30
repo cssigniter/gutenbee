@@ -107,6 +107,14 @@ registerBlockType('gutenbee/tabs', {
       type: 'string',
       default: '',
     },
+    hoverTabBackgroundColor: {
+      type: 'string',
+      default: '',
+    },
+    hoverTabTextColor: {
+      type: 'string',
+      default: '',
+    },
     borderColor: {
       type: 'string',
       default: '',

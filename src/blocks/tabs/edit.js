@@ -15,6 +15,7 @@ import BreakpointVisibilityControl from '../../components/controls/breakpoint-vi
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
+import StateTabs from '../../components/controls/state-tabs';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -51,10 +52,6 @@ const TabsEdit = ({
   const {
     uniqueId,
     tabs,
-    activeTabBackgroundColor,
-    activeTabTextColor,
-    tabBackgroundColor,
-    tabTextColor,
     tabContentBackgroundColor,
     tabContentTextColor,
     borderColor,
@@ -159,12 +156,6 @@ const TabsEdit = ({
               }}
               style={{
                 fontSize: tabs.length > 4 ? '14px' : undefined,
-                color: isActiveTab(index)
-                  ? activeTabTextColor
-                  : tabTextColor || undefined,
-                backgroundColor: isActiveTab(index)
-                  ? activeTabBackgroundColor
-                  : tabBackgroundColor || undefined,
               }}
             >
               <PlainText
@@ -216,35 +207,42 @@ const TabsEdit = ({
           </PanelBody>
 
           <PanelBody title={__('Block Appearance')} initialOpen={false}>
-            <PopoverColorControl
-              label={__('Tab Text Color')}
-              value={tabTextColor || ''}
-              defaultValue={tabTextColor || ''}
-              onChange={value => setAttributes({ tabTextColor: value })}
-            />
+            <StateTabs>
+              {activeState => {
+                const textColorKey = activeState
+                  ? `${activeState.toLowerCase()}TabTextColor`
+                  : 'tabTextColor';
+                const backgroundColorKey = activeState
+                  ? `${activeState.toLowerCase()}TabBackgroundColor`
+                  : 'tabBackgroundColor';
 
-            <PopoverColorControl
-              label={__('Tab Background Color')}
-              value={tabBackgroundColor || ''}
-              defaultValue={tabBackgroundColor || ''}
-              onChange={value => setAttributes({ tabBackgroundColor: value })}
-            />
+                return (
+                  <Fragment>
+                    <PopoverColorControl
+                      label={__(`Tab ${activeState} Text Color`)}
+                      value={attributes[textColorKey]}
+                      defaultValue={attributes[textColorKey] || ''}
+                      onChange={value =>
+                        setAttributes({
+                          [textColorKey]: value,
+                        })
+                      }
+                    />
 
-            <PopoverColorControl
-              label={__('Active Tab Text Color')}
-              value={activeTabTextColor || ''}
-              defaultValue={activeTabTextColor || ''}
-              onChange={value => setAttributes({ activeTabTextColor: value })}
-            />
-
-            <PopoverColorControl
-              label={__('Active Tab Background Color')}
-              value={activeTabBackgroundColor || ''}
-              defaultValue={activeTabBackgroundColor || ''}
-              onChange={value =>
-                setAttributes({ activeTabBackgroundColor: value })
-              }
-            />
+                    <PopoverColorControl
+                      label={__(`Tab ${activeState} Background Color`)}
+                      value={attributes[backgroundColorKey]}
+                      defaultValue={attributes[backgroundColorKey] || ''}
+                      onChange={value =>
+                        setAttributes({
+                          [backgroundColorKey]: value,
+                        })
+                      }
+                    />
+                  </Fragment>
+                );
+              }}
+            </StateTabs>
 
             <PopoverColorControl
               label={__('Content Text Color')}

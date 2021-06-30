@@ -7,6 +7,7 @@ import {
   InspectorControls,
   RichText,
   AlignmentToolbar,
+  useBlockProps,
 } from 'wp.blockEditor';
 import { createBlock } from 'wp.blocks';
 import classNames from 'classnames';
@@ -64,6 +65,15 @@ function HeadingEdit({
   });
 
   const blockId = getBlockId(uniqueId);
+  const blockProps = useBlockProps({
+    className: classNames(blockId, 'gutenbee-heading-wrap'),
+    id: blockId,
+    style: {
+      backgroundColor: backgroundColor ? backgroundColor : undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
 
   return (
     <Fragment>
@@ -75,19 +85,7 @@ function HeadingEdit({
         />
       </HeadingStyle>
 
-      <div
-        style={{
-          backgroundColor: backgroundColor ? backgroundColor : undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-        id={blockId}
-        className={classNames(
-          'wp-block-gutenbee-heading',
-          blockId,
-          'gutenbee-heading-wrap',
-        )}
-      >
+      <div {...blockProps}>
         <RichText
           identifier="content"
           tagName={tagName}

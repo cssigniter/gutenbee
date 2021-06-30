@@ -358,7 +358,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected }) => {
                 />
               )}
 
-            {supports.readMoreButtonLabel?.includes(postType) && (
+            {supports.readMoreButtonLabel?.includes?.(postType) && (
               <TextControl
                 label={__('Button Label')}
                 onChange={value =>

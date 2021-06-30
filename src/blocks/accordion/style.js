@@ -14,14 +14,15 @@ const AccordionStyle = ({ attributes, children }) => {
     uniqueId,
     blockPadding,
     blockMargin,
+    titleTextColor,
+    titleBackgroundColor,
+    borderColor,
     titleActiveBackgroundColor,
     titleHoverBackgroundColor,
     titleActiveTextColor,
     titleHoverTextColor,
   } = attributes;
   const blockId = getBlockId(uniqueId);
-
-  // TODO: remove !important and add all colors here + deprecation
 
   return (
     <StyleSheet id={blockId}>
@@ -37,21 +38,32 @@ const AccordionStyle = ({ attributes, children }) => {
       />
 
       <Rule
-        value={titleActiveBackgroundColor}
-        rule=".wp-block-gutenbee-accordion.[root] .wp-block-gutenbee-accordion-item-expanded .wp-block-gutenbee-accordion-item-title { background-color: %s !important; }"
+        value={borderColor}
+        rule=".wp-block-gutenbee-accordion.[root] .wp-block-gutenbee-accordion-item-title { border-color: %s; }"
       />
       <Rule
-        value={titleHoverBackgroundColor}
-        rule=".wp-block-gutenbee-accordion.[root] .wp-block-gutenbee-accordion-item-title:hover { background-color: %s !important; }"
+        value={titleTextColor}
+        rule=".wp-block-gutenbee-accordion.[root] .wp-block-gutenbee-accordion-item-title { color: %s; }"
       />
-
+      <Rule
+        value={titleBackgroundColor}
+        rule=".wp-block-gutenbee-accordion.[root] .wp-block-gutenbee-accordion-item-title { background-color: %s; }"
+      />
       <Rule
         value={titleActiveTextColor}
-        rule=".wp-block-gutenbee-accordion.[root] .wp-block-gutenbee-accordion-item-expanded .wp-block-gutenbee-accordion-item-title { color: %s !important; }"
+        rule=".wp-block-gutenbee-accordion.[root] .wp-block-gutenbee-accordion-item-expanded .wp-block-gutenbee-accordion-item-title { color: %s; }"
+      />
+      <Rule
+        value={titleActiveBackgroundColor}
+        rule=".wp-block-gutenbee-accordion.[root] .wp-block-gutenbee-accordion-item-expanded .wp-block-gutenbee-accordion-item-title { background-color: %s; }"
       />
       <Rule
         value={titleHoverTextColor}
-        rule=".wp-block-gutenbee-accordion.[root] .wp-block-gutenbee-accordion-item-title:hover { color: %s !important; }"
+        rule=".wp-block-gutenbee-accordion.[root] .wp-block-gutenbee-accordion-item-title:hover { color: %s; }"
+      />
+      <Rule
+        value={titleHoverBackgroundColor}
+        rule=".wp-block-gutenbee-accordion.[root] .wp-block-gutenbee-accordion-item-title:hover { background-color: %s; }"
       />
       {children}
     </StyleSheet>

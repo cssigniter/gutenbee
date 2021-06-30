@@ -1,7 +1,7 @@
 import { Fragment } from 'wp.element';
 import { registerBlockType } from 'wp.blocks';
 import { __ } from 'wp.i18n';
-import { RichText } from 'wp.blockEditor';
+import { RichText, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import HeadingEdit from './edit';
@@ -24,6 +24,7 @@ import { getBreakpointVisibilityClassNames } from '../../components/controls/bre
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 registerBlockType('gutenbee/heading', {
+  apiVersion: 2,
   title: __('GutenBee Heading'),
   description: __(
     'Introduce new sections and organize content to help visitors (and search engines) understand the structure of your content.',
@@ -100,8 +101,11 @@ registerBlockType('gutenbee/heading', {
   },
   deprecated,
   transforms,
+  getEditWrapperProps() {
+    return { 'data-align': true };
+  },
   edit: HeadingEdit,
-  save: ({ attributes, className }) => {
+  save: ({ attributes }) => {
     const {
       uniqueId,
       content,
@@ -116,8 +120,6 @@ registerBlockType('gutenbee/heading', {
     const blockId = getBlockId(uniqueId);
 
     const classes = classNames(
-      className,
-      'wp-block-gutenbee-heading',
       blockId,
       getBreakpointVisibilityClassNames(blockBreakpointVisibility),
       getAuthVisibilityClasses(blockAuthVisibility),
@@ -127,22 +129,21 @@ registerBlockType('gutenbee/heading', {
       },
     );
 
+    const blockProps = useBlockProps.save({
+      id: blockId,
+      className: classes,
+      style: {
+        color: textColor ? textColor : undefined,
+        backgroundColor: backgroundColor ? backgroundColor : undefined,
+        ...getBorderCSSValue({ attributes }),
+        ...getBoxShadowCSSValue({ attributes }),
+      },
+    });
+
     return (
       <Fragment>
+        <RichText.Content tagName={tagName} value={content} {...blockProps} />
         <HeadingStyle attributes={attributes} />
-
-        <RichText.Content
-          id={blockId}
-          className={classes}
-          tagName={tagName}
-          style={{
-            color: textColor ? textColor : undefined,
-            backgroundColor: backgroundColor ? backgroundColor : undefined,
-            ...getBorderCSSValue({ attributes }),
-            ...getBoxShadowCSSValue({ attributes }),
-          }}
-          value={content}
-        />
       </Fragment>
     );
   },

@@ -23,8 +23,6 @@ const Accordion = ({ className, attributes }) => {
   const {
     uniqueId,
     tabs,
-    titleBackgroundColor,
-    titleTextColor,
     borderColor,
     tabContentBackgroundColor,
     tabContentTextColor,
@@ -58,14 +56,7 @@ const Accordion = ({ className, attributes }) => {
             ),
           })}
         >
-          <div
-            className="wp-block-gutenbee-accordion-item-title"
-            style={{
-              color: titleTextColor || undefined,
-              backgroundColor: titleBackgroundColor || undefined,
-              borderColor: borderColor || undefined,
-            }}
-          >
+          <div className="wp-block-gutenbee-accordion-item-title">
             {tab.title}
           </div>
 

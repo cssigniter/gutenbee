@@ -34,7 +34,7 @@ const StateTabs = ({
           </Button>
         ))}
       </div>
-      {children(activeState)}
+      <div className="gutenbee-state-tabs-content">{children(activeState)}</div>
     </div>
   );
 };

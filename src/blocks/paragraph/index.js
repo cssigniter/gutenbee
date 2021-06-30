@@ -1,7 +1,7 @@
 import { Fragment } from 'wp.element';
 import { registerBlockType } from 'wp.blocks';
 import { __ } from 'wp.i18n';
-import { RichText, getColorClassName } from 'wp.blockEditor';
+import { RichText, getColorClassName, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import getBlockId from '../../util/getBlockId';
@@ -23,6 +23,7 @@ import { getBreakpointVisibilityClassNames } from '../../components/controls/bre
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 registerBlockType('gutenbee/paragraph', {
+  apiVersion: 2,
   title: __('GutenBee Paragraph'),
   description: __('Start with the building block of all narrative.'),
   icon: ParagraphBlockIcon,
@@ -108,9 +109,12 @@ registerBlockType('gutenbee/paragraph', {
       },
     },
   },
+  getEditWrapperProps() {
+    return { 'data-align': true };
+  },
   deprecated,
   edit: ParagraphEdit,
-  save: ({ attributes, className }) => {
+  save: ({ attributes }) => {
     const {
       uniqueId,
       content,
@@ -131,38 +135,31 @@ registerBlockType('gutenbee/paragraph', {
       backgroundColor,
     );
 
-    const classes = classNames(
-      'wp-block-gutenbee-paragraph',
-      className,
-      blockId,
-      getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-      getAuthVisibilityClasses(blockAuthVisibility),
-      {
-        'has-text-color': textColor || customTextColor,
-        'has-drop-cap': dropCap,
-        [textClass]: textClass,
-        [backgroundClass]: backgroundClass,
+    const blockProps = useBlockProps.save({
+      id: blockId,
+      className: classNames(
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+        {
+          'has-text-color': textColor || customTextColor,
+          'has-drop-cap': dropCap,
+          [textClass]: textClass,
+          [backgroundClass]: backgroundClass,
+        },
+      ),
+      style: {
+        backgroundColor: backgroundClass ? undefined : customBackgroundColor,
+        color: textClass ? undefined : customTextColor,
+        ...getBorderCSSValue({ attributes }),
+        ...getBoxShadowCSSValue({ attributes }),
       },
-    );
-
-    const styles = {
-      backgroundColor: backgroundClass ? undefined : customBackgroundColor,
-      color: textClass ? undefined : customTextColor,
-      ...getBorderCSSValue({ attributes }),
-      ...getBoxShadowCSSValue({ attributes }),
-    };
+    });
 
     return (
       <Fragment>
+        <RichText.Content {...blockProps} tagName="p" value={content} />
         <ParagraphStyle attributes={attributes} />
-
-        <RichText.Content
-          id={blockId}
-          className={classes}
-          tagName="p"
-          style={styles}
-          value={content}
-        />
       </Fragment>
     );
   },

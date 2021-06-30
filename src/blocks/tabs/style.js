@@ -14,6 +14,8 @@ const TabsStyle = ({ attributes, children }) => {
     uniqueId,
     blockPadding,
     blockMargin,
+    hoverTabBackgroundColor,
+    hoverTabTextColor,
     activeTabBackgroundColor,
     activeTabTextColor,
     tabBackgroundColor,
@@ -48,6 +50,14 @@ const TabsStyle = ({ attributes, children }) => {
       <Rule
         value={tabBackgroundColor}
         rule=".wp-block-gutenbee-tabs.[root] .wp-block-gutenbee-tabs-nav-item { background-color: %s; }"
+      />
+      <Rule
+        value={hoverTabTextColor}
+        rule=".wp-block-gutenbee-tabs.[root] .wp-block-gutenbee-tabs-nav-item:hover { color: %s; }"
+      />
+      <Rule
+        value={hoverTabBackgroundColor}
+        rule=".wp-block-gutenbee-tabs.[root] .wp-block-gutenbee-tabs-nav-item:hover { background-color: %s; }"
       />
       <Rule
         value={activeTabTextColor}
