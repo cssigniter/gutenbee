@@ -31,11 +31,10 @@
 
 	function gutenbee_block_post_types_get_theme_support_defaults() {
 		return array(
-			'gridEffect'          => false,
-			'masonry'             => false,
-			'categoryFilters'     => false,
-			'selectImageSize'     => array(),
-			'readMoreButtonLabel' => false,
+			'gridEffect'      => false,
+			'masonry'         => false,
+			'categoryFilters' => false,
+			'selectImageSize' => array(),
 		);
 	}
 
@@ -369,7 +368,7 @@
 			$item_template_vars['image-size'] = $image_size_slug;
 		}
 
-		if (! empty ( $read_more_button_label ) ) {
+		if ( ! empty( $read_more_button_label ) ) {
 			$item_template_vars['read-more-button-label'] = $read_more_button_label;
 		}
 

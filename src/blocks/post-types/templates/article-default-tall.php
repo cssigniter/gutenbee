@@ -35,7 +35,7 @@ $read_more_button_label = ! empty ( $args['read-more-button-label'] ) ? $args['r
 		<?php endif; ?>
 
 		<a href="<?php the_permalink(); ?>" class="gutenbee-post-types-item-more">
-			<?php echo sprintf( '%s', esc_html( $read_more_button_label ) ); ?>
+			<?php echo esc_html( $read_more_button_label ); ?>
 		</a>
 	</div>
 </article>

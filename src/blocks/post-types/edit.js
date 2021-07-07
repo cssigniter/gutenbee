@@ -358,17 +358,13 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected }) => {
                 />
               )}
 
-            {supports.readMoreButtonLabel?.includes?.(postType) && (
-              <TextControl
-                label={__('Button Label')}
-                onChange={value =>
-                  setAttributes({ readMoreButtonLabel: value })
-                }
-                type="text"
-                placeholder={__('Read More')}
-                value={readMoreButtonLabel}
-              />
-            )}
+            <TextControl
+              label={__('Button Label')}
+              onChange={value => setAttributes({ readMoreButtonLabel: value })}
+              type="text"
+              placeholder={__('Read More')}
+              value={readMoreButtonLabel}
+            />
           </PanelBody>
         </InspectorControls>
       )}
