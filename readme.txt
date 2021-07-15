@@ -11,7 +11,7 @@ Requires PHP: 5.6
 GutenBee enhances the Gutenberg editor with more blocks!
 
 == Description ==
-[GutenBee is a collection of elegant WordPress blocks](https://www.cssigniter.com/gutenbee/) enhancing your editing experience in the Gutenberg editor and vastly extending the potential of the new editor experience.
+[GutenBee is a collection of elegant WordPress blocks](https://www.cssigniter.com/plugins/gutenbee/) enhancing your editing experience in the Gutenberg editor and vastly extending the potential of the new editor experience.
 
 Check out [the demo](https://www.cssigniter.com/gutenbee/) now!
 
