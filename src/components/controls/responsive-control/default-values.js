@@ -27,6 +27,7 @@ export const getDefaultSpacingValue = () => ({
     bottom: '',
     left: '',
   },
+  linked: undefined,
 });
 
 export const getDefaultBackgroundImageValue = () => ({

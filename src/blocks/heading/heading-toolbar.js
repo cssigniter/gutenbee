@@ -26,6 +26,7 @@ const HeadingToolbar = ({
 
   return (
     <Toolbar
+      className="gutenbee-heading-toolbar"
       isCollapsed={isCollapsed}
       icon={<HeadingLevelIcon level={selectedLevel} />}
       controls={range(minLevel, maxLevel).map(index =>

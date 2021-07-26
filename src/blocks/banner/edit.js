@@ -1,4 +1,4 @@
-import { Fragment } from 'wp.element';
+import { Fragment, useRef } from 'wp.element';
 import classNames from 'classnames';
 import { __ } from 'wp.i18n';
 import { InspectorControls, InnerBlocks, MediaUpload } from 'wp.blockEditor';
@@ -29,6 +29,7 @@ import BreakpointVisibilityControl from '../../components/controls/breakpoint-vi
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 import StyleSheet from '../../components/stylesheet';
 import Rule from '../../components/stylesheet/Rule';
+import URLPicker, { canUseURLPicker } from '../../components/url-picker';
 
 const BannerEditStyle = ({ attributes, children }) => {
   const {
@@ -85,6 +86,7 @@ const BannerBlockEdit = ({
   setAttributes,
   clientId,
   className,
+  isSelected,
 }) => {
   useUniqueId({ attributes, setAttributes, clientId });
   const {
@@ -112,6 +114,8 @@ const BannerBlockEdit = ({
     },
     [clientId],
   );
+
+  const ref = useRef();
 
   const { zoom, parallax } = backgroundImageEffects ?? {};
 
@@ -142,6 +146,7 @@ const BannerBlockEdit = ({
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),
         }}
+        ref={ref}
       >
         {bannerUrl && <span className={`${baseClass}-link-placeholder`} />}
         <div className={`${baseClass}-inner`}>
@@ -179,6 +184,22 @@ const BannerBlockEdit = ({
         </div>
         <BannerEditStyle attributes={attributes} />
       </div>
+
+      {canUseURLPicker() && (
+        <URLPicker
+          isSelected={isSelected}
+          anchorRef={ref}
+          url={bannerUrl}
+          opensInNewTab={newTab}
+          onChange={values => {
+            setAttributes({
+              bannerUrl: values.url,
+              newTab: values.opensInNewTab,
+            });
+          }}
+        />
+      )}
+
       <InspectorControls>
         <PanelBody title={__('Layout Settings')} initialOpen>
           <ResponsiveControl>
@@ -257,25 +278,27 @@ const BannerBlockEdit = ({
           </ResponsiveControl>
         </PanelBody>
 
-        <PanelBody title={__('Link Settings')} initialOpen={false}>
-          <TextControl
-            label={__('Banner URL')}
-            value={bannerUrl}
-            onChange={value => setAttributes({ bannerUrl: value })}
-            type="url"
-            placeholder="https://"
-          />
-          <ToggleControl
-            label={__('Open in new tab')}
-            checked={!!newTab}
-            onChange={() => setAttributes({ newTab: !newTab })}
-            help={
-              newTab
-                ? __('Opens link in new tab.')
-                : __('Toggle to open link in new tab.')
-            }
-          />
-        </PanelBody>
+        {!canUseURLPicker() && (
+          <PanelBody title={__('Link Settings')} initialOpen={false}>
+            <TextControl
+              label={__('Banner URL')}
+              value={bannerUrl}
+              onChange={value => setAttributes({ bannerUrl: value })}
+              type="url"
+              placeholder="https://"
+            />
+            <ToggleControl
+              label={__('Open in new tab')}
+              checked={!!newTab}
+              onChange={() => setAttributes({ newTab: !newTab })}
+              help={
+                newTab
+                  ? __('Opens link in new tab.')
+                  : __('Toggle to open link in new tab.')
+              }
+            />
+          </PanelBody>
+        )}
 
         <PanelBody title={__('Block Appearance')} initialOpen={false}>
           <PopoverColorControl

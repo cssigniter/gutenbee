@@ -1,4 +1,4 @@
-import { Fragment } from 'wp.element';
+import { Fragment, useRef } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import { InspectorControls, RichText } from 'wp.blockEditor';
@@ -24,6 +24,7 @@ import BreakpointVisibilityControl from '../../components/controls/breakpoint-vi
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
 import { buttonSizeTemplates, buttonStyleTemplates } from './templates';
+import URLPicker, { canUseURLPicker } from '../../components/url-picker';
 
 const propTypes = {
   attributes: PropTypes.object.isRequired,
@@ -35,7 +36,13 @@ const propTypes = {
 
 const NEW_TAB_REL = 'noopener';
 
-const ButtonEdit = ({ attributes, setAttributes, className, clientId }) => {
+const ButtonEdit = ({
+  attributes,
+  setAttributes,
+  className,
+  clientId,
+  isSelected,
+}) => {
   const {
     uniqueId,
     url,
@@ -48,6 +55,8 @@ const ButtonEdit = ({ attributes, setAttributes, className, clientId }) => {
     blockBreakpointVisibility,
     blockAuthVisibility,
   } = attributes;
+
+  const ref = useRef();
 
   useUniqueId({
     attributes,
@@ -77,9 +86,11 @@ const ButtonEdit = ({ attributes, setAttributes, className, clientId }) => {
     });
   };
 
+  const canUseURLPickerBool = canUseURLPicker();
+
   return (
     <Fragment>
-      <div id={blockId} className={classNames(className, blockId)}>
+      <div id={blockId} className={classNames(className, blockId)} ref={ref}>
         <ButtonStyle attributes={attributes} />
         <RichText
           placeholder={__('Add text…')}
@@ -98,28 +109,57 @@ const ButtonEdit = ({ attributes, setAttributes, className, clientId }) => {
         />
       </div>
 
-      <InspectorControls>
-        <PanelBody title={__('Button Settings')} initialOpen>
-          <TextControl
-            label={__('Button URL')}
-            value={url}
-            onChange={value => setAttributes({ url: value })}
-            type="url"
-            placeholder="https://"
-          />
-          <ToggleControl
-            label={__('Open in new tab')}
-            onChange={onToggleOpenInNewTab}
-            checked={linkTarget === '_blank'}
-          />
-          <TextControl
-            label={__('Link rel')}
-            value={rel || ''}
-            onChange={onSetLinkRel}
-          />
-        </PanelBody>
+      {canUseURLPickerBool && (
+        <URLPicker
+          isSelected={isSelected}
+          onChange={values => {
+            const newLinkTarget = values.opensInNewTab ? '_blank' : undefined;
+            let updatedRel = rel;
+            if (newLinkTarget && !rel) {
+              updatedRel = NEW_TAB_REL;
+            } else if (!newLinkTarget && rel === NEW_TAB_REL) {
+              updatedRel = undefined;
+            }
 
-        <PanelBody title={__('Block Appearance')} initialOpen={false}>
+            setAttributes({
+              url: values.url,
+              linkTarget: newLinkTarget,
+              rel: updatedRel,
+            });
+          }}
+          url={url}
+          opensInNewTab={linkTarget === '_blank'}
+          anchorRef={ref}
+        />
+      )}
+
+      <InspectorControls>
+        {!canUseURLPickerBool && (
+          <PanelBody title={__('Button Settings')} initialOpen>
+            <TextControl
+              label={__('Button URL')}
+              value={url}
+              onChange={value => setAttributes({ url: value })}
+              type="url"
+              placeholder="https://"
+            />
+            <ToggleControl
+              label={__('Open in new tab')}
+              onChange={onToggleOpenInNewTab}
+              checked={linkTarget === '_blank'}
+            />
+            <TextControl
+              label={__('Link rel')}
+              value={rel || ''}
+              onChange={onSetLinkRel}
+            />
+          </PanelBody>
+        )}
+
+        <PanelBody
+          title={__('Block Appearance')}
+          initialOpen={canUseURLPickerBool}
+        >
           <ResponsiveControl>
             {breakpoint => (
               <FontSizePickerLabel

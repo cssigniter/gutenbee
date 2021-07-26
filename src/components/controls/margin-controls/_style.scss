@@ -14,11 +14,27 @@
   }
 }
 
+.gutenbee-control-spacing-controls-wrap {
+  display: flex;
+  align-items: flex-end;
+
+  .components-button {
+    height: 30px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
 .gutenbee-control-spacing-controls {
   display: flex;
 
   .components-base-control {
     margin-bottom: 0 !important;
+    width: 25%;
+
+    .components-base-control__field {
+      margin-bottom: 0 !important;
+    }
 
     &:first-child {
       .components-text-control__input {

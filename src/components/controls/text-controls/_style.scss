@@ -12,6 +12,7 @@
       display: none;
     }
   }
+
   .components-base-control__field {
     .components-base-control__label {
       display: none;
@@ -20,5 +21,9 @@
 
   > .components-base-control__label {
     margin-bottom: 4px;
+  }
+
+  .components-unit-control__select {
+    display: none !important;
   }
 }

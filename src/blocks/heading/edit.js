@@ -123,15 +123,6 @@ function HeadingEdit({
 
       <InspectorControls>
         <PanelBody title={__('Heading Settings')}>
-          <p>{__('Level')}</p>
-          <HeadingToolbar
-            isCollapsed={false}
-            minLevel={1}
-            maxLevel={7}
-            selectedLevel={level}
-            onChange={newLevel => setAttributes({ level: newLevel })}
-          />
-
           <ResponsiveControl>
             {breakpoint => (
               <FontSizePickerLabel

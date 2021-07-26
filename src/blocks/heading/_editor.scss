@@ -4,3 +4,17 @@
     margin-bottom: 0 !important;
   }
 }
+
+.gutenbee-heading-toolbar {
+  .components-button {
+    &.has-icon {
+      padding: 0;
+      min-width: 388px;
+
+      &::before {
+        left: 3px;
+        right: 3px;
+      }
+    }
+  }
+}
