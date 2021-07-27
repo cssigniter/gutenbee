@@ -110,7 +110,13 @@ function gutenbee_admin_assets() {
 }
 
 // GutenBee's block category
-add_filter( 'block_categories', 'gutenbee_block_categories', 10, 2 );
+global $wp_version;
+
+if ( version_compare( $wp_version, '5.8', '<' ) ) {
+	add_filter( 'block_categories', 'gutenbee_block_categories', 10, 2 );
+} else {
+	add_filter( 'block_categories_all', 'gutenbee_block_categories', 10, 2 );
+}
 function gutenbee_block_categories( $categories, $post ) {
 	return array_merge( $categories, array(
 		array(
