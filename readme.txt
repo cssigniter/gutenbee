@@ -73,6 +73,30 @@ Note that if you want to use the Google Maps block you will also need a Google M
 
 == Changelog ==
 
+= 2.12.1 =
+* Update link controls on all blocks that support them and moved them on the block toolbar.
+* Added a way to link padding and margin values together so that they can be changed at the same time with the same value.
+* Fix issue with the font size picker on all blocks where the unit selection would not work.
+* Fix Food Menu block appearance in the editor.
+* Fix heading selection overflowing in the editor.
+* Minor style adjustments for WordPress 5.8
+* A deprecation warning would be thrown after WP 5.8 (action 'block_categories' renamed to 'block_categories_all').
+* The wp-editor script should not be enqueued together with the new block widgets editor in WP 5.8.
+
+= 2.12.0 =
+* Added support for showing all/upcoming/past/recurring events from the Ignition Framework.
+* Post Types Block: Added custom label for read more buttons.
+* Make it easier to search for GutenBee blocks in the inserter (video, video embed, etc).
+* Accordion Block: Added hover + active colors for the titles.
+* Banner Block: Fix the ability to revert to "auto" height.
+* Image Block: Migrate to editor API v2 - Improve editor appearance and UX.
+* Image Comparison Block: Start images hidden until the comparison script is ready.
+* List Icon Block: Improve horizontal appearance of icons and labels.
+* Maps Block: Added the ability for HTML markup in marker info windows.
+* Paragraph & Heading Blocks: Fixed an issue where custom classes would not be applied.
+* Post Types Block: Improved appearance of one column layout.
+* Tabs Block: New hover colors.
+
 = 2.11.1 =
 * Updated positioning of the video background spinner on the bottom center of the Container and Banner block.
 * Fixed an issue where background overlay would sometimes disappear when a video background started playing in Safari.
