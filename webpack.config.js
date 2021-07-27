@@ -22,7 +22,6 @@ const wplib = [
   'blocks',
   'components',
   'date',
-  'editor',
   'blockEditor',
   'element',
   'i18n',

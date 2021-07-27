@@ -47,9 +47,6 @@ function gutenbee_enqueue_editor_assets() {
 		'wp-components',
 		'wp-blocks',
 		'wp-element',
-// TODO vmasto: Is this needed? It throws an error in the new widgets screen:
-// Notice: wp_enqueue_script() was called <strong>incorrectly</strong>. "wp-editor" script should not be enqueued together with the new widgets editor (wp-edit-widgets or wp-customize-widgets)
-//		'wp-editor',
 		'wp-block-editor',
 		'wp-data',
 		'wp-date',
