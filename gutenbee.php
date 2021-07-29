@@ -111,6 +111,7 @@ function gutenbee_admin_assets() {
 // GutenBee's block category
 global $wp_version;
 
+// TODO: Remove the 'block_categories' filter when WordPress reaches 5.9
 if ( version_compare( $wp_version, '5.8', '<' ) ) {
 	add_filter( 'block_categories', 'gutenbee_block_categories', 10, 2 );
 } else {
