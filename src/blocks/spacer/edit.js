@@ -117,7 +117,7 @@ const SpacerEdit = ({
                   })
                 }
                 allowReset
-                min={10}
+                min={1}
                 max={500}
                 step={1}
                 value={height[breakpoint]}

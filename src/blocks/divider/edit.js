@@ -75,7 +75,7 @@ const DividerEdit = ({
 
             <RangeControl
               label={__('Height (px)')}
-              min={10}
+              min={1}
               max={500}
               onChange={value => setAttributes({ height: value })}
               value={height}
