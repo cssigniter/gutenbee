@@ -73,6 +73,10 @@ Note that if you want to use the Google Maps block you will also need a Google M
 
 == Changelog ==
 
+= 2.12.2 =
+* Fixed appearance of heading select controls (icons) in the block sidebar.
+* Divider and Spacer blocks: Allow for heights less than 10px.
+
 = 2.12.1 =
 * Update link controls on all blocks that support them and moved them on the block toolbar.
 * Added a way to link padding and margin values together so that they can be changed at the same time with the same value.
