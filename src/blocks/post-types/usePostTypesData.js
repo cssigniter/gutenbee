@@ -31,10 +31,10 @@ const usePostTypesData = ({ isSelected, selectedPostType }) => {
         getTaxonomies,
         getEntityRecords,
       } = select('core');
-      const postTypes = getPostTypes() || [];
-      const authors = getAuthors();
+      const postTypes = getPostTypes({ per_page: -1 }) || [];
+      const authors = getAuthors({ per_page: -1 });
 
-      const taxonomies = getTaxonomies();
+      const taxonomies = getTaxonomies({ per_page: -1 });
       const taxonomy = getPostTypeTaxonomy(taxonomies, selectedPostType);
 
       const { getSettings } = select('core/block-editor');
