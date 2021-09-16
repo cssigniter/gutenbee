@@ -62,6 +62,17 @@ function gutenbee_enqueue_editor_assets() {
 	wp_enqueue_style( 'gutenbee-editor', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.build.css', array(
 		'wp-edit-blocks',
 	), GUTENBEE_PLUGIN_VERSION );
+
+	wp_localize_script( 'gutenbee-editor', 'gutenbee_blocks_settings', array(
+		'post-types' => array(
+			'excluded_post_types' => apply_filters( 'gutenbee_block_post_types_excluded_post_types', array(
+				'attachment',
+				'wp_block',
+				'elementor_library',
+				'ignition-gsection',
+			) ),
+		),
+	) );
 }
 
 add_action( 'wp_enqueue_scripts', 'gutenbee_enqueue_frontend_block_assets' );
