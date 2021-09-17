@@ -12,7 +12,10 @@ const getPostTypeTaxonomy = (taxonomies, postType) => {
 };
 
 const usePostTypesData = ({ isSelected, selectedPostType }) => {
-  const excludedPostTypeSlugs = ['attachment', 'wp_block'];
+  const excludedPostTypeSlugs =
+    // eslint-disable-next-line
+    __GUTENBEE_SETTINGS__?.blocks?.post_types?.excluded_post_types ?? [];
+
   const data = useSelect(
     select => {
       if (!isSelected) {
