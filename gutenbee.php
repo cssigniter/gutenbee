@@ -64,6 +64,8 @@ function gutenbee_enqueue_editor_assets() {
 					'attachment',
 					'wp_block',
 					'elementor_library',
+					'wp_template',
+					'maxslider_slider',
 					'ignition-gsection',
 				) ),
 			),
