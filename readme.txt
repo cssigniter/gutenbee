@@ -2,7 +2,7 @@
 Contributors: cssigniterteam, silencerius, nvourva, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 5.6
-Tested up to: 5.8
+Tested up to: 5.8.1
 Stable tag: 2.12.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
@@ -72,6 +72,9 @@ Note that if you want to use the Google Maps block you will also need a Google M
 7. Tabs or Accordions, group your content the way you want.
 
 == Changelog ==
+
+= 2.12.3 =
+* Fixed an issue where the Post Types block would be limited to 10 post types.
 
 = 2.12.2 =
 * Fixed appearance of heading select controls (icons) in the block sidebar.

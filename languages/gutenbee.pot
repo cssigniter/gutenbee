@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: GutenBee!\n"
-"POT-Creation-Date: 2021-08-23 11:45+0300\n"
+"POT-Creation-Date: 2021-09-17 13:43+0300\n"
 "PO-Revision-Date: 2016-08-29 19:22+0300\n"
 "Last-Translator: Nik Vourvachis <nvourva@cssigniter.com>\n"
 "Language-Team: Nik Vourvachis <nvourva@cssigniter.com>\n"
@@ -22,143 +22,143 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #. Plugin Name of the plugin/theme
-#: gutenbee.php:124 inc/options.php:27
+#: gutenbee.php:137 inc/options.php:27
 msgid "GutenBee"
 msgstr ""
 
-#: gutenbee.php:140 gutenbee.php:179
+#: gutenbee.php:153 gutenbee.php:192
 msgid "Accordion Block"
 msgstr ""
 
-#: gutenbee.php:141 gutenbee.php:184
+#: gutenbee.php:154 gutenbee.php:197
 msgid "Banner Block"
 msgstr ""
 
-#: gutenbee.php:142 gutenbee.php:189
+#: gutenbee.php:155 gutenbee.php:202
 msgid "Button Block"
 msgstr ""
 
-#: gutenbee.php:143 gutenbee.php:199
+#: gutenbee.php:156 gutenbee.php:212
 msgid "Container Block"
 msgstr ""
 
-#: gutenbee.php:144 gutenbee.php:209
+#: gutenbee.php:157 gutenbee.php:222
 msgid "Countdown Block"
 msgstr ""
 
-#: gutenbee.php:145 gutenbee.php:214
+#: gutenbee.php:158 gutenbee.php:227
 msgid "Countup Block"
 msgstr ""
 
-#: gutenbee.php:146 gutenbee.php:219
+#: gutenbee.php:159 gutenbee.php:232
 msgid "Divider Block"
 msgstr ""
 
-#: gutenbee.php:147
+#: gutenbee.php:160
 msgid "Food Menu Block"
 msgstr ""
 
-#: gutenbee.php:148 gutenbee.php:229
+#: gutenbee.php:161 gutenbee.php:242
 msgid "Heading Block"
 msgstr ""
 
-#: gutenbee.php:149 gutenbee.php:234
+#: gutenbee.php:162 gutenbee.php:247
 msgid "Icon Block"
 msgstr ""
 
-#: gutenbee.php:150 gutenbee.php:239
+#: gutenbee.php:163 gutenbee.php:252
 msgid "Icon Box Block"
 msgstr ""
 
-#: gutenbee.php:151 gutenbee.php:244
+#: gutenbee.php:164 gutenbee.php:257
 msgid "Icon List Block"
 msgstr ""
 
-#: gutenbee.php:152 gutenbee.php:249
+#: gutenbee.php:165 gutenbee.php:262
 msgid "Image Block"
 msgstr ""
 
-#: gutenbee.php:153 gutenbee.php:254
+#: gutenbee.php:166 gutenbee.php:267
 msgid "Image Box Block"
 msgstr ""
 
-#: gutenbee.php:154 gutenbee.php:259
+#: gutenbee.php:167 gutenbee.php:272
 msgid "Image Comparison Block"
 msgstr ""
 
-#: gutenbee.php:155 gutenbee.php:264
+#: gutenbee.php:168 gutenbee.php:277
 msgid "Justified Gallery Block"
 msgstr ""
 
-#: gutenbee.php:156 gutenbee.php:274
+#: gutenbee.php:169 gutenbee.php:287
 msgid "Paragraph Block"
 msgstr ""
 
-#: gutenbee.php:157 gutenbee.php:279
+#: gutenbee.php:170 gutenbee.php:292
 msgid "Post Types Block"
 msgstr ""
 
-#: gutenbee.php:158
+#: gutenbee.php:171
 msgid "Progress Bar Block"
 msgstr ""
 
-#: gutenbee.php:159 gutenbee.php:289
+#: gutenbee.php:172 gutenbee.php:302
 msgid "Review Block"
 msgstr ""
 
-#: gutenbee.php:160 gutenbee.php:299
+#: gutenbee.php:173 gutenbee.php:312
 msgid "Spacer Block"
 msgstr ""
 
-#: gutenbee.php:161 gutenbee.php:294
+#: gutenbee.php:174 gutenbee.php:307
 msgid "Slideshow Block"
 msgstr ""
 
-#: gutenbee.php:162 gutenbee.php:304
+#: gutenbee.php:175 gutenbee.php:317
 msgid "Tab Slider Block"
 msgstr ""
 
-#: gutenbee.php:163 gutenbee.php:309
+#: gutenbee.php:176 gutenbee.php:322
 msgid "Tabs Block"
 msgstr ""
 
-#: gutenbee.php:164 gutenbee.php:314
+#: gutenbee.php:177 gutenbee.php:327
 msgid "Testimonial Block"
 msgstr ""
 
-#: gutenbee.php:165 gutenbee.php:319
+#: gutenbee.php:178 gutenbee.php:332
 msgid "Video Block"
 msgstr ""
 
-#: gutenbee.php:166 gutenbee.php:324
+#: gutenbee.php:179 gutenbee.php:337
 msgid "Video Embed Block"
 msgstr ""
 
-#: gutenbee.php:194
+#: gutenbee.php:207
 msgid "Buttons Block"
 msgstr ""
 
-#: gutenbee.php:204
+#: gutenbee.php:217
 msgid "Column Block"
 msgstr ""
 
-#: gutenbee.php:224
+#: gutenbee.php:237
 msgid "Google Map Block"
 msgstr ""
 
-#: gutenbee.php:284
+#: gutenbee.php:297
 msgid "Progress Block"
 msgstr ""
 
-#: gutenbee.php:329
+#: gutenbee.php:342
 msgid "Food Menu"
 msgstr ""
 
-#: gutenbee.php:540
+#: gutenbee.php:553
 msgid "View GutenBee settings"
 msgstr ""
 
-#: gutenbee.php:540
+#: gutenbee.php:553
 msgid "Settings"
 msgstr ""
 
