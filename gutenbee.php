@@ -57,22 +57,22 @@ function gutenbee_enqueue_editor_assets() {
 		'wp-server-side-render',
 	), GUTENBEE_PLUGIN_VERSION, true );
 
-	wp_localize_script( 'gutenbee', '__GUTENBEE_SETTINGS__', gutenbee_get_settings() );
+	wp_localize_script( 'gutenbee', '__GUTENBEE_SETTINGS__', array_merge( gutenbee_get_settings(), array(
+		'blocks' => array(
+			'post_types' => array(
+				'excluded_post_types' => apply_filters( 'gutenbee_block_post_types_excluded_post_types', array(
+					'attachment',
+					'wp_block',
+					'elementor_library',
+					'ignition-gsection',
+				) ),
+			),
+		),
+	) ) );
 
 	wp_enqueue_style( 'gutenbee-editor', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.build.css', array(
 		'wp-edit-blocks',
 	), GUTENBEE_PLUGIN_VERSION );
-
-	wp_localize_script( 'gutenbee-editor', 'gutenbee_blocks_settings', array(
-		'post-types' => array(
-			'excluded_post_types' => apply_filters( 'gutenbee_block_post_types_excluded_post_types', array(
-				'attachment',
-				'wp_block',
-				'elementor_library',
-				'ignition-gsection',
-			) ),
-		),
-	) );
 }
 
 add_action( 'wp_enqueue_scripts', 'gutenbee_enqueue_frontend_block_assets' );
@@ -350,7 +350,7 @@ function gutenbee_get_blocks_info() {
  * @return array
  */
 function gutenbee_get_settings() {
-	$settings = get_option( 'gutenbee_settings' );
+	$settings         = get_option( 'gutenbee_settings' );
 	$general_settings = get_option( 'gutenbee_general_settings' );
 
 	if ( $settings && $general_settings ) {
