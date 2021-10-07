@@ -71,6 +71,10 @@
 	function gutenbee_block_post_types_init() {
 		register_block_type( 'gutenbee/post-types', array(
 			'attributes'      => array(
+				'uniqueId'           => array(
+					'type'    => 'string',
+					'default' => '',
+				),
 				'postType'               => array(
 					'type'    => 'string',
 					'default' => 'post',
@@ -94,6 +98,10 @@
 				'pagination'             => array(
 					'type'    => 'boolean',
 					'default' => false,
+				),
+				'paginationType'             => array(
+					'type'    => 'string',
+					'default' => 'normal',
 				),
 				'offset'                 => array(
 					'type'    => 'number',
@@ -190,6 +198,14 @@
 		<?php
 	}
 
+	function gutenbee_block_post_types_get_load_more_button () {
+		?>
+		<div class="navigation wp-block-gutenbee-post-types-navigation-load-more">
+			<button class="btn wp-block-gutenbee-post-types-load-more-button"><?php echo esc_html( 'Load More', 'gutenbee'); ?></button>
+		</div>
+		<?php
+	}
+
 	/**
 	 * Renders the CPT block in the editor and on the front end.
 	 *
@@ -198,9 +214,11 @@
 	 * @return string
 	 */
 	function gutenbee_block_post_types_render_callback( $attributes ) {
+		$unique_id                 = $attributes['uniqueId'];
 		$post_type                 = $attributes['postType'];
 		$posts_per_page            = $attributes['postsPerPage'];
 		$pagination                = (bool) $attributes['pagination'];
+		$pagination_type           = $attributes['paginationType'];
 		$offset                    = $attributes['offset'];
 		$order                     = $attributes['order'];
 		$order_by                  = $attributes['orderBy'];
@@ -330,8 +348,11 @@
 
 		$q = new WP_Query( $query_args );
 
+		$block_id = 'block-' . $unique_id;
+
 		$block_classes = array_merge( array(
 			'wp-block-gutenbee-post-types',
+			$block_id,
 		), explode( ' ', $class_name ) );
 
 		$container_classes = array(
@@ -375,7 +396,7 @@
 		if ( $q->have_posts() ) {
 			ob_start();
 
-			?><div class="<?php echo esc_attr( implode( ' ', $block_classes ) ); ?>"><?php
+			?><div id="<?php echo esc_attr( $block_id ); ?>" class="<?php echo esc_attr( implode( ' ', $block_classes ) ); ?>"><?php
 
 			if ( $category_filters ) {
 				gutenbee_block_post_types_get_category_filters( $get_terms_args );
@@ -423,10 +444,15 @@
 			if ( $pagination && ! $category_filters ) {
 				global $wp_query;
 
-				$old_wp_query = $wp_query;
-				$wp_query     = $q;
+				$old_wp_query     = $wp_query;
+				$wp_query         = $q;
+				$pagination_class = $pagination_type === 'load_more' ? 'wp-block-gutenbee-post-types-nav-load-more' : '';
 
-				the_posts_pagination();
+				the_posts_pagination( array( 'class' => $pagination_class ) );
+
+				if ( $pagination_type === 'load_more' ) {
+					gutenbee_block_post_types_get_load_more_button();
+				}
 
 				$wp_query = $old_wp_query;
 			}

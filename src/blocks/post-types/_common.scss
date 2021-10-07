@@ -185,3 +185,13 @@
     border-color: $blue;
   }
 }
+
+/* Load more pagination
+========================================= */
+.wp-block-gutenbee-post-types-nav-load-more {
+  display: none;
+}
+
+.wp-block-gutenbee-post-types-navigation-load-more {
+  text-align: center;
+}

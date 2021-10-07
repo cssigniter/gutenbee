@@ -15,6 +15,8 @@ import isRenderedInEditor from '../../util/isRenderedInEditor';
 import usePostTypesData from './usePostTypesData';
 import EntitySelect from '../../components/controls/entity-select/EntitySelect';
 import TermSelect from '../../components/controls/advanced-color-control/term-select';
+import { POST_TYPES_PAGINATION_TYPE } from './index';
+import useUniqueId from '../../hooks/useUniqueId';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -25,6 +27,7 @@ const propTypes = {
     authorId: PropTypes.number,
     postsPerPage: PropTypes.number,
     pagination: PropTypes.bool,
+    paginationType: PropTypes.string,
     offset: PropTypes.number,
     orderBy: PropTypes.string,
     order: PropTypes.string,
@@ -40,12 +43,13 @@ const propTypes = {
   isSelected: PropTypes.bool.isRequired,
 };
 
-const PostTypesEdit = ({ attributes, setAttributes, isSelected }) => {
+const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
   const {
     postType,
     termId,
     postsPerPage,
     pagination,
+    paginationType,
     columns,
     authorId,
     offset,
@@ -67,6 +71,8 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected }) => {
   const postTypeColumns = window.__GUTENBEE_SETTINGS__.post_type_columns || {};
   const columnLimits = postTypeColumns[postType] || {};
   const ref = useRef(null);
+
+  useUniqueId({ attributes, setAttributes, clientId });
 
   const { postTypes, authors, taxonomy, terms, imageSizes } = usePostTypesData({
     isSelected,
@@ -244,6 +250,21 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected }) => {
               checked={pagination}
               onChange={value => setAttributes({ pagination: value })}
             />
+
+            {pagination && (
+              <SelectControl
+                label={__('Pagination Type')}
+                value={paginationType}
+                options={[
+                  { label: 'Normal', value: POST_TYPES_PAGINATION_TYPE.NORMAL },
+                  {
+                    label: 'Load More Button',
+                    value: POST_TYPES_PAGINATION_TYPE.LOAD_MORE,
+                  },
+                ]}
+                onChange={value => setAttributes({ paginationType: value })}
+              />
+            )}
 
             <RangeControl
               label={__('Offset')}

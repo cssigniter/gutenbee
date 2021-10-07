@@ -8,6 +8,11 @@ import { registerBlockType } from 'wp.blocks';
 import PostTypesEdit from './edit';
 import PostTypesBlockIcon from './block-icon';
 
+export const POST_TYPES_PAGINATION_TYPE = {
+  NORMAL: 'normal',
+  LOAD_MORE: 'load_more',
+};
+
 registerBlockType('gutenbee/post-types', {
   title: __('GutenBee Post Types'),
   description: __('Display a list of post type items.'),
@@ -18,6 +23,9 @@ registerBlockType('gutenbee/post-types', {
     anchor: true,
   },
   attributes: {
+    uniqueId: {
+      type: 'string',
+    },
     postType: {
       type: 'string',
       default: 'post',
@@ -41,6 +49,10 @@ registerBlockType('gutenbee/post-types', {
     pagination: {
       type: 'boolean',
       default: false,
+    },
+    paginationType: {
+      type: 'string',
+      default: POST_TYPES_PAGINATION_TYPE.NORMAL,
     },
     offset: {
       type: 'number',

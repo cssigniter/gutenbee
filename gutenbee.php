@@ -5,7 +5,7 @@
  * Description: Premium Blocks for WordPress
  * Author: The CSSIgniter Team
  * Author URI: https://www.cssigniter.com
- * Version: 2.12.3
+ * Version: 2.12.3.1
  * Text Domain: gutenbee
  * Domain Path: languages
  *
@@ -290,7 +290,7 @@ function gutenbee_get_blocks_info() {
 		),
 		'gutenbee/post-types'        => array(
 			'label'       => __( 'Post Types Block', 'gutenbee' ),
-			'enqueue_js'  => false,
+			'enqueue_js'  => true,
 			'enqueue_css' => true,
 		),
 		'gutenbee/progress-bar'      => array(
