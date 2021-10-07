@@ -126,6 +126,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
       <div ref={ref}>
         {isRenderedInEditor(ref.current) ? (
           <ServerSideRender
+            key={postType}
             block="gutenbee/post-types"
             attributes={attributes}
           />
