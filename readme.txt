@@ -73,6 +73,11 @@ Note that if you want to use the Google Maps block you will also need a Google M
 
 == Changelog ==
 
+= 2.12.4 =
+* Post Types Block: Fix an issue where the post type would not render properly after changing it from the dropdown.
+* Post Types Block: Added load more button functionality as a type of pagination.
+* Fixed a layout issue with food items in the editor.
+
 = 2.12.3 =
 * Fixed an issue where the Post Types block would be limited to 10 post types.
 

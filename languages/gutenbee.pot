@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: GutenBee!\n"
-"POT-Creation-Date: 2021-09-17 13:43+0300\n"
+"POT-Creation-Date: 2021-10-22 13:34+0300\n"
 "PO-Revision-Date: 2016-08-29 19:22+0300\n"
 "Last-Translator: Nik Vourvachis <nvourva@cssigniter.com>\n"
 "Language-Team: Nik Vourvachis <nvourva@cssigniter.com>\n"
@@ -219,12 +219,12 @@ msgstr ""
 msgid "Block Options"
 msgstr ""
 
-#: src/blocks/post-types/block.php:181
+#: src/blocks/post-types/block.php:189
 msgctxt "all categories"
 msgid "All"
 msgstr ""
 
-#: src/blocks/post-types/block.php:439
+#: src/blocks/post-types/block.php:465
 msgid "No posts found."
 msgstr ""
 
