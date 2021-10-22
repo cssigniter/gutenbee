@@ -59,7 +59,7 @@
   [role="textbox"] {
     // Give a min-width to text boxes so that they
     // don't disappear when focused.
-    min-width: 35px;
+    min-width: 50px !important;
   }
 
   [data-type="gutenbee/image"] {
