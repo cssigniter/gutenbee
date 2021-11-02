@@ -35,6 +35,7 @@ jQuery($ => {
         $items.append($newItems);
         $block.removeClass('gutenbee-block-is-loading');
         $this.removeClass('gutenbee-button-is-loading');
+        $('body').trigger('gutenbee.posts-loaded', [$newItems]);
       });
     });
   });
