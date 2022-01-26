@@ -1,4 +1,4 @@
-import { useState } from 'wp.element';
+import { useState, useEffect } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import { useSelect } from 'wp.data';
@@ -67,19 +67,29 @@ const TermSelect = ({
     [values, taxonomy],
   );
 
+  useEffect(
+    () => {
+      if (debouncedQuery?.length > MIN_QUERY_LENGTH && !queryFocused) {
+        setQueryFocused(true);
+      }
+
+      if (debouncedQuery?.length <= MIN_QUERY_LENGTH && queryFocused) {
+        setQueryFocused(false);
+      }
+    },
+    [debouncedQuery?.length],
+  );
+
   return (
     <BaseControl label={label}>
       <div className="entity-select-search-control">
         <TextControl
           label={__('Search')}
           hideLabelFromVision
-          placeholder={__('Search terms…')}
+          placeholder={__('Type to search terms…')}
           className="entity-select-search-control-input"
           value={query}
           onChange={setQuery}
-          onFocus={() => {
-            setQueryFocused(true);
-          }}
           onBlur={() => {
             setTimeout(() => {
               setQueryFocused(false);
@@ -93,10 +103,6 @@ const TermSelect = ({
             display: queryFocused ? 'block' : 'none',
           }}
         >
-          {!loading && !resultsEmpty && query?.length <= MIN_QUERY_LENGTH && (
-            <p>{__('Type to search...')}</p>
-          )}
-
           {loading && (
             <div className="entity-select-search-control-results-loading">
               <Spinner /> {__('Loading...')}
