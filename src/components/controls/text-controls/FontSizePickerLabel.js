@@ -35,7 +35,7 @@ const FontSizePickerLabel = ({ value, onChange, label, ...props }) => {
       {label && <p className="components-base-control__label">{label}</p>}
       <FontSizePicker
         label=""
-        value={`${sanitizeFontSizeValue(value)}px`}
+        value={value ? `${sanitizeFontSizeValue(value)}px` : undefined}
         onChange={newValue => {
           onChange(sanitizeFontSizeValue(newValue));
         }}
