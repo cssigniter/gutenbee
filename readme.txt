@@ -2,7 +2,7 @@
 Contributors: cssigniterteam, silencerius, nvourva, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 5.6
-Tested up to: 5.8.1
+Tested up to: 5.9
 Stable tag: 2.12.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
@@ -72,6 +72,21 @@ Note that if you want to use the Google Maps block you will also need a Google M
 7. Tabs or Accordions, group your content the way you want.
 
 == Changelog ==
+
+= 2.13.0 =
+* Divider block: Fix an issue where the divider block would not clear itself in the editor when around floated elements.
+* Post Types block: Improve the experience of searching terms and included/excluded posts.
+* Food Menu block: Fixed for WP 5.9
+* Container block: Added tooltip descriptions on the more complex settings of the Container block.
+* Countup Block: Added option to start the countup when the countup is in the viewport.
+* Accordion Block: Added plus/minus icons on expand/collapse.
+* Banner Block: Added default minimum height of 450px
+* Image Box block: Fixed alignment setting.
+* Post Types Block: Fixed load more button.
+* Adjust text control for WP 5.9
+* Fixed color picker for WP 5.9
+* Fixed various smaller issues in support of WP 5.9
+* Various smaller bugfixes and improvements
 
 = 2.12.5 =
 * Post Types Block: Added “gutenbee.posts-loaded” event when posts are finished loading via load more button.

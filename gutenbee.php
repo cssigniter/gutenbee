@@ -5,7 +5,7 @@
  * Description: Premium Blocks for WordPress
  * Author: The CSSIgniter Team
  * Author URI: https://www.cssigniter.com
- * Version: 2.12.5.1
+ * Version: 2.13.0
  * Text Domain: gutenbee
  * Domain Path: languages
  *
@@ -25,7 +25,7 @@
  */
 
 if ( ! defined( 'GUTENBEE_PLUGIN_VERSION' ) ) {
-	define( 'GUTENBEE_PLUGIN_VERSION', '2.12.5.1' );
+	define( 'GUTENBEE_PLUGIN_VERSION', '2.13.0' );
 }
 
 if ( ! defined( 'GUTENBEE_PLUGIN_DIR' ) ) {
