@@ -132,6 +132,7 @@ const ParagraphBlock = ({
           <ResponsiveControl>
             {breakpoint => (
               <FontSizePickerLabel
+                label={__('Text Font Size')}
                 value={fontSize[breakpoint]}
                 onChange={value => {
                   setAttributes({

@@ -1,6 +1,6 @@
 import { registerBlockType } from 'wp.blocks';
 import { __ } from 'wp.i18n';
-import { InnerBlocks, __experimentalUseInnerBlocksProps } from 'wp.blockEditor';
+import { InnerBlocks } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import {
@@ -16,7 +16,6 @@ import { getBorderCSSValue } from '../../../components/controls/border-controls/
 import FoodMenuItemStyle from './style';
 import getBlockId from '../../../util/getBlockId';
 import FoodMenuItemEdit from './edit';
-import FoodMenuItemEditLegacy from './edit-legacy';
 import FoodMenuItemIcon from './block-icon';
 import deprecated from './deprecated';
 
@@ -61,9 +60,7 @@ registerBlockType('gutenbee/food-menu-item', {
     },
   },
   deprecated,
-  edit: !!__experimentalUseInnerBlocksProps
-    ? FoodMenuItemEdit
-    : FoodMenuItemEditLegacy,
+  edit: FoodMenuItemEdit,
   save: ({ attributes, className }) => {
     const { uniqueId, backgroundColor } = attributes;
 

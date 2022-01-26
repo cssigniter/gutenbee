@@ -1,6 +1,6 @@
 {
   "name": "gutenbee",
-  "version": "2.12.5",
+  "version": "2.12.5.1",
   "license": "GPL-2.0-or-later",
   "devDependencies": {
     "@babel/cli": "7.12.7",
@@ -69,6 +69,7 @@
     "react-google-maps": "9.4.5",
     "react-select": "1.2.1",
     "react-slick": "^0.23.2",
+    "react-tooltip": "^4.2.21",
     "slick-carousel": "1.7.1",
     "use-debounce": "6.0.1",
     "zurb-twentytwenty": "https://github.com/zurb/twentytwenty"

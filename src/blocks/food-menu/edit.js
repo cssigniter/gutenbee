@@ -4,7 +4,8 @@ import { Fragment } from 'wp.element';
 import {
   InspectorControls,
   useBlockProps,
-  __experimentalUseInnerBlocksProps as useInnerBlocksProps,
+  __experimentalUseInnerBlocksProps,
+  useInnerBlocksProps as currentUseInnerBlockProps,
 } from 'wp.blockEditor';
 import { PanelBody, RangeControl } from 'wp.components';
 import classNames from 'classnames';
@@ -22,6 +23,9 @@ import PopoverColorControl from '../../components/controls/advanced-color-contro
 import Rule from '../../components/stylesheet/Rule';
 import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
+
+const useInnerBlocksProps =
+  __experimentalUseInnerBlocksProps ?? currentUseInnerBlockProps;
 
 const propTypes = {
   attributes: PropTypes.object.isRequired,
@@ -48,6 +52,7 @@ const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
     template: [['gutenbee/food-menu-item']],
     __experimentalUIParts: { hasSelectedUI: false },
     __experimentalMoverDirection: 'vertical',
+    orientation: 'vertical',
   });
 
   return (

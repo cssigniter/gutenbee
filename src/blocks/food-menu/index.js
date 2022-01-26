@@ -1,10 +1,9 @@
 import { registerBlockType } from 'wp.blocks';
 import { __ } from 'wp.i18n';
-import { InnerBlocks, __experimentalUseInnerBlocksProps } from 'wp.blockEditor';
+import { InnerBlocks } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import FoodMenuEdit from './edit';
-import FoodMenuEditLegacy from './edit-legacy';
 import {
   getDefaultResponsiveValue,
   getDefaultSpacingValue,
@@ -77,7 +76,7 @@ registerBlockType('gutenbee/food-menu', {
     },
   },
   deprecated,
-  edit: !!__experimentalUseInnerBlocksProps ? FoodMenuEdit : FoodMenuEditLegacy,
+  edit: FoodMenuEdit,
   save: ({ className, attributes }) => {
     const {
       uniqueId,

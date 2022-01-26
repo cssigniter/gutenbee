@@ -13,6 +13,7 @@ import {
   SelectControl,
   TextControl,
   PanelBody,
+  CheckboxControl,
 } from 'wp.components';
 import classNames from 'classnames';
 
@@ -43,6 +44,7 @@ const propTypes = {
     customTextColor: PropTypes.string,
     prefix: PropTypes.string,
     suffix: PropTypes.string,
+    inViewport: PropTypes.bool,
     blockMargin: PropTypes.shape({
       top: PropTypes.number,
       right: PropTypes.number,
@@ -68,6 +70,7 @@ const CountupEdit = ({
     startNumber,
     endNumber,
     animationDuration,
+    inViewport,
     separator,
     textFontSize,
     titleFontSize,
@@ -163,6 +166,15 @@ const CountupEdit = ({
                 max={100}
                 step={0.5}
                 onChange={value => setAttributes({ animationDuration: value })}
+              />
+
+              <CheckboxControl
+                label={__('Start counting when in viewport')}
+                value="on"
+                checked={inViewport}
+                onChange={value => {
+                  setAttributes({ inViewport: value });
+                }}
               />
 
               <SelectControl

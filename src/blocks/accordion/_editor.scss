@@ -2,7 +2,9 @@
   min-height: 120px;
 
   &-item-title {
-    padding: 15px 15px 5px;
+    display: flex;
+    align-items: center;
+    padding: 15px;
     margin-bottom: 0;
     background-color: rgba($border-color, .5);
     font-size: 18px;
@@ -12,6 +14,45 @@
     textarea {
       background: none !important;
       color: currentColor !important;
+    }
+  }
+
+  &-item-title-icon {
+    margin-left: auto;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    line-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+
+    &::after,
+    &::before {
+      content: "";
+      width: 100%;
+      height: 100%;
+      background-color: currentColor;
+      border-radius: 2px;
+      margin: auto;
+      position: absolute;
+    }
+
+    &::after {
+      height: 4px;
+    }
+
+    &::before {
+      width: 4px;
+    }
+  }
+
+  &-item-expanded {
+    .wp-block-gutenbee-accordion-item-title-icon {
+      &::before {
+        display: none;
+      }
     }
   }
 

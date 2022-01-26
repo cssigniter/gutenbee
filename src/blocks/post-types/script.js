@@ -6,7 +6,7 @@ jQuery($ => {
   $loadMoreButtons.each(function() {
     const $this = $(this);
     const $block = $this.closest('.wp-block-gutenbee-post-types');
-    const $items = $block.find('.row-items');
+    const $items = $block.find('[class*="row-items"]');
     const blockId = $block.attr('id');
     let nextLink = $block.find('.navigation .page-numbers.next').attr('href');
 
@@ -21,7 +21,7 @@ jQuery($ => {
       $.get(nextLink, function(data) {
         const $body = $(data);
         const $newBlock = $body.find(`#${blockId}`);
-        const $newItems = $newBlock.find('.row-items > div');
+        const $newItems = $newBlock.find('[class*="row-items"] > div');
 
         // Update the link so that we fetch the next page.
         nextLink = $newBlock

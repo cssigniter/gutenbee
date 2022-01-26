@@ -1,23 +1,76 @@
-/**
- * Accordion block
- */
-
-import { __ } from 'wp.i18n';
-import { registerBlockType } from 'wp.blocks';
-import { RichText } from 'wp.blockEditor';
 import classNames from 'classnames';
+import { RichText } from 'wp.blockEditor';
 
-import AccordionBlockIcon from './block-icon';
-import AccordionsEdit from './edit';
+import getBlockId from '../../../util/getBlockId';
+import StyleSheet from '../../../components/stylesheet';
+import Rule from '../../../components/stylesheet/Rule';
+import { getBreakpointVisibilityClassNames } from '../../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../../components/controls/auth-visibility-control/helpers';
 import {
   getDefaultResponsiveValue,
   getDefaultSpacingValue,
-} from '../../components/controls/responsive-control/default-values';
-import AccordionStyle from './style';
-import getBlockId from '../../util/getBlockId';
-import deprecated from './deprecated';
-import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
-import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+} from '../../../components/controls/responsive-control/default-values';
+
+const AccordionStyle = ({ attributes, children }) => {
+  const {
+    uniqueId,
+    blockPadding,
+    blockMargin,
+    titleTextColor,
+    titleBackgroundColor,
+    borderColor,
+    titleActiveBackgroundColor,
+    titleHoverBackgroundColor,
+    titleActiveTextColor,
+    titleHoverTextColor,
+  } = attributes;
+  const blockId = getBlockId(uniqueId);
+
+  return (
+    <StyleSheet id={blockId}>
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-accordion.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-accordion.[root] { padding: %s; }"
+        unit="px"
+      />
+
+      <Rule
+        value={borderColor}
+        rule=".wp-block-gutenbee-accordion.[root] .wp-block-gutenbee-accordion-item-title { border-color: %s; }"
+      />
+      <Rule
+        value={titleTextColor}
+        rule=".wp-block-gutenbee-accordion.[root] .wp-block-gutenbee-accordion-item-title { color: %s; }"
+      />
+      <Rule
+        value={titleBackgroundColor}
+        rule=".wp-block-gutenbee-accordion.[root] .wp-block-gutenbee-accordion-item-title { background-color: %s; }"
+      />
+      <Rule
+        value={titleActiveTextColor}
+        rule=".wp-block-gutenbee-accordion.[root] .wp-block-gutenbee-accordion-item-expanded .wp-block-gutenbee-accordion-item-title { color: %s; }"
+      />
+      <Rule
+        value={titleActiveBackgroundColor}
+        rule=".wp-block-gutenbee-accordion.[root] .wp-block-gutenbee-accordion-item-expanded .wp-block-gutenbee-accordion-item-title { background-color: %s; }"
+      />
+      <Rule
+        value={titleHoverTextColor}
+        rule=".wp-block-gutenbee-accordion.[root] .wp-block-gutenbee-accordion-item-title:hover { color: %s; }"
+      />
+      <Rule
+        value={titleHoverBackgroundColor}
+        rule=".wp-block-gutenbee-accordion.[root] .wp-block-gutenbee-accordion-item-title:hover { background-color: %s; }"
+      />
+      {children}
+    </StyleSheet>
+  );
+};
 
 const Accordion = ({ className, attributes }) => {
   const {
@@ -57,11 +110,7 @@ const Accordion = ({ className, attributes }) => {
           })}
         >
           <div className="wp-block-gutenbee-accordion-item-title">
-            <span className="wp-block-gutenbee-accordion-item-title-content">
-              {tab.title}
-            </span>
-
-            <span className="wp-block-gutenbee-accordion-item-title-icon" />
+            {tab.title}
           </div>
 
           <div className="wp-block-gutenbee-accordion-item-content-wrap">
@@ -86,12 +135,7 @@ const Accordion = ({ className, attributes }) => {
   );
 };
 
-registerBlockType('gutenbee/accordion', {
-  title: __('GutenBee Accordion'),
-  description: __('Display fancy accordions'),
-  icon: AccordionBlockIcon,
-  category: 'gutenbee',
-  keywords: [__('accordion'), __('tabs')],
+const v4 = {
   supports: {
     anchor: true,
   },
@@ -175,9 +219,14 @@ registerBlockType('gutenbee/accordion', {
       },
     },
   },
-  deprecated,
-  edit: AccordionsEdit,
+  migrate: attributes => {
+    return {
+      ...attributes,
+    };
+  },
   save: ({ className, attributes }) => (
     <Accordion className={className} attributes={attributes} />
   ),
-});
+};
+
+export default v4;

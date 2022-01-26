@@ -250,6 +250,7 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
           <ResponsiveControl>
             {breakpoint => (
               <FontSizePickerLabel
+                label={__('Icon Size')}
                 value={iconSize[breakpoint]}
                 onChange={value =>
                   setAttributes({
@@ -271,6 +272,7 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
           <ResponsiveControl>
             {breakpoint => (
               <FontSizePickerLabel
+                label={__('Text Font Size')}
                 value={fontSize[breakpoint]}
                 onChange={value =>
                   setAttributes({

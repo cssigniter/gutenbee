@@ -126,6 +126,7 @@ function HeadingEdit({
           <ResponsiveControl>
             {breakpoint => (
               <FontSizePickerLabel
+                label={__('Heading Font Size')}
                 value={fontSize[breakpoint]}
                 onChange={value => {
                   setAttributes({

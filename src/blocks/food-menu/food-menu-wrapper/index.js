@@ -3,11 +3,14 @@ import { __ } from 'wp.i18n';
 import {
   InnerBlocks,
   useBlockProps,
-  __experimentalBlock as Block,
-  __experimentalUseInnerBlocksProps as useInnerBlocksProps,
+  __experimentalUseInnerBlocksProps,
+  useInnerBlocksProps as currentUseInnerBlockProps,
 } from 'wp.blockEditor';
 
 import FoodMenuItemIcon from '../food-menu-item/block-icon';
+
+const useInnerBlocksProps =
+  __experimentalUseInnerBlocksProps ?? currentUseInnerBlockProps;
 
 registerBlockType('gutenbee/food-menu-wrapper', {
   title: __('GutenBee Food Menu Group'),
@@ -17,78 +20,42 @@ registerBlockType('gutenbee/food-menu-wrapper', {
   category: 'gutenbee',
   keywords: [],
   attributes: {},
-  edit: !!useInnerBlocksProps
-    ? () => {
-        const innerBlocksProps = useInnerBlocksProps(useBlockProps(), {
-          template: [
-            [
-              'gutenbee/heading',
-              {
-                placeholder: 'Menu item name...',
-                level: 5,
-                fontSize: {
-                  desktop: 22,
-                  tablet: '',
-                  mobile: '',
-                },
-              },
-            ],
-            [
-              'gutenbee/paragraph',
-              {
-                placeholder: 'Price',
-                className: 'wp-block-gutenbee-food-menu-item-price',
-              },
-            ],
-            [
-              'gutenbee/paragraph',
-              { placeholder: 'Write a description for your menu item...' },
-            ],
-          ],
-          templateLock: 'all',
-        });
+  edit: () => {
+    const innerBlocksProps = useInnerBlocksProps(useBlockProps(), {
+      template: [
+        [
+          'gutenbee/heading',
+          {
+            placeholder: 'Menu item name...',
+            level: 5,
+            fontSize: {
+              desktop: 22,
+              tablet: '',
+              mobile: '',
+            },
+          },
+        ],
+        [
+          'gutenbee/paragraph',
+          {
+            placeholder: 'Price',
+            className: 'wp-block-gutenbee-food-menu-item-price',
+          },
+        ],
+        [
+          'gutenbee/paragraph',
+          { placeholder: 'Write a description for your menu item...' },
+        ],
+      ],
+      templateLock: 'all',
+    });
 
-        return (
-          <div className="wp-block-gutenbee-food-menu-item-wrapper">
-            <div {...innerBlocksProps} />
-          </div>
-        );
-      }
-    : () => {
-        return (
-          <div className="wp-block-gutenbee-food-menu-item-wrapper">
-            <InnerBlocks
-              __experimentalTagName={Block.div}
-              template={[
-                [
-                  'gutenbee/heading',
-                  {
-                    placeholder: 'Menu item name...',
-                    level: 5,
-                    fontSize: {
-                      desktop: 22,
-                      tablet: '',
-                      mobile: '',
-                    },
-                  },
-                ],
-                [
-                  'gutenbee/paragraph',
-                  {
-                    placeholder: 'Price',
-                    className: 'wp-block-gutenbee-food-menu-item-price',
-                  },
-                ],
-                [
-                  'gutenbee/paragraph',
-                  { placeholder: 'Write a description for your menu item...' },
-                ],
-              ]}
-              templateLock="all"
-            />
-          </div>
-        );
-      },
+    return (
+      <div className="wp-block-gutenbee-food-menu-item-wrapper">
+        <div {...innerBlocksProps} />
+      </div>
+    );
+  },
   save: () => {
     return (
       <div className="wp-block-gutenbee-food-menu-item-wrapper">

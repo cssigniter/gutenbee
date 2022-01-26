@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import { Fragment } from 'wp.element';
-import { InnerBlocks, __experimentalBlock as Block } from 'wp.blockEditor';
+import { InnerBlocks, Block } from 'wp.blockEditor';
 import { InspectorControls } from 'wp.blockEditor';
 import { PanelBody, RangeControl } from 'wp.components';
 import classNames from 'classnames';
@@ -60,7 +60,7 @@ const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
           template={[['gutenbee/food-menu-item']]}
           __experimentalUIParts={{ hasSelectedUI: false }}
           __experimentalMoverDirection="vertical"
-          __experimentalTagName={Block.div}
+          tagName={Block.div}
         />
 
         <FoodMenuStyle attributes={attributes}>

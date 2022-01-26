@@ -1,32 +1,88 @@
-/**
- * Countup
- *
- * Count to a certain number
- */
-
-import { __ } from 'wp.i18n';
-import { registerBlockType } from 'wp.blocks';
 import classNames from 'classnames';
 import { RichText } from 'wp.blockEditor';
 
-import CountupEdit from './edit';
-import Countup from './Countup';
-import CountupBlockIcon from './block-icon';
-import {
-  getDefaultResponsiveValue,
-  getDefaultSpacingValue,
-} from '../../components/controls/responsive-control/default-values';
-import getBlockId from '../../util/getBlockId';
-import CountupStyle from './style';
-import deprecated from './deprecated';
-import borderControlAttributes from '../../components/controls/border-controls/attributes';
-import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import getBlockId from '../../../util/getBlockId';
+import StyleSheet from '../../../components/stylesheet';
+import Rule from '../../../components/stylesheet/Rule';
+import formatNumber from '../../../util/formatNumber';
+import { getBreakpointVisibilityClassNames } from '../../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../../components/controls/auth-visibility-control/helpers';
+import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
 import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
-} from '../../components/controls/box-shadow-controls/helpers';
-import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
-import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+} from '../../../components/controls/box-shadow-controls/helpers';
+import borderControlAttributes from '../../../components/controls/border-controls/attributes';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../../components/controls/responsive-control/default-values';
+
+const CountupStyle = ({ attributes, children }) => {
+  const {
+    uniqueId,
+    blockPadding,
+    blockMargin,
+    textFontSize,
+    titleFontSize,
+  } = attributes;
+  const blockId = getBlockId(uniqueId);
+
+  return (
+    <StyleSheet id={blockId}>
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-countup.[root] { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-countup.[root] { padding: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={textFontSize}
+        rule=".wp-block-gutenbee-countup.[root] .wp-block-gutenbee-countup-number { font-size: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={titleFontSize}
+        rule=".wp-block-gutenbee-countup.[root] .wp-block-gutenbee-countup-title { font-size: %s; }"
+        unit="px"
+      />
+
+      {children}
+    </StyleSheet>
+  );
+};
+
+const Countup = ({
+  startNumber,
+  endNumber,
+  animationDuration,
+  separator,
+  textColor,
+  prefix,
+  suffix,
+  className,
+}) => {
+  return (
+    <span
+      className={className}
+      style={{
+        color: textColor ? textColor : undefined,
+      }}
+      data-start={startNumber}
+      data-end={endNumber}
+      data-animation-duration={animationDuration}
+      data-separator={separator}
+      data-prefix={prefix}
+      data-suffix={suffix}
+    >
+      {formatNumber(startNumber, separator, prefix, suffix)}
+    </span>
+  );
+};
 
 const CountupRender = ({ attributes, className }) => {
   const {
@@ -79,14 +135,9 @@ const CountupRender = ({ attributes, className }) => {
   );
 };
 
-registerBlockType('gutenbee/countup', {
-  title: __('GutenBee Countup'),
-  description: __('Animate a numerical value by counting to it.'),
-  category: 'gutenbee',
-  icon: CountupBlockIcon,
-  keywords: [__('counter'), __('numbers'), __('animation')],
+const v3 = {
   supports: {
-    anchor: false,
+    anchor: true,
   },
   attributes: {
     uniqueId: {
@@ -103,10 +154,6 @@ registerBlockType('gutenbee/countup', {
     animationDuration: {
       type: 'number',
       default: 2.5,
-    },
-    inViewport: {
-      type: 'boolean',
-      default: false,
     },
     separator: {
       type: 'string',
@@ -172,9 +219,15 @@ registerBlockType('gutenbee/countup', {
       },
     },
   },
-  deprecated,
-  edit: CountupEdit,
+  migrate: attributes => {
+    return {
+      ...attributes,
+      inViewport: false,
+    };
+  },
   save({ attributes, className }) {
     return <CountupRender attributes={attributes} className={className} />;
   },
-});
+};
+
+export default v3;

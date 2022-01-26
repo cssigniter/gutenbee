@@ -1,6 +1,6 @@
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
-import { InnerBlocks, __experimentalBlock as Block } from 'wp.blockEditor';
+import { InnerBlocks, Block } from 'wp.blockEditor';
 import { InspectorControls } from 'wp.blockEditor';
 import { PanelBody, SelectControl } from 'wp.components';
 import classNames from 'classnames';
@@ -53,7 +53,7 @@ const FoodMenuItemEdit = ({
             ['gutenbee/food-menu-wrapper', {}],
           ]}
           templateLock="all"
-          __experimentalTagName={Block.div}
+          tagName={Block.div}
         />
         <FoodMenuItemEditStyle attributes={attributes} />
       </div>

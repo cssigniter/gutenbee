@@ -50,6 +50,7 @@ registerBlockType('gutenbee/banner', {
     },
     backgroundColor: {
       type: 'string',
+      default: '#F8F8F8',
     },
     backgroundVideoURL: {
       type: 'string',
@@ -83,7 +84,11 @@ registerBlockType('gutenbee/banner', {
     },
     bannerHeight: {
       type: 'object',
-      default: getDefaultResponsiveValue(),
+      default: getDefaultResponsiveValue({
+        desktop: 450,
+        tablet: '',
+        mobile: '',
+      }),
     },
     verticalContentAlignment: {
       type: 'object',

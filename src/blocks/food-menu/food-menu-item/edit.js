@@ -3,7 +3,8 @@ import { __ } from 'wp.i18n';
 import {
   InspectorControls,
   useBlockProps,
-  __experimentalUseInnerBlocksProps as useInnerBlocksProps,
+  __experimentalUseInnerBlocksProps,
+  useInnerBlocksProps as currentUseInnerBlockProps,
 } from 'wp.blockEditor';
 import { PanelBody, SelectControl } from 'wp.components';
 import classNames from 'classnames';
@@ -18,6 +19,9 @@ import BoxShadowControls from '../../../components/controls/box-shadow-controls'
 import BorderControls from '../../../components/controls/border-controls';
 import PopoverColorControl from '../../../components/controls/advanced-color-control/PopoverColorControl';
 import FoodMenuItemEditStyle from './style';
+
+const useInnerBlocksProps =
+  __experimentalUseInnerBlocksProps ?? currentUseInnerBlockProps;
 
 const FoodMenuItemEdit = ({
   attributes,

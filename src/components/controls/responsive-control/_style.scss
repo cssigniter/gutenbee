@@ -46,3 +46,23 @@
     }
   }
 }
+
+.components-base-control-with-help-icon {
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+
+  .components-base-control__field,
+  > .components-base-control {
+    margin-bottom: 0;
+  }
+
+  .components-base-control-help-icon {
+    margin-left: 10px;
+    line-height: normal;
+  }
+}
+
+.gutenbee-tooltip {
+  max-width: 400px;
+}

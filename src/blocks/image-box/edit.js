@@ -239,7 +239,7 @@ const ImageBoxEditBlock = ({
 
             <PanelBody title={__('Content Settings')} initialOpen={false}>
               <AlignmentToolbar
-                align={contentAlign}
+                value={contentAlign}
                 onChange={value => {
                   setAttributes({ contentAlign: value || undefined });
                 }}

@@ -5,7 +5,8 @@ import {
   InspectorControls,
   RichText,
   useBlockProps,
-  __experimentalUseInnerBlocksProps as useInnerBlocksProps,
+  __experimentalUseInnerBlocksProps,
+  useInnerBlocksProps as currentUseInnerBlockProps,
 } from 'wp.blockEditor';
 import { PanelBody, RangeControl, ToggleControl } from 'wp.components';
 import { useSelect } from 'wp.data';
@@ -32,6 +33,9 @@ const propTypes = {
   className: PropTypes.string.isRequired,
   clientId: PropTypes.string.isRequired,
 };
+
+const useInnerBlocksProps =
+  __experimentalUseInnerBlocksProps ?? currentUseInnerBlockProps;
 
 const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
   const {
@@ -61,6 +65,7 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
     template: [['gutenbee/review-item']],
     __experimentalUIParts: { hasSelectedUI: false },
     __experimentalMoverDirection: 'vertical',
+    orientation: 'vertical',
   });
 
   useSelect(select => {

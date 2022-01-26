@@ -20,6 +20,7 @@ const Countup = ({
   textColor,
   prefix,
   suffix,
+  inViewport,
   className,
 }) => {
   return (
@@ -34,6 +35,7 @@ const Countup = ({
       data-separator={separator}
       data-prefix={prefix}
       data-suffix={suffix}
+      data-inviewport={inViewport}
     >
       {formatNumber(startNumber, separator, prefix, suffix)}
     </span>

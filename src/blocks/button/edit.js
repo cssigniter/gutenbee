@@ -163,6 +163,7 @@ const ButtonEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <FontSizePickerLabel
+                label={__('Button Font Size')}
                 value={fontSize[breakpoint]}
                 onChange={value => {
                   setAttributes({

@@ -1,6 +1,6 @@
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
-import { InspectorControls, MediaUpload } from 'wp.blockEditor';
+import { InspectorControls, MediaUpload, BlockIcon } from 'wp.blockEditor';
 import {
   PanelBody,
   SelectControl,
@@ -9,6 +9,8 @@ import {
   TextControl,
   Button,
 } from 'wp.components';
+import { help as helpIcon } from '@wordpress/icons';
+import ReactTooltip from 'react-tooltip';
 
 import MarginControls from '../../components/controls/margin-controls';
 import BackgroundControls from '../../components/controls/background-controls/BackgroundControls';
@@ -62,12 +64,21 @@ const ContainerInspectorControls = ({
           />
 
           {supports.themeGrid && (
-            <CheckboxControl
-              label={__('Enable theme grid')}
-              value="on"
-              checked={themeGrid}
-              onChange={value => setAttributes({ themeGrid: value })}
-            />
+            <div className="components-base-control components-base-control-with-help-icon">
+              <CheckboxControl
+                label={__('Enable theme grid')}
+                value="on"
+                checked={themeGrid}
+                onChange={value => setAttributes({ themeGrid: value })}
+              />
+              <div
+                className="components-base-control-help-icon"
+                data-tip="When used in combination with a Full Width template or the Full width block alignment it matches the width of the container's contents to the width of the theme. Useful when creating full viewport sections."
+                data-effect="solid"
+              >
+                <BlockIcon icon={helpIcon} />
+              </div>
+            </div>
           )}
 
           <ResponsiveControl>
@@ -104,12 +115,21 @@ const ContainerInspectorControls = ({
             onChange={value => setAttributes({ gutter: value })}
           />
 
-          <CheckboxControl
-            label={__('Disable outside gutters')}
-            value="on"
-            checked={overflow}
-            onChange={() => setAttributes({ overflow: !overflow })}
-          />
+          <div className="components-base-control components-base-control-with-help-icon">
+            <CheckboxControl
+              label={__('Disable outside gutters')}
+              value="on"
+              checked={overflow}
+              onChange={() => setAttributes({ overflow: !overflow })}
+            />
+            <div
+              className="components-base-control-help-icon"
+              data-tip="Eliminates the left and right padding of the container's contents. Useful when creating full viewport sections and columns that have their own background."
+              data-effect="solid"
+            >
+              <BlockIcon icon={helpIcon} />
+            </div>
+          </div>
 
           <ResponsiveControl>
             {breakpoint => (
@@ -376,6 +396,8 @@ const ContainerInspectorControls = ({
             }}
           />
         </PanelBody>
+
+        <ReactTooltip className="gutenbee-tooltip" />
       </InspectorControls>
     </Fragment>
   );

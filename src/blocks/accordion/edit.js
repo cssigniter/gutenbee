@@ -168,6 +168,7 @@ const AccordionsEdit = ({
                 }}
                 placeholder={__('Write title…')}
               />
+              <span className="wp-block-gutenbee-accordion-item-title-icon" />
             </div>
 
             {isTabExpanded(index) && (
