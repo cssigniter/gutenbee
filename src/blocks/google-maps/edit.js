@@ -31,6 +31,7 @@ import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
+import { isGoogleMapsApiLoaded } from './helpers';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -115,9 +116,13 @@ const GoogleMapsEdit = ({
     <Fragment>
       <div>
         <GoogleMapsStyle attributes={attributes} />
-        {apiKey ? (
+        {isGoogleMapsApiLoaded() || apiKey ? (
           <Map
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${apiKey}`}
+            googleMapURL={
+              apiKey && !isGoogleMapsApiLoaded()
+                ? `https://maps.googleapis.com/maps/api/js?key=${apiKey}`
+                : undefined
+            }
             loadingElement={
               <div
                 className="wp-block-gutenbee-google-maps-loading"

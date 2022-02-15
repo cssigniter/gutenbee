@@ -70,6 +70,7 @@
     "react-select": "1.2.1",
     "react-slick": "^0.23.2",
     "react-tooltip": "^4.2.21",
+    "recompose": "^0.30.0",
     "slick-carousel": "1.7.1",
     "use-debounce": "6.0.1",
     "zurb-twentytwenty": "https://github.com/zurb/twentytwenty"

@@ -7,6 +7,7 @@ import {
   Marker,
   InfoWindow,
 } from 'react-google-maps';
+import { branch } from 'recompose';
 
 const propTypes = {
   latitude: PropTypes.number.isRequired,
@@ -64,6 +65,6 @@ const Map = ({
 Map.propTypes = propTypes;
 
 export default compose(
-  withScriptjs,
+  branch(({ googleMapURL }) => !!googleMapURL, withScriptjs),
   withGoogleMap,
 )(Map);
