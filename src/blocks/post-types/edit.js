@@ -311,7 +311,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
               label={__('Columns')}
               value={columns}
               min={columnLimits.min || 1}
-              max={columnLimits.max | 4}
+              max={columnLimits.max || 4}
               onChange={value => setAttributes({ columns: value })}
             />
 
