@@ -1,5 +1,15 @@
 @import "~justifiedGallery/dist/css/justifiedGallery.css";
 
+.wp-block-gutenbee-justified-gallery {
+  box-sizing: border-box;
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: inherit;
+    }
+}
+
 // Justified type
 .wp-block-gutenbee-gallery-justified {
   margin: $base-block-vertical-spacing 0;

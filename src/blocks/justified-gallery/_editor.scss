@@ -1,0 +1,9 @@
+.wp-block-gutenbee-justified-gallery {
+    box-sizing: border-box;
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: inherit;
+    }
+}

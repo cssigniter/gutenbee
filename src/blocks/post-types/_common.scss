@@ -188,6 +188,16 @@
   }
 }
 
+.wp-block-gutenbee-post-types {
+  box-sizing: border-box;
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: inherit;
+  }
+}
+
 /* Load more pagination
 ========================================= */
 .wp-block-gutenbee-post-types-nav-load-more {
