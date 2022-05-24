@@ -1,3 +1,13 @@
 @import "variables";
 @import "mixins/mixins";
 @import "gutenbee-zoom";
+
+[class*="wp-block-gutenbee-"] {
+    box-sizing: border-box;
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: inherit;
+    }
+}
