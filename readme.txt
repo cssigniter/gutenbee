@@ -2,7 +2,7 @@
 Contributors: cssigniterteam, silencerius, nvourva, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 5.6
-Tested up to: 5.9
+Tested up to: 6.0
 Stable tag: 2.13.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
@@ -72,6 +72,14 @@ Note that if you want to use the Google Maps block you will also need a Google M
 7. Tabs or Accordions, group your content the way you want.
 
 == Changelog ==
+
+= 2.13.1 =
+* Image Box block: Fixed max image size on WordPress 6.0
+* Post Types block: Fixed max image size on WordPress 6.0
+* Post Types block: Fixed box sizing on WordPress 6.0
+* Post Types block: Edge case would set maximum number of columns per post type to a wrong number.
+* Gallery block: Fixed box sizing on WordPress 6.0
+* Google Maps Block: Conditionally load google maps api only if it’s necessary.
 
 = 2.13.0 =
 * Divider block: Fix an issue where the divider block would not clear itself in the editor when around floated elements.
