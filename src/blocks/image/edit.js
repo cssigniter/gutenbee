@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Fragment, useState, useEffect } from 'wp.element';
+import { useState, useEffect } from 'wp.element';
 import { __ } from 'wp.i18n';
 import {
   BlockAlignmentToolbar,
@@ -16,8 +16,8 @@ import {
   TextControl,
   TextareaControl,
   RangeControl,
-  Toolbar,
-  Button,
+  ToolbarGroup,
+  ToolbarButton,
 } from 'wp.components';
 import { useSelect } from 'wp.data';
 import { pick, get, map, isEmpty } from 'lodash';
@@ -242,24 +242,22 @@ const ImageEdit = ({
 
   const blockControls = (
     <BlockControls>
-      <BlockAlignmentToolbar value={align} onChange={onAlignmentUpdate} />
+      <ToolbarGroup>
+        <BlockAlignmentToolbar value={align} onChange={onAlignmentUpdate} />
 
-      {url && (
-        <Fragment>
-          <Toolbar>
-            <Button
-              className={classNames(
-                'components-icon-button components-toolbar__control',
-                { 'is-active': isEditing },
-              )}
-              label={__('Edit image')}
-              aria-pressed={isEditing}
-              onClick={toggleIsEditing}
-              icon="format-image"
-            />
-          </Toolbar>
-        </Fragment>
-      )}
+        {url && (
+          <ToolbarButton
+            className={classNames(
+              'components-icon-button components-toolbar__control',
+              { 'is-active': isEditing },
+            )}
+            label={__('Edit image')}
+            aria-pressed={isEditing}
+            onClick={toggleIsEditing}
+            icon="format-image"
+          />
+        )}
+      </ToolbarGroup>
     </BlockControls>
   );
 

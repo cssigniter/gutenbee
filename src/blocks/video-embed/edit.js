@@ -6,7 +6,8 @@ import {
   Placeholder,
   ToggleControl,
   TextControl,
-  Toolbar,
+  ToolbarButton,
+  ToolbarGroup,
 } from 'wp.components';
 import {
   InspectorControls,
@@ -199,16 +200,18 @@ const VideoEmbedEdit = ({
           />
         )}
       </div>
+
       <BlockControls>
-        <Toolbar>
-          <Button
+        <ToolbarGroup>
+          <ToolbarButton
             className="components-icon-button components-toolbar__control"
             label={__('Change video URL')}
             onClick={() => setEditing(true)}
             icon="edit"
           />
-        </Toolbar>
+        </ToolbarGroup>
       </BlockControls>
+
       <InspectorControls>
         <PanelBody title={__('Video Options')}>
           <MediaUploadCheck>
@@ -223,7 +226,7 @@ const VideoEmbedEdit = ({
                 allowedTypes={VIDEO_POSTER_ALLOWED_MEDIA_TYPES}
                 render={({ open }) => (
                   <Button
-                    isDefault
+                    variant="secondary"
                     onClick={open}
                     ref={coverImageImageButtonRef}
                     aria-describedby={videoCoverImageDescription}

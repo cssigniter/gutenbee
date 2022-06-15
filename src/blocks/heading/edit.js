@@ -112,7 +112,7 @@ function HeadingEdit({
         />
       </div>
 
-      <BlockControls>
+      <BlockControls group="block">
         <HeadingToolbar
           minLevel={1}
           maxLevel={7}

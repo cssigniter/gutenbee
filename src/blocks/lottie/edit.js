@@ -8,7 +8,8 @@ import {
   CheckboxControl,
   PanelBody,
   Button,
-  Toolbar,
+  ToolbarButton,
+  ToolbarGroup,
 } from 'wp.components';
 import {
   MediaUploadCheck,
@@ -105,14 +106,14 @@ const LottieEdit = ({ attributes, setAttributes, clientId, className }) => {
       )}
 
       <BlockControls>
-        <Toolbar>
-          <Button
+        <ToolbarGroup>
+          <ToolbarButton
             className="components-icon-button components-toolbar__control"
             label={__('Edit animation')}
             onClick={() => setEditing(prevEditing => !prevEditing)}
             icon="edit"
           />
-        </Toolbar>
+        </ToolbarGroup>
       </BlockControls>
 
       <InspectorControls>

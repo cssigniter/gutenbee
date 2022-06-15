@@ -12,10 +12,10 @@ import {
 } from 'wp.blockEditor';
 import {
   PanelBody,
-  Button,
   SelectControl,
   RangeControl,
-  Toolbar,
+  ToolbarGroup,
+  ToolbarButton,
 } from 'wp.components';
 import { withSelect } from 'wp.data';
 import startCase from 'lodash.startcase';
@@ -150,7 +150,7 @@ const ImageBoxEditBlock = ({
       {isSelected && (
         <Fragment>
           <BlockControls>
-            <Toolbar>
+            <ToolbarGroup>
               <MediaUpload
                 onSelect={uploadedImage => {
                   setAttributes({
@@ -162,7 +162,7 @@ const ImageBoxEditBlock = ({
                 allowedTypes={['image']}
                 value={id}
                 render={({ open }) => (
-                  <Button
+                  <ToolbarButton
                     className="components-toolbar__control"
                     label={__('Edit Image')}
                     icon="format-image"
@@ -170,7 +170,7 @@ const ImageBoxEditBlock = ({
                   />
                 )}
               />
-            </Toolbar>
+            </ToolbarGroup>
           </BlockControls>
 
           <InspectorControls>

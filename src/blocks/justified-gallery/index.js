@@ -72,6 +72,11 @@ registerBlockType('gutenbee/justified-gallery', {
           selector: 'img',
           attribute: 'data-link',
         },
+        sourceUrl: {
+          source: 'attribute',
+          selector: 'img',
+          attribute: 'data-source-url',
+        },
       },
     },
     columns: {
@@ -184,7 +189,7 @@ registerBlockType('gutenbee/justified-gallery', {
 
             switch (linkTo) {
               case LINKTO.MEDIA:
-                href = image.url;
+                href = image.sourceUrl || image.url;
                 break;
               case LINKTO.ATTACHMENT:
                 href = image.link;
@@ -199,6 +204,7 @@ registerBlockType('gutenbee/justified-gallery', {
                 alt={image.alt || ''}
                 data-id={image.id}
                 data-link={image.link}
+                data-source-url={image.sourceUrl}
                 className="wp-block-gutenbee-gallery-item-image"
               />
             );

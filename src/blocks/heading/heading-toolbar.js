@@ -1,8 +1,12 @@
 import { range } from 'lodash';
 import { __, sprintf } from 'wp.i18n';
-import { Toolbar } from 'wp.components';
+import { ToolbarGroup } from 'wp.components';
 
 import HeadingLevelIcon from './heading-level-icon';
+
+const POPOVER_PROPS = {
+  className: 'block-library-heading-level-dropdown',
+};
 
 const HeadingToolbar = ({
   isCollapsed = true,
@@ -18,14 +22,15 @@ const HeadingToolbar = ({
         <HeadingLevelIcon level={targetLevel} __unstableActive={isActive} />
       ),
       // translators: %s: heading level e.g: "1", "2", "3"
-      title: sprintf(__('Heading %d'), targetLevel),
+      label: sprintf(__('Heading %d'), targetLevel),
       isActive,
       onClick: () => onChange(targetLevel),
     };
   };
 
   return (
-    <Toolbar
+    <ToolbarGroup
+      popoverProps={POPOVER_PROPS}
       className="gutenbee-heading-toolbar"
       isCollapsed={isCollapsed}
       icon={<HeadingLevelIcon level={selectedLevel} />}

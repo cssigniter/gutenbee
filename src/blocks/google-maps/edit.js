@@ -251,7 +251,7 @@ const GoogleMapsEdit = ({
                 <p>
                   <Button
                     onClick={open}
-                    isDefault
+                    variant="secondary"
                     style={{ width: '100%', display: 'block' }}
                   >
                     Upload Custom Marker

@@ -10,8 +10,8 @@ import {
   BlockQuotation,
   PanelBody,
   SelectControl,
-  Toolbar,
-  Button,
+  ToolbarGroup,
+  ToolbarButton,
   TextareaControl,
   RangeControl,
 } from 'wp.components';
@@ -340,35 +340,26 @@ const TestimonialEdit = ({
           value={attributes.align}
           onChange={newalign => setAttributes({ align: newalign })}
         />
-
         {url && (
-          <Fragment>
-            <Toolbar>
-              <Button
-                className={classNames(
-                  'components-icon-button components-toolbar__control',
-                  { 'is-active': isEditing },
-                )}
-                label={__('Edit image')}
-                aria-pressed={isEditing}
-                onClick={toggleIsEditing}
-                icon="format-image"
-              />
-
-              <Button
-                className={classNames(
-                  'components-icon-button components-toolbar__control',
-                  { 'is-active': isEditing },
-                )}
-                label={__('Remove image')}
-                aria-pressed={isEditing}
-                onClick={onImageSelect}
-                icon="trash"
-              />
-            </Toolbar>
-          </Fragment>
+          <ToolbarGroup>
+            <ToolbarButton
+              className={classNames({ 'is-active': isEditing })}
+              label={__('Edit image')}
+              aria-pressed={isEditing}
+              onClick={toggleIsEditing}
+              icon="format-image"
+            />
+            <ToolbarButton
+              className={classNames({ 'is-active': isEditing })}
+              label={__('Remove image')}
+              aria-pressed={isEditing}
+              onClick={onImageSelect}
+              icon="trash"
+            />
+          </ToolbarGroup>
         )}
       </BlockControls>
+
       <InspectorControls>
         <PanelBody title={__('Image Settings')} initialOpen={false}>
           <ResponsiveControl>

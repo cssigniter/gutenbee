@@ -6,7 +6,8 @@ import {
   PanelBody,
   SelectControl,
   ToggleControl,
-  Toolbar,
+  ToolbarGroup,
+  ToolbarButton,
   withNotices,
 } from 'wp.components';
 import {
@@ -156,14 +157,14 @@ const VideoEdit = ({
   return (
     <Fragment>
       <BlockControls>
-        <Toolbar>
-          <Button
+        <ToolbarGroup>
+          <ToolbarButton
             className="components-icon-button components-toolbar__control"
             label={__('Edit video')}
             onClick={switchToEditing}
             icon="edit"
           />
-        </Toolbar>
+        </ToolbarGroup>
       </BlockControls>
 
       <InspectorControls>

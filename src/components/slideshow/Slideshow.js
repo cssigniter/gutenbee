@@ -2,7 +2,12 @@ import { Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import { withSelect } from 'wp.data';
-import { Button, Toolbar, PanelBody, SelectControl } from 'wp.components';
+import {
+  ToolbarButton,
+  ToolbarGroup,
+  PanelBody,
+  SelectControl,
+} from 'wp.components';
 import {
   MediaPlaceholder,
   MediaUpload,
@@ -177,7 +182,7 @@ const Slideshow = ({
         <Fragment>
           <BlockControls key="slideshow-controls">
             {!!images.length && (
-              <Toolbar>
+              <ToolbarGroup>
                 <MediaUpload
                   onSelect={onSelectImages}
                   allowedTypes={['image']}
@@ -185,7 +190,7 @@ const Slideshow = ({
                   gallery
                   value={images.map(img => img.id)}
                   render={({ open }) => (
-                    <Button
+                    <ToolbarButton
                       className="components-toolbar__control"
                       label={__('Edit Slideshow')}
                       icon="edit"
@@ -193,7 +198,7 @@ const Slideshow = ({
                     />
                   )}
                 />
-              </Toolbar>
+              </ToolbarGroup>
             )}
           </BlockControls>
           {children}

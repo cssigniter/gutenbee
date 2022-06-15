@@ -4,7 +4,7 @@ import { InnerBlocks } from 'wp.blockEditor';
 import classNames from 'classnames';
 import { useSelect, useDispatch } from 'wp.data';
 import { BlockControls } from 'wp.blockEditor';
-import { Toolbar, Button } from 'wp.components';
+import { ToolbarGroup, ToolbarButton } from 'wp.components';
 
 import getBlockId from '../../../util/getBlockId';
 import useUniqueId from '../../../hooks/useUniqueId';
@@ -64,8 +64,8 @@ const TabSliderNavEdit = ({
         />
       </div>
       <BlockControls>
-        <Toolbar>
-          <Button
+        <ToolbarGroup>
+          <ToolbarButton
             className={classNames(
               'components-icon-button components-toolbar__control',
             )}
@@ -76,7 +76,7 @@ const TabSliderNavEdit = ({
             }}
             icon="trash"
           />
-        </Toolbar>
+        </ToolbarGroup>
       </BlockControls>
     </Fragment>
   );

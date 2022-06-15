@@ -1,7 +1,12 @@
 import { useState, useEffect, Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __, sprintf } from 'wp.i18n';
-import { Button, Toolbar, PanelBody, SelectControl } from 'wp.components';
+import {
+  ToolbarGroup,
+  ToolbarButton,
+  PanelBody,
+  SelectControl,
+} from 'wp.components';
 import {
   MediaPlaceholder,
   MediaUpload,
@@ -77,6 +82,7 @@ const Gallery = ({
       images: images.map(attributes => ({
         ...attributes,
         caption: attributes.caption ? [attributes.caption] : [],
+        sourceUrl: attributes.sizes?.full?.url ?? '',
       })),
     });
   };
@@ -129,7 +135,7 @@ const Gallery = ({
   const controls = isSelected && (
     <BlockControls key="controls">
       {!!images.length && (
-        <Toolbar>
+        <ToolbarGroup>
           <MediaUpload
             onSelect={onSelectImages}
             allowedTypes={['image']}
@@ -137,15 +143,14 @@ const Gallery = ({
             gallery
             value={images.map(img => img.id)}
             render={({ open }) => (
-              <Button
-                className="components-toolbar__control"
+              <ToolbarButton
                 label={sprintf(__('Edit %s'), label)}
                 icon="edit"
                 onClick={open}
               />
             )}
           />
-        </Toolbar>
+        </ToolbarGroup>
       )}
     </BlockControls>
   );
@@ -195,20 +200,22 @@ const Gallery = ({
       <div className="gallery-component-wrap">
         {images.length > 0 && (
           <div id={id} className={galleryComponentClasses} style={style}>
-            {images.map((img, index) => (
-              <div key={img.id || img.url} className="gutenbee-gallery-item">
-                <GalleryItem
-                  url={img.url}
-                  alt={img.alt}
-                  id={img.id}
-                  isSelected={isSelected && selectedImage === index}
-                  onRemove={onRemoveImage(index)}
-                  onSelect={onSelectImage(index)}
-                  setAttributes={attrs => setImageAttributes(index, attrs)}
-                  caption={img.caption}
-                />
-              </div>
-            ))}
+            {images.map((img, index) => {
+              return (
+                <div key={img.id || img.url} className="gutenbee-gallery-item">
+                  <GalleryItem
+                    url={img.url}
+                    alt={img.alt}
+                    id={img.id}
+                    isSelected={isSelected && selectedImage === index}
+                    onRemove={onRemoveImage(index)}
+                    onSelect={onSelectImage(index)}
+                    setAttributes={attrs => setImageAttributes(index, attrs)}
+                    caption={img.caption}
+                  />
+                </div>
+              );
+            })}
           </div>
         )}
 

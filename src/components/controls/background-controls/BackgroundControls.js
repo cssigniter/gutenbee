@@ -66,7 +66,7 @@ const BackgroundControls = ({
             render={({ open }) => {
               return (
                 <div className="gutenbee-control-background-image-actions">
-                  <Button isDefault onClick={open}>
+                  <Button variant="secondary" onClick={open}>
                     {__('Choose Image')}
                   </Button>
                 </div>
@@ -94,12 +94,12 @@ const BackgroundControls = ({
                     </a>
 
                     <div className="gutenbee-control-background-image-actions">
-                      <Button isDefault onClick={open}>
+                      <Button variant="secondary" onClick={open}>
                         {__('Change')}
                       </Button>
 
                       <Button
-                        isDefault
+                        variant="secondary"
                         onClick={() =>
                           onSetBackgroundImageSetting({ url: '', image: null })
                         }

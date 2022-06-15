@@ -1,6 +1,6 @@
 import { Fragment } from 'wp.element';
 import { __, sprintf } from 'wp.i18n';
-import { PanelBody, Toolbar, RangeControl } from 'wp.components';
+import { PanelBody, ToolbarGroup, RangeControl } from 'wp.components';
 import { InspectorControls, AlignmentToolbar } from 'wp.blockEditor';
 
 import { BORDER_STYLES, Divider } from './index';
@@ -44,7 +44,7 @@ const DividerEdit = ({
         <InspectorControls key="inspector">
           <PanelBody>
             <p>{__('Style')}</p>
-            <Toolbar
+            <ToolbarGroup
               classsName="wp-block-gutenbee-divider-style-edit"
               controls={Object.values(BORDER_STYLES).map(
                 (borderStyle, index) => ({
