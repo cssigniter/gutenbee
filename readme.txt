@@ -73,6 +73,10 @@ Note that if you want to use the Google Maps block you will also need a Google M
 
 == Changelog ==
 
+= 2.14.0 =
+* All blocks: Update code deprecations for WP 6.0
+* Gallery block: Link to the full image URLs when images are linked to media.
+
 = 2.13.1 =
 * Image Box block: Fixed max image size on WordPress 6.0
 * Post Types block: Fixed max image size on WordPress 6.0
