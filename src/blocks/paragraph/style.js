@@ -10,7 +10,17 @@ const propTypes = {
 };
 
 const ParagraphStyle = ({ attributes, children }) => {
-  const { uniqueId, blockPadding, blockMargin, fontSize, align } = attributes;
+  const {
+    uniqueId,
+    blockPadding,
+    blockMargin,
+    fontSize,
+    lineHeight,
+    letterSpacing,
+    textTransform,
+    textDecoration,
+    align,
+  } = attributes;
   const blockId = getBlockId(uniqueId);
 
   return (
@@ -29,6 +39,26 @@ const ParagraphStyle = ({ attributes, children }) => {
         value={fontSize}
         rule=".wp-block-gutenbee-paragraph.[root] { font-size: %s; }"
         unit="px"
+      />
+      <Rule
+        value={lineHeight}
+        rule=".wp-block-gutenbee-paragraph.[root] { line-height: %s; }"
+        unit=""
+      />
+      <Rule
+        value={letterSpacing}
+        rule=".wp-block-gutenbee-paragraph.[root] { letter-spacing: %s; }"
+        unit=""
+      />
+      <Rule
+        value={textTransform}
+        rule=".wp-block-gutenbee-paragraph.[root] { text-transform: %s; }"
+        unit=""
+      />
+      <Rule
+        value={textDecoration}
+        rule=".wp-block-gutenbee-paragraph.[root] { text-decoration: %s; }"
+        unit=""
       />
       <Rule
         value={align}

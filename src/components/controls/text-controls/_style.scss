@@ -1,6 +1,57 @@
 //
-// Text controls
+// Text / Typography controls
 //
+
+.gutenbee-typography-controls {
+  margin-bottom: 24px;
+
+  .gutenbee-responsive-control-wrap,
+  .components-base-control:last-child,
+  .components-base-control__field {
+    margin-bottom: 0 !important;
+  }
+
+  .block-editor-line-height-control,
+  .block-editor-text-transform-control > :last-child,
+  .block-editor-text-decoration-control > :last-child {
+    margin-bottom: 0;
+  }
+
+  label.components-input-control__label {
+    margin-bottom: 8px !important;
+    padding-bottom: 0 !important;
+  }
+
+  .components-text-control__input,
+  .components-input-control__container {
+    width: 100% !important;
+    max-width: 100%;
+  }
+
+  .components-base-control__label {
+    line-height: 1.2;
+  }
+}
+
+.gutenbee-typography-controls-row-full {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.gutenbee-typography-controls-row {
+  display: flex;
+  grid-gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  > * {
+    width: calc(50% - .5rem);
+  }
+}
 
 // TODO: Temporarily hide the label on Gutenberg's FontSizePicker
 // component as we want to display our own label. Remove this

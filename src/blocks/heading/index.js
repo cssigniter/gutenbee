@@ -22,6 +22,7 @@ import {
 } from '../../components/controls/box-shadow-controls/helpers';
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import typographyControlAttributes from '../../components/controls/text-controls/helpers';
 
 registerBlockType('gutenbee/heading', {
   apiVersion: 2,
@@ -66,10 +67,7 @@ registerBlockType('gutenbee/heading', {
     textColor: {
       type: 'string',
     },
-    fontSize: {
-      type: 'object',
-      default: getDefaultResponsiveValue(),
-    },
+    ...typographyControlAttributes(),
     backgroundColor: {
       type: 'string',
     },

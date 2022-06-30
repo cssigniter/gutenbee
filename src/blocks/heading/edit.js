@@ -18,7 +18,6 @@ import useUniqueId from '../../hooks/useUniqueId';
 import MarginControls from '../../components/controls/margin-controls';
 import HeadingStyle from './style';
 import getBlockId from '../../util/getBlockId';
-import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
 import Rule from '../../components/stylesheet/Rule';
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
 import BorderControls from '../../components/controls/border-controls';
@@ -27,6 +26,7 @@ import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
+import TypographyControls from '../../components/controls/text-controls/TypographyControls';
 
 const propTypes = {
   attribute: PropTypes.object.isRequired,
@@ -53,6 +53,10 @@ function HeadingEdit({
     textColor,
     backgroundColor,
     fontSize,
+    lineHeight,
+    letterSpacing,
+    textTransform,
+    textDecoration,
     blockBreakpointVisibility,
     blockAuthVisibility,
   } = attributes;
@@ -82,6 +86,26 @@ function HeadingEdit({
           value={fontSize}
           rule={`.wp-block-gutenbee-heading.[root] ${tagName} { font-size: %s !important; }`}
           unit="px"
+        />
+        <Rule
+          value={lineHeight}
+          rule={`.wp-block-gutenbee-heading.[root] ${tagName} { line-height: %s; }`}
+          unit=""
+        />
+        <Rule
+          value={letterSpacing}
+          rule={`.wp-block-gutenbee-heading.[root] ${tagName} { letter-spacing: %s; }`}
+          unit=""
+        />
+        <Rule
+          value={textTransform}
+          rule={`.wp-block-gutenbee-heading.[root] ${tagName} { text-transform: %s; }`}
+          unit=""
+        />
+        <Rule
+          value={textDecoration}
+          rule={`.wp-block-gutenbee-heading.[root] ${tagName} { text-decoration: %s; }`}
+          unit=""
         />
       </HeadingStyle>
 
@@ -124,20 +148,60 @@ function HeadingEdit({
       <InspectorControls>
         <PanelBody title={__('Heading Settings')}>
           <ResponsiveControl>
-            {breakpoint => (
-              <FontSizePickerLabel
-                label={__('Heading Font Size')}
-                value={fontSize[breakpoint]}
-                onChange={value => {
-                  setAttributes({
-                    fontSize: {
-                      ...fontSize,
-                      [breakpoint]: value != null ? value : '',
-                    },
-                  });
-                }}
-              />
-            )}
+            {breakpoint => {
+              return (
+                <TypographyControls
+                  attributes={{
+                    fontSize: fontSize[breakpoint],
+                    lineHeight: lineHeight?.[breakpoint],
+                    letterSpacing: letterSpacing?.[breakpoint],
+                    textTransform: textTransform?.[breakpoint],
+                    textDecoration: textDecoration?.[breakpoint],
+                  }}
+                  onFontSizeChange={value => {
+                    setAttributes({
+                      fontSize: {
+                        ...fontSize,
+                        [breakpoint]: value != null ? value : '',
+                      },
+                    });
+                  }}
+                  onLineHeightChange={value => {
+                    setAttributes({
+                      lineHeight: {
+                        ...lineHeight,
+                        [breakpoint]: value != null ? value : '',
+                      },
+                    });
+                  }}
+                  onLetterSpacingChange={value => {
+                    setAttributes({
+                      letterSpacing: {
+                        ...letterSpacing,
+                        [breakpoint]: value != null ? value : '',
+                      },
+                    });
+                  }}
+                  onTextDecorationChange={value => {
+                    setAttributes({
+                      textDecoration: {
+                        ...textDecoration,
+                        [breakpoint]: value != null ? value : '',
+                      },
+                    });
+                  }}
+                  onTextTransformChange={value => {
+                    setAttributes({
+                      textTransform: {
+                        ...textTransform,
+                        [breakpoint]: value != null ? value : '',
+                      },
+                    });
+                  }}
+                  label={__('Heading Font Size')}
+                />
+              );
+            }}
           </ResponsiveControl>
 
           <ResponsiveControl>

@@ -26,7 +26,7 @@ import BreakpointVisibilityControl from '../../components/controls/breakpoint-vi
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
-import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
+import TypographyControls from '../../components/controls/text-controls/TypographyControls';
 
 const { getComputedStyle } = window;
 
@@ -64,6 +64,10 @@ const ParagraphBlock = ({
     dropCap,
     placeholder,
     fontSize,
+    lineHeight,
+    letterSpacing,
+    textTransform,
+    textDecoration,
     blockBreakpointVisibility,
     blockAuthVisibility,
   } = attributes;
@@ -130,20 +134,60 @@ const ParagraphBlock = ({
       <InspectorControls>
         <PanelBody title={__('Text Settings')} className="blocks-font-size">
           <ResponsiveControl>
-            {breakpoint => (
-              <FontSizePickerLabel
-                label={__('Text Font Size')}
-                value={fontSize[breakpoint]}
-                onChange={value => {
-                  setAttributes({
-                    fontSize: {
-                      ...fontSize,
-                      [breakpoint]: value != null ? value : '',
-                    },
-                  });
-                }}
-              />
-            )}
+            {breakpoint => {
+              return (
+                <TypographyControls
+                  attributes={{
+                    fontSize: fontSize[breakpoint],
+                    lineHeight: lineHeight?.[breakpoint],
+                    letterSpacing: letterSpacing?.[breakpoint],
+                    textTransform: textTransform?.[breakpoint],
+                    textDecoration: textDecoration?.[breakpoint],
+                  }}
+                  onFontSizeChange={value => {
+                    setAttributes({
+                      fontSize: {
+                        ...fontSize,
+                        [breakpoint]: value != null ? value : '',
+                      },
+                    });
+                  }}
+                  onLineHeightChange={value => {
+                    setAttributes({
+                      lineHeight: {
+                        ...lineHeight,
+                        [breakpoint]: value != null ? value : '',
+                      },
+                    });
+                  }}
+                  onLetterSpacingChange={value => {
+                    setAttributes({
+                      letterSpacing: {
+                        ...letterSpacing,
+                        [breakpoint]: value != null ? value : '',
+                      },
+                    });
+                  }}
+                  onTextDecorationChange={value => {
+                    setAttributes({
+                      textDecoration: {
+                        ...textDecoration,
+                        [breakpoint]: value != null ? value : '',
+                      },
+                    });
+                  }}
+                  onTextTransformChange={value => {
+                    setAttributes({
+                      textTransform: {
+                        ...textTransform,
+                        [breakpoint]: value != null ? value : '',
+                      },
+                    });
+                  }}
+                  label={__('Text Font Size')}
+                />
+              );
+            }}
           </ResponsiveControl>
 
           <ToggleControl
