@@ -21,6 +21,10 @@ import { getBorderCSSValue } from '../../components/controls/border-controls/hel
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 import deprecated from './deprecated';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/review', {
   title: __('GutenBee Review'),
@@ -116,6 +120,7 @@ registerBlockType('gutenbee/review', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   deprecated,
   edit: ReviewEdit,
@@ -149,6 +154,7 @@ registerBlockType('gutenbee/review', {
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),
         }}
+        {...getAnimationControlDataAttributes(attributes.animation)}
       >
         <div className="wp-block-gutenbee-review-rating-final-score">
           <p

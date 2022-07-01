@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "~justifiedGallery/dist/css/justifiedGallery.css";
 
 .wp-block-gutenbee-justified-gallery {
@@ -79,8 +80,8 @@
 @for $i from 1 through 8 {
   .gutenbee-columns-#{$i} {
     .wp-block-gutenbee-gallery-item {
-      width: percentage(1 / $i);
-      max-width: percentage(1 / $i);
+      width: math.percentage(math.div(1, $i));
+      max-width: math.percentage(math.div(1, $i));
     }
   }
 }

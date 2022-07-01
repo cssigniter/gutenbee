@@ -26,6 +26,10 @@ import {
 } from '../../components/controls/box-shadow-controls/helpers';
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
 
 const ImageBox = ({ className, attributes }) => {
   const {
@@ -65,6 +69,7 @@ const ImageBox = ({ className, attributes }) => {
         ...getBorderCSSValue({ attributes }),
         ...getBoxShadowCSSValue({ attributes }),
       }}
+      {...getAnimationControlDataAttributes(attributes.animation)}
     >
       <ImageBoxStyle attributes={attributes} />
 
@@ -227,6 +232,7 @@ registerBlockType('gutenbee/imagebox', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   deprecated,
   edit: ImageBoxEditBlock,

@@ -19,6 +19,7 @@ import BoxShadowControls from '../../../components/controls/box-shadow-controls'
 import BorderControls from '../../../components/controls/border-controls';
 import PopoverColorControl from '../../../components/controls/advanced-color-control/PopoverColorControl';
 import FoodMenuItemEditStyle from './style';
+import AnimationControls from '../../../components/controls/animation-controls/AnimationControls';
 
 const useInnerBlocksProps =
   __experimentalUseInnerBlocksProps ?? currentUseInnerBlockProps;
@@ -133,6 +134,17 @@ const FoodMenuItemEdit = ({
               />
             )}
           </ResponsiveControl>
+        </PanelBody>
+
+        <PanelBody
+          icon={!!attributes.animation?.type && 'saved'}
+          title={__('Animation')}
+          initialOpen={false}
+        >
+          <AnimationControls
+            attributes={attributes.animation}
+            setAttributes={setAttributes}
+          />
         </PanelBody>
       </InspectorControls>
     </Fragment>

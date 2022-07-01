@@ -20,6 +20,10 @@ import {
 import deprecated from './deprecated';
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/video', {
   title: __('GutenBee Video'),
@@ -118,6 +122,7 @@ registerBlockType('gutenbee/video', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   deprecated,
   edit: VideoEdit,
@@ -151,6 +156,7 @@ registerBlockType('gutenbee/video', {
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),
         }}
+        {...getAnimationControlDataAttributes(attributes.animation)}
       >
         <VideoStyle attributes={attributes} />
         {src && (

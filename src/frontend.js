@@ -12,6 +12,7 @@ import './styles/style.scss';
 // Control scripts
 //
 import './components/controls/background-controls/script';
+import './components/controls/animation-controls/script';
 
 //
 // Block scripts

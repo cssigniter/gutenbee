@@ -24,6 +24,10 @@ import {
 } from '../../components/controls/box-shadow-controls/helpers';
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
 
 const ProgressBar = ({ className, attributes }) => {
   const {
@@ -58,6 +62,7 @@ const ProgressBar = ({ className, attributes }) => {
         ...getBorderCSSValue({ attributes }),
         ...getBoxShadowCSSValue({ attributes }),
       }}
+      {...getAnimationControlDataAttributes(attributes.animation)}
     >
       <ProgressBarStyle attributes={attributes} />
 
@@ -187,6 +192,7 @@ registerBlockType('gutenbee/progress-bar', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   deprecated,
   edit: ProgressBarEdit,

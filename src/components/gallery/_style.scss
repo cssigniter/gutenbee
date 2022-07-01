@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .gallery-component-wrap {
   .block-editor-media-placeholder.is-appender {
     margin-top: 20px;
@@ -30,8 +32,8 @@
 
   @for $i from 1 through 8 {
     .gutenbee-columns-#{$i} & {
-      width: percentage(1 / $i);
-      max-width: percentage(1 / $i);
+      width: math.percentage(math.div(1, $i));
+      max-width: math.percentage(math.div(1, $i));
     }
   }
 

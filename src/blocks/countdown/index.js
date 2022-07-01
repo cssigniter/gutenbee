@@ -25,6 +25,10 @@ import {
 } from '../../components/controls/box-shadow-controls/helpers';
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
 
 const CountDown = ({ attributes, className }) => {
   const {
@@ -94,6 +98,7 @@ const CountDown = ({ attributes, className }) => {
         ...getBorderCSSValue({ attributes }),
         ...getBoxShadowCSSValue({ attributes }),
       }}
+      {...getAnimationControlDataAttributes(attributes.animation)}
     >
       <CountdownStyle attributes={attributes} />
       <div
@@ -223,6 +228,7 @@ registerBlockType('gutenbee/countdown', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   deprecated,
   edit: CountdownEdit,

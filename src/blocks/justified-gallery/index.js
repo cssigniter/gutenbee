@@ -25,6 +25,10 @@ import {
 } from '../../components/controls/box-shadow-controls/helpers';
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/justified-gallery', {
   title: __('GutenBee Gallery'),
@@ -135,6 +139,7 @@ registerBlockType('gutenbee/justified-gallery', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   deprecated,
   edit: JustifiedGalleryEdit,
@@ -181,6 +186,7 @@ registerBlockType('gutenbee/justified-gallery', {
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),
         }}
+        {...getAnimationControlDataAttributes(attributes.animation)}
       >
         <GalleryStyle attributes={attributes} />
         <div className="wp-block-gutenbee-gallery-content">

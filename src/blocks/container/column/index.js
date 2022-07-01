@@ -26,6 +26,10 @@ import { getBorderCSSValue } from '../../../components/controls/border-controls/
 import deprecated from './deprecated';
 import { getBreakpointVisibilityClassNames } from '../../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../../components/controls/auth-visibility-control/helpers';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/column', {
   title: __('GutenBee Column'),
@@ -102,6 +106,7 @@ registerBlockType('gutenbee/column', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   getEditWrapperProps(attributes) {
     const { width } = attributes;
@@ -140,6 +145,7 @@ registerBlockType('gutenbee/column', {
             'wp-block-gutenbee-column': true,
           },
         )}
+        {...getAnimationControlDataAttributes(attributes.animation)}
       >
         <ColumnStyle attributes={attributes}>
           <Rule

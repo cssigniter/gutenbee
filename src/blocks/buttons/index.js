@@ -14,6 +14,10 @@ import ButtonsBlockIcon from './block-icon';
 import deprecated from './deprecated';
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
 
 const Buttons = ({ attributes, className }) => {
   const {
@@ -36,6 +40,7 @@ const Buttons = ({ attributes, className }) => {
       style={{
         backgroundColor: backgroundColor || undefined,
       }}
+      {...getAnimationControlDataAttributes(attributes.animation)}
     >
       <ButtonsStyle attributes={attributes} />
       <InnerBlocks.Content />
@@ -92,6 +97,7 @@ registerBlockType('gutenbee/buttons', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   deprecated,
   edit: ButtonsEdit,

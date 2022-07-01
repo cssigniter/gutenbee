@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .gutenbee-row {
   display: flex;
   flex-wrap: wrap;
@@ -20,15 +22,15 @@
   @for $i from 1 to 12 {
     @media (min-width: 1200px) {
       [class*="columns-#{$i}"] {
-        flex: 0 0 percentage(1/$i);
-        max-width: percentage(1/$i);
+        flex: 0 0 math.percentage(math.div(1, $i));
+        max-width: math.percentage(math.div(1, $i));
       }
     }
 
     @media (min-width: 767px) {
       [class*="columns-#{$i}"] {
-        flex: 0 0 percentage(1/$i);
-        max-width: percentage(1/$i);
+        flex: 0 0 math.percentage(math.div(1, $i));
+        max-width: math.percentage(math.div(1, $i));
       }
     }
   }

@@ -18,6 +18,10 @@ import getBlockId from '../../util/getBlockId';
 import deprecated from './deprecated';
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
 
 const Accordion = ({ className, attributes }) => {
   const {
@@ -44,6 +48,7 @@ const Accordion = ({ className, attributes }) => {
         getAuthVisibilityClasses(blockAuthVisibility),
       )}
       data-collapse-others={collapseOthers}
+      {...getAnimationControlDataAttributes(attributes.animation)}
     >
       <AccordionStyle attributes={attributes} />
 
@@ -174,6 +179,7 @@ registerBlockType('gutenbee/accordion', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   deprecated,
   edit: AccordionsEdit,

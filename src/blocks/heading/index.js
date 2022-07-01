@@ -23,6 +23,10 @@ import {
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 import typographyControlAttributes from '../../components/controls/text-controls/helpers';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/heading', {
   apiVersion: 2,
@@ -96,6 +100,7 @@ registerBlockType('gutenbee/heading', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   deprecated,
   transforms,
@@ -136,6 +141,7 @@ registerBlockType('gutenbee/heading', {
         ...getBorderCSSValue({ attributes }),
         ...getBoxShadowCSSValue({ attributes }),
       },
+      ...getAnimationControlDataAttributes(attributes.animation),
     });
 
     return (

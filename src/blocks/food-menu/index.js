@@ -20,6 +20,10 @@ import FoodMenuIcon from './block-icon';
 import deprecated from './deprecated';
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/food-menu', {
   title: __('GutenBee Food Menu'),
@@ -74,6 +78,7 @@ registerBlockType('gutenbee/food-menu', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   deprecated,
   edit: FoodMenuEdit,
@@ -107,6 +112,7 @@ registerBlockType('gutenbee/food-menu', {
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),
         }}
+        {...getAnimationControlDataAttributes(attributes.animation)}
       >
         <FoodMenuStyle attributes={attributes} />
         <InnerBlocks.Content />

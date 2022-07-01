@@ -26,6 +26,10 @@ import {
 } from '../../components/controls/box-shadow-controls/helpers';
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/slideshow', {
   title: __('GutenBee Slideshow'),
@@ -164,6 +168,7 @@ registerBlockType('gutenbee/slideshow', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   deprecated,
   edit: SlideshowEdit,
@@ -217,6 +222,7 @@ registerBlockType('gutenbee/slideshow', {
         }}
         data-dots-color={dotsColor}
         data-arrows-color={arrowsColor}
+        {...getAnimationControlDataAttributes(attributes.animation)}
       >
         <SlideshowStyle attributes={attributes} />
         {images.map((image, index) => {

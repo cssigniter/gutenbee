@@ -22,6 +22,10 @@ import {
 import deprecated from './deprecated';
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/image', {
   title: __('GutenBee Image'),
@@ -141,6 +145,7 @@ registerBlockType('gutenbee/image', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   getEditWrapperProps(attributes) {
     const { align, width } = attributes;
@@ -238,6 +243,7 @@ registerBlockType('gutenbee/image', {
               getAuthVisibilityClasses(blockAuthVisibility),
             ),
             style,
+            ...getAnimationControlDataAttributes(attributes.animation),
           })}
           id={blockId}
         >

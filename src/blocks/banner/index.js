@@ -24,6 +24,10 @@ import VideoBackgroundFrontEnd from '../../util/video/components/VideoBackground
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 import deprecated from './deprecated';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/banner', {
   title: __('GutenBee Banner'),
@@ -115,6 +119,7 @@ registerBlockType('gutenbee/banner', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   deprecated,
   edit: BannerBlockEdit,
@@ -198,6 +203,7 @@ registerBlockType('gutenbee/banner', {
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),
         }}
+        {...getAnimationControlDataAttributes(attributes.animation)}
       >
         {bannerUrl && (
           <a

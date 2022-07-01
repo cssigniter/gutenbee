@@ -21,6 +21,10 @@ import TestimonialBlockIcon from './block-icon';
 import deprecated from './deprecated';
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/testimonial', {
   title: __('GutenBee Testimonial'),
@@ -153,6 +157,7 @@ registerBlockType('gutenbee/testimonial', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   deprecated,
   edit: TestimonialEdit,
@@ -278,6 +283,7 @@ registerBlockType('gutenbee/testimonial', {
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),
         }}
+        {...getAnimationControlDataAttributes(attributes.animation)}
       >
         {renderTestimonialLayout()}
         <TestimonialStyle attributes={attributes} />

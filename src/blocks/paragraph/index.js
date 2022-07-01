@@ -22,6 +22,10 @@ import {
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 import typographyControlAttributes from '../../components/controls/text-controls/helpers';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/paragraph', {
   apiVersion: 2,
@@ -102,6 +106,7 @@ registerBlockType('gutenbee/paragraph', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   getEditWrapperProps() {
     return { 'data-align': true };
@@ -148,6 +153,7 @@ registerBlockType('gutenbee/paragraph', {
         ...getBorderCSSValue({ attributes }),
         ...getBoxShadowCSSValue({ attributes }),
       },
+      ...getAnimationControlDataAttributes(attributes.animation),
     });
 
     return (

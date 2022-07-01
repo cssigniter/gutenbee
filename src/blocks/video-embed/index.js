@@ -20,6 +20,10 @@ import deprecated from './deprecated';
 import { getVideoProviderInfoByUrl } from '../../util/video/providers';
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/video-embed', {
   title: __('GutenBee Video Embed'),
@@ -108,6 +112,7 @@ registerBlockType('gutenbee/video-embed', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   deprecated,
   edit: VideoEmbedEdit,
@@ -154,6 +159,7 @@ registerBlockType('gutenbee/video-embed', {
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),
         }}
+        {...getAnimationControlDataAttributes(attributes.animation)}
       >
         <div className="gutenbee-video-embed-wrapper">
           <VideoEmbedStyle attributes={attributes} />

@@ -30,6 +30,7 @@ import AuthVisibilityControl from '../../components/controls/auth-visibility-con
 import StyleSheet from '../../components/stylesheet';
 import Rule from '../../components/stylesheet/Rule';
 import URLPicker, { canUseURLPicker } from '../../components/url-picker';
+import AnimationControls from '../../components/controls/animation-controls/AnimationControls';
 
 const BannerEditStyle = ({ attributes, children }) => {
   const {
@@ -462,6 +463,17 @@ const BannerBlockEdit = ({
                 blockAuthVisibility: values,
               });
             }}
+          />
+        </PanelBody>
+
+        <PanelBody
+          icon={!!attributes.animation?.type && 'saved'}
+          title={__('Animation')}
+          initialOpen={false}
+        >
+          <AnimationControls
+            attributes={attributes.animation}
+            setAttributes={setAttributes}
           />
         </PanelBody>
       </InspectorControls>

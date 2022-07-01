@@ -18,6 +18,10 @@ import getBlockId from '../../../util/getBlockId';
 import FoodMenuItemEdit from './edit';
 import FoodMenuItemIcon from './block-icon';
 import deprecated from './deprecated';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/food-menu-item', {
   title: __('GutenBee Food Menu Item'),
@@ -58,6 +62,7 @@ registerBlockType('gutenbee/food-menu-item', {
       type: 'object',
       default: getDefaultSpacingValue(),
     },
+    ...animationControlAttributes(),
   },
   deprecated,
   edit: FoodMenuItemEdit,
@@ -74,6 +79,7 @@ registerBlockType('gutenbee/food-menu-item', {
         className={classNames(className, getBlockId(uniqueId), {
           'wp-block-gutenbee-food-menu-item': true,
         })}
+        {...getAnimationControlDataAttributes(attributes.animation)}
       >
         <FoodMenuItemStyle attributes={attributes} />
         <InnerBlocks.Content />

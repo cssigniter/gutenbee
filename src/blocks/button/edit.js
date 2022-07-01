@@ -25,6 +25,7 @@ import AuthVisibilityControl from '../../components/controls/auth-visibility-con
 import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
 import { buttonSizeTemplates, buttonStyleTemplates } from './templates';
 import URLPicker, { canUseURLPicker } from '../../components/url-picker';
+import AnimationControls from '../../components/controls/animation-controls/AnimationControls';
 
 const propTypes = {
   attributes: PropTypes.object.isRequired,
@@ -300,6 +301,17 @@ const ButtonEdit = ({
                 blockAuthVisibility: values,
               });
             }}
+          />
+        </PanelBody>
+
+        <PanelBody
+          icon={!!attributes.animation?.type && 'saved'}
+          title={__('Animation')}
+          initialOpen={false}
+        >
+          <AnimationControls
+            attributes={attributes.animation}
+            setAttributes={setAttributes}
           />
         </PanelBody>
       </InspectorControls>

@@ -28,6 +28,10 @@ import { getVideoProviderInfoByUrl } from '../../util/video/providers';
 import VideoBackgroundFrontEnd from '../../util/video/components/VideoBackgroundFrontend';
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/container', {
   title: __('GutenBee Container'),
@@ -142,6 +146,7 @@ registerBlockType('gutenbee/container', {
       type: 'boolean',
       default: false,
     },
+    ...animationControlAttributes(),
   },
   deprecated,
   getEditWrapperProps(attributes) {
@@ -204,6 +209,7 @@ registerBlockType('gutenbee/container', {
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),
         }}
+        {...getAnimationControlDataAttributes(attributes.animation)}
       >
         <ContainerStyle attributes={attributes} />
         <div className="wp-block-gutenbee-container-inner">

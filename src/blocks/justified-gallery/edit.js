@@ -28,6 +28,7 @@ import BreakpointVisibilityControl from '../../components/controls/breakpoint-vi
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
+import AnimationControls from '../../components/controls/animation-controls/AnimationControls';
 
 export const GALLERY_TYPE = {
   COLUMNS: 'columns',
@@ -228,6 +229,17 @@ const JustifiedGalleryEdit = ({
                 blockAuthVisibility: values,
               });
             }}
+          />
+        </PanelBody>
+
+        <PanelBody
+          icon={!!attributes.animation?.type && 'saved'}
+          title={__('Animation')}
+          initialOpen={false}
+        >
+          <AnimationControls
+            attributes={attributes.animation}
+            setAttributes={setAttributes}
           />
         </PanelBody>
       </InspectorControls>

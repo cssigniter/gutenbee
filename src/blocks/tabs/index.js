@@ -18,6 +18,10 @@ import TabsStyle from './style';
 import deprecated from './deprecated';
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
 
 const Tabs = ({ attributes, className }) => {
   const {
@@ -38,6 +42,7 @@ const Tabs = ({ attributes, className }) => {
         getBreakpointVisibilityClassNames(blockBreakpointVisibility),
         getAuthVisibilityClasses(blockAuthVisibility),
       )}
+      {...getAnimationControlDataAttributes(attributes.animation)}
     >
       <div className="wp-block-gutenbee-tabs-nav">
         {tabs.map((tab, index) => (
@@ -150,6 +155,7 @@ registerBlockType('gutenbee/tabs', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   deprecated,
   edit: TabsEdit,

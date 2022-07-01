@@ -20,6 +20,10 @@ import IconListStyle from './style';
 import IconListBlockIcon from './block-icon';
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/icon-list', {
   title: __('GutenBee Icon List'),
@@ -111,6 +115,7 @@ registerBlockType('gutenbee/icon-list', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   deprecated,
   edit: IconListEdit,
@@ -139,6 +144,7 @@ registerBlockType('gutenbee/icon-list', {
           ...getBorderCSSValue({ attributes }),
           ...getBoxShadowCSSValue({ attributes }),
         }}
+        {...getAnimationControlDataAttributes(attributes.animation)}
       >
         <ul
           className={classNames({

@@ -27,6 +27,7 @@ import PopoverColorControl from '../../components/controls/advanced-color-contro
 import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 import TypographyControls from '../../components/controls/text-controls/TypographyControls';
+import AnimationControls from '../../components/controls/animation-controls/AnimationControls';
 
 const propTypes = {
   attribute: PropTypes.object.isRequired,
@@ -289,6 +290,17 @@ function HeadingEdit({
                 blockAuthVisibility: values,
               });
             }}
+          />
+        </PanelBody>
+
+        <PanelBody
+          icon={!!attributes.animation?.type && 'saved'}
+          title={__('Animation')}
+          initialOpen={false}
+        >
+          <AnimationControls
+            attributes={attributes.animation}
+            setAttributes={setAttributes}
           />
         </PanelBody>
       </InspectorControls>

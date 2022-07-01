@@ -27,6 +27,10 @@ import {
 } from '../../components/controls/box-shadow-controls/helpers';
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
 
 const CountupRender = ({ attributes, className }) => {
   const {
@@ -58,6 +62,7 @@ const CountupRender = ({ attributes, className }) => {
         ...getBorderCSSValue({ attributes }),
         ...getBoxShadowCSSValue({ attributes }),
       }}
+      {...getAnimationControlDataAttributes(attributes.animation)}
     >
       <CountupStyle attributes={attributes} />
 
@@ -171,6 +176,7 @@ registerBlockType('gutenbee/countup', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   deprecated,
   edit: CountupEdit,

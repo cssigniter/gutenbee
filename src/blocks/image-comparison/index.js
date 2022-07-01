@@ -23,6 +23,10 @@ import {
 } from '../../components/controls/box-shadow-controls/helpers';
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/image-comparison', {
   title: __('GutenBee Image Comparison'),
@@ -90,6 +94,7 @@ registerBlockType('gutenbee/image-comparison', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   deprecated,
   edit: ImageComparisonEdit,
@@ -119,6 +124,7 @@ registerBlockType('gutenbee/image-comparison', {
           getBreakpointVisibilityClassNames(blockBreakpointVisibility),
           getAuthVisibilityClasses(blockAuthVisibility),
         )}
+        {...getAnimationControlDataAttributes(attributes.animation)}
       >
         <div className="wp-block-gutenbee-comparison-wrap" data-offset={offset}>
           <ImageComparisonStyle attributes={attributes} />

@@ -21,6 +21,7 @@ import Rule from '../../components/stylesheet/Rule';
 import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 import FontSizePickerLabel from '../../components/controls/text-controls/FontSizePickerLabel';
+import AnimationControls from '../../components/controls/animation-controls/AnimationControls';
 
 const propTypes = {
   attributes: PropTypes.object.isRequired,
@@ -376,6 +377,17 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
                 blockAuthVisibility: values,
               });
             }}
+          />
+        </PanelBody>
+
+        <PanelBody
+          icon={!!attributes.animation?.type && 'saved'}
+          title={__('Animation')}
+          initialOpen={false}
+        >
+          <AnimationControls
+            attributes={attributes.animation}
+            setAttributes={setAttributes}
           />
         </PanelBody>
       </InspectorControls>

@@ -16,6 +16,7 @@ import { getBreakpointVisibilityClassNames } from '../../components/controls/bre
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 import StateTabs from '../../components/controls/state-tabs';
+import AnimationControls from '../../components/controls/animation-controls/AnimationControls';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -308,6 +309,17 @@ const TabsEdit = ({
                   blockAuthVisibility: values,
                 });
               }}
+            />
+          </PanelBody>
+
+          <PanelBody
+            icon={!!attributes.animation?.type && 'saved'}
+            title={__('Animation')}
+            initialOpen={false}
+          >
+            <AnimationControls
+              attributes={attributes.animation}
+              setAttributes={setAttributes}
             />
           </PanelBody>
         </InspectorControls>

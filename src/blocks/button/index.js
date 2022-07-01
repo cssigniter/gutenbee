@@ -20,6 +20,10 @@ import {
 import deprecated from './deprecated';
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/button', {
   title: __('GutenBee Button'),
@@ -98,6 +102,7 @@ registerBlockType('gutenbee/button', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   deprecated,
   edit: ButtonEdit,
@@ -125,6 +130,7 @@ registerBlockType('gutenbee/button', {
           getBreakpointVisibilityClassNames(blockBreakpointVisibility),
           getAuthVisibilityClasses(blockAuthVisibility),
         )}
+        {...getAnimationControlDataAttributes(attributes.animation)}
       >
         <ButtonStyle attributes={attributes} />
         <RichText.Content

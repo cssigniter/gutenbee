@@ -27,6 +27,7 @@ import { getBreakpointVisibilityClassNames } from '../../components/controls/bre
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 import TypographyControls from '../../components/controls/text-controls/TypographyControls';
+import AnimationControls from '../../components/controls/animation-controls/AnimationControls';
 
 const { getComputedStyle } = window;
 
@@ -286,6 +287,17 @@ const ParagraphBlock = ({
                 blockAuthVisibility: values,
               });
             }}
+          />
+        </PanelBody>
+
+        <PanelBody
+          icon={!!attributes.animation?.type && 'saved'}
+          title={__('Animation')}
+          initialOpen={false}
+        >
+          <AnimationControls
+            attributes={attributes.animation}
+            setAttributes={setAttributes}
           />
         </PanelBody>
       </InspectorControls>
