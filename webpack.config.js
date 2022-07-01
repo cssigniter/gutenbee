@@ -61,6 +61,7 @@ const webpackConfig = {
       react: 'React',
       'react-dom': 'ReactDOM',
       lodash: 'lodash',
+      sal: 'sal',
     },
   ),
   optimization: {
@@ -100,9 +101,7 @@ const webpackConfig = {
       {
         test: /\.scss$/,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-          },
+          MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
           },
@@ -126,9 +125,6 @@ const webpackConfig = {
           },
           {
             loader: 'sass-loader',
-            options: {
-              outputStyle: 'expanded',
-            },
           },
         ],
       },
