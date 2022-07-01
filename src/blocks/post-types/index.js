@@ -7,6 +7,7 @@ import { registerBlockType } from 'wp.blocks';
 
 import PostTypesEdit from './edit';
 import PostTypesBlockIcon from './block-icon';
+import { animationControlAttributes } from '../../components/controls/animation-controls/helpers';
 
 export const POST_TYPES_PAGINATION_TYPE = {
   NORMAL: 'normal',
@@ -114,6 +115,7 @@ registerBlockType('gutenbee/post-types', {
       type: 'string',
       default: '',
     },
+    ...animationControlAttributes(),
   },
 
   edit: PostTypesEdit,

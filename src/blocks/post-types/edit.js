@@ -17,6 +17,7 @@ import EntitySelect from '../../components/controls/entity-select/EntitySelect';
 import TermSelect from '../../components/controls/advanced-color-control/term-select';
 import { POST_TYPES_PAGINATION_TYPE } from './index';
 import useUniqueId from '../../hooks/useUniqueId';
+import AnimationControls from '../../components/controls/animation-controls/AnimationControls';
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -386,6 +387,17 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
               type="text"
               placeholder={__('Read More')}
               value={readMoreButtonLabel}
+            />
+          </PanelBody>
+
+          <PanelBody
+            icon={!!attributes.animation?.type && 'saved'}
+            title={__('Animation')}
+            initialOpen={false}
+          >
+            <AnimationControls
+              attributes={attributes.animation}
+              setAttributes={setAttributes}
             />
           </PanelBody>
         </InspectorControls>

@@ -172,6 +172,17 @@
 					'type'    => 'string',
 					'default' => '',
 				),
+				'animation'              => array(
+					'type'    => 'object',
+					'default' => array(
+						'type'      => '',
+						'duration'  => '',
+						'delay'     => '',
+						'easing'    => '',
+						'threshold' => '',
+						'repeat'    => false
+					),
+				),
 			),
 			'render_callback' => 'gutenbee_block_post_types_render_callback',
 		) );
@@ -206,6 +217,28 @@
 		<?php
 	}
 
+	function gutenbee_block_post_types_get_animation_control_data_attributes ( $animation ) {
+		$block_animation_data_attributes = array_merge( array(
+			'data-sal'           => $animation['type'],
+			'data-sal-delay'     => ! empty( $animation['delay'] ) ? $animation['delay'] * 1000 : '5',
+			'data-sal-duration'  => ! empty( $animation['duration'] ) ? $animation['duration'] * 1000 : '200',
+			'data-sal-easing'    => ! empty( $animation['easing'] ) ? $animation['easing'] : 'ease-in',
+			'data-sal-threshold' => ! empty( $animation['threshold'] ) ? $animation['threshold'] / 100 : '',
+			'data-sal-repeat'    => ! $animation['repeat'] ? null : $animation['repeat'],
+		) );
+		$data = '';
+
+		foreach ( $block_animation_data_attributes as $attribute => $value ) {
+			if ( $value === null ) {
+				continue;
+			}
+
+			$data .= sprintf( '%s="%s" ', sanitize_key( $attribute ), esc_attr( $value ) );
+		}
+
+		return $data;
+	}
+
 	/**
 	 * Renders the CPT block in the editor and on the front end.
 	 *
@@ -233,6 +266,7 @@
 		$grid_spacing              = $attributes['gridSpacing'];
 		$image_size_slug           = $attributes['imageSizeSlug'];
 		$read_more_button_label    = $attributes['readMoreButtonLabel'];
+		$animation                 = $attributes['animation'];
 
 		$masonry          = (bool) $attributes['masonry'];
 		$grid_effect      = $attributes['gridEffect'];
@@ -396,7 +430,7 @@
 		if ( $q->have_posts() ) {
 			ob_start();
 
-			?><div id="<?php echo esc_attr( $block_id ); ?>" class="<?php echo esc_attr( implode( ' ', $block_classes ) ); ?>"><?php
+			?><div id="<?php echo esc_attr( $block_id ); ?>" class="<?php echo esc_attr( implode( ' ', $block_classes ) ); ?>" <?php if ( ! empty( $animation['type'] ) ) { echo gutenbee_block_post_types_get_animation_control_data_attributes( $animation ); } ?>><?php
 
 			if ( $category_filters ) {
 				gutenbee_block_post_types_get_category_filters( $get_terms_args );
