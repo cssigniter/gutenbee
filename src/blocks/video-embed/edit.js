@@ -34,6 +34,7 @@ import AuthVisibilityControl from '../../components/controls/auth-visibility-con
 import VideoEmbedStyle from './style';
 import { onVimeoApiReady, onYouTubeApiReady } from './util';
 import { useVideoEmbed } from '../../util/video/useVideoEmbed';
+import AnimationControls from '../../components/controls/animation-controls/AnimationControls';
 
 const VIDEO_POSTER_ALLOWED_MEDIA_TYPES = ['image'];
 
@@ -366,6 +367,17 @@ const VideoEmbedEdit = ({
                 blockAuthVisibility: values,
               });
             }}
+          />
+        </PanelBody>
+
+        <PanelBody
+          icon={!!attributes.animation?.type && 'saved'}
+          title={__('Animation')}
+          initialOpen={false}
+        >
+          <AnimationControls
+            attributes={attributes.animation}
+            setAttributes={setAttributes}
           />
         </PanelBody>
       </InspectorControls>

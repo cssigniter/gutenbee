@@ -39,6 +39,11 @@ import { getBreakpointVisibilityClassNames } from '../../components/controls/bre
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../components/controls/animation-controls/helpers';
+import AnimationControls from '../../components/controls/animation-controls/AnimationControls';
 
 const IconBox = ({ className, attributes }) => {
   const {
@@ -78,6 +83,7 @@ const IconBox = ({ className, attributes }) => {
         ...getBorderCSSValue({ attributes }),
         ...getBoxShadowCSSValue({ attributes }),
       }}
+      {...getAnimationControlDataAttributes(attributes.animation)}
     >
       <IconBoxStyle attributes={attributes} />
       <Icon
@@ -86,6 +92,7 @@ const IconBox = ({ className, attributes }) => {
           ...attributes,
           blockMargin: iconMargin,
           blockPadding: iconPadding,
+          animation: null,
         }}
       />
       <div className="wp-block-gutenbee-iconbox-content">
@@ -172,6 +179,7 @@ const IconBoxEditBlock = ({
             ...attributes,
             blockMargin: iconMargin,
             blockPadding: iconPadding,
+            animation: null,
           }}
         />
         <div className="wp-block-gutenbee-iconbox-content">
@@ -228,6 +236,7 @@ const IconBoxEditBlock = ({
                 'blockPadding',
                 'blockBreakpointVisibility',
                 'blockAuthVisibility',
+                'animation',
               ]),
             }}
           >
@@ -406,6 +415,17 @@ const IconBoxEditBlock = ({
               }}
             />
           </PanelBody>
+
+          <PanelBody
+            icon={!!attributes.animation?.type && 'saved'}
+            title={__('Animation')}
+            initialOpen={false}
+          >
+            <AnimationControls
+              attributes={attributes.animation}
+              setAttributes={setAttributes}
+            />
+          </PanelBody>
         </InspectorControls>
       )}
     </Fragment>
@@ -501,6 +521,7 @@ registerBlockType('gutenbee/iconbox', {
         loggedOut: false,
       },
     },
+    ...animationControlAttributes(),
   },
   deprecated,
   edit: IconBoxEditBlock,

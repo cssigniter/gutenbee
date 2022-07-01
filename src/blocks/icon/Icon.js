@@ -5,6 +5,7 @@ import IconStyle from './style';
 import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
 import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import { getAnimationControlDataAttributes } from '../../components/controls/animation-controls/helpers';
 
 const Icon = ({
   id,
@@ -62,7 +63,11 @@ const Icon = ({
   }
 
   return (
-    <div id={id} className={wrapperClasses}>
+    <div
+      id={id}
+      className={wrapperClasses}
+      {...getAnimationControlDataAttributes(attributes.animation)}
+    >
       <IconStyle
         id={id}
         attributes={{ uniqueId, blockMargin, blockPadding, size }}
