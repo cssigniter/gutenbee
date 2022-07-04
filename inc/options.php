@@ -42,10 +42,11 @@
 		public function general_settings_sanitize( $settings ) {
 			$new_settings = array();
 
-			$new_settings['active_high-contrast'] = isset( $settings['active_high-contrast'] ) && 1 === intval( $settings['active_high-contrast'] );
-			$new_settings['high-contrast-color']  = isset( $settings['high-contrast-color'] ) ? sanitize_hex_color( $settings['high-contrast-color'] ) : '';
-			$new_settings['active_editor-width']  = isset( $settings['active_editor-width'] ) && 1 === intval( $settings['active_editor-width'] );
-			$new_settings['editor-width-value']   = isset( $settings['editor-width-value'] ) ? intval( $settings['editor-width-value'] ) : 680;
+			$new_settings['active_high-contrast']      = isset( $settings['active_high-contrast'] ) && 1 === intval( $settings['active_high-contrast'] );
+			$new_settings['high-contrast-color']       = isset( $settings['high-contrast-color'] ) ? sanitize_hex_color( $settings['high-contrast-color'] ) : '';
+			$new_settings['active_editor-width']       = isset( $settings['active_editor-width'] ) && 1 === intval( $settings['active_editor-width'] );
+			$new_settings['editor-width-value']        = isset( $settings['editor-width-value'] ) ? intval( $settings['editor-width-value'] ) : 680;
+			$new_settings['active_animation-controls'] = isset( $settings['active_animation-controls'] ) && 1 === intval( $settings['active_animation-controls'] );
 
 			return $new_settings;
 		}
@@ -144,6 +145,18 @@
 				'gutenbee_general_settings',
 				'gutenbee_general_settings_section',
 				array( 'id' => 'editor-width-value' )
+			);
+
+			add_settings_field(
+				'active_animation-controls',
+				__( 'Enable block animation controls', 'gutenbee' ),
+				array( $this, 'general_checkbox_render' ),
+				'gutenbee_general_settings',
+				'gutenbee_general_settings_section',
+				array(
+					'id'        => 'active_animation-controls',
+					'label_for' => 'active_animation-controls',
+				)
 			);
 		}
 

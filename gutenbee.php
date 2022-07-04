@@ -58,6 +58,11 @@ function gutenbee_enqueue_editor_assets() {
 	), GUTENBEE_PLUGIN_VERSION, true );
 
 	wp_localize_script( 'gutenbee', '__GUTENBEE_SETTINGS__', array_merge( gutenbee_get_settings(), array(
+		'plugin' => array(
+			'settings' => array(
+				'active_animation-controls' => gutenbee_get_settings()['active_animation-controls'],
+			),
+		),
 		'blocks' => array(
 			'post_types' => array(
 				'excluded_post_types' => apply_filters( 'gutenbee_block_post_types_excluded_post_types', array(
@@ -110,6 +115,10 @@ function gutenbee_enqueue_frontend_block_assets() {
 		wp_enqueue_script( 'gutenbee-scripts', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.scripts.js', array(
 			'jquery',
 		), GUTENBEE_PLUGIN_VERSION, true );
+	}
+
+	if ( $gutenbee_settings['active_animation-controls'] ) {
+		wp_enqueue_script( 'gutenbee-animations', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.animations.js', array(), GUTENBEE_PLUGIN_VERSION, true );
 	}
 }
 
@@ -390,13 +399,15 @@ function gutenbee_get_settings() {
  */
 function gutenbee_validate_settings( $settings ) {
 	$defaults = array(
-		'active_google-maps'   => 1,
-		'google_maps_api_key'  => '',
-		'active_high-contrast' => 0,
-		'high-contrast-color'  => '#ffff00',
-		'active_editor-width'  => 0,
-		'editor-width-value'   => 680,
+		'active_google-maps'        => 1,
+		'google_maps_api_key'       => '',
+		'active_high-contrast'      => 0,
+		'high-contrast-color'       => '#ffff00',
+		'active_editor-width'       => 0,
+		'editor-width-value'        => 680,
+		'active_animation-controls' => 1,
 	);
+
 	foreach ( gutenbee_get_setting_block_names() as $id => $name ) {
 		$defaults[ 'active_' . $id ] = 1;
 	}
