@@ -312,18 +312,19 @@ export const IconSettings = ({
         </PanelBody>
       )}
 
-      {animation && (
-        <PanelBody
-          icon={!!attributes.animation?.type && 'saved'}
-          title={__('Animation')}
-          initialOpen={false}
-        >
-          <AnimationControls
-            attributes={attributes.animation}
-            setAttributes={setAttributes}
-          />
-        </PanelBody>
-      )}
+      {animation &&
+        __GUTENBEE_SETTINGS__.plugin.settings['active_animation-controls'] && (
+          <PanelBody
+            icon={!!attributes.animation?.type && 'saved'}
+            title={__('Animation')}
+            initialOpen={false}
+          >
+            <AnimationControls
+              attributes={attributes.animation}
+              setAttributes={setAttributes}
+            />
+          </PanelBody>
+        )}
     </Fragment>
   );
 };

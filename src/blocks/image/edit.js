@@ -452,16 +452,18 @@ const ImageEdit = ({
           />
         </PanelBody>
 
-        <PanelBody
-          icon={!!attributes.animation?.type && 'saved'}
-          title={__('Animation')}
-          initialOpen={false}
-        >
-          <AnimationControls
-            attributes={attributes.animation}
-            setAttributes={setAttributes}
-          />
-        </PanelBody>
+        {__GUTENBEE_SETTINGS__.plugin.settings['active_animation-controls'] && (
+          <PanelBody
+            icon={!!attributes.animation?.type && 'saved'}
+            title={__('Animation')}
+            initialOpen={false}
+          >
+            <AnimationControls
+              attributes={attributes.animation}
+              setAttributes={setAttributes}
+            />
+          </PanelBody>
+        )}
       </InspectorControls>
     </figure>
   );
