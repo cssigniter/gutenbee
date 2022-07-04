@@ -243,7 +243,6 @@ registerBlockType('gutenbee/image', {
               getAuthVisibilityClasses(blockAuthVisibility),
             ),
             style,
-            ...getAnimationControlDataAttributes(attributes.animation),
           })}
           id={blockId}
         >
@@ -265,6 +264,7 @@ registerBlockType('gutenbee/image', {
             getAuthVisibilityClasses(blockAuthVisibility),
           ),
           style,
+          ...getAnimationControlDataAttributes(attributes.animation),
         })}
       >
         <ImageStyle attributes={attributes} />

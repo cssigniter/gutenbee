@@ -67,7 +67,7 @@ const easings = [
 
   'ease-in-back',
   'ease-out-back',
-  'ease-int-out-back',
+  'ease-in-out-back',
 ];
 
 const AnimationControls = ({ className, attributes, setAttributes }) => {
