@@ -38,6 +38,7 @@ const webpackConfig = {
   entry: {
     'gutenbee.build': './src/index.js',
     'gutenbee.scripts': './src/frontend.js',
+    'gutenbee.animations': './src/animations.js',
   },
   output: {
     path: path.resolve(__dirname, 'build'),
@@ -61,7 +62,6 @@ const webpackConfig = {
       react: 'React',
       'react-dom': 'ReactDOM',
       lodash: 'lodash',
-      sal: 'sal',
     },
   ),
   optimization: {
