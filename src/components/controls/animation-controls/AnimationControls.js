@@ -65,7 +65,7 @@ const easings = [
 ];
 
 const AnimationControls = ({ className, attributes, setAttributes }) => {
-  const { type, duration, delay, easing, threshold, repeat } = attributes;
+  const { type, duration, delay, easing, threshold, repeat } = attributes ?? {};
 
   return (
     <div className={classNames('gutenbee-animation-controls', className)}>
