@@ -82,6 +82,13 @@ const webpackConfig = {
           chunks: 'all',
           enforce: true,
         },
+        animationStyles: {
+          name: 'gutenbee.animations',
+          test: (m, c, entry = 'gutenbee.animations') =>
+            m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
+          chunks: 'all',
+          enforce: true,
+        },
       },
     },
   },

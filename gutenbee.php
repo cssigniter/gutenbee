@@ -118,6 +118,7 @@ function gutenbee_enqueue_frontend_block_assets() {
 	}
 
 	if ( $gutenbee_settings['active_animation-controls'] ) {
+		wp_enqueue_style( 'gutenbee-animations', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.animations.css', array(), GUTENBEE_PLUGIN_VERSION );
 		wp_enqueue_script( 'gutenbee-animations', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.animations.js', array(), GUTENBEE_PLUGIN_VERSION, true );
 	}
 }

@@ -1,8 +1,8 @@
 import { Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
+import { RangeControl, SelectControl, CheckboxControl } from 'wp.components';
 import { __ } from 'wp.i18n';
 import classNames from 'classnames';
-import { RangeControl, SelectControl, CheckboxControl } from 'wp.components';
 
 import { capitalizeSentence } from '../../../util/text';
 
@@ -34,8 +34,8 @@ const ANIMATION_TYPE = {
 const easings = [
   'linear',
 
+  'ease-in',
   'ease-out',
-  'ease-in-out',
 
   'ease-in-sine',
   'ease-out-sine',
@@ -71,7 +71,7 @@ const easings = [
 ];
 
 const AnimationControls = ({ className, attributes, setAttributes }) => {
-  const { type, duration, delay, easing, threshold, repeat } = attributes ?? {};
+  const { type, duration, delay, easing, repeat } = attributes ?? {};
 
   return (
     <div className={classNames('gutenbee-animation-controls', className)}>
@@ -103,7 +103,7 @@ const AnimationControls = ({ className, attributes, setAttributes }) => {
           <RangeControl
             label={__('Duration (seconds)')}
             value={duration}
-            initialPosition={0.5}
+            initialPosition={0.7}
             onChange={value => {
               setAttributes({
                 animation: {
@@ -148,33 +148,13 @@ const AnimationControls = ({ className, attributes, setAttributes }) => {
             options={[
               {
                 value: '',
-                label: __('Default (Ease In)'),
+                label: __('Default (Ease In Out)'),
               },
               ...easings.map(value => ({
                 value,
                 label: capitalizeSentence(value.split('-').join(' ')),
               })),
             ]}
-          />
-
-          <RangeControl
-            label={__('Threshold (%)')}
-            value={threshold}
-            help={__(
-              "Percentage of an element's area that needs to be visible to launch animation.",
-            )}
-            initialPosition={50}
-            onChange={value => {
-              setAttributes({
-                animation: {
-                  ...attributes,
-                  threshold: value,
-                },
-              });
-            }}
-            step={10}
-            min={0}
-            max={100}
           />
 
           <CheckboxControl

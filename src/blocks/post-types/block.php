@@ -225,8 +225,8 @@
 		$block_animation_data_attributes = array_merge( array(
 			'data-sal'           => $animation['type'],
 			'data-sal-delay'     => ! empty( $animation['delay'] ) ? $animation['delay'] * 1000 : 50,
-			'data-sal-duration'  => ! empty( $animation['duration'] ) ? $animation['duration'] * 1000 : 200,
-			'data-sal-easing'    => ! empty( $animation['easing'] ) ? $animation['easing'] : 'ease-in',
+			'data-sal-duration'  => ! empty( $animation['duration'] ) ? $animation['duration'] * 1000 : 700,
+			'data-sal-easing'    => ! empty( $animation['easing'] ) ? $animation['easing'] : 'ease-in-out',
 			'data-sal-threshold' => ! empty( $animation['threshold'] ) ? $animation['threshold'] / 100 : '',
 			'data-sal-repeat'    => ! $animation['repeat'] ? false : $animation['repeat'],
 		) );

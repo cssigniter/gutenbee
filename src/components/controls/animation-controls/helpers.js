@@ -35,8 +35,8 @@ export const getAnimationControlDataAttributes = attributes => {
     'data-sal': type,
     'data-sal-delay': delay == null || delay === '' ? '5' : `${delay * 1000}`,
     'data-sal-duration':
-      duration == null || duration === '' ? '200' : `${duration * 1000}`,
-    'data-sal-easing': easing == null || easing === '' ? 'ease-in' : easing,
+      duration == null || duration === '' ? '700' : `${duration * 1000}`,
+    'data-sal-easing': easing == null || easing === '' ? 'ease-in-out' : easing,
     'data-sal-threshold':
       threshold == null || threshold === '' ? undefined : `${threshold / 100}`,
     'data-sal-repeat': !repeat ? undefined : '',

@@ -316,7 +316,7 @@ const BannerBlockEdit = ({
             defaultValue={backgroundColor || ''}
             label={__('Background Color')}
             onChange={value => {
-              setAttributes({ backgroundColor: value });
+              setAttributes({ backgroundColor: value ?? '' });
             }}
           />
 
