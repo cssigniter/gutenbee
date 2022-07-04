@@ -30,12 +30,12 @@ const usePostTypesData = ({ isSelected, selectedPostType }) => {
 
       const {
         getPostTypes,
-        getAuthors,
+        getUsers,
         getTaxonomies,
         getEntityRecords,
       } = select('core');
       const postTypes = getPostTypes({ per_page: -1 }) || [];
-      const authors = getAuthors({ per_page: -1 });
+      const authors = getUsers({ who: 'authors', per_page: -1 });
 
       const taxonomies = getTaxonomies({ per_page: -1 });
       const taxonomy = getPostTypeTaxonomy(taxonomies, selectedPostType);
@@ -47,7 +47,7 @@ const usePostTypesData = ({ isSelected, selectedPostType }) => {
         postTypes: postTypes.filter(
           postType => !excludedPostTypeSlugs.includes(postType.slug),
         ),
-        authors,
+        authors: authors ?? [],
         taxonomy,
         terms: taxonomy
           ? getEntityRecords('taxonomy', taxonomy.slug, { per_page: -1 })
