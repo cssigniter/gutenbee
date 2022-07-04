@@ -218,18 +218,23 @@
 	}
 
 	function gutenbee_block_post_types_get_animation_control_data_attributes ( $animation ) {
+		if ( empty( $animation['type'] ) ) {
+			return '';
+		}
+
 		$block_animation_data_attributes = array_merge( array(
 			'data-sal'           => $animation['type'],
-			'data-sal-delay'     => ! empty( $animation['delay'] ) ? $animation['delay'] * 1000 : '5',
-			'data-sal-duration'  => ! empty( $animation['duration'] ) ? $animation['duration'] * 1000 : '200',
+			'data-sal-delay'     => ! empty( $animation['delay'] ) ? $animation['delay'] * 1000 : 50,
+			'data-sal-duration'  => ! empty( $animation['duration'] ) ? $animation['duration'] * 1000 : 200,
 			'data-sal-easing'    => ! empty( $animation['easing'] ) ? $animation['easing'] : 'ease-in',
 			'data-sal-threshold' => ! empty( $animation['threshold'] ) ? $animation['threshold'] / 100 : '',
-			'data-sal-repeat'    => ! $animation['repeat'] ? null : $animation['repeat'],
+			'data-sal-repeat'    => ! $animation['repeat'] ? false : $animation['repeat'],
 		) );
+
 		$data = '';
 
 		foreach ( $block_animation_data_attributes as $attribute => $value ) {
-			if ( $value === null ) {
+			if ( null === $value ) {
 				continue;
 			}
 
@@ -430,7 +435,11 @@
 		if ( $q->have_posts() ) {
 			ob_start();
 
-			?><div id="<?php echo esc_attr( $block_id ); ?>" class="<?php echo esc_attr( implode( ' ', $block_classes ) ); ?>" <?php if ( ! empty( $animation['type'] ) ) { echo gutenbee_block_post_types_get_animation_control_data_attributes( $animation ); } ?>><?php
+			?><div
+				id="<?php echo esc_attr( $block_id ); ?>"
+				class="<?php echo esc_attr( implode( ' ', $block_classes ) ); ?>"
+				<?php echo gutenbee_block_post_types_get_animation_control_data_attributes( $animation ); ?>
+			><?php
 
 			if ( $category_filters ) {
 				gutenbee_block_post_types_get_category_filters( $get_terms_args );
