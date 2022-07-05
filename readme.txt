@@ -73,6 +73,14 @@ Note that if you want to use the Google Maps block you will also need a Google M
 
 == Changelog ==
 
+= 2.15.0 =
+* All blocks: Added animation controls. Can be disabled via the plugin's options.
+* Paragraph block: Add advanced responsive typography controls.
+* Heading block: Add advanced responsive typography controls.
+* Post type block: Updated deprecated getAuthors to getUsers method.
+* Banner block: Fixed background color reset from breaking the block.
+* Image block: Don't add the caption by default when selecting an image.
+
 = 2.14.0 =
 * All blocks: Update code deprecations for WP 6.0
 * Gallery block: Link to the full image URLs when images are linked to media.
