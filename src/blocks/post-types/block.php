@@ -228,7 +228,7 @@
 			'data-sal-duration'  => ! empty( $animation['duration'] ) ? $animation['duration'] * 1000 : 700,
 			'data-sal-easing'    => ! empty( $animation['easing'] ) ? $animation['easing'] : 'ease-in-out',
 			'data-sal-threshold' => ! empty( $animation['threshold'] ) ? $animation['threshold'] / 100 : '',
-			'data-sal-repeat'    => ! $animation['repeat'] ? false : $animation['repeat'],
+			'data-sal-repeat'    => ! empty( $animation['repeat'] ) ? $animation['repeat'] : null, // Don't output anything if false.
 		) );
 
 		$data = '';
