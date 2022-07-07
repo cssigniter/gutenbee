@@ -71,7 +71,8 @@ const easings = [
 ];
 
 const AnimationControls = ({ className, attributes, setAttributes }) => {
-  const { type, duration, delay, easing, repeat } = attributes ?? {};
+  const { type, duration, delay, easing, repeat, desktopOnly } =
+    attributes ?? {};
 
   return (
     <div className={classNames('gutenbee-animation-controls', className)}>
@@ -169,6 +170,23 @@ const AnimationControls = ({ className, attributes, setAttributes }) => {
                 animation: {
                   ...attributes,
                   repeat: value,
+                },
+              });
+            }}
+          />
+
+          <CheckboxControl
+            label={__('Desktop only')}
+            value="on"
+            checked={desktopOnly}
+            help={__(
+              'Disable on mobile, show this animation on largers viewports only.',
+            )}
+            onChange={value => {
+              setAttributes({
+                animation: {
+                  ...attributes,
+                  desktopOnly: value,
                 },
               });
             }}

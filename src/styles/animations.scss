@@ -1,1 +1,9 @@
 @import '~sal.js/dist/sal.css';
+
+@media (max-width: 768px) {
+  [data-sal][data-sal-desktop-only] {
+    opacity: 1 !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}

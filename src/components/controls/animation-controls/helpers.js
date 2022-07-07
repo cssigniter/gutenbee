@@ -14,6 +14,7 @@ export const animationControlAttributes = () => {
         easing: '',
         threshold: '',
         repeat: false,
+        desktopOnly: undefined,
       },
     },
   };
@@ -25,7 +26,8 @@ export const animationControlAttributes = () => {
  * @returns {{"data-sal-delay": (string|string), "data-sal-easing": (string|*), "data-sal", "data-sal-threshold": (undefined|string), "data-sal-duration": (string|string), "data-sal-repeat": (undefined|string)}|undefined}
  */
 export const getAnimationControlDataAttributes = attributes => {
-  const { type, duration, delay, easing, threshold, repeat } = attributes ?? {};
+  const { type, duration, delay, easing, threshold, repeat, desktopOnly } =
+    attributes ?? {};
 
   if (!type) {
     return {};
@@ -40,5 +42,6 @@ export const getAnimationControlDataAttributes = attributes => {
     'data-sal-threshold':
       threshold == null || threshold === '' ? undefined : `${threshold / 100}`,
     'data-sal-repeat': !repeat ? undefined : '',
+    'data-sal-desktop-only': desktopOnly ? '' : undefined,
   };
 };

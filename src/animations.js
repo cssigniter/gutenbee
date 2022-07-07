@@ -4,21 +4,29 @@ import './styles/animations.scss';
 
 window.addEventListener('DOMContentLoaded', () => {
   const viewportHeight = window.innerHeight;
-  const threshold = 0.33;
+  const threshold = 0.3;
 
   const sals = sal({
     threshold,
   });
 
-  setTimeout(() => {
-    if (!sals.elements.length) {
-      return;
-    }
+  if (!sals.elements.length) {
+    return;
+  }
 
-    sals.elements.forEach(block => {
-      if (block.clientHeight * threshold >= viewportHeight + 50) {
-        block.classList.add('sal-animate');
+  const observer = new ResizeObserver(entries => {
+    for (let entry of entries) {
+      if (entry.target.classList.contains('sal-animate')) {
+        return;
       }
-    });
-  }, 100);
+
+      if (entry.contentRect.height * threshold >= viewportHeight - 50) {
+        entry.target.classList.add('sal-animate');
+      }
+    }
+  });
+
+  sals.elements.forEach(block => {
+    observer.observe(block);
+  });
 });

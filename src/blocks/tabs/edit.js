@@ -201,7 +201,7 @@ const TabsEdit = ({
               label={__('Number of tabs')}
               value={tabs.length}
               min={1}
-              max={10}
+              max={20}
               step={1}
               onChange={onUpdateTabsNumber}
             />

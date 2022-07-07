@@ -94,14 +94,18 @@ const DividerEdit = ({
               label={__('Color')}
               value={color || ''}
               defaultValue={color || ''}
-              onChange={value => setAttributes({ color: value })}
+              onChange={value => {
+                setAttributes({ color: value ?? '' });
+              }}
             />
 
             <PopoverColorControl
               label={__('Background Color')}
               value={backgroundColor || ''}
               defaultValue={backgroundColor || ''}
-              onChange={value => setAttributes({ backgroundColor: value })}
+              onChange={value => {
+                setAttributes({ backgroundColor: value });
+              }}
             />
             <ResponsiveControl>
               {breakpoint => {
