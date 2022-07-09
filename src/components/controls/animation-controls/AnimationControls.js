@@ -180,7 +180,7 @@ const AnimationControls = ({ className, attributes, setAttributes }) => {
             value="on"
             checked={desktopOnly}
             help={__(
-              'Disable on mobile, show this animation on largers viewports only.',
+              'Disable on mobile, show this animation on larger viewports only.',
             )}
             onChange={value => {
               setAttributes({
