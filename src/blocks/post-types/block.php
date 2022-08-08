@@ -463,7 +463,7 @@
 					}
 				}
 
-				$classes[] = gutenbee_get_columns_classes( $columns );
+				$classes[] = gutenbee_get_columns_classes( $columns, $attributes );
 
 				?>
 				<div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>"><?php

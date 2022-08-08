@@ -442,7 +442,15 @@ function gutenbee_get_page_var( $default_return = 0 ) {
 }
 
 
-function gutenbee_get_columns_classes( $columns ) {
+/**
+ * Returns the HTML classes needed depending on the number of columns passed.
+ *
+ * @param int   $columns    Number of columns.
+ * @param array $attributes Array of block attributes.
+ *
+ * @return mixed|void
+ */
+function gutenbee_get_columns_classes( $columns, $attributes ) {
 	switch ( intval( $columns ) ) {
 		case 1:
 			$classes = 'columns-1';
@@ -459,7 +467,7 @@ function gutenbee_get_columns_classes( $columns ) {
 			break;
 	}
 
-	return apply_filters( 'gutenbee_get_columns_classes', $classes, $columns );
+	return apply_filters( 'gutenbee_get_columns_classes', $classes, (int) $columns, $attributes );
 }
 
 function gutenbee_get_template_part( $block, $slug, $name = '', $args = array() ) {
