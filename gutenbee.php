@@ -446,11 +446,11 @@ function gutenbee_get_page_var( $default_return = 0 ) {
  * Returns the HTML classes needed depending on the number of columns passed.
  *
  * @param int   $columns    Number of columns.
- * @param array $attributes Array of block attributes.
+ * @param array $attributes Optional. Array of block attributes.
  *
  * @return mixed|void
  */
-function gutenbee_get_columns_classes( $columns, $attributes ) {
+function gutenbee_get_columns_classes( $columns, $attributes = array() ) {
 	switch ( intval( $columns ) ) {
 		case 1:
 			$classes = 'columns-1';
