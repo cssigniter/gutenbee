@@ -73,6 +73,14 @@ Note that if you want to use the Google Maps block you will also need a Google M
 
 == Changelog ==
 
+= 2.16.0 =
+* Divider block: Fixed an issue where resetting the color would break the block in the editor.
+* Container block: Fixed an issue where adding padding to a column would apply it to nested columns.
+* All blocks: Added desktop only setting for animations.
+* All blocks: Updated animation logic for longer blocks that surpass the animation viewport threshold.
+* Accordion block: Allow more accordion and tab items.
+* Block attributes are passed to gutenbee_get_columns_classes() for context.
+
 = 2.15.0 =
 * All blocks: Added animation controls. Can be disabled via the plugin's options.
 * Paragraph block: Add advanced responsive typography controls.

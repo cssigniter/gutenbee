@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GutenBee!\n"
-"POT-Creation-Date: 2022-07-05 16:16+0300\n"
+"POT-Creation-Date: 2022-08-24 13:39+0300\n"
 "PO-Revision-Date: 2016-08-29 19:22+0300\n"
 "Last-Translator: Nik Vourvachis <nvourva@cssigniter.com>\n"
 "Language-Team: Nik Vourvachis <nvourva@cssigniter.com>\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"X-Generator: Poedit 3.1\n"
+"X-Generator: Poedit 3.1.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: gutenbee.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -21,7 +21,6 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#. Plugin Name of the plugin/theme
 #: gutenbee.php:150 inc/options.php:27
 msgid "GutenBee"
 msgstr ""
@@ -154,11 +153,11 @@ msgstr ""
 msgid "Food Menu"
 msgstr ""
 
-#: gutenbee.php:568
+#: gutenbee.php:576
 msgid "View GutenBee settings"
 msgstr ""
 
-#: gutenbee.php:568
+#: gutenbee.php:576
 msgid "Settings"
 msgstr ""
 
@@ -223,12 +222,12 @@ msgstr ""
 msgid "Block Options"
 msgstr ""
 
-#: src/blocks/post-types/block.php:200
+#: src/blocks/post-types/block.php:201
 msgctxt "all categories"
 msgid "All"
 msgstr ""
 
-#: src/blocks/post-types/block.php:508
+#: src/blocks/post-types/block.php:510
 msgid "No posts found."
 msgstr ""
 
