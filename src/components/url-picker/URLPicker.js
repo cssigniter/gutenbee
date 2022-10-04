@@ -67,9 +67,10 @@ const URLPicker = ({ isSelected, onChange, url, opensInNewTab, anchorRef }) => {
 
       {(isURLPickerOpen || urlIsSetandSelected) && (
         <Popover
+          className="gutenbee-url-picker-popover"
           position="bottom center"
           onClose={() => setIsURLPickerOpen(false)}
-          anchorRef={anchorRef?.current}
+          anchor={anchorRef?.current}
         >
           <LinkControl
             className="wp-block-navigation-link__inline-link-input"

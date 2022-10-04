@@ -66,6 +66,7 @@ const TypographyControls = ({
               onChange={value => {
                 onLineHeightChange(value);
               }}
+              __nextHasNoMarginBottom
             />
           )}
 
@@ -75,6 +76,7 @@ const TypographyControls = ({
               onChange={value => {
                 onLetterSpacingChange(value);
               }}
+              __nextHasNoMarginBottom
             />
           )}
         </div>

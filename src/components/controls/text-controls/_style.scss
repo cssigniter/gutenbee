@@ -18,7 +18,6 @@
   }
 
   label.components-input-control__label {
-    margin-bottom: 8px !important;
     padding-bottom: 0 !important;
   }
 
@@ -29,7 +28,7 @@
   }
 
   .components-base-control__label {
-    line-height: 1.2;
+    margin-bottom: 0;
   }
 }
 
@@ -71,10 +70,14 @@
   }
 
   > .components-base-control__label {
-    margin-bottom: 4px;
+    margin-bottom: 8px;
   }
 
   .components-unit-control__select {
     display: none !important;
   }
+}
+
+.gutenbee-font-size-picker-label {
+
 }

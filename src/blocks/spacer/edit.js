@@ -1,10 +1,8 @@
 import classNames from 'classnames';
-import { Fragment } from 'wp.element';
+import { Fragment, useState } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { InspectorControls } from 'wp.blockEditor';
 import { RangeControl, PanelBody, ResizableBox } from 'wp.components';
-import { compose, withInstanceId } from 'wp.compose';
-import { withDispatch } from 'wp.data';
 
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
 import useUniqueId from '../../hooks/useUniqueId';
@@ -23,15 +21,62 @@ import { getAuthVisibilityClasses } from '../../components/controls/auth-visibil
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 import Rule from '../../components/stylesheet/Rule';
 
+const ResizableSpacer = ({
+  orientation,
+  onResizeStart,
+  onResize,
+  onResizeStop,
+  isSelected,
+  isResizing,
+  setIsResizing,
+  ...props
+}) => {
+  const getCurrentSize = elt => {
+    return orientation === 'horizontal' ? elt.clientWidth : elt.clientHeight;
+  };
+
+  const getNextVal = elt => {
+    return getCurrentSize(elt);
+  };
+
+  return (
+    <ResizableBox
+      onResizeStart={(_event, _direction, elt) => {
+        const nextVal = getNextVal(elt);
+        onResizeStart(nextVal);
+        onResize(nextVal);
+      }}
+      onResize={(_event, _direction, elt) => {
+        if (!isResizing) {
+          setIsResizing(true);
+        }
+        onResize(getNextVal(elt));
+      }}
+      onResizeStop={(_event, _direction, elt) => {
+        const nextVal = getCurrentSize(elt);
+        onResizeStop(nextVal);
+        setIsResizing(false);
+      }}
+      __experimentalShowTooltip={true}
+      __experimentalTooltipProps={{
+        axis: orientation === 'horizontal' ? 'x' : 'y',
+        position: 'corner',
+        isVisible: isResizing,
+      }}
+      showHandle={isSelected}
+      {...props}
+    />
+  );
+};
+
 const SpacerEdit = ({
   attributes,
   isSelected,
   setAttributes,
   instanceId,
-  onResizeStart,
-  onResizeStop,
   clientId,
   className,
+  toggleSelection,
 }) => {
   const {
     height,
@@ -47,6 +92,24 @@ const SpacerEdit = ({
   useUniqueId({ attributes, setAttributes, clientId });
   const blockId = getBlockId(uniqueId);
 
+  const [isResizing, setIsResizing] = useState(false);
+  const [temporaryHeight, setTemporaryHeight] = useState(null);
+
+  const onResizeStart = () => toggleSelection(false);
+  const onResizeStop = () => toggleSelection(true);
+
+  const handleOnVerticalResizeStop = newHeight => {
+    onResizeStop();
+
+    setAttributes({
+      height: {
+        ...height,
+        desktop: parseInt(newHeight, 10),
+      },
+    });
+    setTemporaryHeight(null);
+  };
+
   return (
     <Fragment>
       <SpacerStyle attributes={attributes}>
@@ -55,8 +118,8 @@ const SpacerEdit = ({
           rule=".wp-block-gutenbee-spacer.[root] { %s }"
         />
       </SpacerStyle>
-      <div>
-        <ResizableBox
+      <div style={{ height: temporaryHeight || height.desktop || 20 }}>
+        <ResizableSpacer
           style={{
             backgroundColor: backgroundColor || undefined,
             ...getBorderCSSValue({ attributes }),
@@ -69,13 +132,12 @@ const SpacerEdit = ({
             getAuthVisibilityClasses(blockAuthVisibility),
             'block-library-spacer__resize-container',
             {
+              'is-resizing': isResizing,
               'is-selected': isSelected,
+              'resize-horizontal': false,
             },
           )}
-          size={{
-            height: height.desktop,
-          }}
-          minHeight="20"
+          minHeight={20}
           enable={{
             top: false,
             right: false,
@@ -86,18 +148,13 @@ const SpacerEdit = ({
             bottomLeft: false,
             topLeft: false,
           }}
+          orientation="vertical"
           onResizeStart={onResizeStart}
-          onResizeStop={(event, direction, elt, delta) => {
-            onResizeStop();
-            const spacerHeight = parseInt(height.desktop + delta.height, 10);
-
-            setAttributes({
-              height: {
-                ...height,
-                desktop: spacerHeight,
-              },
-            });
-          }}
+          onResize={setTemporaryHeight}
+          onResizeStop={handleOnVerticalResizeStop}
+          isSelected={isSelected}
+          isResizing={isResizing}
+          setIsResizing={setIsResizing}
         />
       </div>
 
@@ -211,14 +268,4 @@ const SpacerEdit = ({
   );
 };
 
-export default compose(
-  withDispatch(dispatch => {
-    const { toggleSelection } = dispatch('core/block-editor');
-
-    return {
-      onResizeStart: () => toggleSelection(false),
-      onResizeStop: () => toggleSelection(true),
-    };
-  }),
-  withInstanceId,
-)(SpacerEdit);
+export default SpacerEdit;

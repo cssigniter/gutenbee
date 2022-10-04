@@ -73,7 +73,7 @@ registerBlockType('gutenbee/slideshow', {
         },
         caption: {
           type: 'array',
-          source: 'children',
+          source: 'html',
           selector: 'figcaption',
         },
       },
