@@ -73,6 +73,11 @@ Note that if you want to use the Google Maps block you will also need a Google M
 
 == Changelog ==
 
+= 2.16.1 =
+ * Various spacing fixes in block controls
+ * Fix spacer appearance in the block editor
+ * Prevent URL picker from appearing above the media gallery picker
+
 = 2.16.0 =
 * Divider block: Fixed an issue where resetting the color would break the block in the editor.
 * Container block: Fixed an issue where adding padding to a column would apply it to nested columns.
