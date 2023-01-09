@@ -50,6 +50,13 @@
   > * {
     width: calc(50% - .5rem);
   }
+
+  .block-editor-text-decoration-control__buttons,
+  .block-editor-text-transform-control__buttons {
+    button.has-icon {
+      margin-right: 0;
+    }
+  }
 }
 
 // TODO: Temporarily hide the label on Gutenberg's FontSizePicker
