@@ -29,6 +29,7 @@ export const blocks = [
   'video',
   'video-embed',
   'google-maps',
+  'product-tabs',
   // 'lottie',
 ];
 

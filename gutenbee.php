@@ -180,6 +180,7 @@ function gutenbee_get_setting_block_names() {
 		'image-comparison'  => __( 'Image Comparison Block', 'gutenbee' ),
 		'justified-gallery' => __( 'Justified Gallery Block', 'gutenbee' ),
 		'paragraph'         => __( 'Paragraph Block', 'gutenbee' ),
+		'product-tabs'         => __( 'Product Tabs Block', 'gutenbee' ),
 		'post-types'        => __( 'Post Types Block', 'gutenbee' ),
 		'progress-bar'      => __( 'Progress Bar Block', 'gutenbee' ),
 		'review'            => __( 'Review Block', 'gutenbee' ),
@@ -299,6 +300,11 @@ function gutenbee_get_blocks_info() {
 		'gutenbee/paragraph'         => array(
 			'label'       => __( 'Paragraph Block', 'gutenbee' ),
 			'enqueue_js'  => false,
+			'enqueue_css' => true,
+		),
+		'gutenbee/product-tabs'        => array(
+			'label'       => __( 'Product Tabs Block', 'gutenbee' ),
+			'enqueue_js'  => true,
 			'enqueue_css' => true,
 		),
 		'gutenbee/post-types'        => array(
@@ -589,3 +595,4 @@ function gutenbee_filter_excerpt_allowed_blocks( $allowed_blocks ) {
 require_once untrailingslashit( dirname( __FILE__ ) ) . '/inc/options.php';
 require_once untrailingslashit( dirname( __FILE__ ) ) . '/src/blocks/container/block.php';
 require_once untrailingslashit( dirname( __FILE__ ) ) . '/src/blocks/post-types/block.php';
+require_once untrailingslashit( dirname( __FILE__ ) ) . '/src/blocks/product-tabs/block.php';
