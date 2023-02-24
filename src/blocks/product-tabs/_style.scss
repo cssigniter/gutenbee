@@ -1,0 +1,30 @@
+.wp-block-gutenbee-product-tabs {
+	.wp-block-gutenbee-product-tabs-nav {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-bottom: 30px;
+
+        li {
+            border: 2px solid black;
+            padding: 7px 30px;
+            cursor: pointer;
+        }
+    }
+
+    .gutenbee-product-tabs-content {
+        display: none;
+
+        &.active {
+            display: flex;
+        }
+    }
+
+    .wp-block-gutenbee-product-tabs-no-products {
+        padding: 30px;
+        text-align: center;
+    }
+}

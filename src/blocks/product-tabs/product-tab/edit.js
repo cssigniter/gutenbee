@@ -1,0 +1,115 @@
+import { Fragment, useRef } from 'wp.element';
+import { __ } from 'wp.i18n';
+import { SelectControl, PanelBody } from 'wp.components';
+import { useBlockProps, RichText, InspectorControls } from 'wp.blockEditor';
+import { createBlock } from 'wp.blocks';
+import { useSelect } from 'wp.data';
+import { useEffect } from 'wp.element';
+
+import EntitySelect from '../../../components/controls/entity-select/EntitySelect';
+import isRenderedInEditor from '../../../util/isRenderedInEditor';
+
+export default function Edit({
+  attributes,
+  setAttributes,
+  onReplace,
+  isSelected,
+  clientId,
+}) {
+  const { categories } = useSelect(select => {
+    return {
+      categories: select('core').getEntityRecords('taxonomy', 'product_cat', {
+        per_page: -1,
+      }),
+    };
+  });
+
+  const options = categories
+    ? categories.map(category => {
+        return { label: category.name, value: category.id };
+      })
+    : [];
+
+  options.unshift({ label: __('Select a category'), value: '' });
+
+  const ref = useRef(null);
+
+  const blockProps = useBlockProps({
+    className: 'wp-block-gutenbee-product-tab',
+  });
+
+  const { content, termId, selectedProducts } = attributes;
+
+  const { index } = useSelect(select => {
+    const { getBlockIndex } = select('core/block-editor');
+    return {
+      index: getBlockIndex(clientId),
+    };
+  });
+
+  useEffect(
+    () => {
+      if (index) {
+        setAttributes({ tabIndex: index });
+      }
+    },
+    [index],
+  );
+
+  return (
+    <Fragment>
+      {isSelected && isRenderedInEditor(ref.current) && (
+        <InspectorControls>
+          <PanelBody>
+            {options && (
+              <SelectControl
+                label={__('Product Category')}
+                value={termId}
+                options={options}
+                onChange={value =>
+                  setAttributes({
+                    termId: value !== '' ? value : '',
+                  })
+                }
+              />
+            )}
+            <EntitySelect
+              postType="product"
+              label={__('Included Products')}
+              values={selectedProducts}
+              onChange={value => setAttributes({ selectedProducts: value })}
+            />
+          </PanelBody>
+        </InspectorControls>
+      )}
+      <li {...blockProps} ref={ref}>
+        <RichText
+          identifier="content"
+          tagName="span"
+          value={content}
+          aria-label={__('Product Tab block')}
+          placeholder={__('Start writing…')}
+          // keepPlaceholderOnFocus={true}
+          multiline={false}
+          disableLineBreaks={true}
+          onChange={value => {
+            setAttributes({
+              content: value !== '' ? value : '',
+            });
+          }}
+          onReplace={onReplace}
+          onSplit={value => {
+            if (!value) {
+              return createBlock('gutenbee/product-tab');
+            }
+
+            return createBlock('gutenbee/product-tab', {
+              ...attributes,
+              content: value,
+            });
+          }}
+        />
+      </li>
+    </Fragment>
+  );
+}
