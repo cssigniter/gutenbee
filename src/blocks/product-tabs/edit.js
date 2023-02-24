@@ -1,12 +1,10 @@
 import { InnerBlocks, useBlockProps } from 'wp.blockEditor';
 import ServerSideRender from 'wp.serverSideRender';
 import { useSelect } from 'wp.data';
-import { useEffect, Fragment, useRef } from 'wp.element';
+import { useEffect, Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { RangeControl, PanelBody } from 'wp.components';
 import { InspectorControls } from 'wp.blockEditor';
-
-import isRenderedInEditor from '../../util/isRenderedInEditor';
 
 export default function Edit({
   attributes,
@@ -14,8 +12,6 @@ export default function Edit({
   isSelected,
   clientId,
 }) {
-  const ref = useRef(null);
-
   const blockProps = useBlockProps({
     className: 'wp-block-gutenbee-product-tabs',
   });
@@ -106,7 +102,7 @@ export default function Edit({
         />
       </div>
 
-      {isSelected && isRenderedInEditor(ref.current) && (
+      {isSelected && (
         <InspectorControls>
           <PanelBody>
             <RangeControl
