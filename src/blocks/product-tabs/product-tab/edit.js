@@ -56,6 +56,13 @@ export default function Edit({
     [index],
   );
 
+  const onTermSelect = value => {
+    let obj = options.find(o => o.value === parseInt(value, 10));
+    wp.data.dispatch('core/block-editor').updateBlockAttributes(clientId, {
+      content: obj.label,
+    });
+  };
+
   return (
     <Fragment>
       {isSelected && isRenderedInEditor(ref.current) && (
@@ -66,11 +73,12 @@ export default function Edit({
                 label={__('Product Category')}
                 value={termId}
                 options={options}
-                onChange={value =>
+                onChange={value => {
                   setAttributes({
                     termId: value !== '' ? value : '',
-                  })
-                }
+                  });
+                  onTermSelect(value);
+                }}
               />
             )}
             <EntitySelect
@@ -88,7 +96,7 @@ export default function Edit({
           tagName="span"
           value={content}
           aria-label={__('Product Tab block')}
-          placeholder={__('Start writing…')}
+          placeholder={__('Tab title…')}
           // keepPlaceholderOnFocus={true}
           multiline={false}
           disableLineBreaks={true}

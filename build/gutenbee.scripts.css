@@ -2369,7 +2369,6 @@ ul.wp-block-gutenbee-icon-list {
   padding: 0;
   margin: 0;
   display: flex;
-  justify-content: flex-end;
   gap: 10px;
   margin-bottom: 30px;
 }

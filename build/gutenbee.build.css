@@ -3290,12 +3290,14 @@ div[data-type="gutenbee/button"] {
 .wp-block-gutenbee-product-tabs * {
   box-sizing: inherit;
 }
+.wp-block-gutenbee-product-tabs .wp-block-gutenbee-product-tabs-nav {
+  padding: 0;
+}
 .wp-block-gutenbee-product-tabs .wp-block-gutenbee-product-tabs-nav .block-editor-inner-blocks > div {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
-  justify-content: flex-end;
   gap: 10px;
   margin-bottom: 30px;
 }

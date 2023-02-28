@@ -86,6 +86,19 @@ export default function Edit({
     );
   };
 
+  // const isNewBlock = () => {
+  //   if (
+  //     categoryIds.length === 1 &&
+  //     handpickedProducts.length === 1 &&
+  //     (categoryIds[0].termId === '' &&
+  //       handpickedProducts[0].selectedProducts.length === 0)
+  //   ) {
+  //     return true;
+  //   }
+
+  //   return false;
+  // };
+
   return (
     <Fragment>
       <div {...blockProps}>

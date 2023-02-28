@@ -6,12 +6,13 @@
     }
 
 	.wp-block-gutenbee-product-tabs-nav {
+        padding: 0;
+
         .block-editor-inner-blocks > div {
             list-style: none;
             padding: 0;
             margin: 0;
             display: flex;
-            justify-content: flex-end;
             gap: 10px;
             margin-bottom: 30px;
 
