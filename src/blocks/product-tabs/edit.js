@@ -3,7 +3,12 @@ import ServerSideRender from 'wp.serverSideRender';
 import { useSelect } from 'wp.data';
 import { useEffect, Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
-import { RangeControl, PanelBody } from 'wp.components';
+import {
+  RangeControl,
+  PanelBody,
+  __experimentalToggleGroupControl as ToggleGroupControl,
+  __experimentalToggleGroupControlOption as ToggleGroupControlOption,
+} from 'wp.components';
 import { InspectorControls } from 'wp.blockEditor';
 
 export default function Edit({
@@ -12,8 +17,10 @@ export default function Edit({
   isSelected,
   clientId,
 }) {
+  const { tabIndices, activeTabIndex, tabButtonAlignment } = attributes;
+
   const blockProps = useBlockProps({
-    className: 'wp-block-gutenbee-product-tabs',
+    className: `wp-block-gutenbee-product-tabs wp-block-gutenbee-product-tabs-${tabButtonAlignment}`,
   });
 
   const innerBlocks = useSelect(
@@ -48,7 +55,6 @@ export default function Edit({
     },
     [innerBlocks],
   );
-  const { tabIndices, activeTabIndex } = attributes;
 
   const { tabClientId } = useSelect(select => {
     const { getSelectedBlockClientIds } = select('core/block-editor');
@@ -86,18 +92,12 @@ export default function Edit({
     );
   };
 
-  // const isNewBlock = () => {
-  //   if (
-  //     categoryIds.length === 1 &&
-  //     handpickedProducts.length === 1 &&
-  //     (categoryIds[0].termId === '' &&
-  //       handpickedProducts[0].selectedProducts.length === 0)
-  //   ) {
-  //     return true;
-  //   }
-
-  //   return false;
-  // };
+  const onChangeTabButtonAlignment = newTabButtonAlignment => {
+    setAttributes({
+      tabButtonAlignment:
+        newTabButtonAlignment === undefined ? 'left' : newTabButtonAlignment,
+    });
+  };
 
   return (
     <Fragment>
@@ -158,6 +158,19 @@ export default function Edit({
               separatorType="none"
               shiftStep={1}
             />
+            <ToggleGroupControl
+              __nextHasNoMarginBottom
+              isBlock
+              label={__('Tab Button Alignment')}
+              value={tabButtonAlignment}
+              onChange={value => {
+                onChangeTabButtonAlignment(value);
+              }}
+            >
+              <ToggleGroupControlOption label={__('Left')} value="left" />
+              <ToggleGroupControlOption label={__('Center')} value="center" />
+              <ToggleGroupControlOption label={__('Right')} value="right" />
+            </ToggleGroupControl>
           </PanelBody>
         </InspectorControls>
       )}

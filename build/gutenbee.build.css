@@ -3287,6 +3287,15 @@ div[data-type="gutenbee/button"] {
 .wp-block-gutenbee-product-tabs {
   box-sizing: border-box;
 }
+.wp-block-gutenbee-product-tabs.wp-block-gutenbee-product-tabs-left .wp-block-gutenbee-product-tabs-nav .block-editor-inner-blocks > div {
+  justify-content: flex-start;
+}
+.wp-block-gutenbee-product-tabs.wp-block-gutenbee-product-tabs-center .wp-block-gutenbee-product-tabs-nav .block-editor-inner-blocks > div {
+  justify-content: center;
+}
+.wp-block-gutenbee-product-tabs.wp-block-gutenbee-product-tabs-right .wp-block-gutenbee-product-tabs-nav .block-editor-inner-blocks > div {
+  justify-content: flex-end;
+}
 .wp-block-gutenbee-product-tabs * {
   box-sizing: inherit;
 }

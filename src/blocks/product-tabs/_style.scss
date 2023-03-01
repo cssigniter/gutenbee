@@ -1,5 +1,24 @@
 .wp-block-gutenbee-product-tabs {
-	.wp-block-gutenbee-product-tabs-nav {
+    &.wp-block-gutenbee-product-tabs-left {
+        .wp-block-gutenbee-product-tabs-nav {
+            justify-content: flex-start;
+        }
+    }
+
+    &.wp-block-gutenbee-product-tabs-center {
+        .wp-block-gutenbee-product-tabs-nav {
+            justify-content: center;
+
+        }
+    }
+
+    &.wp-block-gutenbee-product-tabs-right {
+        .wp-block-gutenbee-product-tabs-nav {
+            justify-content: flex-end;
+        }
+    }
+
+    .wp-block-gutenbee-product-tabs-nav {
         list-style: none;
         padding: 0;
         margin: 0;

@@ -51,6 +51,10 @@ registerBlockType('gutenbee/product-tabs', {
       type: 'array',
       default: [],
     },
+    tabButtonAlignment: {
+      type: 'string',
+      default: 'left',
+    },
   },
   /**
    * @see ./edit.js
