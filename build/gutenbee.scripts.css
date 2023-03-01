@@ -2388,6 +2388,7 @@ ul.wp-block-gutenbee-icon-list {
 }
 .wp-block-gutenbee-product-tabs .gutenbee-product-tabs-content {
   display: none;
+  row-gap: 40px;
 }
 .wp-block-gutenbee-product-tabs .gutenbee-product-tabs-content.active {
   display: flex;
@@ -2395,4 +2396,41 @@ ul.wp-block-gutenbee-icon-list {
 .wp-block-gutenbee-product-tabs .wp-block-gutenbee-product-tabs-no-products {
   padding: 30px;
   text-align: center;
+}
+.wp-block-gutenbee-product-tabs .gutenbee-row-columns-1 {
+  text-align: center;
+}
+.wp-block-gutenbee-product-tabs .gutenbee-row-columns-1 .woocommerce-loop-product__link {
+  display: inline-block;
+}
+.wp-block-gutenbee-product-tabs .gutenbee-product-tabs-item .woocommerce-loop-product__link {
+  position: relative;
+  line-height: 0;
+}
+.wp-block-gutenbee-product-tabs .gutenbee-product-tabs-item .woocommerce-loop-product__link img:nth-of-type(2) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+.wp-block-gutenbee-product-tabs .gutenbee-product-tabs-item .woocommerce-loop-product__link:hover img:nth-of-type(2) {
+  opacity: 1;
+}
+.wp-block-gutenbee-product-tabs .gutenbee-product-tabs-item .onsale {
+  left: auto;
+  right: 0;
+  padding: 5px 10px;
+  font-size: 14px;
+  z-index: 1;
+  line-height: 1em;
+}
+.wp-block-gutenbee-product-tabs .gutenbee-product-tabs-item .woocommerce-loop-product__title {
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+.wp-block-gutenbee-product-tabs .gutenbee-product-tabs-item .price {
+  display: block;
+  margin-bottom: 20px;
+  font-size: 0.9em;
 }

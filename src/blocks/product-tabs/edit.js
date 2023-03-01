@@ -8,6 +8,7 @@ import {
   PanelBody,
   __experimentalToggleGroupControl as ToggleGroupControl,
   __experimentalToggleGroupControlOption as ToggleGroupControlOption,
+  CheckboxControl,
 } from 'wp.components';
 import { InspectorControls } from 'wp.blockEditor';
 
@@ -17,7 +18,15 @@ export default function Edit({
   isSelected,
   clientId,
 }) {
-  const { tabIndices, activeTabIndex, tabButtonAlignment } = attributes;
+  const {
+    tabIndices,
+    activeTabIndex,
+    tabButtonAlignment,
+    showPrice,
+    showButton,
+    numberColumns,
+    numberProducts,
+  } = attributes;
 
   const blockProps = useBlockProps({
     className: `wp-block-gutenbee-product-tabs wp-block-gutenbee-product-tabs-${tabButtonAlignment}`,
@@ -121,6 +130,7 @@ export default function Edit({
             <RangeControl
               __nextHasNoMarginBottom
               currentInput={3}
+              value={numberColumns}
               initialPosition={3}
               label={__('Columns')}
               max={4}
@@ -141,6 +151,7 @@ export default function Edit({
             <RangeControl
               __nextHasNoMarginBottom
               currentInput={3}
+              value={numberProducts}
               initialPosition={3}
               label={__('Number of products')}
               max={12}
@@ -171,6 +182,24 @@ export default function Edit({
               <ToggleGroupControlOption label={__('Center')} value="center" />
               <ToggleGroupControlOption label={__('Right')} value="right" />
             </ToggleGroupControl>
+            <CheckboxControl
+              checked={showPrice}
+              label={__('Show price')}
+              onChange={value =>
+                setAttributes({
+                  showPrice: value,
+                })
+              }
+            />
+            <CheckboxControl
+              checked={showButton}
+              label={__('Show add to cart button')}
+              onChange={value =>
+                setAttributes({
+                  showButton: value,
+                })
+              }
+            />
           </PanelBody>
         </InspectorControls>
       )}

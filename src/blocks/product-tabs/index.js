@@ -55,6 +55,14 @@ registerBlockType('gutenbee/product-tabs', {
       type: 'string',
       default: 'left',
     },
+    showPrice: {
+      type: 'boolean',
+      default: true,
+    },
+    showButton: {
+      type: 'boolean',
+      default: true,
+    },
   },
   /**
    * @see ./edit.js

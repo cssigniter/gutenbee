@@ -39,6 +39,14 @@ function gutenbee_create_block_product_tabs_block_init() {
 					'type'    => 'string',
 					'default' => 'left',
 				),
+				'showPrice' => array(
+					'type'    => 'boolean',
+					'default' => true,
+				),
+				'showButton' => array(
+					'type'    => 'boolean',
+					'default' => true,
+				),
 			),
 			'render_callback' => 'gutenbee_product_tabs_get_products',
 		)
@@ -59,6 +67,8 @@ function gutenbee_product_tabs_get_products( $attributes, $content, $block ) {
 	$columns              = $attributes['numberColumns'];
 	$num_products         = $attributes['numberProducts'];
 	$tab_button_alignment = $attributes['tabButtonAlignment'];
+	$show_price           = $attributes['showPrice'];
+	$show_button          = $attributes['showButton'];
 	$container_classes    = array(
 		'gutenbee-product-tabs-content',
 		'gutenbee-row',
@@ -71,14 +81,16 @@ function gutenbee_product_tabs_get_products( $attributes, $content, $block ) {
 	$classes[] = gutenbee_get_columns_classes( $columns, $attributes );
 
 	$item_template_vars = array(
-		'columns'    => $columns,
-		'classes'    => array_filter( array_map( 'trim', explode( ' ', $class_name ) ) ),
-		'image-size' => false, // Don't force a default image size. Let templates decide for themselves.
+		'columns'     => $columns,
+		'classes'     => array_filter( array_map( 'trim', explode( ' ', $class_name ) ) ),
+		'show-price'  => $show_price,
+		'show-button' => $show_button,
 	);
 
 	ob_start();
 	?>
 	<div class="wp-block-gutenbee-product-tabs wp-block-gutenbee-product-tabs-<?php echo esc_attr( $tab_button_alignment ); ?>">
+	<?php if ( ! $is_editor ) : ?>
 		<ul class="wp-block-gutenbee-product-tabs-nav">
 			<?php
 			foreach ( $block->inner_blocks as $inner_block ) {
@@ -86,7 +98,7 @@ function gutenbee_product_tabs_get_products( $attributes, $content, $block ) {
 			}
 			?>
 		</ul>
-
+	<?php endif; ?>
 		<div class="wp-block-gutenbee-product-tabs-content-wrapper">
 
 			<?php
@@ -177,11 +189,7 @@ function gutenbee_product_tabs_get_products( $attributes, $content, $block ) {
 
 								<div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
 								<?php
-								if ( 1 === $columns ) {
-									gutenbee_get_template_part( 'post-types', 'article-media', get_post_type(), $item_template_vars );
-								} else {
-									gutenbee_get_template_part( 'post-types', 'article-default', get_post_type(), $item_template_vars );
-								}
+									gutenbee_get_template_part( 'product-tabs', 'article-default', get_post_type(), $item_template_vars );
 								?>
 								</div>
 							<?php endwhile; ?>
@@ -193,9 +201,9 @@ function gutenbee_product_tabs_get_products( $attributes, $content, $block ) {
 								<?php echo esc_html( 'No products found' ); ?>
 						</div>
 								<?php
-								endif;
+					endif;
 							wp_reset_postdata();
-						endif;
+				endif;
 			}
 			?>
 		</div>

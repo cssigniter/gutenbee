@@ -1,48 +1,98 @@
 .wp-block-gutenbee-product-tabs {
-    &.wp-block-gutenbee-product-tabs-left {
-        .wp-block-gutenbee-product-tabs-nav {
-            justify-content: flex-start;
-        }
-    }
-
-    &.wp-block-gutenbee-product-tabs-center {
-        .wp-block-gutenbee-product-tabs-nav {
-            justify-content: center;
-
-        }
-    }
-
-    &.wp-block-gutenbee-product-tabs-right {
-        .wp-block-gutenbee-product-tabs-nav {
-            justify-content: flex-end;
-        }
-    }
-
+  &.wp-block-gutenbee-product-tabs-left {
     .wp-block-gutenbee-product-tabs-nav {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        gap: 10px;
-        margin-bottom: 30px;
+      justify-content: flex-start;
+    }
+  }
 
-        li {
-            border: 2px solid black;
-            padding: 7px 30px;
-            cursor: pointer;
+  &.wp-block-gutenbee-product-tabs-center {
+    .wp-block-gutenbee-product-tabs-nav {
+      justify-content: center;
+    }
+  }
+
+  &.wp-block-gutenbee-product-tabs-right {
+    .wp-block-gutenbee-product-tabs-nav {
+      justify-content: flex-end;
+    }
+  }
+
+  .wp-block-gutenbee-product-tabs-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+
+    li {
+      border: 2px solid black;
+      padding: 7px 30px;
+      cursor: pointer;
+    }
+  }
+
+  .gutenbee-product-tabs-content {
+    display: none;
+    row-gap: 40px;
+
+    &.active {
+      display: flex;
+
+    }
+  }
+
+  .wp-block-gutenbee-product-tabs-no-products {
+    padding: 30px;
+    text-align: center;
+  }
+
+  .gutenbee-row-columns-1 {
+    text-align: center;
+
+    .woocommerce-loop-product__link {
+        display: inline-block;
+    }
+  }
+
+  .gutenbee-product-tabs-item {
+    .woocommerce-loop-product__link {
+      position: relative;
+      line-height: 0;
+
+      img:nth-of-type(2) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+      }
+
+      &:hover {
+        img:nth-of-type(2) {
+          opacity: 1;
         }
+      }
     }
 
-    .gutenbee-product-tabs-content {
-        display: none;
-
-        &.active {
-            display: flex;
-        }
+    .onsale {
+      left: auto;
+      right: 0;
+      padding: 5px 10px;
+      font-size: 14px;
+      z-index: 1;
+      line-height: 1em;
     }
 
-    .wp-block-gutenbee-product-tabs-no-products {
-        padding: 30px;
-        text-align: center;
+    .woocommerce-loop-product__title {
+      font-size: 26px;
+      margin-bottom: 20px;
     }
+
+    .price {
+      display: block;
+      margin-bottom: 20px;
+      font-size: 0.9em;
+    }
+  }
 }
