@@ -59,7 +59,6 @@ function gutenbee_product_tabs_get_products( $attributes, $content, $block ) {
 	// return;
 	// }
 
-	$is_editor            = defined( 'REST_REQUEST' ) && REST_REQUEST;
 	$active_tab_index     = $attributes['activeTabIndex'];
 	$num_tabs             = count( $attributes['tabIndices'] );
 	$categories           = $attributes['categoryIds'];
@@ -69,7 +68,9 @@ function gutenbee_product_tabs_get_products( $attributes, $content, $block ) {
 	$tab_button_alignment = $attributes['tabButtonAlignment'];
 	$show_price           = $attributes['showPrice'];
 	$show_button          = $attributes['showButton'];
-	$container_classes    = array(
+
+	$is_editor         = defined( 'REST_REQUEST' ) && REST_REQUEST;
+	$container_classes = array(
 		'gutenbee-product-tabs-content',
 		'gutenbee-row',
 		'gutenbee-row-items',
