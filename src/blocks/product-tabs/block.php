@@ -60,7 +60,7 @@ function gutenbee_product_tabs_get_products( $attributes, $content, $block ) {
 	// }
 
 	$active_tab_index     = $attributes['activeTabIndex'];
-	$num_tabs             = count( $attributes['tabIndices'] );
+	$num_tabs             = ! empty( $attributes['tabIndices'] ) ? count( $attributes['tabIndices'] ) : 1;
 	$categories           = $attributes['categoryIds'];
 	$handpicked           = $attributes['handpickedProducts'];
 	$columns              = $attributes['numberColumns'];
@@ -124,7 +124,7 @@ function gutenbee_product_tabs_get_products( $attributes, $content, $block ) {
 					}
 				}
 
-				if ( $is_editor && isset( $product_data['termId'] ) && empty( $product_data['termId'] ) ) :
+				if ( $is_editor && ( null === $product_data || isset( $product_data['termId'] ) && empty( $product_data['termId'] ) ) ) :
 					?>
 					<div class="<?php echo esc_attr( implode( ' ', $container_classes ) ); ?>">
 						<?php
@@ -143,8 +143,12 @@ function gutenbee_product_tabs_get_products( $attributes, $content, $block ) {
 										<a href="#" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
 											<h2 class="woocommerce-loop-product__title"><?php esc_html_e( 'Product title', 'gutenbee' ); ?></h2>
 										</a>
+										<?php if ( $show_price ) :?>
 										<span class="price"><span class="woocommerce-Price-amount amount"><?php esc_html_e( 'Price', 'gutenbee' ); ?></span></span>
+										<?php endif; ?>
+										<?php if ( $show_button ) :?>
 										<a href="#" class="button wp-element-button product_type_simple add_to_cart_button ajax_add_to_cart" rel="nofollow"><?php esc_html_e( 'Add to cart', 'gutenbee' ); ?></a>
+										<?php endif; ?>
 									</div>
 								</div>
 							</div>
