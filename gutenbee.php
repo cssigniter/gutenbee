@@ -78,6 +78,7 @@ function gutenbee_enqueue_editor_assets() {
 				) ),
 			),
 		),
+		'woocommerce' => class_exists( 'WooCommerce' ),
 	) ) );
 
 	wp_enqueue_style( 'gutenbee-editor', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.build.css', array(
@@ -180,13 +181,13 @@ function gutenbee_get_setting_block_names() {
 		'image-comparison'  => __( 'Image Comparison Block', 'gutenbee' ),
 		'justified-gallery' => __( 'Justified Gallery Block', 'gutenbee' ),
 		'paragraph'         => __( 'Paragraph Block', 'gutenbee' ),
-		'product-tabs'         => __( 'Product Tabs Block', 'gutenbee' ),
 		'post-types'        => __( 'Post Types Block', 'gutenbee' ),
+		'product-tabs'      => __( 'Product Tabs Block', 'gutenbee' ),
 		'progress-bar'      => __( 'Progress Bar Block', 'gutenbee' ),
 		'review'            => __( 'Review Block', 'gutenbee' ),
 		'spacer'            => __( 'Spacer Block', 'gutenbee' ),
 		'slideshow'         => __( 'Slideshow Block', 'gutenbee' ),
-		'tab-slider'        => __( 'Tab Slider Block', 'gutenbee' ),
+//		'tab-slider'        => __( 'Tab Slider Block', 'gutenbee' ),
 		'tabs'              => __( 'Tabs Block', 'gutenbee' ),
 		'testimonial'       => __( 'Testimonial Block', 'gutenbee' ),
 		'video'             => __( 'Video Block', 'gutenbee' ),
@@ -302,13 +303,13 @@ function gutenbee_get_blocks_info() {
 			'enqueue_js'  => false,
 			'enqueue_css' => true,
 		),
-		'gutenbee/product-tabs'        => array(
-			'label'       => __( 'Product Tabs Block', 'gutenbee' ),
+		'gutenbee/post-types'        => array(
+			'label'       => __( 'Post Types Block', 'gutenbee' ),
 			'enqueue_js'  => true,
 			'enqueue_css' => true,
 		),
-		'gutenbee/post-types'        => array(
-			'label'       => __( 'Post Types Block', 'gutenbee' ),
+		'gutenbee/product-tabs'        => array(
+			'label'       => __( 'Product Tabs Block', 'gutenbee' ),
 			'enqueue_js'  => true,
 			'enqueue_css' => true,
 		),
@@ -332,11 +333,11 @@ function gutenbee_get_blocks_info() {
 			'enqueue_js'  => true,
 			'enqueue_css' => true,
 		),
-		'gutenbee/tab-slider'    => array(
-			'label'       => __( 'Tab Slider Block', 'gutenbee' ),
-			'enqueue_js'  => true,
-			'enqueue_css' => true,
-		),
+		// 'gutenbee/tab-slider'    => array(
+		// 	'label'       => __( 'Tab Slider Block', 'gutenbee' ),
+		// 	'enqueue_js'  => true,
+		// 	'enqueue_css' => true,
+		// ),
 		'gutenbee/tabs'              => array(
 			'label'       => __( 'Tabs Block', 'gutenbee' ),
 			'enqueue_js'  => true,

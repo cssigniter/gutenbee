@@ -23,7 +23,7 @@ export const blocks = [
   'review',
   'spacer',
   'slideshow',
-  'tab-slider',
+  // 'tab-slider',
   'tabs',
   'testimonial',
   'video',
@@ -39,3 +39,7 @@ blocks.forEach(block => {
     unregisterBlockType(`gutenbee/${block}`);
   }
 });
+
+if (!__GUTENBEE_SETTINGS__['woocommerce']) {
+  unregisterBlockType('gutenbee/product-tabs');
+}

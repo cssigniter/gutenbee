@@ -1,12 +1,4 @@
 <?php
-
-/**
- * Registers the block using the metadata loaded from the `block.json` file.
- * Behind the scenes, it registers also all assets so they can be enqueued
- * through the block editor in the corresponding context.
- *
- * @see https://developer.wordpress.org/reference/functions/register_block_type/
- */
 add_action( 'init', 'gutenbee_create_block_product_tabs_block_init' );
 function gutenbee_create_block_product_tabs_block_init() {
 	register_block_type(
@@ -54,10 +46,6 @@ function gutenbee_create_block_product_tabs_block_init() {
 }
 
 function gutenbee_product_tabs_get_products( $attributes, $content, $block ) {
-	// TODO: Make a better check, i.e. if not our block.
-	// if ( !isset( $attributes['categoryIds'] ) ) {
-	// return;
-	// }
 
 	$active_tab_index     = $attributes['activeTabIndex'];
 	$num_tabs             = ! empty( $attributes['tabIndices'] ) ? count( $attributes['tabIndices'] ) : 1;
