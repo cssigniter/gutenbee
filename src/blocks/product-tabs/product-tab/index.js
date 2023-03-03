@@ -33,6 +33,14 @@ registerBlockType('gutenbee/product-tab', {
       type: 'array',
       default: [],
     },
+    buttonBgColor: {
+      type: 'string',
+      default: '',
+    },
+    buttonBorderColor: {
+      type: 'string',
+      default: '',
+    },
   },
   /**
    * @see ./edit.js

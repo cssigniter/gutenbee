@@ -10,14 +10,16 @@ import {
   __experimentalToggleGroupControlOption as ToggleGroupControlOption,
   CheckboxControl,
 } from 'wp.components';
-import { InspectorControls } from 'wp.blockEditor';
+import {
+  InspectorControls,
+  __experimentalColorGradientSettingsDropdown as ColorGradientSettingsDropdown,
+  __experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
+} from 'wp.blockEditor';
 
-export default function Edit({
-  attributes,
-  setAttributes,
-  isSelected,
-  clientId,
-}) {
+import getBlockId from '../../util/getBlockId';
+import useUniqueId from '../../hooks/useUniqueId';
+
+export default function Edit({ attributes, setAttributes, clientId }) {
   const {
     tabIndices,
     activeTabIndex,
@@ -26,9 +28,16 @@ export default function Edit({
     showButton,
     numberColumns,
     numberProducts,
+    buttonTextColor,
+    buttonBgColor,
+    buttonBorderColor,
+    uniqueId,
   } = attributes;
 
+  useUniqueId({ attributes, setAttributes, clientId });
+
   const blockProps = useBlockProps({
+    id: getBlockId(uniqueId),
     className: `wp-block-gutenbee-product-tabs wp-block-gutenbee-product-tabs-${tabButtonAlignment}`,
   });
 
@@ -109,10 +118,58 @@ export default function Edit({
     });
   };
 
+  const colorGradientSettings = useMultipleOriginColorsAndGradients();
+
+  const onButtonBgColorChange = value => {
+    if (!value) {
+      value = buttonBgColor;
+    }
+    innerBlocks.forEach(block => {
+      wp.data
+        .dispatch('core/block-editor')
+        .updateBlockAttributes(block.clientId, { buttonBgColor: value });
+    });
+  };
+
+  const onButtonBorderColorChange = value => {
+    if (!value) {
+      value = buttonBorderColor;
+    }
+    innerBlocks.forEach(block => {
+      wp.data
+        .dispatch('core/block-editor')
+        .updateBlockAttributes(block.clientId, { buttonBorderColor: value });
+    });
+  };
+
+  useEffect(
+    () => {
+      innerBlocks.forEach(block => {
+        if (
+          !block.attributes.buttonBgColor &&
+          !block.attributes.buttonBorderColor
+        ) {
+          wp.data
+            .dispatch('core/block-editor')
+            .updateBlockAttributes(block.clientId, {
+              buttonBgColor: buttonBgColor,
+              buttonBorderColor: buttonBorderColor,
+            });
+        }
+      });
+    },
+    [innerBlocks],
+  );
+
   return (
     <Fragment>
       <div {...blockProps}>
-        <ul className="wp-block-gutenbee-product-tabs-nav">
+        <ul
+          className="wp-block-gutenbee-product-tabs-nav"
+          style={{
+            color: buttonTextColor || undefined,
+          }}
+        >
           <InnerBlocks
             allowedBlocks={['gutenbee/product-tab']}
             template={[['gutenbee/product-tab']]}
@@ -123,78 +180,117 @@ export default function Edit({
           attributes={attributes}
         />
       </div>
-
-      {isSelected && (
-        <InspectorControls>
-          <PanelBody>
-            <RangeControl
-              __nextHasNoMarginBottom
-              currentInput={3}
-              value={numberColumns}
-              initialPosition={3}
-              label={__('Columns')}
-              max={4}
-              min={1}
-              onChange={value =>
+      <InspectorControls>
+        <PanelBody>
+          <RangeControl
+            __nextHasNoMarginBottom
+            currentInput={3}
+            value={numberColumns}
+            initialPosition={3}
+            label={__('Columns')}
+            max={4}
+            min={1}
+            onChange={value =>
+              setAttributes({
+                numberColumns: value !== '' ? value : '',
+              })
+            }
+            resetFallbackValue={3}
+            separatorType="none"
+            shiftStep={1}
+          />
+          <RangeControl
+            __nextHasNoMarginBottom
+            currentInput={3}
+            value={numberProducts}
+            initialPosition={3}
+            label={__('Number of products')}
+            max={12}
+            min={1}
+            onChange={value =>
+              setAttributes({
+                numberProducts: value !== '' ? value : '',
+              })
+            }
+            resetFallbackValue={3}
+            separatorType="none"
+            shiftStep={1}
+          />
+          <ToggleGroupControl
+            __nextHasNoMarginBottom
+            isBlock
+            label={__('Tab Button Alignment')}
+            value={tabButtonAlignment}
+            onChange={value => {
+              onChangeTabButtonAlignment(value);
+            }}
+          >
+            <ToggleGroupControlOption label={__('Left')} value="left" />
+            <ToggleGroupControlOption label={__('Center')} value="center" />
+            <ToggleGroupControlOption label={__('Right')} value="right" />
+          </ToggleGroupControl>
+          <CheckboxControl
+            checked={showPrice}
+            label={__('Show price')}
+            onChange={value =>
+              setAttributes({
+                showPrice: value,
+              })
+            }
+          />
+          <CheckboxControl
+            checked={showButton}
+            label={__('Show add to cart button')}
+            onChange={value =>
+              setAttributes({
+                showButton: value,
+              })
+            }
+          />
+        </PanelBody>
+      </InspectorControls>
+      <InspectorControls group="color">
+        <ColorGradientSettingsDropdown
+          __experimentalIsRenderedInSidebar
+          settings={[
+            {
+              colorValue: buttonTextColor,
+              label: __('Tab Button Text'),
+              onColorChange: value =>
                 setAttributes({
-                  numberColumns: value !== '' ? value : '',
-                })
-              }
-              resetFallbackValue={3}
-              separatorType="none"
-              shiftStep={1}
-            />
-            <RangeControl
-              __nextHasNoMarginBottom
-              currentInput={3}
-              value={numberProducts}
-              initialPosition={3}
-              label={__('Number of products')}
-              max={12}
-              min={1}
-              onChange={value =>
+                  buttonTextColor: value,
+                }),
+              resetAllFilter: () => setAttributes({ buttonTextColor: '' }),
+            },
+            {
+              colorValue: buttonBgColor,
+              label: __('Tab Button Background'),
+              onColorChange: value => {
                 setAttributes({
-                  numberProducts: value !== '' ? value : '',
-                })
-              }
-              resetFallbackValue={3}
-              separatorType="none"
-              shiftStep={1}
-            />
-            <ToggleGroupControl
-              __nextHasNoMarginBottom
-              isBlock
-              label={__('Tab Button Alignment')}
-              value={tabButtonAlignment}
-              onChange={value => {
-                onChangeTabButtonAlignment(value);
-              }}
-            >
-              <ToggleGroupControlOption label={__('Left')} value="left" />
-              <ToggleGroupControlOption label={__('Center')} value="center" />
-              <ToggleGroupControlOption label={__('Right')} value="right" />
-            </ToggleGroupControl>
-            <CheckboxControl
-              checked={showPrice}
-              label={__('Show price')}
-              onChange={value =>
+                  buttonBgColor: value,
+                });
+                onButtonBgColorChange(value);
+              },
+              resetAllFilter: () => setAttributes({ buttonBgColor: '' }),
+            },
+            {
+              colorValue: buttonBorderColor,
+              label: __('Tab Button Border'),
+              onColorChange: value => {
                 setAttributes({
-                  showPrice: value,
-                })
-              }
-            />
-            <CheckboxControl
-              checked={showButton}
-              label={__('Show add to cart button')}
-              onChange={value =>
-                setAttributes({
-                  showButton: value,
-                })
-              }
-            />
-          </PanelBody>
-        </InspectorControls>
-      )}
+                  buttonBorderColor: value,
+                });
+                onButtonBorderColorChange(value);
+              },
+              resetAllFilter: () => setAttributes({ buttonBorderColor: '' }),
+            },
+          ]}
+          panelId={clientId}
+          {...colorGradientSettings}
+          gradients={[]}
+          disableCustomGradients={true}
+        />
+      </InspectorControls>
     </Fragment>
   );
 }

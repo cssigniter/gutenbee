@@ -96,7 +96,14 @@ export default function Edit({
           </PanelBody>
         </InspectorControls>
       )}
-      <li {...blockProps} ref={ref}>
+      <li
+        {...blockProps}
+        ref={ref}
+        style={{
+          backgroundColor: attributes.buttonBgColor || undefined,
+          borderColor: attributes.buttonBorderColor || undefined,
+        }}
+      >
         <RichText
           identifier="content"
           tagName="span"

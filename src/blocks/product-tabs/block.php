@@ -5,6 +5,10 @@ function gutenbee_create_block_product_tabs_block_init() {
 		'gutenbee/product-tabs',
 		array(
 			'attributes'      => array(
+				'uniqueId' => array(
+					'type'    => 'string',
+					'default' => '',
+				),
 				'categoryIds'        => array(
 					'type' => 'array',
 				),
@@ -39,6 +43,18 @@ function gutenbee_create_block_product_tabs_block_init() {
 					'type'    => 'boolean',
 					'default' => true,
 				),
+				'buttonTextColor' => array(
+					'type'    => 'string',
+					'default' => '',
+				),
+				'buttonBgColor' => array(
+					'type'    => 'string',
+					'default' => '',
+				),
+				'buttonBorderColor' => array(
+					'type'    => 'string',
+					'default' => '',
+				),
 			),
 			'render_callback' => 'gutenbee_product_tabs_get_products',
 		)
@@ -56,6 +72,10 @@ function gutenbee_product_tabs_get_products( $attributes, $content, $block ) {
 	$tab_button_alignment = $attributes['tabButtonAlignment'];
 	$show_price           = $attributes['showPrice'];
 	$show_button          = $attributes['showButton'];
+	$unique_id            = $attributes['uniqueId'];
+	$button_text_color    = $attributes['buttonTextColor'];
+	$button_bg_color      = $attributes['buttonBgColor'];
+	$button_border_color  = $attributes['buttonBorderColor'];
 
 	$is_editor         = defined( 'REST_REQUEST' ) && REST_REQUEST;
 	$container_classes = array(
@@ -77,8 +97,21 @@ function gutenbee_product_tabs_get_products( $attributes, $content, $block ) {
 	);
 
 	ob_start();
+	'#gutenbee-product-tabs-' . $unique_id ?> li {
+		color: <?php echo esc_attr( $button_text_color ); ?>;
+		background-color: <?php echo esc_attr( $button_bg_color ); ?>;
+		border-color: <?php echo esc_attr( $button_border_color ); ?>;
+	}
+	<?php
+	//TODO: Find out why this does not work.
+	$css = ob_get_clean();
+
+	wp_enqueue_style( 'gutenbee-product-tabs', false, array(), GUTENBEE_PLUGIN_VERSION );
+	wp_add_inline_style( 'gutenbee-product-tabs', $css );
+
+	ob_start();
 	?>
-	<div class="wp-block-gutenbee-product-tabs wp-block-gutenbee-product-tabs-<?php echo esc_attr( $tab_button_alignment ); ?>">
+	<div id="gutenbee-product-tabs-<?php echo esc_attr( $unique_id ); ?>" class="wp-block-gutenbee-product-tabs wp-block-gutenbee-product-tabs-<?php echo esc_attr( $tab_button_alignment ); ?>">
 	<?php if ( ! $is_editor ) : ?>
 		<ul class="wp-block-gutenbee-product-tabs-nav">
 			<?php
@@ -131,10 +164,10 @@ function gutenbee_product_tabs_get_products( $attributes, $content, $block ) {
 										<a href="#" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
 											<h2 class="woocommerce-loop-product__title"><?php esc_html_e( 'Product title', 'gutenbee' ); ?></h2>
 										</a>
-										<?php if ( $show_price ) :?>
+										<?php if ( $show_price ) : ?>
 										<span class="price"><span class="woocommerce-Price-amount amount"><?php esc_html_e( 'Price', 'gutenbee' ); ?></span></span>
 										<?php endif; ?>
-										<?php if ( $show_button ) :?>
+										<?php if ( $show_button ) : ?>
 										<a href="#" class="button wp-element-button product_type_simple add_to_cart_button ajax_add_to_cart" rel="nofollow"><?php esc_html_e( 'Add to cart', 'gutenbee' ); ?></a>
 										<?php endif; ?>
 									</div>
