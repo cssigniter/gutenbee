@@ -24,9 +24,15 @@ export default function Edit({
     };
   });
 
+  const unescapeEntities = text => {
+    const tempElement = document.createElement('div');
+    tempElement.innerHTML = text;
+    return tempElement.textContent || tempElement.innerText || '';
+  };
+
   const options = categories
     ? categories.map(category => {
-        return { label: category.name, value: category.id };
+        return { label: unescapeEntities(category.name), value: category.id };
       })
     : [];
 
