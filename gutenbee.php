@@ -122,6 +122,10 @@ function gutenbee_enqueue_frontend_block_assets() {
 		wp_enqueue_style( 'gutenbee-animations', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.animations.css', array(), GUTENBEE_PLUGIN_VERSION );
 		wp_enqueue_script( 'gutenbee-animations', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.animations.js', array(), GUTENBEE_PLUGIN_VERSION, true );
 	}
+
+	if ( has_block( 'gutenbee/product-tabs' ) ) {
+		wp_register_style( 'gutenbee-product-tabs', false, array(), GUTENBEE_PLUGIN_VERSION );
+	}
 }
 
 add_action( 'admin_enqueue_scripts', 'gutenbee_admin_assets' );

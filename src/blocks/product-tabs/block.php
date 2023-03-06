@@ -96,17 +96,16 @@ function gutenbee_product_tabs_get_products( $attributes, $content, $block ) {
 		'show-button' => $show_button,
 	);
 
-	ob_start();
-	'#gutenbee-product-tabs-' . $unique_id ?> li {
+	ob_start(); ?>
+	#gutenbee-product-tabs-<?php echo esc_attr( $unique_id ); ?> li {
 		color: <?php echo esc_attr( $button_text_color ); ?>;
 		background-color: <?php echo esc_attr( $button_bg_color ); ?>;
 		border-color: <?php echo esc_attr( $button_border_color ); ?>;
 	}
 	<?php
-	//TODO: Find out why this does not work.
 	$css = ob_get_clean();
 
-	wp_enqueue_style( 'gutenbee-product-tabs', false, array(), GUTENBEE_PLUGIN_VERSION );
+	wp_enqueue_style( 'gutenbee-product-tabs' );
 	wp_add_inline_style( 'gutenbee-product-tabs', $css );
 
 	ob_start();
@@ -215,7 +214,7 @@ function gutenbee_product_tabs_get_products( $attributes, $content, $block ) {
 
 								<div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
 								<?php
-									gutenbee_get_template_part( 'product-tabs', 'article-default', get_post_type(), $item_template_vars );
+									gutenbee_get_template_part( 'product-tabs', 'item', get_post_type(), $item_template_vars );
 								?>
 								</div>
 							<?php endwhile; ?>
