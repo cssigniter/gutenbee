@@ -16,6 +16,15 @@ export default function Edit({
   isSelected,
   clientId,
 }) {
+  const {
+    tabIndex,
+    buttonBgColor,
+    buttonBorderColor,
+    activeButtonTextColor,
+    activeButtonBgColor,
+    activeButtonBorderColor,
+  } = attributes;
+
   const { categories } = useSelect(select => {
     return {
       categories: select('core').getEntityRecords('taxonomy', 'product_cat', {
@@ -69,6 +78,17 @@ export default function Edit({
     });
   };
 
+  const parentClientId = useSelect(
+    select =>
+      select('core/block-editor').getBlockHierarchyRootClientId(clientId),
+    [],
+  );
+
+  const parentAttributes = useSelect(
+    select => select('core/block-editor').getBlockAttributes(parentClientId),
+    [parentClientId],
+  );
+
   return (
     <Fragment>
       {isSelected && isRenderedInEditor(ref.current) && (
@@ -100,8 +120,18 @@ export default function Edit({
         {...blockProps}
         ref={ref}
         style={{
-          backgroundColor: attributes.buttonBgColor || undefined,
-          borderColor: attributes.buttonBorderColor || undefined,
+          color:
+            tabIndex === parentAttributes.activeTabIndex
+              ? activeButtonTextColor
+              : undefined,
+          backgroundColor:
+            tabIndex === parentAttributes.activeTabIndex
+              ? activeButtonBgColor
+              : buttonBgColor || undefined,
+          borderColor:
+            tabIndex === parentAttributes.activeTabIndex
+              ? activeButtonBorderColor
+              : buttonBorderColor || undefined,
         }}
       >
         <RichText

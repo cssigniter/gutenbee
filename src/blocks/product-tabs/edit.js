@@ -24,13 +24,19 @@ export default function Edit({ attributes, setAttributes, clientId }) {
     tabIndices,
     activeTabIndex,
     tabButtonAlignment,
+    showCat,
+    showRating,
     showPrice,
+    showStock,
     showButton,
     numberColumns,
     numberProducts,
     buttonTextColor,
     buttonBgColor,
     buttonBorderColor,
+    activeButtonTextColor,
+    activeButtonBgColor,
+    activeButtonBorderColor,
     uniqueId,
   } = attributes;
 
@@ -120,25 +126,11 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 
   const colorGradientSettings = useMultipleOriginColorsAndGradients();
 
-  const onButtonBgColorChange = value => {
-    if (!value) {
-      value = buttonBgColor;
-    }
+  const onButtonColorChange = (value, attributeLabel) => {
     innerBlocks.forEach(block => {
       wp.data
         .dispatch('core/block-editor')
-        .updateBlockAttributes(block.clientId, { buttonBgColor: value });
-    });
-  };
-
-  const onButtonBorderColorChange = value => {
-    if (!value) {
-      value = buttonBorderColor;
-    }
-    innerBlocks.forEach(block => {
-      wp.data
-        .dispatch('core/block-editor')
-        .updateBlockAttributes(block.clientId, { buttonBorderColor: value });
+        .updateBlockAttributes(block.clientId, { [attributeLabel]: value });
     });
   };
 
@@ -230,11 +222,38 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             <ToggleGroupControlOption label={__('Right')} value="right" />
           </ToggleGroupControl>
           <CheckboxControl
+            checked={showCat}
+            label={__('Show Category')}
+            onChange={value =>
+              setAttributes({
+                showCat: value,
+              })
+            }
+          />
+          <CheckboxControl
+            checked={showRating}
+            label={__('Show rating')}
+            onChange={value =>
+              setAttributes({
+                showRating: value,
+              })
+            }
+          />
+          <CheckboxControl
             checked={showPrice}
             label={__('Show price')}
             onChange={value =>
               setAttributes({
                 showPrice: value,
+              })
+            }
+          />
+          <CheckboxControl
+            checked={showStock}
+            label={__('Show stock')}
+            onChange={value =>
+              setAttributes({
+                showStock: value,
               })
             }
           />
@@ -260,7 +279,18 @@ export default function Edit({ attributes, setAttributes, clientId }) {
                 setAttributes({
                   buttonTextColor: value,
                 }),
-              resetAllFilter: () => setAttributes({ buttonTextColor: '' }),
+              resetAllFilter: () => {
+                setAttributes({
+                  buttonTextColor: undefined,
+                  buttonBgColor: undefined,
+                  buttonBorderColor: undefined,
+                  activeButtonTextColor: undefined,
+                  activeButtonBgColor: undefined,
+                  activeButtonBorderColor: undefined,
+                });
+                onButtonColorChange(undefined, 'buttonBgColor');
+                onButtonColorChange(undefined, 'buttonBorderColor');
+              },
             },
             {
               colorValue: buttonBgColor,
@@ -269,9 +299,8 @@ export default function Edit({ attributes, setAttributes, clientId }) {
                 setAttributes({
                   buttonBgColor: value,
                 });
-                onButtonBgColorChange(value);
+                onButtonColorChange(value, 'buttonBgColor');
               },
-              resetAllFilter: () => setAttributes({ buttonBgColor: '' }),
             },
             {
               colorValue: buttonBorderColor,
@@ -280,9 +309,36 @@ export default function Edit({ attributes, setAttributes, clientId }) {
                 setAttributes({
                   buttonBorderColor: value,
                 });
-                onButtonBorderColorChange(value);
+                onButtonColorChange(value, 'buttonBorderColor');
               },
-              resetAllFilter: () => setAttributes({ buttonBorderColor: '' }),
+            },
+            {
+              colorValue: activeButtonTextColor,
+              label: __('Active Tab Button Text'),
+              onColorChange: value =>
+                setAttributes({
+                  activeButtonTextColor: value,
+                }),
+            },
+            {
+              colorValue: activeButtonBgColor,
+              label: __('Active Tab Button Background'),
+              onColorChange: value => {
+                setAttributes({
+                  activeButtonBgColor: value,
+                });
+                onButtonColorChange(value, 'activeButtonBgColor');
+              },
+            },
+            {
+              colorValue: activeButtonBorderColor,
+              label: __('Active Tab Button Border'),
+              onColorChange: value => {
+                setAttributes({
+                  activeButtonBorderColor: value,
+                });
+                onButtonColorChange(value, 'activeButtonBorderColor');
+              },
             },
           ]}
           panelId={clientId}

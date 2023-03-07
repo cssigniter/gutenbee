@@ -55,7 +55,19 @@ registerBlockType('gutenbee/product-tabs', {
       type: 'string',
       default: 'left',
     },
+    showCat: {
+      type: 'boolean',
+      default: true,
+    },
+    showRating: {
+      type: 'boolean',
+      default: true,
+    },
     showPrice: {
+      type: 'boolean',
+      default: true,
+    },
+    showStock: {
       type: 'boolean',
       default: true,
     },
@@ -72,6 +84,18 @@ registerBlockType('gutenbee/product-tabs', {
       default: '',
     },
     buttonBorderColor: {
+      type: 'string',
+      default: '',
+    },
+    activeButtonTextColor: {
+      type: 'string',
+      default: '',
+    },
+    activeButtonBgColor: {
+      type: 'string',
+      default: '',
+    },
+    activeButtonBorderColor: {
       type: 'string',
       default: '',
     },
