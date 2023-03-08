@@ -5,7 +5,7 @@ $show_rating = $args['show-rating'];
 $show_price  = $args['show-price'];
 $show_stock  = $args['show-stock'];
 $show_button = $args['show-button'];
-$term_id     = $args['term-id'];
+$term_id     = (int) $args['term-id'];
 ?>
 <article
 	id="gutenbee-product-tabs-<?php the_ID(); ?>"

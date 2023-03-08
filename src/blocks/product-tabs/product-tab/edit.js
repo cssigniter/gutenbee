@@ -25,6 +25,17 @@ export default function Edit({
     activeButtonBorderColor,
   } = attributes;
 
+  const parentClientId = useSelect(
+    select =>
+      select('core/block-editor').getBlockHierarchyRootClientId(clientId),
+    [],
+  );
+
+  const parentAttributes = useSelect(
+    select => select('core/block-editor').getBlockAttributes(parentClientId),
+    [parentClientId],
+  );
+
   const { categories } = useSelect(select => {
     return {
       categories: select('core').getEntityRecords('taxonomy', 'product_cat', {
@@ -51,6 +62,20 @@ export default function Edit({
 
   const blockProps = useBlockProps({
     className: 'wp-block-gutenbee-product-tab',
+    style: {
+      color:
+        tabIndex === parentAttributes.activeTabIndex && activeButtonTextColor
+          ? activeButtonTextColor
+          : 'inherit',
+      backgroundColor:
+        tabIndex === parentAttributes.activeTabIndex && activeButtonBgColor
+          ? activeButtonBgColor
+          : buttonBgColor || undefined,
+      borderColor:
+        tabIndex === parentAttributes.activeTabIndex && activeButtonBorderColor
+          ? activeButtonBorderColor
+          : buttonBorderColor || undefined,
+    },
   });
 
   const { content, termId, selectedProducts } = attributes;
@@ -77,17 +102,6 @@ export default function Edit({
       content: obj.label,
     });
   };
-
-  const parentClientId = useSelect(
-    select =>
-      select('core/block-editor').getBlockHierarchyRootClientId(clientId),
-    [],
-  );
-
-  const parentAttributes = useSelect(
-    select => select('core/block-editor').getBlockAttributes(parentClientId),
-    [parentClientId],
-  );
 
   return (
     <Fragment>
@@ -116,26 +130,7 @@ export default function Edit({
           </PanelBody>
         </InspectorControls>
       )}
-      <li
-        {...blockProps}
-        ref={ref}
-        style={{
-          color:
-            tabIndex === parentAttributes.activeTabIndex &&
-            activeButtonTextColor
-              ? activeButtonTextColor
-              : 'inherit',
-          backgroundColor:
-            tabIndex === parentAttributes.activeTabIndex && activeButtonBgColor
-              ? activeButtonBgColor
-              : buttonBgColor || undefined,
-          borderColor:
-            tabIndex === parentAttributes.activeTabIndex &&
-            activeButtonBorderColor
-              ? activeButtonBorderColor
-              : buttonBorderColor || undefined,
-        }}
-      >
+      <li {...blockProps} ref={ref}>
         <RichText
           identifier="content"
           tagName="span"
