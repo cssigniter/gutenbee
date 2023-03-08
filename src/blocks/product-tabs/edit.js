@@ -315,10 +315,12 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             {
               colorValue: activeButtonTextColor,
               label: __('Active Tab Button Text'),
-              onColorChange: value =>
+              onColorChange: value => {
                 setAttributes({
                   activeButtonTextColor: value,
                 }),
+                  onButtonColorChange(value, 'activeButtonTextColor');
+              },
             },
             {
               colorValue: activeButtonBgColor,

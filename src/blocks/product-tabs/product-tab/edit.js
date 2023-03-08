@@ -121,15 +121,17 @@ export default function Edit({
         ref={ref}
         style={{
           color:
-            tabIndex === parentAttributes.activeTabIndex
+            tabIndex === parentAttributes.activeTabIndex &&
+            activeButtonTextColor
               ? activeButtonTextColor
-              : undefined,
+              : 'inherit',
           backgroundColor:
-            tabIndex === parentAttributes.activeTabIndex
+            tabIndex === parentAttributes.activeTabIndex && activeButtonBgColor
               ? activeButtonBgColor
               : buttonBgColor || undefined,
           borderColor:
-            tabIndex === parentAttributes.activeTabIndex
+            tabIndex === parentAttributes.activeTabIndex &&
+            activeButtonBorderColor
               ? activeButtonBorderColor
               : buttonBorderColor || undefined,
         }}
@@ -140,7 +142,7 @@ export default function Edit({
           value={content}
           aria-label={__('Product Tab block')}
           placeholder={__('Tab title…')}
-          // keepPlaceholderOnFocus={true}
+          withoutInteractiveFormatting={true}
           multiline={false}
           disableLineBreaks={true}
           onChange={value => {

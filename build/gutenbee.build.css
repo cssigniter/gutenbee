@@ -3293,8 +3293,9 @@ div[data-type="gutenbee/button"] {
 }
 .wp-block-gutenbee-product-tabs .wp-block-gutenbee-product-tabs-nav li {
   border: 2px solid black;
-  padding: 7px 30px;
   cursor: pointer;
+  margin: 0;
+  padding: 7px 30px;
 }
 .wp-block-gutenbee-product-tabs .gutenbee-product-tabs-content {
   display: none;
@@ -3313,36 +3314,51 @@ div[data-type="gutenbee/button"] {
 .wp-block-gutenbee-product-tabs .gutenbee-row-columns-1 .woocommerce-loop-product__link {
   display: inline-block;
 }
-.wp-block-gutenbee-product-tabs .gutenbee-product-tabs-item .woocommerce-loop-product__link {
-  position: relative;
+
+.gutenbee-product-tabs-item > .woocommerce-loop-product__link {
+  display: block;
   line-height: 0;
+  margin-bottom: 20px;
+  position: relative;
 }
-.wp-block-gutenbee-product-tabs .gutenbee-product-tabs-item .woocommerce-loop-product__link img:nth-of-type(2) {
+.gutenbee-product-tabs-item > .woocommerce-loop-product__link img:nth-of-type(2) {
   position: absolute;
   top: 0;
   left: 0;
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
 }
-.wp-block-gutenbee-product-tabs .gutenbee-product-tabs-item .woocommerce-loop-product__link:hover img:nth-of-type(2) {
+.gutenbee-product-tabs-item > .woocommerce-loop-product__link:hover img:nth-of-type(2) {
   opacity: 1;
 }
-.wp-block-gutenbee-product-tabs .gutenbee-product-tabs-item .onsale {
+.gutenbee-product-tabs-item .onsale {
   left: auto;
   right: 0;
   padding: 5px 10px;
   font-size: 14px;
-  z-index: 1;
+  z-index: 5;
   line-height: 1em;
 }
-.wp-block-gutenbee-product-tabs .gutenbee-product-tabs-item .woocommerce-loop-product__title {
+.gutenbee-product-tabs-item .woocommerce-loop-product__title {
   font-size: 26px;
-  margin-bottom: 20px;
+  margin: 0 0 15px 0;
 }
-.wp-block-gutenbee-product-tabs .gutenbee-product-tabs-item .price {
-  display: block;
-  margin-bottom: 20px;
+.gutenbee-product-tabs-item .star-rating,
+.gutenbee-product-tabs-item .stock {
+  margin: 12px 0;
+}
+.gutenbee-product-tabs-item .stock {
   font-size: 0.9em;
+  line-height: 0.9em;
+}
+.gutenbee-product-tabs-item .price {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 0.9em;
+  line-height: 0.9em;
+}
+.gutenbee-product-tabs-item a.button {
+  margin-top: 20px;
 }
 
 .wp-block-gutenbee-product-tabs {

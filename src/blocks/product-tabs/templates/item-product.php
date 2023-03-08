@@ -31,11 +31,11 @@ $term_id     = $args['term-id'];
 	if ( $show_rating ) {
 		woocommerce_template_loop_rating();
 	}
-	if ( $show_price ) {
-		woocommerce_template_loop_price();
-	}
 	if ( $show_stock ) {
 		echo wc_get_stock_html( wc_get_product( get_the_ID() ) );
+	}
+	if ( $show_price ) {
+		woocommerce_template_loop_price();
 	}
 	if ( $show_button ) {
 		woocommerce_template_loop_add_to_cart();
