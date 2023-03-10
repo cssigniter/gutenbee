@@ -3427,10 +3427,9 @@ div[data-type="gutenbee/button"] {
   padding: 7px 30px;
   cursor: pointer;
 }
+.wp-block-gutenbee-product-tabs .gutenbee-product-tabs-content {
+  row-gap: 0;
+}
 .wp-block-gutenbee-product-tabs .gutenbee-product-tabs-content.active {
   flex-wrap: wrap;
-}
-.wp-block-gutenbee-product-tabs .render-placeholder {
-  padding: 30px;
-  text-align: center;
 }

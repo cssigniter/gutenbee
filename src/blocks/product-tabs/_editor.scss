@@ -54,13 +54,10 @@
   }
 
   .gutenbee-product-tabs-content {
+    row-gap: 0;
+
     &.active {
       flex-wrap: wrap;
     }
-  }
-
-  .render-placeholder {
-    padding: 30px;
-    text-align: center;
   }
 }

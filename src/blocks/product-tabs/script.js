@@ -28,7 +28,9 @@ tabBlocks.forEach(tabBlock => {
 });
 
 jQuery(window).on('load', () => {
-  const $sliders = jQuery('.gutenbee-product-tabs-content');
+  const $sliders = jQuery(
+    '.wp-block-gutenbee-product-tabs-slider .gutenbee-product-tabs-content',
+  );
 
   if ($sliders.length) {
     $sliders.each(function() {

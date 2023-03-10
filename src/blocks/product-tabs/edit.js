@@ -167,7 +167,9 @@ export default function Edit({ attributes, setAttributes, clientId }) {
           setContent(containerRef.current.innerHTML);
           setIsLoading(false);
 
-          const $sliders = jQuery('.gutenbee-product-tabs-content');
+          const $sliders = jQuery(
+            '.wp-block-gutenbee-product-tabs-slider .gutenbee-product-tabs-content',
+          );
 
           if ($sliders.length) {
             $sliders.each(function() {
