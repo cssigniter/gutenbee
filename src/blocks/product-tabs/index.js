@@ -99,6 +99,10 @@ registerBlockType('gutenbee/product-tabs', {
       type: 'string',
       default: '',
     },
+    layout: {
+      type: 'string',
+      default: 'grid',
+    },
   },
   /**
    * @see ./edit.js

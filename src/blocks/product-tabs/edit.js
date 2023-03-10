@@ -1,7 +1,7 @@
 import { InnerBlocks, useBlockProps } from 'wp.blockEditor';
 import ServerSideRender from 'wp.serverSideRender';
 import { useSelect } from 'wp.data';
-import { useEffect, Fragment } from 'wp.element';
+import { useState, useEffect, useRef, Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import {
   RangeControl,
@@ -9,6 +9,7 @@ import {
   __experimentalToggleGroupControl as ToggleGroupControl,
   __experimentalToggleGroupControlOption as ToggleGroupControlOption,
   CheckboxControl,
+  SelectControl,
 } from 'wp.components';
 import {
   InspectorControls,
@@ -16,6 +17,7 @@ import {
   __experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
 } from 'wp.blockEditor';
 
+import 'slick-carousel';
 import getBlockId from '../../util/getBlockId';
 import useUniqueId from '../../hooks/useUniqueId';
 
@@ -37,6 +39,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
     activeButtonTextColor,
     activeButtonBgColor,
     activeButtonBorderColor,
+    layout,
     uniqueId,
   } = attributes;
 
@@ -44,7 +47,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 
   const blockProps = useBlockProps({
     id: getBlockId(uniqueId),
-    className: `wp-block-gutenbee-product-tabs wp-block-gutenbee-product-tabs-${tabButtonAlignment}`,
+    className: `wp-block-gutenbee-product-tabs wp-block-gutenbee-product-tabs-${tabButtonAlignment} wp-block-gutenbee-product-tabs-${layout}`,
   });
 
   const innerBlocks = useSelect(
@@ -153,6 +156,46 @@ export default function Edit({ attributes, setAttributes, clientId }) {
     [innerBlocks],
   );
 
+  const [isLoading, setIsLoading] = useState(true);
+  const [content, setContent] = useState(null);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new MutationObserver(mutationsList => {
+      for (let mutation of mutationsList) {
+        if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+          setContent(containerRef.current.innerHTML);
+          setIsLoading(false);
+
+          const $sliders = jQuery('.gutenbee-product-tabs-content');
+
+          if ($sliders.length) {
+            $sliders.each(function() {
+              const $this = jQuery(this);
+
+              $this.slick({
+                arrows: true,
+                dots: false,
+                slidesToScroll: 3,
+                slidesToShow: 3,
+                prevArrow:
+                  '<button class="slick-prev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path d="M25.1 247.5l117.8-116c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L64.7 256l102.2 100.4c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0L25 264.5c-4.6-4.7-4.6-12.3.1-17z"/></svg></button>',
+                nextArrow:
+                  '<button class="slick-next"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path d="M166.9 264.5l-117.8 116c-4.7 4.7-12.3 4.7-17 0l-7.1-7.1c-4.7-4.7-4.7-12.3 0-17L127.3 256 25.1 155.6c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0l117.8 116c4.6 4.7 4.6 12.3-.1 17z"/></svg></button>',
+              });
+            });
+          }
+        }
+      }
+    });
+
+    observer.observe(containerRef.current, { childList: true });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <Fragment>
       <div {...blockProps}>
@@ -167,10 +210,14 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             template={[['gutenbee/product-tab']]}
           />
         </ul>
-        <ServerSideRender
-          block="gutenbee/product-tabs"
-          attributes={attributes}
-        />
+        <div ref={containerRef}>
+          {console.log(isLoading)}
+          {console.log(content)}
+          <ServerSideRender
+            block="gutenbee/product-tabs"
+            attributes={attributes}
+          />
+        </div>
       </div>
       <InspectorControls>
         <PanelBody>
@@ -221,9 +268,30 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             <ToggleGroupControlOption label={__('Center')} value="center" />
             <ToggleGroupControlOption label={__('Right')} value="right" />
           </ToggleGroupControl>
+          <SelectControl
+            __next36pxDefaultSize
+            __nextHasNoMarginBottom
+            label="Layout"
+            value={layout}
+            onChange={value =>
+              setAttributes({
+                layout: value,
+              })
+            }
+            options={[
+              {
+                label: 'Grid',
+                value: 'grid',
+              },
+              {
+                label: 'Slider',
+                value: 'slider',
+              },
+            ]}
+          />
           <CheckboxControl
             checked={showCat}
-            label={__('Show Category')}
+            label={__('Show category')}
             onChange={value =>
               setAttributes({
                 showCat: value,

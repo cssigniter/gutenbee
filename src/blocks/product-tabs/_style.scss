@@ -15,6 +15,19 @@
     .wp-block-gutenbee-product-tabs-nav {
       justify-content: flex-end;
     }
+
+    .slick-arrow {
+      right: auto;
+      left: 15px;
+
+      &.slick-prev {
+        transform: translateY(-100%);
+      }
+
+      &.slick-next {
+        transform: translate(calc( 100% + 5px ),-100%);
+      }
+    }
   }
 
   .wp-block-gutenbee-product-tabs-nav {
@@ -34,12 +47,13 @@
   }
 
   .gutenbee-product-tabs-content {
-    display: none;
+    height: 0;
+    visibility: hidden;
     row-gap: 40px;
 
     &.active {
-      display: flex;
-
+      height: auto;
+      visibility: visible;
     }
   }
 
@@ -53,6 +67,31 @@
 
     .woocommerce-loop-product__link {
         display: inline-block;
+    }
+  }
+
+  .slick-arrow {
+    position: absolute;
+    right: 15px;
+    top: -30px;
+    transform: translateY(-100%);
+    width: 40px;
+    height: 40px;
+    font-size: 12px;
+    border: 1px solid #000000;
+    background: #FFFFFF;
+    cursor: pointer;
+    z-index: 10;
+
+    &.slick-prev {
+      transform: translate(calc( -100% - 5px ),-100%);
+    }
+
+    svg {
+      display: block;
+      height: 30px;
+      line-height: 0;
+      margin: 0 auto;
     }
   }
 }
