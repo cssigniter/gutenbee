@@ -37,6 +37,11 @@ jQuery(window).on('load', () => {
       const $this = jQuery(this);
 
       const $columns = $this.data('columns');
+      const $slides = $this.find('> div');
+
+      if ($slides.length < $columns) {
+        return;
+      }
 
       $this.slick({
         arrows: true,

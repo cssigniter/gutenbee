@@ -1,7 +1,7 @@
 import { InnerBlocks, useBlockProps } from 'wp.blockEditor';
 import ServerSideRender from 'wp.serverSideRender';
 import { useSelect } from 'wp.data';
-import { useState, useEffect, useRef, Fragment } from 'wp.element';
+import { useEffect, Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import {
   RangeControl,
@@ -73,7 +73,6 @@ export default function Edit({ attributes, setAttributes, clientId }) {
           selectedProducts,
         }),
       );
-
       setAttributes({
         categoryIds: termIds,
         tabIndices: tabIndices,
@@ -142,61 +141,25 @@ export default function Edit({ attributes, setAttributes, clientId }) {
       innerBlocks.forEach(block => {
         if (
           !block.attributes.buttonBgColor &&
-          !block.attributes.buttonBorderColor
+          !block.attributes.buttonBorderColor &&
+          !block.attributes.activeButtonTextColor &&
+          !block.attributes.activeButtonBorderColor &&
+          !block.attributes.activeButtonBgColor
         ) {
           wp.data
             .dispatch('core/block-editor')
             .updateBlockAttributes(block.clientId, {
               buttonBgColor: buttonBgColor,
               buttonBorderColor: buttonBorderColor,
+              activeButtonTextColor: activeButtonTextColor,
+              activeButtonBorderColor: activeButtonBorderColor,
+              activeButtonBgColor: activeButtonBgColor,
             });
         }
       });
     },
     [innerBlocks],
   );
-
-  const [isLoading, setIsLoading] = useState(true);
-  const [content, setContent] = useState(null);
-  const containerRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new MutationObserver(mutationsList => {
-      for (let mutation of mutationsList) {
-        if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-          setContent(containerRef.current.innerHTML);
-          setIsLoading(false);
-
-          const $sliders = jQuery(
-            '.wp-block-gutenbee-product-tabs-slider .gutenbee-product-tabs-content',
-          );
-
-          if ($sliders.length) {
-            $sliders.each(function() {
-              const $this = jQuery(this);
-
-              $this.slick({
-                arrows: true,
-                dots: false,
-                slidesToScroll: 3,
-                slidesToShow: 3,
-                prevArrow:
-                  '<button class="slick-prev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path d="M25.1 247.5l117.8-116c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L64.7 256l102.2 100.4c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0L25 264.5c-4.6-4.7-4.6-12.3.1-17z"/></svg></button>',
-                nextArrow:
-                  '<button class="slick-next"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path d="M166.9 264.5l-117.8 116c-4.7 4.7-12.3 4.7-17 0l-7.1-7.1c-4.7-4.7-4.7-12.3 0-17L127.3 256 25.1 155.6c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0l117.8 116c4.6 4.7 4.6 12.3-.1 17z"/></svg></button>',
-              });
-            });
-          }
-        }
-      }
-    });
-
-    observer.observe(containerRef.current, { childList: true });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
 
   return (
     <Fragment>
@@ -212,14 +175,10 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             template={[['gutenbee/product-tab']]}
           />
         </ul>
-        <div ref={containerRef}>
-          {console.log(isLoading)}
-          {console.log(content)}
-          <ServerSideRender
-            block="gutenbee/product-tabs"
-            attributes={attributes}
-          />
-        </div>
+        <ServerSideRender
+          block="gutenbee/product-tabs"
+          attributes={attributes}
+        />
       </div>
       <InspectorControls>
         <PanelBody>
@@ -260,7 +219,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
           <ToggleGroupControl
             __nextHasNoMarginBottom
             isBlock
-            label={__('Tab Button Alignment')}
+            label={__('Tab button alignment')}
             value={tabButtonAlignment}
             onChange={value => {
               onChangeTabButtonAlignment(value);
@@ -273,7 +232,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
           <SelectControl
             __next36pxDefaultSize
             __nextHasNoMarginBottom
-            label="Layout"
+            label={__('Layout')}
             value={layout}
             onChange={value =>
               setAttributes({
@@ -282,11 +241,11 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             }
             options={[
               {
-                label: 'Grid',
+                label: __('Grid'),
                 value: 'grid',
               },
               {
-                label: 'Slider',
+                label: __('Slider'),
                 value: 'slider',
               },
             ]}
@@ -297,15 +256,6 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             onChange={value =>
               setAttributes({
                 showCat: value,
-              })
-            }
-          />
-          <CheckboxControl
-            checked={showRating}
-            label={__('Show rating')}
-            onChange={value =>
-              setAttributes({
-                showRating: value,
               })
             }
           />
@@ -328,6 +278,15 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             }
           />
           <CheckboxControl
+            checked={showRating}
+            label={__('Show rating')}
+            onChange={value =>
+              setAttributes({
+                showRating: value,
+              })
+            }
+          />
+          <CheckboxControl
             checked={showButton}
             label={__('Show add to cart button')}
             onChange={value =>
@@ -344,7 +303,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
           settings={[
             {
               colorValue: buttonTextColor,
-              label: __('Tab Button Text'),
+              label: __('Tab button text'),
               onColorChange: value =>
                 setAttributes({
                   buttonTextColor: value,
@@ -364,7 +323,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             },
             {
               colorValue: buttonBgColor,
-              label: __('Tab Button Background'),
+              label: __('Tab button background'),
               onColorChange: value => {
                 setAttributes({
                   buttonBgColor: value,
@@ -374,7 +333,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             },
             {
               colorValue: buttonBorderColor,
-              label: __('Tab Button Border'),
+              label: __('Tab button border'),
               onColorChange: value => {
                 setAttributes({
                   buttonBorderColor: value,
@@ -384,7 +343,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             },
             {
               colorValue: activeButtonTextColor,
-              label: __('Active Tab Button Text'),
+              label: __('Active tab button text'),
               onColorChange: value => {
                 setAttributes({
                   activeButtonTextColor: value,
@@ -394,7 +353,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             },
             {
               colorValue: activeButtonBgColor,
-              label: __('Active Tab Button Background'),
+              label: __('Active tab button background'),
               onColorChange: value => {
                 setAttributes({
                   activeButtonBgColor: value,
@@ -404,7 +363,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             },
             {
               colorValue: activeButtonBorderColor,
-              label: __('Active Tab Button Border'),
+              label: __('Active tab button border'),
               onColorChange: value => {
                 setAttributes({
                   activeButtonBorderColor: value,

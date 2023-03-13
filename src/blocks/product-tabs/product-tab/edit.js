@@ -60,11 +60,29 @@ export default function Edit({
 
   const ref = useRef(null);
 
+  const { tabClientId } = useSelect(select => {
+    const { getSelectedBlockClientIds, getBlockName } = select(
+      'core/block-editor',
+    );
+    let selectedClientIds = getSelectedBlockClientIds();
+    if (0 !== selectedClientIds.length) {
+      let blockName = getBlockName(selectedClientIds[0]);
+
+      if (blockName === 'gutenbee/product-tab') {
+        return { tabClientId: selectedClientIds };
+      }
+    }
+
+    return {
+      tabClientId,
+    };
+  });
+
   const blockProps = useBlockProps({
     className: 'wp-block-gutenbee-product-tab',
     style: {
       color:
-        tabIndex === parentAttributes.activeTabIndex && activeButtonTextColor
+        tabClientId === parentAttributes.activeTabIndex && activeButtonTextColor
           ? activeButtonTextColor
           : 'inherit',
       backgroundColor:

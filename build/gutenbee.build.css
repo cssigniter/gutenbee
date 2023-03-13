@@ -3432,4 +3432,5 @@ div[data-type="gutenbee/button"] {
 }
 .wp-block-gutenbee-product-tabs .gutenbee-product-tabs-content.active {
   flex-wrap: wrap;
+  position: relative;
 }
