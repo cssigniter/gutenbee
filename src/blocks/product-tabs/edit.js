@@ -239,6 +239,9 @@ export default function Edit({ attributes, setAttributes, clientId }) {
                 layout: value,
               })
             }
+            help={__(
+              'Please note that the slider is not interactive inside the editor, only on the front end. Also make sure that all product categories have at least as many items as the number of columns you have selected for the slider to work properly.',
+            )}
             options={[
               {
                 label: __('Grid'),
