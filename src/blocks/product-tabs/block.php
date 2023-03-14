@@ -10,7 +10,8 @@ function gutenbee_create_block_product_tabs_block_init() {
 					'default' => '',
 				),
 				'categoryIds'             => array(
-					'type' => 'array',
+					'type'    => 'array',
+					'default' => array(),
 				),
 				'tabIndices'              => array(
 					'type' => 'array',
@@ -123,6 +124,14 @@ function gutenbee_product_tabs_get_products( $attributes, $content, $block ) {
 
 	$classes[] = gutenbee_get_columns_classes( $columns, $attributes );
 
+	if ( function_exists( 'ci_theme_ignition_customizer_defaults' ) ) {
+		$mobile_classes = get_theme_mod( 'woocommerce_shop_mobile_columns', ci_theme_ignition_customizer_defaults( 'woocommerce_shop_mobile_columns' ) );
+
+		if ( 2 === (int) $mobile_classes && 1 !== (int) $columns ) {
+			$classes[0] = str_replace( 'col-12', 'col-6', $classes[0] );
+		}
+	}
+
 	$item_template_vars = array(
 		'columns'     => $columns,
 		'classes'     => array_filter( array_map( 'trim', explode( ' ', $class_name ) ) ),
@@ -190,8 +199,13 @@ function gutenbee_product_tabs_get_products( $attributes, $content, $block ) {
 
 			<?php
 			for ( $i = 0; $i < $num_tabs; $i++ ) {
+				$product_data = array();
 
-				$product_data = ! empty( $handpicked[ $i ]['selectedProducts'] ) ? $handpicked[ $i ] : $categories[ $i ];
+				if ( ! empty( $handpicked[ $i ]['selectedProducts'] ) ) {
+					$product_data = $handpicked[ $i ];
+				} elseif ( isset( $categories[ $i ] ) ) {
+					$product_data = $categories[ $i ];
+				}
 
 				// TODO: Find a better way.
 				if ( 0 === intval( $i ) ) {
@@ -274,30 +288,30 @@ function gutenbee_product_tabs_get_products( $attributes, $content, $block ) {
 						$item_template_vars['term-id'] = $product_data['termId'];
 						?>
 						<div class="<?php echo esc_attr( implode( ' ', $container_classes ) ); ?>" data-columns="<?php echo (int) $columns; ?>" data-products="<?php echo (int) $num_products; ?>">
+						<?php
+						if ( $is_editor && 'slider' === $layout && $loop->found_posts >= $columns ) {
+							?>
+									<button class="slick-prev slick-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path d="M25.1 247.5l117.8-116c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L64.7 256l102.2 100.4c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0L25 264.5c-4.6-4.7-4.6-12.3.1-17z"></path></svg></button>
+									<button class="slick-next slick-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path d="M166.9 264.5l-117.8 116c-4.7 4.7-12.3 4.7-17 0l-7.1-7.1c-4.7-4.7-4.7-12.3 0-17L127.3 256 25.1 155.6c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0l117.8 116c4.6 4.7 4.6 12.3-.1 17z"></path></svg></button>
 							<?php
-							while ( $loop->have_posts() ) :
-								if ( $is_editor && 'slider' === $layout && $loop->found_posts >= $columns ) {
-									?>
-										<button class="slick-prev slick-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path d="M25.1 247.5l117.8-116c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L64.7 256l102.2 100.4c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0L25 264.5c-4.6-4.7-4.6-12.3.1-17z"></path></svg></button>
-										<button class="slick-next slick-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path d="M166.9 264.5l-117.8 116c-4.7 4.7-12.3 4.7-17 0l-7.1-7.1c-4.7-4.7-4.7-12.3 0-17L127.3 256 25.1 155.6c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0l117.8 116c4.6 4.7 4.6 12.3-.1 17z"></path></svg></button>
-									<?php
-								}
-								$loop->the_post();
+						}
+						while ( $loop->have_posts() ) :
+							$loop->the_post();
+							?>
+							<?php
+							if ( $is_editor && 'slider' === $layout && $loop->current_post >= $columns ) {
+								continue;
+							} else {
 								?>
-								<?php
-								if ( $is_editor && 'slider' === $layout && $loop->current_post >= $columns ) {
-									continue;
-								} else {
-									?>
 								<div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
 									<?php
 									gutenbee_get_template_part( 'product-tabs', 'item', get_post_type(), $item_template_vars );
 									?>
 								</div>
 									<?php
-								}
+							}
 							endwhile;
-							?>
+						?>
 						</div>
 						<?php
 					else :

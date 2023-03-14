@@ -65,6 +65,7 @@ jQuery(window).on('load', () => {
             settings: {
               slidesToShow: 2,
               slidesToScroll: 2,
+              arrows: false,
             },
           },
           {
@@ -72,6 +73,10 @@ jQuery(window).on('load', () => {
             settings: {
               slidesToShow: 1,
               slidesToScroll: 1,
+              arrows: false,
+              centerMode: true,
+              centerPadding: '60px',
+              slidesToShow: 1,
             },
           },
         ],

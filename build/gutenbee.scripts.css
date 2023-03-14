@@ -2364,6 +2364,9 @@ ul.wp-block-gutenbee-icon-list {
   line-height: 1.2;
 }
 
+.wp-block-gutenbee-product-tabs {
+  margin-bottom: 30px;
+}
 .wp-block-gutenbee-product-tabs.wp-block-gutenbee-product-tabs-left .wp-block-gutenbee-product-tabs-nav {
   justify-content: flex-start;
 }
@@ -2383,6 +2386,9 @@ ul.wp-block-gutenbee-icon-list {
 .wp-block-gutenbee-product-tabs.wp-block-gutenbee-product-tabs-right .slick-arrow.slick-next {
   transform: translate(calc(100% + 5px), -100%);
 }
+.wp-block-gutenbee-product-tabs.wp-block-gutenbee-product-tabs-slider .gutenbee-product-tabs-item {
+  margin-bottom: 0;
+}
 .wp-block-gutenbee-product-tabs .wp-block-gutenbee-product-tabs-nav {
   list-style: none;
   padding: 0;
@@ -2390,6 +2396,7 @@ ul.wp-block-gutenbee-icon-list {
   display: flex;
   gap: 10px;
   margin-bottom: 30px;
+  overflow-x: auto;
 }
 .wp-block-gutenbee-product-tabs .wp-block-gutenbee-product-tabs-nav li {
   border: 2px solid black;
@@ -2419,18 +2426,19 @@ ul.wp-block-gutenbee-icon-list {
 .wp-block-gutenbee-product-tabs .slick-arrow {
   position: absolute;
   right: 15px;
-  top: -30px;
+  top: 50%;
   transform: translateY(-100%);
   width: 40px;
   height: 40px;
   font-size: 12px;
   border: 1px solid #000000;
-  background: #FFFFFF;
+  background: #ffffff;
   cursor: pointer;
   z-index: 10;
 }
 .wp-block-gutenbee-product-tabs .slick-arrow.slick-prev {
-  transform: translate(calc(-100% - 5px), -100%);
+  left: 15px;
+  right: auto;
 }
 .wp-block-gutenbee-product-tabs .slick-arrow svg {
   display: block;

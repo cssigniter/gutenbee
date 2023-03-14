@@ -82,7 +82,7 @@ export default function Edit({
     className: 'wp-block-gutenbee-product-tab',
     style: {
       color:
-        tabClientId === parentAttributes.activeTabIndex && activeButtonTextColor
+        tabIndex === parentAttributes.activeTabIndex && activeButtonTextColor
           ? activeButtonTextColor
           : 'inherit',
       backgroundColor:
