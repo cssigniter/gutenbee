@@ -52,6 +52,7 @@
       cursor: pointer;
       margin: 0;
       padding: 7px 30px;
+      white-space: nowrap;
     }
   }
 
@@ -87,7 +88,7 @@
 
   .slick-arrow {
     position: absolute;
-    right: 15px;
+    right: -5px;
     top: 50%;
     transform: translateY(-100%);
     width: 40px;
@@ -99,7 +100,7 @@
     z-index: 10;
 
     &.slick-prev {
-      left: 15px;
+      left: -5px;
       right: auto;
     }
 
