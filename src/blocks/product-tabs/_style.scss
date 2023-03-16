@@ -79,6 +79,12 @@
     }
   }
 
+  .slick-active {
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
   .slick-arrow {
     position: absolute;
     right: 15px;
