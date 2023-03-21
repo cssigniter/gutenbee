@@ -3446,3 +3446,15 @@ div[data-type="gutenbee/button"] {
   flex-wrap: wrap;
   position: relative;
 }
+
+.wp-block-gutenbee-product-category-list {
+  box-sizing: border-box;
+}
+.wp-block-gutenbee-product-category-list *,
+.wp-block-gutenbee-product-category-list *::before,
+.wp-block-gutenbee-product-category-list *::after {
+  box-sizing: inherit;
+}
+.wp-block-gutenbee-product-category-list a {
+  pointer-events: none;
+}

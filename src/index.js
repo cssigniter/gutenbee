@@ -46,6 +46,7 @@ import './blocks/review/review-item';
 import './blocks/review';
 import './blocks/product-tabs';
 import './blocks/product-tabs/product-tab';
+import './blocks/product-category-list';
 // import './blocks/tab-slider';
 // import './blocks/tab-slider/tab-slider-nav-column';
 // import './blocks/tab-slider/tab-slider-nav';

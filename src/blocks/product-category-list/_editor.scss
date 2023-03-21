@@ -1,0 +1,13 @@
+.wp-block-gutenbee-product-category-list {
+  box-sizing: border-box;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+
+  a {
+    pointer-events: none;
+  }
+}

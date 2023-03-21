@@ -30,6 +30,7 @@ export const blocks = [
   'video-embed',
   'google-maps',
   'product-tabs',
+  'product-category-list',
   // 'lottie',
 ];
 
@@ -42,4 +43,5 @@ blocks.forEach(block => {
 
 if (!__GUTENBEE_SETTINGS__['woocommerce']) {
   unregisterBlockType('gutenbee/product-tabs');
+  unregisterBlockType('gutenbee/product-category-list');
 }
