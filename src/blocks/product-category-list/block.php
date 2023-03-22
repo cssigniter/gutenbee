@@ -21,13 +21,17 @@ function gutenbee_create_block_product_category_list_block_init() {
 					'type'    => 'boolean',
 					'default' => true,
 				),
-				'buttonContent'   => array(
+				'buttonText'      => array(
 					'type'    => 'string',
 					'default' => __( 'All products', 'gutenbee' ),
 				),
 				'buttonLink'      => array(
 					'type'    => 'string',
 					'default' => '',
+				),
+				'buttonNewTab' => array(
+					'type'    => 'boolean',
+					'default' => false,
 				),
 				'buttonAlignment' => array(
 					'type'    => 'string',
@@ -50,9 +54,10 @@ function gutenbee_create_block_product_category_list_block_init() {
 function gutenbee_product_category_list( $attributes, $content, $block ) {
 	$unique_id        = $attributes['uniqueId'];
 	$columns          = $attributes['numberColumns'];
-	$button_content   = $attributes['buttonContent'];
+	$button_text      = $attributes['buttonText'];
 	$button_link      = $attributes['buttonLink'];
 	$button_alignment = $attributes['buttonAlignment'];
+	$button_target    = $attributes['buttonNewTab'] ? '_blank' : '_self';
 	$items            = $attributes['items'];
 	$layout           = $attributes['layout'];
 	$show_title       = $attributes['showTitle'];
@@ -68,7 +73,7 @@ function gutenbee_product_category_list( $attributes, $content, $block ) {
 
 	$is_editor           = defined( 'REST_REQUEST' ) && REST_REQUEST;
 	$container_classes   = array(
-		'gutenbee-product-category-list__content',
+		'wp-block-gutenbee-product-category-list__content',
 		'gutenbee-row',
 		'gutenbee-row-items',
 	);
@@ -90,6 +95,7 @@ function gutenbee_product_category_list( $attributes, $content, $block ) {
 		'classes'    => array_filter( array_map( 'trim', explode( ' ', $class_name ) ) ),
 		'show-title' => $show_title,
 		'show-count' => $show_count,
+		'classes'    => $classes,
 	);
 
 	foreach ( $items as $key => $value ) {
@@ -100,20 +106,23 @@ function gutenbee_product_category_list( $attributes, $content, $block ) {
 	ob_start();
 	?>
 	<div id="gutenbee-product-category-list-<?php echo esc_attr( $unique_id ); ?>" class="wp-block-gutenbee-product-category-list wp-block-gutenbee-product-category-list-<?php echo esc_attr( $button_alignment ); ?> wp-block-gutenbee-product-category-list-<?php echo esc_attr( $layout ); ?>">
+	<?php if ( $button_link ) : ?>
+	<div class="wp-block-gutenbee-product-category-list__button-container">
+		<a href="<?php echo esc_url_raw( $button_link ); ?>" class="btn" target="<?php echo esc_attr( $button_target ); ?>"><?php echo esc_html( $button_text ); ?></a>
+	</div>
+	<?php endif; ?>
 		<?php
 		if ( $product_categories ) :
 			?>
-		<div class="<?php echo esc_attr( implode( ' ', $container_classes ) ); ?>" data-columns="<?php echo (int) $columns; ?>">
+		<ul class="<?php echo esc_attr( implode( ' ', $container_classes ) ); ?>" data-columns="<?php echo (int) $columns; ?>">
 			<?php foreach ( $product_categories as $product_category ) : ?>
-			<div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
 				<?php
 				$item_template_vars['product-category'] = $product_category;
 				$item_template_vars['custom-image']     = $items[ $product_category->term_id ];
 				gutenbee_get_template_part( 'product-category-list', 'product-category', '', $item_template_vars );
 				?>
-			</div>
 			<?php endforeach; ?>
-		</div>
+			</ul>
 	<?php endif; ?>
 	</div>
 	<?php

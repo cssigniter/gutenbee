@@ -3,6 +3,7 @@
 $show_title       = $args['show-title'];
 $show_count       = $args['show-count'];
 $product_category = $args['product-category'];
+$classes          = array_merge( $args['classes'], array( 'wp-block-gutenbee-product-category-list__item' ) );
 $custom_image     = $args['custom-image'];
 $category_image   = $custom_image ? $custom_image['id'] : get_term_meta( $product_category->term_id, 'thumbnail_id', true );
 
@@ -21,7 +22,7 @@ if ( $category_image ) {
 }
 ?>
 
-<div <?php wc_product_cat_class( 'gutenbee-product-category-list__item', $product_category ); ?>>
+<li <?php wc_product_cat_class( implode( ' ', $classes ), $product_category ); ?>>
 	<?php woocommerce_template_loop_category_link_open( $product_category ); ?>
 	<?php
 	if ( $image ) {
@@ -54,4 +55,4 @@ if ( $category_image ) {
 	endif;
 	?>
 	<?php woocommerce_template_loop_category_link_close(); ?>
-</div>
+</li>

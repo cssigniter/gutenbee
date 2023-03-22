@@ -38,13 +38,21 @@ registerBlockType('gutenbee/product-category-list', {
       type: 'boolean',
       default: true,
     },
-    buttonContent: {
+    buttonText: {
       type: 'string',
       default: __('All products'),
     },
     buttonLink: {
       type: 'string',
       default: '',
+    },
+    buttonAlignment: {
+      type: 'string',
+      default: 'left',
+    },
+    buttonNewTab: {
+      type: 'boolean',
+      default: false,
     },
     layout: {
       type: 'string',

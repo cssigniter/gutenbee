@@ -1,3 +1,5 @@
+@import './style';
+
 .wp-block-gutenbee-product-category-list {
   box-sizing: border-box;
 
@@ -9,5 +11,43 @@
 
   a {
     pointer-events: none;
+  }
+
+  .wp-block-gutenbee-product-category-list__content {
+    list-style: none;
+  }
+
+  .wp-block-gutenbee-product-category-list__item {
+    img {
+      margin-bottom: 15px;
+    }
+
+    .count {
+      background-color: transparent;
+    }
+  }
+}
+
+.gutenbee-product-category-list-url-input.block-editor-url-input {
+  .block-editor-url-input__input {
+    width: 100%;
+    border: 1px solid rgb(148, 148, 148);
+    border-radius: 2px;
+  }
+
+  + .components-tip {
+    margin: -25px 0 25px;
+  }
+}
+
+.gutenbee-product-category-list-repeater-wrap {
+  .gutenbee-product-category-list-repeater-item {
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgb(148, 148, 148);
+    padding-bottom: 20px;
+  }
+
+  .gutenbee-control-background-image-actions {
+    margin-bottom: 15px;
   }
 }
