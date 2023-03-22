@@ -2515,7 +2515,7 @@ ul.wp-block-gutenbee-icon-list {
 .wp-block-gutenbee-product-category-list .wp-block-gutenbee-product-category-list__content .slick-active:focus-visible {
   outline: none;
 }
-.wp-block-gutenbee-product-category-list .wp-block-gutenbee-product-category-list__content .slick-arrow {
+.wp-block-gutenbee-product-category-list .slick-arrow {
   position: absolute;
   right: -5px;
   top: 50%;
@@ -2528,11 +2528,11 @@ ul.wp-block-gutenbee-icon-list {
   cursor: pointer;
   z-index: 10;
 }
-.wp-block-gutenbee-product-category-list .wp-block-gutenbee-product-category-list__content .slick-arrow.slick-prev {
+.wp-block-gutenbee-product-category-list .slick-arrow.slick-prev {
   left: -5px;
   right: auto;
 }
-.wp-block-gutenbee-product-category-list .wp-block-gutenbee-product-category-list__content .slick-arrow svg {
+.wp-block-gutenbee-product-category-list .slick-arrow svg {
   display: block;
   height: 30px;
   line-height: 0;

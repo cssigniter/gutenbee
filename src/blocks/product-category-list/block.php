@@ -5,43 +5,27 @@ function gutenbee_create_block_product_category_list_block_init() {
 		'gutenbee/product-category-list',
 		array(
 			'attributes'      => array(
-				'uniqueId'        => array(
+				'uniqueId'      => array(
 					'type'    => 'string',
 					'default' => '',
 				),
-				'numberColumns'   => array(
+				'numberColumns' => array(
 					'type'    => 'integer',
 					'default' => 3,
 				),
-				'showTitle'       => array(
+				'showTitle'     => array(
 					'type'    => 'boolean',
 					'default' => true,
 				),
-				'showCount'       => array(
+				'showCount'     => array(
 					'type'    => 'boolean',
 					'default' => true,
 				),
-				'buttonText'      => array(
-					'type'    => 'string',
-					'default' => __( 'All products', 'gutenbee' ),
-				),
-				'buttonLink'      => array(
-					'type'    => 'string',
-					'default' => '',
-				),
-				'buttonNewTab' => array(
-					'type'    => 'boolean',
-					'default' => false,
-				),
-				'buttonAlignment' => array(
-					'type'    => 'string',
-					'default' => 'left',
-				),
-				'layout'          => array(
+				'layout'        => array(
 					'type'    => 'string',
 					'default' => 'grid',
 				),
-				'items'           => array(
+				'items'         => array(
 					'type'    => 'array',
 					'default' => array(),
 				),
@@ -52,16 +36,12 @@ function gutenbee_create_block_product_category_list_block_init() {
 }
 
 function gutenbee_product_category_list( $attributes, $content, $block ) {
-	$unique_id        = $attributes['uniqueId'];
-	$columns          = $attributes['numberColumns'];
-	$button_text      = $attributes['buttonText'];
-	$button_link      = $attributes['buttonLink'];
-	$button_alignment = $attributes['buttonAlignment'];
-	$button_target    = $attributes['buttonNewTab'] ? '_blank' : '_self';
-	$items            = $attributes['items'];
-	$layout           = $attributes['layout'];
-	$show_title       = $attributes['showTitle'];
-	$show_count       = $attributes['showCount'];
+	$unique_id  = $attributes['uniqueId'];
+	$columns    = $attributes['numberColumns'];
+	$items      = $attributes['items'];
+	$layout     = $attributes['layout'];
+	$show_title = $attributes['showTitle'];
+	$show_count = $attributes['showCount'];
 
 	$args = array(
 		'include' => wp_list_pluck( $items, 'productCat' ),
@@ -105,24 +85,39 @@ function gutenbee_product_category_list( $attributes, $content, $block ) {
 
 	ob_start();
 	?>
-	<div id="gutenbee-product-category-list-<?php echo esc_attr( $unique_id ); ?>" class="wp-block-gutenbee-product-category-list wp-block-gutenbee-product-category-list-<?php echo esc_attr( $button_alignment ); ?> wp-block-gutenbee-product-category-list-<?php echo esc_attr( $layout ); ?>">
-	<?php if ( $button_link ) : ?>
-	<div class="wp-block-gutenbee-product-category-list__button-container">
-		<a href="<?php echo esc_url_raw( $button_link ); ?>" class="btn" target="<?php echo esc_attr( $button_target ); ?>"><?php echo esc_html( $button_text ); ?></a>
-	</div>
-	<?php endif; ?>
+	<div id="gutenbee-product-category-list-<?php echo esc_attr( $unique_id ); ?>" class="wp-block-gutenbee-product-category-list wp-block-gutenbee-product-category-list__<?php echo esc_attr( $layout ); ?>">
 		<?php
 		if ( $product_categories ) :
 			?>
+			<?php
+			if ( $is_editor && 'slider' === $layout && count( $product_categories ) >= $columns ) {
+				?>
+				<button class="slick-prev slick-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path d="M25.1 247.5l117.8-116c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L64.7 256l102.2 100.4c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0L25 264.5c-4.6-4.7-4.6-12.3.1-17z"></path></svg></button>
+				<button class="slick-next slick-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path d="M166.9 264.5l-117.8 116c-4.7 4.7-12.3 4.7-17 0l-7.1-7.1c-4.7-4.7-4.7-12.3 0-17L127.3 256 25.1 155.6c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0l117.8 116c4.6 4.7 4.6 12.3-.1 17z"></path></svg></button>
+				<?php
+			}
+			?>
 		<ul class="<?php echo esc_attr( implode( ' ', $container_classes ) ); ?>" data-columns="<?php echo (int) $columns; ?>">
-			<?php foreach ( $product_categories as $product_category ) : ?>
+			<?php
+			if ( $is_editor && 'slider' === $layout ) {
+				$i = 0;
+			}
+
+			foreach ( $product_categories as $product_category ) : ?>
 				<?php
 				$item_template_vars['product-category'] = $product_category;
 				$item_template_vars['custom-image']     = $items[ $product_category->term_id ];
-				gutenbee_get_template_part( 'product-category-list', 'product-category', '', $item_template_vars );
+				if ( $is_editor && 'slider' === $layout && $i >= $columns ) {
+					continue;
+				} else {
+					gutenbee_get_template_part( 'product-category-list', 'product-category', '', $item_template_vars );
+				}
+				if ( $is_editor && 'slider' === $layout ) {
+					$i++;
+				}
 				?>
 			<?php endforeach; ?>
-			</ul>
+		</ul>
 	<?php endif; ?>
 	</div>
 	<?php

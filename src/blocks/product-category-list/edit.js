@@ -8,16 +8,11 @@ import {
   CheckboxControl,
   SelectControl,
   Button,
-  TextControl,
-  __experimentalToggleGroupControl as ToggleGroupControl,
-  __experimentalToggleGroupControlOption as ToggleGroupControlOption,
-  Tip,
 } from 'wp.components';
 import {
   InspectorControls,
   MediaUploadCheck,
   MediaUpload,
-  URLInput,
 } from 'wp.blockEditor';
 
 import useUniqueId from '../../hooks/useUniqueId';
@@ -27,15 +22,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 
   useUniqueId({ attributes, setAttributes, clientId });
 
-  const {
-    showTitle,
-    items,
-    showCount,
-    buttonAlignment,
-    buttonText,
-    buttonLink,
-    buttonNewTab,
-  } = attributes;
+  const { showTitle, items, showCount } = attributes;
 
   const { categories } = useSelect(select => {
     return {
@@ -114,13 +101,6 @@ export default function Edit({ attributes, setAttributes, clientId }) {
     setAttributes({ items: newItems });
   };
 
-  const onChangeButtonAlignment = newButtonAlignment => {
-    setAttributes({
-      buttonAlignment:
-        newButtonAlignment === undefined ? 'left' : newButtonAlignment,
-    });
-  };
-
   return (
     <Fragment>
       <ServerSideRender
@@ -189,54 +169,6 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             }
           />
         </PanelBody>
-        <PanelBody title={__('Button settings')} initialOpen={false}>
-          <TextControl
-            __nextHasNoMarginBottom
-            label={__('Text')}
-            onChange={value =>
-              setAttributes({
-                buttonText: value,
-              })
-            }
-            type="text"
-            value={buttonText}
-          />
-          <URLInput
-            label={__('Link')}
-            value={buttonLink}
-            className="gutenbee-product-category-list-url-input"
-            placeholder={__('Set button link')}
-            disableSuggestions={true}
-            onChange={value =>
-              setAttributes({
-                buttonLink: value,
-              })
-            }
-          />
-          <Tip>{__('Leave this empty to hide the button.')}</Tip>
-          <CheckboxControl
-            checked={buttonNewTab}
-            label={__('Open in new tab')}
-            onChange={value =>
-              setAttributes({
-                buttonNewTab: value,
-              })
-            }
-          />
-          <ToggleGroupControl
-            __nextHasNoMarginBottom
-            isBlock
-            label={__('Alignment')}
-            value={buttonAlignment}
-            onChange={value => {
-              onChangeButtonAlignment(value);
-            }}
-          >
-            <ToggleGroupControlOption label={__('Left')} value="left" />
-            <ToggleGroupControlOption label={__('Center')} value="center" />
-            <ToggleGroupControlOption label={__('Right')} value="right" />
-          </ToggleGroupControl>
-        </PanelBody>
         <PanelBody
           title={__('Category selection')}
           className="gutenbee-product-category-list-repeater-wrap"
@@ -284,7 +216,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
                         allowedTypes={['image']}
                         render={({ open }) => {
                           return (
-                            <Fragment>
+                            <div className="gutenbee-control-background-image-actions-wrapper">
                               <a
                                 href="#"
                                 className="gutenbee-control-background-image-placeholder"
@@ -307,7 +239,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
                                   {__('Remove')}
                                 </Button>
                               </div>
-                            </Fragment>
+                            </div>
                           );
                         }}
                       />

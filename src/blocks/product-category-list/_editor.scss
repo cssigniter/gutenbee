@@ -26,17 +26,9 @@
       background-color: transparent;
     }
   }
-}
 
-.gutenbee-product-category-list-url-input.block-editor-url-input {
-  .block-editor-url-input__input {
-    width: 100%;
-    border: 1px solid rgb(148, 148, 148);
-    border-radius: 2px;
-  }
-
-  + .components-tip {
-    margin: -25px 0 25px;
+  &.wp-block-gutenbee-product-category-list__slider {
+    position: relative;
   }
 }
 
@@ -45,6 +37,36 @@
     margin-bottom: 20px;
     border-bottom: 1px solid rgb(148, 148, 148);
     padding-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+
+    > div {
+      flex: 1 1 100%;
+
+    }
+
+    .gutenbee-control-background-image-actions-wrapper {
+      display: flex;
+      border-bottom: 1px solid rgba(148, 148, 148, .5);
+
+      .gutenbee-control-background-image-placeholder {
+        flex-basis: 25%;
+        height: 80px;
+        border: 0;
+
+        + .gutenbee-control-background-image-actions {
+          height: 80px;
+          border: 0;
+          padding: 0;
+          flex: auto;
+          justify-content: flex-end;
+        }
+      }
+    }
+
+    > button {
+      margin: 20px auto 0;
+    }
   }
 
   .gutenbee-control-background-image-actions {

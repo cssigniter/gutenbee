@@ -1,19 +1,19 @@
 .wp-block-gutenbee-product-category-list {
     &.wp-block-gutenbee-product-category-list-left {
         .wp-block-gutenbee-product-category-list__button-container {
-           text-align: left;
+            text-align: left;
         }
     }
 
     &.wp-block-gutenbee-product-category-list-center {
         .wp-block-gutenbee-product-category-list__button-container {
-           text-align: center;
+            text-align: center;
         }
     }
 
     &.wp-block-gutenbee-product-category-list-right {
         .wp-block-gutenbee-product-category-list__button-container {
-           text-align: right;
+            text-align: right;
         }
     }
 
@@ -26,34 +26,34 @@
 
         .slick-active {
             &:focus-visible {
-              outline: none;
+                outline: none;
             }
-          }
+        }
+    }
 
-          .slick-arrow {
-            position: absolute;
-            right: -5px;
-            top: 50%;
-            transform: translateY(-100%);
-            width: 40px;
-            height: 40px;
-            font-size: 12px;
-            border: 1px solid #000000;
-            background: #ffffff;
-            cursor: pointer;
-            z-index: 10;
+    .slick-arrow {
+        position: absolute;
+        right: -5px;
+        top: 50%;
+        transform: translateY(-100%);
+        width: 40px;
+        height: 40px;
+        font-size: 12px;
+        border: 1px solid #000000;
+        background: #ffffff;
+        cursor: pointer;
+        z-index: 10;
 
-            &.slick-prev {
-              left: -5px;
-              right: auto;
-            }
+        &.slick-prev {
+            left: -5px;
+            right: auto;
+        }
 
-            svg {
-              display: block;
-              height: 30px;
-              line-height: 0;
-              margin: 0 auto;
-            }
-          }
+        svg {
+            display: block;
+            height: 30px;
+            line-height: 0;
+            margin: 0 auto;
+        }
     }
 }

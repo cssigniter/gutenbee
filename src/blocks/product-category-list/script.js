@@ -3,7 +3,7 @@ import 'slick-carousel';
 
 jQuery(window).on('load', () => {
   const $sliders = jQuery(
-    '.wp-block-gutenbee-product-category-list-slider .wp-block-gutenbee-product-category-list__content',
+    '.wp-block-gutenbee-product-category-list__slider .wp-block-gutenbee-product-category-list__content',
   );
 
   if ($sliders.length) {
