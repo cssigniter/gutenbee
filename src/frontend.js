@@ -31,6 +31,7 @@ import './blocks/banner/script';
 import './blocks/post-types/script';
 import './blocks/product-tabs/script';
 import './blocks/product-category-list/script';
+import './blocks/featured-product-category/script';
 
 // TODO only import this if there is an active lottie block
 // import '@lottiefiles/lottie-player';
