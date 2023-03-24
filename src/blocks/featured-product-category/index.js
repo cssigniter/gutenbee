@@ -27,7 +27,7 @@ registerBlockType('gutenbee/featured-product-category', {
       type: 'string',
     },
     categoryId: {
-      type: 'integer',
+      type: 'string',
     },
     numberColumns: {
       type: 'integer',
@@ -64,6 +64,26 @@ registerBlockType('gutenbee/featured-product-category', {
     layout: {
       type: 'string',
       default: 'grid',
+    },
+    showCategory: {
+      type: 'boolean',
+      default: false,
+    },
+    categoryImage: {
+      type: 'object',
+    },
+    categoryTitle: {
+      type: 'string',
+    },
+    categoryDescription: {
+      type: 'string',
+    },
+    buttonText: {
+      type: 'string',
+    },
+    contentPosition: {
+      type: 'string',
+      default: 'bottom-center',
     },
   },
   /**

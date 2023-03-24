@@ -7,8 +7,15 @@ import {
   PanelBody,
   CheckboxControl,
   SelectControl,
+  TextControl,
+  TextareaControl,
+  Button,
 } from 'wp.components';
-import { InspectorControls } from 'wp.blockEditor';
+import {
+  InspectorControls,
+  MediaUploadCheck,
+  MediaUpload,
+} from 'wp.blockEditor';
 
 import 'slick-carousel';
 import useUniqueId from '../../hooks/useUniqueId';
@@ -26,6 +33,12 @@ export default function Edit({ attributes, setAttributes, clientId }) {
     numberColumns,
     numberProducts,
     layout,
+    showCategory,
+    categoryImage,
+    categoryTitle,
+    categoryDescription,
+    buttonText,
+    contentPosition,
   } = attributes;
 
   useUniqueId({ attributes, setAttributes, clientId });
@@ -67,7 +80,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
               options={options}
               onChange={value => {
                 setAttributes({
-                  categoryId: value !== '' ? value : '',
+                  categoryId: value,
                 });
               }}
             />
@@ -182,6 +195,143 @@ export default function Edit({ attributes, setAttributes, clientId }) {
                 showButton: value,
               })
             }
+          />
+          <CheckboxControl
+            checked={showCategory}
+            label={__('Show category card')}
+            onChange={value =>
+              setAttributes({
+                showCategory: value,
+              })
+            }
+          />
+        </PanelBody>
+        <PanelBody title={__('Category card')}>
+          <MediaUploadCheck>
+            {!categoryImage ? (
+              <MediaUpload
+                onSelect={image => {
+                  setAttributes({ categoryImage: image });
+                }}
+                allowedTypes={['image']}
+                render={({ open }) => {
+                  return (
+                    <div className="gutenbee-control-background-image-actions">
+                      <Button isSecondary onClick={open}>
+                        {__('Choose image')}
+                      </Button>
+                    </div>
+                  );
+                }}
+              />
+            ) : (
+              <Fragment>
+                <MediaUpload
+                  onSelect={image => {
+                    setAttributes({ categoryImage: image });
+                  }}
+                  allowedTypes={['image']}
+                  render={({ open }) => {
+                    return (
+                      <div className="gutenbee-control-background-image-actions-wrapper">
+                        <a
+                          href="#"
+                          className="gutenbee-control-background-image-placeholder"
+                          onClick={open}
+                        >
+                          <img src={categoryImage.url} alt="" />
+                        </a>
+
+                        <div className="gutenbee-control-background-image-actions">
+                          <Button isSecondary onClick={open}>
+                            {__('Change')}
+                          </Button>
+
+                          <Button
+                            isDestructive
+                            onClick={() => {
+                              setAttributes({ categoryImage: '' });
+                            }}
+                          >
+                            {__('Remove')}
+                          </Button>
+                        </div>
+                      </div>
+                    );
+                  }}
+                />
+              </Fragment>
+            )}
+          </MediaUploadCheck>
+          <TextControl
+            label={__('Category card title')}
+            value={categoryTitle}
+            onChange={value => setAttributes({ categoryTitle: value })}
+          />
+          <TextareaControl
+            label={__('Category description')}
+            value={categoryDescription}
+            onChange={value => setAttributes({ categoryDescription: value })}
+          />
+          <TextControl
+            label={__('Button text')}
+            value={buttonText}
+            onChange={value => setAttributes({ buttonText: value })}
+          />
+          <SelectControl
+            value={contentPosition}
+            __next36pxDefaultSize
+            __nextHasNoMarginBottom
+            label={__('Content position')}
+            labelPosition="top"
+            onChange={value =>
+              setAttributes({
+                contentPosition: value,
+              })
+            }
+            options={[
+              {
+                disabled: true,
+                label: __('Select an option'),
+                value: '',
+              },
+              {
+                label: __('Top left'),
+                value: 'top-left',
+              },
+              {
+                label: __('Top center'),
+                value: 'top-center',
+              },
+              {
+                label: __('Top right'),
+                value: 'top-right',
+              },
+              {
+                label: __('Middle left'),
+                value: 'middle-left',
+              },
+              {
+                label: __('Middle center'),
+                value: 'middle-center',
+              },
+              {
+                label: __('Middle right'),
+                value: 'middle-right',
+              },
+              {
+                label: __('Bottom left'),
+                value: 'bottom-left',
+              },
+              {
+                label: __('Bottom center'),
+                value: 'bottom-center',
+              },
+              {
+                label: __('Bottom right'),
+                value: 'bottom-right',
+              },
+            ]}
           />
         </PanelBody>
       </InspectorControls>
