@@ -73,6 +73,18 @@ function gutenbee_create_block_featured_product_category_block_init() {
 					'type'    => 'string',
 					'default' => 'bottom-center',
 				),
+				'textColor'           => array(
+					'type'    => 'string',
+					'default' => '',
+				),
+				'gradient'            => array(
+					'type'    => 'string',
+					'default' => '',
+				),
+				'gradientOpacity'     => array(
+					'type'    => 'number',
+					'default' => 0.5,
+				),
 			),
 			'render_callback' => 'gutenbee_featured_product_category',
 		)
@@ -97,6 +109,9 @@ function gutenbee_featured_product_category( $attributes, $content, $block ) {
 	$category_desc    = $attributes['categoryDescription'];
 	$button_text      = $attributes['buttonText'];
 	$content_position = $attributes['contentPosition'];
+	$text_color       = $attributes['textColor'];
+	$gradient         = $attributes['gradient'];
+	$gradient_opacity = $attributes['gradientOpacity'];
 
 	$is_editor         = defined( 'REST_REQUEST' ) && REST_REQUEST;
 	$container_classes = array(
@@ -129,8 +144,46 @@ function gutenbee_featured_product_category( $attributes, $content, $block ) {
 	);
 
 	ob_start();
-	?>
-	<div id="gutenbee-featured-product-category-<?php echo esc_attr( $unique_id ); ?>" class="wp-block-gutenbee-featured-product-category wp-block-gutenbee-featured-product-category-<?php echo esc_attr( $layout ); ?>">
+	if ( $text_color || $gradient ) : ?>
+		<?php if ( $text_color ) : ?>
+		#gutenbee-featured-product-category-<?php echo esc_attr( $unique_id ); ?> .wp-block-gutenbee-featured-product-category__card  {
+			color: <?php echo esc_attr( $text_color ); ?>;
+		}
+		<?php endif; ?>
+
+		<?php if ( $gradient ) : ?>
+		#gutenbee-featured-product-category-<?php echo esc_attr( $unique_id ); ?> .wp-block-gutenbee-featured-product-category__card::after  {
+			background: <?php echo esc_attr( $gradient ); ?>;
+			opacity: <?php echo esc_attr( $gradient_opacity ); ?>;
+		}
+		<?php endif; ?>
+		<?php
+	endif;
+	$css = ob_get_clean();
+
+	wp_enqueue_style( 'gutenbee-featured-product-category' );
+	wp_add_inline_style( 'gutenbee-featured-product-category', $css );
+
+	ob_start();
+
+	if ( $is_editor && ( $text_color || $gradient ) ) :
+		?>
+		<style type="text/css">
+		<?php if ( $text_color ) : ?>
+		#gutenbee-featured-product-category-<?php echo esc_attr( $unique_id ); ?> .wp-block-gutenbee-featured-product-category__card  {
+			color: <?php echo esc_attr( $text_color ); ?>;
+		}
+		<?php endif; ?>
+
+		<?php if ( $gradient ) : ?>
+		#gutenbee-featured-product-category-<?php echo esc_attr( $unique_id ); ?> .wp-block-gutenbee-featured-product-category__card::after  {
+			background: <?php echo esc_attr( $gradient ); ?>;
+			opacity: <?php echo esc_attr( $gradient_opacity ); ?>;
+		}
+		<?php endif; ?>
+		</style>
+	<?php endif; ?>
+	<div id="gutenbee-featured-product-category-<?php echo esc_attr( $unique_id ); ?>" class="wp-block-gutenbee-featured-product-category wp-block-gutenbee-featured-product-category__<?php echo esc_attr( $layout ); ?>">
 	<?php
 	$product_data = array();
 
@@ -179,7 +232,7 @@ function gutenbee_featured_product_category( $attributes, $content, $block ) {
 			$loop->the_post();
 			?>
 			<?php
-			if ( $is_editor && 'slider' === $layout && $loop->current_post >= $columns ) {
+			if ( $is_editor && 'slider' === $layout && $loop->current_post >= $columns - 1 ) {
 				continue;
 			} else {
 				?>
@@ -192,34 +245,37 @@ function gutenbee_featured_product_category( $attributes, $content, $block ) {
 			}
 			endwhile;
 
-			if ( $show_category && empty( $handpicked ) ) :
-				$selected_term      = get_term( $category );
-				$selected_term_meta = get_term_meta( $category );
-			// TODO: Add checks for existence of various data.
+		if ( $show_category && ! empty( $category ) && empty( $handpicked ) ) :
+			$card_template_vars = array(
+				'columns'            => $columns,
+				'classes'            => array_filter( array_map( 'trim', explode( ' ', $class_name ) ) ),
+				'selected-term'      => get_term( $category ),
+				'selected-term-meta' => get_term_meta( $category ),
+				'show-price'         => $show_price,
+				'show-stock'         => $show_stock,
+				'show-button'        => $show_button,
+				'image'              => $category_image,
+				'title'              => $category_title,
+				'description'        => $category_desc,
+				'button-text'        => $button_text,
+				'content-position'   => $content_position,
+			);
 			// TODO: Set some sane defaults if possible.
-			// TODO: Perhaps tab template?
+			$classes[] = 'wp-block-gutenbee-featured-product-category__card-wrap'
 			?>
 			<div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
-				<article
-					<?php post_class( 'wp-block-gutenbee-featured-product-category__card' ); ?>
-					style="background:url(<?php echo esc_url_raw( wp_get_attachment_image_url( (int) $selected_term_meta['thumbnail_id'][0] ) ); ?>)"
-				>
-					<div class="entry-item-content">
-						<h2><a href="<?php echo esc_url_raw( get_term_link( $selected_term ) ); ?>"><?php echo esc_html( $selected_term->name ); ?></a></h2>
-						<div class="wp-block-gutenbee-featured-product-category_desc">
-							<?php echo wp_kses_post( $selected_term->description ); ?>
-						</div>
-						<a href="<a href="<?php echo esc_url_raw( get_term_link( $selected_term ) ); ?>" class="btn">Shop <?php echo esc_html( $selected_term->name ); ?></a>
-					</div>
-				</article>
+			<?php
+			gutenbee_get_template_part( 'featured-product-category', 'category-card', '', $card_template_vars );
+			?>
 			</div>
-			<?php endif;
+			<?php
+			endif;
 		?>
 			</div>
 		<?php
 		else :
 			?>
-			<div class="<?php echo esc_attr( implode( ' ', $container_classes ) ); ?> wp-block-gutenbee-product-tabs-no-products">
+			<div class="<?php echo esc_attr( implode( ' ', $container_classes ) ); ?> wp-block-gutenbee-featured-product-category-no-products">
 				<?php esc_html_e( 'No products found', 'gutenbee' ); ?>
 			</div>
 			<?php

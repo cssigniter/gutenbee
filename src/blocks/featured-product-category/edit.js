@@ -10,11 +10,14 @@ import {
   TextControl,
   TextareaControl,
   Button,
+  __experimentalToolsPanelItem as ToolsPanelItem,
 } from 'wp.components';
 import {
   InspectorControls,
   MediaUploadCheck,
   MediaUpload,
+  __experimentalColorGradientSettingsDropdown as ColorGradientSettingsDropdown,
+  __experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
 } from 'wp.blockEditor';
 
 import 'slick-carousel';
@@ -39,6 +42,9 @@ export default function Edit({ attributes, setAttributes, clientId }) {
     categoryDescription,
     buttonText,
     contentPosition,
+    textColor,
+    gradient,
+    gradientOpacity,
   } = attributes;
 
   useUniqueId({ attributes, setAttributes, clientId });
@@ -64,6 +70,8 @@ export default function Edit({ attributes, setAttributes, clientId }) {
     : [];
 
   options.unshift({ label: __('Select a category'), value: '' });
+
+  const colorGradientSettings = useMultipleOriginColorsAndGradients();
 
   return (
     <Fragment>
@@ -334,6 +342,78 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             ]}
           />
         </PanelBody>
+      </InspectorControls>
+      <InspectorControls group="color">
+        <ColorGradientSettingsDropdown
+          __experimentalIsRenderedInSidebar
+          settings={[
+            {
+              colorValue: textColor,
+              label: __('Text'),
+              onColorChange: value =>
+                setAttributes({
+                  textColor: value,
+                }),
+              resetAllFilter: () => {
+                setAttributes({
+                  textColor: undefined,
+                });
+              },
+            },
+          ]}
+          panelId={clientId}
+          {...colorGradientSettings}
+          gradients={[]}
+          disableCustomGradients={true}
+        />
+        <ColorGradientSettingsDropdown
+          __experimentalIsRenderedInSidebar
+          settings={[
+            {
+              gradientValue: gradient,
+              label: __('Overlay'),
+              onGradientChange: value =>
+                setAttributes({
+                  gradient: value,
+                }),
+              isShownByDefault: true,
+              resetAllFilter: () => ({
+                gradient: undefined,
+                customGradient: undefined,
+              }),
+            },
+          ]}
+          disableCustomColors={true}
+          panelId={clientId}
+          {...colorGradientSettings}
+        />
+        <ToolsPanelItem
+          hasValue={() => {
+            return gradientOpacity === undefined ? false : gradientOpacity;
+          }}
+          label={__('Gradient opacity')}
+          onDeselect={() => setAttributes({ gradientOpacity: 50 })}
+          resetAllFilter={() => ({
+            gradientOpacity: 50,
+          })}
+          isShownByDefault
+          panelId={clientId}
+        >
+          <RangeControl
+            __nextHasNoMarginBottom
+            label={__('Gradient opacity')}
+            value={gradientOpacity}
+            onChange={value =>
+              setAttributes({
+                gradientOpacity: value,
+              })
+            }
+            min={0}
+            max={1}
+            step={0.1}
+            required
+          />
+        </ToolsPanelItem>
       </InspectorControls>
     </Fragment>
   );

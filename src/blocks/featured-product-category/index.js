@@ -85,6 +85,28 @@ registerBlockType('gutenbee/featured-product-category', {
       type: 'string',
       default: 'bottom-center',
     },
+    contentPosition: {
+      type: 'string',
+      default: 'bottom-center',
+    },
+    contentPosition: {
+      type: 'string',
+      default: 'bottom-center',
+    },
+    contentPosition: {
+      type: 'string',
+      default: 'bottom-center',
+    },
+    textColor: {
+      type: 'string',
+    },
+    gradient: {
+      type: 'string',
+    },
+    gradientOpacity: {
+      type: 'number',
+      default: 0.5,
+    },
   },
   /**
    * @see ./edit.js
