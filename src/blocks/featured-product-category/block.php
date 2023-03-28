@@ -260,7 +260,7 @@ function gutenbee_featured_product_category( $attributes, $content, $block ) {
 				'button-text'        => $button_text,
 				'content-position'   => $content_position,
 			);
-			// TODO: Set some sane defaults if possible.
+
 			$classes[] = 'wp-block-gutenbee-featured-product-category__card-wrap'
 			?>
 			<div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">

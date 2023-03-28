@@ -13,3 +13,38 @@
     pointer-events: none;
   }
 }
+
+.featured-product-category-background-image-actions {
+  margin-bottom: 24px;
+}
+
+.featured-product-category-background-image-actions-wrapper {
+  display: flex;
+  border-bottom: 1px solid rgba(148, 148, 148, 0.5);
+  margin-bottom: 24px;
+
+  .gutenbee-control-background-image-placeholder {
+    flex-basis: 25%;
+    height: 80px;
+    border: 0;
+
+    + .gutenbee-control-background-image-actions {
+      height: 80px;
+      border: 0;
+      padding: 0;
+      flex: auto;
+      justify-content: flex-end;
+      margin-bottom: 0;
+    }
+  }
+}
+
+span.featured-product-category-background-image-heading {
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: calc(8px);
+  padding: 0px;
+}

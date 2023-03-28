@@ -3551,10 +3551,7 @@ div[data-type="gutenbee/button"] {
   overflow: hidden;
   padding-bottom: calc(100% - 30px);
   position: relative;
-  background-repeat: no-repeat;
-  background-size: cover;
   color: #ffffff;
-  z-index: 0;
 }
 .wp-block-gutenbee-featured-product-category .wp-block-gutenbee-featured-product-category__card::after {
   content: "";
@@ -3564,7 +3561,14 @@ div[data-type="gutenbee/button"] {
   position: absolute;
   width: 100%;
   height: 100%;
-  z-index: -1;
+}
+.wp-block-gutenbee-featured-product-category .wp-block-gutenbee-featured-product-category__card .wp-block-gutenbee-featured-product-category__card-background img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .wp-block-gutenbee-featured-product-category .wp-block-gutenbee-featured-product-category__card a {
   color: inherit;
@@ -3576,7 +3580,7 @@ div[data-type="gutenbee/button"] {
 .wp-block-gutenbee-featured-product-category .wp-block-gutenbee-featured-product-category__card h2 + .btn {
   margin-top: 20px;
 }
-.wp-block-gutenbee-featured-product-category .wp-block-gutenbee-featured-product-category__card .wp-block-gutenbee-featured-product-category_desc {
+.wp-block-gutenbee-featured-product-category .wp-block-gutenbee-featured-product-category__card p {
   margin-bottom: 25px;
 }
 .wp-block-gutenbee-featured-product-category .wp-block-gutenbee-featured-product-category__card .card-content-align-top-left {
@@ -3630,6 +3634,7 @@ div[data-type="gutenbee/button"] {
   width: 100%;
   display: flex;
   flex-direction: column;
+  z-index: 1;
 }
 .wp-block-gutenbee-featured-product-category .wp-block-gutenbee-featured-product-category__card .wp-block-gutenbee-featured-product-category__card-content[class*=card-content-align] {
   height: 100%;
@@ -3671,4 +3676,37 @@ div[data-type="gutenbee/button"] {
 }
 .wp-block-gutenbee-featured-product-category a {
   pointer-events: none;
+}
+
+.featured-product-category-background-image-actions {
+  margin-bottom: 24px;
+}
+
+.featured-product-category-background-image-actions-wrapper {
+  display: flex;
+  border-bottom: 1px solid rgba(148, 148, 148, 0.5);
+  margin-bottom: 24px;
+}
+.featured-product-category-background-image-actions-wrapper .gutenbee-control-background-image-placeholder {
+  flex-basis: 25%;
+  height: 80px;
+  border: 0;
+}
+.featured-product-category-background-image-actions-wrapper .gutenbee-control-background-image-placeholder + .gutenbee-control-background-image-actions {
+  height: 80px;
+  border: 0;
+  padding: 0;
+  flex: auto;
+  justify-content: flex-end;
+  margin-bottom: 0;
+}
+
+span.featured-product-category-background-image-heading {
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+  padding: 0px;
 }

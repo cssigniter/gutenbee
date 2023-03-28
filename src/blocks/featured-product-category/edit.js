@@ -10,6 +10,7 @@ import {
   TextControl,
   TextareaControl,
   Button,
+  __experimentalText as Text,
   __experimentalToolsPanelItem as ToolsPanelItem,
 } from 'wp.components';
 import {
@@ -80,7 +81,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
         attributes={attributes}
       />
       <InspectorControls>
-        <PanelBody>
+        <PanelBody title={__('Content options')} initialOpen={true}>
           {options && (
             <SelectControl
               label={__('Product Category')}
@@ -100,7 +101,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             onChange={value => setAttributes({ handpickedProducts: value })}
           />
         </PanelBody>
-        <PanelBody>
+        <PanelBody title={__('Layout options')} initialOpen={false}>
           <RangeControl
             __nextHasNoMarginBottom
             currentInput={3}
@@ -214,7 +215,10 @@ export default function Edit({ attributes, setAttributes, clientId }) {
             }
           />
         </PanelBody>
-        <PanelBody title={__('Category card')}>
+        <PanelBody title={__('Category card options')} initialOpen={false}>
+          <Text className="featured-product-category-background-image-heading">
+            {__('Custom image')}
+          </Text>
           <MediaUploadCheck>
             {!categoryImage ? (
               <MediaUpload
@@ -224,7 +228,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
                 allowedTypes={['image']}
                 render={({ open }) => {
                   return (
-                    <div className="gutenbee-control-background-image-actions">
+                    <div className="gutenbee-control-background-image-actions featured-product-category-background-image-actions">
                       <Button isSecondary onClick={open}>
                         {__('Choose image')}
                       </Button>
@@ -241,7 +245,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
                   allowedTypes={['image']}
                   render={({ open }) => {
                     return (
-                      <div className="gutenbee-control-background-image-actions-wrapper">
+                      <div className="gutenbee-control-background-image-actions-wrapper featured-product-category-background-image-actions-wrapper">
                         <a
                           href="#"
                           className="gutenbee-control-background-image-placeholder"
