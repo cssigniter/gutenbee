@@ -125,13 +125,12 @@
       top: 0;
       left: 0;
       opacity: 0;
-      transition: opacity 0.2s ease-in-out;
     }
+  }
 
-    &:hover {
-      img:nth-of-type(2) {
-        opacity: 1;
-      }
+  &:hover {
+    img:nth-of-type(2) {
+      opacity: 1;
     }
   }
 

@@ -134,13 +134,14 @@ function gutenbee_featured_product_category( $attributes, $content, $block ) {
 	}
 
 	$item_template_vars = array(
-		'columns'     => $columns,
-		'classes'     => array_filter( array_map( 'trim', explode( ' ', $class_name ) ) ),
-		'show-cat'    => $show_cat,
-		'show-rating' => $show_rating,
-		'show-price'  => $show_price,
-		'show-stock'  => $show_stock,
-		'show-button' => $show_button,
+		'columns'       => $columns,
+		'classes'       => array_filter( array_map( 'trim', explode( ' ', $class_name ) ) ),
+		'show-cat'      => $show_cat,
+		'show-rating'   => $show_rating,
+		'show-price'    => $show_price,
+		'show-stock'    => $show_stock,
+		'show-button'   => $show_button,
+		'selected-term' => empty( $handpicked ) ? get_term( $category ) : false,
 	);
 
 	ob_start();
@@ -204,7 +205,7 @@ function gutenbee_featured_product_category( $attributes, $content, $block ) {
 		);
 
 		$args = array_merge( $args, $handpicked_query );
-	} elseif ( ! empty( $category ) ) {
+	} elseif ( ! empty( $category ) && -1 !== $category ) {
 		$tax_query = array(
 			'tax_query' => array(
 				array(
@@ -217,6 +218,7 @@ function gutenbee_featured_product_category( $attributes, $content, $block ) {
 
 		$args = array_merge( $args, $tax_query );
 	}
+
 	$loop = new WP_Query( $args );
 	if ( $loop->have_posts() ) :
 		?>
@@ -232,7 +234,15 @@ function gutenbee_featured_product_category( $attributes, $content, $block ) {
 			$loop->the_post();
 			?>
 			<?php
-			if ( $is_editor && 'slider' === $layout && $loop->current_post >= $columns - 1 ) {
+			$item_cuttoff = $columns;
+
+			if ( empty( $handpicked ) ) {
+				if ( $show_category ) {
+					$item_cuttoff = $columns - 1;
+				}
+			}
+
+			if ( $is_editor && 'slider' === $layout && $loop->current_post >= $item_cuttoff ) {
 				continue;
 			} else {
 				?>
@@ -271,7 +281,7 @@ function gutenbee_featured_product_category( $attributes, $content, $block ) {
 			<?php
 			endif;
 		?>
-			</div>
+		</div>
 		<?php
 		else :
 			?>

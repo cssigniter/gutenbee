@@ -5,7 +5,7 @@ $show_rating = $args['show-rating'];
 $show_price  = $args['show-price'];
 $show_stock  = $args['show-stock'];
 $show_button = $args['show-button'];
-$term_id     = (int) $args['term-id'];
+$term_id     = $args['term-id'];
 ?>
 <article
 	id="gutenbee-product-tabs-<?php the_ID(); ?>"
@@ -20,11 +20,16 @@ $term_id     = (int) $args['term-id'];
 
 	<div class="entry-item-content">
 		<?php
-		if ( $show_cat ) {
+		if ( $show_cat && $term_id ) {
 			?>
-			<a href="<?php echo esc_url_raw( get_term_link( $term_id, 'product_cat' ) ); ?>" class="product-category-title"><?php echo get_term( $term_id )->name; ?></a>
+			<a href="<?php echo esc_url_raw( get_term_link( $term_id, 'product_cat' ) ); ?>" class="product-category-title"><?php echo get_term( (int) $term_id )->name; ?></a>
+			<?php
+		} elseif ( $show_cat ) {
+			?>
+			<div class="product-category-terms"><?php echo get_the_term_list( get_the_ID(), 'product_cat', '', ', ', '' ); ?></div>
 			<?php
 		}
+
 		woocommerce_template_loop_product_link_open();
 		woocommerce_template_loop_product_title();
 		woocommerce_template_loop_product_link_close();

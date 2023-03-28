@@ -1,10 +1,11 @@
 <?php
 /** @var array $args */
-$show_cat    = $args['show-cat'];
-$show_rating = $args['show-rating'];
-$show_price  = $args['show-price'];
-$show_stock  = $args['show-stock'];
-$show_button = $args['show-button'];
+$show_cat      = $args['show-cat'];
+$show_rating   = $args['show-rating'];
+$show_price    = $args['show-price'];
+$show_stock    = $args['show-stock'];
+$show_button   = $args['show-button'];
+$selected_term = $args['selected-term'];
 ?>
 <article
 	<?php post_class( 'wp-block-gutenbee-featured-product-category__item' ); ?>
@@ -18,9 +19,16 @@ $show_button = $args['show-button'];
 
 	<div class="entry-item-content">
 		<?php
-		if ( $show_cat ) {
-			echo get_the_term_list( get_the_ID(), 'product_cat', '', ', ' );
+		if ( $show_cat && $selected_term ) {
+			?>
+			<a href="<?php echo esc_url_raw( get_term_link( $selected_term->term_id, 'product_cat' ) ); ?>" class="product-category-title"><?php echo $selected_term->name; ?></a>
+			<?php
+		} elseif ( $show_cat ) {
+			?>
+			<div class="product-category-terms"><?php echo get_the_term_list( get_the_ID(), 'product_cat', '', ', ', '' ); ?></div>
+			<?php
 		}
+
 		woocommerce_template_loop_product_link_open();
 		woocommerce_template_loop_product_title();
 		woocommerce_template_loop_product_link_close();

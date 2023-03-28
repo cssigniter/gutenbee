@@ -60,5 +60,9 @@
       flex-wrap: wrap;
       position: relative;
     }
+
+    a {
+      pointer-events: none;
+    }
   }
 }

@@ -103,10 +103,11 @@ function gutenbee_product_category_list( $attributes, $content, $block ) {
 				$i = 0;
 			}
 
-			foreach ( $product_categories as $product_category ) : ?>
+			foreach ( $product_categories as $product_category ) :
+				?>
 				<?php
 				$item_template_vars['product-category'] = $product_category;
-				$item_template_vars['custom-image']     = $items[ $product_category->term_id ];
+				$item_template_vars['custom-image']     = ! empty( $items ) ? $items[ $product_category->term_id ] : false;
 				if ( $is_editor && 'slider' === $layout && $i >= $columns ) {
 					continue;
 				} else {

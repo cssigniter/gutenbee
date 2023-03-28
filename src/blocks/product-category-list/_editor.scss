@@ -15,9 +15,12 @@
 
   .wp-block-gutenbee-product-category-list__content {
     list-style: none;
+    margin: 0 -15px;
   }
 
   .wp-block-gutenbee-product-category-list__item {
+    margin-bottom: 30px;
+
     img {
       margin-bottom: 15px;
     }
@@ -42,12 +45,11 @@
 
     > div {
       flex: 1 1 100%;
-
     }
 
     .gutenbee-control-background-image-actions-wrapper {
       display: flex;
-      border-bottom: 1px solid rgba(148, 148, 148, .5);
+      border-bottom: 1px solid rgba(148, 148, 148, 0.5);
 
       .gutenbee-control-background-image-placeholder {
         flex-basis: 25%;
