@@ -285,7 +285,7 @@ function gutenbee_product_tabs_get_products( $attributes, $content, $block ) {
 
 					$loop = new WP_Query( $args );
 					if ( $loop->have_posts() ) :
-						$item_template_vars['term-id'] = isset( $product_data['termId'] ) ? $product_data['termId'] : false;
+						$item_template_vars['term-id'] = isset( $product_data['termId'] ) ? (int) $product_data['termId'] : false;
 						?>
 						<div class="<?php echo esc_attr( implode( ' ', $container_classes ) ); ?>" data-columns="<?php echo (int) $columns; ?>" data-products="<?php echo (int) $num_products; ?>">
 						<?php
