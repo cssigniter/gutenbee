@@ -58,10 +58,12 @@ function gutenbee_product_category_list( $attributes, $content, $block ) {
 		'gutenbee-row-items',
 	);
 	$container_classes[] = "gutenbee-row-columns-{$columns}";
+	// TODO: Classes are needed.
 	$class_name          = '';
 
 	$classes[] = gutenbee_get_columns_classes( $columns, $attributes );
 
+	// TODO: No ci_theme.
 	if ( function_exists( 'ci_theme_ignition_customizer_defaults' ) ) {
 		$mobile_classes = get_theme_mod( 'woocommerce_shop_mobile_columns', ci_theme_ignition_customizer_defaults( 'woocommerce_shop_mobile_columns' ) );
 
@@ -75,6 +77,7 @@ function gutenbee_product_category_list( $attributes, $content, $block ) {
 		'classes'    => array_filter( array_map( 'trim', explode( ' ', $class_name ) ) ),
 		'show-title' => $show_title,
 		'show-count' => $show_count,
+		// TODO: Duplicate 'classes' key. Remove one of the two.
 		'classes'    => $classes,
 	);
 
@@ -100,6 +103,7 @@ function gutenbee_product_category_list( $attributes, $content, $block ) {
 		<ul class="<?php echo esc_attr( implode( ' ', $container_classes ) ); ?>" data-columns="<?php echo (int) $columns; ?>">
 			<?php
 			if ( $is_editor && 'slider' === $layout ) {
+				// TODO: What is $i ? Give a more descriptive name.
 				$i = 0;
 			}
 
@@ -107,6 +111,7 @@ function gutenbee_product_category_list( $attributes, $content, $block ) {
 				?>
 				<?php
 				$item_template_vars['product-category'] = $product_category;
+				// TODO: Check the existence of the key as well, not just the emptiness of the array.
 				$item_template_vars['custom-image']     = ! empty( $items ) ? $items[ $product_category->term_id ] : false;
 				if ( $is_editor && 'slider' === $layout && $i >= $columns ) {
 					continue;

@@ -1,4 +1,6 @@
 <?php
+// TODO: Reformat/beautify/indent code properly on all 3 blocks.
+
 add_action( 'init', 'gutenbee_create_block_featured_product_category_block_init' );
 function gutenbee_create_block_featured_product_category_block_init() {
 	register_block_type(
@@ -121,10 +123,12 @@ function gutenbee_featured_product_category( $attributes, $content, $block ) {
 	);
 
 	$container_classes[] = "gutenbee-row-columns-{$columns}";
+	// TODO: Classes are needed.
 	$class_name          = '';
 
 	$classes[] = gutenbee_get_columns_classes( $columns, $attributes );
 
+	// TODO: No ci_theme.
 	if ( function_exists( 'ci_theme_ignition_customizer_defaults' ) ) {
 		$mobile_classes = get_theme_mod( 'woocommerce_shop_mobile_columns', ci_theme_ignition_customizer_defaults( 'woocommerce_shop_mobile_columns' ) );
 
@@ -145,6 +149,7 @@ function gutenbee_featured_product_category( $attributes, $content, $block ) {
 	);
 
 	ob_start();
+	// TODO: Indentation
 	if ( $text_color || $gradient ) : ?>
 		<?php if ( $text_color ) : ?>
 		#gutenbee-featured-product-category-<?php echo esc_attr( $unique_id ); ?> .wp-block-gutenbee-featured-product-category__card  {
@@ -168,6 +173,7 @@ function gutenbee_featured_product_category( $attributes, $content, $block ) {
 	ob_start();
 
 	if ( $is_editor && ( $text_color || $gradient ) ) :
+		// TODO: Indentation
 		?>
 		<style type="text/css">
 		<?php if ( $text_color ) : ?>
@@ -221,9 +227,11 @@ function gutenbee_featured_product_category( $attributes, $content, $block ) {
 
 	$loop = new WP_Query( $args );
 	if ( $loop->have_posts() ) :
+		// TODO: Indentation
 		?>
 	<div class="<?php echo esc_attr( implode( ' ', $container_classes ) ); ?>" data-columns="<?php echo (int) $columns; ?>" data-products="<?php echo (int) $num_products; ?>">
 		<?php
+		// TODO: Indentation
 		if ( $is_editor && 'slider' === $layout && $loop->found_posts >= $columns ) {
 			?>
 			<button class="slick-prev slick-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path d="M25.1 247.5l117.8-116c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L64.7 256l102.2 100.4c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0L25 264.5c-4.6-4.7-4.6-12.3.1-17z"></path></svg></button>
@@ -232,10 +240,12 @@ function gutenbee_featured_product_category( $attributes, $content, $block ) {
 		}
 		while ( $loop->have_posts() ) :
 			$loop->the_post();
+			// TODO: Unneeded opening/closing tags.
 			?>
 			<?php
 			$item_cuttoff = $columns;
 
+			// TODO: This can be an && in a single if.
 			if ( empty( $handpicked ) ) {
 				if ( $show_category ) {
 					$item_cuttoff = $columns - 1;
@@ -253,6 +263,7 @@ function gutenbee_featured_product_category( $attributes, $content, $block ) {
 				</div>
 				<?php
 			}
+			// TODO: Indentation
 			endwhile;
 
 		if ( $show_category && ! empty( $category ) && empty( $handpicked ) ) :
@@ -264,6 +275,7 @@ function gutenbee_featured_product_category( $attributes, $content, $block ) {
 				'show-price'         => $show_price,
 				'show-stock'         => $show_stock,
 				'show-button'        => $show_button,
+				// TODO: Rename to image_url or image_id, depending on what this holds.
 				'image'              => $category_image,
 				'title'              => $category_title,
 				'description'        => $category_desc,
@@ -272,14 +284,17 @@ function gutenbee_featured_product_category( $attributes, $content, $block ) {
 			);
 
 			$classes[] = 'wp-block-gutenbee-featured-product-category__card-wrap'
+			// TODO: Indentation
 			?>
 			<div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
 			<?php
+			// TODO: Indentation. Can be a single line with the opening/closing php tags.
 			gutenbee_get_template_part( 'featured-product-category', 'category-card', '', $card_template_vars );
 			?>
 			</div>
 			<?php
 			endif;
+		// TODO: Indentation
 		?>
 		</div>
 		<?php
@@ -290,6 +305,7 @@ function gutenbee_featured_product_category( $attributes, $content, $block ) {
 			</div>
 			<?php
 		endif;
+		// TODO: wp_reset_postdata() should be after the endwhile, and inside the loop's if.
 		wp_reset_postdata();
 		?>
 	</div>
