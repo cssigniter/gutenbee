@@ -1,0 +1,112 @@
+<wpml-config>
+	<gutenberg-blocks>
+		<gutenberg-block type="gutenbee/accordion" translate="1">
+			<key name="tabs">
+				<key name="*">
+					<key name="title"/>
+					<key name="content"/>
+				</key>
+			</key>
+			<xpath>//span[@class="wp-block-gutenbee-accordion-item-title-content"]</xpath>
+			<xpath>//p[@class="wp-block-gutenbee-accordion-item-text"]</xpath>
+		</gutenberg-block>
+		<gutenberg-block type="gutenbee/banner" translate="0"/>
+		<gutenberg-block type="gutenbee/button" translate="1">
+			<xpath>//a[@class="gutenbee-block-button-link"]</xpath>
+		</gutenberg-block>
+		<gutenberg-block type="gutenbee/buttons" translate="0"/>
+		<gutenberg-block type="gutenbee/column" translate="0"/>
+		<gutenberg-block type="gutenbee/container" translate="0"/>
+		<gutenberg-block type="gutenbee/countdown" translate="1">
+			<xpath>//p[@class="gutenbee-countdown-label"]</xpath>
+		</gutenberg-block>
+		<gutenberg-block type="gutenbee/countup" translate="1">
+			<key name="prefix"/>
+			<key name="suffix"/>
+			<xpath>//span[@class="wp-block-gutenbee-countup-number"]/@data-prefix</xpath>
+			<xpath>//span[@class="wp-block-gutenbee-countup-number"]/@data-suffix</xpath>
+			<xpath>//span[@class="wp-block-gutenbee-countup-number"]</xpath>
+		</gutenberg-block>
+		<gutenberg-block type="gutenbee/divider" translate="0"/>
+		<gutenberg-block type="gutenbee/featured-product-category" translate="1">
+			<key name="categoryTitle"/>
+			<key name="categoryDescription"/>
+			<key name="buttonText"/>
+		</gutenberg-block>
+		<gutenberg-block type="gutenbee/food-menu" translate="0"/>
+		<gutenberg-block type="gutenbee/food-menu-item" translate="0"/>
+		<gutenberg-block type="gutenbee/food-menu-wrapper" translate="0"/>
+		<gutenberg-block type="gutenbee/google-maps" translate="1">
+			<key name="infoWindow"/>
+			<xpath>//div/@data-info-window</xpath>
+		</gutenberg-block>
+		<gutenberg-block type="gutenbee/heading" translate="1">
+			<xpath>//*[contains(@class, "wp-block-gutenbee-heading")]</xpath>
+		</gutenberg-block>
+		<gutenberg-block type="gutenbee/icon" translate="0"/>
+		<gutenberg-block type="gutenbee/icon-list" translate="0"/>
+		<gutenberg-block type="gutenbee/icon-list-item" translate="1">
+			<xpath>//*[contains(@class, "wp-block-gutenbee-icon-list-item-text")]</xpath>
+		</gutenberg-block>
+		<gutenberg-block type="gutenbee/iconbox" translate="1">
+			<xpath>//div/*[contains(@class, "wp-block-gutenbee-iconbox-title")]</xpath>
+			<xpath>//div/p</xpath>
+		</gutenberg-block>
+		<gutenberg-block type="gutenbee/image" translate="1">
+			<xpath>//img/@alt</xpath>
+		</gutenberg-block>
+		<gutenberg-block type="gutenbee/image-comparison" translate="1">
+			<xpath>//img/@alt</xpath>
+		</gutenberg-block>
+		<gutenberg-block type="gutenbee/imagebox" translate="1">
+			<xpath>//img/@alt</xpath>
+			<xpath>//div/*[@class="wp-block-gutenbee-imagebox-title"]</xpath>
+			<xpath>//div/p[@class="wp-block-gutenbee-imagebox-text"]</xpath>
+		</gutenberg-block>
+		<gutenberg-block type="gutenbee/justified-gallery" translate="1">
+			<xpath>//img/@alt</xpath>
+		</gutenberg-block>
+		<gutenberg-block type="gutenbee/paragraph" translate="1">
+			<xpath>//p</xpath>
+		</gutenberg-block>
+		<gutenberg-block type="gutenbee/post-types" translate="0"/>
+		<gutenberg-block type="gutenbee/product-category-list" translate="0"/>
+		<gutenberg-block type="gutenbee/product-tab" translate="1">
+			<xpath>//li</xpath>
+		</gutenberg-block>
+		<gutenberg-block type="gutenbee/product-tabs" translate="0"/>
+		<gutenberg-block type="gutenbee/progress-bar" translate="1">
+			<xpath>//p[@class="wp-block-gutenbee-progress-bar-title"]</xpath>
+			<xpath>//span[@class="wp-block-gutenbee-progress-bar-inner-title"]</xpath>
+		</gutenberg-block>
+		<gutenberg-block type="gutenbee/review" translate="1">
+			<xpath>//p[@class="wp-block-gutenbee-review-rating-final-score-subtitle"]</xpath>
+		</gutenberg-block>
+		<!-- TODO: Review item. -->
+		<gutenberg-block type="gutenbee/review-item" translate="0"/>
+		<gutenberg-block type="gutenbee/slideshow" translate="1">
+			<xpath>//div/img[@class="gutenbee-slideshow-item"]</xpath>
+		</gutenberg-block>
+		<gutenberg-block type="gutenbee/spacer" translate="0"/>
+		<gutenberg-block type="gutenbee/tabs" translate="1">
+			<key name="tabs">
+				<key name="*">
+					<key name="title"/>
+					<key name="content"/>
+				</key>
+			</key>
+			<xpath>//div/div[contains(@class, "wp-block-gutenbee-tabs-nav-item")]</xpath>
+			<xpath>//div/div[contains(@class, "wp-block-gutenbee-tabs-tab-content")]/p</xpath>
+		</gutenberg-block>
+		<gutenberg-block type="gutenbee/testimonial" translate="1">
+			<xpath>//img/@alt</xpath>
+			<xpath>//div[@class="wp-block-testimonial-content-wrapper"]</xpath>
+			<xpath>//cite[@class="gutenbee-block-testimonial__citation"]</xpath>
+			<xpath>//p[@class="gutenbee-block-testimonial__info"]</xpath>
+		</gutenberg-block>
+		<gutenberg-block type="gutenbee/video" translate="1">
+			<xpath>//figcaption</xpath>
+		</gutenberg-block>
+		<gutenberg-block type="gutenbee/video-embed" translate="0"/>
+	</gutenberg-blocks>
+</wpml-config>
