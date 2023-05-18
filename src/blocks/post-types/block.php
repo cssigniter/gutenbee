@@ -213,7 +213,7 @@
 	function gutenbee_block_post_types_get_load_more_button () {
 		?>
 		<div class="navigation wp-block-gutenbee-post-types-navigation-load-more">
-			<button class="btn wp-block-gutenbee-post-types-load-more-button"><?php echo esc_html( 'Load More', 'gutenbee'); ?></button>
+			<button class="btn wp-block-gutenbee-post-types-load-more-button"><?php esc_html_e( 'Load More', 'gutenbee'); ?></button>
 		</div>
 		<?php
 	}
