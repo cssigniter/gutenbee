@@ -23,15 +23,12 @@ export const blocks = [
   'review',
   'spacer',
   'slideshow',
-  // 'tab-slider',
+  'tab-slider',
   'tabs',
   'testimonial',
   'video',
   'video-embed',
   'google-maps',
-  'product-tabs',
-  'product-category-list',
-  'featured-product-category',
   // 'lottie',
 ];
 
@@ -41,9 +38,3 @@ blocks.forEach(block => {
     unregisterBlockType(`gutenbee/${block}`);
   }
 });
-
-if (!__GUTENBEE_SETTINGS__['woocommerce']) {
-  unregisterBlockType('gutenbee/product-tabs');
-  unregisterBlockType('gutenbee/product-category-list');
-  unregisterBlockType('gutenbee/featured-product-category');
-}
