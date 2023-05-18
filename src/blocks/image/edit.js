@@ -156,14 +156,11 @@ const ImageEdit = ({
     }
   }, []);
 
-  useEffect(
-    () => {
-      if (image && isSelected) {
-        onImageLinkDestinationChange(linkDestination);
-      }
-    },
-    [image],
-  );
+  useEffect(() => {
+    if (image && isSelected) {
+      onImageLinkDestinationChange(linkDestination);
+    }
+  }, [image]);
 
   const [isEditing, setIsEditing] = useState(!url);
   const toggleIsEditing = () => setIsEditing(prev => !prev);

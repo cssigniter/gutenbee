@@ -62,14 +62,11 @@ const TabsEdit = ({
 
   useUniqueId({ attributes, setAttributes, clientId });
 
-  useEffect(
-    () => {
-      if (selectedTabIndex > tabs.length - 1) {
-        setSelectedTabIndex(0);
-      }
-    },
-    [tabs.length],
-  );
+  useEffect(() => {
+    if (selectedTabIndex > tabs.length - 1) {
+      setSelectedTabIndex(0);
+    }
+  }, [tabs.length]);
 
   const onTabTitleUpdate = (index, title) => {
     setAttributes({

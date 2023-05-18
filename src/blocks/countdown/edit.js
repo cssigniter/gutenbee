@@ -99,16 +99,13 @@ const CountdownEdit = ({
 
   useUniqueId({ attributes, setAttributes, clientId });
 
-  useEffect(
-    () => {
-      if (countdown.current) {
-        countdown.current.destroy();
-      }
+  useEffect(() => {
+    if (countdown.current) {
+      countdown.current.destroy();
+    }
 
-      countdown.current = new CountdownTimer(clock.current, date);
-    },
-    [date],
-  );
+    countdown.current = new CountdownTimer(clock.current, date);
+  }, [date]);
 
   const renderItem = key => {
     const displayAttributeKey = `display${[capitalize(key)]}`;

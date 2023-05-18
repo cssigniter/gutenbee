@@ -62,18 +62,15 @@ const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
     [values, postType],
   );
 
-  useEffect(
-    () => {
-      if (debouncedQuery?.length > MIN_QUERY_LENGTH && !queryFocused) {
-        setQueryFocused(true);
-      }
+  useEffect(() => {
+    if (debouncedQuery?.length > MIN_QUERY_LENGTH && !queryFocused) {
+      setQueryFocused(true);
+    }
 
-      if (debouncedQuery?.length <= MIN_QUERY_LENGTH && queryFocused) {
-        setQueryFocused(false);
-      }
-    },
-    [debouncedQuery?.length],
-  );
+    if (debouncedQuery?.length <= MIN_QUERY_LENGTH && queryFocused) {
+      setQueryFocused(false);
+    }
+  }, [debouncedQuery?.length]);
 
   return (
     <BaseControl label={label}>

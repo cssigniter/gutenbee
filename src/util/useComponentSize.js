@@ -25,27 +25,24 @@ const useComponentSize = ref => {
     },
     [ref],
   );
-  useLayoutEffect(
-    () => {
-      if (!ref.current) {
-        return undefined;
-      }
-      handleResize();
-      if (typeof ResizeObserver === 'function') {
-        let resizeObserver = new ResizeObserver(() => handleResize());
-        resizeObserver.observe(ref.current);
-        return () => {
-          resizeObserver.disconnect(ref.current);
-          resizeObserver = null;
-        };
-      }
-      window.addEventListener('resize', handleResize);
+  useLayoutEffect(() => {
+    if (!ref.current) {
+      return undefined;
+    }
+    handleResize();
+    if (typeof ResizeObserver === 'function') {
+      let resizeObserver = new ResizeObserver(() => handleResize());
+      resizeObserver.observe(ref.current);
       return () => {
-        window.removeEventListener('resize', handleResize);
+        resizeObserver.disconnect(ref.current);
+        resizeObserver = null;
       };
-    },
-    [ref.current],
-  );
+    }
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [ref.current]);
   return ComponentSize;
 };
 

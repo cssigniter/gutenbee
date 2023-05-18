@@ -55,12 +55,9 @@ const useVideoEmbed = ({
     onVideoUrlChange?.(newUrl);
   };
 
-  useEffect(
-    () => {
-      onVideoEmbedRefChange();
-    },
-    [ref],
-  );
+  useEffect(() => {
+    onVideoEmbedRefChange();
+  }, [ref]);
 
   return {
     videoInfo,

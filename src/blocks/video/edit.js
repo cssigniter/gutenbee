@@ -72,14 +72,11 @@ const VideoEdit = ({
   const posterImageButtonRef = useRef();
   const [editing, setEditing] = useState(!src);
 
-  useEffect(
-    () => {
-      if (videoPlayerRef.current) {
-        videoPlayerRef.current.load();
-      }
-    },
-    [poster],
-  );
+  useEffect(() => {
+    if (videoPlayerRef.current) {
+      videoPlayerRef.current.load();
+    }
+  }, [poster]);
 
   useUniqueId({ attributes, setAttributes, clientId });
 

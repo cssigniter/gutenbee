@@ -35,17 +35,14 @@ const GalleryItem = ({
     }
   };
 
-  useEffect(
-    () => {
-      if (image && !url) {
-        setAttributes({
-          url: image.source_url,
-          alt: image.alt_text,
-        });
-      }
-    },
-    [image, url],
-  );
+  useEffect(() => {
+    if (image && !url) {
+      setAttributes({
+        url: image.source_url,
+        alt: image.alt_text,
+      });
+    }
+  }, [image, url]);
 
   const img = url ? (
     <img src={url} alt={alt} data-id={id} onClick={onImageClick} />

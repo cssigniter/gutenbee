@@ -53,14 +53,11 @@ const Gallery = ({
   const [selectedImage, setSelectedImage] = useState(null);
 
   // Deselect images when deselecting the block
-  useEffect(
-    () => {
-      if (!isSelected) {
-        setSelectedImage(null);
-      }
-    },
-    [isSelected],
-  );
+  useEffect(() => {
+    if (!isSelected) {
+      setSelectedImage(null);
+    }
+  }, [isSelected]);
 
   const onSelectImage = index => () => {
     if (selectedImage !== index) {

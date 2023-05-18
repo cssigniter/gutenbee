@@ -81,46 +81,40 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
   });
 
   // When changing a post type, check its column limits and apply different ones
-  useEffect(
-    () => {
-      const newColumnLimits = postTypeColumns[postType] || {};
+  useEffect(() => {
+    const newColumnLimits = postTypeColumns[postType] || {};
 
-      if (newColumnLimits.min > columns) {
-        setAttributes({ columns: newColumnLimits.min || 3 });
-        return;
-      }
+    if (newColumnLimits.min > columns) {
+      setAttributes({ columns: newColumnLimits.min || 3 });
+      return;
+    }
 
-      if (newColumnLimits.max < columns) {
-        setAttributes({ columns: newColumnLimits.max || 3 });
-      }
+    if (newColumnLimits.max < columns) {
+      setAttributes({ columns: newColumnLimits.max || 3 });
+    }
 
-      // Reset the post tags if we switch a post type.
-      if (postType !== 'post') {
-        setAttributes({ postTagSlugs: [] });
-      }
+    // Reset the post tags if we switch a post type.
+    if (postType !== 'post') {
+      setAttributes({ postTagSlugs: [] });
+    }
 
-      // Reset the ignition-event query type if we switch a post type.
-      if (postType !== 'ignition-event') {
-        setAttributes({ ignitionEventQueryType: '' });
-      }
-    },
-    [postType],
-  );
+    // Reset the ignition-event query type if we switch a post type.
+    if (postType !== 'ignition-event') {
+      setAttributes({ ignitionEventQueryType: '' });
+    }
+  }, [postType]);
 
-  useEffect(
-    () => {
-      if (!!ref.current && !isRenderedInEditor(ref.current)) {
-        ref.current
-          .closest('.block-editor-block-styles__item')
-          ?.classList?.add('gutenbee-post-types-block-style-item');
+  useEffect(() => {
+    if (!!ref.current && !isRenderedInEditor(ref.current)) {
+      ref.current
+        .closest('.block-editor-block-styles__item')
+        ?.classList?.add('gutenbee-post-types-block-style-item');
 
-        ref.current
-          .closest('.block-editor-block-styles')
-          ?.classList?.add('gutenbee-post-types-block-editor-block-styles');
-      }
-    },
-    [ref.current],
-  );
+      ref.current
+        .closest('.block-editor-block-styles')
+        ?.classList?.add('gutenbee-post-types-block-editor-block-styles');
+    }
+  }, [ref.current]);
 
   return (
     <Fragment>
