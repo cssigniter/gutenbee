@@ -326,11 +326,11 @@ function gutenbee_get_blocks_info() {
 			'enqueue_js'  => true,
 			'enqueue_css' => true,
 		),
-		'gutenbee/tab-slider'    => array(
-			'label'       => __( 'Tab Slider Block', 'gutenbee' ),
-			'enqueue_js'  => true,
-			'enqueue_css' => true,
-		),
+//		'gutenbee/tab-slider'    => array(
+//			'label'       => __( 'Tab Slider Block', 'gutenbee' ),
+//			'enqueue_js'  => true,
+//			'enqueue_css' => true,
+//		),
 		'gutenbee/tabs'              => array(
 			'label'       => __( 'Tabs Block', 'gutenbee' ),
 			'enqueue_js'  => true,
