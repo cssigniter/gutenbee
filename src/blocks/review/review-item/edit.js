@@ -26,7 +26,7 @@ const ReviewItemEdit = ({
   const blockId = getBlockId(uniqueId);
 
   const { innerBlocks, parentId } = useSelect(select => {
-    const parentId = select('core/block-editor').getBlockParentsByBlockName(
+    const [parentId] = select('core/block-editor').getBlockParentsByBlockName(
       clientId,
       'gutenbee/review',
     );
@@ -120,8 +120,8 @@ const ReviewItemEdit = ({
               max={10}
               value={percentage}
               onChange={value => {
-                setAttributes({ percentage: value }),
-                  updateBlockAttributes(parentId, { score: averageScore() });
+                setAttributes({ percentage: value });
+                updateBlockAttributes(parentId, { score: averageScore() });
               }}
               step={0.1}
             />

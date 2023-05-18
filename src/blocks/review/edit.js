@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
-import { Fragment } from 'wp.element';
+import { Fragment, useEffect } from 'wp.element';
 import {
   InspectorControls,
   RichText,
@@ -69,11 +69,14 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
     orientation: 'vertical',
   });
 
-  useSelect(select => {
+  const innerBlocks = useSelect(select => {
     const [parent] = select('core/block-editor').getBlocksByClientId(clientId);
-
     const { innerBlocks } = parent;
 
+    return innerBlocks;
+  });
+
+  useEffect(() => {
     const averageScore = () => {
       if (innerBlocks.length === 0) {
         return false;
@@ -91,7 +94,7 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
     if (averageScore() !== false && score !== averageScore()) {
       setAttributes({ score: averageScore() });
     }
-  });
+  }, [innerBlocks.length]);
 
   return (
     <Fragment>
