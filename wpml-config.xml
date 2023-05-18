@@ -28,11 +28,6 @@
 			<xpath>//span[@class="wp-block-gutenbee-countup-number"]</xpath>
 		</gutenberg-block>
 		<gutenberg-block type="gutenbee/divider" translate="0"/>
-		<gutenberg-block type="gutenbee/featured-product-category" translate="1">
-			<key name="categoryTitle"/>
-			<key name="categoryDescription"/>
-			<key name="buttonText"/>
-		</gutenberg-block>
 		<gutenberg-block type="gutenbee/food-menu" translate="0"/>
 		<gutenberg-block type="gutenbee/food-menu-item" translate="0"/>
 		<gutenberg-block type="gutenbee/food-menu-wrapper" translate="0"/>
@@ -70,11 +65,6 @@
 			<xpath>//p</xpath>
 		</gutenberg-block>
 		<gutenberg-block type="gutenbee/post-types" translate="0"/>
-		<gutenberg-block type="gutenbee/product-category-list" translate="0"/>
-		<gutenberg-block type="gutenbee/product-tab" translate="1">
-			<xpath>//li</xpath>
-		</gutenberg-block>
-		<gutenberg-block type="gutenbee/product-tabs" translate="0"/>
 		<gutenberg-block type="gutenbee/progress-bar" translate="1">
 			<xpath>//p[@class="wp-block-gutenbee-progress-bar-title"]</xpath>
 			<xpath>//span[@class="wp-block-gutenbee-progress-bar-inner-title"]</xpath>
@@ -82,8 +72,9 @@
 		<gutenberg-block type="gutenbee/review" translate="1">
 			<xpath>//p[@class="wp-block-gutenbee-review-rating-final-score-subtitle"]</xpath>
 		</gutenberg-block>
-		<!-- TODO: Review item. -->
-		<gutenberg-block type="gutenbee/review-item" translate="0"/>
+		<gutenberg-block type="gutenbee/review-item" translate="1">
+			<xpath>//span[@class="wp-block-gutenbee-review-item-inner-title"]</xpath>
+		</gutenberg-block>
 		<gutenberg-block type="gutenbee/slideshow" translate="1">
 			<xpath>//div/img[@class="gutenbee-slideshow-item"]</xpath>
 		</gutenberg-block>
