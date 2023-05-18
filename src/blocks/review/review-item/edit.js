@@ -32,7 +32,7 @@ const ReviewItemEdit = ({
     );
     const currentBlock = select('core/block-editor').getBlock(clientId);
     const parent = select('core/block-editor').getBlock(parentId);
-    const { innerBlocks } = parent;
+    const { innerBlocks } = parent ?? {};
 
     if (!parent) {
       return {
