@@ -27,8 +27,8 @@ import './blocks/tabs/script';
 import './blocks/video-embed/script';
 import './blocks/container/script';
 import './blocks/banner/script';
-import './blocks/tab-slider/script';
 import './blocks/post-types/script';
+// import './blocks/tab-slider/script';
 
 // TODO only import this if there is an active lottie block
 // import '@lottiefiles/lottie-player';
