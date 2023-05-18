@@ -34,6 +34,13 @@ const ReviewItemEdit = ({
     const parent = select('core/block-editor').getBlock(parentId);
     const { innerBlocks } = parent;
 
+    if (!parent) {
+      return {
+        innerBlocks: [],
+        parentId: '',
+      };
+    }
+
     if (
       currentBlock.attributes.displayPercentage !==
       parent.attributes.displayPercentage
