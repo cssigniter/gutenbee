@@ -74,8 +74,25 @@
       height: auto;
     }
   }
+
+  .wp-block-gutenbee-gallery-item-caption {
+    left: 8px;
+    width: calc(100% - 16px);
+  }
 }
 
+.wp-block-gutenbee-gallery-item-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, .6);
+  color: $white;
+  font-size: 13px;
+  line-height: normal;
+  padding: 6px 8px;
+  z-index: 1;
+}
 
 @for $i from 1 through 8 {
   .gutenbee-columns-#{$i} {

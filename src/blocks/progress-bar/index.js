@@ -137,6 +137,10 @@ registerBlockType('gutenbee/progress-bar', {
       type: 'number',
       default: 50,
     },
+    height: {
+      type: 'object',
+      default: getDefaultResponsiveValue(),
+    },
     displayPercentage: {
       type: 'boolean',
       default: true,

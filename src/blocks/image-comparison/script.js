@@ -8,6 +8,8 @@ jQuery(window).on('load', () => {
 
     $this.twentytwenty({
       default_offset_pct: $this.data('offset') / 100,
+      before_label: window.gutenbeeStrings.image_comparison_before_label,
+      after_label: window.gutenbeeStrings.image_comparison_after_label,
     });
   });
 });

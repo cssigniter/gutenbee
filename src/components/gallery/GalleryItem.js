@@ -10,6 +10,8 @@ const GalleryItem = ({
   url,
   alt,
   id,
+  caption,
+  captions,
   isSelected,
   onRemove,
   onSelect,
@@ -68,6 +70,9 @@ const GalleryItem = ({
         </div>
       )}
       {img}
+      {captions && !!caption && (
+        <span className="gutenbee-gallery-item-caption">{caption}</span>
+      )}
     </figure>
   );
 };

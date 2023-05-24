@@ -136,7 +136,7 @@ export const buttonStyleTemplates = [
       borderStyle: 'solid',
       borderWidth: 2,
       borderColor: '#000000',
-      backgroundColor: '',
+      backgroundColor: 'rgba(255, 255, 255, 0)',
       textColor: '#000000',
     },
   },

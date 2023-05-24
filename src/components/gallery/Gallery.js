@@ -27,6 +27,7 @@ const propTypes = {
     size: PropTypes.string,
     linkTo: PropTypes.string,
     images: PropTypes.array.isRequired,
+    captions: PropTypes.bool,
   }).isRequired,
   setAttributes: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
@@ -78,7 +79,7 @@ const Gallery = ({
     setAttributes({
       images: images.map(attributes => ({
         ...attributes,
-        caption: attributes.caption ? [attributes.caption] : [],
+        caption: attributes.caption ? attributes.caption : '',
         sourceUrl: attributes.sizes?.full?.url ?? '',
       })),
     });
@@ -204,11 +205,12 @@ const Gallery = ({
                     url={img.url}
                     alt={img.alt}
                     id={img.id}
+                    caption={img.caption}
                     isSelected={isSelected && selectedImage === index}
                     onRemove={onRemoveImage(index)}
                     onSelect={onSelectImage(index)}
                     setAttributes={attrs => setImageAttributes(index, attrs)}
-                    caption={img.caption}
+                    captions={attributes.captions}
                   />
                 </div>
               );

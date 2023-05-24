@@ -55,6 +55,10 @@ registerBlockType('gutenbee/column', {
         mobile: 100,
       },
     },
+    columnHeight: {
+      type: 'object',
+      default: getDefaultResponsiveValue(),
+    },
     textColor: {
       type: 'string',
     },

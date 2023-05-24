@@ -10,6 +10,7 @@ const ColumnStyle = ({ attributes, children }) => {
     verticalContentAlignment,
     horizontalContentAlignment,
     backgroundImage,
+    columnHeight,
   } = attributes;
   const blockId = getBlockId(uniqueId);
 
@@ -36,6 +37,15 @@ const ColumnStyle = ({ attributes, children }) => {
       <Rule
         value={backgroundImage}
         rule=".wp-block-gutenbee-column.[root] > .wp-block-gutenbee-column-content { %s }"
+      />
+      <Rule
+        value={columnHeight}
+        rule=".wp-block-gutenbee-column.[root] > .wp-block-gutenbee-column-content { height: %s; }"
+        unit="px"
+        edgeCase={{
+          edge: -1,
+          value: '100vh',
+        }}
       />
       {children}
     </StyleSheet>

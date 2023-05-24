@@ -115,6 +115,11 @@ function gutenbee_enqueue_frontend_block_assets() {
 		wp_enqueue_script( 'gutenbee-scripts', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.scripts.js', array(
 			'jquery',
 		), GUTENBEE_PLUGIN_VERSION, true );
+
+		wp_localize_script( 'gutenbee-scripts', 'gutenbeeStrings', apply_filters( 'gutenbee_strings', array(
+			'image_comparison_before_label' => esc_html__( 'Before', 'gutenbee' ),
+			'image_comparison_after_label'  => esc_html__( 'After', 'gutenbee' ),
+		) ) );
 	}
 
 	if ( $gutenbee_settings['active_animation-controls'] ) {

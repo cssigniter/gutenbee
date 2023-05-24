@@ -71,6 +71,7 @@ const JustifiedGalleryEdit = ({
     backgroundColor,
     blockBreakpointVisibility,
     blockAuthVisibility,
+    captions,
   } = attributes;
 
   useUniqueId({ attributes, setAttributes, clientId });
@@ -168,6 +169,12 @@ const JustifiedGalleryEdit = ({
               />
             </Fragment>
           )}
+
+          <ToggleControl
+            label={__('Show captions')}
+            checked={captions}
+            onChange={value => setAttributes({ captions: value })}
+          />
         </PanelBody>
 
         <PanelBody title={__('Block Appearance')} initialOpen={false}>

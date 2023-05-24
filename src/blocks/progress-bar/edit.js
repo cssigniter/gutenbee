@@ -47,6 +47,7 @@ const ProgressBarEdit = ({
     titleBottomMargin,
     blockBreakpointVisibility,
     blockAuthVisibility,
+    height,
   } = attributes;
 
   const blockId = getBlockId(uniqueId);
@@ -181,6 +182,29 @@ const ProgressBarEdit = ({
                     })
                   }
                 />
+              )}
+            </ResponsiveControl>
+
+            <ResponsiveControl>
+              {breakpoint => (
+                <Fragment>
+                  <RangeControl
+                    label={__('Bar Height (px)')}
+                    min={30}
+                    max={200}
+                    value={height[breakpoint]}
+                    allowReset
+                    onChange={value => {
+                      setAttributes({
+                        height: {
+                          ...height,
+                          [breakpoint]: value != null ? value : '',
+                        },
+                      });
+                    }}
+                    step={1}
+                  />
+                </Fragment>
               )}
             </ResponsiveControl>
           </PanelBody>

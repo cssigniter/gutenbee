@@ -2,6 +2,7 @@
  * Justified Gallery block
  */
 
+import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 import classNames from 'classnames';
@@ -81,6 +82,10 @@ registerBlockType('gutenbee/justified-gallery', {
           selector: 'img',
           attribute: 'data-source-url',
         },
+        caption: {
+          source: 'html',
+          selector: '.wp-block-gutenbee-gallery-item-caption',
+        },
       },
     },
     columns: {
@@ -100,6 +105,10 @@ registerBlockType('gutenbee/justified-gallery', {
       default: LAST_ROW.NO_JUSTIFY,
     },
     randomize: {
+      type: 'boolean',
+      default: false,
+    },
+    captions: {
       type: 'boolean',
       default: false,
     },
@@ -157,6 +166,7 @@ registerBlockType('gutenbee/justified-gallery', {
       backgroundColor,
       blockBreakpointVisibility,
       blockAuthVisibility,
+      captions,
     } = attributes;
 
     const blockId = getBlockId(uniqueId);
@@ -215,6 +225,15 @@ registerBlockType('gutenbee/justified-gallery', {
               />
             );
 
+            const imageWithCaption = (
+              <Fragment>
+                {img}
+                <span className="wp-block-gutenbee-gallery-item-caption">
+                  {image.caption}
+                </span>
+              </Fragment>
+            );
+
             return (
               <div
                 className="wp-block-gutenbee-gallery-item"
@@ -226,7 +245,14 @@ registerBlockType('gutenbee/justified-gallery', {
                     href={href}
                   >
                     {img}
+                    {captions && !!image.caption && (
+                      <span className="wp-block-gutenbee-gallery-item-caption">
+                        {image.caption}
+                      </span>
+                    )}
                   </a>
+                ) : captions && !!image.caption ? (
+                  imageWithCaption
                 ) : (
                   img
                 )}

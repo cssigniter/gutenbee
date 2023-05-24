@@ -59,6 +59,7 @@ const ColumnBlockEdit = ({
     horizontalContentAlignment,
     blockBreakpointVisibility,
     blockAuthVisibility,
+    columnHeight,
   } = attributes;
 
   const customClass = 'wp-block-gutenbee-column';
@@ -102,6 +103,32 @@ const ColumnBlockEdit = ({
                 required
                 allowReset
               />
+            )}
+          </ResponsiveControl>
+
+          <ResponsiveControl>
+            {breakpoint => (
+              <Fragment>
+                <RangeControl
+                  label={__('Height (px)')}
+                  min={-1}
+                  max={1200}
+                  value={columnHeight[breakpoint]}
+                  allowReset
+                  onChange={value => {
+                    setAttributes({
+                      columnHeight: {
+                        ...columnHeight,
+                        [breakpoint]: value != null ? value : '',
+                      },
+                    });
+                  }}
+                  step={1}
+                  help={__(
+                    'Leave blank for auto height or set to -1 for full viewport height.',
+                  )}
+                />
+              </Fragment>
             )}
           </ResponsiveControl>
 

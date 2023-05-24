@@ -57,12 +57,12 @@
 
         > .wp-block-gutenbee-column {
           height: 100%;
+          display: flex;
 
           > .wp-block-gutenbee-column-content {
             display: flex;
             flex-direction: column;
             flex: 1 1 auto;
-            height: 100%;
           }
         }
       }

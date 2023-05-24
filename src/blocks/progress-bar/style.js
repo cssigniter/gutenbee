@@ -16,6 +16,7 @@ const ProgressBarStyle = ({ attributes, children }) => {
     blockMargin,
     titleFontSize,
     innerTitleFontSize,
+    height,
   } = attributes;
   const blockId = getBlockId(uniqueId);
 
@@ -39,6 +40,11 @@ const ProgressBarStyle = ({ attributes, children }) => {
       <Rule
         value={innerTitleFontSize}
         rule=".wp-block-gutenbee-progress-bar.[root] .wp-block-gutenbee-progress-bar-inner-title { font-size: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={height}
+        rule=".wp-block-gutenbee-progress-bar.[root] .wp-block-gutenbee-progress-bar-outer { height: %s; }"
         unit="px"
       />
 
