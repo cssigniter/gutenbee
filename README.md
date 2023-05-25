@@ -1,5 +1,5 @@
-# The Image Widget - WordPress Plugin
-A simple image widget that allows you to display an image in any sidebar. The image can either link to another page or it can pop out in a lightbox.
+# GutenBee - WordPress Plugin
+Premium Blocks for WordPress
 
 ## Development
 Development must be made in short-lived branches. When a feature is complete, its branch should be merged into `main` and get deleted. The `main` branch should remain stable at all times.
