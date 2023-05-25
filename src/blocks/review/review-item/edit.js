@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'wp.element';
+import { Fragment, useState, useEffect } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { RangeControl, PanelBody } from 'wp.components';
 import { InspectorControls, RichText } from 'wp.blockEditor';
@@ -65,6 +65,10 @@ const ReviewItemEdit = ({
 
   const { updateBlockAttributes } = useDispatch('core/block-editor');
 
+  useEffect(() => {
+    updateBlockAttributes(parentId, { score: averageScore() });
+  }, [percentage]);
+
   return (
     <Fragment>
       <div id={blockId} className={classNames(className, blockId)}>
@@ -121,7 +125,6 @@ const ReviewItemEdit = ({
               value={percentage}
               onChange={value => {
                 setAttributes({ percentage: value });
-                updateBlockAttributes(parentId, { score: averageScore() });
               }}
               step={0.1}
             />
