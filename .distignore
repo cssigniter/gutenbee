@@ -1,0 +1,17 @@
+.babelrc
+.distignore
+.editorconfig
+.eslintrc
+.git
+.gitattributes
+.gitignore
+.github
+.nvmrc
+.prettierrc
+.wordpress-org
+.svn
+package.json
+src
+webpack.config.js
+yarn.lock
+README.md
