@@ -2,7 +2,7 @@
 Contributors: cssigniterteam, silencerius, nvourva, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 6.0
-Tested up to: 6.1.1
+Tested up to: 6.2.0
 Stable tag: 2.16.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
@@ -50,6 +50,9 @@ https://www.youtube.com/watch?v=Wv_zwREKi68
 * **Post Types**: List posts from any post type in a configurable grid, complete with fully responsive settings.
 * **Video**: Embed a video from your media library or upload a new one.
 * **Video Embed**: Embed videos from YouTube or Vimeo and lazy-load theme if you wish to.
+
+**JOIN OUR COMMUNITY**
+Join our [Facebook group](https://www.facebook.com/groups/2601788933169108) to discuss new features and stay up to date on our latest releases.
 
 == Installation ==
 From within WordPress' dashboard:
