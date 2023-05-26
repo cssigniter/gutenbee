@@ -76,7 +76,7 @@ Note that if you want to use the Google Maps block you will also need a Google M
 
 == Changelog ==
 
-= 2.17.0 =
+= 2.17.1 =
 * Fixed issue where some required files would not be included in the distributed plugin.
 
 = 2.17.0 =
