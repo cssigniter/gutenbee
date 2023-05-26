@@ -495,7 +495,7 @@ function gutenbee_locate_template( $block, $templates, $args ) {
 	$plugin_path = plugin_dir_path( __FILE__ );
 
 	// The templates path in the plugin, i.e. defaults/fallback. E.g. src/blocks/post-types/templates/
-	$default_path = trailingslashit( trailingslashit( $plugin_path ) . "src/blocks/{$block}/templates" );
+	$default_path = trailingslashit( trailingslashit( $plugin_path ) . "inc/blocks/{$block}/templates" );
 
 	// The templates path in the theme. E.g. gutenbee/
 	$theme_path = apply_filters( 'gutenbee_locate_template_theme_path', "gutenbee/{$block}", $block );
@@ -592,5 +592,5 @@ function gutenbee_filter_excerpt_allowed_blocks( $allowed_blocks ) {
 }
 
 require_once untrailingslashit( dirname( __FILE__ ) ) . '/inc/options.php';
-require_once untrailingslashit( dirname( __FILE__ ) ) . '/src/blocks/container/block.php';
-require_once untrailingslashit( dirname( __FILE__ ) ) . '/src/blocks/post-types/block.php';
+require_once untrailingslashit( dirname( __FILE__ ) ) . '/inc/blocks/container/block.php';
+require_once untrailingslashit( dirname( __FILE__ ) ) . '/inc/blocks/post-types/block.php';
