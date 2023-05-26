@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GutenBee!\n"
-"POT-Creation-Date: 2023-05-26 13:49+0300\n"
+"POT-Creation-Date: 2023-05-26 18:25+0300\n"
 "PO-Revision-Date: 2016-08-29 19:22+0300\n"
 "Last-Translator: Nik Vourvachis <nvourva@cssigniter.com>\n"
 "Language-Team: Nik Vourvachis <nvourva@cssigniter.com>\n"
@@ -170,6 +170,25 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
+#: inc/blocks/post-types/block.php:201
+msgctxt "all categories"
+msgid "All"
+msgstr ""
+
+#: inc/blocks/post-types/block.php:216
+msgid "Load More"
+msgstr ""
+
+#: inc/blocks/post-types/block.php:510
+msgid "No posts found."
+msgstr ""
+
+#: inc/blocks/post-types/templates/article-default-tall.php:4
+#: inc/blocks/post-types/templates/article-default.php:4
+#: inc/blocks/post-types/templates/article-media.php:4
+msgid "Read More"
+msgstr ""
+
 #: inc/options.php:27 inc/options.php:59
 msgid "GutenBee Settings"
 msgstr ""
@@ -229,25 +248,6 @@ msgstr ""
 
 #: inc/options.php:253
 msgid "Block Options"
-msgstr ""
-
-#: src/blocks/post-types/block.php:201
-msgctxt "all categories"
-msgid "All"
-msgstr ""
-
-#: src/blocks/post-types/block.php:216
-msgid "Load More"
-msgstr ""
-
-#: src/blocks/post-types/block.php:510
-msgid "No posts found."
-msgstr ""
-
-#: src/blocks/post-types/templates/article-default-tall.php:4
-#: src/blocks/post-types/templates/article-default.php:4
-#: src/blocks/post-types/templates/article-media.php:4
-msgid "Read More"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
