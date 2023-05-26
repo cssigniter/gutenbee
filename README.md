@@ -6,9 +6,14 @@ Development must be made in short-lived branches. When a feature is complete, it
 
 Install [nvm](https://github.com/nvm-sh/nvm) and [yarn](https://yarnpkg.com/getting-started/install) on your machine.
 
-Inside the plugin folder, run `yarn` and then `yarn start`.
+While developing, inside the plugin folder run:
+```
+nvm use
+yarn
+yarn start
+```
 
-### Build
+## Build
 Run `yarn build` before releasing an update.
 
 ## Updating readme.txt without releasing a new version
