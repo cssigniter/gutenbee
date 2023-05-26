@@ -2,8 +2,8 @@
 Contributors: cssigniterteam, silencerius, nvourva, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 6.0
-Tested up to: 6.2.0
-Stable tag: 2.16.1
+Tested up to: 6.2.2
+Stable tag: 2.17.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
 Requires PHP: 5.6
@@ -76,10 +76,25 @@ Note that if you want to use the Google Maps block you will also need a Google M
 
 == Changelog ==
 
+= 2.17.0 =
+* Button block: The Button’s “outline” predefined template now correctly applies no background.
+* Container / Column block: Added option to control the container’s column block height.
+* Container / Column block: Fixed overlap in nested layouts.
+* Fix layout of some inner blocks when placed inside of the Banner block.
+* Food menu block: Minor layout adjustment in price text
+* Gallery block: Added ability to display captions on the images.
+* Image comparison block: Fix strings to be able to be translated.
+* Progress bar block: Added option to control the block’s height.
+* Review block: Fix an issue where it would calculate the score incorrectly.
+* Review block: Fix performance issues when changing the rating.
+* Review block: Fix block from displaying an error in the editor.
+* Added WPML support.
+* Maintenance tasks.
+
 = 2.16.1 =
- * Various spacing fixes in block controls
- * Fix spacer appearance in the block editor
- * Prevent URL picker from appearing above the media gallery picker
+* Various spacing fixes in block controls
+* Fix spacer appearance in the block editor
+* Prevent URL picker from appearing above the media gallery picker
 
 = 2.16.0 =
 * Divider block: Fixed an issue where resetting the color would break the block in the editor.

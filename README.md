@@ -23,7 +23,8 @@ Therefore, immediate updates to only the plugin's readme.txt file should be done
 ## Releasing new versions to WP.org
 Before releasing a new version (e.g. **1.0.2**), make sure `main` is ready to be released. This includes:
 - Make sure files inside the `build` folder are ready for release. Open them and check they are minified. If not, run the build step above.
-- In `gutenbee.php` the plugin header **Version:** number is set to 1.0.2
+- In `gutenbee.php` the plugin header `Version:` number is set to 1.0.2
+- Also in `gutenbee.php` the constant `GUTENBEE_PLUGIN_VERSION` number is set to 1.0.2
 - The language file `languages/gutenbee.pot` has been updated, if needed.
 - The `readme.txt` file has:
   - **Tested up to:** is set to the latest WordPress version.
