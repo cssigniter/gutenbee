@@ -41,8 +41,12 @@ function gutenbee_init() {
 	load_plugin_textdomain( 'gutenbee', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }
 
-add_action( 'enqueue_block_editor_assets', 'gutenbee_enqueue_editor_assets' );
+add_action( 'enqueue_block_assets', 'gutenbee_enqueue_editor_assets' );
 function gutenbee_enqueue_editor_assets() {
+	if ( ! is_admin() ) {
+		return;
+	}
+
 	wp_enqueue_script( 'gutenbee', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.build.js', array(
 		'wp-components',
 		'wp-blocks',
