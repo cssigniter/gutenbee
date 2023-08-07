@@ -3,7 +3,7 @@ Contributors: cssigniterteam, silencerius, nvourva, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 6.0
 Tested up to: 6.2.2
-Stable tag: 2.17.1
+Stable tag: 2.17.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
 Requires PHP: 5.6
@@ -75,6 +75,10 @@ Note that if you want to use the Google Maps block you will also need a Google M
 7. Tabs or Accordions, group your content the way you want.
 
 == Changelog ==
+
+= 2.17.2 =
+* Fixed issue where since the iframe-ing of the block editor in WP 6.3, block editor assets would not get enqueued under specific circumstances.
+* Block editor assets are now enqueued via the 'enqueue_block_assets' action instead of 'enqueue_block_editor_assets'.
 
 = 2.17.1 =
 * Fixed issue where some required files would not be included in the distributed plugin.
