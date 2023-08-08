@@ -1,17 +1,37 @@
-.babelrc
-.distignore
-.editorconfig
-.eslintrc
+### Make sure to also update .gitattributes when updating this file ###
+
+# Project-specific
+README.md
+src
+
+# VCS
 .git
 .gitattributes
 .gitignore
 .github
+.svn
+
+# IDE
+.idea
+.vscode
+.editorconfig
+
+# Other Tooling
+.babelrc
+.distignore
+.eslintignore
+.eslintrc
 .nvmrc
+.prettierignore
 .prettierrc
 .wordpress-org
-.svn
+ignitefile.js
+node_modules
 package.json
-src
+package-lock.json
 webpack.config.js
+webpack.parts.js
 yarn.lock
-README.md
+
+# WP.org
+.wordpress-org
