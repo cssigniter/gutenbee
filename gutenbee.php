@@ -94,12 +94,10 @@ function gutenbee_enqueue_frontend_block_assets() {
 	$gutenbee_settings = gutenbee_get_settings();
 	$maps_api_key      = $gutenbee_settings['google_maps_api_key'];
 
-	if ( $maps_api_key && has_block( 'gutenbee/google-maps' ) ) {
-		wp_enqueue_script( 'gutenbee-google-maps', 'https://maps.googleapis.com/maps/api/js?key=' . $maps_api_key, array(), GUTENBEE_PLUGIN_VERSION, true );
-	}
+	$enqueue_css      = false;
+	$enqueue_js       = false;
+	$enqueue_maps_api = false;
 
-	$enqueue_css = false;
-	$enqueue_js  = false;
 	foreach ( gutenbee_get_blocks_info() as $block_name => $block_info ) {
 		if ( has_block( $block_name ) || gutenbee_has_block_in_reusable( $block_name ) ) {
 			if ( ! $enqueue_css && $block_info['enqueue_css'] ) {
@@ -108,7 +106,14 @@ function gutenbee_enqueue_frontend_block_assets() {
 			if ( ! $enqueue_js && $block_info['enqueue_js'] ) {
 				$enqueue_js = true;
 			}
+			if ( 'gutenbee/google-maps' === $block_name ) {
+				$enqueue_maps_api = true;
+			}
 		}
+	}
+
+	if ( $maps_api_key && apply_filters( 'gutenbee_enqueue_google_maps_api', $enqueue_maps_api ) ) {
+		wp_enqueue_script( 'gutenbee-google-maps', 'https://maps.googleapis.com/maps/api/js?key=' . $maps_api_key, array(), GUTENBEE_PLUGIN_VERSION, true );
 	}
 
 	if ( apply_filters( 'gutenbee_enqueue_frontend_styles', $enqueue_css ) ) {
