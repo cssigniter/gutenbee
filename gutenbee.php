@@ -59,6 +59,10 @@ function gutenbee_enqueue_editor_assets() {
 		'wp-keycodes',
 		'wp-html-entities',
 		'wp-server-side-render',
+		'lodash',
+		'react',
+		'react-dom',
+		'jquery',
 	), GUTENBEE_PLUGIN_VERSION, true );
 
 	wp_localize_script( 'gutenbee', '__GUTENBEE_SETTINGS__', array_merge( gutenbee_get_settings(), array(
