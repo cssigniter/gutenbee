@@ -1,4 +1,4 @@
-import { Fragment, useRef, useEffect } from 'wp.element';
+import { Fragment, useRef } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { RichText, InspectorControls } from 'wp.blockEditor';
 import {
@@ -11,7 +11,6 @@ import classNames from 'classnames';
 import { createBlock } from 'wp.blocks';
 import ReactSelect from 'react-select';
 import startCase from 'lodash.startcase';
-import { useSelect } from 'wp.data';
 
 import Icon from './Icon';
 import icons from '../../icon/icons';
@@ -24,32 +23,14 @@ const IconListItemEdit = ({
   setAttributes,
   onReplace,
   isSelected,
-  clientId,
 }) => {
   const { content, icon, listUrl, newTab } = attributes;
   const ref = useRef();
-  const richTextRef = useRef();
-
-  const isParentSelected = useSelect(
-    select => {
-      const { getBlockParents, isBlockSelected } = select('core/block-editor');
-      const [parentBlockId] = getBlockParents(clientId);
-      return isBlockSelected(parentBlockId);
-    },
-    [clientId],
-  );
-
-  useEffect(() => {
-    if (richTextRef.current && isParentSelected) {
-      richTextRef.current.focus();
-    }
-  }, [richTextRef.current, isParentSelected]);
 
   const listItem = (
     <Fragment>
       <Icon className={className} {...attributes} />
       <RichText
-        ref={richTextRef}
         identifier="content"
         tagName="div"
         className={classNames(
@@ -63,6 +44,14 @@ const IconListItemEdit = ({
         disableLineBreaks
         onChange={content => setAttributes({ content })}
         onReplace={onReplace}
+        onFocus={() => {
+          if (content.length === 0) {
+            setAttributes({ content: __('Start writing…') });
+            setTimeout(() => {
+              setAttributes({ content: '' });
+            }, 0);
+          }
+        }}
         onSplit={value => {
           if (!value) {
             return createBlock('gutenbee/icon-list-item');
