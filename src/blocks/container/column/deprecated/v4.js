@@ -1,41 +1,68 @@
-/**
- * Column block
- */
-
-import { __ } from 'wp.i18n';
-import { registerBlockType } from 'wp.blocks';
 import { InnerBlocks } from 'wp.blockEditor';
 import classNames from 'classnames';
 
-import ColumnBlockEdit from './edit';
-import getBlockId from '../../../util/getBlockId';
-import ColumnStyle from './style';
-import { getDefaultResponsiveBackgroundImageValue } from '../../../components/controls/background-controls/helpers';
-import Rule from '../../../components/stylesheet/Rule';
-import {
-  getDefaultResponsiveValue,
-  getDefaultSpacingValue,
-} from '../../../components/controls/responsive-control/default-values';
-import ColumnBlockIcon from './block-icon';
-import borderControlAttributes from '../../../components/controls/border-controls/attributes';
+import getBlockId from '../../../../util/getBlockId';
+import StyleSheet from '../../../../components/stylesheet';
+import Rule from '../../../../components/stylesheet/Rule';
+import { getBorderCSSValue } from '../../../../components/controls/border-controls/helpers';
 import {
   boxShadowControlAttributes,
   getBoxShadowCSSValue,
-} from '../../../components/controls/box-shadow-controls/helpers';
-import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
-import deprecated from './deprecated';
-import { getBreakpointVisibilityClassNames } from '../../../components/controls/breakpoint-visibility-control/helpers';
-import { getAuthVisibilityClasses } from '../../../components/controls/auth-visibility-control/helpers';
+} from '../../../../components/controls/box-shadow-controls/helpers';
 import {
   animationControlAttributes,
   getAnimationControlDataAttributes,
-} from '../../../components/controls/animation-controls/helpers';
+} from '../../../../components/controls/animation-controls/helpers';
+import { getAuthVisibilityClasses } from '../../../../components/controls/auth-visibility-control/helpers';
+import { getBreakpointVisibilityClassNames } from '../../../../components/controls/breakpoint-visibility-control/helpers';
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../../../components/controls/responsive-control/default-values';
+import borderControlAttributes from '../../../../components/controls/border-controls/attributes';
+import { getDefaultResponsiveBackgroundImageValue } from '../../../../components/controls/background-controls/helpers';
 
-registerBlockType('gutenbee/column', {
-  title: __('GutenBee Column'),
-  category: 'gutenbee',
-  description: __('A single column within a container block.'),
-  icon: ColumnBlockIcon,
+const ColumnStyle = ({ attributes, children }) => {
+  const {
+    uniqueId,
+    blockPadding,
+    blockMargin,
+    verticalContentAlignment,
+    horizontalContentAlignment,
+    backgroundImage,
+  } = attributes;
+  const blockId = getBlockId(uniqueId);
+
+  return (
+    <StyleSheet id={blockId}>
+      <Rule
+        value={blockMargin}
+        rule=".wp-block-gutenbee-column.[root] > .wp-block-gutenbee-column-content { margin: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={blockPadding}
+        rule=".wp-block-gutenbee-column.[root] > .wp-block-gutenbee-column-content { padding: %s; }"
+        unit="px"
+      />
+      <Rule
+        value={horizontalContentAlignment}
+        rule=".wp-block-gutenbee-column.[root] > .wp-block-gutenbee-column-content { align-items: %s; }"
+      />
+      <Rule
+        value={verticalContentAlignment}
+        rule=".wp-block-gutenbee-column.[root] > .wp-block-gutenbee-column-content { justify-content: %s; }"
+      />
+      <Rule
+        value={backgroundImage}
+        rule=".wp-block-gutenbee-column.[root] > .wp-block-gutenbee-column-content { %s }"
+      />
+      {children}
+    </StyleSheet>
+  );
+};
+
+const v4 = {
   supports: {
     inserter: false,
     reusable: false,
@@ -54,10 +81,6 @@ registerBlockType('gutenbee/column', {
         tablet: 100,
         mobile: 100,
       },
-    },
-    columnHeight: {
-      type: 'object',
-      default: getDefaultResponsiveValue(),
     },
     textColor: {
       type: 'string',
@@ -112,19 +135,12 @@ registerBlockType('gutenbee/column', {
     },
     ...animationControlAttributes(),
   },
-  getEditWrapperProps(attributes) {
-    const { width } = attributes;
-
-    if (Number.isFinite(width.desktop)) {
-      return {
-        style: {
-          flexBasis: `${width.desktop}%`,
-        },
-      };
-    }
+  migrate(attributes) {
+    return {
+      ...attributes,
+      columnHeight: getDefaultResponsiveValue(),
+    };
   },
-  deprecated,
-  edit: ColumnBlockEdit,
   save({ attributes, className }) {
     const {
       width,
@@ -139,6 +155,7 @@ registerBlockType('gutenbee/column', {
 
     return (
       <div
+        id={blockId}
         className={classNames(
           className,
           blockId,
@@ -172,4 +189,6 @@ registerBlockType('gutenbee/column', {
       </div>
     );
   },
-});
+};
+
+export default v4;
