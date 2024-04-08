@@ -54,6 +54,9 @@ https://www.youtube.com/watch?v=Wv_zwREKi68
 **JOIN OUR COMMUNITY**
 Join our [Facebook group](https://www.facebook.com/groups/2601788933169108) to discuss new features and stay up to date on our latest releases.
 
+**Contribute**
+Visit the [GitHub repository](https://github.com/cssigniter/gutenbee) for full source code and to report any bugs.
+
 == Installation ==
 From within WordPress' dashboard:
 
