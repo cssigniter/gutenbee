@@ -54,7 +54,6 @@ registerBlockType('gutenbee/banner', {
     },
     backgroundColor: {
       type: 'string',
-      default: '#F8F8F8',
     },
     backgroundVideoURL: {
       type: 'string',
