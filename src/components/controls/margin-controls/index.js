@@ -12,15 +12,11 @@ const propTypes = {
   breakpoint: PropTypes.string,
 };
 
-const defaultProps = {
-  label: __('Block Margin'),
-};
-
 const MarginControls = ({
   setAttributes,
   attributeKey,
   attributes,
-  label,
+  label = __('Block Margin'),
   breakpoint,
 }) => {
   const margins = attributes[attributeKey];
@@ -125,6 +121,5 @@ const MarginControls = ({
 };
 
 MarginControls.propTypes = propTypes;
-MarginControls.defaultProps = defaultProps;
 
 export default MarginControls;

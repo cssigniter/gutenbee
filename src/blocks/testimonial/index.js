@@ -213,7 +213,7 @@ registerBlockType('gutenbee/testimonial', {
         <Fragment>
           {!RichText.isEmpty(content) && (
             <div className="wp-block-testimonial-content-wrapper">
-              <RichText.Content multiline value={content} />
+              <RichText.Content value={content} />
             </div>
           )}
         </Fragment>

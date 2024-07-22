@@ -120,7 +120,6 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
             tagName="p"
             className="wp-block-gutenbee-review-rating-final-score-subtitle"
             identifier="value"
-            multiline={false}
             disableLineBreaks={true}
             value={content}
             onChange={nextContent =>
