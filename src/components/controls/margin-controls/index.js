@@ -85,8 +85,9 @@ const MarginControls = ({
 
       <div className="gutenbee-control-spacing-controls-wrap">
         <div className="gutenbee-control-spacing-controls">
-          {positions.map(position => (
+          {positions.map((position, index) => (
             <TextControl
+              key={index}
               label={__(capitalize(position))}
               value={
                 breakpoint ? margins[breakpoint][position] : margins[position]

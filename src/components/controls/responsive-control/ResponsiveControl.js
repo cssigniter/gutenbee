@@ -34,7 +34,7 @@ const ResponsiveControl = ({
       <div className="gutenbee-responsive-control-wrap-buttons">
         {breakpoints.map(breakpoint => (
           <button
-            key={breakpoint}
+            key={breakpoint.value}
             onClick={() => setActiveBreakpoint(breakpoint.value)}
             className={classNames({
               'gutenbee-responsive-control-wrap-button': true,
