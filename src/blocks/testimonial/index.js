@@ -77,7 +77,6 @@ registerBlockType('gutenbee/testimonial', {
       type: 'string',
       source: 'html',
       selector: '.wp-block-testimonial-content-wrapper',
-      multiline: 'p',
       default: '',
     },
     sizeSlug: {

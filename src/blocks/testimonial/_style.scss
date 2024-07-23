@@ -20,10 +20,11 @@
 
   .wp-block-testimonial-content-wrapper {
     order: 2;
+    margin-bottom: 20px;
 
     p {
       &:last-child {
-        margin-bottom: 20px;
+        margin-bottom: 0;
       }
     }
   }
