@@ -1,8 +1,8 @@
 === GutenBee - Gutenberg Blocks ===
 Contributors: cssigniterteam, silencerius, nvourva, tsiger, anastis
 Tags: gutenberg, blocks
-Requires at least: 6.0
-Tested up to: 6.4
+Requires at least: 6.4
+Tested up to: 6.6
 Stable tag: 2.18.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
