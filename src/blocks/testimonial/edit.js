@@ -221,7 +221,6 @@ const TestimonialEdit = ({
       <div className="wp-block-testimonial-content-wrapper">
         <RichText
           identifier="value"
-          multiline
           value={content}
           onChange={nextContent =>
             setAttributes({

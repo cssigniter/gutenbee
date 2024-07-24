@@ -34,6 +34,7 @@ registerBlockType('gutenbee/button', {
   supports: {
     className: true,
     anchor: false,
+    splitting: true,
   },
   parent: ['gutenbee/buttons'],
   attributes: {

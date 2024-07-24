@@ -113,7 +113,7 @@ const ColumnBlockEdit = ({
                   label={__('Height (px)')}
                   min={-1}
                   max={1200}
-                  value={columnHeight[breakpoint]}
+                  value={columnHeight?.[breakpoint] ?? ''}
                   allowReset
                   onChange={value => {
                     setAttributes({

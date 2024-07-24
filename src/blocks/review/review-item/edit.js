@@ -3,7 +3,6 @@ import { __ } from 'wp.i18n';
 import { RangeControl, PanelBody } from 'wp.components';
 import { InspectorControls, RichText } from 'wp.blockEditor';
 import { useSelect, useDispatch } from 'wp.data';
-import { createBlock } from 'wp.blocks';
 import classNames from 'classnames';
 
 import useUniqueId from '../../../hooks/useUniqueId';
@@ -83,7 +82,6 @@ const ReviewItemEdit = ({
               key="innerTitle"
               tagName="span"
               value={innerTitle}
-              multiline={false}
               disableLineBreaks={true}
               onChange={value => setAttributes({ innerTitle: value })}
               className="wp-block-gutenbee-review-item-inner-title"
@@ -92,18 +90,6 @@ const ReviewItemEdit = ({
               onFocus={() => setEditable('innerTitle')}
               onRemove={innerBlocks.length > 1 ? onRemove : false}
               onReplace={onReplace}
-              onSplit={value => {
-                if (!value) {
-                  return createBlock('gutenbee/review-item', {
-                    ...attributes,
-                    innerTitle: undefined,
-                  });
-                }
-                return createBlock('gutenbee/review-item', {
-                  ...attributes,
-                  innerTitle: value,
-                });
-              }}
             />
 
             {displayPercentage && (

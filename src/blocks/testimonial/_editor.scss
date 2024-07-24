@@ -15,6 +15,11 @@
 
   .wp-block-testimonial-content-wrapper {
     order: 2;
+    margin-bottom: 25px;
+
+    p:last-child {
+      margin-bottom: 0;
+    }
   }
 
   .gutenbee-block-testimonial__citation {

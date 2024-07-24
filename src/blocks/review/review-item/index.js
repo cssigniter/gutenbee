@@ -49,6 +49,7 @@ registerBlockType('gutenbee/review-item', {
   keywords: [__('review'), __('review item')],
   supports: {
     anchor: true,
+    splitting: true,
   },
   attributes: {
     uniqueId: {

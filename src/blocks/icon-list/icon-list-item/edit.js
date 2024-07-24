@@ -8,7 +8,6 @@ import {
   ToggleControl,
 } from 'wp.components';
 import classNames from 'classnames';
-import { createBlock } from 'wp.blocks';
 import ReactSelect from 'react-select';
 import startCase from 'lodash.startcase';
 
@@ -40,7 +39,6 @@ const IconListItemEdit = ({
         value={content}
         aria-label={__('Icon List Item block')}
         placeholder={__('Start writing…')}
-        multiline={false}
         disableLineBreaks
         onChange={content => setAttributes({ content })}
         onReplace={onReplace}
@@ -51,16 +49,6 @@ const IconListItemEdit = ({
               setAttributes({ content: '' });
             }, 0);
           }
-        }}
-        onSplit={value => {
-          if (!value) {
-            return createBlock('gutenbee/icon-list-item');
-          }
-
-          return createBlock('gutenbee/icon-list-item', {
-            ...attributes,
-            content: value,
-          });
         }}
       />
     </Fragment>

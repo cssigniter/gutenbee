@@ -12,15 +12,11 @@ const propTypes = {
   breakpoint: PropTypes.string,
 };
 
-const defaultProps = {
-  label: __('Block Margin'),
-};
-
 const MarginControls = ({
   setAttributes,
   attributeKey,
   attributes,
-  label,
+  label = __('Block Margin'),
   breakpoint,
 }) => {
   const margins = attributes[attributeKey];
@@ -89,8 +85,9 @@ const MarginControls = ({
 
       <div className="gutenbee-control-spacing-controls-wrap">
         <div className="gutenbee-control-spacing-controls">
-          {positions.map(position => (
+          {positions.map((position, index) => (
             <TextControl
+              key={index}
               label={__(capitalize(position))}
               value={
                 breakpoint ? margins[breakpoint][position] : margins[position]
@@ -125,6 +122,5 @@ const MarginControls = ({
 };
 
 MarginControls.propTypes = propTypes;
-MarginControls.defaultProps = defaultProps;
 
 export default MarginControls;
