@@ -3,10 +3,10 @@ Contributors: cssigniterteam, silencerius, nvourva, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 6.0
 Tested up to: 6.4
-Stable tag: 2.17.4
+Stable tag: 2.18.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
-Requires PHP: 5.6
+Requires PHP: 7.0
 
 GutenBee enhances the Gutenberg editor with more blocks!
 
@@ -78,6 +78,11 @@ Note that if you want to use the Google Maps block you will also need a Google M
 7. Tabs or Accordions, group your content the way you want.
 
 == Changelog ==
+
+= 2.18.0 =
+* WP 6.6 / React 19 update.
+* Added GitHub link.
+* Fixed an issue with the column block, sometimes invalidating in WordPress 6.5
 
 = 2.17.4 =
 * Fixed an issue where some blocks could not be edited or the editor would not load properly due to lodash's removal from core.
