@@ -5,8 +5,8 @@ Premium Blocks for WordPress
 - [Development](#development)
 - [Build](#build)
 - [Updating readme.txt without releasing a new version](#updating-readmetxt-without-releasing-a-new-version)
-- - [Easiest way, more local files](#easiest-way-more-local-files)
-- - [Harder way, less local files](#harder-way-less-local-files)
+  - [Easiest way, more local files](#easiest-way-more-local-files)
+  - [Harder way, less local files](#harder-way-less-local-files)
 - [Releasing new versions to WP.org](#releasing-new-versions-to-wporg)
 
 ## Development
