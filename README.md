@@ -49,14 +49,14 @@ Assuming you don't have a working copy of the whole repo, run this to only get t
 cd svn
 svn checkout --depth=immediates https://plugins.svn.wordpress.org/gutenbee
 cd gutenbee
-svn update trunk --set-depth=inifnity
+svn update trunk --set-depth=infinity
 svn update tags --set-depth=immediates
 ```
 
 Now, if you want to see the files of the `1.0.2` tag, do:
 ```
 cd tags
-svn update 1.0.2 --set-depth=inifnity
+svn update 1.0.2 --set-depth=infinity
 ```
 
 You should see a list of files added.
