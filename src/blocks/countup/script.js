@@ -1,6 +1,7 @@
 import CountUp from 'countup';
 
 import isElementInViewport from '../../util/isElementInViewport';
+import escapeHtml from '../../util/escapeHtml';
 
 document.addEventListener('DOMContentLoaded', () => {
   const elements = document.getElementsByClassName(
@@ -12,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const options = {
       useGrouping: !!separator,
       separator,
-      prefix: element.dataset.prefix,
-      suffix: element.dataset.suffix,
+      prefix: escapeHtml(element.dataset.prefix),
+      suffix: escapeHtml(element.dataset.suffix),
     };
 
     const countup = new CountUp(
