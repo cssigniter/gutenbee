@@ -10,7 +10,7 @@ import {
   Button,
 } from 'wp.components';
 import { help as helpIcon } from '@wordpress/icons';
-import ReactTooltip from 'react-tooltip';
+import { Tooltip } from 'react-tooltip';
 
 import MarginControls from '../../components/controls/margin-controls';
 import BackgroundControls from '../../components/controls/background-controls/BackgroundControls';
@@ -74,7 +74,8 @@ const ContainerInspectorControls = ({
               />
               <div
                 className="components-base-control-help-icon"
-                data-tip="When used in combination with a Full Width template or the Full width block alignment it matches the width of the container's contents to the width of the theme. Useful when creating full viewport sections."
+                data-tooltip-id="gutenbee-tooltip"
+                data-tooltip-content="When used in combination with a Full Width template or the Full width block alignment it matches the width of the container's contents to the width of the theme. Useful when creating full viewport sections."
                 data-effect="solid"
               >
                 <BlockIcon icon={helpIcon} />
@@ -125,7 +126,8 @@ const ContainerInspectorControls = ({
             />
             <div
               className="components-base-control-help-icon"
-              data-tip="Eliminates the left and right padding of the container's contents. Useful when creating full viewport sections and columns that have their own background."
+              data-tooltip-id="gutenbee-tooltip"
+              data-tooltip-content="Eliminates the left and right padding of the container's contents. Useful when creating full viewport sections and columns that have their own background."
               data-effect="solid"
             >
               <BlockIcon icon={helpIcon} />
@@ -411,7 +413,7 @@ const ContainerInspectorControls = ({
           </PanelBody>
         )}
 
-        <ReactTooltip className="gutenbee-tooltip" />
+        <Tooltip id="gutenbee-tooltip" />
       </InspectorControls>
     </Fragment>
   );

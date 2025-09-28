@@ -24,7 +24,7 @@
   pointer-events: none;
 
   &::after {
-    content: "";
+    content: '';
     @include spinner($size: 26px, $border-width: 4px, $color: #ccc);
     border-top-color: currentColor;
     position: absolute;

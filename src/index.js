@@ -49,7 +49,6 @@ import './blocks/review';
 // import './blocks/tab-slider/tab-slider-nav';
 // import './blocks/tab-slider/tab-slider-content-column';
 // import './blocks/tab-slider/tab-slider-content';
-// import './blocks/lottie';
 
 //
 // Misc

@@ -33,6 +33,8 @@ const wplib = [
   'icons',
 ];
 
+const ESLintPlugin = require('eslint-webpack-plugin');
+
 const webpackConfig = {
   mode: NODE_ENV,
   entry: {
@@ -43,8 +45,10 @@ const webpackConfig = {
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: '[name].js',
-    library: ['wp', '[name]'],
-    libraryTarget: 'window',
+    library: {
+      name: ['wp', '[name]'],
+      type: 'window',
+    },
   },
   // Define WordPress external libraries loaded globally
   // as separate scripts so that we can use them as ES modules
@@ -96,14 +100,10 @@ const webpackConfig = {
     rules: [
       {
         test: /\.js$/,
-        loader: 'eslint-loader',
-        enforce: 'pre',
         exclude: /node_modules/,
-      },
-      {
-        test: /.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
       },
       {
         test: /\.scss$/,
@@ -115,19 +115,14 @@ const webpackConfig = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: () => [
-                autoprefixer({
-                  browsers: [
-                    'last 5 chrome version',
-                    'last 5 firefox version',
-                    'last 3 iOS version',
-                    'last 3 Safari version',
-                    'Android >= 8',
-                  ],
-                  cascade: false,
-                  remove: true,
-                }),
-              ],
+              postcssOptions: {
+                plugins: () => [
+                  autoprefixer({
+                    cascade: false,
+                    remove: true,
+                  }),
+                ],
+              },
             },
           },
           {
@@ -141,14 +136,15 @@ const webpackConfig = {
       },
       {
         test: /\.(ttf|eot|woff|woff2)$/,
-        loader: 'file-loader',
-        options: {
-          name: 'fonts/[name].[ext]',
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name][ext]',
         },
       },
     ],
   },
   plugins: [
+    new ESLintPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
     }),
@@ -160,13 +156,10 @@ const webpackConfig = {
 };
 
 if (NODE_ENV === 'production') {
-  delete webpackConfig.devtool;
-
   webpackConfig.optimization = {
     ...webpackConfig.optimization,
     minimize: true,
     minimizer: [
-      ...(webpackConfig.optimization.minimizer || []),
       new TerserPlugin(),
       new CSSMinimizerPlugin(),
     ],

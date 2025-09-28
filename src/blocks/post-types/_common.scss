@@ -11,7 +11,7 @@
     margin-left: 0 !important;
   }
 
-  [class*="columns-"] {
+  [class*='columns-'] {
     position: relative;
     width: 100%;
     min-height: 1px;
@@ -21,14 +21,14 @@
 
   @for $i from 1 to 12 {
     @media (min-width: 1200px) {
-      [class*="columns-#{$i}"] {
+      [class*='columns-#{$i}'] {
         flex: 0 0 math.percentage(math.div(1, $i));
         max-width: math.percentage(math.div(1, $i));
       }
     }
 
     @media (min-width: 767px) {
-      [class*="columns-#{$i}"] {
+      [class*='columns-#{$i}'] {
         flex: 0 0 math.percentage(math.div(1, $i));
         max-width: math.percentage(math.div(1, $i));
       }
@@ -54,7 +54,7 @@
       margin-bottom: 0;
     }
 
-    [class*="columns-"] {
+    [class*='columns-'] {
       padding-left: 0;
       padding-right: 0;
     }
@@ -128,7 +128,7 @@
     line-height: normal;
     margin: -12px 0 20px;
     display: block;
-    opacity: .75;
+    opacity: 0.75;
   }
 
   .ci-item-list-meta {
@@ -193,10 +193,10 @@
 .wp-block-gutenbee-post-types {
   box-sizing: border-box;
 
-    *,
-    *::before,
-    *::after {
-      box-sizing: inherit;
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
   }
 }
 

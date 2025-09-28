@@ -208,7 +208,6 @@ function gutenbee_get_setting_block_names() {
 		'testimonial'       => __( 'Testimonial Block', 'gutenbee' ),
 		'video'             => __( 'Video Block', 'gutenbee' ),
 		'video-embed'       => __( 'Video Embed Block', 'gutenbee' ),
-//			'lottie'            => __( 'Lottie Player Block', 'gutenbee' ),
 	);
 }
 
@@ -309,11 +308,6 @@ function gutenbee_get_blocks_info() {
 			'enqueue_js'  => true,
 			'enqueue_css' => true,
 		),
-//		'gutenbee/lottie'            => array(
-//			'label'       => __( 'Lottie Player Block', 'gutenbee' ),
-//			'enqueue_js'  => false,
-//			'enqueue_css' => false,
-//		),
 		'gutenbee/paragraph'         => array(
 			'label'       => __( 'Paragraph Block', 'gutenbee' ),
 			'enqueue_js'  => false,

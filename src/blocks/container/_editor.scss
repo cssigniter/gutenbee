@@ -12,12 +12,12 @@
   display: block;
 
   .editor-block-list__layout {
-  	margin-left: 0;
-  	margin-right: 0;
+    margin-left: 0;
+    margin-right: 0;
 
-  	.editor-block-list__block {
-  		max-width: none;
-  	}
+    .editor-block-list__block {
+      max-width: none;
+    }
   }
 
   > .block-editor-inner-blocks {
@@ -28,7 +28,7 @@
       margin-left: -15px;
       margin-right: -15px;
 
-      > [data-type="gutenbee/column"] {
+      > [data-type='gutenbee/column'] {
         display: flex;
         flex-direction: column;
 
@@ -78,11 +78,17 @@
       margin-right: -15px;
 
       // Set full heights on Columns to enable vertical alignment preview
-      > [data-type="gutenbee/column"],
-      > [data-type="gutenbee/column"] > .editor-block-list__block-edit,
-      > [data-type="gutenbee/column"] > .editor-block-list__block-edit > div[data-block],
-      > [data-type="gutenbee/column"] > .editor-block-list__block-edit .wp-block-gutenbee-column,
-      > [data-type="gutenbee/column"] > .editor-block-list__block-edit .wp-block-gutenbee-column-content {
+      > [data-type='gutenbee/column'],
+      > [data-type='gutenbee/column'] > .editor-block-list__block-edit,
+      > [data-type='gutenbee/column']
+        > .editor-block-list__block-edit
+        > div[data-block],
+      > [data-type='gutenbee/column']
+        > .editor-block-list__block-edit
+        .wp-block-gutenbee-column,
+      > [data-type='gutenbee/column']
+        > .editor-block-list__block-edit
+        .wp-block-gutenbee-column-content {
         display: flex;
         flex-direction: column;
 
@@ -95,7 +101,7 @@
         }
       }
 
-      > [data-type="gutenbee/column"] {
+      > [data-type='gutenbee/column'] {
         width: 100%;
         min-width: 0;
         padding-left: 0;
@@ -142,8 +148,8 @@
   }
 }
 
-[data-type="gutenbee/container"] {
-  &[data-align="full"] {
+[data-type='gutenbee/container'] {
+  &[data-align='full'] {
     .wp-block-gutenbee-container-row {
       > .block-editor-inner-blocks {
         > .block-editor-block-list__layout {
@@ -163,19 +169,24 @@
       display: none !important;
     }
 
-    > .wp-block-gutenbee-container  > .wp-block-gutenbee-container-inner {
+    > .wp-block-gutenbee-container > .wp-block-gutenbee-container-inner {
       max-width: 940px;
       margin-left: auto;
       margin-right: auto;
     }
 
-    > .wp-block > .wp-block-gutenbee-container  > .wp-block-gutenbee-container-inner {
+    > .wp-block
+      > .wp-block-gutenbee-container
+      > .wp-block-gutenbee-container-inner {
       max-width: 940px;
       margin-left: auto;
-      margin-right: auto
+      margin-right: auto;
     }
 
-    &[data-align="full"] > .wp-block > .wp-block-gutenbee-container  > .wp-block-gutenbee-container-inner {
+    &[data-align='full']
+      > .wp-block
+      > .wp-block-gutenbee-container
+      > .wp-block-gutenbee-container-inner {
       max-width: 970px;
     }
 
@@ -196,16 +207,32 @@
 /**
  * Add extra padding when the parent block is selected, for easier interaction.
  */
-[data-type="gutenbee/container"].is-selected > .block-editor-block-list__block-edit > [data-block] .wp-block-gutenbee-container-row > .block-editor-inner-blocks,
-[data-type="gutenbee/container"].has-child-selected > .block-editor-block-list__block-edit > [data-block] .wp-block-gutenbee-container-row > .block-editor-inner-blocks,
-[data-type="gutenbee/column"].is-selected > .block-editor-block-list__block-edit > [data-block] .wp-block-gutenbee-column-content > .block-editor-inner-blocks,
-[data-type="gutenbee/column"].has-child-selected > .block-editor-block-list__block-edit > [data-block] .wp-block-gutenbee-column-content > .block-editor-inner-blocks {
-	padding: $block-padding;
+[data-type='gutenbee/container'].is-selected
+  > .block-editor-block-list__block-edit
+  > [data-block]
+  .wp-block-gutenbee-container-row
+  > .block-editor-inner-blocks,
+[data-type='gutenbee/container'].has-child-selected
+  > .block-editor-block-list__block-edit
+  > [data-block]
+  .wp-block-gutenbee-container-row
+  > .block-editor-inner-blocks,
+[data-type='gutenbee/column'].is-selected
+  > .block-editor-block-list__block-edit
+  > [data-block]
+  .wp-block-gutenbee-column-content
+  > .block-editor-inner-blocks,
+[data-type='gutenbee/column'].has-child-selected
+  > .block-editor-block-list__block-edit
+  > [data-block]
+  .wp-block-gutenbee-column-content
+  > .block-editor-inner-blocks {
+  padding: $block-padding;
 
-	// Negate this padding for the placeholder.
-	> .components-placeholder {
-		width: calc(100% + #{$block-padding * 2});
-	}
+  // Negate this padding for the placeholder.
+  > .components-placeholder {
+    width: calc(100% + #{$block-padding * 2});
+  }
 }
 
 .gutenbee-controls-notice {

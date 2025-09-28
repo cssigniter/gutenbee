@@ -1,27 +1,27 @@
 .wp-block-gutenbee-video {
-	margin-left: 0;
-	margin-right: 0;
+  margin-left: 0;
+  margin-right: 0;
   line-height: 0;
 
   video {
-		max-width: 100%;
+    max-width: 100%;
     margin-bottom: 0 !important;
-	}
+  }
 
-	@supports (position: sticky) {
-		[poster] {
-			object-fit: cover;
-		}
-	}
+  @supports (position: sticky) {
+    [poster] {
+      object-fit: cover;
+    }
+  }
 
-	&.aligncenter {
-		text-align: center;
-	}
+  &.aligncenter {
+    text-align: center;
+  }
 
-	figcaption {
-    margin-top: .5em;
+  figcaption {
+    margin-top: 0.5em;
     margin-bottom: 0;
     font-size: 0.9rem;
     line-height: normal;
-	}
+  }
 }
