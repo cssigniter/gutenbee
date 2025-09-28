@@ -1,9 +1,4 @@
 //
-// Polyfill
-//
-import '@babel/polyfill';
-
-//
 // Stylesheets
 //
 import './styles/style.scss';
