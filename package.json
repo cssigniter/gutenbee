@@ -36,6 +36,7 @@
     "style-loader": "3.3.1",
     "terser-webpack-plugin": "5.3.6",
     "webpack": "5.76.0",
+    "webpack-bundle-analyzer": "^4.10.2",
     "webpack-cli": "5.0.1"
   },
   "browserslist": [
@@ -47,6 +48,7 @@
     "generate-icons": "node ./scripts/generate-icons.js"
   },
   "dependencies": {
+    "@wordpress/dom": "^4.31.0",
     "classnames": "2.5.1",
     "countup": "1.8.2",
     "justifiedGallery": "3.7.0",

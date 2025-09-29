@@ -6,6 +6,7 @@ import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 import classNames from 'classnames';
 import get from 'lodash.get';
+import { safeHTML } from '@wordpress/dom';
 
 import GoogleMapsEdit from './edit';
 import mapStyles from './map-styles';
@@ -173,7 +174,7 @@ registerBlockType('gutenbee/google-maps', {
           data-zoom={zoom}
           data-prevent-scroll={preventScroll}
           data-map-style={mapStyle && JSON.stringify(mapStyle)}
-          data-info-window={infoWindow}
+          data-info-window={safeHTML(infoWindow)}
           data-marker-icon={markerImageUrl}
         />
       </div>

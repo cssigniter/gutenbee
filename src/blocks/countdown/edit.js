@@ -8,7 +8,6 @@ import {
   RangeControl,
 } from 'wp.components';
 import { InspectorControls, RichText } from 'wp.blockEditor';
-import moment from 'moment';
 import classNames from 'classnames';
 
 import { capitalize } from '../../util/text';
@@ -75,7 +74,8 @@ const CountdownEdit = ({
 }) => {
   let countdown = useRef(null);
   const clock = useRef(null);
-  const now = moment().format();
+  //const now = moment().format();
+  const now = new Date().toISOString();
 
   const {
     uniqueId,

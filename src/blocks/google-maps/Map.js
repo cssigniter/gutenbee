@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { compose } from 'wp.compose';
+import { safeHTML } from '@wordpress/dom';
 import {
   withScriptjs,
   withGoogleMap,
@@ -52,7 +53,7 @@ const Map = ({
             <div
               className="wp-block-gutenbee-google-maps-info-window"
               dangerouslySetInnerHTML={{
-                __html: infoWindow,
+                __html: safeHTML(infoWindow),
               }}
             />
           </InfoWindow>

@@ -47,7 +47,7 @@ function gutenbee_enqueue_editor_assets() {
 		return;
 	}
 
-	wp_enqueue_script( 'gutenbee', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.build.js', array(
+    wp_enqueue_script( 'gutenbee', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.build.js', array(
 		'wp-components',
 		'wp-blocks',
 		'wp-element',
@@ -59,6 +59,7 @@ function gutenbee_enqueue_editor_assets() {
 		'wp-keycodes',
 		'wp-html-entities',
 		'wp-server-side-render',
+		'wp-dom',
 		'lodash',
 		'react',
 		'react-dom',
@@ -124,10 +125,13 @@ function gutenbee_enqueue_frontend_block_assets() {
 		wp_enqueue_style( 'gutenbee', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.scripts.css', array(), GUTENBEE_PLUGIN_VERSION );
 	}
 
-	if ( apply_filters( 'gutenbee_enqueue_frontend_scripts', $enqueue_js ) ) {
-		wp_enqueue_script( 'gutenbee-scripts', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.scripts.js', array(
-			'jquery',
-		), GUTENBEE_PLUGIN_VERSION, true );
+    if ( apply_filters( 'gutenbee_enqueue_frontend_scripts', $enqueue_js ) ) {
+        $gutenbee_scripts_deps = array( 'jquery' );
+        if ( $enqueue_maps_api ) {
+            $gutenbee_scripts_deps[] = 'wp-dom';
+        }
+
+        wp_enqueue_script( 'gutenbee-scripts', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.scripts.js', $gutenbee_scripts_deps, GUTENBEE_PLUGIN_VERSION, true );
 
 		wp_localize_script( 'gutenbee-scripts', 'gutenbeeStrings', apply_filters( 'gutenbee_strings', array(
 			'image_comparison_before_label' => esc_html__( 'Before', 'gutenbee' ),

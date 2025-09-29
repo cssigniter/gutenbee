@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autoprefixer = require('autoprefixer');
 const CSSMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -66,6 +67,8 @@ const webpackConfig = {
       react: 'React',
       'react-dom': 'ReactDOM',
       lodash: 'lodash',
+      // Map @wordpress/* package imports to WP globals
+      '@wordpress/dom': { window: ['wp', 'dom'] },
     },
   ),
   optimization: {
@@ -149,6 +152,7 @@ const webpackConfig = {
     ],
   },
   plugins: [
+    new BundleAnalyzerPlugin(),
     new ESLintPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
@@ -157,7 +161,7 @@ const webpackConfig = {
       filename: '[name].css',
     }),
   ],
-  devtool: 'eval-source-map',
+  devtool: 'eval-source-map'
 };
 
 if (NODE_ENV === 'production') {
