@@ -4,9 +4,7 @@
       "@babel/preset-env",
       {
         "modules": false,
-        "bugfixes": true,
-        "useBuiltIns": "usage",
-        "corejs": 3
+        "bugfixes": true
       }
     ],
     [
