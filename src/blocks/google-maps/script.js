@@ -1,5 +1,7 @@
 import jQuery from 'jquery';
 
+import safeHTML from '../../util/safeHTML';
+
 jQuery($ => {
   const google = window.google;
 
@@ -39,7 +41,7 @@ jQuery($ => {
     const infoWindow = new google.maps.InfoWindow({
       content:
         '<div class="wp-block-gutenbee-google-maps-info-window">' +
-        info +
+        safeHTML(info) +
         '</div>',
       maxWidth: 350,
     });

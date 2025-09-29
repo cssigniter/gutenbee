@@ -242,7 +242,11 @@
 		}
 
 		public function options_page() {
-			$active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general_options';
+			// Nonce is output and checked by the Settings API.
+			// phpcs:disable WordPress.Security.NonceVerification
+			$tabs       = array( 'general_options', 'settings_section' );
+			$active_tab = isset( $_GET['tab'] ) && in_array( sanitize_key( $_GET['tab'] ), $tabs, true ) ? sanitize_key( $_GET['tab'] ) : 'general_options';
+			// phpcs:enable
 			?>
 			<div class="wrap">
 				<div class="gutenbee-settings-container">
@@ -290,16 +294,16 @@
 
 			echo '<style>
 				.block-editor-button-block-appender {
-					-webkit-box-shadow: inset 0 0 0 1px ' . $this->general_settings['high-contrast-color'] . ';
-					box-shadow: inset 0 0 0 1px ' . $this->general_settings['high-contrast-color'] . ';
+					-webkit-box-shadow: inset 0 0 0 1px ' . sanitize_hex_color( $this->general_settings['high-contrast-color'] ) . ';
+					box-shadow: inset 0 0 0 1px ' . sanitize_hex_color( $this->general_settings['high-contrast-color'] ) . ';
 				}
 
 				.block-editor-button-block-appender svg {
-					fill: ' . $this->general_settings['high-contrast-color'] . ';
+					fill: ' . sanitize_hex_color( $this->general_settings['high-contrast-color'] ) . ';
 				}
 
 				.block-editor-block-list__block-popover-inserter .block-editor-inserter__toggle.components-button.has-icon, .block-editor-block-list__empty-block-inserter .block-editor-inserter__toggle.components-button.has-icon, .block-editor-block-list__insertion-point-inserter .block-editor-inserter__toggle.components-button.has-icon, .block-editor-default-block-appender .block-editor-inserter__toggle.components-button.has-icon {
-					background-color: ' . $this->general_settings['high-contrast-color'] . ';
+					background-color: ' . sanitize_hex_color( $this->general_settings['high-contrast-color'] ) . ';
 				}
 			</style>';
 		}
@@ -315,11 +319,11 @@
 				div.editor-styles-wrapper .wp-block,
 				div.editor-styles-wrapper [data-type="gutenbee/container"][data-theme-grid] > .wp-block-gutenbee-container  > .wp-block-gutenbee-container-inner,
 				div.editor-styles-wrapper [data-type="gutenbee/container"][data-theme-grid] > .wp-block > .wp-block-gutenbee-container > .wp-block-gutenbee-container-inner {
-					max-width: ' . $custom_width . 'px;
+					max-width: ' . (int) $custom_width . 'px;
 				}
 
 				div.editor-styles-wrapper [data-type="gutenbee/container"][data-theme-grid][data-align="full"] > .wp-block > .wp-block-gutenbee-container > .wp-block-gutenbee-container-inner {
-					max-width: ' . ($custom_width + 30) . 'px;
+					max-width: ' . (int) ( $custom_width + 30 ) . 'px;
 				}
 			</style>';
 		}
