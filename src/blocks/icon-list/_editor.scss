@@ -1,4 +1,4 @@
-@import '../../styles/inc/variables';
+@use '../../styles/inc/variables' as *;
 
 .wp-block-gutenbee-icon-list-element {
   .wp-block-gutenbee-icon-list & {

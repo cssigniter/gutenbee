@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "../../../styles/inc/variables" as *;
+
 .entity-select-search-control {
   position: relative;
 }
@@ -8,7 +11,7 @@
   left: 1px;
   z-index: 10;
   padding: 6px 8px;
-  border: 1px solid darken($border-color, 5%);
+  border: 1px solid color.adjust($border-color, $lightness: -5%);
   border-radius: 2px;
   max-height: 200px;
   overflow-y: scroll;

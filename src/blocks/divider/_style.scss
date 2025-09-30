@@ -1,1 +1,2 @@
-@import './common';
+@use './common' as *;
+@use '../../styles/inc/variables' as *;

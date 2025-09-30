@@ -1,3 +1,5 @@
+@use '../../styles/inc/mixins/spinner' as *;
+
 .gutenbee-spinner {
   @include spinner($size: 98px, $border-width: 2px);
   z-index: 0;

@@ -1,4 +1,5 @@
-@import './common';
+@use '../../styles/inc/variables' as *;
+@use './common' as *;
 
 @keyframes fade-in-up {
   0% {

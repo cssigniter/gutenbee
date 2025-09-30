@@ -1,4 +1,6 @@
-@import 'common';
+@use './common' as *;
+@use '../../styles/inc/mixins/responsive' as *;
+@use '../../styles/inc/mixins/spinner' as *;
 
 .wp-block-gutenbee-container {
   &.has-parallax {

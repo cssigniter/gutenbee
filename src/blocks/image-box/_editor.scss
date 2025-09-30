@@ -1,4 +1,4 @@
-@import 'common';
+@use './common' as *;
 
 .range-control-size {
   .components-range-control__slider {

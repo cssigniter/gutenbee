@@ -1,4 +1,5 @@
-@import '~zurb-twentytwenty/css/twentytwenty-no-compass.css';
+@use '../../styles/inc/variables' as *;
+@import 'zurb-twentytwenty/css/twentytwenty-no-compass.css';
 
 .wp-block-gutenbee-image-comparison {
   margin: $base-block-vertical-spacing 0;

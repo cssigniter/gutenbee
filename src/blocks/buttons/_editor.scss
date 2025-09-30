@@ -1,3 +1,5 @@
+@use '../../styles/inc/variables' as *;
+
 .wp-block-gutenbee-buttons {
   .wp-block.block-editor-block-list__block {
     &[data-type='gutenbee/button'] {

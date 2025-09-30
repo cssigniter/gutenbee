@@ -1,4 +1,5 @@
-@import '~slick-carousel/slick/slick.scss';
+@use '../../styles/inc/variables' as *;
+@use 'slick-carousel/slick/slick.scss' as *;
 
 .wp-block-gutenbee-slideshow {
   margin: $base-block-vertical-spacing 0;

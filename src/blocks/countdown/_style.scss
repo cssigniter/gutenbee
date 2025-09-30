@@ -1,4 +1,4 @@
-@import 'common';
+@use './common' as *;
 
 .wp-block-gutenbee-countdown-wrap {
   margin: 0;

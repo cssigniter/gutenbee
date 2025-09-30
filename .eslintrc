@@ -17,7 +17,8 @@
   ],
   "settings": {
     "react": {
-      "pragma": "wp"
+      "pragma": "wp",
+      "version": "detect"
     }
   },
   "env": {

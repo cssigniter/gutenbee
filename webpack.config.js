@@ -1,23 +1,10 @@
 const path = require('path');
-
-const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const autoprefixer = require('autoprefixer');
 const CSSMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
-
-const recursiveIssuer = m => {
-  if (m.issuer) {
-    return recursiveIssuer(m.issuer);
-  } else if (m.name) {
-    return m.name;
-  }
-
-  return false;
-};
 
 const wplib = [
   'blocks',
@@ -34,9 +21,7 @@ const wplib = [
   'icons',
 ];
 
-const ESLintPlugin = require('eslint-webpack-plugin');
-
-const webpackConfig = {
+module.exports = {
   mode: NODE_ENV,
   entry: {
     'gutenbee.build': './src/index.js',
@@ -51,89 +36,39 @@ const webpackConfig = {
       type: 'window',
     },
   },
-  // Define WordPress external libraries loaded globally
-  // as separate scripts so that we can use them as ES modules
   externals: wplib.reduce(
     (externals, lib) => {
-      externals[`wp.${lib}`] = {
-        window: ['wp', lib],
-      };
-
+      externals[`wp.${lib}`] = { window: ['wp', lib] };
       return externals;
     },
     {
-      // Initial externals (non WP libraries)
       jquery: 'jQuery',
       react: 'React',
       'react-dom': 'ReactDOM',
       lodash: 'lodash',
-      // Map @wordpress/* package imports to WP globals
       '@wordpress/dom': { window: ['wp', 'dom'] },
     },
   ),
-  optimization: {
-    // https://github.com/webpack-contrib/mini-css-extract-plugin#extracting-css-based-on-entry
-    splitChunks: {
-      cacheGroups: {
-        editorStyles: {
-          name: 'gutenbee.build',
-          test: (m, c, entry = 'gutenbee.build') =>
-            m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
-          chunks: 'all',
-          enforce: true,
-        },
-        frontendStyles: {
-          name: 'gutenbee.scripts',
-          test: (m, c, entry = 'gutenbee.scripts') =>
-            m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
-          chunks: 'all',
-          enforce: true,
-        },
-        animationStyles: {
-          name: 'gutenbee.animations',
-          test: (m, c, entry = 'gutenbee.animations') =>
-            m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
-          chunks: 'all',
-          enforce: true,
-        },
-      },
-    },
-  },
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
+        use: 'babel-loader',
       },
       {
         test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-          },
+          'css-loader',
           {
             loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins: () => [
-                  autoprefixer({
-                    cascade: false,
-                    remove: true,
-                  }),
-                ],
-              },
-            },
+            options: { postcssOptions: { plugins: ['autoprefixer'] } },
           },
           {
             loader: 'sass-loader',
             options: {
-              sassOptions: {
-                silenceDeprecations: ['legacy-js-api'],
-              },
+              sassOptions: { silenceDeprecations: ['legacy-js-api'] },
             },
           },
         ],
@@ -152,27 +87,19 @@ const webpackConfig = {
     ],
   },
   plugins: [
-    new BundleAnalyzerPlugin(),
-    new ESLintPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
-    }),
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-    }),
+    new MiniCssExtractPlugin({ filename: '[name].css' }),
+    new ESLintPlugin({ context: 'src' }),
+    ...(process.env.ANALYZE ? [new BundleAnalyzerPlugin()] : []),
   ],
-  devtool: 'eval-source-map'
-};
-
-if (NODE_ENV === 'production') {
-  webpackConfig.optimization = {
-    ...webpackConfig.optimization,
-    minimize: true,
+  optimization: {
+    minimize: NODE_ENV === 'production',
     minimizer: [
-      new TerserPlugin(),
+      `...`,
       new CSSMinimizerPlugin(),
     ],
-  };
-}
-
-module.exports = webpackConfig;
+  },
+  devtool: NODE_ENV === 'production' ? false : 'cheap-module-source-map',
+  performance: {
+    hints: false,
+  }
+};

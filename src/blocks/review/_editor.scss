@@ -1,4 +1,4 @@
-@import './common';
+@use './common' as *;
 
 .wp-block-gutenbee-review {
   .block-editor-block-list__block.wp-block {

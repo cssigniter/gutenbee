@@ -126,10 +126,7 @@ function gutenbee_enqueue_frontend_block_assets() {
 	}
 
     if ( apply_filters( 'gutenbee_enqueue_frontend_scripts', $enqueue_js ) ) {
-        $gutenbee_scripts_deps = array( 'jquery' );
-        if ( $enqueue_maps_api ) {
-            $gutenbee_scripts_deps[] = 'wp-dom';
-        }
+        $gutenbee_scripts_deps = array( 'jquery', 'wp-dom' );
 
         wp_enqueue_script( 'gutenbee-scripts', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.scripts.js', $gutenbee_scripts_deps, GUTENBEE_PLUGIN_VERSION, true );
 

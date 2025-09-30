@@ -1,4 +1,5 @@
 @use "sass:math";
+@use "../../styles/inc/variables" as *;
 
 .gutenbee-row {
   display: flex;

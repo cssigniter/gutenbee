@@ -1,3 +1,7 @@
+@use "sass:list";
+@use "sass:map";
+@use '../variables' as *;
+
 @mixin clearfix() {
   &::after {
     content: '';
@@ -9,18 +13,18 @@
 @function breakpoint-next(
   $name,
   $breakpoints: $breakpoints,
-  $breakpoint-names: map-keys($breakpoints)
+  $breakpoint-names: map.keys($breakpoints)
 ) {
-  $n: index($breakpoint-names, $name);
+  $n: list.index($breakpoint-names, $name);
   @return if(
-    $n < length($breakpoint-names),
-    nth($breakpoint-names, $n + 1),
+    $n < list.length($breakpoint-names),
+    list.nth($breakpoint-names, $n + 1),
     null
   );
 }
 
 @function breakpoint-min($name, $breakpoints: $breakpoints) {
-  $min: map-get($breakpoints, $name);
+  $min: map.get($breakpoints, $name);
   @return if($min != 0, $min, null);
 }
 

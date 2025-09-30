@@ -1,4 +1,4 @@
-@import 'common';
+@use '../../styles/inc/variables' as *;
 
 .wp-block-gutenbee-icon {
   margin: $base-block-vertical-spacing 0;

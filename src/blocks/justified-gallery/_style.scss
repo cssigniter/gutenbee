@@ -1,5 +1,6 @@
 @use "sass:math";
-@import '~justifiedGallery/dist/css/justifiedGallery.css';
+@use '../../styles/inc/variables' as *;
+@import 'justifiedGallery/dist/css/justifiedGallery.css';
 
 .wp-block-gutenbee-justified-gallery {
   box-sizing: border-box;
