@@ -46,7 +46,6 @@ module.exports = {
       react: 'React',
       'react-dom': 'ReactDOM',
       lodash: 'lodash',
-      '@wordpress/dom': { window: ['wp', 'dom'] },
     },
   ),
   module: {
@@ -93,13 +92,10 @@ module.exports = {
   ],
   optimization: {
     minimize: NODE_ENV === 'production',
-    minimizer: [
-      `...`,
-      new CSSMinimizerPlugin(),
-    ],
+    minimizer: [`...`, new CSSMinimizerPlugin()],
   },
   devtool: NODE_ENV === 'production' ? false : 'cheap-module-source-map',
   performance: {
     hints: false,
-  }
+  },
 };

@@ -1,5 +1,5 @@
 import jQuery from 'jquery';
-import { safeHTML } from '@wordpress/dom';
+import DOMPurify from 'dompurify';
 
 jQuery($ => {
   const google = window.google;
@@ -40,7 +40,7 @@ jQuery($ => {
     const infoWindow = new google.maps.InfoWindow({
       content:
         '<div class="wp-block-gutenbee-google-maps-info-window">' +
-        (info ? safeHTML(String(info)) : '') +
+        (info ? DOMPurify.sanitize(String(info)) : '') +
         '</div>',
       maxWidth: 350,
     });

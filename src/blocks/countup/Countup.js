@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { safeHTML } from '@wordpress/dom';
+import DOMPurify from 'dompurify';
 
 import formatNumber from '../../util/formatNumber';
 
@@ -24,8 +24,12 @@ const Countup = ({
   inViewport,
   className,
 }) => {
-  const sanitizedPrefix = prefix ? safeHTML(prefix) : '';
-  const sanitizedSuffix = suffix ? safeHTML(suffix) : '';
+  const sanitizedPrefix = prefix
+    ? DOMPurify.sanitize(prefix, { ALLOWED_TAGS: [] })
+    : '';
+  const sanitizedSuffix = suffix
+    ? DOMPurify.sanitize(suffix, { ALLOWED_TAGS: [] })
+    : '';
   return (
     <span
       className={className}

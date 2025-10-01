@@ -1,4 +1,5 @@
 import CountUp from 'countup';
+import DOMPurify from 'dompurify';
 
 import isElementInViewport from '../../util/isElementInViewport';
 
@@ -12,8 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const options = {
       useGrouping: !!separator,
       separator,
-      prefix: element.dataset.prefix,
-      suffix: element.dataset.suffix,
+      prefix: DOMPurify.sanitize(element.dataset.prefix || '', {
+        ALLOWED_TAGS: [],
+      }),
+      suffix: DOMPurify.sanitize(element.dataset.suffix || '', {
+        ALLOWED_TAGS: [],
+      }),
     };
 
     const countup = new CountUp(
