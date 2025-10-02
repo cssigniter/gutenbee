@@ -3,7 +3,7 @@ Contributors: cssigniterteam, silencerius, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 6.4
 Tested up to: 6.8
-Stable tag: 2.18.1
+Stable tag: 2.19.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
 Requires PHP: 7.0
@@ -78,6 +78,12 @@ Note that if you want to use the Google Maps block you will also need a Google M
 7. Tabs or Accordions, group your content the way you want.
 
 == Changelog ==
+
+= 2.19.0 =
+* Improve sanitization by using DOMPurify.
+* Updated development dependencies.
+* Removed unneeded polyfills.
+* Browser support as per @wordpress/browserslist-config
 
 = 2.18.1 =
 * Mitigated Authenticated Stored XSS issue (CVE-2025-8566, props zer0gh0st).
