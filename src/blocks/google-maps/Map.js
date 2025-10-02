@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { compose } from 'wp.compose';
-import { safeHTML } from '@wordpress/dom';
+import DOMPurify from 'dompurify';
 import {
   withScriptjs,
   withGoogleMap,
@@ -53,7 +53,7 @@ const Map = ({
             <div
               className="wp-block-gutenbee-google-maps-info-window"
               dangerouslySetInnerHTML={{
-                __html: safeHTML(infoWindow),
+                __html: DOMPurify.sanitize(infoWindow),
               }}
             />
           </InfoWindow>
