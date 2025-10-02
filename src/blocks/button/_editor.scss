@@ -1,3 +1,5 @@
+@use '../../styles/inc/variables' as *;
+
 .wp-block-gutenbee-button {
   position: relative;
   line-height: 1;
@@ -59,6 +61,6 @@
 }
 
 // Display "table" is used because the button container should only wrap the content and not takes the full width.
-div[data-type="gutenbee/button"] {
+div[data-type='gutenbee/button'] {
   display: table;
 }

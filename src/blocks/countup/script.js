@@ -1,7 +1,7 @@
 import CountUp from 'countup';
+import DOMPurify from 'dompurify';
 
 import isElementInViewport from '../../util/isElementInViewport';
-import escapeHtml from '../../util/escapeHtml';
 
 document.addEventListener('DOMContentLoaded', () => {
   const elements = document.getElementsByClassName(
@@ -13,8 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const options = {
       useGrouping: !!separator,
       separator,
-      prefix: escapeHtml(element.dataset.prefix),
-      suffix: escapeHtml(element.dataset.suffix),
+      prefix: DOMPurify.sanitize(element.dataset.prefix || '', {
+        ALLOWED_TAGS: [],
+      }),
+      suffix: DOMPurify.sanitize(element.dataset.suffix || '', {
+        ALLOWED_TAGS: [],
+      }),
     };
 
     const countup = new CountUp(

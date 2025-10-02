@@ -55,6 +55,7 @@ function gutenbee_enqueue_editor_assets() {
 		'wp-keycodes',
 		'wp-html-entities',
 		'wp-server-side-render',
+		'wp-dom',
 		'lodash',
 		'react',
 		'react-dom',
@@ -120,10 +121,10 @@ function gutenbee_enqueue_frontend_block_assets() {
 		wp_enqueue_style( 'gutenbee', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.scripts.css', array(), GUTENBEE_PLUGIN_VERSION );
 	}
 
-	if ( apply_filters( 'gutenbee_enqueue_frontend_scripts', $enqueue_js ) ) {
-		wp_enqueue_script( 'gutenbee-scripts', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.scripts.js', array(
+    if ( apply_filters( 'gutenbee_enqueue_frontend_scripts', $enqueue_js ) ) {
+	    wp_enqueue_script( 'gutenbee-scripts', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.scripts.js', array(
 			'jquery',
-		), GUTENBEE_PLUGIN_VERSION, true );
+	    ), GUTENBEE_PLUGIN_VERSION, true );
 
 		wp_localize_script( 'gutenbee-scripts', 'gutenbeeStrings', apply_filters( 'gutenbee_strings', array(
 			'image_comparison_before_label' => esc_html__( 'Before', 'gutenbee' ),
@@ -204,7 +205,6 @@ function gutenbee_get_setting_block_names() {
 		'testimonial'       => __( 'Testimonial Block', 'gutenbee' ),
 		'video'             => __( 'Video Block', 'gutenbee' ),
 		'video-embed'       => __( 'Video Embed Block', 'gutenbee' ),
-//			'lottie'            => __( 'Lottie Player Block', 'gutenbee' ),
 	);
 }
 
@@ -305,11 +305,6 @@ function gutenbee_get_blocks_info() {
 			'enqueue_js'  => true,
 			'enqueue_css' => true,
 		),
-//		'gutenbee/lottie'            => array(
-//			'label'       => __( 'Lottie Player Block', 'gutenbee' ),
-//			'enqueue_js'  => false,
-//			'enqueue_css' => false,
-//		),
 		'gutenbee/paragraph'         => array(
 			'label'       => __( 'Paragraph Block', 'gutenbee' ),
 			'enqueue_js'  => false,

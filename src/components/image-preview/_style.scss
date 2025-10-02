@@ -1,3 +1,7 @@
+@use '../../styles/inc/variables' as *;
+@use '../../styles/inc/mixins/checker-pattern' as *;
+@use '../../styles/inc/mixins/button-reset' as *;
+
 .gutenbee-image-preview {
   @include checker-pattern;
   padding: 10px;

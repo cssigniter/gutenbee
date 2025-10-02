@@ -315,7 +315,7 @@ const VideoEdit = ({
 
       <VideoStyle attributes={attributes} />
       <figure
-        blockId={blockId}
+        data-block-id={blockId}
         className={classNames(
           className,
           blockId,

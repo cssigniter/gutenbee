@@ -1,4 +1,5 @@
-@import './common';
+@use './common' as *;
+@use '../../styles/inc/variables' as *;
 
 .wp-block-gutenbee-divider {
   min-height: 20px;
@@ -10,6 +11,6 @@
   }
 }
 
-[data-type="gutenbee/divider"] {
+[data-type='gutenbee/divider'] {
   clear: both;
 }

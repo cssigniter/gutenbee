@@ -1,3 +1,5 @@
+@use '../../styles/inc/mixins/responsive' as *;
+
 .wp-block-gutenbee-imagebox {
   display: flex;
   // Default alignment: 'left'

@@ -1,3 +1,5 @@
+@use '../../../styles/inc/variables' as *;
+
 .multi-select-checkbox-option-wrap {
   max-height: 160px;
   overflow-y: scroll;

@@ -1,4 +1,6 @@
-@import 'common';
+@use './common' as *;
+@use '../../styles/inc/mixins/responsive' as *;
+@use '../../styles/inc/mixins/spinner' as *;
 
 .wp-block-gutenbee-container {
   &.has-parallax {
@@ -30,7 +32,6 @@
     }
   }
 }
-
 
 .wp-block-gutenbee-container-row {
   display: flex;
@@ -153,13 +154,13 @@
   left: 50%;
   transform: translateX(-50%);
   background-color: transparent !important;
-  transition: opacity .25s ease .2s, visibility 0s ease .35s;
+  transition: opacity 0.25s ease 0.2s, visibility 0s ease 0.35s;
   display: none;
   z-index: 2;
 
   &::after {
     @include spinner($size: 40px, $border-width: 4px, $opacity: 0.4);
-    content: "";
+    content: '';
   }
 
   .gutenbee-video-loaded & {

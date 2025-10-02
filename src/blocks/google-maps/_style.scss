@@ -1,3 +1,5 @@
+@use "../../styles/inc/variables" as *;
+
 .wp-block-gutenbee-google-maps {
   margin: $base-block-vertical-spacing 0;
 
@@ -28,7 +30,8 @@
     font-weight: bold;
   }
 
-  em, i {
+  em,
+  i {
     font-style: italic;
   }
 

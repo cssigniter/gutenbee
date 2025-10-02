@@ -1,4 +1,4 @@
-@import './button-reset';
-@import './checker-pattern';
-@import './responsive';
-@import './spinner';
+@use './button-reset' as *;
+@use './checker-pattern' as *;
+@use './responsive' as *;
+@use './spinner' as *;

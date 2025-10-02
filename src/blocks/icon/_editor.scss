@@ -1,5 +1,5 @@
-@import 'common';
-@import '~react-select/dist/react-select';
+@use './common' as *;
+@use 'react-select/dist/react-select' as *;
 
 .gutenbee-icon-block-select-value {
   display: flex;
@@ -13,7 +13,7 @@
   }
 
   .is-open .Select-control & {
-    opacity: .35;
+    opacity: 0.35;
   }
 }
 

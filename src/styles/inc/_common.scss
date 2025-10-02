@@ -1,3 +1,3 @@
-@import "variables";
-@import "mixins/mixins";
-@import "gutenbee-zoom";
+@use './variables' as *;
+@use './mixins/mixins' as *;
+@use './gutenbee-zoom' as *;

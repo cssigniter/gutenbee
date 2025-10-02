@@ -1,14 +1,15 @@
 @use "sass:math";
-@import "~justifiedGallery/dist/css/justifiedGallery.css";
+@use '../../styles/inc/variables' as *;
+@import 'justifiedGallery/dist/css/justifiedGallery.css';
 
 .wp-block-gutenbee-justified-gallery {
   box-sizing: border-box;
 
-    *,
-    *::before,
-    *::after {
-        box-sizing: inherit;
-    }
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
 }
 
 // Justified type
@@ -34,9 +35,9 @@
 
 // Compatibility with older versions of justified-gallery
 .justified-gallery {
-   > .jg-entry > img,
-   > .jg-entry > a > img {
-    filter: "alpha(opacity=100)";
+  > .jg-entry > img,
+  > .jg-entry > a > img {
+    filter: 'alpha(opacity=100)';
     opacity: 1;
     transition: opacity 500ms ease-in;
   }
@@ -86,7 +87,7 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: rgba(0, 0, 0, .6);
+  background-color: rgba(0, 0, 0, 0.6);
   color: $white;
   font-size: 13px;
   line-height: normal;

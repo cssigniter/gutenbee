@@ -1,4 +1,5 @@
-@import 'common';
+@use './common' as *;
+@use '../../styles/inc/variables' as *;
 
 .wp-block-gutenbee-banner {
   min-height: 100px;

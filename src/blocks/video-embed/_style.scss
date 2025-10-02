@@ -1,4 +1,5 @@
-@import './common';
+@use '../../styles/inc/variables' as *;
+@use './common' as *;
 
 @keyframes fade-in-up {
   0% {
@@ -23,7 +24,7 @@
     &.stuck {
       position: fixed;
       transform: translateY(100%);
-      animation: fade-in-up .25s ease forwards;
+      animation: fade-in-up 0.25s ease forwards;
       padding: 0;
       z-index: 1000;
       width: 300px;

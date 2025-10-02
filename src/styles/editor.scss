@@ -5,56 +5,55 @@
 // the blocks' editor (Gutenberg) appearance
 //
 
-@import 'inc/common';
-@import 'inc/editor-width';
-@import 'inc/global-resets';
+@use './inc/common' as *;
+@use './inc/editor-width' as *;
+@use './inc/global-resets' as *;
 
 // Component styles
 
-@import '../components/gallery/style';
-@import '../components/slideshow/style';
-@import '../components/image-preview/style';
-@import '../components/url-picker/style';
-@import '../components/controls/state-tabs/style';
-@import '../components/controls/margin-controls/style';
-@import '../components/controls/text-controls/style';
-@import '../components/controls/background-controls/style';
-@import '../components/controls/responsive-control/style';
-@import '../components/controls/responsive-control/style';
-@import '../components/controls/multi-select-checkbox-control/style';
-@import '../components/controls/advanced-color-control/style';
-@import '../components/controls/entity-select/style';
-@import '../components/controls/breakpoint-visibility-control/editor';
-@import '../util/video/components/VideoBackgroundEditor/style';
-
+@use '../components/gallery/style' as *;
+@use '../components/slideshow/style' as *;
+@use '../components/image-preview/style' as *;
+@use '../components/url-picker/style' as *;
+@use '../components/controls/state-tabs/style' as *;
+@use '../components/controls/margin-controls/style' as *;
+@use '../components/controls/text-controls/style' as *;
+@use '../components/controls/background-controls/style' as *;
+@use '../components/controls/responsive-control/style' as *;
+@use '../components/controls/responsive-control/style' as *;
+@use '../components/controls/multi-select-checkbox-control/style' as *;
+@use '../components/controls/advanced-color-control/style' as *;
+@use '../components/controls/entity-select/style' as *;
+@use '../components/controls/breakpoint-visibility-control/editor' as *;
+@use '../util/video/components/VideoBackgroundEditor/style' as *;
 
 // Block styles
 
-@import "../blocks/divider/editor";
-@import "../blocks/icon/editor";
-@import "../blocks/icon-box/editor";
-@import "../blocks/image-box/editor";
-@import "../blocks/progress-bar/editor";
-@import "../blocks/image-comparison/editor";
-@import "../blocks/countup/editor";
-@import "../blocks/google-maps/editor";
-@import "../blocks/countdown/editor";
-@import "../blocks/accordion/editor";
-@import "../blocks/tabs/editor";
-@import "../blocks/post-types/editor";
-@import "../blocks/container/editor";
-@import "../blocks/heading/editor";
-@import "../blocks/paragraph/editor";
-@import "../blocks/image/editor";
-@import "../blocks/video/editor";
-@import "../blocks/justified-gallery/editor";
-@import "../blocks/button/editor";
-@import "../blocks/buttons/editor";
-@import "../blocks/food-menu/editor";
-@import "../blocks/icon-list/editor";
-@import "../blocks/testimonial/editor";
-@import "../blocks/video-embed/editor";
-@import "../blocks/banner/editor";
-@import "../blocks/review/editor";
-@import "../blocks/review/review-item/editor";
-//@import "../blocks/tab-slider/editor";
+@use '../blocks/divider/editor' as *;
+@use '../blocks/icon/editor' as *;
+@use '../blocks/icon-box/editor' as *;
+@use '../blocks/image-box/editor' as *;
+@use '../blocks/progress-bar/editor' as *;
+@use '../blocks/image-comparison/editor' as *;
+@use '../blocks/countup/editor' as *;
+@use '../blocks/google-maps/editor' as *;
+@use '../blocks/countdown/editor' as *;
+@use '../blocks/accordion/editor' as *;
+@use '../blocks/tabs/editor' as *;
+@use '../blocks/post-types/editor' as *;
+@use '../blocks/container/editor' as *;
+@use '../blocks/heading/editor' as *;
+@use '../blocks/paragraph/editor' as *;
+@use '../blocks/image/editor' as *;
+@use '../blocks/video/editor' as *;
+@use '../blocks/justified-gallery/editor' as *;
+@use '../blocks/button/editor' as *;
+@use '../blocks/buttons/editor' as *;
+@use '../blocks/food-menu/editor' as *;
+@use '../blocks/icon-list/editor' as *;
+@use '../blocks/testimonial/editor' as *;
+@use '../blocks/video-embed/editor' as *;
+@use '../blocks/banner/editor' as *;
+@use '../blocks/review/editor' as *;
+@use '../blocks/review/review-item/editor' as *;
+//@use "../blocks/tab-slider/editor" as *;

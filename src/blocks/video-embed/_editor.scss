@@ -1,4 +1,4 @@
-@import './common';
+@use './common' as *;
 
 .gutenbee-embed__interactive-overlay {
   position: absolute;

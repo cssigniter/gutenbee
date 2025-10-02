@@ -1,3 +1,5 @@
+@use '../../styles/inc/variables' as *;
+
 .wp-block-gutenbee-accordion {
   min-height: 120px;
 
@@ -6,10 +8,10 @@
     align-items: center;
     padding: 15px;
     margin-bottom: 0;
-    background-color: rgba($border-color, .5);
+    background-color: rgba($border-color, 0.5);
     font-size: 18px;
     line-height: 1.5;
-    border: 1px solid rgba($border-color, .5);
+    border: 1px solid rgba($border-color, 0.5);
 
     textarea {
       background: none !important;
@@ -30,7 +32,7 @@
 
     &::after,
     &::before {
-      content: "";
+      content: '';
       width: 100%;
       height: 100%;
       background-color: currentColor;
@@ -58,7 +60,7 @@
 
   &-item-content {
     padding: 15px;
-    border: 1px solid rgba($border-color, .5);
+    border: 1px solid rgba($border-color, 0.5);
     border-top: 0;
   }
 }

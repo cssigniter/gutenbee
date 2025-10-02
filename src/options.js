@@ -29,7 +29,6 @@ export const blocks = [
   'video',
   'video-embed',
   'google-maps',
-  // 'lottie',
 ];
 
 // Deactivate blocks based on user settings (GutenBee options page)

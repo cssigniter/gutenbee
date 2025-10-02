@@ -3,12 +3,12 @@
 
   &:hover,
   &:focus {
-    > div[class*="-background"] {
+    > div[class*='-background'] {
       transform: scale(1.05);
     }
   }
 
-  > div[class*="-background"] {
-    transition: all .5s;
+  > div[class*='-background'] {
+    transition: all 0.5s;
   }
 }
