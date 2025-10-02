@@ -5,9 +5,10 @@
  * Description: Premium Blocks for WordPress
  * Author: The CSSIgniter Team
  * Author URI: https://www.cssigniter.com
- * Version: 2.18.0
+ * License: GPLv2 or later
+ * Version: 2.18.1
  * Text Domain: gutenbee
- * Domain Path: languages
+ * Domain Path: /languages
  *
  * GutenBee is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +26,7 @@
  */
 
 if ( ! defined( 'GUTENBEE_PLUGIN_VERSION' ) ) {
-	define( 'GUTENBEE_PLUGIN_VERSION', '2.18.0' );
+	define( 'GUTENBEE_PLUGIN_VERSION', '2.18.1' );
 }
 
 if ( ! defined( 'GUTENBEE_PLUGIN_DIR' ) ) {
@@ -34,11 +35,6 @@ if ( ! defined( 'GUTENBEE_PLUGIN_DIR' ) ) {
 
 if ( ! defined( 'GUTENBEE_PLUGIN_DIR_URL' ) ) {
 	define( 'GUTENBEE_PLUGIN_DIR_URL', plugin_dir_url( __FILE__ ) );
-}
-
-add_action( 'init', 'gutenbee_init' );
-function gutenbee_init() {
-	load_plugin_textdomain( 'gutenbee', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }
 
 add_action( 'enqueue_block_assets', 'gutenbee_enqueue_editor_assets' );

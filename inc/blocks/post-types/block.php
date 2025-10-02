@@ -440,7 +440,7 @@
 			?><div
 				id="<?php echo esc_attr( $block_id ); ?>"
 				class="<?php echo esc_attr( implode( ' ', $block_classes ) ); ?>"
-				<?php echo gutenbee_block_post_types_get_animation_control_data_attributes( $animation ); ?>
+				<?php echo gutenbee_block_post_types_get_animation_control_data_attributes( $animation ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			><?php
 
 			if ( $category_filters ) {
