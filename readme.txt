@@ -77,6 +77,10 @@ Note that if you want to use the Google Maps block you will also need a Google M
 6. Over a hundred icons to choose from with more being added regularly.
 7. Tabs or Accordions, group your content the way you want.
 
+== Frequently Asked Questions ==
+= Where do I report security bugs found in this plugin? =
+Please report security bugs found in the source code of the GutenBee plugin through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/8a647308-ead3-4797-9190-671ddae30dfa). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
+
 == Changelog ==
 
 = 2.19.0 =
