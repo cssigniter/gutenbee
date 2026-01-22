@@ -7,7 +7,7 @@ import {
   DateTimePicker,
   RangeControl,
 } from 'wp.components';
-import { InspectorControls, RichText } from 'wp.blockEditor';
+import { InspectorControls, RichText, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import { capitalize } from '../../util/text';
@@ -147,18 +147,20 @@ const CountdownEdit = ({
   const items = ['days', 'hours', 'minutes', 'seconds'];
   const blockId = getBlockId(uniqueId);
 
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(className, blockId),
+    ref: clock,
+    style: {
+      backgroundColor: backgroundColor || undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
+
   return (
     <Fragment>
-      <div
-        id={blockId}
-        className={classNames(className, blockId)}
-        ref={clock}
-        style={{
-          backgroundColor: backgroundColor || undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-      >
+      <div {...blockProps}>
         <CountdownStyle attributes={attributes} />
         <div
           className="wp-block-gutenbee-countdown-wrap"
@@ -187,26 +189,31 @@ const CountdownEdit = ({
               label={__('Show Days')}
               checked={displayDays}
               onChange={value => setAttributes({ displayDays: value })}
+              __nextHasNoMarginBottom
             />
             <ToggleControl
               label={__('Show Hours')}
               checked={displayHours}
               onChange={value => setAttributes({ displayHours: value })}
+              __nextHasNoMarginBottom
             />
             <ToggleControl
               label={__('Show Minutes')}
               checked={displayMinutes}
               onChange={value => setAttributes({ displayMinutes: value })}
+              __nextHasNoMarginBottom
             />
             <ToggleControl
               label={__('Show Seconds')}
               checked={displaySeconds}
               onChange={value => setAttributes({ displaySeconds: value })}
+              __nextHasNoMarginBottom
             />
             <ToggleControl
               label={__('Show Labels')}
               checked={displayLabels}
               onChange={value => setAttributes({ displayLabels: value })}
+              __nextHasNoMarginBottom
             />
           </PanelBody>
 
@@ -258,6 +265,8 @@ const CountdownEdit = ({
               value={maxWidth}
               onChange={value => setAttributes({ maxWidth: value })}
               allowReset
+              __nextHasNoMarginBottom
+              __next40pxDefaultSize
             />
 
             <ResponsiveControl>
@@ -305,6 +314,8 @@ const CountdownEdit = ({
               }}
               min={0}
               max={200}
+              __nextHasNoMarginBottom
+              __next40pxDefaultSize
             />
 
             <ResponsiveControl>

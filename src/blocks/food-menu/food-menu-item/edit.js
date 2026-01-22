@@ -53,16 +53,18 @@ const FoodMenuItemEdit = ({
     ],
   });
 
+  const blockProps = useBlockProps({
+    className: classNames(className, blockId),
+    style: {
+      backgroundColor: backgroundColor ? backgroundColor : undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
+
   return (
     <Fragment>
-      <div
-        style={{
-          backgroundColor: backgroundColor ? backgroundColor : undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-        className={classNames(className, blockId)}
-      >
+      <div {...blockProps}>
         <div {...innerBlocksProps} />
         <FoodMenuItemEditStyle attributes={attributes} />
       </div>
@@ -88,6 +90,8 @@ const FoodMenuItemEdit = ({
                     },
                   })
                 }
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
             )}
           </ResponsiveControl>

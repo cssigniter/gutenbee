@@ -56,6 +56,8 @@ const BorderControls = ({
             setAttributes({ borderStyle: value });
           }
         }}
+        __next40pxDefaultSize
+        __nextHasNoMarginBottom
       />
 
       {style !== 'none' && !!style && (
@@ -89,6 +91,8 @@ const BorderControls = ({
             step={1}
             initialPosition={defaultValues.width || 3}
             allowReset
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
         </Fragment>
       )}
@@ -108,6 +112,8 @@ const BorderControls = ({
         step={1}
         initialPosition={defaultValues.radius || 0}
         allowReset
+        __next40pxDefaultSize
+        __nextHasNoMarginBottom
       />
     </Fragment>
   );

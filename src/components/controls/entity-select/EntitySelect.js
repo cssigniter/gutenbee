@@ -73,7 +73,7 @@ const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
   }, [debouncedQuery?.length]);
 
   return (
-    <BaseControl label={label}>
+    <BaseControl label={label} __nextHasNoMarginBottom>
       <div className="entity-select-search-control">
         <TextControl
           label={__('Search')}
@@ -87,6 +87,8 @@ const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
               setQueryFocused(false);
             }, 250);
           }}
+          __next40pxDefaultSize
+          __nextHasNoMarginBottom
         />
 
         <div

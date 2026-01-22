@@ -114,7 +114,7 @@ function gutenbee_enqueue_frontend_block_assets() {
 	}
 
 	if ( $maps_api_key && apply_filters( 'gutenbee_enqueue_google_maps_api', $enqueue_maps_api ) ) {
-		wp_enqueue_script( 'gutenbee-google-maps', 'https://maps.googleapis.com/maps/api/js?key=' . $maps_api_key, array(), GUTENBEE_PLUGIN_VERSION, true );
+		wp_enqueue_script( 'gutenbee-google-maps', 'https://maps.googleapis.com/maps/api/js?key=' . $maps_api_key .'&v=weekly&libraries=marker&loading=async', array(), GUTENBEE_PLUGIN_VERSION, true );
 	}
 
 	if ( apply_filters( 'gutenbee_enqueue_frontend_styles', $enqueue_css ) ) {

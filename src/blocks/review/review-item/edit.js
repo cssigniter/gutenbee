@@ -1,7 +1,7 @@
 import { Fragment, useState, useEffect } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { RangeControl, PanelBody } from 'wp.components';
-import { InspectorControls, RichText } from 'wp.blockEditor';
+import { InspectorControls, RichText, useBlockProps } from 'wp.blockEditor';
 import { useSelect, useDispatch } from 'wp.data';
 import classNames from 'classnames';
 
@@ -23,6 +23,11 @@ const ReviewItemEdit = ({
   const { uniqueId, innerTitle, percentage, displayPercentage } = attributes;
 
   const blockId = getBlockId(uniqueId);
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(className, blockId),
+    style: { width: '100%' },
+  });
 
   const { innerBlocks, parentId } = useSelect(select => {
     const [parentId] = select('core/block-editor').getBlockParentsByBlockName(
@@ -70,7 +75,7 @@ const ReviewItemEdit = ({
 
   return (
     <Fragment>
-      <div id={blockId} className={classNames(className, blockId)}>
+      <div {...blockProps}>
         <div className="wp-block-gutenbee-review-item-outer">
           <div
             className="wp-block-gutenbee-review-item-inner"
@@ -113,6 +118,8 @@ const ReviewItemEdit = ({
                 setAttributes({ percentage: value });
               }}
               step={0.1}
+              __nextHasNoMarginBottom={true}
+              __next40pxDefaultSize={true}
             />
           </PanelBody>
         </InspectorControls>

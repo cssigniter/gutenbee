@@ -13,6 +13,7 @@ const useInnerBlocksProps =
   __experimentalUseInnerBlocksProps ?? currentUseInnerBlockProps;
 
 registerBlockType('gutenbee/food-menu-wrapper', {
+  apiVersion: 3,
   title: __('GutenBee Food Menu Group'),
   description: __('Wrapper for the Food Menu block.'),
   icon: FoodMenuItemIcon,
@@ -58,7 +59,11 @@ registerBlockType('gutenbee/food-menu-wrapper', {
   },
   save: () => {
     return (
-      <div className="wp-block-gutenbee-food-menu-item-wrapper">
+      <div
+        {...useBlockProps.save({
+          className: 'wp-block-gutenbee-food-menu-item-wrapper',
+        })}
+      >
         <InnerBlocks.Content />
       </div>
     );

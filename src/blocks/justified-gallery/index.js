@@ -5,6 +5,7 @@
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
+import { useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import JustifiedGalleryEdit, { GALLERY_TYPE } from './edit';
@@ -32,6 +33,7 @@ import {
 } from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/justified-gallery', {
+  apiVersion: 3,
   title: __('GutenBee Gallery'),
   description: __(
     'Create high quality columnized or justified image galleries.',
@@ -152,7 +154,7 @@ registerBlockType('gutenbee/justified-gallery', {
   },
   deprecated,
   edit: JustifiedGalleryEdit,
-  save({ attributes, className }) {
+  save({ attributes }) {
     const {
       uniqueId,
       type,
@@ -171,33 +173,34 @@ registerBlockType('gutenbee/justified-gallery', {
 
     const blockId = getBlockId(uniqueId);
 
+    const blockProps = useBlockProps.save({
+      id: blockId,
+      className: classNames(
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+        {
+          'wp-block-gutenbee-gallery-columns': type === GALLERY_TYPE.COLUMNS,
+          'wp-block-gutenbee-gallery-justified':
+            type === GALLERY_TYPE.JUSTIFIED,
+          [`gutenbee-columns-${columns}`]: type === GALLERY_TYPE.COLUMNS,
+        },
+      ),
+      'data-gallery-type': type,
+      'data-row-height': rowHeight,
+      'data-margins': margins,
+      'data-last-row': lastRow,
+      'data-randomize': randomize,
+      style: {
+        backgroundColor: backgroundColor || undefined,
+        ...getBorderCSSValue({ attributes }),
+        ...getBoxShadowCSSValue({ attributes }),
+      },
+      ...getAnimationControlDataAttributes(attributes.animation),
+    });
+
     return (
-      <div
-        id={blockId}
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-          {
-            'wp-block-gutenbee-gallery-columns': type === GALLERY_TYPE.COLUMNS,
-            'wp-block-gutenbee-gallery-justified':
-              type === GALLERY_TYPE.JUSTIFIED,
-            [`gutenbee-columns-${columns}`]: type === GALLERY_TYPE.COLUMNS,
-          },
-        )}
-        data-gallery-type={type}
-        data-row-height={rowHeight}
-        data-margins={margins}
-        data-last-row={lastRow}
-        data-randomize={randomize}
-        style={{
-          backgroundColor: backgroundColor || undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-        {...getAnimationControlDataAttributes(attributes.animation)}
-      >
+      <div {...blockProps}>
         <GalleryStyle attributes={attributes} />
         <div className="wp-block-gutenbee-gallery-content">
           {images.map(image => {

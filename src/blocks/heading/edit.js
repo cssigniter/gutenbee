@@ -9,7 +9,6 @@ import {
   AlignmentToolbar,
   useBlockProps,
 } from 'wp.blockEditor';
-import { createBlock } from 'wp.blocks';
 import classNames from 'classnames';
 
 import HeadingToolbar from './heading-toolbar';
@@ -119,16 +118,6 @@ function HeadingEdit({
           onMerge={mergeBlocks}
           onReplace={onReplace}
           onRemove={() => onReplace([])}
-          onSplit={value => {
-            if (!value) {
-              return createBlock('gutenbee/paragraph');
-            }
-
-            return createBlock('gutenbee/heading', {
-              ...attributes,
-              content: value,
-            });
-          }}
           className={className}
           placeholder={placeholder || __('Write heading…')}
           style={{

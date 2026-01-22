@@ -40,6 +40,7 @@ const FontSizePickerLabel = ({ value, onChange, label, ...props }) => {
           onChange(sanitizeFontSizeValue(newValue));
         }}
         __nextHasNoMarginBottom
+        __next40pxDefaultSize
         {...props}
       />
     </div>

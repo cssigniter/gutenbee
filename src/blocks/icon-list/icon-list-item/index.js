@@ -1,14 +1,16 @@
 import { Fragment } from 'wp.element';
 import { registerBlockType } from 'wp.blocks';
 import { __ } from 'wp.i18n';
-import { RichText } from 'wp.blockEditor';
+import { RichText, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import Icon from './Icon';
 import IconListItemEdit from './edit';
 import IconListItemBlockIcon from './block-icon';
+import deprecated from './deprecated';
 
 registerBlockType('gutenbee/icon-list-item', {
+  apiVersion: 3,
   title: __('GutenBee Icon List Item'),
   description: __('List item for the icon list.'),
   icon: IconListItemBlockIcon,
@@ -52,9 +54,19 @@ registerBlockType('gutenbee/icon-list-item', {
       default: false,
     },
   },
+  deprecated,
   edit: IconListItemEdit,
   save: ({ attributes, className }) => {
     const { content, color, listUrl, newTab } = attributes;
+    const blockProps = useBlockProps.save({
+      className: classNames(className, {
+        'wp-block-gutenbee-icon-list-item': true,
+      }),
+      style: {
+        color: color ? color : undefined,
+      },
+    });
+
     const listItem = (
       <Fragment>
         <Icon className={className} {...attributes} />
@@ -68,14 +80,7 @@ registerBlockType('gutenbee/icon-list-item', {
       </Fragment>
     );
     return (
-      <li
-        className={classNames(className, {
-          'wp-block-gutenbee-icon-list-item': true,
-        })}
-        style={{
-          color: color ? color : undefined,
-        }}
-      >
+      <li {...blockProps}>
         {listUrl ? (
           <a
             href={listUrl}

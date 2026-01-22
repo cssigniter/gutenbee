@@ -61,13 +61,28 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
   useUniqueId({ attributes, setAttributes, clientId });
   const blockId = getBlockId(uniqueId);
 
-  const innerBlocksProps = useInnerBlocksProps(useBlockProps(), {
-    allowedBlocks: ['gutenbee/review-item'],
-    template: [['gutenbee/review-item']],
-    __experimentalUIParts: { hasSelectedUI: false },
-    __experimentalMoverDirection: 'vertical',
-    orientation: 'vertical',
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(className, blockId),
+    style: {
+      backgroundColor: backgroundColor ? backgroundColor : undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
   });
+
+  const innerBlocksProps = useInnerBlocksProps(
+    {
+      className: 'wp-block-gutenbee-review-rating-scores',
+    },
+    {
+      allowedBlocks: ['gutenbee/review-item'],
+      template: [['gutenbee/review-item']],
+      __experimentalUIParts: { hasSelectedUI: false },
+      __experimentalMoverDirection: 'vertical',
+      orientation: 'vertical',
+    },
+  );
 
   const innerBlocks = useSelect(select => {
     const [parent] = select('core/block-editor').getBlocksByClientId(clientId);
@@ -98,15 +113,7 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
 
   return (
     <Fragment>
-      <div
-        id={blockId}
-        className={classNames(className, blockId)}
-        style={{
-          backgroundColor: backgroundColor ? backgroundColor : undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-      >
+      <div {...blockProps}>
         <div className="wp-block-gutenbee-review-rating-final-score">
           <p
             className="wp-block-gutenbee-review-rating-final-score-value"
@@ -241,6 +248,8 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
             value={barHeight}
             onChange={value => setAttributes({ barHeight: value })}
             step={1}
+            __nextHasNoMarginBottom={true}
+            __next40pxDefaultSize={true}
           />
 
           <PopoverColorControl

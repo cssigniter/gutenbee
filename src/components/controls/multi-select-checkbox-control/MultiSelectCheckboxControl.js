@@ -58,6 +58,7 @@ const MultiSelectCheckboxControl = ({
       hideLabelFromVision={hideLabelFromVision}
       help={help}
       className={classes}
+      __nextHasNoMarginBottom
     >
       <div className="multi-select-checkbox-option-wrap">
         <TextControl
@@ -66,6 +67,8 @@ const MultiSelectCheckboxControl = ({
           placeholder={__('Search…')}
           className="multi-select-checkbox-search-control"
           onChange={setFilter}
+          __next40pxDefaultSize
+          __nextHasNoMarginBottom
         />
 
         {filteredOptions.map(option => {
@@ -77,6 +80,7 @@ const MultiSelectCheckboxControl = ({
               value={option.value}
               checked={checked}
               onChange={() => onCheckboxChange(option.value)}
+              __nextHasNoMarginBottom
             />
           );
         })}

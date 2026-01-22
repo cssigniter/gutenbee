@@ -8,7 +8,7 @@ import {
   PanelBody,
   Notice,
 } from 'wp.components';
-import { InspectorControls } from 'wp.blockEditor';
+import { InspectorControls, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import MarginControls from '../../components/controls/margin-controls';
@@ -86,263 +86,289 @@ const SlideshowEdit = ({
   useUniqueId({ attributes, setAttributes, clientId });
   const blockId = getBlockId(uniqueId);
 
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(
+      className,
+      blockId,
+      getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+      getAuthVisibilityClasses(blockAuthVisibility),
+    ),
+    style: {
+      backgroundColor: backgroundColor || undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
+
   return (
     <Fragment>
-      <Slideshow
-        id={blockId}
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-        )}
-        attributes={attributes}
-        setAttributes={setAttributes}
-        isSelected={isSelected}
-        style={{
-          backgroundColor: backgroundColor || undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-      >
-        <SlideshowStyle attributes={attributes} />
-        {isSelected && (
-          <InspectorControls>
-            <PanelBody title={__('Slideshow Settings')}>
-              <ToggleControl
-                label={__('Autoplay')}
-                checked={autoplay}
-                onChange={() => {
-                  setAttributes({ autoplay: !autoplay });
-                }}
-              />
-              <ToggleControl
-                label={__('Infinite Slide')}
-                checked={infinite}
-                onChange={() => {
-                  setAttributes({ infinite: !infinite });
-                }}
-              />
-              <ToggleControl
-                label={__('Arrow Navigation')}
-                checked={arrowNav}
-                onChange={() => {
-                  setAttributes({ arrowNav: !arrowNav });
-                }}
-              />
-              <ToggleControl
-                label={__('Dot Navigation')}
-                checked={dotNav}
-                onChange={() => {
-                  setAttributes({ dotNav: !dotNav });
-                }}
-              />
+      <div {...blockProps}>
+        <Slideshow
+          attributes={attributes}
+          setAttributes={setAttributes}
+          isSelected={isSelected}
+          style={
+            {
+              // style logic moved to blockProps
+            }
+          }
+        >
+          <SlideshowStyle attributes={attributes} />
+          {isSelected && (
+            <InspectorControls>
+              <PanelBody title={__('Slideshow Settings')}>
+                <ToggleControl
+                  label={__('Autoplay')}
+                  checked={autoplay}
+                  onChange={() => {
+                    setAttributes({ autoplay: !autoplay });
+                  }}
+                  __nextHasNoMarginBottom={true}
+                />
+                <ToggleControl
+                  label={__('Infinite Slide')}
+                  checked={infinite}
+                  onChange={() => {
+                    setAttributes({ infinite: !infinite });
+                  }}
+                  __nextHasNoMarginBottom={true}
+                />
+                <ToggleControl
+                  label={__('Arrow Navigation')}
+                  checked={arrowNav}
+                  onChange={() => {
+                    setAttributes({ arrowNav: !arrowNav });
+                  }}
+                  __nextHasNoMarginBottom={true}
+                />
+                <ToggleControl
+                  label={__('Dot Navigation')}
+                  checked={dotNav}
+                  onChange={() => {
+                    setAttributes({ dotNav: !dotNav });
+                  }}
+                  __nextHasNoMarginBottom={true}
+                />
 
-              <h2>{__('Animation Settings')}</h2>
-              <RadioControl
-                label={__('Animation Style')}
-                selected={animationStyle}
-                options={[
-                  { label: 'Fade', value: 'fade' },
-                  { label: 'Slide', value: 'slide' },
-                ]}
-                onChange={value => {
-                  if (value === 'fade') {
-                    setAttributes({
-                      animationStyle: value,
-                      slidesToScroll: 1,
-                      slidesToShow: 1,
-                    });
-                    return;
-                  }
+                <h2>{__('Animation Settings')}</h2>
+                <RadioControl
+                  label={__('Animation Style')}
+                  selected={animationStyle}
+                  options={[
+                    { label: 'Fade', value: 'fade' },
+                    { label: 'Slide', value: 'slide' },
+                  ]}
+                  onChange={value => {
+                    if (value === 'fade') {
+                      setAttributes({
+                        animationStyle: value,
+                        slidesToScroll: 1,
+                        slidesToShow: 1,
+                      });
+                      return;
+                    }
 
-                  setAttributes({ animationStyle: value });
-                }}
-              />
+                    setAttributes({ animationStyle: value });
+                  }}
+                />
 
-              {animationStyle === 'fade' &&
-                (slidesToShow > 1 || slidesToScroll > 1) && (
-                  <Notice
-                    status="info"
-                    isDismissible={false}
-                    style={{ margin: '0 0 15px' }}
-                  >
-                    {__(
-                      'The "fade" animation style works correctly only when displaying 1 slide at a time, please check your "Slides to show" and "Slides to scroll settings, they should be 1.',
-                    )}
-                  </Notice>
+                {animationStyle === 'fade' &&
+                  (slidesToShow > 1 || slidesToScroll > 1) && (
+                    <Notice
+                      status="info"
+                      isDismissible={false}
+                      style={{ margin: '0 0 15px' }}
+                    >
+                      {__(
+                        'The "fade" animation style works correctly only when displaying 1 slide at a time, please check your "Slides to show" and "Slides to scroll settings, they should be 1.',
+                      )}
+                    </Notice>
+                  )}
+
+                {animationStyle === 'slide' && (
+                  <Fragment>
+                    <RangeControl
+                      label={__('Slides to Show')}
+                      min={1}
+                      max={10}
+                      value={slidesToShow}
+                      onChange={value => {
+                        setAttributes({ slidesToShow: value });
+                      }}
+                      step={1}
+                      disabled={animationStyle === 'fade'}
+                      __next40pxDefaultSize={true}
+                      __nextHasNoMarginBottom={true}
+                    />
+
+                    <RangeControl
+                      label={__('Slides to Scroll')}
+                      min={1}
+                      max={10}
+                      value={slidesToScroll}
+                      onChange={value => {
+                        setAttributes({ slidesToScroll: value });
+                      }}
+                      step={1}
+                      disabled={animationStyle === 'fade'}
+                      __next40pxDefaultSize={true}
+                      __nextHasNoMarginBottom={true}
+                    />
+                  </Fragment>
                 )}
 
-              {animationStyle === 'slide' && (
-                <Fragment>
-                  <RangeControl
-                    label={__('Slides to Show')}
-                    min={1}
-                    max={10}
-                    value={slidesToShow}
-                    onChange={value => {
-                      setAttributes({ slidesToShow: value });
-                    }}
-                    step={1}
-                    disabled={animationStyle === 'fade'}
-                  />
-
-                  <RangeControl
-                    label={__('Slides to Scroll')}
-                    min={1}
-                    max={10}
-                    value={slidesToScroll}
-                    onChange={value => {
-                      setAttributes({ slidesToScroll: value });
-                    }}
-                    step={1}
-                    disabled={animationStyle === 'fade'}
-                  />
-                </Fragment>
-              )}
-
-              <RangeControl
-                label={__('Animation Speed (ms)')}
-                min={50}
-                max={5000}
-                value={speed}
-                onChange={value => {
-                  setAttributes({ speed: value });
-                }}
-                step={1}
-              />
-              <RangeControl
-                label={__('Autoplay Speed (ms)')}
-                min={500}
-                max={10000}
-                value={autoplaySpeed}
-                onChange={value => {
-                  setAttributes({ autoplaySpeed: value });
-                }}
-                step={1}
-              />
-              <ToggleControl
-                label={__('Pause on Hover')}
-                checked={pauseOnHover}
-                onChange={value => {
-                  setAttributes({ pauseOnHover: value });
-                }}
-              />
-            </PanelBody>
-
-            <PanelBody initialOpen={false} title={__('Navigation Appearance')}>
-              <PopoverColorControl
-                label={__('Arrow Navigation Color')}
-                value={arrowsColor || ''}
-                defaultValue={arrowsColor || ''}
-                onChange={value => setAttributes({ arrowsColor: value })}
-              />
-
-              <PopoverColorControl
-                label={__('Arrow Background Color')}
-                value={arrowsBackgroundColor || ''}
-                defaultValue={arrowsBackgroundColor || ''}
-                onChange={value =>
-                  setAttributes({ arrowsBackgroundColor: value })
-                }
-              />
-
-              <PopoverColorControl
-                label={__('Dot Navigation Color')}
-                value={dotsColor || ''}
-                defaultValue={dotsColor || ''}
-                onChange={value => setAttributes({ dotsColor: value })}
-              />
-
-              <PopoverColorControl
-                label={__('Dot Background Color')}
-                value={dotsBackgroundColor || ''}
-                defaultValue={dotsBackgroundColor || ''}
-                onChange={value =>
-                  setAttributes({ dotsBackgroundColor: value })
-                }
-              />
-            </PanelBody>
-
-            <PanelBody title={__('Block Appearance')} initialOpen={false}>
-              <PopoverColorControl
-                label={__('Background Color')}
-                value={backgroundColor || ''}
-                defaultValue={backgroundColor || ''}
-                onChange={value => setAttributes({ backgroundColor: value })}
-              />
-
-              <BorderControls
-                attributes={attributes}
-                setAttributes={setAttributes}
-              />
-
-              <BoxShadowControls
-                attributes={attributes}
-                setAttributes={setAttributes}
-              />
-
-              <ResponsiveControl>
-                {breakpoint => (
-                  <MarginControls
-                    label={__('Padding (px)')}
-                    attributeKey="blockPadding"
-                    attributes={attributes}
-                    setAttributes={setAttributes}
-                    breakpoint={breakpoint}
-                  />
-                )}
-              </ResponsiveControl>
-
-              <ResponsiveControl>
-                {breakpoint => (
-                  <MarginControls
-                    label={__('Margin (px)')}
-                    attributeKey="blockMargin"
-                    attributes={attributes}
-                    setAttributes={setAttributes}
-                    breakpoint={breakpoint}
-                  />
-                )}
-              </ResponsiveControl>
-            </PanelBody>
-            <PanelBody title={__('Visibility Settings')} initialOpen={false}>
-              <BreakpointVisibilityControl
-                values={blockBreakpointVisibility}
-                onChange={values => {
-                  setAttributes({
-                    blockBreakpointVisibility: values,
-                  });
-                }}
-              />
-
-              <AuthVisibilityControl
-                values={blockAuthVisibility}
-                onChange={values => {
-                  setAttributes({
-                    blockAuthVisibility: values,
-                  });
-                }}
-              />
-            </PanelBody>
-
-            {__GUTENBEE_SETTINGS__.plugin.settings[
-              'active_animation-controls'
-            ] && (
-              <PanelBody
-                icon={!!attributes.animation?.type && 'saved'}
-                title={__('Animation')}
-                initialOpen={false}
-              >
-                <AnimationControls
-                  attributes={attributes.animation}
-                  setAttributes={setAttributes}
+                <RangeControl
+                  label={__('Animation Speed (ms)')}
+                  min={50}
+                  max={5000}
+                  value={speed}
+                  onChange={value => {
+                    setAttributes({ speed: value });
+                  }}
+                  step={1}
+                  __next40pxDefaultSize={true}
+                  __nextHasNoMarginBottom={true}
+                />
+                <RangeControl
+                  label={__('Autoplay Speed (ms)')}
+                  min={500}
+                  max={10000}
+                  value={autoplaySpeed}
+                  onChange={value => {
+                    setAttributes({ autoplaySpeed: value });
+                  }}
+                  step={1}
+                  __next40pxDefaultSize={true}
+                  __nextHasNoMarginBottom={true}
+                />
+                <ToggleControl
+                  label={__('Pause on Hover')}
+                  checked={pauseOnHover}
+                  onChange={value => {
+                    setAttributes({ pauseOnHover: value });
+                  }}
+                  __nextHasNoMarginBottom={true}
                 />
               </PanelBody>
-            )}
-          </InspectorControls>
-        )}
-      </Slideshow>
+
+              <PanelBody
+                initialOpen={false}
+                title={__('Navigation Appearance')}
+              >
+                <PopoverColorControl
+                  label={__('Arrow Navigation Color')}
+                  value={arrowsColor || ''}
+                  defaultValue={arrowsColor || ''}
+                  onChange={value => setAttributes({ arrowsColor: value })}
+                />
+
+                <PopoverColorControl
+                  label={__('Arrow Background Color')}
+                  value={arrowsBackgroundColor || ''}
+                  defaultValue={arrowsBackgroundColor || ''}
+                  onChange={value =>
+                    setAttributes({ arrowsBackgroundColor: value })
+                  }
+                />
+
+                <PopoverColorControl
+                  label={__('Dot Navigation Color')}
+                  value={dotsColor || ''}
+                  defaultValue={dotsColor || ''}
+                  onChange={value => setAttributes({ dotsColor: value })}
+                />
+
+                <PopoverColorControl
+                  label={__('Dot Background Color')}
+                  value={dotsBackgroundColor || ''}
+                  defaultValue={dotsBackgroundColor || ''}
+                  onChange={value =>
+                    setAttributes({ dotsBackgroundColor: value })
+                  }
+                />
+              </PanelBody>
+
+              <PanelBody title={__('Block Appearance')} initialOpen={false}>
+                <PopoverColorControl
+                  label={__('Background Color')}
+                  value={backgroundColor || ''}
+                  defaultValue={backgroundColor || ''}
+                  onChange={value => setAttributes({ backgroundColor: value })}
+                />
+
+                <BorderControls
+                  attributes={attributes}
+                  setAttributes={setAttributes}
+                />
+
+                <BoxShadowControls
+                  attributes={attributes}
+                  setAttributes={setAttributes}
+                />
+
+                <ResponsiveControl>
+                  {breakpoint => (
+                    <MarginControls
+                      label={__('Padding (px)')}
+                      attributeKey="blockPadding"
+                      attributes={attributes}
+                      setAttributes={setAttributes}
+                      breakpoint={breakpoint}
+                    />
+                  )}
+                </ResponsiveControl>
+
+                <ResponsiveControl>
+                  {breakpoint => (
+                    <MarginControls
+                      label={__('Margin (px)')}
+                      attributeKey="blockMargin"
+                      attributes={attributes}
+                      setAttributes={setAttributes}
+                      breakpoint={breakpoint}
+                    />
+                  )}
+                </ResponsiveControl>
+              </PanelBody>
+              <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+                <BreakpointVisibilityControl
+                  values={blockBreakpointVisibility}
+                  onChange={values => {
+                    setAttributes({
+                      blockBreakpointVisibility: values,
+                    });
+                  }}
+                />
+
+                <AuthVisibilityControl
+                  values={blockAuthVisibility}
+                  onChange={values => {
+                    setAttributes({
+                      blockAuthVisibility: values,
+                    });
+                  }}
+                />
+              </PanelBody>
+
+              {__GUTENBEE_SETTINGS__.plugin.settings[
+                'active_animation-controls'
+              ] && (
+                <PanelBody
+                  icon={!!attributes.animation?.type && 'saved'}
+                  title={__('Animation')}
+                  initialOpen={false}
+                >
+                  <AnimationControls
+                    attributes={attributes.animation}
+                    setAttributes={setAttributes}
+                  />
+                </PanelBody>
+              )}
+            </InspectorControls>
+          )}
+        </Slideshow>
+      </div>
     </Fragment>
   );
 };

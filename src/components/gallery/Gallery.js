@@ -176,6 +176,8 @@ const Gallery = ({
                     { value: LINKTO.MEDIA, label: __('Media File') },
                     { value: LINKTO.NONE, label: __('None') },
                   ]}
+                  __next40pxDefaultSize={true}
+                  __nextHasNoMarginBottom={true}
                 />
               )}
 
@@ -188,6 +190,8 @@ const Gallery = ({
                     label: startCase(name),
                   }))}
                   onChange={updateImageURLs}
+                  __next40pxDefaultSize={true}
+                  __nextHasNoMarginBottom={true}
                 />
               )}
             </PanelBody>
@@ -243,17 +247,17 @@ const Gallery = ({
 Gallery.propTypes = propTypes;
 
 export default withSelect((select, props) => {
-  const { getMedia } = select('core');
+  const { getEntityRecord } = select('core');
   const imageIds = props.attributes.images.map(({ id }) => id);
 
   return {
     images: imageIds.length
       ? imageIds.map(id => {
-          const image = getMedia(id);
+          const image = getEntityRecord('postType', 'attachment', id);
 
           return {
             id,
-            sizes: image && image.media_details.sizes,
+            sizes: image && image.media_details?.sizes,
           };
         })
       : null,

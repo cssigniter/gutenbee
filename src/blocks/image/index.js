@@ -30,7 +30,7 @@ import {
 registerBlockType('gutenbee/image', {
   title: __('GutenBee Image'),
   description: __('Insert an image to make a visual statement.'),
-  apiVersion: 2,
+  apiVersion: 3,
   icon: ImageBlockIcon,
   category: 'gutenbee',
   keywords: ['img', __('photo'), 'gutenbeeimage', 'imagegutenbee'],
@@ -161,7 +161,7 @@ registerBlockType('gutenbee/image', {
   },
   deprecated,
   edit: ImageEdit,
-  save: ({ attributes, className }) => {
+  save: ({ attributes }) => {
     const {
       uniqueId,
       url,
@@ -237,14 +237,12 @@ registerBlockType('gutenbee/image', {
           {...useBlockProps.save({
             id: blockId,
             className: classNames(
-              className,
               blockId,
               getBreakpointVisibilityClassNames(blockBreakpointVisibility),
               getAuthVisibilityClasses(blockAuthVisibility),
             ),
             style,
           })}
-          id={blockId}
         >
           <ImageStyle attributes={attributes} />
           <figure className={classes}>{figure}</figure>
@@ -257,7 +255,6 @@ registerBlockType('gutenbee/image', {
         {...useBlockProps.save({
           id: blockId,
           className: classNames(
-            className,
             blockId,
             classes,
             getBreakpointVisibilityClassNames(blockBreakpointVisibility),

@@ -97,6 +97,8 @@ const AnimationControls = ({ className, attributes, setAttributes }) => {
             label: capitalizeSentence(value.split('-').join(' ')),
           })),
         ]}
+        __next40pxDefaultSize
+        __nextHasNoMarginBottom
       />
 
       {!!type && (
@@ -116,6 +118,8 @@ const AnimationControls = ({ className, attributes, setAttributes }) => {
             step={0.1}
             min={0.2}
             max={2}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
 
           <RangeControl
@@ -133,6 +137,8 @@ const AnimationControls = ({ className, attributes, setAttributes }) => {
             step={0.1}
             min={0}
             max={1}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
 
           <SelectControl
@@ -156,6 +162,8 @@ const AnimationControls = ({ className, attributes, setAttributes }) => {
                 label: capitalizeSentence(value.split('-').join(' ')),
               })),
             ]}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
 
           <CheckboxControl
@@ -173,6 +181,7 @@ const AnimationControls = ({ className, attributes, setAttributes }) => {
                 },
               });
             }}
+            __nextHasNoMarginBottom
           />
 
           <CheckboxControl
@@ -190,6 +199,7 @@ const AnimationControls = ({ className, attributes, setAttributes }) => {
                 },
               });
             }}
+            __nextHasNoMarginBottom
           />
         </Fragment>
       )}

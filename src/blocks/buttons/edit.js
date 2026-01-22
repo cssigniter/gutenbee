@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import { Fragment } from 'wp.element';
-import { InnerBlocks } from 'wp.blockEditor';
+import { InnerBlocks, useBlockProps } from 'wp.blockEditor';
 import { InspectorControls } from 'wp.blockEditor';
 import { PanelBody, SelectControl } from 'wp.components';
 import classNames from 'classnames';
@@ -38,17 +38,19 @@ const ButtonsEdit = ({ attributes, setAttributes, className, clientId }) => {
 
   const blockId = getBlockId(uniqueId);
 
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(className, blockId, {
+      [desktopAlignment]: true,
+    }),
+    style: {
+      backgroundColor: backgroundColor || undefined,
+    },
+  });
+
   return (
     <Fragment>
-      <div
-        id={blockId}
-        className={classNames(className, blockId, {
-          [desktopAlignment]: true,
-        })}
-        style={{
-          backgroundColor: backgroundColor || undefined,
-        }}
-      >
+      <div {...blockProps}>
         <ButtonsStyle attributes={attributes} />
         <InnerBlocks
           allowedBlocks={['gutenbee/button']}
@@ -79,6 +81,8 @@ const ButtonsEdit = ({ attributes, setAttributes, className, clientId }) => {
                     },
                   })
                 }
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
               />
             )}
           </ResponsiveControl>

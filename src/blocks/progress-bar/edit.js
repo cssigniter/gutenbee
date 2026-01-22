@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { ToggleControl, RangeControl, PanelBody } from 'wp.components';
-import { InspectorControls, RichText } from 'wp.blockEditor';
+import { InspectorControls, RichText, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import useUniqueId from '../../hooks/useUniqueId';
@@ -52,22 +52,24 @@ const ProgressBarEdit = ({
 
   const blockId = getBlockId(uniqueId);
 
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(
+      className,
+      blockId,
+      getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+      getAuthVisibilityClasses(blockAuthVisibility),
+    ),
+    style: {
+      backgroundColor: backgroundColor || undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
+
   return (
     <Fragment>
-      <div
-        id={blockId}
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-        )}
-        style={{
-          backgroundColor: backgroundColor || undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-      >
+      <div {...blockProps}>
         <ProgressBarStyle attributes={attributes} />
 
         <RichText
@@ -130,12 +132,15 @@ const ProgressBarEdit = ({
               value={percentage}
               onChange={value => setAttributes({ percentage: value })}
               step={1}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
             />
 
             <ToggleControl
               label={__('Display percentage')}
               checked={displayPercentage}
               onChange={value => setAttributes({ displayPercentage: value })}
+              __nextHasNoMarginBottom
             />
 
             <RangeControl
@@ -149,6 +154,8 @@ const ProgressBarEdit = ({
               allowReset
               min={0}
               max={200}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
             />
 
             <ResponsiveControl>
@@ -203,6 +210,8 @@ const ProgressBarEdit = ({
                       });
                     }}
                     step={1}
+                    __next40pxDefaultSize
+                    __nextHasNoMarginBottom
                   />
                 </Fragment>
               )}

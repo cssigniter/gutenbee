@@ -6,7 +6,7 @@
 
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import { RichText } from 'wp.blockEditor';
+import { RichText, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import ImageBoxEditBlock from './edit';
@@ -31,7 +31,7 @@ import {
   getAnimationControlDataAttributes,
 } from '../../components/controls/animation-controls/helpers';
 
-const ImageBox = ({ className, attributes }) => {
+const ImageBox = ({ className, attributes, blockProps = {} }) => {
   const {
     uniqueId,
     titleContent,
@@ -54,8 +54,10 @@ const ImageBox = ({ className, attributes }) => {
   return (
     <div
       id={blockId}
+      {...blockProps}
       className={classNames(
         className,
+        blockProps.className,
         blockId,
         getBreakpointVisibilityClassNames(blockBreakpointVisibility),
         getAuthVisibilityClasses(blockAuthVisibility),
@@ -68,6 +70,7 @@ const ImageBox = ({ className, attributes }) => {
         backgroundColor: backgroundColor || undefined,
         ...getBorderCSSValue({ attributes }),
         ...getBoxShadowCSSValue({ attributes }),
+        ...blockProps.style,
       }}
       {...getAnimationControlDataAttributes(attributes.animation)}
     >
@@ -111,6 +114,7 @@ const ImageBox = ({ className, attributes }) => {
 };
 
 registerBlockType('gutenbee/imagebox', {
+  apiVersion: 3,
   title: __('GutenBee Image Box'),
   description: __('An image box with a title and a description.'),
   icon: ImageBoxBlockIcon,
@@ -236,7 +240,8 @@ registerBlockType('gutenbee/imagebox', {
   },
   deprecated,
   edit: ImageBoxEditBlock,
-  save({ className, attributes }) {
-    return <ImageBox className={className} attributes={attributes} />;
+  save({ attributes }) {
+    const blockProps = useBlockProps.save();
+    return <ImageBox attributes={attributes} blockProps={blockProps} />;
   },
 });

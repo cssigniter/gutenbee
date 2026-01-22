@@ -1,7 +1,7 @@
 import { Fragment, useRef } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
-import { InspectorControls, RichText } from 'wp.blockEditor';
+import { InspectorControls, RichText, useBlockProps } from 'wp.blockEditor';
 import {
   PanelBody,
   TextControl,
@@ -89,9 +89,15 @@ const ButtonEdit = ({
 
   const canUseURLPickerBool = canUseURLPicker();
 
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(className, blockId),
+    ref: ref,
+  });
+
   return (
     <Fragment>
-      <div id={blockId} className={classNames(className, blockId)} ref={ref}>
+      <div {...blockProps}>
         <ButtonStyle attributes={attributes} />
         <RichText
           placeholder={__('Add text…')}
@@ -143,16 +149,21 @@ const ButtonEdit = ({
               onChange={value => setAttributes({ url: value })}
               type="url"
               placeholder="https://"
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
             />
             <ToggleControl
               label={__('Open in new tab')}
               onChange={onToggleOpenInNewTab}
               checked={linkTarget === '_blank'}
+              __nextHasNoMarginBottom
             />
             <TextControl
               label={__('Link rel')}
               value={rel || ''}
               onChange={onSetLinkRel}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
             />
           </PanelBody>
         )}
@@ -254,6 +265,8 @@ const ButtonEdit = ({
                 label: sizeTemplate.name,
               })),
             ]}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
 
           <SelectControl
@@ -281,6 +294,8 @@ const ButtonEdit = ({
                 label: sizeTemplate.name,
               })),
             ]}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
         </PanelBody>
 

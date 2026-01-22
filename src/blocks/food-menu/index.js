@@ -1,6 +1,6 @@
 import { registerBlockType } from 'wp.blocks';
 import { __ } from 'wp.i18n';
-import { InnerBlocks } from 'wp.blockEditor';
+import { InnerBlocks, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import FoodMenuEdit from './edit';
@@ -26,6 +26,7 @@ import {
 } from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/food-menu', {
+  apiVersion: 3,
   title: __('GutenBee Food Menu'),
   description: __('List your favorite dishes.'),
   icon: FoodMenuIcon,
@@ -82,7 +83,7 @@ registerBlockType('gutenbee/food-menu', {
   },
   deprecated,
   edit: FoodMenuEdit,
-  save: ({ className, attributes }) => {
+  save: ({ attributes }) => {
     const {
       uniqueId,
       columns,
@@ -92,28 +93,29 @@ registerBlockType('gutenbee/food-menu', {
     } = attributes;
     const blockId = getBlockId(uniqueId);
 
+    const blockProps = useBlockProps.save({
+      id: blockId,
+      className: classNames(
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+        {
+          'wp-block-gutenbee-food-menu': true,
+          [`gutenbee-food-menu-columns-desktop-${columns.desktop}`]: true,
+          [`gutenbee-food-menu-columns-tablet-${columns.tablet}`]: true,
+          [`gutenbee-food-menu-columns-mobile-${columns.mobile}`]: true,
+        },
+      ),
+      style: {
+        backgroundColor: backgroundColor ? backgroundColor : undefined,
+        ...getBorderCSSValue({ attributes }),
+        ...getBoxShadowCSSValue({ attributes }),
+      },
+      ...getAnimationControlDataAttributes(attributes.animation),
+    });
+
     return (
-      <div
-        id={blockId}
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-          {
-            'wp-block-gutenbee-food-menu': true,
-            [`gutenbee-food-menu-columns-desktop-${columns.desktop}`]: true,
-            [`gutenbee-food-menu-columns-tablet-${columns.tablet}`]: true,
-            [`gutenbee-food-menu-columns-mobile-${columns.mobile}`]: true,
-          },
-        )}
-        style={{
-          backgroundColor: backgroundColor ? backgroundColor : undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-        {...getAnimationControlDataAttributes(attributes.animation)}
-      >
+      <div {...blockProps}>
         <FoodMenuStyle attributes={attributes} />
         <InnerBlocks.Content />
       </div>

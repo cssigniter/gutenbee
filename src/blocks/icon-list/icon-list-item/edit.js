@@ -1,6 +1,6 @@
 import { Fragment, useRef } from 'wp.element';
 import { __ } from 'wp.i18n';
-import { RichText, InspectorControls } from 'wp.blockEditor';
+import { RichText, InspectorControls, useBlockProps } from 'wp.blockEditor';
 import {
   PanelBody,
   BaseControl,
@@ -56,14 +56,16 @@ const IconListItemEdit = ({
 
   const canUseURLPickerBool = canUseURLPicker();
 
+  const blockProps = useBlockProps({
+    className: classNames({
+      'wp-block-gutenbee-icon-list-item': true,
+    }),
+    ref,
+  });
+
   return (
     <Fragment>
-      <li
-        className={classNames({
-          'wp-block-gutenbee-icon-list-item': true,
-        })}
-        ref={ref}
-      >
+      <li {...blockProps}>
         {listUrl ? (
           <span className="wp-block-gutenbee-list-icon-pseudo-link">
             {listItem}
@@ -90,7 +92,11 @@ const IconListItemEdit = ({
 
       <InspectorControls>
         <PanelBody>
-          <BaseControl id="icon-select" label={__('List Item Icon')}>
+          <BaseControl
+            id="icon-select"
+            label={__('List Item Icon')}
+            __nextHasNoMarginBottom
+          >
             <ReactSelect
               aria-labelledby="icon-select"
               onChange={value => setAttributes({ icon: value })}
@@ -122,6 +128,8 @@ const IconListItemEdit = ({
                 onChange={value => setAttributes({ listUrl: value })}
                 type="url"
                 placeholder="https://"
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
               <ToggleControl
                 label={__('Open in new tab')}
@@ -132,6 +140,7 @@ const IconListItemEdit = ({
                     ? __('Opens link in new tab.')
                     : __('Toggle to open link in new tab.')
                 }
+                __nextHasNoMarginBottom
               />
             </Fragment>
           )}

@@ -1,7 +1,7 @@
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import { InspectorControls } from 'wp.blockEditor';
+import { InspectorControls, useBlockProps } from 'wp.blockEditor';
 import {
   PanelBody,
   RangeControl,
@@ -142,7 +142,11 @@ export const IconSettings = ({
   return (
     <Fragment>
       <PanelBody>
-        <BaseControl id="icon-select" label={__('Icon')}>
+        <BaseControl
+          id="icon-select"
+          label={__('Icon')}
+          __nextHasNoMarginBottom
+        >
           <ReactSelect
             aria-labelledby="icon-select"
             onChange={value => setAttributes({ icon: value || 'add-bag' })}
@@ -171,6 +175,8 @@ export const IconSettings = ({
             { value: VIEWS.STACKED, label: __('Stacked') },
             { value: VIEWS.FRAMED, label: __('Framed') },
           ]}
+          __nextHasNoMarginBottom
+          __next40pxDefaultSize
         />
         {view !== VIEWS.DEFAULT && (
           <SelectControl
@@ -181,6 +187,8 @@ export const IconSettings = ({
               { value: SHAPES.CIRCLE, label: __('Circle') },
               { value: SHAPES.SQUARE, label: __('Square') },
             ]}
+            __nextHasNoMarginBottom
+            __next40pxDefaultSize
           />
         )}
         <ResponsiveControl>
@@ -199,6 +207,8 @@ export const IconSettings = ({
                     },
                   })
                 }
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
             );
           }}
@@ -211,6 +221,8 @@ export const IconSettings = ({
             step={0.1}
             value={padding}
             onChange={value => setAttributes({ padding: value })}
+            __nextHasNoMarginBottom
+            __next40pxDefaultSize
           />
         )}
         {view === VIEWS.FRAMED && (
@@ -221,6 +233,8 @@ export const IconSettings = ({
             step={1}
             value={borderWidth}
             onChange={value => setAttributes({ borderWidth: value })}
+            __nextHasNoMarginBottom
+            __next40pxDefaultSize
           />
         )}
 
@@ -234,6 +248,8 @@ export const IconSettings = ({
           onChange={value => {
             setAttributes({ align: value || 'left' });
           }}
+          __nextHasNoMarginBottom
+          __next40pxDefaultSize
         />
       </PanelBody>
 
@@ -338,10 +354,11 @@ const IconEdit = ({
 }) => {
   useUniqueId({ attributes, setAttributes, clientId });
   const blockId = getBlockId(attributes.uniqueId);
+  const blockProps = useBlockProps({ id: blockId, className });
 
   return (
     <Fragment>
-      <Icon id={blockId} className={className} {...attributes} />
+      <Icon id={blockId} blockProps={blockProps} {...attributes} />
       {isSelected && (
         <InspectorControls>
           <IconSettings
@@ -356,6 +373,7 @@ const IconEdit = ({
 };
 
 registerBlockType('gutenbee/icon', {
+  apiVersion: 3,
   title: __('GutenBee Icon'),
   description: __('A flexible icon block'),
   icon: IconBlockIcon,
@@ -364,8 +382,9 @@ registerBlockType('gutenbee/icon', {
   attributes: iconAttributes,
   deprecated,
   edit: IconEdit,
-  save({ className, attributes }) {
+  save({ attributes }) {
     const id = getBlockId(attributes.uniqueId);
-    return <Icon id={id} className={className} {...attributes} />;
+    const blockProps = useBlockProps.save();
+    return <Icon id={id} blockProps={blockProps} {...attributes} />;
   },
 });

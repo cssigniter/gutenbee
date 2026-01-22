@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import { Fragment } from 'wp.element';
-import { InnerBlocks } from 'wp.blockEditor';
+import { InnerBlocks, useBlockProps } from 'wp.blockEditor';
 import { InspectorControls } from 'wp.blockEditor';
 import { PanelBody, SelectControl, RangeControl } from 'wp.components';
 import classNames from 'classnames';
@@ -136,17 +136,19 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
     );
   };
 
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(className, blockId),
+    style: {
+      backgroundColor: backgroundColor ? backgroundColor : undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
+
   return (
     <Fragment>
-      <div
-        id={blockId}
-        className={classNames(className, blockId)}
-        style={{
-          backgroundColor: backgroundColor ? backgroundColor : undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-      >
+      <div {...blockProps}>
         <ul
           className={classNames({
             'wp-block-gutenbee-icon-list-element': true,
@@ -174,6 +176,8 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
               { value: LAYOUT.DEFAULT, label: __('Default') },
               { value: LAYOUT.INLINE, label: __('Inline') },
             ]}
+            __nextHasNoMarginBottom
+            __next40pxDefaultSize
           />
           <ResponsiveControl>
             {breakpoint => (
@@ -191,6 +195,8 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
                     },
                   })
                 }
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
             )}
           </ResponsiveControl>
@@ -213,6 +219,8 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
                   { value: ALIGN.CENTER, label: __('Center') },
                   { value: ALIGN.FLEXEND, label: __('Right') },
                 ]}
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
             )}
           </ResponsiveControl>
@@ -224,6 +232,8 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
               { value: BLOCKLINK.INLINE, label: __('Inline') },
               { value: BLOCKLINK.BLOCK, label: __('Block') },
             ]}
+            __nextHasNoMarginBottom
+            __next40pxDefaultSize
           />
           <RangeControl
             label={__('List Item Separator Width')}
@@ -233,6 +243,8 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
             onChange={value => {
               setAttributes({ separatorWidth: value });
             }}
+            __nextHasNoMarginBottom
+            __next40pxDefaultSize
           />
           <PopoverColorControl
             value={separatorColor}

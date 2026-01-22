@@ -1,7 +1,12 @@
 import { Fragment, useRef } from 'wp.element';
 import classNames from 'classnames';
 import { __ } from 'wp.i18n';
-import { InspectorControls, InnerBlocks, MediaUpload } from 'wp.blockEditor';
+import {
+  InspectorControls,
+  InnerBlocks,
+  MediaUpload,
+  useBlockProps,
+} from 'wp.blockEditor';
 import {
   PanelBody,
   RangeControl,
@@ -137,18 +142,20 @@ const BannerBlockEdit = ({
     onVimeoApiReady,
   });
 
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classes,
+    style: {
+      color: textColor,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+    ref: ref,
+  });
+
   return (
     <Fragment>
-      <div
-        id={blockId}
-        className={classes}
-        style={{
-          color: textColor,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-        ref={ref}
-      >
+      <div {...blockProps}>
         {bannerUrl && <span className={`${baseClass}-link-placeholder`} />}
         <div className={`${baseClass}-inner`}>
           <InnerBlocks
@@ -224,6 +231,8 @@ const BannerBlockEdit = ({
                   help={__(
                     'Leave blank for auto height or set to -1 for full viewport height.',
                   )}
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom
                 />
               </Fragment>
             )}
@@ -248,6 +257,8 @@ const BannerBlockEdit = ({
                     },
                   })
                 }
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
               />
             )}
           </ResponsiveControl>
@@ -274,6 +285,8 @@ const BannerBlockEdit = ({
                 help={__(
                   'The content alignment settings apply when Banner Height is set.',
                 )}
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
               />
             )}
           </ResponsiveControl>
@@ -287,6 +300,8 @@ const BannerBlockEdit = ({
               onChange={value => setAttributes({ bannerUrl: value })}
               type="url"
               placeholder="https://"
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
             />
             <ToggleControl
               label={__('Open in new tab')}
@@ -297,6 +312,7 @@ const BannerBlockEdit = ({
                   ? __('Opens link in new tab.')
                   : __('Toggle to open link in new tab.')
               }
+              __nextHasNoMarginBottom
             />
           </PanelBody>
         )}
@@ -383,6 +399,8 @@ const BannerBlockEdit = ({
               onChange={handleVideoUrlChange}
               type="text"
               value={backgroundVideoURL}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
             />
 
             <MediaUpload

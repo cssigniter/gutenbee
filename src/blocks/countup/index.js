@@ -7,7 +7,7 @@
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 import classNames from 'classnames';
-import { RichText } from 'wp.blockEditor';
+import { RichText, useBlockProps } from 'wp.blockEditor';
 
 import CountupEdit from './edit';
 import Countup from './Countup';
@@ -32,7 +32,7 @@ import {
   getAnimationControlDataAttributes,
 } from '../../components/controls/animation-controls/helpers';
 
-const CountupRender = ({ attributes, className }) => {
+const CountupRender = ({ attributes }) => {
   const {
     titleContent,
     align,
@@ -45,25 +45,26 @@ const CountupRender = ({ attributes, className }) => {
   } = attributes;
   const blockId = getBlockId(uniqueId);
 
+  const blockProps = useBlockProps.save({
+    id: blockId,
+    className: classNames(
+      blockId,
+      getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+      getAuthVisibilityClasses(blockAuthVisibility),
+      {
+        [`wp-block-gutenbee-countup-align-${align}`]: !!align,
+      },
+    ),
+    style: {
+      backgroundColor: backgroundColor || undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+    ...getAnimationControlDataAttributes(attributes.animation),
+  });
+
   return (
-    <div
-      id={blockId}
-      className={classNames(
-        className,
-        blockId,
-        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-        getAuthVisibilityClasses(blockAuthVisibility),
-        {
-          [`wp-block-gutenbee-countup-align-${align}`]: !!align,
-        },
-      )}
-      style={{
-        backgroundColor: backgroundColor || undefined,
-        ...getBorderCSSValue({ attributes }),
-        ...getBoxShadowCSSValue({ attributes }),
-      }}
-      {...getAnimationControlDataAttributes(attributes.animation)}
-    >
+    <div {...blockProps}>
       <CountupStyle attributes={attributes} />
 
       <Countup {...attributes} className="wp-block-gutenbee-countup-number" />
@@ -85,6 +86,7 @@ const CountupRender = ({ attributes, className }) => {
 };
 
 registerBlockType('gutenbee/countup', {
+  apiVersion: 3,
   title: __('GutenBee Countup'),
   description: __('Animate a numerical value by counting to it.'),
   category: 'gutenbee',
@@ -180,7 +182,7 @@ registerBlockType('gutenbee/countup', {
   },
   deprecated,
   edit: CountupEdit,
-  save({ attributes, className }) {
-    return <CountupRender attributes={attributes} className={className} />;
+  save({ attributes }) {
+    return <CountupRender attributes={attributes} />;
   },
 });

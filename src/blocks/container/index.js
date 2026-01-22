@@ -4,7 +4,7 @@
 
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import { InnerBlocks } from 'wp.blockEditor';
+import { InnerBlocks, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import ContainerBlockEdit from './edit';
@@ -44,6 +44,7 @@ registerBlockType('gutenbee/container', {
     anchor: false,
     html: false,
   },
+  apiVersion: 3,
   isMultiBlock: true,
   attributes: {
     uniqueId: {
@@ -158,7 +159,7 @@ registerBlockType('gutenbee/container', {
   },
   variations,
   edit: ContainerBlockEdit,
-  save: ({ attributes, className }) => {
+  save: ({ attributes }) => {
     const {
       uniqueId,
       textColor,
@@ -183,34 +184,35 @@ registerBlockType('gutenbee/container', {
 
     const blockId = getBlockId(uniqueId);
 
+    const blockProps = useBlockProps.save({
+      id: blockId,
+      className: classNames(
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+        {
+          'has-parallax': parallax,
+          'gutenbee-zoom': zoom && !parallax,
+          'theme-grid': themeGrid,
+          'has-background-image': !!backgroundImage?.desktop?.url,
+          'has-background-video': !!videoInfo?.url,
+          'has-background-overlay': !!overlayBackgroundColor,
+          'row-reverse-desktop': columnDirection.desktop === 'row-reverse',
+          'row-reverse-tablet': columnDirection.tablet === 'row-reverse',
+          'row-reverse-mobile': columnDirection.mobile === 'row-reverse',
+          'gutenbee-overflow-hidden': overflow,
+        },
+      ),
+      style: {
+        color: textColor,
+        ...getBorderCSSValue({ attributes }),
+        ...getBoxShadowCSSValue({ attributes }),
+      },
+      ...getAnimationControlDataAttributes(attributes.animation),
+    });
+
     return (
-      <div
-        id={blockId}
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-          {
-            'has-parallax': parallax,
-            'gutenbee-zoom': zoom && !parallax,
-            'theme-grid': themeGrid,
-            'has-background-image': !!backgroundImage?.desktop?.url,
-            'has-background-video': !!videoInfo?.url,
-            'has-background-overlay': !!overlayBackgroundColor,
-            'row-reverse-desktop': columnDirection.desktop === 'row-reverse',
-            'row-reverse-tablet': columnDirection.tablet === 'row-reverse',
-            'row-reverse-mobile': columnDirection.mobile === 'row-reverse',
-            'gutenbee-overflow-hidden': overflow,
-          },
-        )}
-        style={{
-          color: textColor,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-        {...getAnimationControlDataAttributes(attributes.animation)}
-      >
+      <div {...blockProps}>
         <ContainerStyle attributes={attributes} />
         <div className="wp-block-gutenbee-container-inner">
           <div

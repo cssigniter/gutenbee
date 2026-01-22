@@ -4,7 +4,7 @@
 
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import { RichText } from 'wp.blockEditor';
+import { RichText, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import AccordionBlockIcon from './block-icon';
@@ -23,7 +23,7 @@ import {
   getAnimationControlDataAttributes,
 } from '../../components/controls/animation-controls/helpers';
 
-const Accordion = ({ className, attributes }) => {
+const Accordion = ({ attributes }) => {
   const {
     uniqueId,
     tabs,
@@ -38,18 +38,19 @@ const Accordion = ({ className, attributes }) => {
 
   const blockId = getBlockId(uniqueId);
 
+  const blockProps = useBlockProps.save({
+    id: blockId,
+    className: classNames(
+      blockId,
+      getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+      getAuthVisibilityClasses(blockAuthVisibility),
+    ),
+    'data-collapse-others': collapseOthers,
+    ...getAnimationControlDataAttributes(attributes.animation),
+  });
+
   return (
-    <div
-      id={blockId}
-      className={classNames(
-        className,
-        blockId,
-        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-        getAuthVisibilityClasses(blockAuthVisibility),
-      )}
-      data-collapse-others={collapseOthers}
-      {...getAnimationControlDataAttributes(attributes.animation)}
-    >
+    <div {...blockProps}>
       <AccordionStyle attributes={attributes} />
 
       {tabs.map((tab, index) => (
@@ -93,6 +94,7 @@ const Accordion = ({ className, attributes }) => {
 
 registerBlockType('gutenbee/accordion', {
   title: __('GutenBee Accordion'),
+  apiVersion: 3,
   description: __('Display fancy accordions'),
   icon: AccordionBlockIcon,
   category: 'gutenbee',
@@ -183,7 +185,5 @@ registerBlockType('gutenbee/accordion', {
   },
   deprecated,
   edit: AccordionsEdit,
-  save: ({ className, attributes }) => (
-    <Accordion className={className} attributes={attributes} />
-  ),
+  save: ({ attributes }) => <Accordion attributes={attributes} />,
 });

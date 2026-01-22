@@ -6,6 +6,7 @@
 
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
+import { useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import SlideshowEdit from './edit';
@@ -32,6 +33,7 @@ import {
 } from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/slideshow', {
+  apiVersion: 3,
   title: __('GutenBee Slideshow'),
   description: __('A slideshow block'),
   icon: SlideshowBlockIcon,
@@ -172,7 +174,7 @@ registerBlockType('gutenbee/slideshow', {
   },
   deprecated,
   edit: SlideshowEdit,
-  save({ className, attributes }) {
+  save({ attributes }) {
     const {
       uniqueId,
       images,
@@ -194,36 +196,36 @@ registerBlockType('gutenbee/slideshow', {
       blockAuthVisibility,
     } = attributes;
     const blockId = getBlockId(uniqueId);
+    const blockProps = useBlockProps.save({
+      id: blockId,
+      className: classNames(
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+      ),
+      'data-fade': animationStyle === 'fade',
+      'data-autoplay': autoplay,
+      'data-arrows': arrowNav,
+      'data-dots': dotNav,
+      'data-infinite': infinite,
+      'data-speed': speed,
+      'data-autoplay-speed': autoplaySpeed,
+      'data-slides-to-show': slidesToShow,
+      'data-slides-to-scroll': slidesToScroll,
+      'data-pause-on-hover': pauseOnHover,
+      style: {
+        color: arrowsColor,
+        backgroundColor: backgroundColor || undefined,
+        ...getBorderCSSValue({ attributes }),
+        ...getBoxShadowCSSValue({ attributes }),
+      },
+      'data-dots-color': dotsColor,
+      'data-arrows-color': arrowsColor,
+      ...getAnimationControlDataAttributes(attributes.animation),
+    });
 
     return (
-      <div
-        id={blockId}
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-        )}
-        data-fade={animationStyle === 'fade'}
-        data-autoplay={autoplay}
-        data-arrows={arrowNav}
-        data-dots={dotNav}
-        data-infinite={infinite}
-        data-speed={speed}
-        data-autoplay-speed={autoplaySpeed}
-        data-slides-to-show={slidesToShow}
-        data-slides-to-scroll={slidesToScroll}
-        data-pause-on-hover={pauseOnHover}
-        style={{
-          color: arrowsColor,
-          backgroundColor: backgroundColor || undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-        data-dots-color={dotsColor}
-        data-arrows-color={arrowsColor}
-        {...getAnimationControlDataAttributes(attributes.animation)}
-      >
+      <div {...blockProps}>
         <SlideshowStyle attributes={attributes} />
         {images.map((image, index) => {
           let href;

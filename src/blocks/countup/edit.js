@@ -7,6 +7,7 @@ import {
   RichText,
   AlignmentToolbar,
   BlockControls,
+  useBlockProps,
 } from 'wp.blockEditor';
 import {
   RangeControl,
@@ -90,21 +91,23 @@ const CountupEdit = ({
   useUniqueId({ attributes, setAttributes, clientId });
   const blockId = getBlockId(uniqueId);
 
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames({
+      [className]: !!className,
+      [blockId]: true,
+      [`wp-block-gutenbee-countup-align-${align}`]: !!align,
+    }),
+    style: {
+      backgroundColor: backgroundColor || undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
+
   return (
     <Fragment>
-      <div
-        id={blockId}
-        className={classNames({
-          [className]: !!className,
-          [blockId]: true,
-          [`wp-block-gutenbee-countup-align-${align}`]: !!align,
-        })}
-        style={{
-          backgroundColor: backgroundColor || undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-      >
+      <div {...blockProps}>
         <CountupStyle attributes={attributes} />
 
         <Countup {...attributes} className="wp-block-gutenbee-countup-number" />
@@ -139,6 +142,8 @@ const CountupEdit = ({
                 label={__('Start Number')}
                 value={startNumber}
                 onChange={value => setAttributes({ startNumber: value })}
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
 
               <TextControl
@@ -146,18 +151,24 @@ const CountupEdit = ({
                 label={__('End Number')}
                 value={endNumber}
                 onChange={value => setAttributes({ endNumber: value })}
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
 
               <TextControl
                 label={__('Prefix')}
                 value={prefix}
                 onChange={value => setAttributes({ prefix: value })}
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
 
               <TextControl
                 label={__('Suffix')}
                 value={suffix}
                 onChange={value => setAttributes({ suffix: value })}
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
 
               <RangeControl
@@ -167,6 +178,8 @@ const CountupEdit = ({
                 max={100}
                 step={0.5}
                 onChange={value => setAttributes({ animationDuration: value })}
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
 
               <CheckboxControl
@@ -176,12 +189,15 @@ const CountupEdit = ({
                 onChange={value => {
                   setAttributes({ inViewport: value });
                 }}
+                __nextHasNoMarginBottom
               />
 
               <SelectControl
                 label={__('Separator')}
                 value={separator}
                 onChange={value => setAttributes({ separator: value })}
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
                 options={[
                   { value: '', label: __('None') },
                   { value: ',', label: __('Comma ,') },
@@ -218,6 +234,8 @@ const CountupEdit = ({
                 min={0}
                 max={200}
                 allowReset
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
 
               <ResponsiveControl>

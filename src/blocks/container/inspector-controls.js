@@ -62,6 +62,8 @@ const ContainerInspectorControls = ({
             max={9}
             value={columnCount}
             onChange={value => updateColumns(columnCount, value)}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
 
           {supports.themeGrid && (
@@ -71,6 +73,7 @@ const ContainerInspectorControls = ({
                 value="on"
                 checked={themeGrid}
                 onChange={value => setAttributes({ themeGrid: value })}
+                __nextHasNoMarginBottom
               />
               <div
                 className="components-base-control-help-icon"
@@ -100,6 +103,8 @@ const ContainerInspectorControls = ({
                     },
                   })
                 }
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
               />
             )}
           </ResponsiveControl>
@@ -115,6 +120,8 @@ const ContainerInspectorControls = ({
               { value: 'xl', label: __('Extra Large (40px)') },
             ]}
             onChange={value => setAttributes({ gutter: value })}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
 
           <div className="components-base-control components-base-control-with-help-icon">
@@ -123,6 +130,7 @@ const ContainerInspectorControls = ({
               value="on"
               checked={overflow}
               onChange={() => setAttributes({ overflow: !overflow })}
+              __nextHasNoMarginBottom
             />
             <div
               className="components-base-control-help-icon"
@@ -155,6 +163,8 @@ const ContainerInspectorControls = ({
                   help={__(
                     'Leave blank for auto height or set to -1 for full viewport height.',
                   )}
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom
                 />
               </Fragment>
             )}
@@ -179,6 +189,8 @@ const ContainerInspectorControls = ({
                   }}
                   step={1}
                   help={__('Set to -1 for 100% width.')}
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom
                 />
               </Fragment>
             )}
@@ -203,6 +215,8 @@ const ContainerInspectorControls = ({
                     },
                   })
                 }
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
               />
             )}
           </ResponsiveControl>
@@ -229,6 +243,8 @@ const ContainerInspectorControls = ({
                 help={__(
                   'The content alignment settings apply when Container Height and/or the Content Width are set.',
                 )}
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
               />
             )}
           </ResponsiveControl>
@@ -316,6 +332,8 @@ const ContainerInspectorControls = ({
               onChange={handleBackgroundVideoUrlChange}
               type="text"
               value={backgroundVideoURL}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
             />
 
             <MediaUpload

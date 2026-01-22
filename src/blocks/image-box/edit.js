@@ -9,6 +9,7 @@ import {
   RichText,
   MediaUpload,
   AlignmentToolbar,
+  useBlockProps,
 } from 'wp.blockEditor';
 import {
   PanelBody,
@@ -81,21 +82,23 @@ const ImageBoxEditBlock = ({
   const availableSizes = image && image.media_details.sizes;
   const blockId = getBlockId(uniqueId);
 
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(className, blockId, {
+      [`wp-block-gutenbee-imagebox-align-${imageAlign}`]: true,
+      [`wp-block-gutenbee-imagebox-content-align-${contentAlign}`]: !!contentAlign,
+    }),
+    style: {
+      backgroundColor: backgroundColor || undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
+
   return (
     <Fragment>
       <ImageBoxStyle attributes={attributes} />
-      <div
-        id={blockId}
-        className={classNames(className, blockId, {
-          [`wp-block-gutenbee-imagebox-align-${imageAlign}`]: true,
-          [`wp-block-gutenbee-imagebox-content-align-${contentAlign}`]: !!contentAlign,
-        })}
-        style={{
-          backgroundColor: backgroundColor || undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-      >
+      <div {...blockProps}>
         <figure className="wp-block-gutenbee-imagebox-figure">
           {url ? (
             <img src={url} alt={alt} />
@@ -186,6 +189,8 @@ const ImageBoxEditBlock = ({
                 onChange={value => {
                   setAttributes({ imageAlign: value });
                 }}
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
 
               {availableSizes && (
@@ -199,6 +204,8 @@ const ImageBoxEditBlock = ({
                   onChange={newImageUrl => {
                     setAttributes({ url: newImageUrl });
                   }}
+                  __nextHasNoMarginBottom
+                  __next40pxDefaultSize
                 />
               )}
 
@@ -221,6 +228,8 @@ const ImageBoxEditBlock = ({
                     max={2000}
                     beforeIcon="format-image"
                     afterIcon="format-image"
+                    __nextHasNoMarginBottom
+                    __next40pxDefaultSize
                   />
                 )}
               </ResponsiveControl>
@@ -286,6 +295,8 @@ const ImageBoxEditBlock = ({
                 allowReset
                 min={0}
                 max={200}
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
 
               <ResponsiveControl>
@@ -408,11 +419,11 @@ ImageBoxEditBlock.propTypes = propTypes;
 
 export default compose([
   withSelect((select, props) => {
-    const { getMedia } = select('core');
+    const { getEntityRecord } = select('core');
     const { id } = props.attributes;
 
     return {
-      image: id ? getMedia(id) : null,
+      image: id ? getEntityRecord('postType', 'attachment', id) : null,
     };
   }),
 ])(ImageBoxEditBlock);

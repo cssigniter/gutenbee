@@ -2,7 +2,7 @@ import { Fragment } from 'wp.element';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
-import { InspectorControls, InnerBlocks } from 'wp.blockEditor';
+import { InspectorControls, InnerBlocks, useBlockProps } from 'wp.blockEditor';
 import { PanelBody, RangeControl, SelectControl } from 'wp.components';
 import { compose } from 'wp.compose';
 import { withSelect, withDispatch } from 'wp.data';
@@ -65,11 +65,16 @@ const ColumnBlockEdit = ({
   const customClass = 'wp-block-gutenbee-column';
   const blockId = getBlockId(uniqueId);
 
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(className, blockId),
+  });
+
   return (
     <Fragment>
       <ColumnStyle attributes={attributes} />
 
-      <div id={blockId} className={classNames(className, blockId)}>
+      <div {...blockProps}>
         <div
           className={`${customClass}-content`}
           style={{
@@ -102,6 +107,8 @@ const ColumnBlockEdit = ({
                 step={0.01}
                 required
                 allowReset
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
               />
             )}
           </ResponsiveControl>
@@ -127,6 +134,8 @@ const ColumnBlockEdit = ({
                   help={__(
                     'Leave blank for auto height or set to -1 for full viewport height.',
                   )}
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom
                 />
               </Fragment>
             )}
@@ -175,6 +184,8 @@ const ColumnBlockEdit = ({
                     },
                   })
                 }
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
               />
             )}
           </ResponsiveControl>
@@ -198,6 +209,8 @@ const ColumnBlockEdit = ({
                     },
                   })
                 }
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
               />
             )}
           </ResponsiveControl>

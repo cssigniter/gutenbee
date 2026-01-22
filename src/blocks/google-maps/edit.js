@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'wp.element';
+import { Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import {
@@ -8,13 +8,11 @@ import {
   TextControl,
   SelectControl,
   TextareaControl,
-  Spinner,
   Notice,
   Button,
 } from 'wp.components';
-import { InspectorControls, MediaUpload } from 'wp.blockEditor';
+import { InspectorControls, MediaUpload, useBlockProps } from 'wp.blockEditor';
 import get from 'lodash.get';
-import classNames from 'classnames';
 
 import Map from './Map';
 import mapStyles from './map-styles';
@@ -61,11 +59,9 @@ const propTypes = {
 const GoogleMapsEdit = ({
   attributes,
   isSelected,
-  className,
   setAttributes,
   clientId,
 }) => {
-  const [customStylesError, setCustomStylesError] = useState('');
   const {
     uniqueId,
     latitude,
@@ -75,9 +71,9 @@ const GoogleMapsEdit = ({
     preventScroll,
     styleId,
     infoWindow,
-    customStyles,
     markerImageUrl,
     markerImageId,
+    mapId,
     backgroundColor,
     blockBreakpointVisibility,
     blockAuthVisibility,
@@ -85,72 +81,49 @@ const GoogleMapsEdit = ({
 
   useUniqueId({ attributes, setAttributes, clientId });
 
-  const onSetCustomStyles = customStyles => {
-    setCustomStylesError('');
-    setAttributes({ customStyles });
-
-    try {
-      JSON.parse(customStyles);
-    } catch (error) {
-      setCustomStylesError(
-        'There was an error parsing your custom styles, please check them and try again.',
-      );
-    }
-  };
-
-  const getCustomStyles = () => {
-    try {
-      return JSON.parse(customStyles);
-    } catch (error) {
-      return undefined;
-    }
-  };
-
-  const predefinedMapStyle = mapStyles.find(({ id }) => id === styleId);
-  const mapStyle = customStyles
-    ? getCustomStyles()
-    : get(predefinedMapStyle, 'style');
   const apiKey = get(window, '__GUTENBEE_SETTINGS__.google_maps_api_key');
   const blockId = getBlockId(uniqueId);
 
+  // Determine re-initialization key to force remount when mapId or colorScheme changes.
+  // We force Advanced Usage which requires mapId.
+  const reinitKey = `${mapId || 'DEMO_MAP_ID'}-${attributes.colorScheme}`;
+
+  const predefinedMapStyle = mapStyles.find(({ id }) => id === styleId);
+  const mapStyle = get(predefinedMapStyle, 'style');
+
+  const blockProps = useBlockProps({
+    className: blockId,
+    style: {
+      backgroundColor: backgroundColor || undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
+
   return (
     <Fragment>
-      <div>
+      <div {...blockProps}>
         <GoogleMapsStyle attributes={attributes} />
         {isGoogleMapsApiLoaded() || apiKey ? (
           <Map
+            key={reinitKey}
             googleMapURL={
               apiKey && !isGoogleMapsApiLoaded()
-                ? `https://maps.googleapis.com/maps/api/js?key=${apiKey}`
+                ? `https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=weekly&libraries=marker`
                 : undefined
             }
-            loadingElement={
-              <div
-                className="wp-block-gutenbee-google-maps-loading"
-                style={{ height: `${height.desktop}px` }}
-              >
-                <Spinner />
-              </div>
-            }
-            containerElement={
-              <div
-                id={blockId}
-                className={classNames(className, blockId)}
-                style={{
-                  backgroundColor: backgroundColor || undefined,
-                  ...getBorderCSSValue({ attributes }),
-                  ...getBoxShadowCSSValue({ attributes }),
-                }}
-              />
-            }
-            mapElement={<div style={{ height: '100%' }} />}
+            style={{
+              height: '100%',
+            }}
+            styles={mapStyle}
             latitude={latitude}
             longitude={longitude}
             zoom={zoom}
             preventScroll={preventScroll}
-            styles={mapStyle}
             infoWindow={infoWindow}
             icon={markerImageUrl}
+            mapId={mapId || 'DEMO_MAP_ID'}
+            colorScheme={attributes.colorScheme}
           />
         ) : (
           <Notice status="error" isDismissible={false}>
@@ -169,6 +142,8 @@ const GoogleMapsEdit = ({
               type="number"
               value={latitude}
               onChange={value => setAttributes({ latitude: value })}
+              __nextHasNoMarginBottom
+              __next40pxDefaultSize
             />
 
             <TextControl
@@ -176,6 +151,8 @@ const GoogleMapsEdit = ({
               type="number"
               value={longitude}
               onChange={value => setAttributes({ longitude: value })}
+              __nextHasNoMarginBottom
+              __next40pxDefaultSize
             />
 
             <RangeControl
@@ -185,6 +162,8 @@ const GoogleMapsEdit = ({
               value={zoom}
               onChange={value => setAttributes({ zoom: value })}
               step={1}
+              __nextHasNoMarginBottom
+              __next40pxDefaultSize
             />
 
             <ResponsiveControl>
@@ -203,6 +182,8 @@ const GoogleMapsEdit = ({
                     })
                   }
                   step={1}
+                  __nextHasNoMarginBottom
+                  __next40pxDefaultSize
                 />
               )}
             </ResponsiveControl>
@@ -211,19 +192,7 @@ const GoogleMapsEdit = ({
               label={__('Prevent Scroll')}
               checked={preventScroll}
               onChange={value => setAttributes({ preventScroll: value })}
-            />
-
-            <SelectControl
-              label={__('Map Style')}
-              value={styleId}
-              onChange={value => setAttributes({ styleId: value })}
-              options={[
-                { value: '', label: __('Default') },
-                ...mapStyles.map(style => ({
-                  value: style.id,
-                  label: style.label,
-                })),
-              ]}
+              __nextHasNoMarginBottom
             />
 
             <p>{__('Custom Marker')}</p>
@@ -268,23 +237,51 @@ const GoogleMapsEdit = ({
               help={__(
                 'This text will appear as a popup on the map marker. Accepts basic HTML.',
               )}
+              __nextHasNoMarginBottom
             />
           </PanelBody>
 
           <PanelBody title={__('Map Appearance')} initialOpen={false}>
-            {customStylesError && (
-              <Notice status="error" isDismissible={false}>
-                {customStylesError}
-              </Notice>
-            )}
+            <SelectControl
+              label={__('Color Scheme')}
+              value={attributes.colorScheme}
+              options={[
+                { value: 'FOLLOW_SYSTEM', label: __('Follow System') },
+                { value: 'LIGHT', label: __('Light') },
+                { value: 'DARK', label: __('Dark') },
+              ]}
+              onChange={value => setAttributes({ colorScheme: value })}
+              __nextHasNoMarginBottom
+              __next40pxDefaultSize
+            />
 
-            <TextareaControl
-              label={__('Custom Snazzy Maps Styles')}
-              value={customStyles}
-              onChange={onSetCustomStyles}
+            <SelectControl
+              label={__('Map Style')}
+              value={styleId}
+              onChange={value => setAttributes({ styleId: value })}
+              options={[
+                { value: '', label: __('Default') },
+                ...mapStyles.map(style => ({
+                  value: style.id,
+                  label: style.label,
+                })),
+              ]}
               help={__(
-                'This will override any predefined map styles selected above.',
+                'Select a JSON style for the map. This works alongside Advanced Markers.',
               )}
+              __nextHasNoMarginBottom
+              __next40pxDefaultSize
+            />
+
+            <TextControl
+              label={__('Map ID')}
+              value={mapId}
+              onChange={value => setAttributes({ mapId: value })}
+              help={__(
+                'Enter your Google Maps Map ID from Google Cloud Console.',
+              )}
+              __nextHasNoMarginBottom
+              __next40pxDefaultSize
             />
           </PanelBody>
 
@@ -354,17 +351,17 @@ const GoogleMapsEdit = ({
           {__GUTENBEE_SETTINGS__.plugin.settings[
             'active_animation-controls'
           ] && (
-            <PanelBody
-              icon={!!attributes.animation?.type && 'saved'}
-              title={__('Animation')}
-              initialOpen={false}
-            >
-              <AnimationControls
-                attributes={attributes.animation}
-                setAttributes={setAttributes}
-              />
-            </PanelBody>
-          )}
+              <PanelBody
+                icon={!!attributes.animation?.type && 'saved'}
+                title={__('Animation')}
+                initialOpen={false}
+              >
+                <AnimationControls
+                  attributes={attributes.animation}
+                  setAttributes={setAttributes}
+                />
+              </PanelBody>
+            )}
         </InspectorControls>
       )}
     </Fragment>

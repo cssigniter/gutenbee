@@ -9,7 +9,6 @@ import {
   AlignmentToolbar,
   useBlockProps,
 } from 'wp.blockEditor';
-import { createBlock } from 'wp.blocks';
 import { compose } from 'wp.compose';
 
 import useUniqueId from '../../hooks/useUniqueId';
@@ -115,16 +114,6 @@ const ParagraphBlock = ({
           onMerge={mergeBlocks}
           onReplace={onReplace}
           onRemove={onReplace ? () => onReplace([]) : undefined}
-          onSplit={value => {
-            if (!value) {
-              return createBlock('gutenbee/paragraph');
-            }
-
-            return createBlock('gutenbee/paragraph', {
-              ...attributes,
-              content: value,
-            });
-          }}
           aria-label={__('Paragraph block')}
           placeholder={placeholder || __('Start writing…')}
           __unstableEmbedURLOnPaste
@@ -195,6 +184,7 @@ const ParagraphBlock = ({
             label={__('Drop Cap')}
             checked={!!dropCap}
             onChange={() => setAttributes({ dropCap: !dropCap })}
+            __nextHasNoMarginBottom
             help={
               dropCap
                 ? __('Showing large initial letter.')

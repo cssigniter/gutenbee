@@ -1,6 +1,6 @@
 import { registerBlockType } from 'wp.blocks';
 import { __ } from 'wp.i18n';
-import { InnerBlocks } from 'wp.blockEditor';
+import { InnerBlocks, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import {
@@ -19,35 +19,6 @@ import {
   getAnimationControlDataAttributes,
 } from '../../components/controls/animation-controls/helpers';
 
-const Buttons = ({ attributes, className }) => {
-  const {
-    uniqueId,
-    backgroundColor,
-    blockBreakpointVisibility,
-    blockAuthVisibility,
-  } = attributes;
-  const blockId = getBlockId(uniqueId);
-
-  return (
-    <div
-      id={blockId}
-      className={classNames(
-        className,
-        blockId,
-        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-        getAuthVisibilityClasses(blockAuthVisibility),
-      )}
-      style={{
-        backgroundColor: backgroundColor || undefined,
-      }}
-      {...getAnimationControlDataAttributes(attributes.animation)}
-    >
-      <ButtonsStyle attributes={attributes} />
-      <InnerBlocks.Content />
-    </div>
-  );
-};
-
 registerBlockType('gutenbee/buttons', {
   title: __('GutenBee Button Group'),
   description: __(
@@ -56,6 +27,7 @@ registerBlockType('gutenbee/buttons', {
   supports: {
     anchor: true,
   },
+  apiVersion: 3,
   icon: ButtonsBlockIcon,
   category: 'gutenbee',
   keywords: [__('link'), __('button'), __('call to action')],
@@ -101,7 +73,33 @@ registerBlockType('gutenbee/buttons', {
   },
   deprecated,
   edit: ButtonsEdit,
-  save: ({ attributes, className }) => {
-    return <Buttons className={className} attributes={attributes} />;
+  save: ({ attributes }) => {
+    const {
+      uniqueId,
+      backgroundColor,
+      blockBreakpointVisibility,
+      blockAuthVisibility,
+    } = attributes;
+    const blockId = getBlockId(uniqueId);
+
+    const blockProps = useBlockProps.save({
+      id: blockId,
+      className: classNames(
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+      ),
+      style: {
+        backgroundColor: backgroundColor || undefined,
+      },
+      ...getAnimationControlDataAttributes(attributes.animation),
+    });
+
+    return (
+      <div {...blockProps}>
+        <ButtonsStyle attributes={attributes} />
+        <InnerBlocks.Content />
+      </div>
+    );
   },
 });

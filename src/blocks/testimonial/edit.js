@@ -20,7 +20,7 @@ import { withSelect } from 'wp.data';
 import { __ } from 'wp.i18n';
 import classNames from 'classnames';
 import { pick, get, map, isEmpty } from 'lodash';
-import { RichText, InspectorControls } from 'wp.blockEditor';
+import { RichText, InspectorControls, useBlockProps } from 'wp.blockEditor';
 import { image as imageIcon } from '@wordpress/icons';
 
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
@@ -174,7 +174,7 @@ const TestimonialEdit = ({
     />
   );
 
-  const blockProps = {
+  const blockProps = useBlockProps({
     id: blockId,
     className: classNames(
       className,
@@ -186,7 +186,7 @@ const TestimonialEdit = ({
         [`gutenbee-testimonial-avatar-${avatarPosition}`]: avatarPosition,
       },
     ),
-  };
+  });
 
   const POSITIONS = {
     TOP: 'top',
@@ -381,6 +381,8 @@ const TestimonialEdit = ({
                 beforeIcon="format-image"
                 afterIcon="format-image"
                 allowReset
+                __next40pxDefaultSize={true}
+                __nextHasNoMarginBottom={true}
               />
             )}
           </ResponsiveControl>
@@ -389,6 +391,7 @@ const TestimonialEdit = ({
             label={__('Alt Text (Alternative Text)')}
             value={alt}
             onChange={value => setAttributes({ alt: value })}
+            __nextHasNoMarginBottom={true}
           />
 
           {!isEmpty(imageSizeOptions) && (
@@ -397,6 +400,8 @@ const TestimonialEdit = ({
               value={sizeSlug}
               options={imageSizeOptions}
               onChange={onImageSizeUpdate}
+              __next40pxDefaultSize={true}
+              __nextHasNoMarginBottom={true}
             />
           )}
         </PanelBody>
@@ -416,6 +421,8 @@ const TestimonialEdit = ({
               { value: POSITIONS.BOTTOM, label: __('Bottom') },
               { value: POSITIONS.LEFT, label: __('Left') },
             ]}
+            __next40pxDefaultSize={true}
+            __nextHasNoMarginBottom={true}
           />
         </PanelBody>
         <PanelBody
@@ -565,7 +572,7 @@ TestimonialEdit.propTypes = propTypes;
 
 export default compose(
   withSelect((select, props) => {
-    const { getMedia } = select('core');
+    const { getEntityRecord } = select('core');
     const { getSettings } = select('core/block-editor');
     const {
       attributes: { id },
@@ -574,7 +581,8 @@ export default compose(
     const { mediaUpload, imageSizes, isRTL, maxWidth } = getSettings();
 
     return {
-      image: id && isSelected ? getMedia(id) : null,
+      image:
+        id && isSelected ? getEntityRecord('postType', 'attachment', id) : null,
       maxWidth,
       isRTL,
       imageSizes,

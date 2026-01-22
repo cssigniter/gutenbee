@@ -97,6 +97,8 @@ const MarginControls = ({
               max={200}
               step={1}
               onChange={value => onMarginsChange(value, position)}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
             />
           ))}
         </div>

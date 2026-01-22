@@ -1,6 +1,6 @@
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import { RichText } from 'wp.blockEditor';
+import { RichText, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import VideoEdit from './edit';
@@ -26,6 +26,7 @@ import {
 } from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/video', {
+  apiVersion: 3,
   title: __('GutenBee Video'),
   description: __('Embed a video from your media library or upload a new one.'),
   icon: VideoBlockIcon,
@@ -126,7 +127,7 @@ registerBlockType('gutenbee/video', {
   },
   deprecated,
   edit: VideoEdit,
-  save: ({ attributes, className }) => {
+  save: ({ attributes }) => {
     const {
       uniqueId,
       autoplay,
@@ -143,21 +144,22 @@ registerBlockType('gutenbee/video', {
     } = attributes;
     const blockId = getBlockId(uniqueId);
 
+    const blockProps = useBlockProps.save({
+      id: blockId,
+      className: classNames(
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+      ),
+      style: {
+        ...getBorderCSSValue({ attributes }),
+        ...getBoxShadowCSSValue({ attributes }),
+      },
+      ...getAnimationControlDataAttributes(attributes.animation),
+    });
+
     return (
-      <figure
-        id={blockId}
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-        )}
-        style={{
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-        {...getAnimationControlDataAttributes(attributes.animation)}
-      >
+      <figure {...blockProps}>
         <VideoStyle attributes={attributes} />
         {src && (
           <video

@@ -29,7 +29,7 @@ import {
 } from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/heading', {
-  apiVersion: 2,
+  apiVersion: 3,
   title: __('GutenBee Heading'),
   description: __(
     'Introduce new sections and organize content to help visitors (and search engines) understand the structure of your content.',
@@ -40,6 +40,7 @@ registerBlockType('gutenbee/heading', {
   supports: {
     className: true,
     anchor: false,
+    splitting: true,
   },
   example: {
     attributes: {

@@ -28,7 +28,7 @@ import {
 } from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/paragraph', {
-  apiVersion: 2,
+  apiVersion: 3,
   title: __('GutenBee Paragraph'),
   description: __('Start with the building block of all narrative.'),
   icon: ParagraphBlockIcon,
@@ -37,6 +37,7 @@ registerBlockType('gutenbee/paragraph', {
   supports: {
     className: true,
     anchor: false,
+    splitting: true,
   },
   example: {
     attributes: {

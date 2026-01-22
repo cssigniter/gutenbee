@@ -5,7 +5,7 @@
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import { RichText, InspectorControls } from 'wp.blockEditor';
+import { RichText, InspectorControls, useBlockProps } from 'wp.blockEditor';
 import { PanelBody, SelectControl, RangeControl } from 'wp.components';
 import classNames from 'classnames';
 import omit from 'lodash.omit';
@@ -45,7 +45,7 @@ import {
 } from '../../components/controls/animation-controls/helpers';
 import AnimationControls from '../../components/controls/animation-controls/AnimationControls';
 
-const IconBox = ({ className, attributes }) => {
+const IconBox = ({ className, attributes, blockProps = {} }) => {
   const {
     uniqueId,
     titleNodeLevel,
@@ -68,8 +68,10 @@ const IconBox = ({ className, attributes }) => {
   return (
     <div
       id={blockId}
+      {...blockProps}
       className={classNames(
         className,
+        blockProps.className,
         blockId,
         getBreakpointVisibilityClassNames(blockBreakpointVisibility),
         getAuthVisibilityClasses(blockAuthVisibility),
@@ -82,6 +84,7 @@ const IconBox = ({ className, attributes }) => {
         backgroundColor: backgroundColor || undefined,
         ...getBorderCSSValue({ attributes }),
         ...getBoxShadowCSSValue({ attributes }),
+        ...blockProps.style,
       }}
       {...getAnimationControlDataAttributes(attributes.animation)}
     >
@@ -154,23 +157,24 @@ const IconBoxEditBlock = ({
 
   useUniqueId({ attributes, setAttributes, clientId });
   const blockId = getBlockId(uniqueId);
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames({
+      [className]: !!className,
+      [blockId]: true,
+      [`wp-block-gutenbee-iconbox-align-${align}`]: true,
+      [`wp-block-gutenbee-iconbox-content-align-${contentAlign}`]: !!contentAlign,
+    }),
+    style: {
+      backgroundColor: backgroundColor || undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
 
   return (
     <Fragment>
-      <div
-        id={blockId}
-        className={classNames({
-          [className]: !!className,
-          [blockId]: true,
-          [`wp-block-gutenbee-iconbox-align-${align}`]: true,
-          [`wp-block-gutenbee-iconbox-content-align-${contentAlign}`]: !!contentAlign,
-        })}
-        style={{
-          backgroundColor: backgroundColor || undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-      >
+      <div {...blockProps}>
         <IconBoxStyle attributes={attributes} />
 
         <Icon
@@ -276,6 +280,8 @@ const IconBoxEditBlock = ({
               onChange={value => {
                 setAttributes({ contentAlign: value || undefined });
               }}
+              __nextHasNoMarginBottom
+              __next40pxDefaultSize
             />
 
             <p>{__('Heading element')}</p>
@@ -317,6 +323,8 @@ const IconBoxEditBlock = ({
               allowReset
               min={0}
               max={200}
+              __nextHasNoMarginBottom
+              __next40pxDefaultSize
             />
 
             <ResponsiveControl>
@@ -437,6 +445,7 @@ const IconBoxEditBlock = ({
 };
 
 registerBlockType('gutenbee/iconbox', {
+  apiVersion: 3,
   title: __('GutenBee Icon Box'),
   description: __('A flexible icon box block'),
   icon: IconBoxBlockIcon,
@@ -530,6 +539,13 @@ registerBlockType('gutenbee/iconbox', {
   deprecated,
   edit: IconBoxEditBlock,
   save({ className, attributes }) {
-    return <IconBox className={className} attributes={attributes} />;
+    const blockProps = useBlockProps.save();
+    return (
+      <IconBox
+        className={className}
+        attributes={attributes}
+        blockProps={blockProps}
+      />
+    );
   },
 });

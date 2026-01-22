@@ -1,6 +1,6 @@
 import { registerBlockType } from 'wp.blocks';
 import { __ } from 'wp.i18n';
-import { RichText } from 'wp.blockEditor';
+import { RichText, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import {
@@ -28,6 +28,7 @@ import {
 registerBlockType('gutenbee/button', {
   title: __('GutenBee Button'),
   description: __('Prompt visitors to take action with a button-style link.'),
+  apiVersion: 3,
   icon: ButtonBlockIcon,
   category: 'gutenbee',
   keywords: [__('button'), __('button link'), __('call to action')],
@@ -107,7 +108,7 @@ registerBlockType('gutenbee/button', {
   },
   deprecated,
   edit: ButtonEdit,
-  save: ({ attributes, className }) => {
+  save: ({ attributes }) => {
     const {
       uniqueId,
       textColor,
@@ -122,17 +123,18 @@ registerBlockType('gutenbee/button', {
 
     const blockId = getBlockId(uniqueId);
 
+    const blockProps = useBlockProps.save({
+      id: blockId,
+      className: classNames(
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+      ),
+      ...getAnimationControlDataAttributes(attributes.animation),
+    });
+
     return (
-      <div
-        id={blockId}
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-        )}
-        {...getAnimationControlDataAttributes(attributes.animation)}
-      >
+      <div {...blockProps}>
         <ButtonStyle attributes={attributes} />
         <RichText.Content
           tagName="a"

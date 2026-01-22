@@ -1,4 +1,5 @@
 import { registerBlockType } from 'wp.blocks';
+import { useBlockProps } from 'wp.blockEditor';
 import { __ } from 'wp.i18n';
 import classNames from 'classnames';
 
@@ -22,6 +23,7 @@ import { getBreakpointVisibilityClassNames } from '../../components/controls/bre
 import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
 
 registerBlockType('gutenbee/spacer', {
+  apiVersion: 3,
   title: __('GutenBee Spacer'),
   description: __('Add white space between blocks and customize its height.'),
   icon: SpacerBlockIcon,
@@ -77,7 +79,7 @@ registerBlockType('gutenbee/spacer', {
   },
   edit: SpacerEdit,
   deprecated,
-  save: ({ attributes, className }) => {
+  save: ({ attributes }) => {
     const {
       uniqueId,
       backgroundColor,
@@ -88,23 +90,24 @@ registerBlockType('gutenbee/spacer', {
     const blockId = getBlockId(uniqueId);
     const { parallax, parallaxSpeed } = backgroundImageEffects ?? {};
 
+    const blockProps = useBlockProps.save({
+      className: classNames(
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+        {
+          'has-parallax': parallax,
+        },
+      ),
+      style: {
+        ...getBorderCSSValue({ attributes }),
+        ...getBoxShadowCSSValue({ attributes }),
+      },
+      'aria-hidden': true,
+    });
+
     return (
-      <div
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-          {
-            'has-parallax': parallax,
-          },
-        )}
-        style={{
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-        aria-hidden
-      >
+      <div {...blockProps}>
         <SpacerStyle attributes={attributes} />
 
         <div

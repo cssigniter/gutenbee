@@ -24,12 +24,14 @@ const Icon = ({
   blockPadding,
   blockBreakpointVisibility,
   blockAuthVisibility,
+  blockProps = {},
   ...attributes
 }) => {
   const IconComponent = require(`./svg/${icon}.svg`).default;
 
   const wrapperClasses = classNames(
     className,
+    blockProps.className,
     id,
     getBreakpointVisibilityClassNames(blockBreakpointVisibility),
     getAuthVisibilityClasses(blockAuthVisibility),
@@ -65,6 +67,7 @@ const Icon = ({
   return (
     <div
       id={id}
+      {...blockProps}
       className={wrapperClasses}
       {...getAnimationControlDataAttributes(attributes.animation)}
     >

@@ -1,7 +1,12 @@
 import { Fragment, useState, useEffect } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
-import { RichText, PlainText, InspectorControls } from 'wp.blockEditor';
+import {
+  RichText,
+  PlainText,
+  InspectorControls,
+  useBlockProps,
+} from 'wp.blockEditor';
 import { PanelBody, RangeControl } from 'wp.components';
 import classNames from 'classnames';
 
@@ -129,17 +134,19 @@ const TabsEdit = ({
   const activeTab = tabs[selectedTabIndex];
   const blockId = getBlockId(uniqueId);
 
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(
+      className,
+      blockId,
+      getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+      getAuthVisibilityClasses(blockAuthVisibility),
+    ),
+  });
+
   return (
     <Fragment>
-      <div
-        id={blockId}
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-        )}
-      >
+      <div {...blockProps}>
         <TabsStyle attributes={attributes} />
 
         <div className="wp-block-gutenbee-tabs-nav">
@@ -201,6 +208,8 @@ const TabsEdit = ({
               max={20}
               step={1}
               onChange={onUpdateTabsNumber}
+              __next40pxDefaultSize={true}
+              __nextHasNoMarginBottom={true}
             />
           </PanelBody>
 

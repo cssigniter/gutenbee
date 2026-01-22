@@ -48,29 +48,34 @@ const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
   useUniqueId({ attributes, setAttributes, clientId });
   const blockId = getBlockId(uniqueId);
 
-  const innerBlocksProps = useInnerBlocksProps(useBlockProps(), {
-    allowedBlocks: ['gutenbee/food-menu-item'],
-    template: [['gutenbee/food-menu-item']],
-    __experimentalUIParts: { hasSelectedUI: false },
-    __experimentalMoverDirection: 'vertical',
-    orientation: 'vertical',
+  const innerBlocksProps = useInnerBlocksProps(
+    {},
+    {
+      allowedBlocks: ['gutenbee/food-menu-item'],
+      template: [['gutenbee/food-menu-item']],
+      __experimentalUIParts: { hasSelectedUI: false },
+      __experimentalMoverDirection: 'vertical',
+      orientation: 'vertical',
+    },
+  );
+
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(className, blockId, {
+      [`gutenbee-food-menu-columns-desktop-${columns.desktop}`]: true,
+      [`gutenbee-food-menu-columns-tablet-${columns.tablet}`]: true,
+      [`gutenbee-food-menu-columns-mobile-${columns.mobile}`]: true,
+    }),
+    style: {
+      backgroundColor: backgroundColor ? backgroundColor : undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
   });
 
   return (
     <Fragment>
-      <div
-        id={blockId}
-        className={classNames(className, blockId, {
-          [`gutenbee-food-menu-columns-desktop-${columns.desktop}`]: true,
-          [`gutenbee-food-menu-columns-tablet-${columns.tablet}`]: true,
-          [`gutenbee-food-menu-columns-mobile-${columns.mobile}`]: true,
-        })}
-        style={{
-          backgroundColor: backgroundColor ? backgroundColor : undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-      >
+      <div {...blockProps}>
         <div {...innerBlocksProps} />
 
         <FoodMenuStyle attributes={attributes}>
@@ -99,6 +104,8 @@ const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
                     },
                   })
                 }
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
             )}
           </ResponsiveControl>
@@ -122,6 +129,8 @@ const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
                     },
                   })
                 }
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
             )}
           </ResponsiveControl>

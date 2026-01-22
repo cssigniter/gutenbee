@@ -8,6 +8,7 @@ import { registerBlockType } from 'wp.blocks';
 import PostTypesEdit from './edit';
 import PostTypesBlockIcon from './block-icon';
 import { animationControlAttributes } from '../../components/controls/animation-controls/helpers';
+import deprecated from './deprecated';
 
 export const POST_TYPES_PAGINATION_TYPE = {
   NORMAL: 'normal',
@@ -20,6 +21,7 @@ registerBlockType('gutenbee/post-types', {
   icon: PostTypesBlockIcon,
   category: 'gutenbee',
   keywords: [__('custom post types')],
+  apiVersion: 3,
   supports: {
     anchor: true,
   },
@@ -118,6 +120,7 @@ registerBlockType('gutenbee/post-types', {
     ...animationControlAttributes(),
   },
 
+  deprecated,
   edit: PostTypesEdit,
   save: () => null,
 });
