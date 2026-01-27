@@ -40,7 +40,7 @@ const propTypes = {
     blockMargin: PropTypes.object,
   }).isRequired,
   isSelected: PropTypes.bool.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   setAttributes: PropTypes.func.isRequired,
   clientId: PropTypes.string.isRequired,
 };
@@ -146,7 +146,7 @@ const AccordionsEdit = ({
 
   const blockProps = useBlockProps({
     id: blockId,
-    className: classNames(className, blockId),
+    className: classNames(className || '', blockId),
   });
 
   return (
@@ -198,7 +198,6 @@ const AccordionsEdit = ({
                     onChange={content => onTabContentUpdate(index, content)}
                     className="wp-block-gutenbee-accordion-item-text"
                     placeholder={__('Write content…')}
-                    keepPlaceholderOnFocus
                   />
                 </div>
               </div>
@@ -361,7 +360,19 @@ const AccordionsEdit = ({
               initialOpen={false}
             >
               <AnimationControls
-                attributes={attributes.animation}
+                attributes={{
+                  ...attributes.animation,
+                  duration:
+                    attributes.animation?.duration !== undefined &&
+                    attributes.animation?.duration !== ''
+                      ? Number(attributes.animation.duration)
+                      : undefined,
+                  delay:
+                    attributes.animation?.delay !== undefined &&
+                    attributes.animation?.delay !== ''
+                      ? Number(attributes.animation.delay)
+                      : undefined,
+                }}
                 setAttributes={setAttributes}
               />
             </PanelBody>

@@ -1,7 +1,6 @@
 import { Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
-import { withSelect } from 'wp.data';
 import {
   ToolbarButton,
   ToolbarGroup,
@@ -18,8 +17,39 @@ import {
 import SlickSlider from 'react-slick';
 import startCase from 'lodash.startcase';
 import { gallery as galleryIcon } from '@wordpress/icons';
+import { useSelect } from 'wp.data';
+import { useMemo } from 'wp.element';
+import classNames from 'classnames';
 
 import { LINKTO } from '../gallery/constants';
+
+const SlickPrevArrow = (
+  { currentSlide, slideCount, ...props }, // eslint-disable-line no-unused-vars
+) => (
+  <button
+    {...props}
+    type="button"
+    className={classNames(props.className, 'slick-prev', 'slick-arrow')}
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512">
+      <path d="M25.1 247.5l117.8-116c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L64.7 256l102.2 100.4c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0L25 264.5c-4.6-4.7-4.6-12.3.1-17z" />
+    </svg>
+  </button>
+);
+
+const SlickNextArrow = (
+  { currentSlide, slideCount, ...props }, // eslint-disable-line no-unused-vars
+) => (
+  <button
+    {...props}
+    type="button"
+    className={classNames(props.className, 'slick-next', 'slick-arrow')}
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512">
+      <path d="M166.9 264.5l-117.8 116c-4.7 4.7-12.3 4.7-17 0l-7.1-7.1c-4.7-4.7-4.7-12.3 0-17L127.3 256 25.1 155.6c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0l117.8 116c4.6 4.7 4.6 12.3-.1 17z" />
+    </svg>
+  </button>
+);
 
 const propTypes = {
   attributes: PropTypes.shape({
@@ -56,11 +86,30 @@ const Slideshow = ({
   attributes,
   isSelected,
   setAttributes,
-  images: propImages,
   style,
   children,
   id,
 }) => {
+  const imagesAttachments = useSelect(
+    select => {
+      const { getEntityRecord } = select('core');
+      return attributes.images.map(img =>
+        getEntityRecord('postType', 'attachment', img.id),
+      );
+    },
+    [attributes.images],
+  );
+
+  const propImages = useMemo(() => {
+    return attributes.images.map((img, index) => {
+      const attachment = imagesAttachments?.[index];
+      return {
+        id: img.id,
+        sizes: attachment?.media_details?.sizes,
+      };
+    });
+  }, [attributes.images, imagesAttachments]);
+
   const onSelectImages = images => {
     setAttributes({
       images: images.map(attributes => ({
@@ -152,20 +201,8 @@ const Slideshow = ({
           pauseOnHover={pauseOnHover}
           fade={animationStyle === 'fade'}
           className="wp-block-gutenbee-slideshow-slider"
-          prevArrow={
-            <button className="slick-prev">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512">
-                <path d="M25.1 247.5l117.8-116c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L64.7 256l102.2 100.4c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0L25 264.5c-4.6-4.7-4.6-12.3.1-17z" />
-              </svg>
-            </button>
-          }
-          nextArrow={
-            <button className="slick-next">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512">
-                <path d="M166.9 264.5l-117.8 116c-4.7 4.7-12.3 4.7-17 0l-7.1-7.1c-4.7-4.7-4.7-12.3 0-17L127.3 256 25.1 155.6c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0l117.8 116c4.6 4.7 4.6 12.3-.1 17z" />
-              </svg>
-            </button>
-          }
+          prevArrow={<SlickPrevArrow />}
+          nextArrow={<SlickNextArrow />}
           customPaging={() => <button style={{ backgroundColor: dotsColor }} />}
         >
           {images.map(image => {
@@ -249,20 +286,4 @@ const Slideshow = ({
 
 Slideshow.propTypes = propTypes;
 
-export default withSelect((select, props) => {
-  const { getEntityRecord } = select('core');
-  const imageIds = props.attributes.images.map(({ id }) => id);
-
-  return {
-    images: imageIds.length
-      ? imageIds.map(id => {
-          const image = getEntityRecord('postType', 'attachment', id);
-
-          return {
-            id,
-            sizes: image && image.media_details.sizes,
-          };
-        })
-      : null,
-  };
-})(Slideshow);
+export default Slideshow;

@@ -24,8 +24,8 @@ const propTypes = {
     columns: PropTypes.number,
     postType: PropTypes.string,
     taxonomySlug: PropTypes.string,
-    termId: PropTypes.number,
-    authorId: PropTypes.number,
+    termId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    authorId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     postsPerPage: PropTypes.number,
     pagination: PropTypes.bool,
     paginationType: PropTypes.string,
@@ -151,7 +151,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
                 if (value !== postType) {
                   setAttributes({
                     taxonomySlug: '',
-                    termId: '',
+                    termId: undefined,
                   });
                 }
               }}
@@ -194,7 +194,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
                 onChange={value =>
                   setAttributes({
                     taxonomySlug: value ? taxonomy.slug : '',
-                    termId: value !== '' ? value : '',
+                    termId: value !== '' ? value : undefined,
                   })
                 }
                 __next40pxDefaultSize
@@ -216,7 +216,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
                 })),
               ]}
               onChange={value =>
-                setAttributes({ authorId: value !== '' ? value : '' })
+                setAttributes({ authorId: value !== '' ? value : undefined })
               }
               __next40pxDefaultSize
               __nextHasNoMarginBottom
@@ -428,7 +428,19 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
               initialOpen={false}
             >
               <AnimationControls
-                attributes={attributes.animation}
+                attributes={{
+                  ...attributes.animation,
+                  duration:
+                    attributes.animation?.duration !== undefined &&
+                    attributes.animation?.duration !== ''
+                      ? Number(attributes.animation.duration)
+                      : undefined,
+                  delay:
+                    attributes.animation?.delay !== undefined &&
+                    attributes.animation?.delay !== ''
+                      ? Number(attributes.animation.delay)
+                      : undefined,
+                }}
                 setAttributes={setAttributes}
               />
             </PanelBody>

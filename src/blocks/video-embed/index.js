@@ -48,6 +48,7 @@ registerBlockType('gutenbee/video-embed', {
     },
     videoUrl: {
       type: 'string',
+      default: '',
     },
     lazyLoad: {
       type: 'boolean',
@@ -55,12 +56,15 @@ registerBlockType('gutenbee/video-embed', {
     },
     coverImage: {
       type: 'string',
+      default: '',
     },
     startTime: {
       type: 'string',
+      default: '',
     },
     endTime: {
       type: 'string',
+      default: '',
     },
     controls: {
       type: 'boolean',
@@ -88,6 +92,7 @@ registerBlockType('gutenbee/video-embed', {
     },
     backgroundColor: {
       type: 'string',
+      default: '',
     },
     blockPadding: {
       type: 'object',

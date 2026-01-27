@@ -9,12 +9,10 @@ import {
   BaseControl,
 } from 'wp.components';
 import startCase from 'lodash.startcase';
-import ReactSelect from 'react-select';
 
 import { VIEWS, SHAPES } from './constants';
 import icons from './icons';
 import Icon from './Icon';
-import IconSelectValue from './IconSelectValue';
 import IconBlockIcon from './block-icon';
 import MarginControls from '../../components/controls/margin-controls';
 import {
@@ -103,7 +101,6 @@ export const iconAttributes = {
 };
 
 export const IconSettings = ({
-  className,
   setAttributes,
   attributes,
   children,
@@ -147,28 +144,35 @@ export const IconSettings = ({
           label={__('Icon')}
           __nextHasNoMarginBottom
         >
-          <ReactSelect
-            aria-labelledby="icon-select"
-            onChange={value => setAttributes({ icon: value || 'add-bag' })}
-            value={icon}
-            options={icons.map(value => ({ value, label: startCase(value) }))}
-            simpleValue
-            valueRenderer={({ value, label }) => (
-              <IconSelectValue value={value} label={label} />
+          <div className="gutenbee-icon-select-control">
+            {icon && (
+              <div className="gutenbee-icon-select-preview">
+                {(() => {
+                  const IconComponent = require(`./svg/${icon}.svg`).default;
+                  return (
+                    <IconComponent
+                      className="gutenbee-icon-select-preview-icon"
+                      preserveAspectRatio="xMidYMid meet"
+                    />
+                  );
+                })()}
+              </div>
             )}
-            optionRenderer={({ value, label }) => (
-              <IconSelectValue
-                value={value}
-                label={label}
-                className={className}
-              />
-            )}
-            clearable={false}
-          />
+            <SelectControl
+              value={icon || 'add-bag'}
+              options={icons.map(value => ({
+                value,
+                label: startCase(value),
+              }))}
+              onChange={value => setAttributes({ icon: value || 'add-bag' })}
+              __nextHasNoMarginBottom
+              __next40pxDefaultSize
+            />
+          </div>
         </BaseControl>
         <SelectControl
           label={__('View')}
-          value={view}
+          value={view || VIEWS.DEFAULT}
           onChange={value => setAttributes({ view: value })}
           options={[
             { value: VIEWS.DEFAULT, label: __('Default') },
@@ -181,7 +185,7 @@ export const IconSettings = ({
         {view !== VIEWS.DEFAULT && (
           <SelectControl
             label={__('Shape')}
-            value={shape}
+            value={shape || SHAPES.CIRCLE}
             onChange={value => setAttributes({ shape: value })}
             options={[
               { value: SHAPES.CIRCLE, label: __('Circle') },
@@ -240,7 +244,7 @@ export const IconSettings = ({
 
         <SelectControl
           label={__('Alignment')}
-          value={align}
+          value={align || 'left'}
           options={alignmentOptions.map(option => ({
             value: option.value,
             label: option.label,
@@ -336,7 +340,24 @@ export const IconSettings = ({
             initialOpen={false}
           >
             <AnimationControls
-              attributes={attributes.animation}
+              attributes={(() => {
+                const {
+                  duration: durationStr,
+                  delay: delayStr,
+                  ...restAnimation
+                } = attributes.animation || {};
+                return {
+                  ...restAnimation,
+                  duration:
+                    durationStr !== undefined && durationStr !== ''
+                      ? Number(durationStr)
+                      : undefined,
+                  delay:
+                    delayStr !== undefined && delayStr !== ''
+                      ? Number(delayStr)
+                      : undefined,
+                };
+              })()}
               setAttributes={setAttributes}
             />
           </PanelBody>

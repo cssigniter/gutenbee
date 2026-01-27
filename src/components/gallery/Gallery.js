@@ -15,7 +15,8 @@ import {
   BlockIcon,
 } from 'wp.blockEditor';
 import { gallery as galleryIcon } from '@wordpress/icons';
-import { withSelect } from 'wp.data';
+import { useSelect } from 'wp.data';
+import { useMemo } from 'wp.element';
 import startCase from 'lodash.startcase';
 import classNames from 'classnames';
 
@@ -32,7 +33,6 @@ const propTypes = {
   setAttributes: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
   className: PropTypes.string,
-  images: PropTypes.array,
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
@@ -45,13 +45,32 @@ const Gallery = ({
   isSelected,
   className,
   setAttributes,
-  images: propImages,
   children,
   label,
   style,
   id,
 }) => {
   const [selectedImage, setSelectedImage] = useState(null);
+
+  const imagesAttachments = useSelect(
+    select => {
+      const { getEntityRecord } = select('core');
+      return attributes.images.map(img =>
+        getEntityRecord('postType', 'attachment', img.id),
+      );
+    },
+    [attributes.images],
+  );
+
+  const propImages = useMemo(() => {
+    return attributes.images.map((img, index) => {
+      const attachment = imagesAttachments?.[index];
+      return {
+        id: img.id,
+        sizes: attachment?.media_details?.sizes,
+      };
+    });
+  }, [attributes.images, imagesAttachments]);
 
   // Deselect images when deselecting the block
   useEffect(() => {
@@ -77,16 +96,16 @@ const Gallery = ({
 
   const onSelectImages = images => {
     setAttributes({
-      images: images.map(attributes => ({
-        ...attributes,
-        caption: attributes.caption ? attributes.caption : '',
-        sourceUrl: attributes.sizes?.full?.url ?? '',
+      images: images.map(item => ({
+        ...item,
+        caption: item.caption ? item.caption : '',
+        sourceUrl: item.sizes?.full?.url ?? '',
       })),
     });
   };
 
   const setImageAttributes = (index, fnAttributes) => {
-    if (!propImages[index]) {
+    if (!propImages?.[index]) {
       return;
     }
 
@@ -106,9 +125,9 @@ const Gallery = ({
     const { images } = attributes;
 
     const getImageUrl = image => {
-      const imageSizeUrl = propImages.find(({ id }) => image.id === id).sizes[
-        newSize
-      ]?.source_url; // eslint-disable-line camelcase
+      const imageSizeUrl = propImages.find(
+        ({ id: imgId }) => image.id === imgId,
+      ).sizes[newSize]?.source_url; // eslint-disable-line camelcase
 
       return imageSizeUrl || image?.url;
     };
@@ -176,8 +195,8 @@ const Gallery = ({
                     { value: LINKTO.MEDIA, label: __('Media File') },
                     { value: LINKTO.NONE, label: __('None') },
                   ]}
-                  __next40pxDefaultSize={true}
-                  __nextHasNoMarginBottom={true}
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom
                 />
               )}
 
@@ -190,8 +209,8 @@ const Gallery = ({
                     label: startCase(name),
                   }))}
                   onChange={updateImageURLs}
-                  __next40pxDefaultSize={true}
-                  __nextHasNoMarginBottom={true}
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom
                 />
               )}
             </PanelBody>
@@ -246,20 +265,4 @@ const Gallery = ({
 
 Gallery.propTypes = propTypes;
 
-export default withSelect((select, props) => {
-  const { getEntityRecord } = select('core');
-  const imageIds = props.attributes.images.map(({ id }) => id);
-
-  return {
-    images: imageIds.length
-      ? imageIds.map(id => {
-          const image = getEntityRecord('postType', 'attachment', id);
-
-          return {
-            id,
-            sizes: image && image.media_details?.sizes,
-          };
-        })
-      : null,
-  };
-})(Gallery);
+export default Gallery;

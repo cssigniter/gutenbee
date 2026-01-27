@@ -125,12 +125,24 @@ const ParagraphBlock = ({
         <PanelBody title={__('Text Settings')} className="blocks-font-size">
           <ResponsiveControl>
             {breakpoint => {
+              const currentLineHeight = lineHeight?.[breakpoint];
+              const currentLetterSpacing = letterSpacing?.[breakpoint];
               return (
                 <TypographyControls
                   attributes={{
                     fontSize: fontSize[breakpoint],
-                    lineHeight: lineHeight?.[breakpoint],
-                    letterSpacing: letterSpacing?.[breakpoint],
+                    lineHeight:
+                      currentLineHeight != null
+                        ? typeof currentLineHeight === 'number'
+                          ? String(currentLineHeight)
+                          : currentLineHeight
+                        : undefined,
+                    letterSpacing:
+                      currentLetterSpacing != null
+                        ? typeof currentLetterSpacing === 'number'
+                          ? String(currentLetterSpacing)
+                          : currentLetterSpacing
+                        : undefined,
                     textTransform: textTransform?.[breakpoint],
                     textDecoration: textDecoration?.[breakpoint],
                   }}
@@ -287,7 +299,19 @@ const ParagraphBlock = ({
             initialOpen={false}
           >
             <AnimationControls
-              attributes={attributes.animation}
+              attributes={{
+                ...attributes.animation,
+                duration:
+                  attributes.animation?.duration !== undefined &&
+                  attributes.animation?.duration !== ''
+                    ? Number(attributes.animation.duration)
+                    : undefined,
+                delay:
+                  attributes.animation?.delay !== undefined &&
+                  attributes.animation?.delay !== ''
+                    ? Number(attributes.animation.delay)
+                    : undefined,
+              }}
               setAttributes={setAttributes}
             />
           </PanelBody>

@@ -26,11 +26,16 @@ import AnimationControls from '../../components/controls/animation-controls/Anim
 const propTypes = {
   attributes: PropTypes.object.isRequired,
   setAttributes: PropTypes.func.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   clientId: PropTypes.string.isRequired,
 };
 
-const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
+const IconListEdit = ({
+  attributes,
+  setAttributes,
+  className = '',
+  clientId,
+}) => {
   const {
     uniqueId,
     color,
@@ -77,28 +82,43 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
   const { updateBlockAttributes } = useDispatch('core/block-editor');
 
   const renderLayoutEditorSpecificRules = () => {
+    // Check if itemSpacing has any valid values
+    const hasItemSpacing =
+      itemSpacing &&
+      (itemSpacing.desktop != null ||
+        itemSpacing.tablet != null ||
+        itemSpacing.mobile != null);
+
     return layout === 'inline' ? (
       <Fragment>
-        <Rule
-          value={itemSpacing}
-          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { margin-right: calc( %s/2 ); }"
-          unit="px"
-        />
-        <Rule
-          value={itemSpacing}
-          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { padding-right: calc( %s/2 ); }"
-          unit="px"
-        />
-        <Rule
-          value={separatorWidth}
-          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { border-right: solid %s; }"
-          unit="px"
-        />
-        <Rule
-          value={separatorColor}
-          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { border-color: %s; }"
-          unit=""
-        />
+        {hasItemSpacing && (
+          <>
+            <Rule
+              value={itemSpacing}
+              rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { margin-right: calc( %s/2 ); }"
+              unit="px"
+            />
+            <Rule
+              value={itemSpacing}
+              rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { padding-right: calc( %s/2 ); }"
+              unit="px"
+            />
+          </>
+        )}
+        {separatorWidth != null && separatorWidth !== undefined && (
+          <Rule
+            value={separatorWidth}
+            rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { border-right: solid %s; }"
+            unit="px"
+          />
+        )}
+        {separatorColor && separatorColor !== undefined && (
+          <Rule
+            value={separatorColor}
+            rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { border-color: %s; }"
+            unit=""
+          />
+        )}
         <Rule
           value={0}
           rule=".wp-block-gutenbee-icon-list.[root] div > .wp-block:last-child li.wp-block-gutenbee-icon-list-item { border: %1$s; margin-right: %1$s; padding-right: %1$s; }"
@@ -107,26 +127,34 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
       </Fragment>
     ) : (
       <Fragment>
-        <Rule
-          value={itemSpacing}
-          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { margin-bottom: calc( %s/2 ); }"
-          unit="px"
-        />
-        <Rule
-          value={itemSpacing}
-          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { padding-bottom: calc( %s/2 ); }"
-          unit="px"
-        />
-        <Rule
-          value={separatorWidth}
-          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { border-bottom: solid %s; }"
-          unit="px"
-        />
-        <Rule
-          value={separatorColor}
-          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { border-color: %s; }"
-          unit=""
-        />
+        {hasItemSpacing && (
+          <>
+            <Rule
+              value={itemSpacing}
+              rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { margin-bottom: calc( %s/2 ); }"
+              unit="px"
+            />
+            <Rule
+              value={itemSpacing}
+              rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { padding-bottom: calc( %s/2 ); }"
+              unit="px"
+            />
+          </>
+        )}
+        {separatorWidth != null && separatorWidth !== undefined && (
+          <Rule
+            value={separatorWidth}
+            rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { border-bottom: solid %s; }"
+            unit="px"
+          />
+        )}
+        {separatorColor && separatorColor !== undefined && (
+          <Rule
+            value={separatorColor}
+            rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { border-color: %s; }"
+            unit=""
+          />
+        )}
         <Rule
           value={0}
           rule=".wp-block-gutenbee-icon-list.[root] div > .wp-block:last-child li.wp-block-gutenbee-icon-list-item { border: %1$s; margin-bottom: %1$s; padding-bottom: %1$s; }"
@@ -261,20 +289,42 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
           initialOpen={false}
         >
           <ResponsiveControl>
-            {breakpoint => (
-              <FontSizePickerLabel
-                label={__('Icon Size')}
-                value={iconSize[breakpoint]}
-                onChange={value =>
-                  setAttributes({
-                    iconSize: {
-                      ...iconSize,
-                      [breakpoint]: value != null ? value : '',
-                    },
-                  })
+            {breakpoint => {
+              const currentIconSize = iconSize[breakpoint];
+              let fontSizeValue;
+              if (
+                currentIconSize !== undefined &&
+                currentIconSize !== '' &&
+                currentIconSize != null
+              ) {
+                if (typeof currentIconSize === 'number') {
+                  fontSizeValue = currentIconSize;
+                } else if (typeof currentIconSize === 'string') {
+                  const numericValue = currentIconSize.replace('px', '');
+                  fontSizeValue = numericValue
+                    ? Number(numericValue)
+                    : undefined;
+                } else {
+                  fontSizeValue = Number(currentIconSize);
                 }
-              />
-            )}
+              } else {
+                fontSizeValue = undefined;
+              }
+              return (
+                <FontSizePickerLabel
+                  label={__('Icon Size')}
+                  value={fontSizeValue}
+                  onChange={value =>
+                    setAttributes({
+                      iconSize: {
+                        ...iconSize,
+                        [breakpoint]: value != null ? Number(value) : '',
+                      },
+                    })
+                  }
+                />
+              );
+            }}
           </ResponsiveControl>
         </PanelBody>
         <PanelBody
@@ -283,20 +333,42 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
           className="blocks-font-size"
         >
           <ResponsiveControl>
-            {breakpoint => (
-              <FontSizePickerLabel
-                label={__('Text Font Size')}
-                value={fontSize[breakpoint]}
-                onChange={value =>
-                  setAttributes({
-                    fontSize: {
-                      ...fontSize,
-                      [breakpoint]: value != null ? value : '',
-                    },
-                  })
+            {breakpoint => {
+              const currentFontSize = fontSize[breakpoint];
+              let fontSizeValue;
+              if (
+                currentFontSize !== undefined &&
+                currentFontSize !== '' &&
+                currentFontSize != null
+              ) {
+                if (typeof currentFontSize === 'number') {
+                  fontSizeValue = currentFontSize;
+                } else if (typeof currentFontSize === 'string') {
+                  const numericValue = currentFontSize.replace('px', '');
+                  fontSizeValue = numericValue
+                    ? Number(numericValue)
+                    : undefined;
+                } else {
+                  fontSizeValue = Number(currentFontSize);
                 }
-              />
-            )}
+              } else {
+                fontSizeValue = undefined;
+              }
+              return (
+                <FontSizePickerLabel
+                  label={__('Text Font Size')}
+                  value={fontSizeValue}
+                  onChange={value =>
+                    setAttributes({
+                      fontSize: {
+                        ...fontSize,
+                        [breakpoint]: value != null ? Number(value) : '',
+                      },
+                    })
+                  }
+                />
+              );
+            }}
           </ResponsiveControl>
         </PanelBody>
         <PanelBody title={__('Block Appearance')} initialOpen={false}>
@@ -399,7 +471,24 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
             initialOpen={false}
           >
             <AnimationControls
-              attributes={attributes.animation}
+              attributes={(() => {
+                const {
+                  duration: durationStr,
+                  delay: delayStr,
+                  ...restAnimation
+                } = attributes.animation || {};
+                return {
+                  ...restAnimation,
+                  duration:
+                    durationStr !== undefined && durationStr !== ''
+                      ? Number(durationStr)
+                      : undefined,
+                  delay:
+                    delayStr !== undefined && delayStr !== ''
+                      ? Number(delayStr)
+                      : undefined,
+                };
+              })()}
               setAttributes={setAttributes}
             />
           </PanelBody>

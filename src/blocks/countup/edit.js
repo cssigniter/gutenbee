@@ -37,11 +37,12 @@ import AnimationControls from '../../components/controls/animation-controls/Anim
 const propTypes = {
   attributes: PropTypes.shape({
     uniqueId: PropTypes.string,
-    startNumber: PropTypes.number.isRequired,
-    endNumber: PropTypes.number.isRequired,
+    startNumber: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    endNumber: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     animationDuration: PropTypes.number.isRequired,
     separator: PropTypes.string.isRequired,
-    textFontSize: PropTypes.number,
+    textFontSize: PropTypes.object,
+    titleFontSize: PropTypes.object,
     textColor: PropTypes.string,
     customTextColor: PropTypes.string,
     prefix: PropTypes.string,
@@ -55,7 +56,7 @@ const propTypes = {
     }),
   }).isRequired,
   setAttributes: PropTypes.func.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   isSelected: PropTypes.bool.isRequired,
   clientId: PropTypes.string.isRequired,
 };
@@ -110,7 +111,21 @@ const CountupEdit = ({
       <div {...blockProps}>
         <CountupStyle attributes={attributes} />
 
-        <Countup {...attributes} className="wp-block-gutenbee-countup-number" />
+        <Countup
+          {...attributes}
+          startNumber={
+            attributes.startNumber !== undefined &&
+            attributes.startNumber !== ''
+              ? Number(attributes.startNumber)
+              : 0
+          }
+          endNumber={
+            attributes.endNumber !== undefined && attributes.endNumber !== ''
+              ? Number(attributes.endNumber)
+              : 0
+          }
+          className="wp-block-gutenbee-countup-number"
+        />
 
         <RichText
           tagName="p"
@@ -141,7 +156,11 @@ const CountupEdit = ({
                 type="number"
                 label={__('Start Number')}
                 value={startNumber}
-                onChange={value => setAttributes({ startNumber: value })}
+                onChange={value =>
+                  setAttributes({
+                    startNumber: value !== '' ? value : '0',
+                  })
+                }
                 __nextHasNoMarginBottom
                 __next40pxDefaultSize
               />
@@ -150,7 +169,11 @@ const CountupEdit = ({
                 type="number"
                 label={__('End Number')}
                 value={endNumber}
-                onChange={value => setAttributes({ endNumber: value })}
+                onChange={value =>
+                  setAttributes({
+                    endNumber: value !== '' ? value : '0',
+                  })
+                }
                 __nextHasNoMarginBottom
                 __next40pxDefaultSize
               />
@@ -210,12 +233,17 @@ const CountupEdit = ({
                 {breakpoint => (
                   <FontSizePickerLabel
                     label={__('Text Font Size')}
-                    value={textFontSize[breakpoint]}
+                    value={
+                      textFontSize[breakpoint] !== undefined &&
+                      textFontSize[breakpoint] !== ''
+                        ? Number(textFontSize[breakpoint])
+                        : undefined
+                    }
                     onChange={value =>
                       setAttributes({
                         textFontSize: {
                           ...textFontSize,
-                          [breakpoint]: value != null ? value : '',
+                          [breakpoint]: value != null ? Number(value) : '',
                         },
                       })
                     }
@@ -242,12 +270,17 @@ const CountupEdit = ({
                 {breakpoint => (
                   <FontSizePickerLabel
                     label={__('Title Font Size')}
-                    value={titleFontSize[breakpoint]}
+                    value={
+                      titleFontSize[breakpoint] !== undefined &&
+                      titleFontSize[breakpoint] !== ''
+                        ? Number(titleFontSize[breakpoint])
+                        : undefined
+                    }
                     onChange={value =>
                       setAttributes({
                         titleFontSize: {
                           ...titleFontSize,
-                          [breakpoint]: value != null ? value : '',
+                          [breakpoint]: value != null ? Number(value) : '',
                         },
                       })
                     }
@@ -342,7 +375,19 @@ const CountupEdit = ({
                 initialOpen={false}
               >
                 <AnimationControls
-                  attributes={attributes.animation}
+                  attributes={{
+                    ...attributes.animation,
+                    duration:
+                      attributes.animation?.duration !== undefined &&
+                      attributes.animation?.duration !== ''
+                        ? Number(attributes.animation.duration)
+                        : undefined,
+                    delay:
+                      attributes.animation?.delay !== undefined &&
+                      attributes.animation?.delay !== ''
+                        ? Number(attributes.animation.delay)
+                        : undefined,
+                  }}
                   setAttributes={setAttributes}
                 />
               </PanelBody>

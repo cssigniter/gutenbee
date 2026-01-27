@@ -16,7 +16,7 @@ jQuery(async $ => {
     '.wp-block-gutenbee-google-maps > div, .wp-block-gutenbee-google-maps',
   );
 
-  $maps.each(function () {
+  $maps.each(function() {
     const $this = $(this);
     const location = {
       lat: parseFloat($this.data('latitude')),
@@ -35,7 +35,8 @@ jQuery(async $ => {
     // - With mapId: Cannot set custom styles (must use Cloud Console)
     // - Without mapId: Can set custom styles, but AdvancedMarkerElement has limited features
     // Prioritize custom styles when provided
-    const hasCustomStyles = stylesAttr && Array.isArray(stylesAttr) && stylesAttr.length > 0;
+    const hasCustomStyles =
+      stylesAttr && Array.isArray(stylesAttr) && stylesAttr.length > 0;
 
     // Resolve ColorScheme
     let mapColorScheme = ColorScheme.FOLLOW_SYSTEM;

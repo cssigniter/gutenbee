@@ -74,7 +74,7 @@ const DividerEdit = ({
           <PanelBody>
             <p>{__('Style')}</p>
             <ToolbarGroup
-              classsName="wp-block-gutenbee-divider-style-edit"
+              className="wp-block-gutenbee-divider-style-edit"
               controls={Object.values(BORDER_STYLES).map(
                 (borderStyle, index) => ({
                   icon: 'admin-appearance',

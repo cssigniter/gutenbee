@@ -272,7 +272,7 @@ const IconBoxEditBlock = ({
           <PanelBody title={__('Content Settings')} initialOpen={false}>
             <SelectControl
               label={__('Content Text Alignment')}
-              value={contentAlign}
+              value={contentAlign || ''}
               options={['', 'left', 'center', 'right'].map(option => ({
                 value: option,
                 label: option ? capitalize(option) : 'None',
@@ -295,15 +295,36 @@ const IconBoxEditBlock = ({
 
             <ResponsiveControl>
               {breakpoint => {
+                const currentTitleFontSize = titleFontSize[breakpoint];
+                let fontSizeValue;
+                if (
+                  currentTitleFontSize !== undefined &&
+                  currentTitleFontSize !== '' &&
+                  currentTitleFontSize != null
+                ) {
+                  if (typeof currentTitleFontSize === 'number') {
+                    fontSizeValue = currentTitleFontSize;
+                  } else if (typeof currentTitleFontSize === 'string') {
+                    // Handle string values like "14" or "14px"
+                    const numericValue = currentTitleFontSize.replace('px', '');
+                    fontSizeValue = numericValue
+                      ? Number(numericValue)
+                      : undefined;
+                  } else {
+                    fontSizeValue = Number(currentTitleFontSize);
+                  }
+                } else {
+                  fontSizeValue = undefined;
+                }
                 return (
                   <FontSizePickerLabel
-                    value={titleFontSize[breakpoint]}
+                    value={fontSizeValue}
                     label={__('Heading Font Size')}
                     onChange={value =>
                       setAttributes({
                         titleFontSize: {
                           ...titleFontSize,
-                          [breakpoint]: value || '',
+                          [breakpoint]: value != null ? Number(value) : '',
                         },
                       })
                     }
@@ -329,9 +350,30 @@ const IconBoxEditBlock = ({
 
             <ResponsiveControl>
               {breakpoint => {
+                const currentTextFontSize = textFontSize[breakpoint];
+                let fontSizeValue;
+                if (
+                  currentTextFontSize !== undefined &&
+                  currentTextFontSize !== '' &&
+                  currentTextFontSize != null
+                ) {
+                  if (typeof currentTextFontSize === 'number') {
+                    fontSizeValue = currentTextFontSize;
+                  } else if (typeof currentTextFontSize === 'string') {
+                    // Handle string values like "14" or "14px"
+                    const numericValue = currentTextFontSize.replace('px', '');
+                    fontSizeValue = numericValue
+                      ? Number(numericValue)
+                      : undefined;
+                  } else {
+                    fontSizeValue = Number(currentTextFontSize);
+                  }
+                } else {
+                  fontSizeValue = undefined;
+                }
                 return (
                   <FontSizePickerLabel
-                    value={textFontSize[breakpoint]}
+                    value={fontSizeValue}
                     label={__('Text Font Size')}
                     onChange={value => {
                       setAttributes({
@@ -433,7 +475,24 @@ const IconBoxEditBlock = ({
               initialOpen={false}
             >
               <AnimationControls
-                attributes={attributes.animation}
+                attributes={(() => {
+                  const {
+                    duration: durationStr,
+                    delay: delayStr,
+                    ...restAnimation
+                  } = attributes.animation || {};
+                  return {
+                    ...restAnimation,
+                    duration:
+                      durationStr !== undefined && durationStr !== ''
+                        ? Number(durationStr)
+                        : undefined,
+                    delay:
+                      delayStr !== undefined && delayStr !== ''
+                        ? Number(delayStr)
+                        : undefined,
+                  };
+                })()}
                 setAttributes={setAttributes}
               />
             </PanelBody>

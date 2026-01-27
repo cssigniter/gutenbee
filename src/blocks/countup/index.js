@@ -67,7 +67,20 @@ const CountupRender = ({ attributes }) => {
     <div {...blockProps}>
       <CountupStyle attributes={attributes} />
 
-      <Countup {...attributes} className="wp-block-gutenbee-countup-number" />
+      <Countup
+        {...attributes}
+        startNumber={
+          attributes.startNumber !== undefined && attributes.startNumber !== ''
+            ? Number(attributes.startNumber)
+            : 0
+        }
+        endNumber={
+          attributes.endNumber !== undefined && attributes.endNumber !== ''
+            ? Number(attributes.endNumber)
+            : 0
+        }
+        className="wp-block-gutenbee-countup-number"
+      />
 
       {!RichText.isEmpty(titleContent) && (
         <RichText.Content

@@ -162,12 +162,17 @@ const ProgressBarEdit = ({
               {breakpoint => (
                 <FontSizePickerLabel
                   label={__('Title Font Size')}
-                  value={titleFontSize[breakpoint]}
+                  value={
+                    titleFontSize[breakpoint] != null &&
+                    titleFontSize[breakpoint] !== ''
+                      ? Number(titleFontSize[breakpoint])
+                      : undefined
+                  }
                   onChange={value =>
                     setAttributes({
                       titleFontSize: {
                         ...titleFontSize,
-                        [breakpoint]: value != null ? value : '',
+                        [breakpoint]: value != null ? Number(value) : undefined,
                       },
                     })
                   }
@@ -179,12 +184,17 @@ const ProgressBarEdit = ({
               {breakpoint => (
                 <FontSizePickerLabel
                   label={__('Bar Text Font Size')}
-                  value={innerTitleFontSize[breakpoint]}
+                  value={
+                    innerTitleFontSize[breakpoint] != null &&
+                    innerTitleFontSize[breakpoint] !== ''
+                      ? Number(innerTitleFontSize[breakpoint])
+                      : undefined
+                  }
                   onChange={value =>
                     setAttributes({
                       innerTitleFontSize: {
                         ...innerTitleFontSize,
-                        [breakpoint]: value != null ? value : '',
+                        [breakpoint]: value != null ? Number(value) : undefined,
                       },
                     })
                   }
@@ -319,7 +329,19 @@ const ProgressBarEdit = ({
               initialOpen={false}
             >
               <AnimationControls
-                attributes={attributes.animation}
+                attributes={{
+                  ...attributes.animation,
+                  duration:
+                    attributes.animation?.duration !== undefined &&
+                    attributes.animation?.duration !== ''
+                      ? Number(attributes.animation.duration)
+                      : undefined,
+                  delay:
+                    attributes.animation?.delay !== undefined &&
+                    attributes.animation?.delay !== ''
+                      ? Number(attributes.animation.delay)
+                      : undefined,
+                }}
                 setAttributes={setAttributes}
               />
             </PanelBody>

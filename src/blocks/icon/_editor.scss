@@ -1,5 +1,4 @@
 @use './common' as *;
-@use 'react-select/dist/react-select' as *;
 
 .gutenbee-icon-block-select-value {
   display: flex;
@@ -11,12 +10,31 @@
     margin-right: 5px;
     flex: none;
   }
-
-  .is-open .Select-control & {
-    opacity: 0.35;
-  }
 }
 
-.Select-menu-outer {
-  z-index: 20;
+.gutenbee-icon-select-control {
+  position: relative;
+}
+
+.gutenbee-icon-select-preview {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+}
+
+.gutenbee-icon-select-preview-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.gutenbee-icon-select-control select,
+.gutenbee-icon-select-control .components-select-control__input,
+.gutenbee-icon-select-control .components-base-control__field select {
+  padding-left: 55px !important;
 }

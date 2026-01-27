@@ -26,9 +26,10 @@ const StateTabs = ({
         {states.map(state => (
           <Button
             key={state}
+            isPrimary={activeState === state}
+            isSecondary={activeState !== state}
             onClick={() => setActiveState(state)}
             isSmall
-            isPrimary={state === activeState}
           >
             {state === '' ? 'Default' : state}
           </Button>

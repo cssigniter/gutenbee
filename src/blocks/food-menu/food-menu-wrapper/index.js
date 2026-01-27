@@ -30,7 +30,7 @@ registerBlockType('gutenbee/food-menu-wrapper', {
             placeholder: 'Menu item name...',
             level: 5,
             fontSize: {
-              desktop: 22,
+              desktop: '22',
               tablet: '',
               mobile: '',
             },

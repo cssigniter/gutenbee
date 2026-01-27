@@ -30,7 +30,7 @@ import AnimationControls from '../../components/controls/animation-controls/Anim
 const propTypes = {
   attributes: PropTypes.object.isRequired,
   setAttributes: PropTypes.func.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   clientId: PropTypes.string.isRequired,
   isSelected: PropTypes.bool,
 };
@@ -91,7 +91,7 @@ const ButtonEdit = ({
 
   const blockProps = useBlockProps({
     id: blockId,
-    className: classNames(className, blockId),
+    className: classNames(className || '', blockId),
     ref: ref,
   });
 
@@ -176,12 +176,17 @@ const ButtonEdit = ({
             {breakpoint => (
               <FontSizePickerLabel
                 label={__('Button Font Size')}
-                value={fontSize[breakpoint]}
+                value={
+                  fontSize[breakpoint] !== undefined &&
+                  fontSize[breakpoint] !== ''
+                    ? Number(fontSize[breakpoint])
+                    : undefined
+                }
                 onChange={value => {
                   setAttributes({
                     fontSize: {
                       ...fontSize,
-                      [breakpoint]: value != null ? value : '',
+                      [breakpoint]: value != null ? Number(value) : '',
                     },
                   });
                 }}
@@ -326,7 +331,19 @@ const ButtonEdit = ({
             initialOpen={false}
           >
             <AnimationControls
-              attributes={attributes.animation}
+              attributes={{
+                ...attributes.animation,
+                duration:
+                  attributes.animation?.duration !== undefined &&
+                  attributes.animation?.duration !== ''
+                    ? Number(attributes.animation.duration)
+                    : undefined,
+                delay:
+                  attributes.animation?.delay !== undefined &&
+                  attributes.animation?.delay !== ''
+                    ? Number(attributes.animation.delay)
+                    : undefined,
+              }}
               setAttributes={setAttributes}
             />
           </PanelBody>

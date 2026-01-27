@@ -8,9 +8,9 @@ const propTypes = {
   endNumber: PropTypes.number.isRequired,
   animationDuration: PropTypes.number.isRequired,
   separator: PropTypes.string.isRequired,
-  textColor: PropTypes.string.isRequired,
+  textColor: PropTypes.string,
   prefix: PropTypes.string,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
 };
 
 const Countup = ({

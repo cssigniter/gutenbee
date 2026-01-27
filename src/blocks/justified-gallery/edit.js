@@ -263,7 +263,19 @@ const JustifiedGalleryEdit = ({
               initialOpen={false}
             >
               <AnimationControls
-                attributes={attributes.animation}
+                attributes={{
+                  ...attributes.animation,
+                  duration:
+                    attributes.animation?.duration !== undefined &&
+                    attributes.animation?.duration !== ''
+                      ? Number(attributes.animation.duration)
+                      : undefined,
+                  delay:
+                    attributes.animation?.delay !== undefined &&
+                    attributes.animation?.delay !== ''
+                      ? Number(attributes.animation.delay)
+                      : undefined,
+                }}
                 setAttributes={setAttributes}
               />
             </PanelBody>

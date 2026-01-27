@@ -2,6 +2,7 @@
  * Countdown Block
  */
 
+import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 import { RichText, useBlockProps } from 'wp.blockEditor';
@@ -108,7 +109,9 @@ const CountDown = ({ attributes }) => {
           color: textColor || undefined,
         }}
       >
-        {items.map(key => renderItem(key))}
+        {items.map(key => (
+          <Fragment key={key}>{renderItem(key)}</Fragment>
+        ))}
       </div>
     </div>
   );

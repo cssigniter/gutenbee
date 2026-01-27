@@ -39,7 +39,7 @@ const propTypes = {
     backgroundColor: PropTypes.string,
     imageSize: PropTypes.string,
   }),
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   setAttributes: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
   imageA: PropTypes.shape({
@@ -309,7 +309,19 @@ const ImageComparisonEdit = ({
               initialOpen={false}
             >
               <AnimationControls
-                attributes={attributes.animation}
+                attributes={{
+                  ...attributes.animation,
+                  duration:
+                    attributes.animation?.duration !== undefined &&
+                    attributes.animation?.duration !== ''
+                      ? Number(attributes.animation.duration)
+                      : undefined,
+                  delay:
+                    attributes.animation?.delay !== undefined &&
+                    attributes.animation?.delay !== ''
+                      ? Number(attributes.animation.delay)
+                      : undefined,
+                }}
                 setAttributes={setAttributes}
               />
             </PanelBody>

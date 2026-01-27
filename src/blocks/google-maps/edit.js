@@ -34,25 +34,20 @@ import AnimationControls from '../../components/controls/animation-controls/Anim
 
 const propTypes = {
   attributes: PropTypes.shape({
-    latitude: PropTypes.number.isRequired,
-    longitude: PropTypes.number.isRequired,
+    latitude: PropTypes.string.isRequired,
+    longitude: PropTypes.string.isRequired,
     zoom: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
+    height: PropTypes.object.isRequired,
     preventScroll: PropTypes.bool.isRequired,
-    styleId: PropTypes.array,
+    styleId: PropTypes.string,
     infoWindow: PropTypes.string,
     customStyles: PropTypes.string,
     markerImageUrl: PropTypes.string,
     markerImageId: PropTypes.number,
-    blockMargin: PropTypes.shape({
-      top: PropTypes.number,
-      right: PropTypes.number,
-      bottom: PropTypes.number,
-      left: PropTypes.number,
-    }),
+    blockMargin: PropTypes.object,
   }).isRequired,
   isSelected: PropTypes.bool.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   setAttributes: PropTypes.func.isRequired,
 };
 
@@ -116,8 +111,8 @@ const GoogleMapsEdit = ({
               height: '100%',
             }}
             styles={mapStyle}
-            latitude={latitude}
-            longitude={longitude}
+            latitude={parseFloat(latitude)}
+            longitude={parseFloat(longitude)}
             zoom={zoom}
             preventScroll={preventScroll}
             infoWindow={infoWindow}
@@ -351,17 +346,29 @@ const GoogleMapsEdit = ({
           {__GUTENBEE_SETTINGS__.plugin.settings[
             'active_animation-controls'
           ] && (
-              <PanelBody
-                icon={!!attributes.animation?.type && 'saved'}
-                title={__('Animation')}
-                initialOpen={false}
-              >
-                <AnimationControls
-                  attributes={attributes.animation}
-                  setAttributes={setAttributes}
-                />
-              </PanelBody>
-            )}
+            <PanelBody
+              icon={!!attributes.animation?.type && 'saved'}
+              title={__('Animation')}
+              initialOpen={false}
+            >
+              <AnimationControls
+                attributes={{
+                  ...attributes.animation,
+                  duration:
+                    attributes.animation?.duration !== undefined &&
+                    attributes.animation?.duration !== ''
+                      ? Number(attributes.animation.duration)
+                      : undefined,
+                  delay:
+                    attributes.animation?.delay !== undefined &&
+                    attributes.animation?.delay !== ''
+                      ? Number(attributes.animation.delay)
+                      : undefined,
+                }}
+                setAttributes={setAttributes}
+              />
+            </PanelBody>
+          )}
         </InspectorControls>
       )}
     </Fragment>

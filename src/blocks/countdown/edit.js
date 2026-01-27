@@ -30,7 +30,7 @@ import AnimationControls from '../../components/controls/animation-controls/Anim
 const propTypes = {
   attributes: PropTypes.shape({
     uniqueId: PropTypes.string,
-    date: PropTypes.string.isRequired,
+    date: PropTypes.string,
     displayDays: PropTypes.bool.isRequired,
     displayHours: PropTypes.bool.isRequired,
     displayMinutes: PropTypes.bool.isRequired,
@@ -60,7 +60,7 @@ const propTypes = {
     }),
   }).isRequired,
   isSelected: PropTypes.bool.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   setAttributes: PropTypes.func.isRequired,
   clientId: PropTypes.string.isRequired,
 };
@@ -149,7 +149,7 @@ const CountdownEdit = ({
 
   const blockProps = useBlockProps({
     id: blockId,
-    className: classNames(className, blockId),
+    className: classNames(className || '', blockId),
     ref: clock,
     style: {
       backgroundColor: backgroundColor || undefined,
@@ -168,7 +168,9 @@ const CountdownEdit = ({
             color: textColor || undefined,
           }}
         >
-          {items.map(key => renderItem(key))}
+          {items.map(key => (
+            <Fragment key={key}>{renderItem(key)}</Fragment>
+          ))}
         </div>
       </div>
 
@@ -273,12 +275,17 @@ const CountdownEdit = ({
               {breakpoint => (
                 <FontSizePickerLabel
                   label={__('Number Font Size')}
-                  value={numberFontSize[breakpoint]}
+                  value={
+                    numberFontSize[breakpoint] !== undefined &&
+                    numberFontSize[breakpoint] !== ''
+                      ? Number(numberFontSize[breakpoint])
+                      : undefined
+                  }
                   onChange={value =>
                     setAttributes({
                       numberFontSize: {
                         ...numberFontSize,
-                        [breakpoint]: value != null ? value : '',
+                        [breakpoint]: value != null ? Number(value) : '',
                       },
                     })
                   }
@@ -290,12 +297,17 @@ const CountdownEdit = ({
               {breakpoint => (
                 <FontSizePickerLabel
                   label={__('Label Font Size')}
-                  value={labelFontSize[breakpoint]}
+                  value={
+                    labelFontSize[breakpoint] !== undefined &&
+                    labelFontSize[breakpoint] !== ''
+                      ? Number(labelFontSize[breakpoint])
+                      : undefined
+                  }
                   onChange={value =>
                     setAttributes({
                       labelFontSize: {
                         ...labelFontSize,
-                        [breakpoint]: value != null ? value : '',
+                        [breakpoint]: value != null ? Number(value) : '',
                       },
                     })
                   }
@@ -372,7 +384,19 @@ const CountdownEdit = ({
               initialOpen={false}
             >
               <AnimationControls
-                attributes={attributes.animation}
+                attributes={{
+                  ...attributes.animation,
+                  duration:
+                    attributes.animation?.duration !== undefined &&
+                    attributes.animation?.duration !== ''
+                      ? Number(attributes.animation.duration)
+                      : undefined,
+                  delay:
+                    attributes.animation?.delay !== undefined &&
+                    attributes.animation?.delay !== ''
+                      ? Number(attributes.animation.delay)
+                      : undefined,
+                }}
                 setAttributes={setAttributes}
               />
             </PanelBody>

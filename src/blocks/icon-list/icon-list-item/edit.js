@@ -8,12 +8,11 @@ import {
   ToggleControl,
 } from 'wp.components';
 import classNames from 'classnames';
-import ReactSelect from 'react-select';
 import startCase from 'lodash.startcase';
+import { SelectControl } from 'wp.components';
 
 import Icon from './Icon';
 import icons from '../../icon/icons';
-import IconSelectValue from '../../icon/IconSelectValue';
 import URLPicker, { canUseURLPicker } from '../../../components/url-picker';
 
 const IconListItemEdit = ({
@@ -97,27 +96,32 @@ const IconListItemEdit = ({
             label={__('List Item Icon')}
             __nextHasNoMarginBottom
           >
-            <ReactSelect
-              aria-labelledby="icon-select"
-              onChange={value => setAttributes({ icon: value })}
-              value={icon}
-              options={icons.map(value => ({
-                value,
-                label: startCase(value),
-              }))}
-              simpleValue
-              valueRenderer={({ value, label }) => (
-                <IconSelectValue value={value} label={label} />
+            <div className="gutenbee-icon-select-control">
+              {icon && (
+                <div className="gutenbee-icon-select-preview">
+                  {(() => {
+                    const IconComponent = require(`../../icon/svg/${icon}.svg`)
+                      .default;
+                    return (
+                      <IconComponent
+                        className="gutenbee-icon-select-preview-icon"
+                        preserveAspectRatio="xMidYMid meet"
+                      />
+                    );
+                  })()}
+                </div>
               )}
-              optionRenderer={({ value, label }) => (
-                <IconSelectValue
-                  value={value}
-                  label={label}
-                  className={className}
-                />
-              )}
-              clearable={false}
-            />
+              <SelectControl
+                value={icon}
+                options={icons.map(value => ({
+                  value,
+                  label: startCase(value),
+                }))}
+                onChange={value => setAttributes({ icon: value })}
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
+              />
+            </div>
           </BaseControl>
 
           {!canUseURLPickerBool && (

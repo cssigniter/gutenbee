@@ -12,7 +12,7 @@ import FontSizePickerLabel from './FontSizePickerLabel';
 const propTypes = {
   className: PropTypes.string,
   attributes: PropTypes.shape({
-    fontSize: PropTypes.string,
+    fontSize: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     lineHeight: PropTypes.string,
     letterSpacing: PropTypes.string,
     textTransform: PropTypes.string,
@@ -50,7 +50,13 @@ const TypographyControls = ({
         <div className="gutenbee-typography-controls-row-full">
           <FontSizePickerLabel
             label={label}
-            value={fontSize}
+            value={
+              fontSize !== undefined && fontSize !== '' && fontSize != null
+                ? typeof fontSize === 'number'
+                  ? fontSize
+                  : Number(fontSize)
+                : undefined
+            }
             onChange={value => {
               onFontSizeChange(value);
             }}

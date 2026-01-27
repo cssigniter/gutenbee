@@ -46,7 +46,7 @@ const propTypes = {
   setAttributes: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
   className: PropTypes.string,
-  imageSizes: PropTypes.object,
+  imageSizes: PropTypes.array,
   image: PropTypes.object,
   onReplace: PropTypes.func,
 };
@@ -434,12 +434,16 @@ const TestimonialEdit = ({
             {breakpoint => (
               <FontSizePickerLabel
                 label={__('Content Font Size')}
-                value={contentSize[breakpoint]}
+                value={
+                  contentSize[breakpoint] !== ''
+                    ? Number(contentSize[breakpoint])
+                    : undefined
+                }
                 onChange={value =>
                   setAttributes({
                     contentSize: {
                       ...contentSize,
-                      [breakpoint]: value != null ? value : '',
+                      [breakpoint]: value != null ? Number(value) : '',
                     },
                   })
                 }
@@ -450,12 +454,16 @@ const TestimonialEdit = ({
             {breakpoint => (
               <FontSizePickerLabel
                 label={__('Citation Font Size')}
-                value={citationSize[breakpoint]}
+                value={
+                  citationSize[breakpoint] !== ''
+                    ? Number(citationSize[breakpoint])
+                    : undefined
+                }
                 onChange={value =>
                   setAttributes({
                     citationSize: {
                       ...citationSize,
-                      [breakpoint]: value != null ? value : '',
+                      [breakpoint]: value != null ? Number(value) : '',
                     },
                   })
                 }
@@ -466,12 +474,16 @@ const TestimonialEdit = ({
             {breakpoint => (
               <FontSizePickerLabel
                 label={__('Info Font Size')}
-                value={infoSize[breakpoint]}
+                value={
+                  infoSize[breakpoint] !== ''
+                    ? Number(infoSize[breakpoint])
+                    : undefined
+                }
                 onChange={value =>
                   setAttributes({
                     infoSize: {
                       ...infoSize,
-                      [breakpoint]: value != null ? value : '',
+                      [breakpoint]: value != null ? Number(value) : '',
                     },
                   })
                 }
@@ -558,7 +570,19 @@ const TestimonialEdit = ({
             initialOpen={false}
           >
             <AnimationControls
-              attributes={attributes.animation}
+              attributes={{
+                ...attributes.animation,
+                duration:
+                  attributes.animation?.duration !== undefined &&
+                  attributes.animation?.duration !== ''
+                    ? Number(attributes.animation.duration)
+                    : undefined,
+                delay:
+                  attributes.animation?.delay !== undefined &&
+                  attributes.animation?.delay !== ''
+                    ? Number(attributes.animation.delay)
+                    : undefined,
+              }}
               setAttributes={setAttributes}
             />
           </PanelBody>

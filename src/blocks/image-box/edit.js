@@ -40,7 +40,7 @@ import AuthVisibilityControl from '../../components/controls/auth-visibility-con
 import AnimationControls from '../../components/controls/animation-controls/AnimationControls';
 
 const propTypes = {
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   attributes: PropTypes.object.isRequired,
   setAttributes: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
@@ -270,7 +270,7 @@ const ImageBoxEditBlock = ({
               <ResponsiveControl>
                 {breakpoint => (
                   <FontSizePickerLabel
-                    value={titleFontSize[breakpoint]}
+                    value={titleFontSize[breakpoint] || undefined}
                     label={__('Heading Font Size')}
                     onChange={value =>
                       setAttributes({
@@ -302,7 +302,7 @@ const ImageBoxEditBlock = ({
               <ResponsiveControl>
                 {breakpoint => (
                   <FontSizePickerLabel
-                    value={textFontSize[breakpoint]}
+                    value={textFontSize[breakpoint] || undefined}
                     label={__('Text Font Size')}
                     onChange={value =>
                       setAttributes({
@@ -403,7 +403,19 @@ const ImageBoxEditBlock = ({
                 initialOpen={false}
               >
                 <AnimationControls
-                  attributes={attributes.animation}
+                  attributes={{
+                    ...attributes.animation,
+                    duration:
+                      attributes.animation?.duration !== undefined &&
+                      attributes.animation?.duration !== ''
+                        ? Number(attributes.animation.duration)
+                        : undefined,
+                    delay:
+                      attributes.animation?.delay !== undefined &&
+                      attributes.animation?.delay !== ''
+                        ? Number(attributes.animation.delay)
+                        : undefined,
+                  }}
                   setAttributes={setAttributes}
                 />
               </PanelBody>

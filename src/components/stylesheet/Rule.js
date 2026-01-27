@@ -5,7 +5,7 @@ const propTypes = {
     PropTypes.string,
     PropTypes.number,
     PropTypes.object,
-  ]).isRequired,
+  ]),
   rule: PropTypes.string.isRequired,
   unit: PropTypes.oneOf([
     '',

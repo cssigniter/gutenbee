@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState } from 'wp.element';
+import { Fragment, useRef, useState, useEffect } from 'wp.element';
 import {
   BaseControl,
   Button,
@@ -100,9 +100,27 @@ const VideoEmbedEdit = ({
 
   const videoCoverImageDescription = `video-block__coverImage-image-description-${instanceId}`;
 
-  if (!isSelected && interactive) {
-    setInteractive(false);
-  }
+  useEffect(() => {
+    if (!isSelected) {
+      setInteractive(false);
+    }
+  }, [isSelected]);
+
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(
+      className,
+      blockId,
+      getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+      getAuthVisibilityClasses(blockAuthVisibility),
+      'gutenbee-video-embed-block-wrapper',
+    ),
+    style: {
+      backgroundColor: backgroundColor ? backgroundColor : undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
 
   if (editing) {
     return (
@@ -121,7 +139,7 @@ const VideoEmbedEdit = ({
         >
           <input
             type="url"
-            value={videoUrl}
+            value={videoUrl || ''}
             className="components-placeholder__input"
             aria-label={__('embed-url')}
             placeholder={__('Enter URL to embed here…')}
@@ -146,22 +164,6 @@ const VideoEmbedEdit = ({
       </Placeholder>
     );
   }
-
-  const blockProps = useBlockProps({
-    id: blockId,
-    className: classNames(
-      className,
-      blockId,
-      getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-      getAuthVisibilityClasses(blockAuthVisibility),
-      'gutenbee-video-embed-block-wrapper',
-    ),
-    style: {
-      backgroundColor: backgroundColor ? backgroundColor : undefined,
-      ...getBorderCSSValue({ attributes }),
-      ...getBoxShadowCSSValue({ attributes }),
-    },
-  });
 
   return (
     <Fragment>
@@ -313,7 +315,7 @@ const VideoEmbedEdit = ({
             label={__('Start time in seconds.')}
             onChange={value => setAttributes({ startTime: value })}
             type="number"
-            value={startTime}
+            value={startTime || ''}
             __next40pxDefaultSize={true}
             __nextHasNoMarginBottom={true}
           />
@@ -322,7 +324,7 @@ const VideoEmbedEdit = ({
               label={__('End time in seconds.')}
               onChange={value => setAttributes({ endTime: value })}
               type="number"
-              value={endTime}
+              value={endTime || ''}
               __next40pxDefaultSize={true}
               __nextHasNoMarginBottom={true}
             />
@@ -398,7 +400,19 @@ const VideoEmbedEdit = ({
             initialOpen={false}
           >
             <AnimationControls
-              attributes={attributes.animation}
+              attributes={{
+                ...attributes.animation,
+                duration:
+                  attributes.animation?.duration !== undefined &&
+                  attributes.animation?.duration !== ''
+                    ? Number(attributes.animation.duration)
+                    : undefined,
+                delay:
+                  attributes.animation?.delay !== undefined &&
+                  attributes.animation?.delay !== ''
+                    ? Number(attributes.animation.delay)
+                    : undefined,
+              }}
               setAttributes={setAttributes}
             />
           </PanelBody>

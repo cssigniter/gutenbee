@@ -42,7 +42,7 @@ const propTypes = {
     blockMargin: PropTypes.object,
   }).isRequired,
   isSelected: PropTypes.bool.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   setAttributes: PropTypes.func.isRequired,
   clientId: PropTypes.string.isRequired,
 };
@@ -137,7 +137,7 @@ const TabsEdit = ({
   const blockProps = useBlockProps({
     id: blockId,
     className: classNames(
-      className,
+      className || '',
       blockId,
       getBreakpointVisibilityClassNames(blockBreakpointVisibility),
       getAuthVisibilityClasses(blockAuthVisibility),
@@ -152,6 +152,7 @@ const TabsEdit = ({
         <div className="wp-block-gutenbee-tabs-nav">
           {tabs.map((tab, index) => (
             <div
+              key={index}
               className={classNames({
                 'wp-block-gutenbee-tabs-nav-item': true,
                 'wp-block-gutenbee-tabs-nav-item-active': isActiveTab(index),
@@ -191,7 +192,6 @@ const TabsEdit = ({
                 onChange={content => onTabContentUpdate(content)}
                 className="wp-block-gutenbee-tabs-text"
                 placeholder={__('Write content…')}
-                keepPlaceholderOnFocus
               />
             </div>
           </div>
@@ -327,7 +327,19 @@ const TabsEdit = ({
               initialOpen={false}
             >
               <AnimationControls
-                attributes={attributes.animation}
+                attributes={{
+                  ...attributes.animation,
+                  duration:
+                    attributes.animation?.duration !== undefined &&
+                    attributes.animation?.duration !== ''
+                      ? Number(attributes.animation.duration)
+                      : undefined,
+                  delay:
+                    attributes.animation?.delay !== undefined &&
+                    attributes.animation?.delay !== ''
+                      ? Number(attributes.animation.delay)
+                      : undefined,
+                }}
                 setAttributes={setAttributes}
               />
             </PanelBody>

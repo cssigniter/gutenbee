@@ -55,6 +55,7 @@ const Accordion = ({ attributes }) => {
 
       {tabs.map((tab, index) => (
         <div
+          key={index}
           className={classNames({
             'wp-block-gutenbee-accordion-item': true,
             'wp-block-gutenbee-accordion-item-expanded': defaultOpenTabs?.includes(

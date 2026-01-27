@@ -3,11 +3,38 @@ import { useRef, useEffect, useState } from 'wp.element';
 import PropTypes from 'prop-types';
 import DOMPurify from 'dompurify';
 
+// Track if the Google Maps script is being loaded or has been loaded
+let googleMapsScriptLoading = false;
+let googleMapsScriptLoaded = false;
+
+// Cache for imported libraries to avoid re-registration warnings
+let cachedLibraries = null;
+
+const loadGoogleMapsLibraries = async () => {
+  if (cachedLibraries) {
+    return cachedLibraries;
+  }
+
+  const [mapsLib, coreLib, markerLib] = await Promise.all([
+    window.google.maps.importLibrary('maps'),
+    window.google.maps.importLibrary('core'),
+    window.google.maps.importLibrary('marker'),
+  ]);
+
+  cachedLibraries = {
+    Map: mapsLib.Map,
+    ColorScheme: coreLib.ColorScheme,
+    AdvancedMarkerElement: markerLib.AdvancedMarkerElement,
+  };
+
+  return cachedLibraries;
+};
+
 const propTypes = {
   latitude: PropTypes.number.isRequired,
   longitude: PropTypes.number.isRequired,
   zoom: PropTypes.number.isRequired,
-  preventScroll: PropTypes.bool.isRequired,
+  preventScroll: PropTypes.bool,
   styles: PropTypes.array,
   infoWindow: PropTypes.string,
   icon: PropTypes.string,
@@ -37,12 +64,15 @@ const Map = ({
   const [infoWindowInstance, setInfoWindowInstance] = useState(null);
   const [apiLoaded, setApiLoaded] = useState(
     typeof window.google !== 'undefined' &&
-    typeof window.google.maps !== 'undefined',
+      typeof window.google.maps !== 'undefined',
   );
 
   // Load Google Maps API
   useEffect(() => {
-    if (apiLoaded) {
+    if (apiLoaded || googleMapsScriptLoaded) {
+      if (!apiLoaded) {
+        setApiLoaded(true);
+      }
       return;
     }
 
@@ -50,16 +80,59 @@ const Map = ({
       typeof window.google !== 'undefined' &&
       typeof window.google.maps !== 'undefined'
     ) {
+      googleMapsScriptLoaded = true;
       setApiLoaded(true);
       return;
     }
 
+    // Check if script is already being loaded
+    if (googleMapsScriptLoading) {
+      // Wait for the script to load
+      const checkInterval = setInterval(() => {
+        if (
+          typeof window.google !== 'undefined' &&
+          typeof window.google.maps !== 'undefined'
+        ) {
+          clearInterval(checkInterval);
+          googleMapsScriptLoaded = true;
+          setApiLoaded(true);
+        }
+      }, 100);
+      return;
+    }
+
+    // Check if the script tag already exists
+    const existingScript = document.querySelector(
+      'script[src*="maps.googleapis.com/maps/api/js"]',
+    );
+    if (existingScript) {
+      googleMapsScriptLoading = true;
+      existingScript.addEventListener('load', () => {
+        googleMapsScriptLoaded = true;
+        setApiLoaded(true);
+      });
+      // If already loaded
+      if (
+        typeof window.google !== 'undefined' &&
+        typeof window.google.maps !== 'undefined'
+      ) {
+        googleMapsScriptLoaded = true;
+        setApiLoaded(true);
+      }
+      return;
+    }
+
     if (googleMapURL) {
+      googleMapsScriptLoading = true;
       const script = document.createElement('script');
       script.src = googleMapURL;
       script.async = false;
       script.defer = false;
-      script.onload = () => setApiLoaded(true);
+      script.onload = () => {
+        googleMapsScriptLoaded = true;
+        googleMapsScriptLoading = false;
+        setApiLoaded(true);
+      };
       document.body.appendChild(script);
     }
   }, [googleMapURL, apiLoaded]);
@@ -78,16 +151,13 @@ const Map = ({
     }
 
     const initMap = async () => {
-      console.log('initMap started');
       try {
-        // Import Libraries
-        const { Map: GoogleMap } = await window.google.maps.importLibrary(
-          'maps',
-        );
-        const { ColorScheme } = await window.google.maps.importLibrary('core');
+        // Import Libraries (cached to avoid re-registration warnings)
         const {
+          Map: GoogleMap,
+          ColorScheme,
           AdvancedMarkerElement,
-        } = await window.google.maps.importLibrary('marker');
+        } = await loadGoogleMapsLibraries();
 
         const location = {
           lat: parseFloat(latitude),
@@ -98,7 +168,8 @@ const Map = ({
         // - With mapId: Cannot set custom styles (must use Cloud Console)
         // - Without mapId: Can set custom styles, but AdvancedMarkerElement has limited features
         // Prioritize custom styles when provided
-        const hasCustomStyles = styles && Array.isArray(styles) && styles.length > 0;
+        const hasCustomStyles =
+          styles && Array.isArray(styles) && styles.length > 0;
 
         // Resolve ColorScheme
         // data-color-scheme attribute values are: FOLLOW_SYSTEM, LIGHT, DARK
@@ -190,10 +261,11 @@ const Map = ({
       // - With mapId: Cannot set custom styles (must use Cloud Console)
       // - Without mapId: Can set custom styles, but AdvancedMarkerElement has limited features
       // Prioritize custom styles when provided
-      const hasCustomStyles = styles && Array.isArray(styles) && styles.length > 0;
+      const hasCustomStyles =
+        styles && Array.isArray(styles) && styles.length > 0;
 
-      // Access ColorScheme
-      const { ColorScheme } = await window.google.maps.importLibrary('core');
+      // Access ColorScheme from cached libraries
+      const { ColorScheme } = await loadGoogleMapsLibraries();
 
       let mapColorScheme = ColorScheme.FOLLOW_SYSTEM;
 

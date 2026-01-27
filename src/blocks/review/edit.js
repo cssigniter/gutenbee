@@ -31,7 +31,7 @@ import AnimationControls from '../../components/controls/animation-controls/Anim
 const propTypes = {
   attributes: PropTypes.object.isRequired,
   setAttributes: PropTypes.func.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   clientId: PropTypes.string.isRequired,
 };
 
@@ -147,21 +147,27 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
         <div {...innerBlocksProps} />
       </div>
       <ReviewStyle attributes={attributes}>
-        <Rule
-          value={barTextColor}
-          rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-item-inner { color: %s; }"
-          unit=""
-        />
-        <Rule
-          value={progressBackgroundColor}
-          rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-item-inner { background-color: %s; }"
-          unit=""
-        />
-        <Rule
-          value={barBackgroundColor}
-          rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-item-outer { background-color: %s; }"
-          unit=""
-        />
+        {barTextColor && (
+          <Rule
+            value={barTextColor}
+            rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-item-inner { color: %s; }"
+            unit=""
+          />
+        )}
+        {progressBackgroundColor && (
+          <Rule
+            value={progressBackgroundColor}
+            rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-item-inner { background-color: %s; }"
+            unit=""
+          />
+        )}
+        {barBackgroundColor && (
+          <Rule
+            value={barBackgroundColor}
+            rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-item-outer { background-color: %s; }"
+            unit=""
+          />
+        )}
       </ReviewStyle>
 
       <InspectorControls>
@@ -170,12 +176,16 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
             {breakpoint => (
               <FontSizePickerLabel
                 label={__('Score Font Size')}
-                value={scoreSize[breakpoint]}
+                value={
+                  scoreSize[breakpoint] != null && scoreSize[breakpoint] !== ''
+                    ? Number(scoreSize[breakpoint])
+                    : undefined
+                }
                 onChange={value =>
                   setAttributes({
                     scoreSize: {
                       ...scoreSize,
-                      [breakpoint]: value != null ? value : '',
+                      [breakpoint]: value != null ? Number(value) : undefined,
                     },
                   })
                 }
@@ -194,12 +204,17 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
             {breakpoint => (
               <FontSizePickerLabel
                 label={__('Verdict Font Size')}
-                value={contentSize[breakpoint]}
+                value={
+                  contentSize[breakpoint] != null &&
+                  contentSize[breakpoint] !== ''
+                    ? Number(contentSize[breakpoint])
+                    : undefined
+                }
                 onChange={value =>
                   setAttributes({
                     contentSize: {
                       ...contentSize,
-                      [breakpoint]: value != null ? value : '',
+                      [breakpoint]: value != null ? Number(value) : undefined,
                     },
                   })
                 }
@@ -222,18 +237,24 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
             onChange={value => {
               setAttributes({ displayPercentage: value });
             }}
+            __nextHasNoMarginBottom
           />
 
           <ResponsiveControl>
             {breakpoint => (
               <FontSizePickerLabel
                 label={__('Bar Text Font Size')}
-                value={reviewItemFontSize[breakpoint]}
+                value={
+                  reviewItemFontSize[breakpoint] != null &&
+                  reviewItemFontSize[breakpoint] !== ''
+                    ? Number(reviewItemFontSize[breakpoint])
+                    : undefined
+                }
                 onChange={value =>
                   setAttributes({
                     reviewItemFontSize: {
                       ...reviewItemFontSize,
-                      [breakpoint]: value != null ? value : '',
+                      [breakpoint]: value != null ? Number(value) : undefined,
                     },
                   })
                 }
@@ -347,7 +368,19 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
             initialOpen={false}
           >
             <AnimationControls
-              attributes={attributes.animation}
+              attributes={{
+                ...attributes.animation,
+                duration:
+                  attributes.animation?.duration !== undefined &&
+                  attributes.animation?.duration !== ''
+                    ? Number(attributes.animation.duration)
+                    : undefined,
+                delay:
+                  attributes.animation?.delay !== undefined &&
+                  attributes.animation?.delay !== ''
+                    ? Number(attributes.animation.delay)
+                    : undefined,
+              }}
               setAttributes={setAttributes}
             />
           </PanelBody>

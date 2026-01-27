@@ -45,6 +45,7 @@ registerBlockType('gutenbee/video', {
       source: 'attribute',
       selector: 'video',
       attribute: 'autoplay',
+      default: false,
     },
     caption: {
       type: 'string',
@@ -66,12 +67,14 @@ registerBlockType('gutenbee/video', {
       source: 'attribute',
       selector: 'video',
       attribute: 'loop',
+      default: false,
     },
     muted: {
       type: 'boolean',
       source: 'attribute',
       selector: 'video',
       attribute: 'muted',
+      default: false,
     },
     poster: {
       type: 'string',
@@ -97,6 +100,7 @@ registerBlockType('gutenbee/video', {
       source: 'attribute',
       selector: 'video',
       attribute: 'playsinline',
+      default: false,
     },
     blockPadding: {
       type: 'object',

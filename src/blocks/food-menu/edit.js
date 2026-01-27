@@ -31,7 +31,7 @@ const useInnerBlocksProps =
 const propTypes = {
   attributes: PropTypes.object.isRequired,
   setAttributes: PropTypes.func.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   clientId: PropTypes.string.isRequired,
 };
 
@@ -61,7 +61,7 @@ const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
 
   const blockProps = useBlockProps({
     id: blockId,
-    className: classNames(className, blockId, {
+    className: classNames(className || '', blockId, {
       [`gutenbee-food-menu-columns-desktop-${columns.desktop}`]: true,
       [`gutenbee-food-menu-columns-tablet-${columns.tablet}`]: true,
       [`gutenbee-food-menu-columns-mobile-${columns.mobile}`]: true,
@@ -208,7 +208,19 @@ const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
             initialOpen={false}
           >
             <AnimationControls
-              attributes={attributes.animation}
+              attributes={{
+                ...attributes.animation,
+                duration:
+                  attributes.animation?.duration !== undefined &&
+                  attributes.animation?.duration !== ''
+                    ? Number(attributes.animation.duration)
+                    : undefined,
+                delay:
+                  attributes.animation?.delay !== undefined &&
+                  attributes.animation?.delay !== ''
+                    ? Number(attributes.animation.delay)
+                    : undefined,
+              }}
               setAttributes={setAttributes}
             />
           </PanelBody>

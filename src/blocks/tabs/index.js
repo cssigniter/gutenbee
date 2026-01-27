@@ -134,6 +134,7 @@ registerBlockType('gutenbee/tabs', {
         <div className="wp-block-gutenbee-tabs-nav">
           {tabs.map((tab, index) => (
             <div
+              key={index}
               className={classNames({
                 'wp-block-gutenbee-tabs-nav-item': true,
                 'wp-block-gutenbee-tabs-nav-item-active': index === 0,
@@ -147,6 +148,7 @@ registerBlockType('gutenbee/tabs', {
         <div className="wp-block-gutenbee-tabs-tab-content-wrap">
           {tabs.map((tab, index) => (
             <div
+              key={index}
               className="wp-block-gutenbee-tabs-tab-content"
               style={{
                 display: index === 0 ? 'block' : 'none',

@@ -168,8 +168,6 @@ const ImageEdit = ({
   const [isEditing, setIsEditing] = useState(!url);
   const toggleIsEditing = () => setIsEditing(prev => !prev);
 
-  const [captionFocused, setCaptionFocused] = useState(false);
-
   const labels = {
     title: !url ? __('Image') : __('Edit image'),
     instructions: __('Pick an image file from your media library.'),
@@ -312,9 +310,8 @@ const ImageEdit = ({
           tagName="figcaption"
           placeholder={__('Write caption…')}
           value={caption}
-          unstableOnFocus={() => setCaptionFocused(true)}
           onChange={value => setAttributes({ caption: value })}
-          isSelected={captionFocused}
+          isSelected={isSelected}
           inlineToolbar
         />
       )}
@@ -466,7 +463,19 @@ const ImageEdit = ({
             initialOpen={false}
           >
             <AnimationControls
-              attributes={attributes.animation}
+              attributes={{
+                ...attributes.animation,
+                duration:
+                  attributes.animation?.duration !== undefined &&
+                  attributes.animation?.duration !== ''
+                    ? Number(attributes.animation.duration)
+                    : undefined,
+                delay:
+                  attributes.animation?.delay !== undefined &&
+                  attributes.animation?.delay !== ''
+                    ? Number(attributes.animation.delay)
+                    : undefined,
+              }}
               setAttributes={setAttributes}
             />
           </PanelBody>
