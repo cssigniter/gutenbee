@@ -179,9 +179,7 @@ const CountdownEdit = ({
           <PanelBody title={__('Date & Time')}>
             <DateTimePicker
               currentDate={date}
-              onChange={value => {
-                setAttributes({ date: value });
-              }}
+              onChange={value => setAttributes({ date: value })}
               is12Hour={false}
             />
           </PanelBody>

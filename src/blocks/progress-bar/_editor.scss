@@ -6,6 +6,22 @@
       margin: 0;
     }
   }
+
+  // Fix click/tab access to inner title
+  .wp-block-gutenbee-progress-bar-outer {
+    // Ensure the inner bar is clickable even with low percentage
+    .wp-block-gutenbee-progress-bar-inner {
+      // In editor, ensure minimum width for clickability
+      min-width: 100px;
+      
+      // Allow RichText to be clickable
+      .wp-block-gutenbee-progress-bar-inner-title {
+        pointer-events: auto;
+        cursor: text;
+        min-width: 80px;
+      }
+    }
+  }
 }
 
 .wp-block-gutenbee-progress-bar-inner {
@@ -16,7 +32,7 @@
   }
 
   .editor-rich-text {
-    overflow: hidden;
+    overflow: visible;
 
     p {
       margin: 0;
@@ -24,8 +40,7 @@
   }
 
   .components-autocomplete {
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow: visible;
   }
 }
 

@@ -226,8 +226,6 @@ const ImageBoxEditBlock = ({
                     allowReset
                     min={10}
                     max={2000}
-                    beforeIcon="format-image"
-                    afterIcon="format-image"
                     __nextHasNoMarginBottom
                     __next40pxDefaultSize
                   />
