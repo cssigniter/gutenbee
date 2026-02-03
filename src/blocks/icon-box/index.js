@@ -8,7 +8,7 @@ import { registerBlockType } from 'wp.blocks';
 import { RichText, InspectorControls, useBlockProps } from 'wp.blockEditor';
 import { PanelBody, SelectControl, RangeControl } from 'wp.components';
 import classNames from 'classnames';
-import omit from 'lodash.omit';
+import omit from 'lodash/omit';
 
 import { iconAttributes, IconSettings } from '../icon';
 import Icon from '../icon/Icon';

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import get from 'lodash.get';
+import get from 'lodash/get';
 import DOMPurify from 'dompurify';
 
 import mapStyles from '../map-styles';
@@ -126,7 +126,7 @@ const v5 = {
     const getCustomStyles = () => {
       try {
         return JSON.parse(customStyles);
-      } catch (error) {
+      } catch {
         return undefined;
       }
     };

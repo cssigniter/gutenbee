@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef } from 'wp.element';
+import { Fragment, useEffect, useRef, useState } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import {
@@ -97,6 +97,9 @@ const CountdownEdit = ({
     blockAuthVisibility,
   } = attributes;
 
+  // Use state to force DateTimePicker re-render when date changes
+  const [datePickerKey, setDatePickerKey] = useState(0);
+
   useUniqueId({ attributes, setAttributes, clientId });
 
   useEffect(() => {
@@ -106,6 +109,38 @@ const CountdownEdit = ({
 
     countdown.current = new CountdownTimer(clock.current, date);
   }, [date]);
+
+  // Handle date change with validation
+  const handleDateChange = newValue => {
+    if (!newValue) {
+      setAttributes({ date: newValue });
+      return;
+    }
+
+    // Parse the ISO date string to check for date normalization issues
+    // This happens when invalid dates are entered (e.g., Feb 29-31, Apr 31, etc.)
+    const parsedDate = new Date(newValue);
+    const dateStr = newValue.substring(0, 10); // Get YYYY-MM-DD part
+    const [yearStr, monthStr, dayStr] = dateStr.split('-');
+
+    // Check if the parsed date's components match what was in the string
+    // If they don't match, it means JavaScript normalized an invalid date
+    const wasNormalized =
+      parsedDate.getFullYear() !== parseInt(yearStr, 10) ||
+      parsedDate.getMonth() !== parseInt(monthStr, 10) - 1 ||
+      parsedDate.getDate() !== parseInt(dayStr, 10);
+
+    // Force DateTimePicker to remount and reset its internal state
+    // This fixes the issue where the dropdown shows wrong values after normalization
+    if (wasNormalized) {
+      // Use setTimeout to ensure the state update happens after the current render
+      setTimeout(() => {
+        setDatePickerKey(prev => prev + 1);
+      }, 0);
+    }
+
+    setAttributes({ date: newValue });
+  };
 
   const renderItem = key => {
     const displayAttributeKey = `display${[capitalize(key)]}`;
@@ -178,8 +213,9 @@ const CountdownEdit = ({
         <InspectorControls>
           <PanelBody title={__('Date & Time')}>
             <DateTimePicker
+              key={datePickerKey}
               currentDate={date}
-              onChange={value => setAttributes({ date: value })}
+              onChange={handleDateChange}
               is12Hour={false}
             />
           </PanelBody>

@@ -78,7 +78,23 @@ const JustifiedGalleryEdit = ({
 
   const blockId = getBlockId(uniqueId);
 
-  const blockProps = useBlockProps();
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(
+      className,
+      blockId,
+      getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+      getAuthVisibilityClasses(blockAuthVisibility),
+      {
+        [`gutenbee-columns-${columns}`]: type === GALLERY_TYPE.COLUMNS,
+      },
+    ),
+    style: {
+      backgroundColor: backgroundColor || undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
 
   return (
     <div {...blockProps}>

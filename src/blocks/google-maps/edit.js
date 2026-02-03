@@ -12,7 +12,7 @@ import {
   Button,
 } from 'wp.components';
 import { InspectorControls, MediaUpload, useBlockProps } from 'wp.blockEditor';
-import get from 'lodash.get';
+import get from 'lodash/get';
 
 import Map from './Map';
 import mapStyles from './map-styles';
@@ -34,8 +34,8 @@ import AnimationControls from '../../components/controls/animation-controls/Anim
 
 const propTypes = {
   attributes: PropTypes.shape({
-    latitude: PropTypes.string.isRequired,
-    longitude: PropTypes.string.isRequired,
+    latitude: PropTypes.number.isRequired,
+    longitude: PropTypes.number.isRequired,
     zoom: PropTypes.number.isRequired,
     height: PropTypes.object.isRequired,
     preventScroll: PropTypes.bool.isRequired,
@@ -111,8 +111,8 @@ const GoogleMapsEdit = ({
               height: '100%',
             }}
             styles={mapStyle}
-            latitude={parseFloat(latitude)}
-            longitude={parseFloat(longitude)}
+            latitude={latitude}
+            longitude={longitude}
             zoom={zoom}
             preventScroll={preventScroll}
             infoWindow={infoWindow}

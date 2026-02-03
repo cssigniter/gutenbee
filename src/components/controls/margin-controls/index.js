@@ -69,7 +69,7 @@ const MarginControls = ({
   };
 
   return (
-    <div style={{ paddingTop: '2rem' }}>
+    <div className="gutenbee-control-margins">
       <BoxControl
         label={label}
         values={boxControlValues}

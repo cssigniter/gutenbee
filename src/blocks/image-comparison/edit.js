@@ -6,7 +6,7 @@ import { InspectorControls, MediaUpload, useBlockProps } from 'wp.blockEditor';
 import { Button, RangeControl, SelectControl, PanelBody } from 'wp.components';
 import { withSelect } from 'wp.data';
 import startCase from 'lodash.startcase';
-import get from 'lodash.get';
+import get from 'lodash/get';
 import classNames from 'classnames';
 
 import ImagePlaceholder from '../../components/image-placeholder/ImagePlaceholder';

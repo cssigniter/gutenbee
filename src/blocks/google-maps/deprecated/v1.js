@@ -1,4 +1,4 @@
-import get from 'lodash.get';
+import get from 'lodash/get';
 
 import mapStyles from '../map-styles';
 import { getMarginSettingStyles } from '../../../components/controls/margin-controls/margin-settings';
@@ -101,7 +101,7 @@ const v1 = {
     const getCustomStyles = () => {
       try {
         return JSON.parse(customStyles);
-      } catch (error) {
+      } catch {
         return undefined;
       }
     };

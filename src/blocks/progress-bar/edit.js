@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'wp.element';
+import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { ToggleControl, RangeControl, PanelBody } from 'wp.components';
 import { InspectorControls, RichText, useBlockProps } from 'wp.blockEditor';
@@ -28,7 +28,6 @@ const ProgressBarEdit = ({
   setAttributes,
   clientId,
 }) => {
-  const [editable, setEditable] = useState('');
   useUniqueId({ attributes, setAttributes, clientId });
 
   const {
@@ -79,8 +78,6 @@ const ProgressBarEdit = ({
           onChange={value => setAttributes({ title: value })}
           className="wp-block-gutenbee-progress-bar-title"
           placeholder={__('Write title…')}
-          isSelected={isSelected && editable === 'title'}
-          onFocus={() => setEditable('title')}
           style={{
             color: titleTextColor || undefined,
             marginBottom:
@@ -109,8 +106,6 @@ const ProgressBarEdit = ({
               onChange={value => setAttributes({ innerTitle: value })}
               className="wp-block-gutenbee-progress-bar-inner-title"
               placeholder={__('Write inner title…')}
-              isSelected={isSelected && editable === 'innerTitle'}
-              onFocus={() => setEditable('innerTitle')}
             />
 
             {displayPercentage && (

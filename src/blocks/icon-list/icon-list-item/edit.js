@@ -1,18 +1,11 @@
 import { Fragment, useRef } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { RichText, InspectorControls, useBlockProps } from 'wp.blockEditor';
-import {
-  PanelBody,
-  BaseControl,
-  TextControl,
-  ToggleControl,
-} from 'wp.components';
+import { PanelBody, TextControl, ToggleControl } from 'wp.components';
 import classNames from 'classnames';
-import startCase from 'lodash.startcase';
-import { SelectControl } from 'wp.components';
 
 import Icon from './Icon';
-import icons from '../../icon/icons';
+import IconSelect from '../../../components/controls/icon-select';
 import URLPicker, { canUseURLPicker } from '../../../components/url-picker';
 
 const IconListItemEdit = ({
@@ -91,38 +84,11 @@ const IconListItemEdit = ({
 
       <InspectorControls>
         <PanelBody>
-          <BaseControl
-            id="icon-select"
+          <IconSelect
+            value={icon}
+            onChange={value => setAttributes({ icon: value })}
             label={__('List Item Icon')}
-            __nextHasNoMarginBottom
-          >
-            <div className="gutenbee-icon-select-control">
-              {icon && (
-                <div className="gutenbee-icon-select-preview">
-                  {(() => {
-                    const IconComponent = require(`../../icon/svg/${icon}.svg`)
-                      .default;
-                    return (
-                      <IconComponent
-                        className="gutenbee-icon-select-preview-icon"
-                        preserveAspectRatio="xMidYMid meet"
-                      />
-                    );
-                  })()}
-                </div>
-              )}
-              <SelectControl
-                value={icon}
-                options={icons.map(value => ({
-                  value,
-                  label: startCase(value),
-                }))}
-                onChange={value => setAttributes({ icon: value })}
-                __nextHasNoMarginBottom
-                __next40pxDefaultSize
-              />
-            </div>
-          </BaseControl>
+          />
 
           {!canUseURLPickerBool && (
             <Fragment>

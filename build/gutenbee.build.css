@@ -417,13 +417,21 @@
 }
 
 .gutenbee-control-margins {
-  margin: 1em 0 24px;
+  margin: 0 0 24px;
 }
 .gutenbee-control-margins .components-base-control {
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
 }
 .gutenbee-control-margins:last-child {
   margin-bottom: 0;
+}
+
+.gutenbee-responsive-control-wrap .gutenbee-control-margins {
+  margin-top: 0;
+  padding-top: 28px;
+}
+.gutenbee-responsive-control-wrap .gutenbee-control-margins .components-base-control__label {
+  padding-right: 60px;
 }
 
 .gutenbee-control-spacing-controls-wrap {
@@ -504,6 +512,11 @@
 .gutenbee-typography-controls-row .block-editor-text-transform-control__buttons button.has-icon {
   margin-right: 0;
 }
+.gutenbee-typography-controls-row .block-editor-text-decoration-control__buttons button[data-active-item=true],
+.gutenbee-typography-controls-row .block-editor-text-transform-control__buttons button[data-active-item=true] {
+  background-color: #1e1e1e !important;
+  color: #fff !important;
+}
 
 .gutenbee-font-size-picker-label > fieldset legend,
 .gutenbee-font-size-control > fieldset legend {
@@ -520,6 +533,11 @@
 .gutenbee-font-size-picker-label .components-unit-control__select,
 .gutenbee-font-size-control .components-unit-control__select {
   display: none !important;
+}
+
+.gutenbee-font-size-picker-label .components-toggle-group-control button[data-active-item=true] {
+  background-color: #1e1e1e !important;
+  color: #fff !important;
 }
 
 .gutenbee-control-background {
@@ -1288,6 +1306,7 @@
 
 .wp-block-gutenbee-image-comparison {
   display: flex;
+  overflow: hidden;
 }
 
 .wp-block-gutenbee-image-comparison-pane {
@@ -1520,6 +1539,7 @@
   color: currentColor;
   line-height: 1;
   white-space: nowrap;
+  resize: none;
 }
 .wp-block-gutenbee-tabs-nav-item .block-editor-plain-text::placeholder,
 .wp-block-gutenbee-tabs-nav-item .editor-plain-text::placeholder,

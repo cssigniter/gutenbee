@@ -6,7 +6,7 @@ import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 import { useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
-import get from 'lodash.get';
+import get from 'lodash/get';
 import DOMPurify from 'dompurify';
 
 import GoogleMapsEdit from './edit';
@@ -47,12 +47,12 @@ registerBlockType('gutenbee/google-maps', {
       type: 'string',
     },
     latitude: {
-      type: 'string',
-      default: '37.585636',
+      type: 'number',
+      default: 37.585636,
     },
     longitude: {
-      type: 'string',
-      default: '26.127548',
+      type: 'number',
+      default: 26.127548,
     },
     zoom: {
       type: 'number',
@@ -151,7 +151,7 @@ registerBlockType('gutenbee/google-maps', {
     const getCustomStyles = () => {
       try {
         return JSON.parse(customStyles);
-      } catch (error) {
+      } catch {
         return undefined;
       }
     };

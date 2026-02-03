@@ -43,6 +43,7 @@ function gutenbee_enqueue_editor_assets() {
 		return;
 	}
 
+
 	wp_enqueue_script( 'gutenbee', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.build.js', array(
 		'wp-components',
 		'wp-blocks',
@@ -87,6 +88,7 @@ function gutenbee_enqueue_editor_assets() {
 
 	wp_enqueue_style( 'gutenbee-editor', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.build.css', array(
 		'wp-edit-blocks',
+		'dashicons',
 	), GUTENBEE_PLUGIN_VERSION );
 }
 

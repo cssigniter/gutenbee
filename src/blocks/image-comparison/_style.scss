@@ -3,6 +3,7 @@
 
 .wp-block-gutenbee-image-comparison {
   margin: $base-block-vertical-spacing 0;
+  overflow: hidden;
 
   img {
     opacity: 0;
@@ -21,3 +22,4 @@
     }
   }
 }
+

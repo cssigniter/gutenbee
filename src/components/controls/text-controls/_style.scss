@@ -56,6 +56,11 @@
     button.has-icon {
       margin-right: 0;
     }
+
+    button[data-active-item="true"] {
+      background-color: #1e1e1e !important;
+      color: #fff !important;
+    }
   }
 }
 
@@ -86,4 +91,10 @@
 }
 
 .gutenbee-font-size-picker-label {
+  .components-toggle-group-control {
+    button[data-active-item="true"] {
+      background-color: #1e1e1e !important;
+      color: #fff !important;
+    }
+  }
 }

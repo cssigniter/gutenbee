@@ -2,16 +2,10 @@ import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 import { InspectorControls, useBlockProps } from 'wp.blockEditor';
-import {
-  PanelBody,
-  RangeControl,
-  SelectControl,
-  BaseControl,
-} from 'wp.components';
-import startCase from 'lodash.startcase';
+import { PanelBody, RangeControl, SelectControl } from 'wp.components';
 
 import { VIEWS, SHAPES } from './constants';
-import icons from './icons';
+import IconSelect from '../../components/controls/icon-select';
 import Icon from './Icon';
 import IconBlockIcon from './block-icon';
 import MarginControls from '../../components/controls/margin-controls';
@@ -139,37 +133,11 @@ export const IconSettings = ({
   return (
     <Fragment>
       <PanelBody>
-        <BaseControl
-          id="icon-select"
-          label={__('Icon')}
-          __nextHasNoMarginBottom
-        >
-          <div className="gutenbee-icon-select-control">
-            {icon && (
-              <div className="gutenbee-icon-select-preview">
-                {(() => {
-                  const IconComponent = require(`./svg/${icon}.svg`).default;
-                  return (
-                    <IconComponent
-                      className="gutenbee-icon-select-preview-icon"
-                      preserveAspectRatio="xMidYMid meet"
-                    />
-                  );
-                })()}
-              </div>
-            )}
-            <SelectControl
-              value={icon || 'add-bag'}
-              options={icons.map(value => ({
-                value,
-                label: startCase(value),
-              }))}
-              onChange={value => setAttributes({ icon: value || 'add-bag' })}
-              __nextHasNoMarginBottom
-              __next40pxDefaultSize
-            />
-          </div>
-        </BaseControl>
+        <IconSelect
+          value={icon || 'add-bag'}
+          onChange={value => setAttributes({ icon: value || 'add-bag' })}
+          isClearable={false}
+        />
         <SelectControl
           label={__('View')}
           value={view || VIEWS.DEFAULT}

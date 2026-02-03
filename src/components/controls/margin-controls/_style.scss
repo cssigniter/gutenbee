@@ -3,14 +3,25 @@
 //
 
 .gutenbee-control-margins {
-  margin: 1em 0 24px;
+  margin: 0 0 24px;
 
   .components-base-control {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
   }
 
   &:last-child {
     margin-bottom: 0;
+  }
+}
+
+// When inside ResponsiveControl, adjust spacing to account for responsive buttons
+.gutenbee-responsive-control-wrap .gutenbee-control-margins {
+  margin-top: 0;
+  padding-top: 28px;
+
+  // Prevent label from being covered by responsive buttons
+  .components-base-control__label {
+    padding-right: 60px;
   }
 }
 
