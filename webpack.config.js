@@ -74,14 +74,7 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        use: [
-          {
-            loader: '@svgr/webpack',
-            options: {
-              svgo: false,
-            },
-          },
-        ],
+        use: ['@svgr/webpack'],
       },
       {
         test: /\.(ttf|eot|woff|woff2)$/,

@@ -123,18 +123,14 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
   return (
     <Fragment>
       <div {...blockProps}>
-        {isRenderedInEditor(ref.current) ? (
-          <ServerSideRender
-            key={postType}
-            block="gutenbee/post-types"
-            attributes={attributes}
-          />
-        ) : (
-          ' '
-        )}
+        <ServerSideRender
+          key={postType}
+          block="gutenbee/post-types"
+          attributes={attributes}
+        />
       </div>
 
-      {isSelected && isRenderedInEditor(ref.current) && (
+      {isSelected && (
         <InspectorControls>
           <PanelBody>
             <SelectControl

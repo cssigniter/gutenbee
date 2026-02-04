@@ -42,7 +42,7 @@
   grid-gap: 1rem;
   align-items: flex-start;
   margin-bottom: 1rem;
-
+  overflow: hidden;
   &:last-of-type {
     margin-bottom: 0;
   }
@@ -95,6 +95,60 @@
     button[data-active-item="true"] {
       background-color: #1e1e1e !important;
       color: #fff !important;
+    }
+  }
+}
+
+// Custom Font Size Picker Styles
+.gutenbee-custom-font-size-picker {
+  border: 0;
+  padding: 0;
+  margin: 0;
+
+  .components-font-size-picker__header {
+    margin-bottom: 8px;
+
+    .components-base-control__label {
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1.4;
+      text-transform: uppercase;
+      margin: 0;
+      padding: 0;
+    }
+
+    .components-button {
+      &.is-pressed {
+        background-color: #1e1e1e;
+        color: #fff;
+      }
+    }
+  }
+
+  .components-font-size-picker__controls {
+    margin-bottom: 0;
+
+    .components-toggle-group-control {
+      width: 100%;
+
+      button {
+        flex: 1;
+        
+        &[aria-checked="true"],
+        &[data-active-item="true"] {
+          background-color: #1e1e1e !important;
+          color: #fff !important;
+        }
+      }
+    }
+  }
+
+  .components-font-size-picker__custom-input {
+    margin-top: 8px;
+
+    .components-unit-control-wrapper,
+    .components-range-control {
+      width: 100%;
     }
   }
 }

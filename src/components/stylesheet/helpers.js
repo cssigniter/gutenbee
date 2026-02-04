@@ -106,6 +106,52 @@ export const getFlattenedRulesBreakpoint = breakpoint => {
 };
 
 /**
+ * Ensures a value has a unit. If no unit is detected and the value is numeric,
+ * adds 'px' as the default unit.
+ *
+ * @param {string|number} value The value to check.
+ * @param {string} providedUnit The unit provided by the caller (undefined means no unit provided).
+ * @return {Object} Object containing the value and unit to use.
+ */
+export const ensureValueUnit = (value, providedUnit) => {
+  // Convert value to string for checking
+  let valueStr = String(value).trim();
+
+  // Fix malformed units like 'rempx', 'empx', 'vhpx', etc. (remove the extra 'px')
+  // This handles legacy data where px was incorrectly appended to existing units
+  valueStr = valueStr.replace(
+    /^(-?\d*\.?\d+)(rem|em|%|vh|vw|vmin|vmax|pt|cm|mm|in|pc|ex|ch)px$/i,
+    '$1$2',
+  );
+
+  // Check if value already has a unit (px, rem, em, %, vh, vw, pt, cm, mm, etc.)
+  const hasUnit = /^-?\d*\.?\d+\s*(px|rem|em|%|vh|vw|vmin|vmax|pt|cm|mm|in|pc|ex|ch)$/i.test(
+    valueStr,
+  );
+
+  if (hasUnit) {
+    // Value already has a unit, return it as-is with empty unit (ignore providedUnit)
+    return { value: valueStr, unit: '' };
+  }
+
+  // If a unit was explicitly provided (even if empty string), use it
+  if (providedUnit !== undefined) {
+    return { value, unit: providedUnit };
+  }
+
+  // Check if value is purely numeric (with optional decimal and minus sign)
+  const isNumeric = /^-?\d*\.?\d+$/.test(valueStr);
+
+  if (isNumeric) {
+    // No unit detected and value is numeric, add 'px' as default
+    return { value: valueStr, unit: 'px' };
+  }
+
+  // Not numeric (e.g., 'auto', 'inherit', 'none'), return as-is
+  return { value: valueStr, unit: '' };
+};
+
+/**
  * Creates the CSS rule of a particular ruleset.
  *
  * @param {string} id The selector id (block id).
@@ -144,7 +190,11 @@ export const defaultGetCSSRule = ({ id, value, rule, unit = '', edgeCase }) => {
           const property = getSpacingProperty(rule);
 
           if (value[pos] != null && value[pos] !== '') {
-            const finalValue = `${value[pos]}${unit}`;
+            const { value: finalVal, unit: finalUnit } = ensureValueUnit(
+              value[pos],
+              unit,
+            );
+            const finalValue = `${finalVal}${finalUnit}`;
             return property === 'position'
               ? `${pos}: ${finalValue};`
               : `${property}-${pos}: ${finalValue};`;
@@ -184,7 +234,9 @@ export const defaultGetCSSRule = ({ id, value, rule, unit = '', edgeCase }) => {
     return sprintf(base, edgeCase.value);
   }
 
-  return sprintf(base, `${value}${unit}`);
+  // Ensure value has appropriate unit
+  const { value: finalValue, unit: finalUnit } = ensureValueUnit(value, unit);
+  return sprintf(base, `${finalValue}${finalUnit}`);
 };
 
 /**

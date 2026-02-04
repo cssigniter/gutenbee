@@ -97,8 +97,9 @@ const CountdownEdit = ({
     blockAuthVisibility,
   } = attributes;
 
-  // Use state to force DateTimePicker re-render when date changes
+  // Use state to force DateTimePicker re-render when date normalization occurs
   const [datePickerKey, setDatePickerKey] = useState(0);
+  const [showDatePicker, setShowDatePicker] = useState(true);
 
   useUniqueId({ attributes, setAttributes, clientId });
 
@@ -130,16 +131,24 @@ const CountdownEdit = ({
       parsedDate.getMonth() !== parseInt(monthStr, 10) - 1 ||
       parsedDate.getDate() !== parseInt(dayStr, 10);
 
-    // Force DateTimePicker to remount and reset its internal state
-    // This fixes the issue where the dropdown shows wrong values after normalization
     if (wasNormalized) {
-      // Use setTimeout to ensure the state update happens after the current render
-      setTimeout(() => {
-        setDatePickerKey(prev => prev + 1);
-      }, 0);
-    }
+      // Get the normalized date as an ISO string
+      const normalizedDate = parsedDate.toISOString();
 
-    setAttributes({ date: newValue });
+      // First update the date attribute
+      setAttributes({ date: normalizedDate });
+
+      // Completely unmount and remount the DateTimePicker to reset all internal state
+      // This ensures all fields (day, month, year) display the correct normalized date
+      setShowDatePicker(false);
+      setTimeout(() => {
+        setShowDatePicker(true);
+        setDatePickerKey(prev => prev + 1);
+      }, 50);
+    } else {
+      // No normalization occurred, just update the date normally
+      setAttributes({ date: newValue });
+    }
   };
 
   const renderItem = key => {
@@ -212,12 +221,14 @@ const CountdownEdit = ({
       {isSelected && (
         <InspectorControls>
           <PanelBody title={__('Date & Time')}>
-            <DateTimePicker
-              key={datePickerKey}
-              currentDate={date}
-              onChange={handleDateChange}
-              is12Hour={false}
-            />
+            {showDatePicker && (
+              <DateTimePicker
+                key={datePickerKey}
+                currentDate={date}
+                onChange={handleDateChange}
+                is12Hour={false}
+              />
+            )}
           </PanelBody>
 
           <PanelBody title={__('Settings')} initialOpen={false}>
