@@ -178,14 +178,14 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
                 label={__('Score Font Size')}
                 value={
                   scoreSize[breakpoint] != null && scoreSize[breakpoint] !== ''
-                    ? Number(scoreSize[breakpoint])
+                    ? scoreSize[breakpoint]
                     : undefined
                 }
                 onChange={value =>
                   setAttributes({
                     scoreSize: {
                       ...scoreSize,
-                      [breakpoint]: value != null ? Number(value) : undefined,
+                      [breakpoint]: value != null ? value : undefined,
                     },
                   })
                 }
@@ -207,14 +207,14 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
                 value={
                   contentSize[breakpoint] != null &&
                   contentSize[breakpoint] !== ''
-                    ? Number(contentSize[breakpoint])
+                    ? contentSize[breakpoint]
                     : undefined
                 }
                 onChange={value =>
                   setAttributes({
                     contentSize: {
                       ...contentSize,
-                      [breakpoint]: value != null ? Number(value) : undefined,
+                      [breakpoint]: value != null ? value : undefined,
                     },
                   })
                 }
@@ -247,14 +247,14 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
                 value={
                   reviewItemFontSize[breakpoint] != null &&
                   reviewItemFontSize[breakpoint] !== ''
-                    ? Number(reviewItemFontSize[breakpoint])
+                    ? reviewItemFontSize[breakpoint]
                     : undefined
                 }
                 onChange={value =>
                   setAttributes({
                     reviewItemFontSize: {
                       ...reviewItemFontSize,
-                      [breakpoint]: value != null ? Number(value) : undefined,
+                      [breakpoint]: value != null ? value : undefined,
                     },
                   })
                 }

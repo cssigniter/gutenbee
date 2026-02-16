@@ -323,14 +323,14 @@ const CountdownEdit = ({
                   value={
                     numberFontSize[breakpoint] !== undefined &&
                     numberFontSize[breakpoint] !== ''
-                      ? Number(numberFontSize[breakpoint])
+                      ? numberFontSize[breakpoint]
                       : undefined
                   }
                   onChange={value =>
                     setAttributes({
                       numberFontSize: {
                         ...numberFontSize,
-                        [breakpoint]: value != null ? Number(value) : '',
+                        [breakpoint]: value != null ? value : '',
                       },
                     })
                   }
@@ -345,14 +345,14 @@ const CountdownEdit = ({
                   value={
                     labelFontSize[breakpoint] !== undefined &&
                     labelFontSize[breakpoint] !== ''
-                      ? Number(labelFontSize[breakpoint])
+                      ? labelFontSize[breakpoint]
                       : undefined
                   }
                   onChange={value =>
                     setAttributes({
                       labelFontSize: {
                         ...labelFontSize,
-                        [breakpoint]: value != null ? Number(value) : '',
+                        [breakpoint]: value != null ? value : '',
                       },
                     })
                   }

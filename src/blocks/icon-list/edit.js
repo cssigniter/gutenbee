@@ -292,24 +292,12 @@ const IconListEdit = ({
             {breakpoint => {
               const currentIconSize = iconSize[breakpoint];
               let fontSizeValue;
-              if (
+              fontSizeValue =
                 currentIconSize !== undefined &&
                 currentIconSize !== '' &&
                 currentIconSize != null
-              ) {
-                if (typeof currentIconSize === 'number') {
-                  fontSizeValue = currentIconSize;
-                } else if (typeof currentIconSize === 'string') {
-                  const numericValue = currentIconSize.replace('px', '');
-                  fontSizeValue = numericValue
-                    ? Number(numericValue)
-                    : undefined;
-                } else {
-                  fontSizeValue = Number(currentIconSize);
-                }
-              } else {
-                fontSizeValue = undefined;
-              }
+                  ? currentIconSize
+                  : undefined;
               return (
                 <FontSizePickerLabel
                   label={__('Icon Size')}
@@ -318,7 +306,7 @@ const IconListEdit = ({
                     setAttributes({
                       iconSize: {
                         ...iconSize,
-                        [breakpoint]: value != null ? Number(value) : '',
+                        [breakpoint]: value != null ? value : '',
                       },
                     })
                   }
@@ -341,16 +329,7 @@ const IconListEdit = ({
                 currentFontSize !== '' &&
                 currentFontSize != null
               ) {
-                if (typeof currentFontSize === 'number') {
-                  fontSizeValue = currentFontSize;
-                } else if (typeof currentFontSize === 'string') {
-                  const numericValue = currentFontSize.replace('px', '');
-                  fontSizeValue = numericValue
-                    ? Number(numericValue)
-                    : undefined;
-                } else {
-                  fontSizeValue = Number(currentFontSize);
-                }
+                fontSizeValue = currentFontSize;
               } else {
                 fontSizeValue = undefined;
               }
@@ -362,7 +341,7 @@ const IconListEdit = ({
                     setAttributes({
                       fontSize: {
                         ...fontSize,
-                        [breakpoint]: value != null ? Number(value) : '',
+                        [breakpoint]: value != null ? value : '',
                       },
                     })
                   }

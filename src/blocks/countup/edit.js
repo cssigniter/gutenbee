@@ -236,14 +236,14 @@ const CountupEdit = ({
                     value={
                       textFontSize[breakpoint] !== undefined &&
                       textFontSize[breakpoint] !== ''
-                        ? Number(textFontSize[breakpoint])
+                        ? textFontSize[breakpoint]
                         : undefined
                     }
                     onChange={value =>
                       setAttributes({
                         textFontSize: {
                           ...textFontSize,
-                          [breakpoint]: value != null ? Number(value) : '',
+                          [breakpoint]: value != null ? value : '',
                         },
                       })
                     }
@@ -273,14 +273,14 @@ const CountupEdit = ({
                     value={
                       titleFontSize[breakpoint] !== undefined &&
                       titleFontSize[breakpoint] !== ''
-                        ? Number(titleFontSize[breakpoint])
+                        ? titleFontSize[breakpoint]
                         : undefined
                     }
                     onChange={value =>
                       setAttributes({
                         titleFontSize: {
                           ...titleFontSize,
-                          [breakpoint]: value != null ? Number(value) : '',
+                          [breakpoint]: value != null ? value : '',
                         },
                       })
                     }

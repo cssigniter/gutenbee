@@ -338,8 +338,6 @@ const ImageEdit = ({
                 min={10}
                 max={2000}
                 allowReset
-                beforeIcon="format-image"
-                afterIcon="format-image"
                 __nextHasNoMarginBottom
                 __next40pxDefaultSize
               />

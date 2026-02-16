@@ -179,14 +179,14 @@ const ButtonEdit = ({
                 value={
                   fontSize[breakpoint] !== undefined &&
                   fontSize[breakpoint] !== ''
-                    ? Number(fontSize[breakpoint])
+                    ? fontSize[breakpoint]
                     : undefined
                 }
                 onChange={value => {
                   setAttributes({
                     fontSize: {
                       ...fontSize,
-                      [breakpoint]: value != null ? Number(value) : '',
+                      [breakpoint]: value != null ? value : '',
                     },
                   });
                 }}

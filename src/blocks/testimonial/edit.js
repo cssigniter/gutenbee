@@ -436,14 +436,14 @@ const TestimonialEdit = ({
                 label={__('Content Font Size')}
                 value={
                   contentSize[breakpoint] !== ''
-                    ? Number(contentSize[breakpoint])
+                    ? contentSize[breakpoint]
                     : undefined
                 }
                 onChange={value =>
                   setAttributes({
                     contentSize: {
                       ...contentSize,
-                      [breakpoint]: value != null ? Number(value) : '',
+                      [breakpoint]: value != null ? value : '',
                     },
                   })
                 }
@@ -456,14 +456,14 @@ const TestimonialEdit = ({
                 label={__('Citation Font Size')}
                 value={
                   citationSize[breakpoint] !== ''
-                    ? Number(citationSize[breakpoint])
+                    ? citationSize[breakpoint]
                     : undefined
                 }
                 onChange={value =>
                   setAttributes({
                     citationSize: {
                       ...citationSize,
-                      [breakpoint]: value != null ? Number(value) : '',
+                      [breakpoint]: value != null ? value : '',
                     },
                   })
                 }
@@ -475,15 +475,13 @@ const TestimonialEdit = ({
               <FontSizePickerLabel
                 label={__('Info Font Size')}
                 value={
-                  infoSize[breakpoint] !== ''
-                    ? Number(infoSize[breakpoint])
-                    : undefined
+                  infoSize[breakpoint] !== '' ? infoSize[breakpoint] : undefined
                 }
                 onChange={value =>
                   setAttributes({
                     infoSize: {
                       ...infoSize,
-                      [breakpoint]: value != null ? Number(value) : '',
+                      [breakpoint]: value != null ? value : '',
                     },
                   })
                 }

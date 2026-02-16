@@ -297,25 +297,12 @@ const IconBoxEditBlock = ({
               {breakpoint => {
                 const currentTitleFontSize = titleFontSize[breakpoint];
                 let fontSizeValue;
-                if (
+                fontSizeValue =
                   currentTitleFontSize !== undefined &&
                   currentTitleFontSize !== '' &&
                   currentTitleFontSize != null
-                ) {
-                  if (typeof currentTitleFontSize === 'number') {
-                    fontSizeValue = currentTitleFontSize;
-                  } else if (typeof currentTitleFontSize === 'string') {
-                    // Handle string values like "14" or "14px"
-                    const numericValue = currentTitleFontSize.replace('px', '');
-                    fontSizeValue = numericValue
-                      ? Number(numericValue)
-                      : undefined;
-                  } else {
-                    fontSizeValue = Number(currentTitleFontSize);
-                  }
-                } else {
-                  fontSizeValue = undefined;
-                }
+                    ? currentTitleFontSize
+                    : undefined;
                 return (
                   <FontSizePickerLabel
                     value={fontSizeValue}
@@ -324,7 +311,7 @@ const IconBoxEditBlock = ({
                       setAttributes({
                         titleFontSize: {
                           ...titleFontSize,
-                          [breakpoint]: value != null ? Number(value) : '',
+                          [breakpoint]: value != null ? value : '',
                         },
                       })
                     }
@@ -352,25 +339,12 @@ const IconBoxEditBlock = ({
               {breakpoint => {
                 const currentTextFontSize = textFontSize[breakpoint];
                 let fontSizeValue;
-                if (
+                fontSizeValue =
                   currentTextFontSize !== undefined &&
                   currentTextFontSize !== '' &&
                   currentTextFontSize != null
-                ) {
-                  if (typeof currentTextFontSize === 'number') {
-                    fontSizeValue = currentTextFontSize;
-                  } else if (typeof currentTextFontSize === 'string') {
-                    // Handle string values like "14" or "14px"
-                    const numericValue = currentTextFontSize.replace('px', '');
-                    fontSizeValue = numericValue
-                      ? Number(numericValue)
-                      : undefined;
-                  } else {
-                    fontSizeValue = Number(currentTextFontSize);
-                  }
-                } else {
-                  fontSizeValue = undefined;
-                }
+                    ? currentTextFontSize
+                    : undefined;
                 return (
                   <FontSizePickerLabel
                     value={fontSizeValue}

@@ -160,14 +160,14 @@ const ProgressBarEdit = ({
                   value={
                     titleFontSize[breakpoint] != null &&
                     titleFontSize[breakpoint] !== ''
-                      ? Number(titleFontSize[breakpoint])
+                      ? titleFontSize[breakpoint]
                       : undefined
                   }
                   onChange={value =>
                     setAttributes({
                       titleFontSize: {
                         ...titleFontSize,
-                        [breakpoint]: value != null ? Number(value) : undefined,
+                        [breakpoint]: value != null ? value : undefined,
                       },
                     })
                   }
@@ -182,14 +182,14 @@ const ProgressBarEdit = ({
                   value={
                     innerTitleFontSize[breakpoint] != null &&
                     innerTitleFontSize[breakpoint] !== ''
-                      ? Number(innerTitleFontSize[breakpoint])
+                      ? innerTitleFontSize[breakpoint]
                       : undefined
                   }
                   onChange={value =>
                     setAttributes({
                       innerTitleFontSize: {
                         ...innerTitleFontSize,
-                        [breakpoint]: value != null ? Number(value) : undefined,
+                        [breakpoint]: value != null ? value : undefined,
                       },
                     })
                   }
