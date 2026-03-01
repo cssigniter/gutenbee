@@ -130,7 +130,7 @@ const ParagraphBlock = ({
               return (
                 <TypographyControls
                   attributes={{
-                    fontSize: fontSize[breakpoint],
+                    fontSize: fontSize?.[breakpoint],
                     lineHeight:
                       currentLineHeight != null
                         ? typeof currentLineHeight === 'number'
@@ -149,7 +149,7 @@ const ParagraphBlock = ({
                   onFontSizeChange={value => {
                     setAttributes({
                       fontSize: {
-                        ...fontSize,
+                        ...(fontSize || {}),
                         [breakpoint]: value != null ? value : '',
                       },
                     });

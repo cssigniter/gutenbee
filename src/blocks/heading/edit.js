@@ -144,7 +144,7 @@ function HeadingEdit({
               return (
                 <TypographyControls
                   attributes={{
-                    fontSize: fontSize[breakpoint],
+                    fontSize: fontSize?.[breakpoint],
                     lineHeight:
                       currentLineHeight != null
                         ? typeof currentLineHeight === 'number'
@@ -163,7 +163,7 @@ function HeadingEdit({
                   onFontSizeChange={value => {
                     setAttributes({
                       fontSize: {
-                        ...fontSize,
+                        ...(fontSize || {}),
                         [breakpoint]: value != null ? value : '',
                       },
                     });

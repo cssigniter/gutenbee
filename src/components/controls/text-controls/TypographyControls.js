@@ -52,9 +52,7 @@ const TypographyControls = ({
             label={label}
             value={
               fontSize !== undefined && fontSize !== '' && fontSize != null
-                ? typeof fontSize === 'number'
-                  ? fontSize
-                  : Number(fontSize)
+                ? fontSize
                 : undefined
             }
             onChange={value => {
