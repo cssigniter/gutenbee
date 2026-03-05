@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  line-height: 1;
 
   &.align-left {
     justify-content: flex-start;
@@ -36,8 +35,10 @@
 
 .wp-block-gutenbee-icon-icon {
   display: inline-block;
+}
 
-  path {
+.gutenbee-icon-block-icon-wrap {
+  svg path {
     fill: currentColor;
   }
 }
