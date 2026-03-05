@@ -387,11 +387,11 @@ export const defaultGenerateStyles = styles => {
       const rules = breakpoint.rules.map(s => s.trim()).join('\n');
 
       if (!breakpoint.width) {
-        return `${acc}${rules}\n`;
+        return `${acc}${rules}`;
       }
 
       if (breakpoint.name === 'tablet-only') {
-        return `${acc}\n
+        return `${acc}
           @media (min-width: ${BREAKPOINTS.mobile + 1}px) and (max-width: ${
           BREAKPOINTS.tablet
         }px) {
@@ -400,7 +400,7 @@ export const defaultGenerateStyles = styles => {
         `;
       }
 
-      return `${acc}\n
+      return `${acc}
       @media (${breakpoint.media}-width: ${breakpoint.width}px) {
         ${rules}
       }

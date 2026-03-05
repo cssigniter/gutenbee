@@ -1,10 +1,13 @@
 /**
  * Column block deprecated V5
+ *
+ * Matches blocks saved with flat backgroundImage format (no desktop/tablet/mobile keys),
+ * no id attribute on outer div, and getBackgroundImageStyle inline styles on content div.
  */
 import classNames from 'classnames';
 import { InnerBlocks } from 'wp.blockEditor';
 
-import { getDefaultResponsiveBackgroundImageValue } from '../../../../components/controls/background-controls/helpers';
+import { getBackgroundImageStyle } from '../../../../components/controls/background-controls/helpers';
 import Rule from '../../../../components/stylesheet/Rule';
 import {
   getDefaultResponsiveValue,
@@ -26,20 +29,39 @@ import getBlockId from '../../../../util/getBlockId';
 import StyleSheet from '../../../../components/stylesheet';
 
 const ColumnStyle = ({ attributes, children }) => {
-  const { blockPadding, blockMargin, uniqueId } = attributes;
+  const {
+    uniqueId,
+    blockPadding,
+    blockMargin,
+    verticalContentAlignment,
+    horizontalContentAlignment,
+    backgroundImage,
+  } = attributes;
   const blockId = getBlockId(uniqueId);
 
   return (
     <StyleSheet id={blockId}>
       <Rule
         value={blockMargin}
-        rule=".wp-block-gutenbee-column.[root] { margin: %s; }"
+        rule=".wp-block-gutenbee-column.[root] > .wp-block-gutenbee-column-content { margin: %s; }"
         unit="px"
       />
       <Rule
         value={blockPadding}
         rule=".wp-block-gutenbee-column.[root] > .wp-block-gutenbee-column-content { padding: %s; }"
         unit="px"
+      />
+      <Rule
+        value={horizontalContentAlignment}
+        rule=".wp-block-gutenbee-column.[root] > .wp-block-gutenbee-column-content { align-items: %s; }"
+      />
+      <Rule
+        value={verticalContentAlignment}
+        rule=".wp-block-gutenbee-column.[root] > .wp-block-gutenbee-column-content { justify-content: %s; }"
+      />
+      <Rule
+        value={backgroundImage}
+        rule=".wp-block-gutenbee-column.[root] > .wp-block-gutenbee-column-content { %s }"
       />
       {children}
     </StyleSheet>
@@ -60,10 +82,6 @@ const v5 = {
         mobile: 100,
       },
     },
-    columnHeight: {
-      type: 'object',
-      default: getDefaultResponsiveValue(),
-    },
     textColor: {
       type: 'string',
     },
@@ -72,7 +90,16 @@ const v5 = {
     },
     backgroundImage: {
       type: 'object',
-      default: getDefaultResponsiveBackgroundImageValue(),
+      default: {
+        url: '',
+        image: null,
+        repeat: 'no-repeat',
+        size: 'cover',
+        position: 'top center',
+        attachment: 'scroll',
+        parallax: false,
+        parallaxSpeed: 0.3,
+      },
     },
     backgroundImageEffects: {
       type: 'object',
@@ -117,12 +144,47 @@ const v5 = {
     },
     ...animationControlAttributes(),
   },
+  migrate(attributes) {
+    return {
+      ...attributes,
+      backgroundImage: {
+        desktop: {
+          url: attributes.backgroundImage?.url || '',
+          repeat: attributes.backgroundImage?.repeat || 'no-repeat',
+          size: attributes.backgroundImage?.size || 'cover',
+          position: attributes.backgroundImage?.position || 'top center',
+          attachment: attributes.backgroundImage?.attachment || 'scroll',
+        },
+        tablet: {
+          url: '',
+          repeat: 'no-repeat',
+          size: 'cover',
+          position: 'top center',
+          attachment: 'scroll',
+        },
+        mobile: {
+          url: '',
+          repeat: 'no-repeat',
+          size: 'cover',
+          position: 'top center',
+          attachment: 'scroll',
+        },
+      },
+      backgroundImageEffects: {
+        zoom: attributes.backgroundImage?.zoom ?? false,
+        parallax: attributes.backgroundImage?.parallax ?? false,
+        parallaxSpeed: attributes.backgroundImage?.parallaxSpeed ?? 0.3,
+      },
+      columnHeight: attributes.columnHeight || getDefaultResponsiveValue(),
+    };
+  },
   save({ attributes, className }) {
     const {
       width,
       uniqueId,
       textColor,
       backgroundColor,
+      backgroundImage,
       blockBreakpointVisibility,
       blockAuthVisibility,
     } = attributes;
@@ -155,6 +217,7 @@ const v5 = {
           style={{
             color: textColor,
             backgroundColor,
+            ...getBackgroundImageStyle(backgroundImage),
             ...getBorderCSSValue({ attributes }),
             ...getBoxShadowCSSValue({ attributes }),
           }}

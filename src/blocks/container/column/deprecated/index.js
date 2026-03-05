@@ -4,4 +4,4 @@ import v3 from './v3';
 import v4 from './v4';
 import v5 from './v5';
 
-export default [v1, v2, v3, v4, v5];
+export default [v5, v4, v3, v2, v1];
