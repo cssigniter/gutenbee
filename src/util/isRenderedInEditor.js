@@ -5,11 +5,17 @@
  * @returns {boolean}
  */
 const isRenderedInEditor = element => {
-  if (!element) {
+  if (!element || 'undefined' === typeof window) {
     return false;
   }
 
-  return !!element.closest?.('.block-editor-writing-flow');
+  return !!(
+    element.closest?.('.block-editor-writing-flow') ||
+    element.closest?.('.is-root-container') ||
+    element.ownerDocument?.body?.classList?.contains?.(
+      'block-editor-iframe__body',
+    )
+  );
 };
 
 export default isRenderedInEditor;
