@@ -95,6 +95,7 @@ Please report security bugs found in the source code of the GutenBee plugin thro
 * Accordion and Tabs blocks: Browsers would add a resize handle on the title field, which could break the block's layout.
 * Button group: Button block: Initial border color didn't have any effect.
 * Icon and Icon box blocks: View and Shape settings didn't have any effect on the front-end.
+* Post types block: The block didn't have any output on non-Ignition themes.
 
 = 2.19.1 =
 * Fixed regression where the Slideshow block would break on the frontend due to dep upgrade (Slick) in 2.19.0
