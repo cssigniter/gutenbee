@@ -3,7 +3,7 @@ Contributors: cssigniterteam, silencerius, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 6.4
 Tested up to: 6.8
-Stable tag: 2.19.1
+Stable tag: 2.20.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
 Requires PHP: 7.0
@@ -82,6 +82,19 @@ Note that if you want to use the Google Maps block you will also need a Google M
 Please report security bugs found in the source code of the GutenBee plugin through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/8a647308-ead3-4797-9190-671ddae30dfa). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
 
 == Changelog ==
+
+= 2.20.0 =
+* Upgraded blocks to support the v3.0 Block API, in preparation for the upcoming transition to iframe rendering.
+* Fixed issues with the font size component, where in non-Ignition themes, the component would have no effect on text, and broken visual feedback.
+* Redesigned spacing component (padding, margin) so that it is more usable, and values are not hidden by browser-inserted numeric controls.
+* Countup block: A warning would be thrown upon typing on the Prefix field.
+* Gallery block: Padding/margin controls wouldn't have any effect.
+* Progress block: Cursor couldn't be placed on the title and inner title fields directly, without first focusing outside the block.
+* Image comparison block: Images would overflow the block's border.
+* Countdown block: Styling fixes.
+* Accordion and Tabs blocks: Browsers would add a resize handle on the title field, which could break the block's layout.
+* Button group: Button block: Initial border color didn't have any effect.
+* Icon and Icon box blocks: View and Shape settings didn't have any effect on the front-end.
 
 = 2.19.1 =
 * Fixed regression where the Slideshow block would break on the frontend due to dep upgrade (Slick) in 2.19.0
