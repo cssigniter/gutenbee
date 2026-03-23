@@ -16,13 +16,15 @@ export default function HeadingLevelIcon({ level, __unstableActive }) {
     return null;
   }
 
+  const isActive = __unstableActive ? 'is-active' : '';
+
   return (
     <SVG
       width="20"
       height="20"
       viewBox="0 0 20 20"
       xmlns="http://www.w3.org/2000/svg"
-      __unstableActive={__unstableActive}
+      className={isActive}
     >
       <Path d={levelToPath[level]} />
     </SVG>

@@ -51,6 +51,8 @@ const BoxShadowControls = ({
             setAttributes({ boxShadowType: value });
           }
         }}
+        __next40pxDefaultSize
+        __nextHasNoMarginBottom
       />
 
       {type !== 'none' && !!type && (
@@ -84,6 +86,8 @@ const BoxShadowControls = ({
             step={1}
             initialPosition={7}
             allowReset
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
 
           <RangeControl
@@ -101,6 +105,8 @@ const BoxShadowControls = ({
             step={1}
             initialPosition={0}
             allowReset
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
 
           <RangeControl
@@ -118,6 +124,8 @@ const BoxShadowControls = ({
             step={1}
             initialPosition={0}
             allowReset
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
 
           <RangeControl
@@ -135,6 +143,8 @@ const BoxShadowControls = ({
             step={1}
             initialPosition={0}
             allowReset
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
         </Fragment>
       )}

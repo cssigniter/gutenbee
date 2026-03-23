@@ -7,7 +7,7 @@ import {
   SelectControl,
   PanelBody,
 } from 'wp.components';
-import { InspectorControls } from 'wp.blockEditor';
+import { InspectorControls, useBlockProps } from 'wp.blockEditor';
 import startCase from 'lodash.startcase';
 import classNames from 'classnames';
 
@@ -78,181 +78,227 @@ const JustifiedGalleryEdit = ({
 
   const blockId = getBlockId(uniqueId);
 
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(
+      className,
+      blockId,
+      getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+      getAuthVisibilityClasses(blockAuthVisibility),
+      {
+        [`gutenbee-columns-${columns}`]: type === GALLERY_TYPE.COLUMNS,
+      },
+    ),
+    style: {
+      backgroundColor: backgroundColor || undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
+
   return (
-    <Gallery
-      id={blockId}
-      className={classNames(
-        className,
-        blockId,
-        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-        getAuthVisibilityClasses(blockAuthVisibility),
-        {
-          [`gutenbee-columns-${columns}`]: type === GALLERY_TYPE.COLUMNS,
-        },
-      )}
-      attributes={attributes}
-      isSelected={isSelected}
-      setAttributes={setAttributes}
-      label={__('Gallery')}
-      style={{
-        backgroundColor: backgroundColor || undefined,
-        ...getBorderCSSValue({ attributes }),
-        ...getBoxShadowCSSValue({ attributes }),
-      }}
-    >
-      <GalleryStyle attributes={attributes} />
-      <InspectorControls>
-        <PanelBody title={__('Gallery Settings')}>
-          <SelectControl
-            label={__('Gallery Type')}
-            value={type}
-            options={[
-              {
-                value: GALLERY_TYPE.COLUMNS,
-                label: 'Columns',
-              },
-              {
-                value: GALLERY_TYPE.JUSTIFIED,
-                label: 'Justified',
-              },
-            ]}
-            onChange={value => setAttributes({ type: value })}
-          />
+    <div {...blockProps}>
+      <Gallery
+        id={blockId}
+        className={classNames(
+          className,
+          blockId,
+          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+          getAuthVisibilityClasses(blockAuthVisibility),
+          {
+            [`gutenbee-columns-${columns}`]: type === GALLERY_TYPE.COLUMNS,
+          },
+        )}
+        attributes={attributes}
+        isSelected={isSelected}
+        setAttributes={setAttributes}
+        label={__('Gallery')}
+        style={{
+          backgroundColor: backgroundColor || undefined,
+          ...getBorderCSSValue({ attributes }),
+          ...getBoxShadowCSSValue({ attributes }),
+        }}
+      >
+        <GalleryStyle attributes={attributes} />
+        <InspectorControls>
+          <PanelBody title={__('Gallery Settings')}>
+            <SelectControl
+              label={__('Gallery Type')}
+              value={type}
+              options={[
+                {
+                  value: GALLERY_TYPE.COLUMNS,
+                  label: 'Columns',
+                },
+                {
+                  value: GALLERY_TYPE.JUSTIFIED,
+                  label: 'Justified',
+                },
+              ]}
+              onChange={value => setAttributes({ type: value })}
+              __next40pxDefaultSize={true}
+              __nextHasNoMarginBottom={true}
+            />
 
-          {type === GALLERY_TYPE.COLUMNS && (
-            <Fragment>
-              <RangeControl
-                label={__('Columns')}
-                min={1}
-                max={6}
-                value={columns}
-                onChange={value => setAttributes({ columns: value })}
-                step={1}
-              />
-            </Fragment>
-          )}
-
-          {type === GALLERY_TYPE.JUSTIFIED && (
-            <Fragment>
-              <RangeControl
-                label={__('Row Height')}
-                min={0}
-                max={600}
-                value={rowHeight}
-                onChange={value => setAttributes({ rowHeight: value })}
-                step={5}
-              />
-
-              <RangeControl
-                label={__('Margins')}
-                min={0}
-                max={50}
-                value={margins}
-                onChange={value => setAttributes({ margins: value })}
-                step={1}
-              />
-
-              <SelectControl
-                label={__('Last Row')}
-                value={lastRow}
-                options={Object.keys(LAST_ROW).map(key => ({
-                  value: LAST_ROW[key],
-                  label: capitalizeSentence(startCase(key)),
-                }))}
-                onChange={value => setAttributes({ lastRow: value })}
-              />
-
-              <ToggleControl
-                label={__('Randomize')}
-                checked={randomize}
-                onChange={value => setAttributes({ randomize: value })}
-              />
-            </Fragment>
-          )}
-
-          <ToggleControl
-            label={__('Show captions')}
-            checked={captions}
-            onChange={value => setAttributes({ captions: value })}
-          />
-        </PanelBody>
-
-        <PanelBody title={__('Block Appearance')} initialOpen={false}>
-          <PopoverColorControl
-            label={__('Background Color')}
-            value={backgroundColor || ''}
-            defaultValue={backgroundColor || ''}
-            onChange={value => setAttributes({ backgroundColor: value })}
-          />
-
-          <BorderControls
-            attributes={attributes}
-            setAttributes={setAttributes}
-          />
-
-          <BoxShadowControls
-            attributes={attributes}
-            setAttributes={setAttributes}
-          />
-
-          <ResponsiveControl>
-            {breakpoint => (
-              <MarginControls
-                label={__('Padding (px)')}
-                attributeKey="blockPadding"
-                attributes={attributes}
-                setAttributes={setAttributes}
-                breakpoint={breakpoint}
-              />
+            {type === GALLERY_TYPE.COLUMNS && (
+              <Fragment>
+                <RangeControl
+                  label={__('Columns')}
+                  min={1}
+                  max={6}
+                  value={columns}
+                  onChange={value => setAttributes({ columns: value })}
+                  step={1}
+                  __next40pxDefaultSize={true}
+                  __nextHasNoMarginBottom={true}
+                />
+              </Fragment>
             )}
-          </ResponsiveControl>
 
-          <ResponsiveControl>
-            {breakpoint => (
-              <MarginControls
-                label={__('Margin (px)')}
-                attributeKey="blockMargin"
-                attributes={attributes}
-                setAttributes={setAttributes}
-                breakpoint={breakpoint}
-              />
+            {type === GALLERY_TYPE.JUSTIFIED && (
+              <Fragment>
+                <RangeControl
+                  label={__('Row Height')}
+                  min={0}
+                  max={600}
+                  value={rowHeight}
+                  onChange={value => setAttributes({ rowHeight: value })}
+                  step={5}
+                  __next40pxDefaultSize={true}
+                  __nextHasNoMarginBottom={true}
+                />
+
+                <RangeControl
+                  label={__('Margins')}
+                  min={0}
+                  max={50}
+                  value={margins}
+                  onChange={value => setAttributes({ margins: value })}
+                  step={1}
+                  __next40pxDefaultSize={true}
+                  __nextHasNoMarginBottom={true}
+                />
+
+                <SelectControl
+                  label={__('Last Row')}
+                  value={lastRow}
+                  options={Object.keys(LAST_ROW).map(key => ({
+                    value: LAST_ROW[key],
+                    label: capitalizeSentence(startCase(key)),
+                  }))}
+                  onChange={value => setAttributes({ lastRow: value })}
+                  __next40pxDefaultSize={true}
+                  __nextHasNoMarginBottom={true}
+                />
+
+                <ToggleControl
+                  label={__('Randomize')}
+                  checked={randomize}
+                  onChange={value => setAttributes({ randomize: value })}
+                  __nextHasNoMarginBottom={true}
+                />
+              </Fragment>
             )}
-          </ResponsiveControl>
-        </PanelBody>
-        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
-          <BreakpointVisibilityControl
-            values={blockBreakpointVisibility}
-            onChange={values => {
-              setAttributes({
-                blockBreakpointVisibility: values,
-              });
-            }}
-          />
 
-          <AuthVisibilityControl
-            values={blockAuthVisibility}
-            onChange={values => {
-              setAttributes({
-                blockAuthVisibility: values,
-              });
-            }}
-          />
-        </PanelBody>
-
-        {__GUTENBEE_SETTINGS__.plugin.settings['active_animation-controls'] && (
-          <PanelBody
-            icon={!!attributes.animation?.type && 'saved'}
-            title={__('Animation')}
-            initialOpen={false}
-          >
-            <AnimationControls
-              attributes={attributes.animation}
-              setAttributes={setAttributes}
+            <ToggleControl
+              label={__('Show captions')}
+              checked={captions}
+              onChange={value => setAttributes({ captions: value })}
+              __nextHasNoMarginBottom={true}
             />
           </PanelBody>
-        )}
-      </InspectorControls>
-    </Gallery>
+
+          <PanelBody title={__('Block Appearance')} initialOpen={false}>
+            <PopoverColorControl
+              label={__('Background Color')}
+              value={backgroundColor || ''}
+              defaultValue={backgroundColor || ''}
+              onChange={value => setAttributes({ backgroundColor: value })}
+            />
+
+            <BorderControls
+              attributes={attributes}
+              setAttributes={setAttributes}
+            />
+
+            <BoxShadowControls
+              attributes={attributes}
+              setAttributes={setAttributes}
+            />
+
+            <ResponsiveControl>
+              {breakpoint => (
+                <MarginControls
+                  label={__('Padding (px)')}
+                  attributeKey="blockPadding"
+                  attributes={attributes}
+                  setAttributes={setAttributes}
+                  breakpoint={breakpoint}
+                />
+              )}
+            </ResponsiveControl>
+
+            <ResponsiveControl>
+              {breakpoint => (
+                <MarginControls
+                  label={__('Margin (px)')}
+                  attributeKey="blockMargin"
+                  attributes={attributes}
+                  setAttributes={setAttributes}
+                  breakpoint={breakpoint}
+                />
+              )}
+            </ResponsiveControl>
+          </PanelBody>
+          <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+            <BreakpointVisibilityControl
+              values={blockBreakpointVisibility}
+              onChange={values => {
+                setAttributes({
+                  blockBreakpointVisibility: values,
+                });
+              }}
+            />
+
+            <AuthVisibilityControl
+              values={blockAuthVisibility}
+              onChange={values => {
+                setAttributes({
+                  blockAuthVisibility: values,
+                });
+              }}
+            />
+          </PanelBody>
+
+          {__GUTENBEE_SETTINGS__.plugin.settings[
+            'active_animation-controls'
+          ] && (
+            <PanelBody
+              icon={!!attributes.animation?.type && 'saved'}
+              title={__('Animation')}
+              initialOpen={false}
+            >
+              <AnimationControls
+                attributes={{
+                  ...attributes.animation,
+                  duration:
+                    attributes.animation?.duration !== undefined &&
+                    attributes.animation?.duration !== ''
+                      ? Number(attributes.animation.duration)
+                      : undefined,
+                  delay:
+                    attributes.animation?.delay !== undefined &&
+                    attributes.animation?.delay !== ''
+                      ? Number(attributes.animation.delay)
+                      : undefined,
+                }}
+                setAttributes={setAttributes}
+              />
+            </PanelBody>
+          )}
+        </InspectorControls>
+      </Gallery>
+    </div>
   );
 };
 

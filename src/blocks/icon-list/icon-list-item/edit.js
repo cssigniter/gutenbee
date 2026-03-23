@@ -1,19 +1,11 @@
 import { Fragment, useRef } from 'wp.element';
 import { __ } from 'wp.i18n';
-import { RichText, InspectorControls } from 'wp.blockEditor';
-import {
-  PanelBody,
-  BaseControl,
-  TextControl,
-  ToggleControl,
-} from 'wp.components';
+import { RichText, InspectorControls, useBlockProps } from 'wp.blockEditor';
+import { PanelBody, TextControl, ToggleControl } from 'wp.components';
 import classNames from 'classnames';
-import ReactSelect from 'react-select';
-import startCase from 'lodash.startcase';
 
 import Icon from './Icon';
-import icons from '../../icon/icons';
-import IconSelectValue from '../../icon/IconSelectValue';
+import IconSelect from '../../../components/controls/icon-select';
 import URLPicker, { canUseURLPicker } from '../../../components/url-picker';
 
 const IconListItemEdit = ({
@@ -56,14 +48,16 @@ const IconListItemEdit = ({
 
   const canUseURLPickerBool = canUseURLPicker();
 
+  const blockProps = useBlockProps({
+    className: classNames({
+      'wp-block-gutenbee-icon-list-item': true,
+    }),
+    ref,
+  });
+
   return (
     <Fragment>
-      <li
-        className={classNames({
-          'wp-block-gutenbee-icon-list-item': true,
-        })}
-        ref={ref}
-      >
+      <li {...blockProps}>
         {listUrl ? (
           <span className="wp-block-gutenbee-list-icon-pseudo-link">
             {listItem}
@@ -90,29 +84,11 @@ const IconListItemEdit = ({
 
       <InspectorControls>
         <PanelBody>
-          <BaseControl id="icon-select" label={__('List Item Icon')}>
-            <ReactSelect
-              aria-labelledby="icon-select"
-              onChange={value => setAttributes({ icon: value })}
-              value={icon}
-              options={icons.map(value => ({
-                value,
-                label: startCase(value),
-              }))}
-              simpleValue
-              valueRenderer={({ value, label }) => (
-                <IconSelectValue value={value} label={label} />
-              )}
-              optionRenderer={({ value, label }) => (
-                <IconSelectValue
-                  value={value}
-                  label={label}
-                  className={className}
-                />
-              )}
-              clearable={false}
-            />
-          </BaseControl>
+          <IconSelect
+            value={icon}
+            onChange={value => setAttributes({ icon: value })}
+            label={__('List Item Icon')}
+          />
 
           {!canUseURLPickerBool && (
             <Fragment>
@@ -122,6 +98,8 @@ const IconListItemEdit = ({
                 onChange={value => setAttributes({ listUrl: value })}
                 type="url"
                 placeholder="https://"
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
               <ToggleControl
                 label={__('Open in new tab')}
@@ -132,6 +110,7 @@ const IconListItemEdit = ({
                     ? __('Opens link in new tab.')
                     : __('Toggle to open link in new tab.')
                 }
+                __nextHasNoMarginBottom
               />
             </Fragment>
           )}

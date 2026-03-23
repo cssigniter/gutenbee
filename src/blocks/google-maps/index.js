@@ -4,8 +4,9 @@
 
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
+import { useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
-import get from 'lodash.get';
+import get from 'lodash/get';
 import DOMPurify from 'dompurify';
 
 import GoogleMapsEdit from './edit';
@@ -32,6 +33,7 @@ import {
 } from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/google-maps', {
+  apiVersion: 3,
   title: __('GutenBee Google Maps'),
   description: __('Create fancy Google Maps'),
   icon: GoogleMapsBlockIcon,
@@ -45,12 +47,12 @@ registerBlockType('gutenbee/google-maps', {
       type: 'string',
     },
     latitude: {
-      type: 'string',
-      default: '37.585636',
+      type: 'number',
+      default: 37.585636,
     },
     longitude: {
-      type: 'string',
-      default: '26.127548',
+      type: 'number',
+      default: 26.127548,
     },
     zoom: {
       type: 'number',
@@ -83,6 +85,14 @@ registerBlockType('gutenbee/google-maps', {
     markerImageUrl: {
       type: 'string',
       default: '',
+    },
+    mapId: {
+      type: 'string',
+      default: 'DEMO_MAP_ID',
+    },
+    colorScheme: {
+      type: 'string',
+      default: 'FOLLOW_SYSTEM',
     },
     markerImageId: {
       type: 'number',
@@ -119,7 +129,7 @@ registerBlockType('gutenbee/google-maps', {
   },
   deprecated,
   edit: GoogleMapsEdit,
-  save: ({ className, attributes }) => {
+  save: ({ attributes }) => {
     const {
       uniqueId,
       latitude,
@@ -130,6 +140,7 @@ registerBlockType('gutenbee/google-maps', {
       infoWindow,
       customStyles,
       markerImageUrl,
+      mapId,
       backgroundColor,
       blockBreakpointVisibility,
       blockAuthVisibility,
@@ -140,7 +151,7 @@ registerBlockType('gutenbee/google-maps', {
     const getCustomStyles = () => {
       try {
         return JSON.parse(customStyles);
-      } catch (error) {
+      } catch {
         return undefined;
       }
     };
@@ -150,22 +161,23 @@ registerBlockType('gutenbee/google-maps', {
       ? getCustomStyles()
       : get(predefinedMapStyle, 'style');
 
+    const blockProps = useBlockProps.save({
+      id: blockId,
+      className: classNames(
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+      ),
+      style: {
+        backgroundColor: backgroundColor || undefined,
+        ...getBorderCSSValue({ attributes }),
+        ...getBoxShadowCSSValue({ attributes }),
+      },
+      ...getAnimationControlDataAttributes(attributes.animation),
+    });
+
     return (
-      <div
-        id={blockId}
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-        )}
-        style={{
-          backgroundColor: backgroundColor || undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-        {...getAnimationControlDataAttributes(attributes.animation)}
-      >
+      <div {...blockProps}>
         <GoogleMapsStyle attributes={attributes} />
 
         <div
@@ -176,6 +188,8 @@ registerBlockType('gutenbee/google-maps', {
           data-map-style={mapStyle && JSON.stringify(mapStyle)}
           data-info-window={DOMPurify.sanitize(infoWindow)}
           data-marker-icon={markerImageUrl}
+          data-map-id={mapId}
+          data-color-scheme={attributes.colorScheme}
         />
       </div>
     );

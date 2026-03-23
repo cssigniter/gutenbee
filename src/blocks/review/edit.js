@@ -31,7 +31,7 @@ import AnimationControls from '../../components/controls/animation-controls/Anim
 const propTypes = {
   attributes: PropTypes.object.isRequired,
   setAttributes: PropTypes.func.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   clientId: PropTypes.string.isRequired,
 };
 
@@ -61,13 +61,28 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
   useUniqueId({ attributes, setAttributes, clientId });
   const blockId = getBlockId(uniqueId);
 
-  const innerBlocksProps = useInnerBlocksProps(useBlockProps(), {
-    allowedBlocks: ['gutenbee/review-item'],
-    template: [['gutenbee/review-item']],
-    __experimentalUIParts: { hasSelectedUI: false },
-    __experimentalMoverDirection: 'vertical',
-    orientation: 'vertical',
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(className, blockId),
+    style: {
+      backgroundColor: backgroundColor ? backgroundColor : undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
   });
+
+  const innerBlocksProps = useInnerBlocksProps(
+    {
+      className: 'wp-block-gutenbee-review-rating-scores',
+    },
+    {
+      allowedBlocks: ['gutenbee/review-item'],
+      template: [['gutenbee/review-item']],
+      __experimentalUIParts: { hasSelectedUI: false },
+      __experimentalMoverDirection: 'vertical',
+      orientation: 'vertical',
+    },
+  );
 
   const innerBlocks = useSelect(select => {
     const [parent] = select('core/block-editor').getBlocksByClientId(clientId);
@@ -98,15 +113,7 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
 
   return (
     <Fragment>
-      <div
-        id={blockId}
-        className={classNames(className, blockId)}
-        style={{
-          backgroundColor: backgroundColor ? backgroundColor : undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-      >
+      <div {...blockProps}>
         <div className="wp-block-gutenbee-review-rating-final-score">
           <p
             className="wp-block-gutenbee-review-rating-final-score-value"
@@ -140,21 +147,27 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
         <div {...innerBlocksProps} />
       </div>
       <ReviewStyle attributes={attributes}>
-        <Rule
-          value={barTextColor}
-          rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-item-inner { color: %s; }"
-          unit=""
-        />
-        <Rule
-          value={progressBackgroundColor}
-          rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-item-inner { background-color: %s; }"
-          unit=""
-        />
-        <Rule
-          value={barBackgroundColor}
-          rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-item-outer { background-color: %s; }"
-          unit=""
-        />
+        {barTextColor && (
+          <Rule
+            value={barTextColor}
+            rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-item-inner { color: %s; }"
+            unit=""
+          />
+        )}
+        {progressBackgroundColor && (
+          <Rule
+            value={progressBackgroundColor}
+            rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-item-inner { background-color: %s; }"
+            unit=""
+          />
+        )}
+        {barBackgroundColor && (
+          <Rule
+            value={barBackgroundColor}
+            rule=".wp-block-gutenbee-review.[root] .wp-block-gutenbee-review-item-outer { background-color: %s; }"
+            unit=""
+          />
+        )}
       </ReviewStyle>
 
       <InspectorControls>
@@ -163,12 +176,16 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
             {breakpoint => (
               <FontSizePickerLabel
                 label={__('Score Font Size')}
-                value={scoreSize[breakpoint]}
+                value={
+                  scoreSize[breakpoint] != null && scoreSize[breakpoint] !== ''
+                    ? scoreSize[breakpoint]
+                    : undefined
+                }
                 onChange={value =>
                   setAttributes({
                     scoreSize: {
                       ...scoreSize,
-                      [breakpoint]: value != null ? value : '',
+                      [breakpoint]: value != null ? value : undefined,
                     },
                   })
                 }
@@ -187,12 +204,17 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
             {breakpoint => (
               <FontSizePickerLabel
                 label={__('Verdict Font Size')}
-                value={contentSize[breakpoint]}
+                value={
+                  contentSize[breakpoint] != null &&
+                  contentSize[breakpoint] !== ''
+                    ? contentSize[breakpoint]
+                    : undefined
+                }
                 onChange={value =>
                   setAttributes({
                     contentSize: {
                       ...contentSize,
-                      [breakpoint]: value != null ? value : '',
+                      [breakpoint]: value != null ? value : undefined,
                     },
                   })
                 }
@@ -215,18 +237,24 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
             onChange={value => {
               setAttributes({ displayPercentage: value });
             }}
+            __nextHasNoMarginBottom
           />
 
           <ResponsiveControl>
             {breakpoint => (
               <FontSizePickerLabel
                 label={__('Bar Text Font Size')}
-                value={reviewItemFontSize[breakpoint]}
+                value={
+                  reviewItemFontSize[breakpoint] != null &&
+                  reviewItemFontSize[breakpoint] !== ''
+                    ? reviewItemFontSize[breakpoint]
+                    : undefined
+                }
                 onChange={value =>
                   setAttributes({
                     reviewItemFontSize: {
                       ...reviewItemFontSize,
-                      [breakpoint]: value != null ? value : '',
+                      [breakpoint]: value != null ? value : undefined,
                     },
                   })
                 }
@@ -241,6 +269,8 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
             value={barHeight}
             onChange={value => setAttributes({ barHeight: value })}
             step={1}
+            __nextHasNoMarginBottom={true}
+            __next40pxDefaultSize={true}
           />
 
           <PopoverColorControl
@@ -338,7 +368,19 @@ const ReviewEdit = ({ attributes, setAttributes, className, clientId }) => {
             initialOpen={false}
           >
             <AnimationControls
-              attributes={attributes.animation}
+              attributes={{
+                ...attributes.animation,
+                duration:
+                  attributes.animation?.duration !== undefined &&
+                  attributes.animation?.duration !== ''
+                    ? Number(attributes.animation.duration)
+                    : undefined,
+                delay:
+                  attributes.animation?.delay !== undefined &&
+                  attributes.animation?.delay !== ''
+                    ? Number(attributes.animation.delay)
+                    : undefined,
+              }}
               setAttributes={setAttributes}
             />
           </PanelBody>

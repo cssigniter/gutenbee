@@ -1,4 +1,5 @@
 import { useSelect } from 'wp.data';
+import { useMemo } from 'wp.element';
 
 const getPostTypeTaxonomy = (taxonomies, postType) => {
   if (!taxonomies || !postType) {
@@ -16,49 +17,79 @@ const usePostTypesData = ({ isSelected, selectedPostType }) => {
     // eslint-disable-next-line
     __GUTENBEE_SETTINGS__?.blocks?.post_types?.excluded_post_types ?? [];
 
-  const data = useSelect(
+  const rawPostTypes = useSelect(
     select => {
       if (!isSelected) {
-        return {
-          postTypes: [],
-          authors: [],
-          taxonomy: null,
-          terms: [],
-          imageSizes: [],
-        };
+        return [];
       }
-
-      const {
-        getPostTypes,
-        getUsers,
-        getTaxonomies,
-        getEntityRecords,
-      } = select('core');
-      const postTypes = getPostTypes({ per_page: -1 }) || [];
-      const authors = getUsers({ who: 'authors', per_page: -1 });
-
-      const taxonomies = getTaxonomies({ per_page: -1 });
-      const taxonomy = getPostTypeTaxonomy(taxonomies, selectedPostType);
-
-      const { getSettings } = select('core/block-editor');
-      const { imageSizes } = getSettings();
-
-      return {
-        postTypes: postTypes.filter(
-          postType => !excludedPostTypeSlugs.includes(postType.slug),
-        ),
-        authors: authors ?? [],
-        taxonomy,
-        terms: taxonomy
-          ? getEntityRecords('taxonomy', taxonomy.slug, { per_page: -1 })
-          : [],
-        imageSizes,
-      };
+      return select('core').getPostTypes({ per_page: -1 }) || [];
     },
-    [isSelected, selectedPostType],
+    [isSelected],
   );
 
-  return data;
+  const authors = useSelect(
+    select => {
+      if (!isSelected) {
+        return [];
+      }
+      return select('core').getUsers({ who: 'authors', per_page: -1 }) || [];
+    },
+    [isSelected],
+  );
+
+  const taxonomies = useSelect(
+    select => {
+      if (!isSelected) {
+        return [];
+      }
+      return select('core').getTaxonomies({ per_page: -1 }) || [];
+    },
+    [isSelected],
+  );
+
+  const imageSizes = useSelect(
+    select => {
+      if (!isSelected) {
+        return [];
+      }
+      return select('core/block-editor').getSettings().imageSizes || [];
+    },
+    [isSelected],
+  );
+
+  const taxonomy = useMemo(
+    () => getPostTypeTaxonomy(taxonomies, selectedPostType),
+    [taxonomies, selectedPostType],
+  );
+
+  const terms = useSelect(
+    select => {
+      if (!isSelected || !taxonomy) {
+        return null;
+      }
+      const { getEntityRecords } = select('core');
+      return getEntityRecords('taxonomy', taxonomy.slug, { per_page: -1 });
+    },
+    [isSelected, taxonomy?.slug],
+  );
+
+  const postTypes = useMemo(() => {
+    return rawPostTypes.filter(
+      postType => !excludedPostTypeSlugs.includes(postType.slug),
+    );
+  }, [rawPostTypes]);
+
+  const stableData = useMemo(() => {
+    return {
+      postTypes,
+      authors: authors ?? [],
+      taxonomy,
+      terms: terms ?? [],
+      imageSizes: imageSizes ?? [],
+    };
+  }, [postTypes, authors, taxonomy, terms, imageSizes]);
+
+  return stableData;
 };
 
 export default usePostTypesData;

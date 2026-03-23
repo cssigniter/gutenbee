@@ -1,6 +1,6 @@
 import { __ } from 'wp.i18n';
 import { registerBlockType, getBlockDefaultClassName } from 'wp.blocks';
-import { InnerBlocks } from 'wp.blockEditor';
+import { InnerBlocks, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 import { Fragment } from 'wp.element';
 
@@ -32,6 +32,7 @@ import {
 registerBlockType('gutenbee/banner', {
   title: __('GutenBee Banner'),
   description: __('A versatile block for creating banners of any kind.'),
+  apiVersion: 3,
   icon: BannerBlockIcon,
   category: 'gutenbee',
   keywords: [__('banner'), __('hero'), __('section')],
@@ -123,7 +124,7 @@ registerBlockType('gutenbee/banner', {
   },
   deprecated,
   edit: BannerBlockEdit,
-  save: ({ attributes, className }) => {
+  save: ({ attributes }) => {
     const {
       uniqueId,
       bannerUrl,
@@ -182,29 +183,30 @@ registerBlockType('gutenbee/banner', {
       </Fragment>
     );
 
+    const blockProps = useBlockProps.save({
+      id: blockId,
+      className: classNames(
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+        {
+          'has-parallax': parallax,
+          'gutenbee-zoom': zoom && !parallax,
+          'has-background-image': !!backgroundImage?.desktop?.url,
+          'has-background-video': !!videoInfo?.url,
+          'has-background-overlay': !!overlayBackgroundColor,
+        },
+      ),
+      style: {
+        color: textColor,
+        ...getBorderCSSValue({ attributes }),
+        ...getBoxShadowCSSValue({ attributes }),
+      },
+      ...getAnimationControlDataAttributes(attributes.animation),
+    });
+
     return (
-      <div
-        id={blockId}
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-          {
-            'has-parallax': parallax,
-            'gutenbee-zoom': zoom && !parallax,
-            'has-background-image': !!backgroundImage?.desktop?.url,
-            'has-background-video': !!videoInfo?.url,
-            'has-background-overlay': !!overlayBackgroundColor,
-          },
-        )}
-        style={{
-          color: textColor,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-        {...getAnimationControlDataAttributes(attributes.animation)}
-      >
+      <div {...blockProps}>
         {bannerUrl && (
           <a
             href={bannerUrl}

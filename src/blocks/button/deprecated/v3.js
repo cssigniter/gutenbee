@@ -1,0 +1,140 @@
+import classNames from 'classnames';
+import { RichText } from 'wp.blockEditor';
+
+import {
+  getDefaultResponsiveValue,
+  getDefaultSpacingValue,
+} from '../../../components/controls/responsive-control/default-values';
+import ButtonStyle from '../style';
+import getBlockId from '../../../util/getBlockId';
+import borderControlAttributes from '../../../components/controls/border-controls/attributes';
+import { getBorderCSSValue } from '../../../components/controls/border-controls/helpers';
+import {
+  boxShadowControlAttributes,
+  getBoxShadowCSSValue,
+} from '../../../components/controls/box-shadow-controls/helpers';
+import { getBreakpointVisibilityClassNames } from '../../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../../components/controls/auth-visibility-control/helpers';
+import {
+  animationControlAttributes,
+  getAnimationControlDataAttributes,
+} from '../../../components/controls/animation-controls/helpers';
+
+const v3 = {
+  attributes: {
+    uniqueId: {
+      type: 'string',
+    },
+    url: {
+      type: 'string',
+      source: 'attribute',
+      selector: 'a',
+      attribute: 'href',
+    },
+    text: {
+      type: 'string',
+      source: 'html',
+      selector: 'a',
+    },
+    linkTarget: {
+      type: 'string',
+      source: 'attribute',
+      selector: 'a',
+      attribute: 'target',
+    },
+    rel: {
+      type: 'string',
+      source: 'attribute',
+      selector: 'a',
+      attribute: 'rel',
+    },
+    backgroundColor: {
+      type: 'string',
+    },
+    fontSize: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: '',
+        tablet: '',
+        mobile: '',
+      }),
+    },
+    textColor: {
+      type: 'string',
+    },
+    ...borderControlAttributes(''),
+    ...boxShadowControlAttributes(''),
+    blockPadding: {
+      type: 'object',
+      default: getDefaultSpacingValue(),
+    },
+    blockMargin: {
+      type: 'object',
+      default: getDefaultSpacingValue(),
+    },
+    blockBreakpointVisibility: {
+      type: 'object',
+      default: getDefaultResponsiveValue({
+        desktop: false,
+        tablet: false,
+        mobile: false,
+      }),
+    },
+    blockAuthVisibility: {
+      type: 'object',
+      default: {
+        loggedIn: false,
+        loggedOut: false,
+      },
+    },
+    ...animationControlAttributes(),
+  },
+  save: ({ attributes, className }) => {
+    const {
+      uniqueId,
+      textColor,
+      backgroundColor,
+      linkTarget,
+      rel,
+      text,
+      url,
+      blockBreakpointVisibility,
+      blockAuthVisibility,
+    } = attributes;
+
+    const blockId = getBlockId(uniqueId);
+
+    return (
+      <div
+        id={blockId}
+        className={classNames(
+          className,
+          blockId,
+          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+          getAuthVisibilityClasses(blockAuthVisibility),
+        )}
+        {...getAnimationControlDataAttributes(attributes.animation)}
+      >
+        <ButtonStyle attributes={attributes} />
+        <RichText.Content
+          tagName="a"
+          href={url}
+          value={text}
+          target={linkTarget}
+          rel={rel}
+          className={classNames({
+            'gutenbee-block-button-link': true,
+          })}
+          style={{
+            backgroundColor: backgroundColor || undefined,
+            color: textColor || undefined,
+            ...getBorderCSSValue({ attributes, prefix: '' }),
+            ...getBoxShadowCSSValue({ attributes, prefix: '' }),
+          }}
+        />
+      </div>
+    );
+  },
+};
+
+export default v3;

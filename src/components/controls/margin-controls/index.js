@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
-import { TextControl, Button } from 'wp.components';
-
-import { capitalize } from '../../../util/text';
+import { __experimentalBoxControl as BoxControl } from 'wp.components';
 
 const propTypes = {
   setAttributes: PropTypes.func.isRequired,
@@ -19,104 +17,68 @@ const MarginControls = ({
   label = __('Block Margin'),
   breakpoint,
 }) => {
-  const margins = attributes[attributeKey];
-  const positions = ['top', 'right', 'bottom', 'left'];
+  const margins = attributes[attributeKey] || {};
 
-  const onMarginsChange = (value, position) => {
-    // Accommodate for responsive changes.
-    if (breakpoint) {
-      if (linked) {
-        setAttributes({
-          [attributeKey]: {
-            ...margins,
-            [breakpoint]: {
-              ...margins[breakpoint],
-              top: value,
-              right: value,
-              left: value,
-              bottom: value,
-            },
-          },
-        });
+  // Get current values based on breakpoint
+  const currentValues = breakpoint ? margins[breakpoint] || {} : margins;
 
-        return;
-      }
-
-      setAttributes({
-        [attributeKey]: {
-          ...margins,
-          [breakpoint]: {
-            ...margins[breakpoint],
-            [position]: value,
-          },
-        },
-      });
-
-      return;
-    }
-
-    if (linked) {
-      setAttributes({
-        [attributeKey]: {
-          ...margins,
-          top: value,
-          right: value,
-          left: value,
-          bottom: value,
-        },
-      });
-
-      return;
-    }
-
-    setAttributes({
-      [attributeKey]: {
-        ...margins,
-        [position]: value,
-      },
-    });
+  // Convert numeric values to string with 'px' unit for BoxControl
+  const boxControlValues = {
+    top:
+      currentValues.top != null && currentValues.top !== ''
+        ? `${currentValues.top}px`
+        : '',
+    right:
+      currentValues.right != null && currentValues.right !== ''
+        ? `${currentValues.right}px`
+        : '',
+    bottom:
+      currentValues.bottom != null && currentValues.bottom !== ''
+        ? `${currentValues.bottom}px`
+        : '',
+    left:
+      currentValues.left != null && currentValues.left !== ''
+        ? `${currentValues.left}px`
+        : '',
   };
 
-  const linked = attributes[attributeKey]?.linked;
+  const handleChange = nextValues => {
+    // Convert values back to numbers (remove 'px' unit)
+    const numericValues = {
+      top: nextValues?.top ? parseInt(nextValues.top) : '',
+      right: nextValues?.right ? parseInt(nextValues.right) : '',
+      bottom: nextValues?.bottom ? parseInt(nextValues.bottom) : '',
+      left: nextValues?.left ? parseInt(nextValues.left) : '',
+    };
+
+    if (breakpoint) {
+      setAttributes({
+        [attributeKey]: {
+          ...margins,
+          [breakpoint]: numericValues,
+        },
+      });
+    } else {
+      setAttributes({
+        [attributeKey]: {
+          ...margins,
+          ...numericValues,
+        },
+      });
+    }
+  };
 
   return (
     <div className="gutenbee-control-margins">
-      <p className="gutenbee-control-margins-label">{label}</p>
-
-      <div className="gutenbee-control-spacing-controls-wrap">
-        <div className="gutenbee-control-spacing-controls">
-          {positions.map((position, index) => (
-            <TextControl
-              key={index}
-              label={__(capitalize(position))}
-              value={
-                breakpoint ? margins[breakpoint][position] : margins[position]
-              }
-              type="number"
-              min={-200}
-              max={200}
-              step={1}
-              onChange={value => onMarginsChange(value, position)}
-            />
-          ))}
-        </div>
-
-        <Button
-          isSecondary={!linked}
-          isPrimary={linked}
-          className="components-toolbar__control"
-          label={__('Link Values')}
-          icon="admin-links"
-          onClick={() => {
-            setAttributes({
-              [attributeKey]: {
-                ...margins,
-                linked: !linked,
-              },
-            });
-          }}
-        />
-      </div>
+      <BoxControl
+        label={label}
+        values={boxControlValues}
+        onChange={handleChange}
+        sides={['top', 'right', 'bottom', 'left']}
+        units={[{ value: 'px', label: 'px' }]}
+        allowReset={true}
+        resetValues={{ top: '', right: '', bottom: '', left: '' }}
+      />
     </div>
   );
 };

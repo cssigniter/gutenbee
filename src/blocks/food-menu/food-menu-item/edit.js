@@ -53,16 +53,18 @@ const FoodMenuItemEdit = ({
     ],
   });
 
+  const blockProps = useBlockProps({
+    className: classNames(className, blockId),
+    style: {
+      backgroundColor: backgroundColor ? backgroundColor : undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
+
   return (
     <Fragment>
-      <div
-        style={{
-          backgroundColor: backgroundColor ? backgroundColor : undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-        className={classNames(className, blockId)}
-      >
+      <div {...blockProps}>
         <div {...innerBlocksProps} />
         <FoodMenuItemEditStyle attributes={attributes} />
       </div>
@@ -88,6 +90,8 @@ const FoodMenuItemEdit = ({
                     },
                   })
                 }
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
             )}
           </ResponsiveControl>
@@ -143,7 +147,19 @@ const FoodMenuItemEdit = ({
             initialOpen={false}
           >
             <AnimationControls
-              attributes={attributes.animation}
+              attributes={{
+                ...attributes.animation,
+                duration:
+                  attributes.animation?.duration !== undefined &&
+                  attributes.animation?.duration !== ''
+                    ? Number(attributes.animation.duration)
+                    : undefined,
+                delay:
+                  attributes.animation?.delay !== undefined &&
+                  attributes.animation?.delay !== ''
+                    ? Number(attributes.animation.delay)
+                    : undefined,
+              }}
               setAttributes={setAttributes}
             />
           </PanelBody>

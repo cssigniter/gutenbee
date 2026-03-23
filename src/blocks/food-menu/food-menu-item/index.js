@@ -1,6 +1,6 @@
 import { registerBlockType } from 'wp.blocks';
 import { __ } from 'wp.i18n';
-import { InnerBlocks } from 'wp.blockEditor';
+import { InnerBlocks, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import {
@@ -24,6 +24,7 @@ import {
 } from '../../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/food-menu-item', {
+  apiVersion: 3,
   title: __('GutenBee Food Menu Item'),
   description: __('Single food menu item.'),
   icon: FoodMenuItemIcon,
@@ -66,21 +67,23 @@ registerBlockType('gutenbee/food-menu-item', {
   },
   deprecated,
   edit: FoodMenuItemEdit,
-  save: ({ attributes, className }) => {
+  save: ({ attributes }) => {
     const { uniqueId, backgroundColor } = attributes;
 
+    const blockProps = useBlockProps.save({
+      style: {
+        backgroundColor: backgroundColor ? backgroundColor : undefined,
+        ...getBorderCSSValue({ attributes }),
+        ...getBoxShadowCSSValue({ attributes }),
+      },
+      className: classNames(getBlockId(uniqueId), {
+        'wp-block-gutenbee-food-menu-item': true,
+      }),
+      ...getAnimationControlDataAttributes(attributes.animation),
+    });
+
     return (
-      <div
-        style={{
-          backgroundColor: backgroundColor ? backgroundColor : undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-        className={classNames(className, getBlockId(uniqueId), {
-          'wp-block-gutenbee-food-menu-item': true,
-        })}
-        {...getAnimationControlDataAttributes(attributes.animation)}
-      >
+      <div {...blockProps}>
         <FoodMenuItemStyle attributes={attributes} />
         <InnerBlocks.Content />
       </div>

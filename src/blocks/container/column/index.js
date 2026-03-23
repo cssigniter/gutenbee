@@ -4,7 +4,7 @@
 
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import { InnerBlocks } from 'wp.blockEditor';
+import { InnerBlocks, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import ColumnBlockEdit from './edit';
@@ -42,6 +42,7 @@ registerBlockType('gutenbee/column', {
     html: false,
     anchor: true,
   },
+  apiVersion: 3,
   attributes: {
     uniqueId: {
       type: 'string',
@@ -125,7 +126,7 @@ registerBlockType('gutenbee/column', {
   },
   deprecated,
   edit: ColumnBlockEdit,
-  save({ attributes, className }) {
+  save({ attributes }) {
     const {
       width,
       uniqueId,
@@ -137,19 +138,20 @@ registerBlockType('gutenbee/column', {
 
     const blockId = getBlockId(uniqueId);
 
+    const blockProps = useBlockProps.save({
+      className: classNames(
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+        {
+          'wp-block-gutenbee-column': true,
+        },
+      ),
+      ...getAnimationControlDataAttributes(attributes.animation),
+    });
+
     return (
-      <div
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-          {
-            'wp-block-gutenbee-column': true,
-          },
-        )}
-        {...getAnimationControlDataAttributes(attributes.animation)}
-      >
+      <div {...blockProps}>
         <ColumnStyle attributes={attributes}>
           <Rule
             value={width}

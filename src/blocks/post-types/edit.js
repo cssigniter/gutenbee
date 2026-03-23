@@ -8,7 +8,7 @@ import {
   ToggleControl,
   TextControl,
 } from 'wp.components';
-import { InspectorControls } from 'wp.blockEditor';
+import { InspectorControls, useBlockProps } from 'wp.blockEditor';
 import ServerSideRender from 'wp.serverSideRender';
 
 import isRenderedInEditor from '../../util/isRenderedInEditor';
@@ -24,8 +24,8 @@ const propTypes = {
     columns: PropTypes.number,
     postType: PropTypes.string,
     taxonomySlug: PropTypes.string,
-    termId: PropTypes.number,
-    authorId: PropTypes.number,
+    termId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    authorId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     postsPerPage: PropTypes.number,
     pagination: PropTypes.bool,
     paginationType: PropTypes.string,
@@ -116,21 +116,21 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
     }
   }, [ref.current]);
 
+  const blockProps = useBlockProps({
+    ref: ref,
+  });
+
   return (
     <Fragment>
-      <div ref={ref}>
-        {isRenderedInEditor(ref.current) ? (
-          <ServerSideRender
-            key={postType}
-            block="gutenbee/post-types"
-            attributes={attributes}
-          />
-        ) : (
-          ' '
-        )}
+      <div {...blockProps}>
+        <ServerSideRender
+          key={postType}
+          block="gutenbee/post-types"
+          attributes={attributes}
+        />
       </div>
 
-      {isSelected && isRenderedInEditor(ref.current) && (
+      {isSelected && (
         <InspectorControls>
           <PanelBody>
             <SelectControl
@@ -147,10 +147,12 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
                 if (value !== postType) {
                   setAttributes({
                     taxonomySlug: '',
-                    termId: '',
+                    termId: undefined,
                   });
                 }
               }}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
             />
 
             {postType === 'ignition-event' && (
@@ -166,6 +168,8 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
                 onChange={value =>
                   setAttributes({ ignitionEventQueryType: value })
                 }
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
               />
             )}
 
@@ -186,9 +190,11 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
                 onChange={value =>
                   setAttributes({
                     taxonomySlug: value ? taxonomy.slug : '',
-                    termId: value !== '' ? value : '',
+                    termId: value !== '' ? value : undefined,
                   })
                 }
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
               />
             )}
 
@@ -206,8 +212,10 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
                 })),
               ]}
               onChange={value =>
-                setAttributes({ authorId: value !== '' ? value : '' })
+                setAttributes({ authorId: value !== '' ? value : undefined })
               }
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
             />
 
             {postType === 'post' && (
@@ -239,12 +247,15 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
               min={1}
               max={24}
               onChange={value => setAttributes({ postsPerPage: value })}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
             />
 
             <ToggleControl
               label={__('Pagination')}
               checked={pagination}
               onChange={value => setAttributes({ pagination: value })}
+              __nextHasNoMarginBottom
             />
 
             {pagination && (
@@ -259,6 +270,8 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
                   },
                 ]}
                 onChange={value => setAttributes({ paginationType: value })}
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
               />
             )}
 
@@ -268,6 +281,8 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
               min={0}
               step={1}
               onChange={value => setAttributes({ offset: value })}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
             />
 
             <div className="ci-split-field">
@@ -287,6 +302,8 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
                   { label: 'Menu Order', value: 'menu_order' },
                 ]}
                 onChange={value => setAttributes({ orderBy: value })}
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
               />
 
               <SelectControl
@@ -297,6 +314,8 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
                   { label: 'Descending', value: 'desc' },
                 ]}
                 onChange={value => setAttributes({ order: value })}
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
               />
             </div>
           </PanelBody>
@@ -308,6 +327,8 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
               min={columnLimits.min || 1}
               max={columnLimits.max || 4}
               onChange={value => setAttributes({ columns: value })}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
             />
 
             {supports.gridEffect && (
@@ -324,6 +345,8 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
                   { label: 'Pop Up', value: 'pop-up' },
                 ]}
                 onChange={value => setAttributes({ gridEffect: value })}
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
               />
             )}
 
@@ -335,6 +358,8 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
                 { label: 'No Gutters', value: 'no-gutters' },
               ]}
               onChange={value => setAttributes({ gridSpacing: value })}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
             />
 
             {supports.masonry && (
@@ -342,6 +367,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
                 label={__('Masonry')}
                 checked={masonry}
                 onChange={value => setAttributes({ masonry: value })}
+                __nextHasNoMarginBottom
               />
             )}
 
@@ -353,6 +379,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
                   'When enabled, ignores the "Items Per Page" and "Pagination" setting.',
                 )}
                 onChange={value => setAttributes({ categoryFilters: value })}
+                __nextHasNoMarginBottom
               />
             )}
 
@@ -372,6 +399,8 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
                     })),
                   ]}
                   onChange={value => setAttributes({ imageSizeSlug: value })}
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom
                 />
               )}
 
@@ -381,6 +410,8 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
               type="text"
               placeholder={__('Read More')}
               value={readMoreButtonLabel}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
             />
           </PanelBody>
 
@@ -393,7 +424,19 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
               initialOpen={false}
             >
               <AnimationControls
-                attributes={attributes.animation}
+                attributes={{
+                  ...attributes.animation,
+                  duration:
+                    attributes.animation?.duration !== undefined &&
+                    attributes.animation?.duration !== ''
+                      ? Number(attributes.animation.duration)
+                      : undefined,
+                  delay:
+                    attributes.animation?.delay !== undefined &&
+                    attributes.animation?.delay !== ''
+                      ? Number(attributes.animation.delay)
+                      : undefined,
+                }}
                 setAttributes={setAttributes}
               />
             </PanelBody>

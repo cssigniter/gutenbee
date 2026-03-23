@@ -32,7 +32,10 @@ const AuthVisibilityControl = ({
   label = __('Authentication visibility'),
 }) => {
   return (
-    <BaseControl className="gutenbee-visibility-control">
+    <BaseControl
+      className="gutenbee-visibility-control"
+      __nextHasNoMarginBottom
+    >
       <BaseControl.VisualLabel>{label}</BaseControl.VisualLabel>
 
       {AUTH_VISIBILITY_CONTROLS.map(control => {
@@ -49,6 +52,7 @@ const AuthVisibilityControl = ({
                 [control.value]: !isActive,
               })
             }
+            __nextHasNoMarginBottom
           />
         );
       })}

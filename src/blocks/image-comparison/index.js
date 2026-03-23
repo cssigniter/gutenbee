@@ -4,6 +4,7 @@
 
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
+import { useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import ImageComparisonEdit from './edit';
@@ -29,6 +30,7 @@ import {
 } from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/image-comparison', {
+  apiVersion: 3,
   title: __('GutenBee Image Comparison'),
   description: __('Highlight the differences between two images.'),
   icon: ImageComparisonBlockIcon,
@@ -98,7 +100,7 @@ registerBlockType('gutenbee/image-comparison', {
   },
   deprecated,
   edit: ImageComparisonEdit,
-  save: ({ className, attributes }) => {
+  save: ({ attributes }) => {
     const {
       uniqueId,
       urlA,
@@ -109,21 +111,23 @@ registerBlockType('gutenbee/image-comparison', {
       blockAuthVisibility,
     } = attributes;
     const blockId = getBlockId(uniqueId);
+    const blockProps = useBlockProps.save({
+      className: classNames(
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+      ),
+      id: blockId,
+      style: {
+        backgroundColor: backgroundColor || undefined,
+        ...getBorderCSSValue({ attributes }),
+        ...getBoxShadowCSSValue({ attributes }),
+      },
+    });
 
     return (
       <div
-        id={blockId}
-        style={{
-          backgroundColor: backgroundColor || undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-        )}
+        {...blockProps}
         {...getAnimationControlDataAttributes(attributes.animation)}
       >
         <div className="wp-block-gutenbee-comparison-wrap" data-offset={offset}>

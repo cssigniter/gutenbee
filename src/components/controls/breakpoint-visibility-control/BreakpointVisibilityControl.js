@@ -44,7 +44,10 @@ const BreakpointVisibilityControl = ({
   label = __('Viewport visibility'),
 }) => {
   return (
-    <BaseControl className="gutenbee-visibility-control">
+    <BaseControl
+      className="gutenbee-visibility-control"
+      __nextHasNoMarginBottom
+    >
       <BaseControl.VisualLabel>{label}</BaseControl.VisualLabel>
 
       {BREAKPOINT_VISIBILITY_CONTROLS.map(control => {
@@ -61,6 +64,7 @@ const BreakpointVisibilityControl = ({
                 [control.breakpoint]: !isActive,
               })
             }
+            __nextHasNoMarginBottom
           />
         );
       })}

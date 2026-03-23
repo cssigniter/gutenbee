@@ -20,7 +20,7 @@ import { withSelect } from 'wp.data';
 import { __ } from 'wp.i18n';
 import classNames from 'classnames';
 import { pick, get, map, isEmpty } from 'lodash';
-import { RichText, InspectorControls } from 'wp.blockEditor';
+import { RichText, InspectorControls, useBlockProps } from 'wp.blockEditor';
 import { image as imageIcon } from '@wordpress/icons';
 
 import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
@@ -46,7 +46,7 @@ const propTypes = {
   setAttributes: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
   className: PropTypes.string,
-  imageSizes: PropTypes.object,
+  imageSizes: PropTypes.array,
   image: PropTypes.object,
   onReplace: PropTypes.func,
 };
@@ -174,7 +174,7 @@ const TestimonialEdit = ({
     />
   );
 
-  const blockProps = {
+  const blockProps = useBlockProps({
     id: blockId,
     className: classNames(
       className,
@@ -186,7 +186,7 @@ const TestimonialEdit = ({
         [`gutenbee-testimonial-avatar-${avatarPosition}`]: avatarPosition,
       },
     ),
-  };
+  });
 
   const POSITIONS = {
     TOP: 'top',
@@ -381,6 +381,8 @@ const TestimonialEdit = ({
                 beforeIcon="format-image"
                 afterIcon="format-image"
                 allowReset
+                __next40pxDefaultSize={true}
+                __nextHasNoMarginBottom={true}
               />
             )}
           </ResponsiveControl>
@@ -389,6 +391,7 @@ const TestimonialEdit = ({
             label={__('Alt Text (Alternative Text)')}
             value={alt}
             onChange={value => setAttributes({ alt: value })}
+            __nextHasNoMarginBottom={true}
           />
 
           {!isEmpty(imageSizeOptions) && (
@@ -397,6 +400,8 @@ const TestimonialEdit = ({
               value={sizeSlug}
               options={imageSizeOptions}
               onChange={onImageSizeUpdate}
+              __next40pxDefaultSize={true}
+              __nextHasNoMarginBottom={true}
             />
           )}
         </PanelBody>
@@ -416,6 +421,8 @@ const TestimonialEdit = ({
               { value: POSITIONS.BOTTOM, label: __('Bottom') },
               { value: POSITIONS.LEFT, label: __('Left') },
             ]}
+            __next40pxDefaultSize={true}
+            __nextHasNoMarginBottom={true}
           />
         </PanelBody>
         <PanelBody
@@ -427,7 +434,11 @@ const TestimonialEdit = ({
             {breakpoint => (
               <FontSizePickerLabel
                 label={__('Content Font Size')}
-                value={contentSize[breakpoint]}
+                value={
+                  contentSize[breakpoint] !== ''
+                    ? contentSize[breakpoint]
+                    : undefined
+                }
                 onChange={value =>
                   setAttributes({
                     contentSize: {
@@ -443,7 +454,11 @@ const TestimonialEdit = ({
             {breakpoint => (
               <FontSizePickerLabel
                 label={__('Citation Font Size')}
-                value={citationSize[breakpoint]}
+                value={
+                  citationSize[breakpoint] !== ''
+                    ? citationSize[breakpoint]
+                    : undefined
+                }
                 onChange={value =>
                   setAttributes({
                     citationSize: {
@@ -459,7 +474,9 @@ const TestimonialEdit = ({
             {breakpoint => (
               <FontSizePickerLabel
                 label={__('Info Font Size')}
-                value={infoSize[breakpoint]}
+                value={
+                  infoSize[breakpoint] !== '' ? infoSize[breakpoint] : undefined
+                }
                 onChange={value =>
                   setAttributes({
                     infoSize: {
@@ -551,7 +568,19 @@ const TestimonialEdit = ({
             initialOpen={false}
           >
             <AnimationControls
-              attributes={attributes.animation}
+              attributes={{
+                ...attributes.animation,
+                duration:
+                  attributes.animation?.duration !== undefined &&
+                  attributes.animation?.duration !== ''
+                    ? Number(attributes.animation.duration)
+                    : undefined,
+                delay:
+                  attributes.animation?.delay !== undefined &&
+                  attributes.animation?.delay !== ''
+                    ? Number(attributes.animation.delay)
+                    : undefined,
+              }}
               setAttributes={setAttributes}
             />
           </PanelBody>
@@ -565,7 +594,7 @@ TestimonialEdit.propTypes = propTypes;
 
 export default compose(
   withSelect((select, props) => {
-    const { getMedia } = select('core');
+    const { getEntityRecord } = select('core');
     const { getSettings } = select('core/block-editor');
     const {
       attributes: { id },
@@ -574,7 +603,8 @@ export default compose(
     const { mediaUpload, imageSizes, isRTL, maxWidth } = getSettings();
 
     return {
-      image: id && isSelected ? getMedia(id) : null,
+      image:
+        id && isSelected ? getEntityRecord('postType', 'attachment', id) : null,
       maxWidth,
       isRTL,
       imageSizes,

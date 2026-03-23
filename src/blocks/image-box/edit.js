@@ -9,6 +9,7 @@ import {
   RichText,
   MediaUpload,
   AlignmentToolbar,
+  useBlockProps,
 } from 'wp.blockEditor';
 import {
   PanelBody,
@@ -39,7 +40,7 @@ import AuthVisibilityControl from '../../components/controls/auth-visibility-con
 import AnimationControls from '../../components/controls/animation-controls/AnimationControls';
 
 const propTypes = {
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   attributes: PropTypes.object.isRequired,
   setAttributes: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
@@ -81,21 +82,23 @@ const ImageBoxEditBlock = ({
   const availableSizes = image && image.media_details.sizes;
   const blockId = getBlockId(uniqueId);
 
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(className, blockId, {
+      [`wp-block-gutenbee-imagebox-align-${imageAlign}`]: true,
+      [`wp-block-gutenbee-imagebox-content-align-${contentAlign}`]: !!contentAlign,
+    }),
+    style: {
+      backgroundColor: backgroundColor || undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
+
   return (
     <Fragment>
       <ImageBoxStyle attributes={attributes} />
-      <div
-        id={blockId}
-        className={classNames(className, blockId, {
-          [`wp-block-gutenbee-imagebox-align-${imageAlign}`]: true,
-          [`wp-block-gutenbee-imagebox-content-align-${contentAlign}`]: !!contentAlign,
-        })}
-        style={{
-          backgroundColor: backgroundColor || undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-      >
+      <div {...blockProps}>
         <figure className="wp-block-gutenbee-imagebox-figure">
           {url ? (
             <img src={url} alt={alt} />
@@ -186,6 +189,8 @@ const ImageBoxEditBlock = ({
                 onChange={value => {
                   setAttributes({ imageAlign: value });
                 }}
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
 
               {availableSizes && (
@@ -199,6 +204,8 @@ const ImageBoxEditBlock = ({
                   onChange={newImageUrl => {
                     setAttributes({ url: newImageUrl });
                   }}
+                  __nextHasNoMarginBottom
+                  __next40pxDefaultSize
                 />
               )}
 
@@ -219,8 +226,8 @@ const ImageBoxEditBlock = ({
                     allowReset
                     min={10}
                     max={2000}
-                    beforeIcon="format-image"
-                    afterIcon="format-image"
+                    __nextHasNoMarginBottom
+                    __next40pxDefaultSize
                   />
                 )}
               </ResponsiveControl>
@@ -261,7 +268,7 @@ const ImageBoxEditBlock = ({
               <ResponsiveControl>
                 {breakpoint => (
                   <FontSizePickerLabel
-                    value={titleFontSize[breakpoint]}
+                    value={titleFontSize[breakpoint] || undefined}
                     label={__('Heading Font Size')}
                     onChange={value =>
                       setAttributes({
@@ -286,12 +293,14 @@ const ImageBoxEditBlock = ({
                 allowReset
                 min={0}
                 max={200}
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
 
               <ResponsiveControl>
                 {breakpoint => (
                   <FontSizePickerLabel
-                    value={textFontSize[breakpoint]}
+                    value={textFontSize[breakpoint] || undefined}
                     label={__('Text Font Size')}
                     onChange={value =>
                       setAttributes({
@@ -392,7 +401,19 @@ const ImageBoxEditBlock = ({
                 initialOpen={false}
               >
                 <AnimationControls
-                  attributes={attributes.animation}
+                  attributes={{
+                    ...attributes.animation,
+                    duration:
+                      attributes.animation?.duration !== undefined &&
+                      attributes.animation?.duration !== ''
+                        ? Number(attributes.animation.duration)
+                        : undefined,
+                    delay:
+                      attributes.animation?.delay !== undefined &&
+                      attributes.animation?.delay !== ''
+                        ? Number(attributes.animation.delay)
+                        : undefined,
+                  }}
                   setAttributes={setAttributes}
                 />
               </PanelBody>
@@ -408,11 +429,11 @@ ImageBoxEditBlock.propTypes = propTypes;
 
 export default compose([
   withSelect((select, props) => {
-    const { getMedia } = select('core');
+    const { getEntityRecord } = select('core');
     const { id } = props.attributes;
 
     return {
-      image: id ? getMedia(id) : null,
+      image: id ? getEntityRecord('postType', 'attachment', id) : null,
     };
   }),
 ])(ImageBoxEditBlock);

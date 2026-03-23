@@ -1,6 +1,6 @@
 import { registerBlockType } from 'wp.blocks';
 import { __ } from 'wp.i18n';
-import { InnerBlocks } from 'wp.blockEditor';
+import { InnerBlocks, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import deprecated from './deprecated';
@@ -26,6 +26,7 @@ import {
 } from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/icon-list', {
+  apiVersion: 3,
   title: __('GutenBee Icon List'),
   description: __('Create lists with icons.'),
   icon: IconListBlockIcon,
@@ -129,21 +130,24 @@ registerBlockType('gutenbee/icon-list', {
       blockAuthVisibility,
     } = attributes;
     const blockId = getBlockId(uniqueId);
+    const blockProps = useBlockProps.save({
+      id: blockId,
+      className: classNames(
+        className,
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+      ),
+      style: {
+        backgroundColor: backgroundColor ? backgroundColor : undefined,
+        ...getBorderCSSValue({ attributes }),
+        ...getBoxShadowCSSValue({ attributes }),
+      },
+    });
 
     return (
       <div
-        id={blockId}
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-        )}
-        style={{
-          backgroundColor: backgroundColor ? backgroundColor : undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
+        {...blockProps}
         {...getAnimationControlDataAttributes(attributes.animation)}
       >
         <ul

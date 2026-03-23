@@ -4,7 +4,7 @@
 
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import { RichText } from 'wp.blockEditor';
+import { RichText, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import ProgressBarEdit from './edit';
@@ -29,7 +29,7 @@ import {
   getAnimationControlDataAttributes,
 } from '../../components/controls/animation-controls/helpers';
 
-const ProgressBar = ({ className, attributes }) => {
+const ProgressBar = ({ attributes }) => {
   const {
     uniqueId,
     title,
@@ -48,22 +48,23 @@ const ProgressBar = ({ className, attributes }) => {
 
   const blockId = getBlockId(uniqueId);
 
+  const blockProps = useBlockProps.save({
+    id: blockId,
+    className: classNames(
+      blockId,
+      getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+      getAuthVisibilityClasses(blockAuthVisibility),
+    ),
+    style: {
+      backgroundColor: backgroundColor || undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+    ...getAnimationControlDataAttributes(attributes.animation),
+  });
+
   return (
-    <div
-      id={blockId}
-      className={classNames(
-        className,
-        blockId,
-        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-        getAuthVisibilityClasses(blockAuthVisibility),
-      )}
-      style={{
-        backgroundColor: backgroundColor || undefined,
-        ...getBorderCSSValue({ attributes }),
-        ...getBoxShadowCSSValue({ attributes }),
-      }}
-      {...getAnimationControlDataAttributes(attributes.animation)}
-    >
+    <div {...blockProps}>
       <ProgressBarStyle attributes={attributes} />
 
       {!RichText.isEmpty(title) && (
@@ -118,6 +119,7 @@ registerBlockType('gutenbee/progress-bar', {
   icon: ProgressBarBlockIcon,
   category: 'gutenbee',
   keywords: [__('progress'), __('progress bar')],
+  apiVersion: 3,
   supports: {
     anchor: false,
   },
@@ -200,7 +202,5 @@ registerBlockType('gutenbee/progress-bar', {
   },
   deprecated,
   edit: ProgressBarEdit,
-  save: ({ className, attributes }) => (
-    <ProgressBar className={className} attributes={attributes} />
-  ),
+  save: ({ attributes }) => <ProgressBar attributes={attributes} />,
 });

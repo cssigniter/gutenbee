@@ -1,7 +1,7 @@
-import { Fragment, useState } from 'wp.element';
+import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { ToggleControl, RangeControl, PanelBody } from 'wp.components';
-import { InspectorControls, RichText } from 'wp.blockEditor';
+import { InspectorControls, RichText, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import useUniqueId from '../../hooks/useUniqueId';
@@ -28,7 +28,6 @@ const ProgressBarEdit = ({
   setAttributes,
   clientId,
 }) => {
-  const [editable, setEditable] = useState('');
   useUniqueId({ attributes, setAttributes, clientId });
 
   const {
@@ -52,22 +51,24 @@ const ProgressBarEdit = ({
 
   const blockId = getBlockId(uniqueId);
 
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(
+      className,
+      blockId,
+      getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+      getAuthVisibilityClasses(blockAuthVisibility),
+    ),
+    style: {
+      backgroundColor: backgroundColor || undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
+
   return (
     <Fragment>
-      <div
-        id={blockId}
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-        )}
-        style={{
-          backgroundColor: backgroundColor || undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-      >
+      <div {...blockProps}>
         <ProgressBarStyle attributes={attributes} />
 
         <RichText
@@ -77,8 +78,6 @@ const ProgressBarEdit = ({
           onChange={value => setAttributes({ title: value })}
           className="wp-block-gutenbee-progress-bar-title"
           placeholder={__('Write title…')}
-          isSelected={isSelected && editable === 'title'}
-          onFocus={() => setEditable('title')}
           style={{
             color: titleTextColor || undefined,
             marginBottom:
@@ -107,8 +106,6 @@ const ProgressBarEdit = ({
               onChange={value => setAttributes({ innerTitle: value })}
               className="wp-block-gutenbee-progress-bar-inner-title"
               placeholder={__('Write inner title…')}
-              isSelected={isSelected && editable === 'innerTitle'}
-              onFocus={() => setEditable('innerTitle')}
             />
 
             {displayPercentage && (
@@ -130,12 +127,15 @@ const ProgressBarEdit = ({
               value={percentage}
               onChange={value => setAttributes({ percentage: value })}
               step={1}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
             />
 
             <ToggleControl
               label={__('Display percentage')}
               checked={displayPercentage}
               onChange={value => setAttributes({ displayPercentage: value })}
+              __nextHasNoMarginBottom
             />
 
             <RangeControl
@@ -149,18 +149,25 @@ const ProgressBarEdit = ({
               allowReset
               min={0}
               max={200}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
             />
 
             <ResponsiveControl>
               {breakpoint => (
                 <FontSizePickerLabel
                   label={__('Title Font Size')}
-                  value={titleFontSize[breakpoint]}
+                  value={
+                    titleFontSize[breakpoint] != null &&
+                    titleFontSize[breakpoint] !== ''
+                      ? titleFontSize[breakpoint]
+                      : undefined
+                  }
                   onChange={value =>
                     setAttributes({
                       titleFontSize: {
                         ...titleFontSize,
-                        [breakpoint]: value != null ? value : '',
+                        [breakpoint]: value != null ? value : undefined,
                       },
                     })
                   }
@@ -172,12 +179,17 @@ const ProgressBarEdit = ({
               {breakpoint => (
                 <FontSizePickerLabel
                   label={__('Bar Text Font Size')}
-                  value={innerTitleFontSize[breakpoint]}
+                  value={
+                    innerTitleFontSize[breakpoint] != null &&
+                    innerTitleFontSize[breakpoint] !== ''
+                      ? innerTitleFontSize[breakpoint]
+                      : undefined
+                  }
                   onChange={value =>
                     setAttributes({
                       innerTitleFontSize: {
                         ...innerTitleFontSize,
-                        [breakpoint]: value != null ? value : '',
+                        [breakpoint]: value != null ? value : undefined,
                       },
                     })
                   }
@@ -203,6 +215,8 @@ const ProgressBarEdit = ({
                       });
                     }}
                     step={1}
+                    __next40pxDefaultSize
+                    __nextHasNoMarginBottom
                   />
                 </Fragment>
               )}
@@ -310,7 +324,19 @@ const ProgressBarEdit = ({
               initialOpen={false}
             >
               <AnimationControls
-                attributes={attributes.animation}
+                attributes={{
+                  ...attributes.animation,
+                  duration:
+                    attributes.animation?.duration !== undefined &&
+                    attributes.animation?.duration !== ''
+                      ? Number(attributes.animation.duration)
+                      : undefined,
+                  delay:
+                    attributes.animation?.delay !== undefined &&
+                    attributes.animation?.delay !== ''
+                      ? Number(attributes.animation.delay)
+                      : undefined,
+                }}
                 setAttributes={setAttributes}
               />
             </PanelBody>

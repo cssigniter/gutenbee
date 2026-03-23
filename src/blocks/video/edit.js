@@ -18,6 +18,7 @@ import {
   MediaUpload,
   MediaUploadCheck,
   RichText,
+  useBlockProps,
 } from 'wp.blockEditor';
 import { __, sprintf } from 'wp.i18n';
 import { compose, withInstanceId } from 'wp.compose';
@@ -131,6 +132,20 @@ const VideoEdit = ({
   const videoPosterDescription = `video-block__poster-image-description-${instanceId}`;
   const blockId = getBlockId(uniqueId);
 
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(
+      className,
+      blockId,
+      getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+      getAuthVisibilityClasses(blockAuthVisibility),
+    ),
+    style: {
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
+
   if (editing) {
     return (
       <MediaPlaceholder
@@ -169,33 +184,44 @@ const VideoEdit = ({
         <PanelBody title={__('Video Settings')}>
           <ToggleControl
             label={__('Autoplay')}
-            onChange={toggleAttribute('autoplay')}
+            onChange={value => {
+              setAttributes({ autoplay: value });
+              if (value) {
+                setAttributes({ muted: true });
+              }
+            }}
             checked={autoplay}
             help={getAutoplayHelp}
+            __nextHasNoMarginBottom={true}
           />
 
           <ToggleControl
             label={__('Loop')}
             onChange={toggleAttribute('loop')}
             checked={loop}
+            __nextHasNoMarginBottom={true}
           />
 
           <ToggleControl
             label={__('Muted')}
             onChange={toggleAttribute('muted')}
             checked={muted}
+            disabled={autoplay}
+            __nextHasNoMarginBottom={true}
           />
 
           <ToggleControl
             label={__('Playback Controls')}
             onChange={toggleAttribute('controls')}
             checked={controls}
+            __nextHasNoMarginBottom={true}
           />
 
           <ToggleControl
             label={__('Play inline')}
             onChange={toggleAttribute('playsInline')}
             checked={playsInline}
+            __nextHasNoMarginBottom={true}
           />
 
           <SelectControl
@@ -207,10 +233,14 @@ const VideoEdit = ({
               { value: 'metadata', label: __('Metadata') },
               { value: 'none', label: __('None') },
             ]}
+            __next40pxDefaultSize={true}
+            __nextHasNoMarginBottom={true}
           />
-
           <MediaUploadCheck>
-            <BaseControl className="editor-video-poster-control">
+            <BaseControl
+              className="editor-video-poster-control"
+              __nextHasNoMarginBottom={true}
+            >
               <BaseControl.VisualLabel>
                 {__('Poster Image')}
               </BaseControl.VisualLabel>
@@ -306,7 +336,19 @@ const VideoEdit = ({
             initialOpen={false}
           >
             <AnimationControls
-              attributes={attributes.animation}
+              attributes={{
+                ...attributes.animation,
+                duration:
+                  attributes.animation?.duration !== undefined &&
+                  attributes.animation?.duration !== ''
+                    ? Number(attributes.animation.duration)
+                    : undefined,
+                delay:
+                  attributes.animation?.delay !== undefined &&
+                  attributes.animation?.delay !== ''
+                    ? Number(attributes.animation.delay)
+                    : undefined,
+              }}
               setAttributes={setAttributes}
             />
           </PanelBody>
@@ -314,19 +356,7 @@ const VideoEdit = ({
       </InspectorControls>
 
       <VideoStyle attributes={attributes} />
-      <figure
-        data-block-id={blockId}
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-        )}
-        style={{
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-      >
+      <figure {...blockProps}>
         {/*
   						Disable the video tag so the user clicking on it won't play the
   						video when the controls are enabled.

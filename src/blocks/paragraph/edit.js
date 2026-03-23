@@ -9,7 +9,6 @@ import {
   AlignmentToolbar,
   useBlockProps,
 } from 'wp.blockEditor';
-import { createBlock } from 'wp.blocks';
 import { compose } from 'wp.compose';
 
 import useUniqueId from '../../hooks/useUniqueId';
@@ -115,16 +114,6 @@ const ParagraphBlock = ({
           onMerge={mergeBlocks}
           onReplace={onReplace}
           onRemove={onReplace ? () => onReplace([]) : undefined}
-          onSplit={value => {
-            if (!value) {
-              return createBlock('gutenbee/paragraph');
-            }
-
-            return createBlock('gutenbee/paragraph', {
-              ...attributes,
-              content: value,
-            });
-          }}
           aria-label={__('Paragraph block')}
           placeholder={placeholder || __('Start writing…')}
           __unstableEmbedURLOnPaste
@@ -136,19 +125,31 @@ const ParagraphBlock = ({
         <PanelBody title={__('Text Settings')} className="blocks-font-size">
           <ResponsiveControl>
             {breakpoint => {
+              const currentLineHeight = lineHeight?.[breakpoint];
+              const currentLetterSpacing = letterSpacing?.[breakpoint];
               return (
                 <TypographyControls
                   attributes={{
-                    fontSize: fontSize[breakpoint],
-                    lineHeight: lineHeight?.[breakpoint],
-                    letterSpacing: letterSpacing?.[breakpoint],
+                    fontSize: fontSize?.[breakpoint],
+                    lineHeight:
+                      currentLineHeight != null
+                        ? typeof currentLineHeight === 'number'
+                          ? String(currentLineHeight)
+                          : currentLineHeight
+                        : undefined,
+                    letterSpacing:
+                      currentLetterSpacing != null
+                        ? typeof currentLetterSpacing === 'number'
+                          ? String(currentLetterSpacing)
+                          : currentLetterSpacing
+                        : undefined,
                     textTransform: textTransform?.[breakpoint],
                     textDecoration: textDecoration?.[breakpoint],
                   }}
                   onFontSizeChange={value => {
                     setAttributes({
                       fontSize: {
-                        ...fontSize,
+                        ...(fontSize || {}),
                         [breakpoint]: value != null ? value : '',
                       },
                     });
@@ -195,6 +196,7 @@ const ParagraphBlock = ({
             label={__('Drop Cap')}
             checked={!!dropCap}
             onChange={() => setAttributes({ dropCap: !dropCap })}
+            __nextHasNoMarginBottom
             help={
               dropCap
                 ? __('Showing large initial letter.')
@@ -297,7 +299,19 @@ const ParagraphBlock = ({
             initialOpen={false}
           >
             <AnimationControls
-              attributes={attributes.animation}
+              attributes={{
+                ...attributes.animation,
+                duration:
+                  attributes.animation?.duration !== undefined &&
+                  attributes.animation?.duration !== ''
+                    ? Number(attributes.animation.duration)
+                    : undefined,
+                delay:
+                  attributes.animation?.delay !== undefined &&
+                  attributes.animation?.delay !== ''
+                    ? Number(attributes.animation.delay)
+                    : undefined,
+              }}
               setAttributes={setAttributes}
             />
           </PanelBody>

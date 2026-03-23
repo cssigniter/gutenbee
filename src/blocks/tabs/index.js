@@ -4,6 +4,7 @@
 
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
+import { useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 import { RichText } from 'wp.blockEditor';
 
@@ -23,58 +24,8 @@ import {
   getAnimationControlDataAttributes,
 } from '../../components/controls/animation-controls/helpers';
 
-const Tabs = ({ attributes, className }) => {
-  const {
-    uniqueId,
-    tabs,
-    blockBreakpointVisibility,
-    blockAuthVisibility,
-  } = attributes;
-
-  const blockId = getBlockId(uniqueId);
-
-  return (
-    <div
-      id={blockId}
-      className={classNames(
-        className,
-        blockId,
-        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-        getAuthVisibilityClasses(blockAuthVisibility),
-      )}
-      {...getAnimationControlDataAttributes(attributes.animation)}
-    >
-      <div className="wp-block-gutenbee-tabs-nav">
-        {tabs.map((tab, index) => (
-          <div
-            className={classNames({
-              'wp-block-gutenbee-tabs-nav-item': true,
-              'wp-block-gutenbee-tabs-nav-item-active': index === 0,
-            })}
-          >
-            {tab.title}
-          </div>
-        ))}
-      </div>
-
-      <div className="wp-block-gutenbee-tabs-tab-content-wrap">
-        {tabs.map((tab, index) => (
-          <div
-            className="wp-block-gutenbee-tabs-tab-content"
-            style={{
-              display: index === 0 ? 'block' : 'none',
-            }}
-          >
-            <RichText.Content tagName="p" value={tab.content} />
-          </div>
-        ))}
-      </div>
-      <TabsStyle attributes={attributes} />
-    </div>
-  );
-};
-
 registerBlockType('gutenbee/tabs', {
+  apiVersion: 3,
   title: __('GutenBee Tabs'),
   description: __('Display fancy tabs'),
   icon: TabsBlockIcon,
@@ -159,7 +110,56 @@ registerBlockType('gutenbee/tabs', {
   },
   deprecated,
   edit: TabsEdit,
-  save: ({ className, attributes }) => (
-    <Tabs className={className} attributes={attributes} />
-  ),
+  save: ({ attributes }) => {
+    const {
+      uniqueId,
+      tabs,
+      blockBreakpointVisibility,
+      blockAuthVisibility,
+    } = attributes;
+
+    const blockId = getBlockId(uniqueId);
+    const blockProps = useBlockProps.save({
+      id: blockId,
+      className: classNames(
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+      ),
+      ...getAnimationControlDataAttributes(attributes.animation),
+    });
+
+    return (
+      <div {...blockProps}>
+        <div className="wp-block-gutenbee-tabs-nav">
+          {tabs.map((tab, index) => (
+            <div
+              key={index}
+              className={classNames({
+                'wp-block-gutenbee-tabs-nav-item': true,
+                'wp-block-gutenbee-tabs-nav-item-active': index === 0,
+              })}
+            >
+              {tab.title}
+            </div>
+          ))}
+        </div>
+
+        <div className="wp-block-gutenbee-tabs-tab-content-wrap">
+          {tabs.map((tab, index) => (
+            <div
+              key={index}
+              className="wp-block-gutenbee-tabs-tab-content"
+              style={{
+                display: index === 0 ? 'block' : 'none',
+              }}
+            >
+              <RichText.Content tagName="p" value={tab.content} />
+            </div>
+          ))}
+        </div>
+        <TabsStyle attributes={attributes} />
+      </div>
+    );
+  },
 });

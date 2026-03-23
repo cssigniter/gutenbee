@@ -6,7 +6,7 @@
  * Author: The CSSIgniter Team
  * Author URI: https://www.cssigniter.com
  * License: GPLv2 or later
- * Version: 2.19.1
+ * Version: 2.20.0
  * Text Domain: gutenbee
  * Domain Path: /languages
  *
@@ -26,7 +26,7 @@
  */
 
 if ( ! defined( 'GUTENBEE_PLUGIN_VERSION' ) ) {
-	define( 'GUTENBEE_PLUGIN_VERSION', '2.19.1' );
+	define( 'GUTENBEE_PLUGIN_VERSION', '2.20.0' );
 }
 
 if ( ! defined( 'GUTENBEE_PLUGIN_DIR' ) ) {
@@ -42,6 +42,7 @@ function gutenbee_enqueue_editor_assets() {
 	if ( ! is_admin() ) {
 		return;
 	}
+
 
 	wp_enqueue_script( 'gutenbee', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.build.js', array(
 		'wp-components',
@@ -87,6 +88,7 @@ function gutenbee_enqueue_editor_assets() {
 
 	wp_enqueue_style( 'gutenbee-editor', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.build.css', array(
 		'wp-edit-blocks',
+		'dashicons',
 	), GUTENBEE_PLUGIN_VERSION );
 }
 
@@ -114,7 +116,7 @@ function gutenbee_enqueue_frontend_block_assets() {
 	}
 
 	if ( $maps_api_key && apply_filters( 'gutenbee_enqueue_google_maps_api', $enqueue_maps_api ) ) {
-		wp_enqueue_script( 'gutenbee-google-maps', 'https://maps.googleapis.com/maps/api/js?key=' . $maps_api_key, array(), GUTENBEE_PLUGIN_VERSION, true );
+		wp_enqueue_script( 'gutenbee-google-maps', 'https://maps.googleapis.com/maps/api/js?key=' . $maps_api_key .'&v=weekly&libraries=marker&loading=async', array(), GUTENBEE_PLUGIN_VERSION, true );
 	}
 
 	if ( apply_filters( 'gutenbee_enqueue_frontend_styles', $enqueue_css ) ) {

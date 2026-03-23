@@ -2,11 +2,11 @@ import { Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { compose } from 'wp.compose';
 import { __ } from 'wp.i18n';
-import { InspectorControls, MediaUpload } from 'wp.blockEditor';
+import { InspectorControls, MediaUpload, useBlockProps } from 'wp.blockEditor';
 import { Button, RangeControl, SelectControl, PanelBody } from 'wp.components';
 import { withSelect } from 'wp.data';
 import startCase from 'lodash.startcase';
-import get from 'lodash.get';
+import get from 'lodash/get';
 import classNames from 'classnames';
 
 import ImagePlaceholder from '../../components/image-placeholder/ImagePlaceholder';
@@ -39,7 +39,7 @@ const propTypes = {
     backgroundColor: PropTypes.string,
     imageSize: PropTypes.string,
   }),
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   setAttributes: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
   imageA: PropTypes.shape({
@@ -101,22 +101,24 @@ const ImageComparisonEdit = ({
 
   const blockId = getBlockId(uniqueId);
 
+  const blockProps = useBlockProps({
+    className: classNames(
+      className,
+      blockId,
+      getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+      getAuthVisibilityClasses(blockAuthVisibility),
+    ),
+    id: blockId,
+    style: {
+      backgroundColor: backgroundColor || undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
+
   return (
     <Fragment>
-      <div
-        id={blockId}
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-        )}
-        style={{
-          backgroundColor: backgroundColor || undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-      >
+      <div {...blockProps}>
         <ImageComparisonStyle attributes={attributes} />
         <div className="wp-block-gutenbee-image-comparison-pane">
           {urlA && idA ? (
@@ -213,6 +215,8 @@ const ImageComparisonEdit = ({
               value={offset}
               onChange={value => setAttributes({ offset: value })}
               allowReset
+              __nextHasNoMarginBottom
+              __next40pxDefaultSize
             />
 
             {imageA && imageB && availableSizes && (
@@ -228,6 +232,8 @@ const ImageComparisonEdit = ({
                   };
                 })}
                 onChange={onSetImageSize}
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
             )}
           </PanelBody>
@@ -303,7 +309,19 @@ const ImageComparisonEdit = ({
               initialOpen={false}
             >
               <AnimationControls
-                attributes={attributes.animation}
+                attributes={{
+                  ...attributes.animation,
+                  duration:
+                    attributes.animation?.duration !== undefined &&
+                    attributes.animation?.duration !== ''
+                      ? Number(attributes.animation.duration)
+                      : undefined,
+                  delay:
+                    attributes.animation?.delay !== undefined &&
+                    attributes.animation?.delay !== ''
+                      ? Number(attributes.animation.delay)
+                      : undefined,
+                }}
                 setAttributes={setAttributes}
               />
             </PanelBody>
@@ -318,12 +336,12 @@ ImageComparisonEdit.propTypes = propTypes;
 
 export default compose([
   withSelect((select, props) => {
-    const { getMedia } = select('core');
+    const { getEntityRecord } = select('core');
     const { idA, idB } = props.attributes;
 
     return {
-      imageA: idA ? getMedia(idA) : null,
-      imageB: idB ? getMedia(idB) : null,
+      imageA: idA ? getEntityRecord('postType', 'attachment', idA) : null,
+      imageB: idB ? getEntityRecord('postType', 'attachment', idB) : null,
     };
   }),
 ])(ImageComparisonEdit);

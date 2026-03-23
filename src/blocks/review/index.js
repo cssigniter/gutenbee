@@ -1,6 +1,6 @@
 import { registerBlockType } from 'wp.blocks';
 import { __ } from 'wp.i18n';
-import { InnerBlocks, RichText } from 'wp.blockEditor';
+import { InnerBlocks, RichText, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import getBlockId from '../../util/getBlockId';
@@ -27,6 +27,7 @@ import {
 } from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/review', {
+  apiVersion: 3,
   title: __('GutenBee Review'),
   description: __('Creates reviews.'),
   icon: ReviewBlockIcon,
@@ -124,7 +125,7 @@ registerBlockType('gutenbee/review', {
   },
   deprecated,
   edit: ReviewEdit,
-  save: ({ attributes, className }) => {
+  save: ({ attributes }) => {
     const {
       uniqueId,
       score,
@@ -140,22 +141,23 @@ registerBlockType('gutenbee/review', {
     } = attributes;
     const blockId = getBlockId(uniqueId);
 
+    const blockProps = useBlockProps.save({
+      id: blockId,
+      className: classNames(
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+      ),
+      style: {
+        backgroundColor: backgroundColor ? backgroundColor : undefined,
+        ...getBorderCSSValue({ attributes }),
+        ...getBoxShadowCSSValue({ attributes }),
+      },
+      ...getAnimationControlDataAttributes(attributes.animation),
+    });
+
     return (
-      <div
-        id={blockId}
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-        )}
-        style={{
-          backgroundColor: backgroundColor ? backgroundColor : undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-        {...getAnimationControlDataAttributes(attributes.animation)}
-      >
+      <div {...blockProps}>
         <div className="wp-block-gutenbee-review-rating-final-score">
           <p
             className="wp-block-gutenbee-review-rating-final-score-value"

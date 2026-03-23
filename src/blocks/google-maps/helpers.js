@@ -4,5 +4,8 @@
  * @returns {boolean}
  */
 export const isGoogleMapsApiLoaded = () => {
-  return typeof window.google?.maps === 'object';
+  return (
+    typeof window.google?.maps === 'object' &&
+    typeof window.google.maps.importLibrary === 'function'
+  );
 };

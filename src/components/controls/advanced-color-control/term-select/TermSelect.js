@@ -78,7 +78,7 @@ const TermSelect = ({
   }, [debouncedQuery?.length]);
 
   return (
-    <BaseControl label={label}>
+    <BaseControl label={label} __nextHasNoMarginBottom>
       <div className="entity-select-search-control">
         <TextControl
           label={__('Search')}
@@ -92,6 +92,8 @@ const TermSelect = ({
               setQueryFocused(false);
             }, 250);
           }}
+          __next40pxDefaultSize
+          __nextHasNoMarginBottom
         />
 
         <div

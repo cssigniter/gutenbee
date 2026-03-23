@@ -50,12 +50,36 @@ const BorderControls = ({
           { value: 'ridge', label: __('Ridge') },
         ]}
         onChange={value => {
+          const updates = {};
+
+          // Set border style
           if (attributePrefix) {
-            setAttributes({ [`${attributePrefix}BorderStyle`]: value });
+            updates[`${attributePrefix}BorderStyle`] = value;
           } else {
-            setAttributes({ borderStyle: value });
+            updates.borderStyle = value;
           }
+
+          // If enabling border for the first time, set default color and width
+          if (value !== 'none' && (style === 'none' || !style)) {
+            const colorKey = attributePrefix
+              ? `${attributePrefix}BorderColor`
+              : 'borderColor';
+            const widthKey = attributePrefix
+              ? `${attributePrefix}BorderWidth`
+              : 'borderWidth';
+
+            if (!color) {
+              updates[colorKey] = defaultValues.color || '#000000';
+            }
+            if (width == null) {
+              updates[widthKey] = defaultValues.width || 3;
+            }
+          }
+
+          setAttributes(updates);
         }}
+        __next40pxDefaultSize
+        __nextHasNoMarginBottom
       />
 
       {style !== 'none' && !!style && (
@@ -89,6 +113,8 @@ const BorderControls = ({
             step={1}
             initialPosition={defaultValues.width || 3}
             allowReset
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
         </Fragment>
       )}
@@ -108,6 +134,8 @@ const BorderControls = ({
         step={1}
         initialPosition={defaultValues.radius || 0}
         allowReset
+        __next40pxDefaultSize
+        __nextHasNoMarginBottom
       />
     </Fragment>
   );

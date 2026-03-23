@@ -1,1 +1,85 @@
 @use './common' as *;
+
+// Fix DateTimePicker styling issues
+.components-datetime {
+  // Fix date input alignment
+  .components-datetime__date {
+    .components-datetime__date-wrapper {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: flex-start !important;
+      gap: 0;
+
+      // Month field
+      .components-datetime__date-month {
+        margin-right: 4px;
+      }
+
+      // Day field
+      .components-datetime__date-day {
+        margin-right: 4px;
+      }
+
+      // Year field
+      .components-datetime__date-year {
+        margin-right: 4px;
+      }
+
+      // Calendar button
+      .components-datetime__date-toggle {
+        margin: 0;
+      }
+
+      // Ensure all inputs are properly aligned
+      .components-input-control,
+      .components-base-control {
+        margin-bottom: 0;
+
+        .components-input-control__container {
+          .components-input-control__input {
+            margin: 0;
+            height: 36px;
+          }
+        }
+      }
+
+      // Fix button alignment
+      button {
+        height: 36px;
+        min-width: 36px;
+        padding: 0 8px;
+      }
+    }
+  }
+
+  // Fix missing border on time input
+  .components-datetime__time {
+
+
+    // Fix time wrapper alignment issue
+    .components-datetime__time-wrapper {
+      border-bottom: none;
+      align-items: flex-start !important;
+
+      .components-datetime__time-field {
+        .components-base-control {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  // Remove underline from timezone text (not actionable)
+  .components-datetime__timezone {
+    text-decoration: none;
+    border-bottom: none;
+    cursor: default;
+    margin-top: 8px;
+
+    abbr {
+      text-decoration: none;
+      border-bottom: none;
+      cursor: default;
+    }
+  }
+}

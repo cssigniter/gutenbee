@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { Fragment, useState } from 'wp.element';
 import { __ } from 'wp.i18n';
-import { InspectorControls } from 'wp.blockEditor';
+import { InspectorControls, useBlockProps } from 'wp.blockEditor';
 import { RangeControl, PanelBody, ResizableBox } from 'wp.components';
 
 import ResponsiveControl from '../../components/controls/responsive-control/ResponsiveControl';
@@ -110,6 +110,21 @@ const SpacerEdit = ({
     setTemporaryHeight(null);
   };
 
+  const blockProps = useBlockProps({
+    className: classNames(
+      className,
+      blockId,
+      getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+      getAuthVisibilityClasses(blockAuthVisibility),
+    ),
+    style: {
+      height: temporaryHeight || undefined,
+      backgroundColor: backgroundColor || undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
+
   return (
     <Fragment>
       <SpacerStyle attributes={attributes}>
@@ -118,25 +133,13 @@ const SpacerEdit = ({
           rule=".wp-block-gutenbee-spacer.[root] { %s }"
         />
       </SpacerStyle>
-      <div style={{ height: temporaryHeight || height.desktop || 20 }}>
+      <div {...blockProps}>
         <ResizableSpacer
-          style={{
-            backgroundColor: backgroundColor || undefined,
-            ...getBorderCSSValue({ attributes }),
-            ...getBoxShadowCSSValue({ attributes }),
-          }}
-          className={classNames(
-            className,
-            blockId,
-            getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-            getAuthVisibilityClasses(blockAuthVisibility),
-            'block-library-spacer__resize-container',
-            {
-              'is-resizing': isResizing,
-              'is-selected': isSelected,
-              'resize-horizontal': false,
-            },
-          )}
+          className={classNames('block-library-spacer__resize-container', {
+            'is-resizing': isResizing,
+            'is-selected': isSelected,
+            'resize-horizontal': false,
+          })}
           minHeight={20}
           enable={{
             top: false,
@@ -155,6 +158,7 @@ const SpacerEdit = ({
           isSelected={isSelected}
           isResizing={isResizing}
           setIsResizing={setIsResizing}
+          style={{ width: '100%', height: '100%' }}
         />
       </div>
 
@@ -178,6 +182,8 @@ const SpacerEdit = ({
                 max={500}
                 step={1}
                 value={height[breakpoint]}
+                __next40pxDefaultSize={true}
+                __nextHasNoMarginBottom={true}
               />
             )}
           </ResponsiveControl>

@@ -2,9 +2,10 @@
  * Countdown Block
  */
 
+import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import { RichText } from 'wp.blockEditor';
+import { RichText, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import CountdownEdit from './edit';
@@ -30,7 +31,7 @@ import {
   getAnimationControlDataAttributes,
 } from '../../components/controls/animation-controls/helpers';
 
-const CountDown = ({ attributes, className }) => {
+const CountDown = ({ attributes }) => {
   const {
     uniqueId,
     date,
@@ -83,23 +84,24 @@ const CountDown = ({ attributes, className }) => {
 
   const items = ['days', 'hours', 'minutes', 'seconds'];
 
+  const blockProps = useBlockProps.save({
+    id: blockId,
+    className: classNames(
+      blockId,
+      getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+      getAuthVisibilityClasses(blockAuthVisibility),
+    ),
+    'data-date': date,
+    style: {
+      backgroundColor: backgroundColor || undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+    ...getAnimationControlDataAttributes(attributes.animation),
+  });
+
   return (
-    <div
-      id={blockId}
-      className={classNames(
-        className,
-        blockId,
-        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-        getAuthVisibilityClasses(blockAuthVisibility),
-      )}
-      data-date={date}
-      style={{
-        backgroundColor: backgroundColor || undefined,
-        ...getBorderCSSValue({ attributes }),
-        ...getBoxShadowCSSValue({ attributes }),
-      }}
-      {...getAnimationControlDataAttributes(attributes.animation)}
-    >
+    <div {...blockProps}>
       <CountdownStyle attributes={attributes} />
       <div
         className="wp-block-gutenbee-countdown-wrap"
@@ -107,13 +109,16 @@ const CountDown = ({ attributes, className }) => {
           color: textColor || undefined,
         }}
       >
-        {items.map(key => renderItem(key))}
+        {items.map(key => (
+          <Fragment key={key}>{renderItem(key)}</Fragment>
+        ))}
       </div>
     </div>
   );
 };
 
 registerBlockType('gutenbee/countdown', {
+  apiVersion: 3,
   title: __('GutenBee Countdown'),
   description: __('Display awesome countdowns'),
   category: 'gutenbee',
@@ -232,7 +237,7 @@ registerBlockType('gutenbee/countdown', {
   },
   deprecated,
   edit: CountdownEdit,
-  save({ attributes, className }) {
-    return <CountDown attributes={attributes} className={className} />;
+  save({ attributes }) {
+    return <CountDown attributes={attributes} />;
   },
 });

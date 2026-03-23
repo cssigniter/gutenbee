@@ -1,4 +1,4 @@
-import get from 'lodash.get';
+import get from 'lodash/get';
 
 import {
   getDefaultResponsiveValue,
@@ -124,7 +124,7 @@ const v2 = {
     const getCustomStyles = () => {
       try {
         return JSON.parse(customStyles);
-      } catch (error) {
+      } catch {
         return undefined;
       }
     };

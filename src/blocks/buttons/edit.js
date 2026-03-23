@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import { Fragment } from 'wp.element';
-import { InnerBlocks } from 'wp.blockEditor';
+import { InnerBlocks, useBlockProps } from 'wp.blockEditor';
 import { InspectorControls } from 'wp.blockEditor';
 import { PanelBody, SelectControl } from 'wp.components';
 import classNames from 'classnames';
@@ -20,7 +20,7 @@ import AnimationControls from '../../components/controls/animation-controls/Anim
 const propTypes = {
   attributes: PropTypes.object.isRequired,
   setAttributes: PropTypes.func.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   clientId: PropTypes.string.isRequired,
 };
 
@@ -38,17 +38,19 @@ const ButtonsEdit = ({ attributes, setAttributes, className, clientId }) => {
 
   const blockId = getBlockId(uniqueId);
 
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(className || '', blockId, {
+      [desktopAlignment]: true,
+    }),
+    style: {
+      backgroundColor: backgroundColor || undefined,
+    },
+  });
+
   return (
     <Fragment>
-      <div
-        id={blockId}
-        className={classNames(className, blockId, {
-          [desktopAlignment]: true,
-        })}
-        style={{
-          backgroundColor: backgroundColor || undefined,
-        }}
-      >
+      <div {...blockProps}>
         <ButtonsStyle attributes={attributes} />
         <InnerBlocks
           allowedBlocks={['gutenbee/button']}
@@ -79,6 +81,8 @@ const ButtonsEdit = ({ attributes, setAttributes, className, clientId }) => {
                     },
                   })
                 }
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
               />
             )}
           </ResponsiveControl>
@@ -144,7 +148,19 @@ const ButtonsEdit = ({ attributes, setAttributes, className, clientId }) => {
             initialOpen={false}
           >
             <AnimationControls
-              attributes={attributes.animation}
+              attributes={{
+                ...attributes.animation,
+                duration:
+                  attributes.animation?.duration !== undefined &&
+                  attributes.animation?.duration !== ''
+                    ? Number(attributes.animation.duration)
+                    : undefined,
+                delay:
+                  attributes.animation?.delay !== undefined &&
+                  attributes.animation?.delay !== ''
+                    ? Number(attributes.animation.delay)
+                    : undefined,
+              }}
               setAttributes={setAttributes}
             />
           </PanelBody>

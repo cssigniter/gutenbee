@@ -9,7 +9,6 @@ import {
   AlignmentToolbar,
   useBlockProps,
 } from 'wp.blockEditor';
-import { createBlock } from 'wp.blocks';
 import classNames from 'classnames';
 
 import HeadingToolbar from './heading-toolbar';
@@ -30,7 +29,7 @@ import TypographyControls from '../../components/controls/text-controls/Typograp
 import AnimationControls from '../../components/controls/animation-controls/AnimationControls';
 
 const propTypes = {
-  attribute: PropTypes.object.isRequired,
+  attributes: PropTypes.object.isRequired,
   setAttributes: PropTypes.func.isRequired,
   onReplace: PropTypes.func,
   className: PropTypes.string,
@@ -119,16 +118,6 @@ function HeadingEdit({
           onMerge={mergeBlocks}
           onReplace={onReplace}
           onRemove={() => onReplace([])}
-          onSplit={value => {
-            if (!value) {
-              return createBlock('gutenbee/paragraph');
-            }
-
-            return createBlock('gutenbee/heading', {
-              ...attributes,
-              content: value,
-            });
-          }}
           className={className}
           placeholder={placeholder || __('Write heading…')}
           style={{
@@ -150,19 +139,31 @@ function HeadingEdit({
         <PanelBody title={__('Heading Settings')}>
           <ResponsiveControl>
             {breakpoint => {
+              const currentLineHeight = lineHeight?.[breakpoint];
+              const currentLetterSpacing = letterSpacing?.[breakpoint];
               return (
                 <TypographyControls
                   attributes={{
-                    fontSize: fontSize[breakpoint],
-                    lineHeight: lineHeight?.[breakpoint],
-                    letterSpacing: letterSpacing?.[breakpoint],
+                    fontSize: fontSize?.[breakpoint],
+                    lineHeight:
+                      currentLineHeight != null
+                        ? typeof currentLineHeight === 'number'
+                          ? String(currentLineHeight)
+                          : currentLineHeight
+                        : undefined,
+                    letterSpacing:
+                      currentLetterSpacing != null
+                        ? typeof currentLetterSpacing === 'number'
+                          ? String(currentLetterSpacing)
+                          : currentLetterSpacing
+                        : undefined,
                     textTransform: textTransform?.[breakpoint],
                     textDecoration: textDecoration?.[breakpoint],
                   }}
                   onFontSizeChange={value => {
                     setAttributes({
                       fontSize: {
-                        ...fontSize,
+                        ...(fontSize || {}),
                         [breakpoint]: value != null ? value : '',
                       },
                     });
@@ -300,7 +301,19 @@ function HeadingEdit({
             initialOpen={false}
           >
             <AnimationControls
-              attributes={attributes.animation}
+              attributes={{
+                ...attributes.animation,
+                duration:
+                  attributes.animation?.duration !== undefined &&
+                  attributes.animation?.duration !== ''
+                    ? Number(attributes.animation.duration)
+                    : undefined,
+                delay:
+                  attributes.animation?.delay !== undefined &&
+                  attributes.animation?.delay !== ''
+                    ? Number(attributes.animation.delay)
+                    : undefined,
+              }}
               setAttributes={setAttributes}
             />
           </PanelBody>

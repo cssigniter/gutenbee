@@ -1,7 +1,7 @@
 import { Fragment } from 'wp.element';
 import PropTypes from 'prop-types';
 import { compose } from 'wp.compose';
-import { InnerBlocks } from 'wp.blockEditor';
+import { InnerBlocks, useBlockProps } from 'wp.blockEditor';
 import { withDispatch, withSelect, useSelect } from 'wp.data';
 import { createBlock } from 'wp.blocks';
 import { times, dropRight } from 'lodash';
@@ -87,6 +87,16 @@ const ContainerBlockEdit = ({
     onVimeoApiReady,
   });
 
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classes,
+    style: {
+      color: textColor,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
+
   return (
     <Fragment>
       <ContainerStyle attributes={attributes}>
@@ -97,15 +107,7 @@ const ContainerBlockEdit = ({
       </ContainerStyle>
 
       {hasInnerBlocks ? (
-        <div
-          id={blockId}
-          className={classes}
-          style={{
-            color: textColor,
-            ...getBorderCSSValue({ attributes }),
-            ...getBoxShadowCSSValue({ attributes }),
-          }}
-        >
+        <div {...blockProps}>
           <div className={`${baseClass}-inner`}>
             <div className={`${baseClass}-row`}>
               <InnerBlocks

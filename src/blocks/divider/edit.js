@@ -1,7 +1,12 @@
 import { Fragment } from 'wp.element';
 import { __, sprintf } from 'wp.i18n';
 import { PanelBody, ToolbarGroup, RangeControl } from 'wp.components';
-import { InspectorControls, AlignmentToolbar } from 'wp.blockEditor';
+import {
+  InspectorControls,
+  AlignmentToolbar,
+  useBlockProps,
+} from 'wp.blockEditor';
+import classNames from 'classnames';
 
 import { BORDER_STYLES, Divider } from './index';
 import MarginControls from '../../components/controls/margin-controls';
@@ -13,6 +18,11 @@ import BoxShadowControls from '../../components/controls/box-shadow-controls';
 import PopoverColorControl from '../../components/controls/advanced-color-control/PopoverColorControl';
 import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
+import { getBorderCSSValue } from '../../components/controls/border-controls/helpers';
+import { getBoxShadowCSSValue } from '../../components/controls/box-shadow-controls/helpers';
+import { getBreakpointVisibilityClassNames } from '../../components/controls/breakpoint-visibility-control/helpers';
+import { getAuthVisibilityClasses } from '../../components/controls/auth-visibility-control/helpers';
+import getBlockId from '../../util/getBlockId';
 
 const DividerEdit = ({
   className,
@@ -35,17 +45,36 @@ const DividerEdit = ({
   } = attributes;
 
   useUniqueId({ attributes, setAttributes, clientId });
+  const blockId = getBlockId(attributes.uniqueId);
+
+  const blockProps = useBlockProps({
+    className: classNames(
+      className,
+      blockId,
+      getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+      getAuthVisibilityClasses(blockAuthVisibility),
+      {
+        [`align-${align}`]: true,
+      },
+    ),
+    style: {
+      height,
+      backgroundColor: backgroundColor || undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
 
   return (
     <Fragment>
-      <Divider className={className} attributes={attributes} />
+      <Divider blockProps={blockProps} attributes={attributes} />
 
       {isSelected && (
         <InspectorControls key="inspector">
           <PanelBody>
             <p>{__('Style')}</p>
             <ToolbarGroup
-              classsName="wp-block-gutenbee-divider-style-edit"
+              className="wp-block-gutenbee-divider-style-edit"
               controls={Object.values(BORDER_STYLES).map(
                 (borderStyle, index) => ({
                   icon: 'admin-appearance',
@@ -63,6 +92,8 @@ const DividerEdit = ({
               max={50}
               value={weight}
               onChange={value => setAttributes({ weight: value })}
+              __nextHasNoMarginBottom
+              __next40pxDefaultSize
             />
 
             <RangeControl
@@ -71,6 +102,8 @@ const DividerEdit = ({
               max={100}
               value={width}
               onChange={value => setAttributes({ width: value })}
+              __nextHasNoMarginBottom
+              __next40pxDefaultSize
             />
 
             <RangeControl
@@ -79,6 +112,8 @@ const DividerEdit = ({
               max={500}
               onChange={value => setAttributes({ height: value })}
               value={height}
+              __nextHasNoMarginBottom
+              __next40pxDefaultSize
             />
 
             <p>{__('Alignment')}</p>

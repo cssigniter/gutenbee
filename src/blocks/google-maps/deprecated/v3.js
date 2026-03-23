@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import get from 'lodash.get';
+import get from 'lodash/get';
 
 import mapStyles from '../map-styles';
 import getBlockId from '../../../util/getBlockId';
@@ -148,7 +148,7 @@ const v3 = {
     const getCustomStyles = () => {
       try {
         return JSON.parse(customStyles);
-      } catch (error) {
+      } catch {
         return undefined;
       }
     };

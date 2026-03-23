@@ -4,10 +4,6 @@ import { ToolbarGroup } from 'wp.components';
 
 import HeadingLevelIcon from './heading-level-icon';
 
-const POPOVER_PROPS = {
-  className: 'block-library-heading-level-dropdown',
-};
-
 const HeadingToolbar = ({
   isCollapsed = true,
   minLevel,
@@ -30,8 +26,7 @@ const HeadingToolbar = ({
 
   return (
     <ToolbarGroup
-      popoverProps={POPOVER_PROPS}
-      className="gutenbee-heading-toolbar"
+      className="gutenbee-heading-toolbar block-library-heading-level-dropdown"
       isCollapsed={isCollapsed}
       icon={<HeadingLevelIcon level={selectedLevel} />}
       controls={range(minLevel, maxLevel).map(index =>

@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState } from 'wp.element';
+import { Fragment, useRef, useState, useEffect } from 'wp.element';
 import {
   BaseControl,
   Button,
@@ -14,6 +14,7 @@ import {
   MediaUpload,
   MediaUploadCheck,
   BlockControls,
+  useBlockProps,
 } from 'wp.blockEditor';
 import { __, _x, sprintf } from 'wp.i18n';
 import classNames from 'classnames';
@@ -99,9 +100,27 @@ const VideoEmbedEdit = ({
 
   const videoCoverImageDescription = `video-block__coverImage-image-description-${instanceId}`;
 
-  if (!isSelected && interactive) {
-    setInteractive(false);
-  }
+  useEffect(() => {
+    if (!isSelected) {
+      setInteractive(false);
+    }
+  }, [isSelected]);
+
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(
+      className,
+      blockId,
+      getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+      getAuthVisibilityClasses(blockAuthVisibility),
+      'gutenbee-video-embed-block-wrapper',
+    ),
+    style: {
+      backgroundColor: backgroundColor ? backgroundColor : undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
 
   if (editing) {
     return (
@@ -120,7 +139,7 @@ const VideoEmbedEdit = ({
         >
           <input
             type="url"
-            value={videoUrl}
+            value={videoUrl || ''}
             className="components-placeholder__input"
             aria-label={__('embed-url')}
             placeholder={__('Enter URL to embed here…')}
@@ -148,21 +167,7 @@ const VideoEmbedEdit = ({
 
   return (
     <Fragment>
-      <div
-        id={blockId}
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-          'gutenbee-video-embed-block-wrapper',
-        )}
-        style={{
-          backgroundColor: backgroundColor ? backgroundColor : undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-      >
+      <div {...blockProps}>
         <VideoEmbedStyle attributes={attributes} />
 
         <div className="gutenbee-video-embed-wrapper">
@@ -216,7 +221,10 @@ const VideoEmbedEdit = ({
       <InspectorControls>
         <PanelBody title={__('Video Options')}>
           <MediaUploadCheck>
-            <BaseControl className="editor-video-coverImage-control">
+            <BaseControl
+              className="editor-video-coverImage-control"
+              __nextHasNoMarginBottom={true}
+            >
               <BaseControl.VisualLabel>
                 {__('Cover Image')}
               </BaseControl.VisualLabel>
@@ -254,30 +262,39 @@ const VideoEmbedEdit = ({
             label={__('Show Controls')}
             checked={controls}
             onChange={value => setAttributes({ controls: value })}
+            __nextHasNoMarginBottom={true}
           />
           <ToggleControl
             label={__('Enable Autoplay')}
             checked={autoplay}
             onChange={value => {
               setAttributes({ autoplay: value });
+              if (value) {
+                setAttributes({ mute: true });
+              }
               setAttributes({ lazyLoad: value === true ? false : lazyLoad });
             }}
+            __nextHasNoMarginBottom={true}
           />
           <ToggleControl
             label={__('Mute')}
             checked={mute}
             onChange={value => setAttributes({ mute: value })}
+            disabled={autoplay}
+            __nextHasNoMarginBottom={true}
           />
           <ToggleControl
             label={__('Loop')}
             checked={loop}
             onChange={value => setAttributes({ loop: value })}
+            __nextHasNoMarginBottom={true}
           />
           {videoInfo.provider === 'youtube' && (
             <ToggleControl
               label={__('Modest Branding')}
               checked={branding}
               onChange={value => setAttributes({ branding: value })}
+              __nextHasNoMarginBottom={true}
             />
           )}
           {coverImage && !autoplay && (
@@ -285,25 +302,31 @@ const VideoEmbedEdit = ({
               label={__('Lazy Load')}
               checked={lazyLoad}
               onChange={value => setAttributes({ lazyLoad: value })}
+              __nextHasNoMarginBottom={true}
             />
           )}
           <ToggleControl
             label={__('Stick to bottom on scroll')}
             checked={sticky}
             onChange={value => setAttributes({ sticky: value })}
+            __nextHasNoMarginBottom={true}
           />
           <TextControl
             label={__('Start time in seconds.')}
             onChange={value => setAttributes({ startTime: value })}
             type="number"
-            value={startTime}
+            value={startTime || ''}
+            __next40pxDefaultSize={true}
+            __nextHasNoMarginBottom={true}
           />
           {videoInfo.provider === 'youtube' && (
             <TextControl
               label={__('End time in seconds.')}
               onChange={value => setAttributes({ endTime: value })}
               type="number"
-              value={endTime}
+              value={endTime || ''}
+              __next40pxDefaultSize={true}
+              __nextHasNoMarginBottom={true}
             />
           )}
         </PanelBody>
@@ -377,7 +400,19 @@ const VideoEmbedEdit = ({
             initialOpen={false}
           >
             <AnimationControls
-              attributes={attributes.animation}
+              attributes={{
+                ...attributes.animation,
+                duration:
+                  attributes.animation?.duration !== undefined &&
+                  attributes.animation?.duration !== ''
+                    ? Number(attributes.animation.duration)
+                    : undefined,
+                delay:
+                  attributes.animation?.delay !== undefined &&
+                  attributes.animation?.delay !== ''
+                    ? Number(attributes.animation.delay)
+                    : undefined,
+              }}
               setAttributes={setAttributes}
             />
           </PanelBody>

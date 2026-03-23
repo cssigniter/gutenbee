@@ -1,20 +1,12 @@
 import { Fragment } from 'wp.element';
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
-import { InspectorControls } from 'wp.blockEditor';
-import {
-  PanelBody,
-  RangeControl,
-  SelectControl,
-  BaseControl,
-} from 'wp.components';
-import startCase from 'lodash.startcase';
-import ReactSelect from 'react-select';
+import { InspectorControls, useBlockProps } from 'wp.blockEditor';
+import { PanelBody, RangeControl, SelectControl } from 'wp.components';
 
 import { VIEWS, SHAPES } from './constants';
-import icons from './icons';
+import IconSelect from '../../components/controls/icon-select';
 import Icon from './Icon';
-import IconSelectValue from './IconSelectValue';
 import IconBlockIcon from './block-icon';
 import MarginControls from '../../components/controls/margin-controls';
 import {
@@ -103,7 +95,6 @@ export const iconAttributes = {
 };
 
 export const IconSettings = ({
-  className,
   setAttributes,
   attributes,
   children,
@@ -142,45 +133,34 @@ export const IconSettings = ({
   return (
     <Fragment>
       <PanelBody>
-        <BaseControl id="icon-select" label={__('Icon')}>
-          <ReactSelect
-            aria-labelledby="icon-select"
-            onChange={value => setAttributes({ icon: value || 'add-bag' })}
-            value={icon}
-            options={icons.map(value => ({ value, label: startCase(value) }))}
-            simpleValue
-            valueRenderer={({ value, label }) => (
-              <IconSelectValue value={value} label={label} />
-            )}
-            optionRenderer={({ value, label }) => (
-              <IconSelectValue
-                value={value}
-                label={label}
-                className={className}
-              />
-            )}
-            clearable={false}
-          />
-        </BaseControl>
+        <IconSelect
+          value={icon || 'add-bag'}
+          onChange={value => setAttributes({ icon: value || 'add-bag' })}
+          isClearable={false}
+        />
         <SelectControl
           label={__('View')}
-          value={view}
+          value={view || VIEWS.DEFAULT}
           onChange={value => setAttributes({ view: value })}
           options={[
             { value: VIEWS.DEFAULT, label: __('Default') },
             { value: VIEWS.STACKED, label: __('Stacked') },
             { value: VIEWS.FRAMED, label: __('Framed') },
           ]}
+          __nextHasNoMarginBottom
+          __next40pxDefaultSize
         />
         {view !== VIEWS.DEFAULT && (
           <SelectControl
             label={__('Shape')}
-            value={shape}
+            value={shape || SHAPES.CIRCLE}
             onChange={value => setAttributes({ shape: value })}
             options={[
               { value: SHAPES.CIRCLE, label: __('Circle') },
               { value: SHAPES.SQUARE, label: __('Square') },
             ]}
+            __nextHasNoMarginBottom
+            __next40pxDefaultSize
           />
         )}
         <ResponsiveControl>
@@ -199,6 +179,8 @@ export const IconSettings = ({
                     },
                   })
                 }
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
             );
           }}
@@ -211,6 +193,8 @@ export const IconSettings = ({
             step={0.1}
             value={padding}
             onChange={value => setAttributes({ padding: value })}
+            __nextHasNoMarginBottom
+            __next40pxDefaultSize
           />
         )}
         {view === VIEWS.FRAMED && (
@@ -221,12 +205,14 @@ export const IconSettings = ({
             step={1}
             value={borderWidth}
             onChange={value => setAttributes({ borderWidth: value })}
+            __nextHasNoMarginBottom
+            __next40pxDefaultSize
           />
         )}
 
         <SelectControl
           label={__('Alignment')}
-          value={align}
+          value={align || 'left'}
           options={alignmentOptions.map(option => ({
             value: option.value,
             label: option.label,
@@ -234,6 +220,8 @@ export const IconSettings = ({
           onChange={value => {
             setAttributes({ align: value || 'left' });
           }}
+          __nextHasNoMarginBottom
+          __next40pxDefaultSize
         />
       </PanelBody>
 
@@ -320,7 +308,24 @@ export const IconSettings = ({
             initialOpen={false}
           >
             <AnimationControls
-              attributes={attributes.animation}
+              attributes={(() => {
+                const {
+                  duration: durationStr,
+                  delay: delayStr,
+                  ...restAnimation
+                } = attributes.animation || {};
+                return {
+                  ...restAnimation,
+                  duration:
+                    durationStr !== undefined && durationStr !== ''
+                      ? Number(durationStr)
+                      : undefined,
+                  delay:
+                    delayStr !== undefined && delayStr !== ''
+                      ? Number(delayStr)
+                      : undefined,
+                };
+              })()}
               setAttributes={setAttributes}
             />
           </PanelBody>
@@ -338,10 +343,11 @@ const IconEdit = ({
 }) => {
   useUniqueId({ attributes, setAttributes, clientId });
   const blockId = getBlockId(attributes.uniqueId);
+  const blockProps = useBlockProps({ id: blockId, className });
 
   return (
     <Fragment>
-      <Icon id={blockId} className={className} {...attributes} />
+      <Icon id={blockId} blockProps={blockProps} {...attributes} />
       {isSelected && (
         <InspectorControls>
           <IconSettings
@@ -356,6 +362,7 @@ const IconEdit = ({
 };
 
 registerBlockType('gutenbee/icon', {
+  apiVersion: 3,
   title: __('GutenBee Icon'),
   description: __('A flexible icon block'),
   icon: IconBlockIcon,
@@ -364,8 +371,9 @@ registerBlockType('gutenbee/icon', {
   attributes: iconAttributes,
   deprecated,
   edit: IconEdit,
-  save({ className, attributes }) {
+  save({ attributes }) {
     const id = getBlockId(attributes.uniqueId);
-    return <Icon id={id} className={className} {...attributes} />;
+    const blockProps = useBlockProps.save();
+    return <Icon id={id} blockProps={blockProps} {...attributes} />;
   },
 });

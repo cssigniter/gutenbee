@@ -1,6 +1,6 @@
 import { registerBlockType } from 'wp.blocks';
 import { __, _x } from 'wp.i18n';
-import { RichText } from 'wp.blockEditor';
+import { RichText, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 import { Fragment } from 'wp.element';
 
@@ -27,6 +27,7 @@ import {
 } from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/testimonial', {
+  apiVersion: 3,
   title: __('GutenBee Testimonial'),
   description: __('Displays a testimonial.'),
   icon: TestimonialBlockIcon,
@@ -160,7 +161,7 @@ registerBlockType('gutenbee/testimonial', {
   },
   deprecated,
   edit: TestimonialEdit,
-  save: ({ attributes, className }) => {
+  save: ({ attributes }) => {
     const {
       uniqueId,
       textColor,
@@ -179,10 +180,9 @@ registerBlockType('gutenbee/testimonial', {
     } = attributes;
     const blockId = getBlockId(uniqueId);
 
-    const blockProps = {
+    const blockProps = useBlockProps.save({
       id: blockId,
       className: classNames(
-        className,
         blockId,
         getBreakpointVisibilityClassNames(blockBreakpointVisibility),
         getAuthVisibilityClasses(blockAuthVisibility),
@@ -191,7 +191,14 @@ registerBlockType('gutenbee/testimonial', {
           [`gutenbee-testimonial-avatar-${avatarPosition}`]: avatarPosition,
         },
       ),
-    };
+      style: {
+        backgroundColor: backgroundColor ? backgroundColor : undefined,
+        color: textColor ? textColor : undefined,
+        ...getBorderCSSValue({ attributes }),
+        ...getBoxShadowCSSValue({ attributes }),
+      },
+      ...getAnimationControlDataAttributes(attributes.animation),
+    });
 
     const image = (
       <img
@@ -274,16 +281,7 @@ registerBlockType('gutenbee/testimonial', {
     };
 
     return (
-      <blockquote
-        {...blockProps}
-        style={{
-          backgroundColor: backgroundColor ? backgroundColor : undefined,
-          color: textColor ? textColor : undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-        {...getAnimationControlDataAttributes(attributes.animation)}
-      >
+      <blockquote {...blockProps}>
         {renderTestimonialLayout()}
         <TestimonialStyle attributes={attributes} />
       </blockquote>

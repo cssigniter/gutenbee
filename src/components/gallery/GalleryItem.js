@@ -78,10 +78,10 @@ const GalleryItem = ({
 };
 
 export default withSelect((select, ownProps) => {
-  const { getMedia } = select('core');
+  const { getEntityRecord } = select('core');
   const { id } = ownProps;
 
   return {
-    image: id ? getMedia(id) : null,
+    image: id ? getEntityRecord('postType', 'attachment', id) : null,
   };
 })(GalleryItem);

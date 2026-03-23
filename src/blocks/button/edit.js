@@ -1,7 +1,7 @@
 import { Fragment, useRef } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
-import { InspectorControls, RichText } from 'wp.blockEditor';
+import { InspectorControls, RichText, useBlockProps } from 'wp.blockEditor';
 import {
   PanelBody,
   TextControl,
@@ -30,7 +30,7 @@ import AnimationControls from '../../components/controls/animation-controls/Anim
 const propTypes = {
   attributes: PropTypes.object.isRequired,
   setAttributes: PropTypes.func.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   clientId: PropTypes.string.isRequired,
   isSelected: PropTypes.bool,
 };
@@ -89,9 +89,15 @@ const ButtonEdit = ({
 
   const canUseURLPickerBool = canUseURLPicker();
 
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(className || '', blockId),
+    ref: ref,
+  });
+
   return (
     <Fragment>
-      <div id={blockId} className={classNames(className, blockId)} ref={ref}>
+      <div {...blockProps}>
         <ButtonStyle attributes={attributes} />
         <RichText
           placeholder={__('Add text…')}
@@ -143,16 +149,21 @@ const ButtonEdit = ({
               onChange={value => setAttributes({ url: value })}
               type="url"
               placeholder="https://"
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
             />
             <ToggleControl
               label={__('Open in new tab')}
               onChange={onToggleOpenInNewTab}
               checked={linkTarget === '_blank'}
+              __nextHasNoMarginBottom
             />
             <TextControl
               label={__('Link rel')}
               value={rel || ''}
               onChange={onSetLinkRel}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
             />
           </PanelBody>
         )}
@@ -165,7 +176,12 @@ const ButtonEdit = ({
             {breakpoint => (
               <FontSizePickerLabel
                 label={__('Button Font Size')}
-                value={fontSize[breakpoint]}
+                value={
+                  fontSize[breakpoint] !== undefined &&
+                  fontSize[breakpoint] !== ''
+                    ? fontSize[breakpoint]
+                    : undefined
+                }
                 onChange={value => {
                   setAttributes({
                     fontSize: {
@@ -254,6 +270,8 @@ const ButtonEdit = ({
                 label: sizeTemplate.name,
               })),
             ]}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
 
           <SelectControl
@@ -281,6 +299,8 @@ const ButtonEdit = ({
                 label: sizeTemplate.name,
               })),
             ]}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
         </PanelBody>
 
@@ -311,7 +331,19 @@ const ButtonEdit = ({
             initialOpen={false}
           >
             <AnimationControls
-              attributes={attributes.animation}
+              attributes={{
+                ...attributes.animation,
+                duration:
+                  attributes.animation?.duration !== undefined &&
+                  attributes.animation?.duration !== ''
+                    ? Number(attributes.animation.duration)
+                    : undefined,
+                delay:
+                  attributes.animation?.delay !== undefined &&
+                  attributes.animation?.delay !== ''
+                    ? Number(attributes.animation.delay)
+                    : undefined,
+              }}
               setAttributes={setAttributes}
             />
           </PanelBody>

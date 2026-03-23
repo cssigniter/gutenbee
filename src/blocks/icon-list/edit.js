@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import { Fragment } from 'wp.element';
-import { InnerBlocks } from 'wp.blockEditor';
+import { InnerBlocks, useBlockProps } from 'wp.blockEditor';
 import { InspectorControls } from 'wp.blockEditor';
 import { PanelBody, SelectControl, RangeControl } from 'wp.components';
 import classNames from 'classnames';
@@ -26,11 +26,16 @@ import AnimationControls from '../../components/controls/animation-controls/Anim
 const propTypes = {
   attributes: PropTypes.object.isRequired,
   setAttributes: PropTypes.func.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   clientId: PropTypes.string.isRequired,
 };
 
-const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
+const IconListEdit = ({
+  attributes,
+  setAttributes,
+  className = '',
+  clientId,
+}) => {
   const {
     uniqueId,
     color,
@@ -77,28 +82,43 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
   const { updateBlockAttributes } = useDispatch('core/block-editor');
 
   const renderLayoutEditorSpecificRules = () => {
+    // Check if itemSpacing has any valid values
+    const hasItemSpacing =
+      itemSpacing &&
+      (itemSpacing.desktop != null ||
+        itemSpacing.tablet != null ||
+        itemSpacing.mobile != null);
+
     return layout === 'inline' ? (
       <Fragment>
-        <Rule
-          value={itemSpacing}
-          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { margin-right: calc( %s/2 ); }"
-          unit="px"
-        />
-        <Rule
-          value={itemSpacing}
-          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { padding-right: calc( %s/2 ); }"
-          unit="px"
-        />
-        <Rule
-          value={separatorWidth}
-          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { border-right: solid %s; }"
-          unit="px"
-        />
-        <Rule
-          value={separatorColor}
-          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { border-color: %s; }"
-          unit=""
-        />
+        {hasItemSpacing && (
+          <>
+            <Rule
+              value={itemSpacing}
+              rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { margin-right: calc( %s/2 ); }"
+              unit="px"
+            />
+            <Rule
+              value={itemSpacing}
+              rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { padding-right: calc( %s/2 ); }"
+              unit="px"
+            />
+          </>
+        )}
+        {separatorWidth != null && separatorWidth !== undefined && (
+          <Rule
+            value={separatorWidth}
+            rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { border-right: solid %s; }"
+            unit="px"
+          />
+        )}
+        {separatorColor && separatorColor !== undefined && (
+          <Rule
+            value={separatorColor}
+            rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { border-color: %s; }"
+            unit=""
+          />
+        )}
         <Rule
           value={0}
           rule=".wp-block-gutenbee-icon-list.[root] div > .wp-block:last-child li.wp-block-gutenbee-icon-list-item { border: %1$s; margin-right: %1$s; padding-right: %1$s; }"
@@ -107,26 +127,34 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
       </Fragment>
     ) : (
       <Fragment>
-        <Rule
-          value={itemSpacing}
-          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { margin-bottom: calc( %s/2 ); }"
-          unit="px"
-        />
-        <Rule
-          value={itemSpacing}
-          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { padding-bottom: calc( %s/2 ); }"
-          unit="px"
-        />
-        <Rule
-          value={separatorWidth}
-          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { border-bottom: solid %s; }"
-          unit="px"
-        />
-        <Rule
-          value={separatorColor}
-          rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { border-color: %s; }"
-          unit=""
-        />
+        {hasItemSpacing && (
+          <>
+            <Rule
+              value={itemSpacing}
+              rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { margin-bottom: calc( %s/2 ); }"
+              unit="px"
+            />
+            <Rule
+              value={itemSpacing}
+              rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { padding-bottom: calc( %s/2 ); }"
+              unit="px"
+            />
+          </>
+        )}
+        {separatorWidth != null && separatorWidth !== undefined && (
+          <Rule
+            value={separatorWidth}
+            rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { border-bottom: solid %s; }"
+            unit="px"
+          />
+        )}
+        {separatorColor && separatorColor !== undefined && (
+          <Rule
+            value={separatorColor}
+            rule=".wp-block-gutenbee-icon-list.[root] li.wp-block-gutenbee-icon-list-item { border-color: %s; }"
+            unit=""
+          />
+        )}
         <Rule
           value={0}
           rule=".wp-block-gutenbee-icon-list.[root] div > .wp-block:last-child li.wp-block-gutenbee-icon-list-item { border: %1$s; margin-bottom: %1$s; padding-bottom: %1$s; }"
@@ -136,17 +164,19 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
     );
   };
 
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(className, blockId),
+    style: {
+      backgroundColor: backgroundColor ? backgroundColor : undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
+
   return (
     <Fragment>
-      <div
-        id={blockId}
-        className={classNames(className, blockId)}
-        style={{
-          backgroundColor: backgroundColor ? backgroundColor : undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-      >
+      <div {...blockProps}>
         <ul
           className={classNames({
             'wp-block-gutenbee-icon-list-element': true,
@@ -174,6 +204,8 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
               { value: LAYOUT.DEFAULT, label: __('Default') },
               { value: LAYOUT.INLINE, label: __('Inline') },
             ]}
+            __nextHasNoMarginBottom
+            __next40pxDefaultSize
           />
           <ResponsiveControl>
             {breakpoint => (
@@ -191,6 +223,8 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
                     },
                   })
                 }
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
             )}
           </ResponsiveControl>
@@ -213,6 +247,8 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
                   { value: ALIGN.CENTER, label: __('Center') },
                   { value: ALIGN.FLEXEND, label: __('Right') },
                 ]}
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
             )}
           </ResponsiveControl>
@@ -224,6 +260,8 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
               { value: BLOCKLINK.INLINE, label: __('Inline') },
               { value: BLOCKLINK.BLOCK, label: __('Block') },
             ]}
+            __nextHasNoMarginBottom
+            __next40pxDefaultSize
           />
           <RangeControl
             label={__('List Item Separator Width')}
@@ -233,6 +271,8 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
             onChange={value => {
               setAttributes({ separatorWidth: value });
             }}
+            __nextHasNoMarginBottom
+            __next40pxDefaultSize
           />
           <PopoverColorControl
             value={separatorColor}
@@ -249,20 +289,30 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
           initialOpen={false}
         >
           <ResponsiveControl>
-            {breakpoint => (
-              <FontSizePickerLabel
-                label={__('Icon Size')}
-                value={iconSize[breakpoint]}
-                onChange={value =>
-                  setAttributes({
-                    iconSize: {
-                      ...iconSize,
-                      [breakpoint]: value != null ? value : '',
-                    },
-                  })
-                }
-              />
-            )}
+            {breakpoint => {
+              const currentIconSize = iconSize[breakpoint];
+              let fontSizeValue;
+              fontSizeValue =
+                currentIconSize !== undefined &&
+                currentIconSize !== '' &&
+                currentIconSize != null
+                  ? currentIconSize
+                  : undefined;
+              return (
+                <FontSizePickerLabel
+                  label={__('Icon Size')}
+                  value={fontSizeValue}
+                  onChange={value =>
+                    setAttributes({
+                      iconSize: {
+                        ...iconSize,
+                        [breakpoint]: value != null ? value : '',
+                      },
+                    })
+                  }
+                />
+              );
+            }}
           </ResponsiveControl>
         </PanelBody>
         <PanelBody
@@ -271,20 +321,33 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
           className="blocks-font-size"
         >
           <ResponsiveControl>
-            {breakpoint => (
-              <FontSizePickerLabel
-                label={__('Text Font Size')}
-                value={fontSize[breakpoint]}
-                onChange={value =>
-                  setAttributes({
-                    fontSize: {
-                      ...fontSize,
-                      [breakpoint]: value != null ? value : '',
-                    },
-                  })
-                }
-              />
-            )}
+            {breakpoint => {
+              const currentFontSize = fontSize[breakpoint];
+              let fontSizeValue;
+              if (
+                currentFontSize !== undefined &&
+                currentFontSize !== '' &&
+                currentFontSize != null
+              ) {
+                fontSizeValue = currentFontSize;
+              } else {
+                fontSizeValue = undefined;
+              }
+              return (
+                <FontSizePickerLabel
+                  label={__('Text Font Size')}
+                  value={fontSizeValue}
+                  onChange={value =>
+                    setAttributes({
+                      fontSize: {
+                        ...fontSize,
+                        [breakpoint]: value != null ? value : '',
+                      },
+                    })
+                  }
+                />
+              );
+            }}
           </ResponsiveControl>
         </PanelBody>
         <PanelBody title={__('Block Appearance')} initialOpen={false}>
@@ -387,7 +450,24 @@ const IconListEdit = ({ attributes, setAttributes, className, clientId }) => {
             initialOpen={false}
           >
             <AnimationControls
-              attributes={attributes.animation}
+              attributes={(() => {
+                const {
+                  duration: durationStr,
+                  delay: delayStr,
+                  ...restAnimation
+                } = attributes.animation || {};
+                return {
+                  ...restAnimation,
+                  duration:
+                    durationStr !== undefined && durationStr !== ''
+                      ? Number(durationStr)
+                      : undefined,
+                  delay:
+                    delayStr !== undefined && delayStr !== ''
+                      ? Number(delayStr)
+                      : undefined,
+                };
+              })()}
               setAttributes={setAttributes}
             />
           </PanelBody>

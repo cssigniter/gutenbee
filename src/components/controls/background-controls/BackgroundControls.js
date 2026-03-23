@@ -126,6 +126,8 @@ const BackgroundControls = ({
             { value: 'repeat-y', label: __('Tile Vertically') },
           ]}
           onChange={value => onSetBackgroundImageSetting({ repeat: value })}
+          __next40pxDefaultSize
+          __nextHasNoMarginBottom
         />
 
         <SelectControl
@@ -143,6 +145,8 @@ const BackgroundControls = ({
             { value: 'right bottom', label: __('Bottom right') },
           ]}
           onChange={value => onSetBackgroundImageSetting({ position: value })}
+          __next40pxDefaultSize
+          __nextHasNoMarginBottom
         />
       </div>
 
@@ -155,6 +159,8 @@ const BackgroundControls = ({
             { value: 'fixed', label: __('Fixed') },
           ]}
           onChange={value => onSetBackgroundImageSetting({ attachment: value })}
+          __next40pxDefaultSize
+          __nextHasNoMarginBottom
         />
 
         <SelectControl
@@ -166,6 +172,8 @@ const BackgroundControls = ({
             { value: 'auto', label: __('Auto') },
           ]}
           onChange={value => onSetBackgroundImageSetting({ size: value })}
+          __next40pxDefaultSize
+          __nextHasNoMarginBottom
         />
       </div>
 
@@ -185,6 +193,7 @@ const BackgroundControls = ({
                   'Toggle to enable background image zoom. Parallax must be disabled.',
                 )
           }
+          __nextHasNoMarginBottom
         />
       )}
 
@@ -199,6 +208,7 @@ const BackgroundControls = ({
                 parallax: value,
               })
             }
+            __nextHasNoMarginBottom
           />
 
           <RangeControl
@@ -210,6 +220,8 @@ const BackgroundControls = ({
             onChange={value =>
               onParallaxChange({ ...parallaxValue, parallaxSpeed: value })
             }
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
           />
         </Fragment>
       )}

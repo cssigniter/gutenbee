@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef } from 'wp.element';
+import { Fragment, useEffect, useRef, useState } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
 import {
@@ -7,7 +7,7 @@ import {
   DateTimePicker,
   RangeControl,
 } from 'wp.components';
-import { InspectorControls, RichText } from 'wp.blockEditor';
+import { InspectorControls, RichText, useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import { capitalize } from '../../util/text';
@@ -30,7 +30,7 @@ import AnimationControls from '../../components/controls/animation-controls/Anim
 const propTypes = {
   attributes: PropTypes.shape({
     uniqueId: PropTypes.string,
-    date: PropTypes.string.isRequired,
+    date: PropTypes.string,
     displayDays: PropTypes.bool.isRequired,
     displayHours: PropTypes.bool.isRequired,
     displayMinutes: PropTypes.bool.isRequired,
@@ -60,7 +60,7 @@ const propTypes = {
     }),
   }).isRequired,
   isSelected: PropTypes.bool.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   setAttributes: PropTypes.func.isRequired,
   clientId: PropTypes.string.isRequired,
 };
@@ -97,6 +97,10 @@ const CountdownEdit = ({
     blockAuthVisibility,
   } = attributes;
 
+  // Use state to force DateTimePicker re-render when date normalization occurs
+  const [datePickerKey, setDatePickerKey] = useState(0);
+  const [showDatePicker, setShowDatePicker] = useState(true);
+
   useUniqueId({ attributes, setAttributes, clientId });
 
   useEffect(() => {
@@ -106,6 +110,46 @@ const CountdownEdit = ({
 
     countdown.current = new CountdownTimer(clock.current, date);
   }, [date]);
+
+  // Handle date change with validation
+  const handleDateChange = newValue => {
+    if (!newValue) {
+      setAttributes({ date: newValue });
+      return;
+    }
+
+    // Parse the ISO date string to check for date normalization issues
+    // This happens when invalid dates are entered (e.g., Feb 29-31, Apr 31, etc.)
+    const parsedDate = new Date(newValue);
+    const dateStr = newValue.substring(0, 10); // Get YYYY-MM-DD part
+    const [yearStr, monthStr, dayStr] = dateStr.split('-');
+
+    // Check if the parsed date's components match what was in the string
+    // If they don't match, it means JavaScript normalized an invalid date
+    const wasNormalized =
+      parsedDate.getFullYear() !== parseInt(yearStr, 10) ||
+      parsedDate.getMonth() !== parseInt(monthStr, 10) - 1 ||
+      parsedDate.getDate() !== parseInt(dayStr, 10);
+
+    if (wasNormalized) {
+      // Get the normalized date as an ISO string
+      const normalizedDate = parsedDate.toISOString();
+
+      // First update the date attribute
+      setAttributes({ date: normalizedDate });
+
+      // Completely unmount and remount the DateTimePicker to reset all internal state
+      // This ensures all fields (day, month, year) display the correct normalized date
+      setShowDatePicker(false);
+      setTimeout(() => {
+        setShowDatePicker(true);
+        setDatePickerKey(prev => prev + 1);
+      }, 50);
+    } else {
+      // No normalization occurred, just update the date normally
+      setAttributes({ date: newValue });
+    }
+  };
 
   const renderItem = key => {
     const displayAttributeKey = `display${[capitalize(key)]}`;
@@ -147,18 +191,20 @@ const CountdownEdit = ({
   const items = ['days', 'hours', 'minutes', 'seconds'];
   const blockId = getBlockId(uniqueId);
 
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(className || '', blockId),
+    ref: clock,
+    style: {
+      backgroundColor: backgroundColor || undefined,
+      ...getBorderCSSValue({ attributes }),
+      ...getBoxShadowCSSValue({ attributes }),
+    },
+  });
+
   return (
     <Fragment>
-      <div
-        id={blockId}
-        className={classNames(className, blockId)}
-        ref={clock}
-        style={{
-          backgroundColor: backgroundColor || undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-      >
+      <div {...blockProps}>
         <CountdownStyle attributes={attributes} />
         <div
           className="wp-block-gutenbee-countdown-wrap"
@@ -166,20 +212,23 @@ const CountdownEdit = ({
             color: textColor || undefined,
           }}
         >
-          {items.map(key => renderItem(key))}
+          {items.map(key => (
+            <Fragment key={key}>{renderItem(key)}</Fragment>
+          ))}
         </div>
       </div>
 
       {isSelected && (
         <InspectorControls>
           <PanelBody title={__('Date & Time')}>
-            <DateTimePicker
-              currentDate={date}
-              onChange={value => {
-                setAttributes({ date: value });
-              }}
-              is12Hour={false}
-            />
+            {showDatePicker && (
+              <DateTimePicker
+                key={datePickerKey}
+                currentDate={date}
+                onChange={handleDateChange}
+                is12Hour={false}
+              />
+            )}
           </PanelBody>
 
           <PanelBody title={__('Settings')} initialOpen={false}>
@@ -187,26 +236,31 @@ const CountdownEdit = ({
               label={__('Show Days')}
               checked={displayDays}
               onChange={value => setAttributes({ displayDays: value })}
+              __nextHasNoMarginBottom
             />
             <ToggleControl
               label={__('Show Hours')}
               checked={displayHours}
               onChange={value => setAttributes({ displayHours: value })}
+              __nextHasNoMarginBottom
             />
             <ToggleControl
               label={__('Show Minutes')}
               checked={displayMinutes}
               onChange={value => setAttributes({ displayMinutes: value })}
+              __nextHasNoMarginBottom
             />
             <ToggleControl
               label={__('Show Seconds')}
               checked={displaySeconds}
               onChange={value => setAttributes({ displaySeconds: value })}
+              __nextHasNoMarginBottom
             />
             <ToggleControl
               label={__('Show Labels')}
               checked={displayLabels}
               onChange={value => setAttributes({ displayLabels: value })}
+              __nextHasNoMarginBottom
             />
           </PanelBody>
 
@@ -258,13 +312,20 @@ const CountdownEdit = ({
               value={maxWidth}
               onChange={value => setAttributes({ maxWidth: value })}
               allowReset
+              __nextHasNoMarginBottom
+              __next40pxDefaultSize
             />
 
             <ResponsiveControl>
               {breakpoint => (
                 <FontSizePickerLabel
                   label={__('Number Font Size')}
-                  value={numberFontSize[breakpoint]}
+                  value={
+                    numberFontSize[breakpoint] !== undefined &&
+                    numberFontSize[breakpoint] !== ''
+                      ? numberFontSize[breakpoint]
+                      : undefined
+                  }
                   onChange={value =>
                     setAttributes({
                       numberFontSize: {
@@ -281,7 +342,12 @@ const CountdownEdit = ({
               {breakpoint => (
                 <FontSizePickerLabel
                   label={__('Label Font Size')}
-                  value={labelFontSize[breakpoint]}
+                  value={
+                    labelFontSize[breakpoint] !== undefined &&
+                    labelFontSize[breakpoint] !== ''
+                      ? labelFontSize[breakpoint]
+                      : undefined
+                  }
                   onChange={value =>
                     setAttributes({
                       labelFontSize: {
@@ -305,6 +371,8 @@ const CountdownEdit = ({
               }}
               min={0}
               max={200}
+              __nextHasNoMarginBottom
+              __next40pxDefaultSize
             />
 
             <ResponsiveControl>
@@ -361,7 +429,19 @@ const CountdownEdit = ({
               initialOpen={false}
             >
               <AnimationControls
-                attributes={attributes.animation}
+                attributes={{
+                  ...attributes.animation,
+                  duration:
+                    attributes.animation?.duration !== undefined &&
+                    attributes.animation?.duration !== ''
+                      ? Number(attributes.animation.duration)
+                      : undefined,
+                  delay:
+                    attributes.animation?.delay !== undefined &&
+                    attributes.animation?.delay !== ''
+                      ? Number(attributes.animation.delay)
+                      : undefined,
+                }}
                 setAttributes={setAttributes}
               />
             </PanelBody>

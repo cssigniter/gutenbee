@@ -7,6 +7,7 @@
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
 import classNames from 'classnames';
+import { useBlockProps } from 'wp.blockEditor';
 
 import DividerBlockIcon from './block-icon';
 import DividerEdit from './edit';
@@ -34,41 +35,11 @@ export const BORDER_STYLES = {
   DOUBLE: 'double',
 };
 
-export const Divider = ({ className, attributes, ...props }) => {
-  const {
-    height,
-    style,
-    weight,
-    width,
-    align,
-    color,
-    uniqueId,
-    backgroundColor,
-    blockBreakpointVisibility,
-    blockAuthVisibility,
-  } = attributes;
-  const blockId = getBlockId(uniqueId);
+export const Divider = ({ blockProps, attributes }) => {
+  const { style, weight, width, color } = attributes;
 
   return (
-    <div
-      id={blockId}
-      className={classNames(
-        className,
-        blockId,
-        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-        getAuthVisibilityClasses(blockAuthVisibility),
-        {
-          [`align-${align}`]: true,
-        },
-      )}
-      style={{
-        height,
-        backgroundColor: backgroundColor || undefined,
-        ...getBorderCSSValue({ attributes }),
-        ...getBoxShadowCSSValue({ attributes }),
-      }}
-      {...props}
-    >
+    <div {...blockProps}>
       <DividerStyle attributes={attributes} />
       <div
         className="wp-block-gutenbee-divider-inner"
@@ -84,6 +55,7 @@ export const Divider = ({ className, attributes, ...props }) => {
 };
 
 registerBlockType('gutenbee/divider', {
+  apiVersion: 3,
   title: __('GutenBee Divider'),
   description: __(
     'A divider to indicate a thematic change in the content in style.',
@@ -165,7 +137,36 @@ registerBlockType('gutenbee/divider', {
   },
   deprecated,
   edit: DividerEdit,
-  save({ className, attributes }) {
-    return <Divider className={className} attributes={attributes} />;
+  save({ attributes }) {
+    const {
+      height,
+      align,
+      uniqueId,
+      backgroundColor,
+      blockBreakpointVisibility,
+      blockAuthVisibility,
+    } = attributes;
+
+    const blockId = getBlockId(uniqueId);
+
+    const blockProps = useBlockProps.save({
+      id: blockId,
+      className: classNames(
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+        {
+          [`align-${align}`]: true,
+        },
+      ),
+      style: {
+        height,
+        backgroundColor: backgroundColor || undefined,
+        ...getBorderCSSValue({ attributes }),
+        ...getBoxShadowCSSValue({ attributes }),
+      },
+    });
+
+    return <Divider blockProps={blockProps} attributes={attributes} />;
   },
 });

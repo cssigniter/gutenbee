@@ -1,7 +1,12 @@
 import { Fragment, useState } from 'wp.element';
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
-import { RichText, PlainText, InspectorControls } from 'wp.blockEditor';
+import {
+  RichText,
+  PlainText,
+  InspectorControls,
+  useBlockProps,
+} from 'wp.blockEditor';
 import { PanelBody, RangeControl, ToggleControl } from 'wp.components';
 import classNames from 'classnames';
 
@@ -35,7 +40,7 @@ const propTypes = {
     blockMargin: PropTypes.object,
   }).isRequired,
   isSelected: PropTypes.bool.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   setAttributes: PropTypes.func.isRequired,
   clientId: PropTypes.string.isRequired,
 };
@@ -139,10 +144,15 @@ const AccordionsEdit = ({
 
   const blockId = getBlockId(uniqueId);
 
+  const blockProps = useBlockProps({
+    id: blockId,
+    className: classNames(className || '', blockId),
+  });
+
   return (
     <Fragment>
       <AccordionStyle attributes={attributes} />
-      <div id={blockId} className={classNames(className, blockId)}>
+      <div {...blockProps}>
         {tabs.map((tab, index) => (
           <div
             key={index}
@@ -188,7 +198,6 @@ const AccordionsEdit = ({
                     onChange={content => onTabContentUpdate(index, content)}
                     className="wp-block-gutenbee-accordion-item-text"
                     placeholder={__('Write content…')}
-                    keepPlaceholderOnFocus
                   />
                 </div>
               </div>
@@ -207,12 +216,15 @@ const AccordionsEdit = ({
               max={30}
               step={1}
               onChange={onUpdateTabsNumber}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
             />
 
             <ToggleControl
               label={__('Collapse others on click')}
               checked={collapseOthers}
               onChange={value => setAttributes({ collapseOthers: value })}
+              __nextHasNoMarginBottom
             />
 
             <ToggleControl
@@ -233,6 +245,7 @@ const AccordionsEdit = ({
                   });
                 }
               }}
+              __nextHasNoMarginBottom
             />
           </PanelBody>
 
@@ -347,7 +360,19 @@ const AccordionsEdit = ({
               initialOpen={false}
             >
               <AnimationControls
-                attributes={attributes.animation}
+                attributes={{
+                  ...attributes.animation,
+                  duration:
+                    attributes.animation?.duration !== undefined &&
+                    attributes.animation?.duration !== ''
+                      ? Number(attributes.animation.duration)
+                      : undefined,
+                  delay:
+                    attributes.animation?.delay !== undefined &&
+                    attributes.animation?.delay !== ''
+                      ? Number(attributes.animation.delay)
+                      : undefined,
+                }}
                 setAttributes={setAttributes}
               />
             </PanelBody>

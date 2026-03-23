@@ -97,12 +97,15 @@ const ImageEdit = ({
 
   const { image, imageSizes } = useSelect(
     select => {
-      const { getMedia } = select('core');
+      const { getEntityRecord } = select('core');
       const { getSettings } = select('core/block-editor');
       const { imageSizes } = getSettings();
 
       return {
-        image: id && isSelected ? getMedia(id) : null,
+        image:
+          id && isSelected
+            ? getEntityRecord('postType', 'attachment', id)
+            : null,
         imageSizes,
       };
     },
@@ -164,8 +167,6 @@ const ImageEdit = ({
 
   const [isEditing, setIsEditing] = useState(!url);
   const toggleIsEditing = () => setIsEditing(prev => !prev);
-
-  const [captionFocused, setCaptionFocused] = useState(false);
 
   const labels = {
     title: !url ? __('Image') : __('Edit image'),
@@ -309,9 +310,8 @@ const ImageEdit = ({
           tagName="figcaption"
           placeholder={__('Write caption…')}
           value={caption}
-          unstableOnFocus={() => setCaptionFocused(true)}
           onChange={value => setAttributes({ caption: value })}
-          isSelected={captionFocused}
+          isSelected={isSelected}
           inlineToolbar
         />
       )}
@@ -338,8 +338,8 @@ const ImageEdit = ({
                 min={10}
                 max={2000}
                 allowReset
-                beforeIcon="format-image"
-                afterIcon="format-image"
+                __nextHasNoMarginBottom
+                __next40pxDefaultSize
               />
             )}
           </ResponsiveControl>
@@ -348,6 +348,7 @@ const ImageEdit = ({
             label={__('Alt Text (Alternative Text)')}
             value={alt}
             onChange={value => setAttributes({ alt: value })}
+            __nextHasNoMarginBottom
           />
 
           {!isEmpty(imageSizeOptions) && (
@@ -356,6 +357,8 @@ const ImageEdit = ({
               value={sizeSlug}
               options={imageSizeOptions}
               onChange={onImageSizeUpdate}
+              __nextHasNoMarginBottom
+              __next40pxDefaultSize
             />
           )}
 
@@ -370,6 +373,8 @@ const ImageEdit = ({
                 { value: LINK_DESTINATION.CUSTOM, label: __('Custom URL') },
               ]}
               onChange={onImageLinkDestinationChange}
+              __nextHasNoMarginBottom
+              __next40pxDefaultSize
             />
           )}
 
@@ -456,7 +461,19 @@ const ImageEdit = ({
             initialOpen={false}
           >
             <AnimationControls
-              attributes={attributes.animation}
+              attributes={{
+                ...attributes.animation,
+                duration:
+                  attributes.animation?.duration !== undefined &&
+                  attributes.animation?.duration !== ''
+                    ? Number(attributes.animation.duration)
+                    : undefined,
+                delay:
+                  attributes.animation?.delay !== undefined &&
+                  attributes.animation?.delay !== ''
+                    ? Number(attributes.animation.delay)
+                    : undefined,
+              }}
               setAttributes={setAttributes}
             />
           </PanelBody>

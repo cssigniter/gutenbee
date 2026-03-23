@@ -1,5 +1,6 @@
 import { __ } from 'wp.i18n';
 import { registerBlockType } from 'wp.blocks';
+import { useBlockProps } from 'wp.blockEditor';
 import classNames from 'classnames';
 
 import getBlockId from '../../util/getBlockId';
@@ -26,6 +27,7 @@ import {
 } from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/video-embed', {
+  apiVersion: 3,
   title: __('GutenBee Video Embed'),
   description: __('Embed a video from YouTube or Vimeo.'),
   icon: VideoEmbedBlockIcon,
@@ -46,6 +48,7 @@ registerBlockType('gutenbee/video-embed', {
     },
     videoUrl: {
       type: 'string',
+      default: '',
     },
     lazyLoad: {
       type: 'boolean',
@@ -53,12 +56,15 @@ registerBlockType('gutenbee/video-embed', {
     },
     coverImage: {
       type: 'string',
+      default: '',
     },
     startTime: {
       type: 'string',
+      default: '',
     },
     endTime: {
       type: 'string',
+      default: '',
     },
     controls: {
       type: 'boolean',
@@ -86,6 +92,7 @@ registerBlockType('gutenbee/video-embed', {
     },
     backgroundColor: {
       type: 'string',
+      default: '',
     },
     blockPadding: {
       type: 'object',
@@ -116,7 +123,7 @@ registerBlockType('gutenbee/video-embed', {
   },
   deprecated,
   edit: VideoEmbedEdit,
-  save: ({ attributes, className }) => {
+  save: ({ attributes }) => {
     const {
       uniqueId,
       lazyLoad,
@@ -143,24 +150,25 @@ registerBlockType('gutenbee/video-embed', {
 
     const videoInfo = getVideoProviderInfoByUrl(videoUrl);
 
+    const blockProps = useBlockProps.save({
+      id: blockId,
+      className: classNames(
+        blockId,
+        getBreakpointVisibilityClassNames(blockBreakpointVisibility),
+        getAuthVisibilityClasses(blockAuthVisibility),
+        'gutenbee-video-embed-block-wrapper',
+        sticky && 'wp-block-gutenbee-video-embed-sticky',
+      ),
+      style: {
+        backgroundColor: backgroundColor ? backgroundColor : undefined,
+        ...getBorderCSSValue({ attributes }),
+        ...getBoxShadowCSSValue({ attributes }),
+      },
+      ...getAnimationControlDataAttributes(attributes.animation),
+    });
+
     return (
-      <div
-        id={blockId}
-        className={classNames(
-          className,
-          blockId,
-          getBreakpointVisibilityClassNames(blockBreakpointVisibility),
-          getAuthVisibilityClasses(blockAuthVisibility),
-          'gutenbee-video-embed-block-wrapper',
-          sticky && 'wp-block-gutenbee-video-embed-sticky',
-        )}
-        style={{
-          backgroundColor: backgroundColor ? backgroundColor : undefined,
-          ...getBorderCSSValue({ attributes }),
-          ...getBoxShadowCSSValue({ attributes }),
-        }}
-        {...getAnimationControlDataAttributes(attributes.animation)}
-      >
+      <div {...blockProps}>
         <div className="gutenbee-video-embed-wrapper">
           <VideoEmbedStyle attributes={attributes} />
           <div
