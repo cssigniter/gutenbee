@@ -50,8 +50,8 @@
         "functions": "always-multiline"
       }
     ],
-    "babel/semi": "error",
     "no-undef": "error",
+    "semi": "error",
     "no-console": "warn",
     "jsx-quotes": ["error", "prefer-double"],
     "func-style": ["off", "expression"],
