@@ -1,4 +1,9 @@
 .wp-block-gutenbee-image {
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
   &.is-style-circle-mask,
   &.is-style-rounded {
     img {
