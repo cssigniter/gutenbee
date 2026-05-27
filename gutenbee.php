@@ -6,7 +6,7 @@
  * Author: The CSSIgniter Team
  * Author URI: https://www.cssigniter.com
  * License: GPLv2 or later
- * Version: 2.20.2
+ * Version: 2.20.3
  * Text Domain: gutenbee
  * Domain Path: /languages
  *
@@ -26,7 +26,7 @@
  */
 
 if ( ! defined( 'GUTENBEE_PLUGIN_VERSION' ) ) {
-	define( 'GUTENBEE_PLUGIN_VERSION', '2.20.2' );
+	define( 'GUTENBEE_PLUGIN_VERSION', '2.20.3' );
 }
 
 if ( ! defined( 'GUTENBEE_PLUGIN_DIR' ) ) {
