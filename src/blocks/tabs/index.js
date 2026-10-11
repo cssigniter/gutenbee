@@ -26,11 +26,11 @@ import {
 
 registerBlockType('gutenbee/tabs', {
   apiVersion: 3,
-  title: __('GutenBee Tabs'),
-  description: __('Display fancy tabs'),
+  title: __('GutenBee Tabs', 'gutenbee'),
+  description: __('Display fancy tabs', 'gutenbee'),
   icon: TabsBlockIcon,
   category: 'gutenbee',
-  keywords: [__('tabs')],
+  keywords: [__('tabs', 'gutenbee')],
   supports: {
     anchor: false,
   },

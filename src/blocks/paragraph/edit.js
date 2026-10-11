@@ -114,15 +114,18 @@ const ParagraphBlock = ({
           onMerge={mergeBlocks}
           onReplace={onReplace}
           onRemove={onReplace ? () => onReplace([]) : undefined}
-          aria-label={__('Paragraph block')}
-          placeholder={placeholder || __('Start writing…')}
+          aria-label={__('Paragraph block', 'gutenbee')}
+          placeholder={placeholder || __('Start writing…', 'gutenbee')}
           __unstableEmbedURLOnPaste
         />
       </div>
       <ParagraphStyle attributes={attributes} />
 
       <InspectorControls>
-        <PanelBody title={__('Text Settings')} className="blocks-font-size">
+        <PanelBody
+          title={__('Text Settings', 'gutenbee')}
+          className="blocks-font-size"
+        >
           <ResponsiveControl>
             {breakpoint => {
               const currentLineHeight = lineHeight?.[breakpoint];
@@ -186,21 +189,21 @@ const ParagraphBlock = ({
                       },
                     });
                   }}
-                  label={__('Text Font Size')}
+                  label={__('Text Font Size', 'gutenbee')}
                 />
               );
             }}
           </ResponsiveControl>
 
           <ToggleControl
-            label={__('Drop Cap')}
+            label={__('Drop Cap', 'gutenbee')}
             checked={!!dropCap}
             onChange={() => setAttributes({ dropCap: !dropCap })}
             __nextHasNoMarginBottom
             help={
               dropCap
-                ? __('Showing large initial letter.')
-                : __('Toggle to show a large initial letter.')
+                ? __('Showing large initial letter.', 'gutenbee')
+                : __('Toggle to show a large initial letter.', 'gutenbee')
             }
           />
 
@@ -222,16 +225,19 @@ const ParagraphBlock = ({
           </ResponsiveControl>
         </PanelBody>
 
-        <PanelBody title={__('Block Appearance')} initialOpen={false}>
+        <PanelBody
+          title={__('Block Appearance', 'gutenbee')}
+          initialOpen={false}
+        >
           <PopoverColorControl
-            label={__('Text Color')}
+            label={__('Text Color', 'gutenbee')}
             value={textColor.color || ''}
             defaultValue={textColor.color || ''}
             onChange={setTextColor}
           />
 
           <PopoverColorControl
-            label={__('Background Color')}
+            label={__('Background Color', 'gutenbee')}
             value={backgroundColor.color || ''}
             defaultValue={backgroundColor.color || ''}
             onChange={setBackgroundColor}
@@ -250,7 +256,7 @@ const ParagraphBlock = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Padding (px)')}
+                label={__('Padding (px)', 'gutenbee')}
                 attributeKey="blockPadding"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -262,7 +268,7 @@ const ParagraphBlock = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Margin (px)')}
+                label={__('Margin (px)', 'gutenbee')}
                 attributeKey="blockMargin"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -272,7 +278,10 @@ const ParagraphBlock = ({
           </ResponsiveControl>
         </PanelBody>
 
-        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+        <PanelBody
+          title={__('Visibility Settings', 'gutenbee')}
+          initialOpen={false}
+        >
           <BreakpointVisibilityControl
             values={blockBreakpointVisibility}
             onChange={values => {
@@ -295,7 +304,7 @@ const ParagraphBlock = ({
         {__GUTENBEE_SETTINGS__.plugin.settings['active_animation-controls'] && (
           <PanelBody
             icon={!!attributes.animation?.type && 'saved'}
-            title={__('Animation')}
+            title={__('Animation', 'gutenbee')}
             initialOpen={false}
           >
             <AnimationControls

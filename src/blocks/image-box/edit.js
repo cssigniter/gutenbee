@@ -105,7 +105,7 @@ const ImageBoxEditBlock = ({
           ) : (
             <ImagePlaceholder
               icon="format-image"
-              label={__('Image')}
+              label={__('Image', 'gutenbee')}
               style={{
                 width: imageWidth.desktop
                   ? `${imageWidth.desktop}px`
@@ -128,7 +128,7 @@ const ImageBoxEditBlock = ({
             value={titleContent}
             onChange={value => setAttributes({ titleContent: value })}
             className="wp-block-gutenbee-imagebox-title"
-            placeholder={__('Write heading…')}
+            placeholder={__('Write heading…', 'gutenbee')}
             style={{
               color: titleColor || undefined,
               marginBottom:
@@ -143,7 +143,7 @@ const ImageBoxEditBlock = ({
             value={textContent}
             onChange={value => setAttributes({ textContent: value })}
             className="wp-block-gutenbee-imagebox-text"
-            placeholder={__('Write content…')}
+            placeholder={__('Write content…', 'gutenbee')}
             style={{
               color: textColor || undefined,
             }}
@@ -168,7 +168,7 @@ const ImageBoxEditBlock = ({
                 render={({ open }) => (
                   <ToolbarButton
                     className="components-toolbar__control"
-                    label={__('Edit Image')}
+                    label={__('Edit Image', 'gutenbee')}
                     icon="format-image"
                     onClick={open}
                   />
@@ -178,9 +178,12 @@ const ImageBoxEditBlock = ({
           </BlockControls>
 
           <InspectorControls>
-            <PanelBody title={__('Image Settings')} initialOpen={false}>
+            <PanelBody
+              title={__('Image Settings', 'gutenbee')}
+              initialOpen={false}
+            >
               <SelectControl
-                label={__('Image Alignment')}
+                label={__('Image Alignment', 'gutenbee')}
                 value={imageAlign}
                 options={['left', 'center', 'right'].map(option => ({
                   value: option,
@@ -195,7 +198,7 @@ const ImageBoxEditBlock = ({
 
               {availableSizes && (
                 <SelectControl
-                  label={__('Source Size')}
+                  label={__('Source Size', 'gutenbee')}
                   value={url}
                   options={Object.keys(availableSizes).map(name => ({
                     value: availableSizes[name].source_url,
@@ -213,7 +216,7 @@ const ImageBoxEditBlock = ({
                 {breakpoint => (
                   <RangeControl
                     className="range-control-size"
-                    label={__('Image Width')}
+                    label={__('Image Width', 'gutenbee')}
                     value={imageWidth[breakpoint]}
                     onChange={value =>
                       setAttributes({
@@ -235,7 +238,7 @@ const ImageBoxEditBlock = ({
               <ResponsiveControl>
                 {breakpoint => (
                   <MarginControls
-                    label={__('Margin (px)')}
+                    label={__('Margin (px)', 'gutenbee')}
                     attributeKey="imageMargin"
                     attributes={attributes}
                     setAttributes={setAttributes}
@@ -245,7 +248,10 @@ const ImageBoxEditBlock = ({
               </ResponsiveControl>
             </PanelBody>
 
-            <PanelBody title={__('Content Settings')} initialOpen={false}>
+            <PanelBody
+              title={__('Content Settings', 'gutenbee')}
+              initialOpen={false}
+            >
               <AlignmentToolbar
                 value={contentAlign}
                 onChange={value => {
@@ -254,7 +260,7 @@ const ImageBoxEditBlock = ({
                 isCollapsed={false}
               />
 
-              <p>{__('Heading Element')}</p>
+              <p>{__('Heading Element', 'gutenbee')}</p>
               <HeadingToolbar
                 isCollapsed={false}
                 minLevel={1}
@@ -269,7 +275,7 @@ const ImageBoxEditBlock = ({
                 {breakpoint => (
                   <FontSizePickerLabel
                     value={titleFontSize[breakpoint] || undefined}
-                    label={__('Heading Font Size')}
+                    label={__('Heading Font Size', 'gutenbee')}
                     onChange={value =>
                       setAttributes({
                         titleFontSize: {
@@ -283,7 +289,7 @@ const ImageBoxEditBlock = ({
               </ResponsiveControl>
 
               <RangeControl
-                label={__('Heading Bottom Margin')}
+                label={__('Heading Bottom Margin', 'gutenbee')}
                 value={titleBottomSpacing}
                 onChange={value => {
                   setAttributes({
@@ -301,7 +307,7 @@ const ImageBoxEditBlock = ({
                 {breakpoint => (
                   <FontSizePickerLabel
                     value={textFontSize[breakpoint] || undefined}
-                    label={__('Text Font Size')}
+                    label={__('Text Font Size', 'gutenbee')}
                     onChange={value =>
                       setAttributes({
                         textFontSize: {
@@ -315,23 +321,26 @@ const ImageBoxEditBlock = ({
               </ResponsiveControl>
             </PanelBody>
 
-            <PanelBody title={__('Block Appearance')} initialOpen={false}>
+            <PanelBody
+              title={__('Block Appearance', 'gutenbee')}
+              initialOpen={false}
+            >
               <PopoverColorControl
-                label={__('Title Color')}
+                label={__('Title Color', 'gutenbee')}
                 value={titleColor || ''}
                 defaultValue={titleColor || ''}
                 onChange={value => setAttributes({ titleColor: value })}
               />
 
               <PopoverColorControl
-                label={__('Content Text Color')}
+                label={__('Content Text Color', 'gutenbee')}
                 value={textColor || ''}
                 defaultValue={textColor || ''}
                 onChange={value => setAttributes({ textColor: value })}
               />
 
               <PopoverColorControl
-                label={__('Block Background Color')}
+                label={__('Block Background Color', 'gutenbee')}
                 value={backgroundColor || ''}
                 defaultValue={backgroundColor || ''}
                 onChange={value => setAttributes({ backgroundColor: value })}
@@ -350,7 +359,7 @@ const ImageBoxEditBlock = ({
               <ResponsiveControl>
                 {breakpoint => (
                   <MarginControls
-                    label={__('Padding (px)')}
+                    label={__('Padding (px)', 'gutenbee')}
                     attributeKey="blockPadding"
                     attributes={attributes}
                     setAttributes={setAttributes}
@@ -362,7 +371,7 @@ const ImageBoxEditBlock = ({
               <ResponsiveControl>
                 {breakpoint => (
                   <MarginControls
-                    label={__('Margin (px)')}
+                    label={__('Margin (px)', 'gutenbee')}
                     attributeKey="blockMargin"
                     attributes={attributes}
                     setAttributes={setAttributes}
@@ -372,7 +381,10 @@ const ImageBoxEditBlock = ({
               </ResponsiveControl>
             </PanelBody>
 
-            <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+            <PanelBody
+              title={__('Visibility Settings', 'gutenbee')}
+              initialOpen={false}
+            >
               <BreakpointVisibilityControl
                 values={blockBreakpointVisibility}
                 onChange={values => {
@@ -397,7 +409,7 @@ const ImageBoxEditBlock = ({
             ] && (
               <PanelBody
                 icon={!!attributes.animation?.type && 'saved'}
-                title={__('Animation')}
+                title={__('Animation', 'gutenbee')}
                 initialOpen={false}
               >
                 <AnimationControls

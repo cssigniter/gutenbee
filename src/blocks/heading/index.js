@@ -30,13 +30,18 @@ import {
 
 registerBlockType('gutenbee/heading', {
   apiVersion: 3,
-  title: __('GutenBee Heading'),
+  title: __('GutenBee Heading', 'gutenbee'),
   description: __(
     'Introduce new sections and organize content to help visitors (and search engines) understand the structure of your content.',
+    'gutenbee',
   ),
   icon: HeadingBlockIcon,
   category: 'gutenbee',
-  keywords: [__('title'), __('subtitle'), __('heading')],
+  keywords: [
+    __('title', 'gutenbee'),
+    __('subtitle', 'gutenbee'),
+    __('heading', 'gutenbee'),
+  ],
   supports: {
     className: true,
     anchor: false,
@@ -44,7 +49,7 @@ registerBlockType('gutenbee/heading', {
   },
   example: {
     attributes: {
-      content: __('Code is Poetry'),
+      content: __('Code is Poetry', 'gutenbee'),
       level: 2,
     },
   },

@@ -119,11 +119,15 @@ const CountDown = ({ attributes }) => {
 
 registerBlockType('gutenbee/countdown', {
   apiVersion: 3,
-  title: __('GutenBee Countdown'),
-  description: __('Display awesome countdowns'),
+  title: __('GutenBee Countdown', 'gutenbee'),
+  description: __('Display awesome countdowns', 'gutenbee'),
   category: 'gutenbee',
   icon: CountdownBlockIcon,
-  keywords: [__('counter'), __('numbers'), __('countdown')],
+  keywords: [
+    __('counter', 'gutenbee'),
+    __('numbers', 'gutenbee'),
+    __('countdown', 'gutenbee'),
+  ],
   supports: {
     anchor: false,
   },

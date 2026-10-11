@@ -101,15 +101,15 @@ export const IconSettings = ({
   alignmentOptions = [
     {
       value: 'left',
-      label: __('Left'),
+      label: __('Left', 'gutenbee'),
     },
     {
       value: 'center',
-      label: __('Center'),
+      label: __('Center', 'gutenbee'),
     },
     {
       value: 'right',
-      label: __('Right'),
+      label: __('Right', 'gutenbee'),
     },
   ],
 }) => {
@@ -139,25 +139,25 @@ export const IconSettings = ({
           isClearable={false}
         />
         <SelectControl
-          label={__('View')}
+          label={__('View', 'gutenbee')}
           value={view || VIEWS.DEFAULT}
           onChange={value => setAttributes({ view: value })}
           options={[
-            { value: VIEWS.DEFAULT, label: __('Default') },
-            { value: VIEWS.STACKED, label: __('Stacked') },
-            { value: VIEWS.FRAMED, label: __('Framed') },
+            { value: VIEWS.DEFAULT, label: __('Default', 'gutenbee') },
+            { value: VIEWS.STACKED, label: __('Stacked', 'gutenbee') },
+            { value: VIEWS.FRAMED, label: __('Framed', 'gutenbee') },
           ]}
           __nextHasNoMarginBottom
           __next40pxDefaultSize
         />
         {view !== VIEWS.DEFAULT && (
           <SelectControl
-            label={__('Shape')}
+            label={__('Shape', 'gutenbee')}
             value={shape || SHAPES.CIRCLE}
             onChange={value => setAttributes({ shape: value })}
             options={[
-              { value: SHAPES.CIRCLE, label: __('Circle') },
-              { value: SHAPES.SQUARE, label: __('Square') },
+              { value: SHAPES.CIRCLE, label: __('Circle', 'gutenbee') },
+              { value: SHAPES.SQUARE, label: __('Square', 'gutenbee') },
             ]}
             __nextHasNoMarginBottom
             __next40pxDefaultSize
@@ -167,7 +167,7 @@ export const IconSettings = ({
           {breakpoint => {
             return (
               <RangeControl
-                label={__('Icon Size (px)')}
+                label={__('Icon Size (px)', 'gutenbee')}
                 min={1}
                 max={100}
                 value={size[breakpoint]}
@@ -187,7 +187,7 @@ export const IconSettings = ({
         </ResponsiveControl>
         {view !== VIEWS.DEFAULT && (
           <RangeControl
-            label={__('Padding (em)')}
+            label={__('Padding (em)', 'gutenbee')}
             min={1}
             max={10}
             step={0.1}
@@ -199,7 +199,7 @@ export const IconSettings = ({
         )}
         {view === VIEWS.FRAMED && (
           <RangeControl
-            label={__('Border Size (px)')}
+            label={__('Border Size (px)', 'gutenbee')}
             min={1}
             max={50}
             step={1}
@@ -211,7 +211,7 @@ export const IconSettings = ({
         )}
 
         <SelectControl
-          label={__('Alignment')}
+          label={__('Alignment', 'gutenbee')}
           value={align || 'left'}
           options={alignmentOptions.map(option => ({
             value: option.value,
@@ -225,9 +225,9 @@ export const IconSettings = ({
         />
       </PanelBody>
 
-      <PanelBody title={__('Icon Appearance')} initialOpen={false}>
+      <PanelBody title={__('Icon Appearance', 'gutenbee')} initialOpen={false}>
         <PopoverColorControl
-          label={__('Primary Color')}
+          label={__('Primary Color', 'gutenbee')}
           value={colorPrimary || ''}
           defaultValue={colorPrimary || ''}
           onChange={value => setAttributes({ colorPrimary: value })}
@@ -235,7 +235,7 @@ export const IconSettings = ({
 
         {view !== VIEWS.DEFAULT && (
           <PopoverColorControl
-            label={__('Secondary Color')}
+            label={__('Secondary Color', 'gutenbee')}
             value={colorSecondary || ''}
             defaultValue={colorSecondary || ''}
             onChange={value => setAttributes({ colorSecondary: value })}
@@ -251,7 +251,7 @@ export const IconSettings = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Padding (px)')}
+                label={__('Padding (px)', 'gutenbee')}
                 attributeKey="blockPadding"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -265,7 +265,7 @@ export const IconSettings = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Margin (px)')}
+                label={__('Margin (px)', 'gutenbee')}
                 attributeKey="blockMargin"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -279,7 +279,10 @@ export const IconSettings = ({
       </PanelBody>
 
       {blockBreakpointVisibility && blockAuthVisibility && (
-        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+        <PanelBody
+          title={__('Visibility Settings', 'gutenbee')}
+          initialOpen={false}
+        >
           <BreakpointVisibilityControl
             values={blockBreakpointVisibility}
             onChange={values => {
@@ -304,7 +307,7 @@ export const IconSettings = ({
         __GUTENBEE_SETTINGS__.plugin.settings['active_animation-controls'] && (
           <PanelBody
             icon={!!attributes.animation?.type && 'saved'}
-            title={__('Animation')}
+            title={__('Animation', 'gutenbee')}
             initialOpen={false}
           >
             <AnimationControls
@@ -363,11 +366,11 @@ const IconEdit = ({
 
 registerBlockType('gutenbee/icon', {
   apiVersion: 3,
-  title: __('GutenBee Icon'),
-  description: __('A flexible icon block'),
+  title: __('GutenBee Icon', 'gutenbee'),
+  description: __('A flexible icon block', 'gutenbee'),
   icon: IconBlockIcon,
   category: 'gutenbee',
-  keywords: [__('icons')],
+  keywords: [__('icons', 'gutenbee')],
   attributes: iconAttributes,
   deprecated,
   edit: IconEdit,

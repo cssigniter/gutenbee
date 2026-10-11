@@ -77,7 +77,7 @@ const AnimationControls = ({ className, attributes, setAttributes }) => {
   return (
     <div className={classNames('gutenbee-animation-controls', className)}>
       <SelectControl
-        label={__('Animation type')}
+        label={__('Animation type', 'gutenbee')}
         value={type}
         onChange={value => {
           setAttributes({
@@ -90,7 +90,7 @@ const AnimationControls = ({ className, attributes, setAttributes }) => {
         options={[
           {
             value: '',
-            label: __('None'),
+            label: __('None', 'gutenbee'),
           },
           ...Object.values(ANIMATION_TYPE).map(value => ({
             value,
@@ -104,7 +104,7 @@ const AnimationControls = ({ className, attributes, setAttributes }) => {
       {!!type && (
         <Fragment>
           <RangeControl
-            label={__('Duration (seconds)')}
+            label={__('Duration (seconds)', 'gutenbee')}
             value={duration}
             initialPosition={0.7}
             onChange={value => {
@@ -123,7 +123,7 @@ const AnimationControls = ({ className, attributes, setAttributes }) => {
           />
 
           <RangeControl
-            label={__('Delay (seconds)')}
+            label={__('Delay (seconds)', 'gutenbee')}
             value={delay}
             initialPosition={0}
             onChange={value => {
@@ -142,7 +142,7 @@ const AnimationControls = ({ className, attributes, setAttributes }) => {
           />
 
           <SelectControl
-            label={__('Easing')}
+            label={__('Easing', 'gutenbee')}
             value={easing}
             onChange={value => {
               setAttributes({
@@ -155,7 +155,7 @@ const AnimationControls = ({ className, attributes, setAttributes }) => {
             options={[
               {
                 value: '',
-                label: __('Default (Ease In Out)'),
+                label: __('Default (Ease In Out)', 'gutenbee'),
               },
               ...easings.map(value => ({
                 value,
@@ -167,11 +167,12 @@ const AnimationControls = ({ className, attributes, setAttributes }) => {
           />
 
           <CheckboxControl
-            label={__('Repeat animation')}
+            label={__('Repeat animation', 'gutenbee')}
             value="on"
             checked={repeat}
             help={__(
               'Repeat the animation for this block every time it enters the viewport.',
+              'gutenbee',
             )}
             onChange={value => {
               setAttributes({
@@ -185,11 +186,12 @@ const AnimationControls = ({ className, attributes, setAttributes }) => {
           />
 
           <CheckboxControl
-            label={__('Desktop only')}
+            label={__('Desktop only', 'gutenbee')}
             value="on"
             checked={desktopOnly}
             help={__(
               'Disable on mobile, show this animation on larger viewports only.',
+              'gutenbee',
             )}
             onChange={value => {
               setAttributes({

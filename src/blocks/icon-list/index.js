@@ -27,11 +27,11 @@ import {
 
 registerBlockType('gutenbee/icon-list', {
   apiVersion: 3,
-  title: __('GutenBee Icon List'),
-  description: __('Create lists with icons.'),
+  title: __('GutenBee Icon List', 'gutenbee'),
+  description: __('Create lists with icons.', 'gutenbee'),
   icon: IconListBlockIcon,
   category: 'gutenbee',
-  keywords: [__('icon'), __('list')],
+  keywords: [__('icon', 'gutenbee'), __('list', 'gutenbee')],
   supports: {
     anchor: false,
   },

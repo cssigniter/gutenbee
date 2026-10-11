@@ -192,7 +192,7 @@ const IconBoxEditBlock = ({
             value={titleContent}
             onChange={value => setAttributes({ titleContent: value })}
             className="wp-block-gutenbee-iconbox-title"
-            placeholder={__('Write heading…')}
+            placeholder={__('Write heading…', 'gutenbee')}
             style={{
               color: titleColor || undefined,
               marginBottom:
@@ -207,7 +207,7 @@ const IconBoxEditBlock = ({
             value={textContent}
             onChange={value => setAttributes({ textContent: value })}
             className="wp-block-gutenbee-iconbox-text"
-            placeholder={__('Write content…')}
+            placeholder={__('Write content…', 'gutenbee')}
             style={{
               color: textColor || undefined,
             }}
@@ -223,15 +223,15 @@ const IconBoxEditBlock = ({
             alignmentOptions={[
               {
                 value: 'left',
-                label: __('Left'),
+                label: __('Left', 'gutenbee'),
               },
               {
                 value: 'center',
-                label: __('Top'),
+                label: __('Top', 'gutenbee'),
               },
               {
                 value: 'right',
-                label: __('Right'),
+                label: __('Right', 'gutenbee'),
               },
             ]}
             attributes={{
@@ -247,7 +247,7 @@ const IconBoxEditBlock = ({
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
-                  label={__('Padding (px)')}
+                  label={__('Padding (px)', 'gutenbee')}
                   attributeKey="iconPadding"
                   attributes={attributes}
                   setAttributes={setAttributes}
@@ -259,7 +259,7 @@ const IconBoxEditBlock = ({
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
-                  label={__('Margin (px)')}
+                  label={__('Margin (px)', 'gutenbee')}
                   attributeKey="iconMargin"
                   attributes={attributes}
                   setAttributes={setAttributes}
@@ -269,9 +269,12 @@ const IconBoxEditBlock = ({
             </ResponsiveControl>
           </IconSettings>
 
-          <PanelBody title={__('Content Settings')} initialOpen={false}>
+          <PanelBody
+            title={__('Content Settings', 'gutenbee')}
+            initialOpen={false}
+          >
             <SelectControl
-              label={__('Content Text Alignment')}
+              label={__('Content Text Alignment', 'gutenbee')}
               value={contentAlign || ''}
               options={['', 'left', 'center', 'right'].map(option => ({
                 value: option,
@@ -284,7 +287,7 @@ const IconBoxEditBlock = ({
               __next40pxDefaultSize
             />
 
-            <p>{__('Heading element')}</p>
+            <p>{__('Heading element', 'gutenbee')}</p>
             <HeadingToolbar
               isCollapsed={false}
               minLevel={1}
@@ -306,7 +309,7 @@ const IconBoxEditBlock = ({
                 return (
                   <FontSizePickerLabel
                     value={fontSizeValue}
-                    label={__('Heading Font Size')}
+                    label={__('Heading Font Size', 'gutenbee')}
                     onChange={value =>
                       setAttributes({
                         titleFontSize: {
@@ -321,7 +324,7 @@ const IconBoxEditBlock = ({
             </ResponsiveControl>
 
             <RangeControl
-              label={__('Heading Bottom Margin')}
+              label={__('Heading Bottom Margin', 'gutenbee')}
               value={titleBottomSpacing}
               onChange={value => {
                 setAttributes({
@@ -348,7 +351,7 @@ const IconBoxEditBlock = ({
                 return (
                   <FontSizePickerLabel
                     value={fontSizeValue}
-                    label={__('Text Font Size')}
+                    label={__('Text Font Size', 'gutenbee')}
                     onChange={value => {
                       setAttributes({
                         textFontSize: {
@@ -363,23 +366,26 @@ const IconBoxEditBlock = ({
             </ResponsiveControl>
           </PanelBody>
 
-          <PanelBody title={__('Block Appearance')} initialOpen={false}>
+          <PanelBody
+            title={__('Block Appearance', 'gutenbee')}
+            initialOpen={false}
+          >
             <PopoverColorControl
-              label={__('Title Color')}
+              label={__('Title Color', 'gutenbee')}
               value={titleColor || ''}
               defaultValue={titleColor || ''}
               onChange={value => setAttributes({ titleColor: value })}
             />
 
             <PopoverColorControl
-              label={__('Content Text Color')}
+              label={__('Content Text Color', 'gutenbee')}
               value={textColor || ''}
               defaultValue={textColor || ''}
               onChange={value => setAttributes({ textColor: value })}
             />
 
             <PopoverColorControl
-              label={__('Block Background Color')}
+              label={__('Block Background Color', 'gutenbee')}
               value={backgroundColor || ''}
               defaultValue={backgroundColor || ''}
               onChange={value => setAttributes({ backgroundColor: value })}
@@ -398,7 +404,7 @@ const IconBoxEditBlock = ({
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
-                  label={__('Padding (px)')}
+                  label={__('Padding (px)', 'gutenbee')}
                   attributeKey="blockPadding"
                   attributes={attributes}
                   setAttributes={setAttributes}
@@ -410,7 +416,7 @@ const IconBoxEditBlock = ({
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
-                  label={__('Margin (px)')}
+                  label={__('Margin (px)', 'gutenbee')}
                   attributeKey="blockMargin"
                   attributes={attributes}
                   setAttributes={setAttributes}
@@ -420,7 +426,10 @@ const IconBoxEditBlock = ({
             </ResponsiveControl>
           </PanelBody>
 
-          <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+          <PanelBody
+            title={__('Visibility Settings', 'gutenbee')}
+            initialOpen={false}
+          >
             <BreakpointVisibilityControl
               values={blockBreakpointVisibility}
               onChange={values => {
@@ -445,7 +454,7 @@ const IconBoxEditBlock = ({
           ] && (
             <PanelBody
               icon={!!attributes.animation?.type && 'saved'}
-              title={__('Animation')}
+              title={__('Animation', 'gutenbee')}
               initialOpen={false}
             >
               <AnimationControls
@@ -479,11 +488,11 @@ const IconBoxEditBlock = ({
 
 registerBlockType('gutenbee/iconbox', {
   apiVersion: 3,
-  title: __('GutenBee Icon Box'),
-  description: __('A flexible icon box block'),
+  title: __('GutenBee Icon Box', 'gutenbee'),
+  description: __('A flexible icon box block', 'gutenbee'),
   icon: IconBoxBlockIcon,
   category: 'gutenbee',
-  keywords: [__('icon')],
+  keywords: [__('icon', 'gutenbee')],
   supports: {
     anchor: false,
   },

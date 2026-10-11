@@ -14,8 +14,8 @@ const ImagePlaceholder = ({
     className={className}
     instructions={
       multiple
-        ? __('Add images from media library')
-        : __('Add image from media library')
+        ? __('Add images from media library', 'gutenbee')
+        : __('Add image from media library', 'gutenbee')
     }
     icon={icon}
     label={label}
@@ -27,8 +27,10 @@ const ImagePlaceholder = ({
       onSelect={onSelectImage}
       allowedTypes={['image']}
       render={({ open }) => (
-        <Button isSecondary className="is-large" onClick={open}>
-          {multiple ? __('Select Images') : __('Select Image')}
+        <Button variant="secondary" className="is-large" onClick={open}>
+          {multiple
+            ? __('Select Images', 'gutenbee')
+            : __('Select Image', 'gutenbee')}
         </Button>
       )}
     />

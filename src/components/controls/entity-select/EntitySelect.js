@@ -76,9 +76,9 @@ const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
     <BaseControl label={label} __nextHasNoMarginBottom>
       <div className="entity-select-search-control">
         <TextControl
-          label={__('Search')}
+          label={__('Search', 'gutenbee')}
           hideLabelFromVision
-          placeholder={__('Type to search posts…')}
+          placeholder={__('Type to search posts…', 'gutenbee')}
           className="entity-select-search-control-input"
           value={query}
           onChange={setQuery}
@@ -99,11 +99,11 @@ const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
         >
           {loading && (
             <div className="entity-select-search-control-results-loading">
-              <Spinner /> {__('Loading...')}
+              <Spinner /> {__('Loading...', 'gutenbee')}
             </div>
           )}
 
-          {resultsEmpty && <p>{__('No results found.')}</p>}
+          {resultsEmpty && <p>{__('No results found.', 'gutenbee')}</p>}
 
           {results?.length > 0 &&
             results.map(result => {
@@ -118,7 +118,7 @@ const EntitySelect = ({ label, postType = 'post', values = [], onChange }) => {
                     setQuery('');
                   }}
                 >
-                  {result.title.raw ?? __('(No Title)')}
+                  {result.title.raw ?? __('(No Title)', 'gutenbee')}
                 </a>
               );
             })}

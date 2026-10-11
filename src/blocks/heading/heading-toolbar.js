@@ -18,7 +18,7 @@ const HeadingToolbar = ({
         <HeadingLevelIcon level={targetLevel} __unstableActive={isActive} />
       ),
       // translators: %s: heading level e.g: "1", "2", "3"
-      label: sprintf(__('Heading %d'), targetLevel),
+      label: sprintf(__('Heading %d', 'gutenbee'), targetLevel),
       isActive,
       onClick: () => onChange(targetLevel),
     };

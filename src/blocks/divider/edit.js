@@ -72,13 +72,13 @@ const DividerEdit = ({
       {isSelected && (
         <InspectorControls key="inspector">
           <PanelBody>
-            <p>{__('Style')}</p>
+            <p>{__('Style', 'gutenbee')}</p>
             <ToolbarGroup
               className="wp-block-gutenbee-divider-style-edit"
               controls={Object.values(BORDER_STYLES).map(
                 (borderStyle, index) => ({
                   icon: 'admin-appearance',
-                  title: sprintf(__('Style %s'), borderStyle),
+                  title: sprintf(__('Style %s', 'gutenbee'), borderStyle),
                   isActive: style === borderStyle,
                   onClick: () => setAttributes({ style: borderStyle }),
                   subscript: index + 1,
@@ -87,7 +87,7 @@ const DividerEdit = ({
             />
 
             <RangeControl
-              label={__('Weight (thickness)')}
+              label={__('Weight (thickness)', 'gutenbee')}
               min={1}
               max={50}
               value={weight}
@@ -97,7 +97,7 @@ const DividerEdit = ({
             />
 
             <RangeControl
-              label={__('Width (%)')}
+              label={__('Width (%)', 'gutenbee')}
               min={1}
               max={100}
               value={width}
@@ -107,7 +107,7 @@ const DividerEdit = ({
             />
 
             <RangeControl
-              label={__('Height (px)')}
+              label={__('Height (px)', 'gutenbee')}
               min={1}
               max={500}
               onChange={value => setAttributes({ height: value })}
@@ -116,7 +116,7 @@ const DividerEdit = ({
               __next40pxDefaultSize
             />
 
-            <p>{__('Alignment')}</p>
+            <p>{__('Alignment', 'gutenbee')}</p>
             <AlignmentToolbar
               value={align}
               onChange={value => setAttributes({ align: value || 'left' })}
@@ -124,9 +124,12 @@ const DividerEdit = ({
             />
           </PanelBody>
 
-          <PanelBody title={__('Block Appearance')} initialOpen={false}>
+          <PanelBody
+            title={__('Block Appearance', 'gutenbee')}
+            initialOpen={false}
+          >
             <PopoverColorControl
-              label={__('Color')}
+              label={__('Color', 'gutenbee')}
               value={color || ''}
               defaultValue={color || ''}
               onChange={value => {
@@ -135,7 +138,7 @@ const DividerEdit = ({
             />
 
             <PopoverColorControl
-              label={__('Background Color')}
+              label={__('Background Color', 'gutenbee')}
               value={backgroundColor || ''}
               defaultValue={backgroundColor || ''}
               onChange={value => {
@@ -146,7 +149,7 @@ const DividerEdit = ({
               {breakpoint => {
                 return (
                   <BackgroundControls
-                    label={__('Background Image')}
+                    label={__('Background Image', 'gutenbee')}
                     backgroundImageValue={backgroundImage[breakpoint]}
                     onBackgroundImageChange={value =>
                       setAttributes({
@@ -174,7 +177,7 @@ const DividerEdit = ({
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
-                  label={__('Padding (px)')}
+                  label={__('Padding (px)', 'gutenbee')}
                   attributeKey="blockPadding"
                   attributes={attributes}
                   setAttributes={setAttributes}
@@ -186,7 +189,7 @@ const DividerEdit = ({
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
-                  label={__('Margin (px)')}
+                  label={__('Margin (px)', 'gutenbee')}
                   attributeKey="blockMargin"
                   attributes={attributes}
                   setAttributes={setAttributes}
@@ -196,7 +199,10 @@ const DividerEdit = ({
             </ResponsiveControl>
           </PanelBody>
 
-          <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+          <PanelBody
+            title={__('Visibility Settings', 'gutenbee')}
+            initialOpen={false}
+          >
             <BreakpointVisibilityControl
               values={blockBreakpointVisibility}
               onChange={values => {

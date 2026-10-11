@@ -2,11 +2,15 @@ import { Fragment, useState } from 'wp.element';
 import { __ } from 'wp.i18n';
 import {
   BlockControls,
-  __experimentalLinkControl as LinkControl,
+  LinkControl as StableLinkControl,
+  __experimentalLinkControl,
 } from 'wp.blockEditor';
 import { Popover, KeyboardShortcuts, ToolbarButton } from 'wp.components';
 import { rawShortcut, displayShortcut } from 'wp.keycodes';
 import { link, linkOff } from '@wordpress/icons';
+
+// Prefer the stable export, falling back for older WordPress versions.
+const LinkControl = StableLinkControl ?? __experimentalLinkControl;
 
 export const canUseURLPicker = () => {
   return !!LinkControl;
@@ -38,7 +42,7 @@ const URLPicker = ({ isSelected, onChange, url, opensInNewTab, anchorRef }) => {
           <ToolbarButton
             name="link"
             icon={link}
-            title={__('Link')}
+            title={__('Link', 'gutenbee')}
             shortcut={displayShortcut.primary('k')}
             onClick={openLinkControl}
           />
@@ -47,7 +51,7 @@ const URLPicker = ({ isSelected, onChange, url, opensInNewTab, anchorRef }) => {
           <ToolbarButton
             name="link"
             icon={linkOff}
-            title={__('Unlink')}
+            title={__('Unlink', 'gutenbee')}
             shortcut={displayShortcut.primaryShift('k')}
             onClick={unlinkButton}
             isActive={true}

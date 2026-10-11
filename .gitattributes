@@ -3,6 +3,7 @@
 # Project-specific
 README.md                   export-ignore
 src                         export-ignore
+*.map                       export-ignore
 
 # VCS
 .git                        export-ignore

@@ -1,9 +1,12 @@
+// The active theme can set these widths, through the --gutenbee-editor-wide-width
+// and --gutenbee-editor-full-width custom properties on the editor's canvas.
+
 /* Width of "wide" blocks */
 .wp-block[data-align='wide'] {
-  max-width: 1200px !important;
+  max-width: var(--gutenbee-editor-wide-width, 1200px) !important;
 }
 
 /* Width of "full-wide" blocks */
 .wp-block[data-align='full'] {
-  max-width: none !important;
+  max-width: var(--gutenbee-editor-full-width, none) !important;
 }

@@ -11,11 +11,11 @@ import deprecated from './deprecated';
 
 registerBlockType('gutenbee/icon-list-item', {
   apiVersion: 3,
-  title: __('GutenBee Icon List Item'),
-  description: __('List item for the icon list.'),
+  title: __('GutenBee Icon List Item', 'gutenbee'),
+  description: __('List item for the icon list.', 'gutenbee'),
   icon: IconListItemBlockIcon,
   category: 'gutenbee',
-  keywords: [__('icon'), __('list')],
+  keywords: [__('icon', 'gutenbee'), __('list', 'gutenbee')],
   parent: ['gutenbee/icon-list'],
   supports: {
     splitting: true,

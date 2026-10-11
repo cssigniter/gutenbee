@@ -28,12 +28,12 @@ import {
 } from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/image', {
-  title: __('GutenBee Image'),
-  description: __('Insert an image to make a visual statement.'),
+  title: __('GutenBee Image', 'gutenbee'),
+  description: __('Insert an image to make a visual statement.', 'gutenbee'),
   apiVersion: 3,
   icon: ImageBlockIcon,
   category: 'gutenbee',
-  keywords: ['img', __('photo'), 'gutenbeeimage', 'imagegutenbee'],
+  keywords: ['img', __('photo', 'gutenbee'), 'gutenbeeimage', 'imagegutenbee'],
   supports: {
     anchor: false,
   },
@@ -41,12 +41,16 @@ registerBlockType('gutenbee/image', {
     attributes: {
       sizeSlug: 'large',
       url: 'https://s.w.org/images/core/5.3/MtBlanc1.jpg',
-      caption: __('Mont Blanc appears—still, snowy, and serene.'),
+      caption: __('Mont Blanc appears—still, snowy, and serene.', 'gutenbee'),
     },
   },
   styles: [
-    { name: 'default', label: _x('Default', 'block style'), isDefault: true },
-    { name: 'rounded', label: _x('Rounded', 'block style') },
+    {
+      name: 'default',
+      label: _x('Default', 'block style', 'gutenbee'),
+      isDefault: true,
+    },
+    { name: 'rounded', label: _x('Rounded', 'block style', 'gutenbee') },
   ],
   attributes: {
     uniqueId: {

@@ -134,7 +134,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
         <InspectorControls>
           <PanelBody>
             <SelectControl
-              label={__('Post Type')}
+              label={__('Post Type', 'gutenbee')}
               value={postType}
               options={postTypes.map(p => ({
                 value: p.slug,
@@ -157,7 +157,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
 
             {postType === 'ignition-event' && (
               <SelectControl
-                label={__('Events Type')}
+                label={__('Events Type', 'gutenbee')}
                 value={ignitionEventQueryType}
                 options={[
                   { label: 'All events', value: '' },
@@ -175,7 +175,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
 
             {taxonomy && terms && (
               <SelectControl
-                label={__('Base Category')}
+                label={__('Base Category', 'gutenbee')}
                 value={termId}
                 options={[
                   {
@@ -199,7 +199,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
             )}
 
             <SelectControl
-              label={__('Author')}
+              label={__('Author', 'gutenbee')}
               value={authorId}
               options={[
                 {
@@ -220,7 +220,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
 
             {postType === 'post' && (
               <TermSelect
-                label={__('Tags')}
+                label={__('Tags', 'gutenbee')}
                 taxonomy="post_tag"
                 values={postTagSlugs}
                 onChange={value => setAttributes({ postTagSlugs: value })}
@@ -229,20 +229,20 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
 
             <EntitySelect
               postType={postType}
-              label={__('Excluded Posts')}
+              label={__('Excluded Posts', 'gutenbee')}
               values={excludedPostIds}
               onChange={value => setAttributes({ excludedPostIds: value })}
             />
 
             <EntitySelect
               postType={postType}
-              label={__('Included Posts')}
+              label={__('Included Posts', 'gutenbee')}
               values={includedPostIds}
               onChange={value => setAttributes({ includedPostIds: value })}
             />
 
             <RangeControl
-              label={__('Posts Per Page')}
+              label={__('Posts Per Page', 'gutenbee')}
               value={postsPerPage}
               min={1}
               max={24}
@@ -252,7 +252,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
             />
 
             <ToggleControl
-              label={__('Pagination')}
+              label={__('Pagination', 'gutenbee')}
               checked={pagination}
               onChange={value => setAttributes({ pagination: value })}
               __nextHasNoMarginBottom
@@ -260,7 +260,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
 
             {pagination && (
               <SelectControl
-                label={__('Pagination Type')}
+                label={__('Pagination Type', 'gutenbee')}
                 value={paginationType}
                 options={[
                   { label: 'Normal', value: POST_TYPES_PAGINATION_TYPE.NORMAL },
@@ -276,7 +276,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
             )}
 
             <RangeControl
-              label={__('Offset')}
+              label={__('Offset', 'gutenbee')}
               value={offset}
               min={0}
               step={1}
@@ -287,7 +287,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
 
             <div className="ci-split-field">
               <SelectControl
-                label={__('Order By')}
+                label={__('Order By', 'gutenbee')}
                 value={orderBy}
                 options={[
                   { label: '', value: '' },
@@ -307,7 +307,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
               />
 
               <SelectControl
-                label={__('Order')}
+                label={__('Order', 'gutenbee')}
                 value={order}
                 options={[
                   { label: 'Ascending', value: 'asc' },
@@ -322,7 +322,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
 
           <PanelBody>
             <RangeControl
-              label={__('Columns')}
+              label={__('Columns', 'gutenbee')}
               value={columns}
               min={columnLimits.min || 1}
               max={columnLimits.max || 4}
@@ -333,7 +333,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
 
             {supports.gridEffect && (
               <SelectControl
-                label={__('Grid Effect')}
+                label={__('Grid Effect', 'gutenbee')}
                 value={gridEffect}
                 options={[
                   { label: 'None', value: 'none' },
@@ -351,7 +351,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
             )}
 
             <SelectControl
-              label={__('Grid Spacing')}
+              label={__('Grid Spacing', 'gutenbee')}
               value={gridSpacing}
               options={[
                 { label: 'With Gutters', value: 'gutters' },
@@ -364,7 +364,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
 
             {supports.masonry && (
               <ToggleControl
-                label={__('Masonry')}
+                label={__('Masonry', 'gutenbee')}
                 checked={masonry}
                 onChange={value => setAttributes({ masonry: value })}
                 __nextHasNoMarginBottom
@@ -373,10 +373,11 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
 
             {supports.categoryFilters && (
               <ToggleControl
-                label={__('Category Filters')}
+                label={__('Category Filters', 'gutenbee')}
                 checked={categoryFilters}
                 help={__(
                   'When enabled, ignores the "Items Per Page" and "Pagination" setting.',
+                  'gutenbee',
                 )}
                 onChange={value => setAttributes({ categoryFilters: value })}
                 __nextHasNoMarginBottom
@@ -386,12 +387,12 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
             {supports.selectImageSize?.includes?.(postType) &&
               imageSizes?.length > 0 && (
                 <SelectControl
-                  label={__('Image Size')}
+                  label={__('Image Size', 'gutenbee')}
                   value={imageSizeSlug}
                   options={[
                     {
                       value: '',
-                      label: __(''),
+                      label: __('', 'gutenbee'),
                     },
                     ...imageSizes.map(imageSize => ({
                       value: imageSize.slug,
@@ -405,10 +406,10 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
               )}
 
             <TextControl
-              label={__('Button Label')}
+              label={__('Button Label', 'gutenbee')}
               onChange={value => setAttributes({ readMoreButtonLabel: value })}
               type="text"
-              placeholder={__('Read More')}
+              placeholder={__('Read More', 'gutenbee')}
               value={readMoreButtonLabel}
               __next40pxDefaultSize
               __nextHasNoMarginBottom
@@ -420,7 +421,7 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
           ] && (
             <PanelBody
               icon={!!attributes.animation?.type && 'saved'}
-              title={__('Animation')}
+              title={__('Animation', 'gutenbee')}
               initialOpen={false}
             >
               <AnimationControls

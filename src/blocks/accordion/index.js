@@ -94,12 +94,12 @@ const Accordion = ({ attributes }) => {
 };
 
 registerBlockType('gutenbee/accordion', {
-  title: __('GutenBee Accordion'),
+  title: __('GutenBee Accordion', 'gutenbee'),
   apiVersion: 3,
-  description: __('Display fancy accordions'),
+  description: __('Display fancy accordions', 'gutenbee'),
   icon: AccordionBlockIcon,
   category: 'gutenbee',
-  keywords: [__('accordion'), __('tabs')],
+  keywords: [__('accordion', 'gutenbee'), __('tabs', 'gutenbee')],
   supports: {
     anchor: true,
   },

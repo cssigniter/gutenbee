@@ -161,7 +161,7 @@ const Gallery = ({
             value={images.map(img => img.id)}
             render={({ open }) => (
               <ToolbarButton
-                label={sprintf(__('Edit %s'), label)}
+                label={sprintf(__('Edit %s', 'gutenbee'), label)}
                 icon="edit"
                 onClick={open}
               />
@@ -179,10 +179,13 @@ const Gallery = ({
       {isSelected && (
         <InspectorControls>
           {(linkTo || size) && (
-            <PanelBody title={__('Image Settings')} initialOpen={false}>
+            <PanelBody
+              title={__('Image Settings', 'gutenbee')}
+              initialOpen={false}
+            >
               {linkTo && (
                 <SelectControl
-                  label={__('Link to')}
+                  label={__('Link to', 'gutenbee')}
                   value={linkTo}
                   onChange={value => {
                     setAttributes({ linkTo: value });
@@ -190,10 +193,13 @@ const Gallery = ({
                   options={[
                     {
                       value: LINKTO.ATTACHMENT,
-                      label: __('Attachment Page'),
+                      label: __('Attachment Page', 'gutenbee'),
                     },
-                    { value: LINKTO.MEDIA, label: __('Media File') },
-                    { value: LINKTO.NONE, label: __('None') },
+                    {
+                      value: LINKTO.MEDIA,
+                      label: __('Media File', 'gutenbee'),
+                    },
+                    { value: LINKTO.NONE, label: __('None', 'gutenbee') },
                   ]}
                   __next40pxDefaultSize
                   __nextHasNoMarginBottom
@@ -202,7 +208,7 @@ const Gallery = ({
 
               {availableSizes && availableSizes.sizes && (
                 <SelectControl
-                  label={__('Image Size')}
+                  label={__('Image Size', 'gutenbee')}
                   value={size}
                   options={Object.keys(availableSizes.sizes).map(name => ({
                     value: name,
@@ -246,9 +252,12 @@ const Gallery = ({
           isAppender={images?.length > 0}
           icon={<BlockIcon icon={galleryIcon} />}
           labels={{
-            title: !images?.length ? __('Gallery') : __('Edit Gallery'),
+            title: !images?.length
+              ? __('Gallery', 'gutenbee')
+              : __('Edit Gallery', 'gutenbee'),
             instructions: __(
               'Select images or upload new ones from your library.',
+              'gutenbee',
             ),
           }}
           onSelect={onSelectImages}

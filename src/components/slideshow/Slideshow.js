@@ -164,9 +164,12 @@ const Slideshow = ({
         <MediaPlaceholder
           icon={<BlockIcon icon={galleryIcon} />}
           labels={{
-            title: !images?.length ? __('Slideshow') : __('Edit Slideshow'),
+            title: !images?.length
+              ? __('Slideshow', 'gutenbee')
+              : __('Edit Slideshow', 'gutenbee'),
             instructions: __(
               'Select images or upload new ones from your library.',
+              'gutenbee',
             ),
           }}
           onSelect={onSelectImages}
@@ -229,7 +232,7 @@ const Slideshow = ({
                   render={({ open }) => (
                     <ToolbarButton
                       className="components-toolbar__control"
-                      label={__('Edit Slideshow')}
+                      label={__('Edit Slideshow', 'gutenbee')}
                       icon="edit"
                       onClick={open}
                     />
@@ -241,10 +244,13 @@ const Slideshow = ({
           {children}
           <InspectorControls>
             {(linkTo || size) && (
-              <PanelBody title={__('Image Settings')} initialOpen={false}>
+              <PanelBody
+                title={__('Image Settings', 'gutenbee')}
+                initialOpen={false}
+              >
                 {linkTo && (
                   <SelectControl
-                    label={__('Link to')}
+                    label={__('Link to', 'gutenbee')}
                     value={linkTo}
                     onChange={value => {
                       setAttributes({ linkTo: value });
@@ -252,10 +258,13 @@ const Slideshow = ({
                     options={[
                       {
                         value: LINKTO.ATTACHMENT,
-                        label: __('Attachment Page'),
+                        label: __('Attachment Page', 'gutenbee'),
                       },
-                      { value: LINKTO.MEDIA, label: __('Media File') },
-                      { value: LINKTO.NONE, label: __('None') },
+                      {
+                        value: LINKTO.MEDIA,
+                        label: __('Media File', 'gutenbee'),
+                      },
+                      { value: LINKTO.NONE, label: __('None', 'gutenbee') },
                     ]}
                     __next40pxDefaultSize={true}
                     __nextHasNoMarginBottom={true}
@@ -264,7 +273,7 @@ const Slideshow = ({
 
                 {availableSizes && availableSizes.sizes && (
                   <SelectControl
-                    label={__('Image Size')}
+                    label={__('Image Size', 'gutenbee')}
                     value={size}
                     options={Object.keys(availableSizes.sizes).map(name => ({
                       value: name,

@@ -62,9 +62,9 @@ const MultiSelectCheckboxControl = ({
     >
       <div className="multi-select-checkbox-option-wrap">
         <TextControl
-          label={__('Search')}
+          label={__('Search', 'gutenbee')}
           hideLabelFromVision
-          placeholder={__('Search…')}
+          placeholder={__('Search…', 'gutenbee')}
           className="multi-select-checkbox-search-control"
           onChange={setFilter}
           __next40pxDefaultSize

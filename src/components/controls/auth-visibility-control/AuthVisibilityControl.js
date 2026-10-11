@@ -6,12 +6,12 @@ import { home, institution } from '@wordpress/icons';
 const AUTH_VISIBILITY_CONTROLS = [
   {
     icon: home,
-    title: __('Hide for logged in users'),
+    title: __('Hide for logged in users', 'gutenbee'),
     value: 'loggedIn',
   },
   {
     icon: institution,
-    title: __('Hide for logged out users'),
+    title: __('Hide for logged out users', 'gutenbee'),
     value: 'loggedOut',
   },
 ];
@@ -29,7 +29,7 @@ const propTypes = {
 const AuthVisibilityControl = ({
   values = {},
   onChange,
-  label = __('Authentication visibility'),
+  label = __('Authentication visibility', 'gutenbee'),
 }) => {
   return (
     <BaseControl

@@ -4,8 +4,7 @@ import { Fragment } from 'wp.element';
 import {
   InspectorControls,
   useBlockProps,
-  __experimentalUseInnerBlocksProps,
-  useInnerBlocksProps as currentUseInnerBlockProps,
+  useInnerBlocksProps,
 } from 'wp.blockEditor';
 import { PanelBody, RangeControl } from 'wp.components';
 import classNames from 'classnames';
@@ -24,9 +23,6 @@ import Rule from '../../components/stylesheet/Rule';
 import BreakpointVisibilityControl from '../../components/controls/breakpoint-visibility-control';
 import AuthVisibilityControl from '../../components/controls/auth-visibility-control';
 import AnimationControls from '../../components/controls/animation-controls/AnimationControls';
-
-const useInnerBlocksProps =
-  __experimentalUseInnerBlocksProps ?? currentUseInnerBlockProps;
 
 const propTypes = {
   attributes: PropTypes.object.isRequired,
@@ -53,8 +49,6 @@ const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
     {
       allowedBlocks: ['gutenbee/food-menu-item'],
       template: [['gutenbee/food-menu-item']],
-      __experimentalUIParts: { hasSelectedUI: false },
-      __experimentalMoverDirection: 'vertical',
       orientation: 'vertical',
     },
   );
@@ -88,11 +82,11 @@ const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
       </div>
 
       <InspectorControls>
-        <PanelBody label={__('Menu Settings')} initialOpen>
+        <PanelBody label={__('Menu Settings', 'gutenbee')} initialOpen>
           <ResponsiveControl>
             {breakpoint => (
               <RangeControl
-                label={__('Columns')}
+                label={__('Columns', 'gutenbee')}
                 min={1}
                 max={3}
                 value={columns[breakpoint]}
@@ -113,9 +107,10 @@ const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
           <ResponsiveControl>
             {breakpoint => (
               <RangeControl
-                label={__('Gutter (px)')}
+                label={__('Gutter (px)', 'gutenbee')}
                 help={__(
                   'Controls the vertical and horizontal space between menu items.',
+                  'gutenbee',
                 )}
                 min={0}
                 max={100}
@@ -136,11 +131,14 @@ const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
           </ResponsiveControl>
         </PanelBody>
 
-        <PanelBody title={__('Block Appearance')} initialOpen={false}>
+        <PanelBody
+          title={__('Block Appearance', 'gutenbee')}
+          initialOpen={false}
+        >
           <PopoverColorControl
             value={backgroundColor}
             defaultValue={backgroundColor || ''}
-            label={__('Background Color')}
+            label={__('Background Color', 'gutenbee')}
             onChange={value => {
               setAttributes({ backgroundColor: value });
             }}
@@ -159,7 +157,7 @@ const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Padding (px)')}
+                label={__('Padding (px)', 'gutenbee')}
                 attributeKey="blockPadding"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -171,7 +169,7 @@ const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Margin (px)')}
+                label={__('Margin (px)', 'gutenbee')}
                 attributeKey="blockMargin"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -181,7 +179,10 @@ const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
           </ResponsiveControl>
         </PanelBody>
 
-        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+        <PanelBody
+          title={__('Visibility Settings', 'gutenbee')}
+          initialOpen={false}
+        >
           <BreakpointVisibilityControl
             values={blockBreakpointVisibility}
             onChange={values => {
@@ -204,7 +205,7 @@ const FoodMenuEdit = ({ attributes, setAttributes, className, clientId }) => {
         {__GUTENBEE_SETTINGS__.plugin.settings['active_animation-controls'] && (
           <PanelBody
             icon={!!attributes.animation?.type && 'saved'}
-            title={__('Animation')}
+            title={__('Animation', 'gutenbee')}
             initialOpen={false}
           >
             <AnimationControls

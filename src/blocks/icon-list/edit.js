@@ -195,14 +195,17 @@ const IconListEdit = ({
         {renderLayoutEditorSpecificRules()}
       </IconListStyle>
       <InspectorControls>
-        <PanelBody title={__('List Settings')} className="blocks-list-settings">
+        <PanelBody
+          title={__('List Settings', 'gutenbee')}
+          className="blocks-list-settings"
+        >
           <SelectControl
-            label={__('List Layout')}
+            label={__('List Layout', 'gutenbee')}
             value={layout}
             onChange={value => setAttributes({ layout: value })}
             options={[
-              { value: LAYOUT.DEFAULT, label: __('Default') },
-              { value: LAYOUT.INLINE, label: __('Inline') },
+              { value: LAYOUT.DEFAULT, label: __('Default', 'gutenbee') },
+              { value: LAYOUT.INLINE, label: __('Inline', 'gutenbee') },
             ]}
             __nextHasNoMarginBottom
             __next40pxDefaultSize
@@ -210,7 +213,7 @@ const IconListEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <RangeControl
-                label={__('List Item Spacing')}
+                label={__('List Item Spacing', 'gutenbee')}
                 min={0}
                 max={200}
                 value={itemSpacing[breakpoint]}
@@ -228,11 +231,11 @@ const IconListEdit = ({
               />
             )}
           </ResponsiveControl>
-          <p>{__('Alignment')}</p>
+          <p>{__('Alignment', 'gutenbee')}</p>
           <ResponsiveControl>
             {breakpoint => (
               <SelectControl
-                label={__('List Alignment')}
+                label={__('List Alignment', 'gutenbee')}
                 value={align[breakpoint]}
                 onChange={value =>
                   setAttributes({
@@ -243,9 +246,9 @@ const IconListEdit = ({
                   })
                 }
                 options={[
-                  { value: ALIGN.FLEXSTART, label: __('Left') },
-                  { value: ALIGN.CENTER, label: __('Center') },
-                  { value: ALIGN.FLEXEND, label: __('Right') },
+                  { value: ALIGN.FLEXSTART, label: __('Left', 'gutenbee') },
+                  { value: ALIGN.CENTER, label: __('Center', 'gutenbee') },
+                  { value: ALIGN.FLEXEND, label: __('Right', 'gutenbee') },
                 ]}
                 __nextHasNoMarginBottom
                 __next40pxDefaultSize
@@ -253,18 +256,18 @@ const IconListEdit = ({
             )}
           </ResponsiveControl>
           <SelectControl
-            label={__('List Item Link Display')}
+            label={__('List Item Link Display', 'gutenbee')}
             value={blockLink}
             onChange={value => setAttributes({ blockLink: value })}
             options={[
-              { value: BLOCKLINK.INLINE, label: __('Inline') },
-              { value: BLOCKLINK.BLOCK, label: __('Block') },
+              { value: BLOCKLINK.INLINE, label: __('Inline', 'gutenbee') },
+              { value: BLOCKLINK.BLOCK, label: __('Block', 'gutenbee') },
             ]}
             __nextHasNoMarginBottom
             __next40pxDefaultSize
           />
           <RangeControl
-            label={__('List Item Separator Width')}
+            label={__('List Item Separator Width', 'gutenbee')}
             min={0}
             max={200}
             value={separatorWidth}
@@ -277,14 +280,14 @@ const IconListEdit = ({
           <PopoverColorControl
             value={separatorColor}
             defaultValue={separatorColor || ''}
-            label={__('List Item Separator Color')}
+            label={__('List Item Separator Color', 'gutenbee')}
             onChange={value => {
               setAttributes({ separatorColor: value });
             }}
           />
         </PanelBody>
         <PanelBody
-          title={__('Icon Settings')}
+          title={__('Icon Settings', 'gutenbee')}
           className="blocks-icon-size"
           initialOpen={false}
         >
@@ -300,7 +303,7 @@ const IconListEdit = ({
                   : undefined;
               return (
                 <FontSizePickerLabel
-                  label={__('Icon Size')}
+                  label={__('Icon Size', 'gutenbee')}
                   value={fontSizeValue}
                   onChange={value =>
                     setAttributes({
@@ -316,7 +319,7 @@ const IconListEdit = ({
           </ResponsiveControl>
         </PanelBody>
         <PanelBody
-          title={__('Text Settings')}
+          title={__('Text Settings', 'gutenbee')}
           initialOpen={false}
           className="blocks-font-size"
         >
@@ -335,7 +338,7 @@ const IconListEdit = ({
               }
               return (
                 <FontSizePickerLabel
-                  label={__('Text Font Size')}
+                  label={__('Text Font Size', 'gutenbee')}
                   value={fontSizeValue}
                   onChange={value =>
                     setAttributes({
@@ -350,11 +353,14 @@ const IconListEdit = ({
             }}
           </ResponsiveControl>
         </PanelBody>
-        <PanelBody title={__('Block Appearance')} initialOpen={false}>
+        <PanelBody
+          title={__('Block Appearance', 'gutenbee')}
+          initialOpen={false}
+        >
           <PopoverColorControl
             value={color}
             defaultValue={color || ''}
-            label={__('Text Color')}
+            label={__('Text Color', 'gutenbee')}
             onChange={value => {
               setAttributes({ color: value });
               innerBlocks.forEach(innerBlock => {
@@ -368,7 +374,7 @@ const IconListEdit = ({
           <PopoverColorControl
             value={iconColor}
             defaultValue={iconColor || ''}
-            label={__('Icon Color')}
+            label={__('Icon Color', 'gutenbee')}
             onChange={value => {
               setAttributes({ iconColor: value });
               innerBlocks.forEach(innerBlock => {
@@ -382,7 +388,7 @@ const IconListEdit = ({
           <PopoverColorControl
             value={backgroundColor}
             defaultValue={backgroundColor || ''}
-            label={__('Background Color')}
+            label={__('Background Color', 'gutenbee')}
             onChange={value => {
               setAttributes({ backgroundColor: value });
             }}
@@ -401,7 +407,7 @@ const IconListEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Padding (px)')}
+                label={__('Padding (px)', 'gutenbee')}
                 attributeKey="blockPadding"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -413,7 +419,7 @@ const IconListEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Margin (px)')}
+                label={__('Margin (px)', 'gutenbee')}
                 attributeKey="blockMargin"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -423,7 +429,10 @@ const IconListEdit = ({
           </ResponsiveControl>
         </PanelBody>
 
-        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+        <PanelBody
+          title={__('Visibility Settings', 'gutenbee')}
+          initialOpen={false}
+        >
           <BreakpointVisibilityControl
             values={blockBreakpointVisibility}
             onChange={values => {
@@ -446,7 +455,7 @@ const IconListEdit = ({
         {__GUTENBEE_SETTINGS__.plugin.settings['active_animation-controls'] && (
           <PanelBody
             icon={!!attributes.animation?.type && 'saved'}
-            title={__('Animation')}
+            title={__('Animation', 'gutenbee')}
             initialOpen={false}
           >
             <AnimationControls

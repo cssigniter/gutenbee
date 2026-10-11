@@ -5,8 +5,8 @@ Requires at least: 6.5
 Tested up to: 7.0
 Stable tag: 2.20.3
 License: GPLv2 or later
-License URI: http://www.gnu.org/licen2ses/gpl-2.0.html
-Requires PHP: 7.0
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Requires PHP: 7.4
 
 GutenBee enhances the Gutenberg editor with more blocks!
 

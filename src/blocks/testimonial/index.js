@@ -28,14 +28,22 @@ import {
 
 registerBlockType('gutenbee/testimonial', {
   apiVersion: 3,
-  title: __('GutenBee Testimonial'),
-  description: __('Displays a testimonial.'),
+  title: __('GutenBee Testimonial', 'gutenbee'),
+  description: __('Displays a testimonial.', 'gutenbee'),
   icon: TestimonialBlockIcon,
   category: 'gutenbee',
-  keywords: [__('testimonial'), __('quote'), __('blockquote')],
+  keywords: [
+    __('testimonial', 'gutenbee'),
+    __('quote', 'gutenbee'),
+    __('blockquote', 'gutenbee'),
+  ],
   styles: [
-    { name: 'default', label: _x('Default', 'block style'), isDefault: true },
-    { name: 'rounded', label: _x('Rounded', 'block style') },
+    {
+      name: 'default',
+      label: _x('Default', 'block style', 'gutenbee'),
+      isDefault: true,
+    },
+    { name: 'rounded', label: _x('Rounded', 'block style', 'gutenbee') },
   ],
   supports: {
     anchor: false,

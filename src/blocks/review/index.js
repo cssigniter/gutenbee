@@ -28,11 +28,11 @@ import {
 
 registerBlockType('gutenbee/review', {
   apiVersion: 3,
-  title: __('GutenBee Review'),
-  description: __('Creates reviews.'),
+  title: __('GutenBee Review', 'gutenbee'),
+  description: __('Creates reviews.', 'gutenbee'),
   icon: ReviewBlockIcon,
   category: 'gutenbee',
-  keywords: [__('review'), __('rating')],
+  keywords: [__('review', 'gutenbee'), __('rating', 'gutenbee')],
   attributes: {
     uniqueId: {
       type: 'string',

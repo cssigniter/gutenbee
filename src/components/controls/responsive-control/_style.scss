@@ -64,6 +64,8 @@
   }
 }
 
+// Keep the tooltip narrower than the block inspector sidebar (280px),
+// otherwise it overflows it and triggers a horizontal scrollbar.
 .gutenbee-tooltip {
-  max-width: 400px;
+  max-width: 240px;
 }

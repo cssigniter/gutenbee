@@ -34,13 +34,14 @@ import {
 
 registerBlockType('gutenbee/justified-gallery', {
   apiVersion: 3,
-  title: __('GutenBee Gallery'),
+  title: __('GutenBee Gallery', 'gutenbee'),
   description: __(
     'Create high quality columnized or justified image galleries.',
+    'gutenbee',
   ),
   icon: JustifiedGalleryBlockIcon,
   category: 'gutenbee',
-  keywords: [__('justified'), __('gallery')],
+  keywords: [__('justified', 'gutenbee'), __('gallery', 'gutenbee')],
   supports: {
     anchor: false,
   },

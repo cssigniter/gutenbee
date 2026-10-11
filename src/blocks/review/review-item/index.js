@@ -10,12 +10,12 @@ import deprecated from './deprecated';
 
 registerBlockType('gutenbee/review-item', {
   apiVersion: 3,
-  title: __('GutenBee Review Item'),
-  description: __('Create review items'),
+  title: __('GutenBee Review Item', 'gutenbee'),
+  description: __('Create review items', 'gutenbee'),
   icon: ReviewItemBlockIcon,
   category: 'gutenbee',
   parent: ['gutenbee/review'],
-  keywords: [__('review'), __('review item')],
+  keywords: [__('review', 'gutenbee'), __('review item', 'gutenbee')],
   supports: {
     anchor: true,
     splitting: true,

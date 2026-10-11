@@ -56,13 +56,18 @@ export const Divider = ({ blockProps, attributes }) => {
 
 registerBlockType('gutenbee/divider', {
   apiVersion: 3,
-  title: __('GutenBee Divider'),
+  title: __('GutenBee Divider', 'gutenbee'),
   description: __(
     'A divider to indicate a thematic change in the content in style.',
+    'gutenbee',
   ),
   icon: DividerBlockIcon,
   category: 'gutenbee',
-  keywords: [__('divider'), __('horizontal-line'), 'hr'],
+  keywords: [
+    __('divider', 'gutenbee'),
+    __('horizontal-line', 'gutenbee'),
+    'hr',
+  ],
   supports: {
     anchor: false,
   },

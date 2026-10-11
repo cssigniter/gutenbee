@@ -16,11 +16,11 @@ export const POST_TYPES_PAGINATION_TYPE = {
 };
 
 registerBlockType('gutenbee/post-types', {
-  title: __('GutenBee Post Types'),
-  description: __('Display a list of post type items.'),
+  title: __('GutenBee Post Types', 'gutenbee'),
+  description: __('Display a list of post type items.', 'gutenbee'),
   icon: PostTypesBlockIcon,
   category: 'gutenbee',
-  keywords: [__('custom post types')],
+  keywords: [__('custom post types', 'gutenbee')],
   apiVersion: 3,
   supports: {
     anchor: true,

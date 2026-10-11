@@ -48,14 +48,14 @@ const PopoverColorControl = ({
         )}
 
         {value && value !== defaultColor.current && (
-          <Tooltip text={__('Reset')}>
+          <Tooltip text={__('Reset', 'gutenbee')}>
             <Button
               className="components-color-palette__clear"
               type="button"
               onClick={() => {
                 onChange(defaultColor.current);
               }}
-              isSmall
+              size="small"
             >
               <Dashicon icon="redo" />
             </Button>
@@ -108,9 +108,12 @@ const PopoverColorControl = ({
                             aria-label={
                               color.name
                                 ? // translators: %s: The name of the color e.g: "vivid red".
-                                  sprintf(__('Color: %s'), name)
+                                  sprintf(__('Color: %s', 'gutenbee'), name)
                                 : // translators: %s: color hex code e.g: "#f00".
-                                  sprintf(__('Color code: %s'), color)
+                                  sprintf(
+                                    __('Color code: %s', 'gutenbee'),
+                                    color,
+                                  )
                             }
                             aria-pressed={color.color === value}
                           />
@@ -123,19 +126,19 @@ const PopoverColorControl = ({
 
                 <div className="gutenbee-color-popover-footer">
                   <Button
-                    isSecondary
-                    isSmall
+                    variant="secondary"
+                    size="small"
                     disabled={!value}
                     onClick={() => onChange()}
                   >
-                    {__('Clear')}
+                    {__('Clear', 'gutenbee')}
                   </Button>
                 </div>
               </Popover>
             </Fragment>
           )}
 
-          <Tooltip text={__('Select Color')}>
+          <Tooltip text={__('Select Color', 'gutenbee')}>
             <Button
               className="gutenbee-color-icon-indicator"
               // Prevents from firing Popover.onClose before the onClick registers.

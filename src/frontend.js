@@ -23,4 +23,3 @@ import './blocks/video-embed/script';
 import './blocks/container/script';
 import './blocks/banner/script';
 import './blocks/post-types/script';
-// import './blocks/tab-slider/script';

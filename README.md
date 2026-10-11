@@ -12,17 +12,17 @@ Premium Blocks for WordPress
 ## Development
 Development must be made in short-lived branches. When a feature is complete, its branch should be merged into `main` and get deleted. The `main` branch should remain stable at all times.
 
-Install [nvm](https://github.com/nvm-sh/nvm) and [yarn](https://yarnpkg.com/getting-started/install) on your machine.
+Install [nvm](https://github.com/nvm-sh/nvm) on your machine. Dependencies are managed with npm only; do not use yarn.
 
 While developing, inside the plugin folder run:
 ```
 nvm use
-yarn
-yarn start
+npm ci
+npm start
 ```
 
 ## Build
-Run `yarn build` before releasing an update.
+Run `npm run build` before releasing an update.
 
 ## Updating readme.txt without releasing a new version
 Updating the .org's readme.txt file via Github is not possible. Instead, it should be done via Subversion.

@@ -25,11 +25,11 @@ import {
 
 registerBlockType('gutenbee/food-menu-item', {
   apiVersion: 3,
-  title: __('GutenBee Food Menu Item'),
-  description: __('Single food menu item.'),
+  title: __('GutenBee Food Menu Item', 'gutenbee'),
+  description: __('Single food menu item.', 'gutenbee'),
   icon: FoodMenuItemIcon,
   category: 'gutenbee',
-  keywords: [__('food'), __('menu')],
+  keywords: [__('food', 'gutenbee'), __('menu', 'gutenbee')],
   parent: ['gutenbee/food-menu'],
   getEditWrapperProps(attributes) {
     const { verticalContentAlignment } = attributes;

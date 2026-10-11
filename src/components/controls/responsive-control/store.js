@@ -1,4 +1,4 @@
-import { registerStore } from 'wp.data';
+import { createReduxStore, register } from 'wp.data';
 
 // Constants
 
@@ -20,7 +20,7 @@ const initialState = {
   breakpoint: BREAKPOINTS.desktop,
 };
 
-registerStore('gutenbee-breakpoints', {
+const store = createReduxStore('gutenbee-breakpoints', {
   reducer(state = initialState, action) {
     switch (action.type) {
       case SET_BREAKPOINT: {
@@ -44,3 +44,5 @@ registerStore('gutenbee-breakpoints', {
     getBreakpoint: state => state.breakpoint,
   },
 });
+
+register(store);

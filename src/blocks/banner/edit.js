@@ -209,12 +209,12 @@ const BannerBlockEdit = ({
       )}
 
       <InspectorControls>
-        <PanelBody title={__('Layout Settings')} initialOpen>
+        <PanelBody title={__('Layout Settings', 'gutenbee')} initialOpen>
           <ResponsiveControl>
             {breakpoint => (
               <Fragment>
                 <RangeControl
-                  label={__('Banner Height (px)')}
+                  label={__('Banner Height (px)', 'gutenbee')}
                   min={-1}
                   max={1200}
                   value={bannerHeight[breakpoint]}
@@ -230,6 +230,7 @@ const BannerBlockEdit = ({
                   step={1}
                   help={__(
                     'Leave blank for auto height or set to -1 for full viewport height.',
+                    'gutenbee',
                   )}
                   __next40pxDefaultSize
                   __nextHasNoMarginBottom
@@ -241,13 +242,13 @@ const BannerBlockEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <SelectControl
-                label={__('Vertical Content Alignment')}
+                label={__('Vertical Content Alignment', 'gutenbee')}
                 value={verticalContentAlignment[breakpoint]}
                 options={[
                   { value: '', label: '' },
-                  { value: 'flex-start', label: __('Top') },
-                  { value: 'center', label: __('Middle') },
-                  { value: 'flex-end', label: __('Bottom') },
+                  { value: 'flex-start', label: __('Top', 'gutenbee') },
+                  { value: 'center', label: __('Middle', 'gutenbee') },
+                  { value: 'flex-end', label: __('Bottom', 'gutenbee') },
                 ]}
                 onChange={value =>
                   setAttributes({
@@ -266,13 +267,13 @@ const BannerBlockEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <SelectControl
-                label={__('Horizontal Content Alignment')}
+                label={__('Horizontal Content Alignment', 'gutenbee')}
                 value={horizontalContentAlignment[breakpoint]}
                 options={[
                   { value: '', label: '' },
-                  { value: 'flex-start', label: __('Left') },
-                  { value: 'center', label: __('Center') },
-                  { value: 'flex-end', label: __('Right') },
+                  { value: 'flex-start', label: __('Left', 'gutenbee') },
+                  { value: 'center', label: __('Center', 'gutenbee') },
+                  { value: 'flex-end', label: __('Right', 'gutenbee') },
                 ]}
                 onChange={value =>
                   setAttributes({
@@ -284,6 +285,7 @@ const BannerBlockEdit = ({
                 }
                 help={__(
                   'The content alignment settings apply when Banner Height is set.',
+                  'gutenbee',
                 )}
                 __next40pxDefaultSize
                 __nextHasNoMarginBottom
@@ -293,9 +295,12 @@ const BannerBlockEdit = ({
         </PanelBody>
 
         {!canUseURLPicker() && (
-          <PanelBody title={__('Link Settings')} initialOpen={false}>
+          <PanelBody
+            title={__('Link Settings', 'gutenbee')}
+            initialOpen={false}
+          >
             <TextControl
-              label={__('Banner URL')}
+              label={__('Banner URL', 'gutenbee')}
               value={bannerUrl}
               onChange={value => setAttributes({ bannerUrl: value })}
               type="url"
@@ -304,24 +309,27 @@ const BannerBlockEdit = ({
               __nextHasNoMarginBottom
             />
             <ToggleControl
-              label={__('Open in new tab')}
+              label={__('Open in new tab', 'gutenbee')}
               checked={!!newTab}
               onChange={() => setAttributes({ newTab: !newTab })}
               help={
                 newTab
-                  ? __('Opens link in new tab.')
-                  : __('Toggle to open link in new tab.')
+                  ? __('Opens link in new tab.', 'gutenbee')
+                  : __('Toggle to open link in new tab.', 'gutenbee')
               }
               __nextHasNoMarginBottom
             />
           </PanelBody>
         )}
 
-        <PanelBody title={__('Block Appearance')} initialOpen={false}>
+        <PanelBody
+          title={__('Block Appearance', 'gutenbee')}
+          initialOpen={false}
+        >
           <PopoverColorControl
             value={textColor}
             defaultValue={textColor || ''}
-            label={__('Text Color')}
+            label={__('Text Color', 'gutenbee')}
             onChange={value => {
               setAttributes({ textColor: value });
             }}
@@ -330,14 +338,14 @@ const BannerBlockEdit = ({
           <PopoverColorControl
             value={backgroundColor}
             defaultValue={backgroundColor || ''}
-            label={__('Background Color')}
+            label={__('Background Color', 'gutenbee')}
             onChange={value => {
               setAttributes({ backgroundColor: value ?? '' });
             }}
           />
 
           <PopoverColorControl
-            label={__('Background Overlay Color')}
+            label={__('Background Overlay Color', 'gutenbee')}
             value={overlayBackgroundColor || ''}
             defaultValue={overlayBackgroundColor || ''}
             onChange={value => setAttributes({ overlayBackgroundColor: value })}
@@ -347,7 +355,7 @@ const BannerBlockEdit = ({
             {breakpoint => {
               return (
                 <BackgroundControls
-                  label={__('Background Image')}
+                  label={__('Background Image', 'gutenbee')}
                   backgroundImageValue={backgroundImage[breakpoint]}
                   onBackgroundImageChange={value =>
                     setAttributes({
@@ -389,13 +397,14 @@ const BannerBlockEdit = ({
               <span className="gutenbee-embed-error">
                 {__(
                   'Embed URL error. Please enter a YouTube, Vimeo, or self hosted video URL.',
+                  'gutenbee',
                 )}
               </span>
             )}
 
           <div className="gutenbee-video-bg-control-input-wrap">
             <TextControl
-              label={__('Video Background URL')}
+              label={__('Video Background URL', 'gutenbee')}
               onChange={handleVideoUrlChange}
               type="text"
               value={backgroundVideoURL}
@@ -412,9 +421,9 @@ const BannerBlockEdit = ({
               allowedTypes={['video']}
               render={({ open }) => (
                 <Button
-                  isSecondary
+                  variant="secondary"
                   className="components-toolbar__control"
-                  label={__('Select video')}
+                  label={__('Select video', 'gutenbee')}
                   icon="format-video"
                   onClick={open}
                 />
@@ -425,6 +434,7 @@ const BannerBlockEdit = ({
             <span className="gutenbee-controls-notice">
               {__(
                 'Make sure you set a background image above when using this option. The image will appear before the video starts playing and on mobile devices where background videos are not available.',
+                'gutenbee',
               )}
             </span>
           )}
@@ -442,7 +452,7 @@ const BannerBlockEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Padding (px)')}
+                label={__('Padding (px)', 'gutenbee')}
                 attributeKey="blockPadding"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -454,7 +464,7 @@ const BannerBlockEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Margin (px)')}
+                label={__('Margin (px)', 'gutenbee')}
                 attributeKey="blockMargin"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -464,7 +474,10 @@ const BannerBlockEdit = ({
           </ResponsiveControl>
         </PanelBody>
 
-        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+        <PanelBody
+          title={__('Visibility Settings', 'gutenbee')}
+          initialOpen={false}
+        >
           <BreakpointVisibilityControl
             values={blockBreakpointVisibility}
             onChange={values => {
@@ -487,7 +500,7 @@ const BannerBlockEdit = ({
         {__GUTENBEE_SETTINGS__.plugin.settings['active_animation-controls'] && (
           <PanelBody
             icon={!!attributes.animation?.type && 'saved'}
-            title={__('Animation')}
+            title={__('Animation', 'gutenbee')}
             initialOpen={false}
           >
             <AnimationControls

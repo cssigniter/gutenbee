@@ -8,8 +8,8 @@
 
 			add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
 			add_action( 'admin_init', array( $this, 'settings_init' ) );
-			add_action( 'admin_head', array( $this, 'create_high_contrast_styles' ) );
-			add_action( 'admin_head', array( $this, 'create_editor_width_styles' ) );
+			// Needs to run after the 'gutenbee-editor' stylesheet is enqueued.
+			add_action( 'enqueue_block_assets', array( $this, 'add_block_editor_inline_styles' ), 20 );
 		}
 
 		public function init() {
@@ -286,46 +286,78 @@
 			<?php
 		}
 
-		public function create_high_contrast_styles() {
-			$screen = get_current_screen();
-			if ( ! $this->general_settings['active_high-contrast'] || ! $screen->is_block_editor ) {
+		/**
+		 * Adds the styles of the general options to the block editor.
+		 *
+		 * The editor's canvas is an iframe, so the styles need to be attached to a stylesheet
+		 * that gets loaded inside it. Styles printed on the admin page itself can't reach it.
+		 */
+		public function add_block_editor_inline_styles() {
+			if ( ! is_admin() || ! wp_style_is( 'gutenbee-editor', 'enqueued' ) ) {
 				return;
 			}
 
-			echo '<style>
+			$css = $this->get_high_contrast_css() . $this->get_editor_width_css();
+
+			if ( $css ) {
+				wp_add_inline_style( 'gutenbee-editor', $css );
+			}
+		}
+
+		public function get_high_contrast_css() {
+			if ( ! $this->general_settings['active_high-contrast'] ) {
+				return '';
+			}
+
+			$color = sanitize_hex_color( $this->general_settings['high-contrast-color'] );
+			if ( ! $color ) {
+				return '';
+			}
+
+			return '
 				.block-editor-button-block-appender {
-					-webkit-box-shadow: inset 0 0 0 1px ' . sanitize_hex_color( $this->general_settings['high-contrast-color'] ) . ';
-					box-shadow: inset 0 0 0 1px ' . sanitize_hex_color( $this->general_settings['high-contrast-color'] ) . ';
+					-webkit-box-shadow: inset 0 0 0 1px ' . $color . ';
+					box-shadow: inset 0 0 0 1px ' . $color . ';
 				}
 
 				.block-editor-button-block-appender svg {
-					fill: ' . sanitize_hex_color( $this->general_settings['high-contrast-color'] ) . ';
+					fill: ' . $color . ';
 				}
 
 				.block-editor-block-list__block-popover-inserter .block-editor-inserter__toggle.components-button.has-icon, .block-editor-block-list__empty-block-inserter .block-editor-inserter__toggle.components-button.has-icon, .block-editor-block-list__insertion-point-inserter .block-editor-inserter__toggle.components-button.has-icon, .block-editor-default-block-appender .block-editor-inserter__toggle.components-button.has-icon {
-					background-color: ' . sanitize_hex_color( $this->general_settings['high-contrast-color'] ) . ';
+					background-color: ' . $color . ';
 				}
-			</style>';
+			';
 		}
 
-		public function create_editor_width_styles() {
-			$screen = get_current_screen();
-			if ( ! $this->general_settings['active_editor-width'] || ! $screen->is_block_editor ) {
-				return;
+		public function get_editor_width_css() {
+			if ( ! $this->general_settings['active_editor-width'] ) {
+				return '';
 			}
 
-			$custom_width = $this->general_settings['editor-width-value'];
-			echo '<style id="gb-ew">
-				div.editor-styles-wrapper .wp-block,
-				div.editor-styles-wrapper [data-type="gutenbee/container"][data-theme-grid] > .wp-block-gutenbee-container  > .wp-block-gutenbee-container-inner,
-				div.editor-styles-wrapper [data-type="gutenbee/container"][data-theme-grid] > .wp-block > .wp-block-gutenbee-container > .wp-block-gutenbee-container-inner {
-					max-width: ' . (int) $custom_width . 'px;
+			$custom_width = (int) $this->general_settings['editor-width-value'];
+			if ( $custom_width <= 0 ) {
+				return '';
+			}
+
+			// This is an explicit user choice, so it overrides any width set by the theme.
+			// Wide and full aligned blocks are left alone.
+			return '
+				html .editor-styles-wrapper .wp-block:not([data-align="wide"]):not([data-align="full"]):not(.alignwide):not(.alignfull) {
+					max-width: ' . $custom_width . 'px;
 				}
 
-				div.editor-styles-wrapper [data-type="gutenbee/container"][data-theme-grid][data-align="full"] > .wp-block > .wp-block-gutenbee-container > .wp-block-gutenbee-container-inner {
-					max-width: ' . (int) ( $custom_width + 30 ) . 'px;
+				html .editor-styles-wrapper [data-type="gutenbee/container"][data-theme-grid] {
+					--gutenbee-theme-grid-width: ' . $custom_width . 'px;
+					--gutenbee-theme-grid-outer-width: none;
+					--gutenbee-theme-grid-outer-margin: -8px;
 				}
-			</style>';
+
+				html .editor-styles-wrapper [data-align="full"] > [data-type="gutenbee/container"][data-theme-grid] > .wp-block-gutenbee-container-inner,
+				html .editor-styles-wrapper [data-type="gutenbee/container"][data-theme-grid].alignfull > .wp-block-gutenbee-container-inner {
+					max-width: ' . ( $custom_width + 30 ) . 'px;
+				}
+			';
 		}
 
 	}

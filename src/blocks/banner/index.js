@@ -30,12 +30,19 @@ import {
 } from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/banner', {
-  title: __('GutenBee Banner'),
-  description: __('A versatile block for creating banners of any kind.'),
+  title: __('GutenBee Banner', 'gutenbee'),
+  description: __(
+    'A versatile block for creating banners of any kind.',
+    'gutenbee',
+  ),
   apiVersion: 3,
   icon: BannerBlockIcon,
   category: 'gutenbee',
-  keywords: [__('banner'), __('hero'), __('section')],
+  keywords: [
+    __('banner', 'gutenbee'),
+    __('hero', 'gutenbee'),
+    __('section', 'gutenbee'),
+  ],
   supports: {
     anchor: false,
   },

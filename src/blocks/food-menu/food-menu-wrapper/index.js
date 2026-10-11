@@ -3,19 +3,15 @@ import { __ } from 'wp.i18n';
 import {
   InnerBlocks,
   useBlockProps,
-  __experimentalUseInnerBlocksProps,
-  useInnerBlocksProps as currentUseInnerBlockProps,
+  useInnerBlocksProps,
 } from 'wp.blockEditor';
 
 import FoodMenuItemIcon from '../food-menu-item/block-icon';
 
-const useInnerBlocksProps =
-  __experimentalUseInnerBlocksProps ?? currentUseInnerBlockProps;
-
 registerBlockType('gutenbee/food-menu-wrapper', {
   apiVersion: 3,
-  title: __('GutenBee Food Menu Group'),
-  description: __('Wrapper for the Food Menu block.'),
+  title: __('GutenBee Food Menu Group', 'gutenbee'),
+  description: __('Wrapper for the Food Menu block.', 'gutenbee'),
   icon: FoodMenuItemIcon,
   parent: ['gutenbee/food-menu-item'],
   category: 'gutenbee',

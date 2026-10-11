@@ -26,12 +26,19 @@ import {
 } from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/button', {
-  title: __('GutenBee Button'),
-  description: __('Prompt visitors to take action with a button-style link.'),
+  title: __('GutenBee Button', 'gutenbee'),
+  description: __(
+    'Prompt visitors to take action with a button-style link.',
+    'gutenbee',
+  ),
   apiVersion: 3,
   icon: ButtonBlockIcon,
   category: 'gutenbee',
-  keywords: [__('button'), __('button link'), __('call to action')],
+  keywords: [
+    __('button', 'gutenbee'),
+    __('button link', 'gutenbee'),
+    __('call to action', 'gutenbee'),
+  ],
   supports: {
     className: true,
     anchor: false,

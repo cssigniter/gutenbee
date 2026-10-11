@@ -98,8 +98,8 @@ const TestimonialEdit = ({
   const toggleIsEditing = () => setIsEditing(prev => !prev);
 
   const labels = {
-    title: !url ? __('Image') : __('Edit image'),
-    instructions: __('Pick an image file from your media library.'),
+    title: !url ? __('Image', 'gutenbee') : __('Edit image', 'gutenbee'),
+    instructions: __('Pick an image file from your media library.', 'gutenbee'),
   };
 
   const onImageSelect = media => {
@@ -153,8 +153,8 @@ const TestimonialEdit = ({
 
   const mediaPreview = !!url && (
     <img
-      alt={__('Edit image')}
-      title={__('Edit image')}
+      alt={__('Edit image', 'gutenbee')}
+      title={__('Edit image', 'gutenbee')}
       className="edit-image-preview"
       src={url}
     />
@@ -235,7 +235,7 @@ const TestimonialEdit = ({
           }}
           placeholder={
             // translators: placeholder text used for the quote
-            __('Write quote…')
+            __('Write quote…', 'gutenbee')
           }
           textAlign={align}
         />
@@ -258,7 +258,7 @@ const TestimonialEdit = ({
             __unstableMobileNoFocusOnMount
             placeholder={
               // translators: placeholder text used for the citation
-              __('Write citation…')
+              __('Write citation…', 'gutenbee')
             }
             className="gutenbee-block-testimonial__citation"
             textAlign={align}
@@ -283,7 +283,7 @@ const TestimonialEdit = ({
             __unstableMobileNoFocusOnMount
             placeholder={
               // translators: placeholder text used for the citation
-              __('Author information…')
+              __('Author information…', 'gutenbee')
             }
             className="gutenbee-block-testimonial__info"
             textAlign={align}
@@ -344,14 +344,14 @@ const TestimonialEdit = ({
           <ToolbarGroup>
             <ToolbarButton
               className={classNames({ 'is-active': isEditing })}
-              label={__('Edit image')}
+              label={__('Edit image', 'gutenbee')}
               aria-pressed={isEditing}
               onClick={toggleIsEditing}
               icon="format-image"
             />
             <ToolbarButton
               className={classNames({ 'is-active': isEditing })}
-              label={__('Remove image')}
+              label={__('Remove image', 'gutenbee')}
               aria-pressed={isEditing}
               onClick={onImageSelect}
               icon="trash"
@@ -361,12 +361,12 @@ const TestimonialEdit = ({
       </BlockControls>
 
       <InspectorControls>
-        <PanelBody title={__('Image Settings')} initialOpen={false}>
+        <PanelBody title={__('Image Settings', 'gutenbee')} initialOpen={false}>
           <ResponsiveControl>
             {breakpoint => (
               <RangeControl
                 className="range-control-size"
-                label={__('Image Width')}
+                label={__('Image Width', 'gutenbee')}
                 value={width[breakpoint]}
                 onChange={value => {
                   setAttributes({
@@ -388,7 +388,7 @@ const TestimonialEdit = ({
           </ResponsiveControl>
 
           <TextareaControl
-            label={__('Alt Text (Alternative Text)')}
+            label={__('Alt Text (Alternative Text)', 'gutenbee')}
             value={alt}
             onChange={value => setAttributes({ alt: value })}
             __nextHasNoMarginBottom={true}
@@ -396,7 +396,7 @@ const TestimonialEdit = ({
 
           {!isEmpty(imageSizeOptions) && (
             <SelectControl
-              label={__('Image Size')}
+              label={__('Image Size', 'gutenbee')}
               value={sizeSlug}
               options={imageSizeOptions}
               onChange={onImageSizeUpdate}
@@ -407,33 +407,33 @@ const TestimonialEdit = ({
         </PanelBody>
 
         <PanelBody
-          title={__('Layout Options')}
+          title={__('Layout Options', 'gutenbee')}
           className="blocks-layout-options"
           initialOpen={false}
         >
           <SelectControl
-            label={__('Avatar Position')}
+            label={__('Avatar Position', 'gutenbee')}
             value={avatarPosition}
             onChange={value => setAttributes({ avatarPosition: value })}
             options={[
-              { value: POSITIONS.TOP, label: __('Top') },
-              { value: POSITIONS.RIGHT, label: __('Right') },
-              { value: POSITIONS.BOTTOM, label: __('Bottom') },
-              { value: POSITIONS.LEFT, label: __('Left') },
+              { value: POSITIONS.TOP, label: __('Top', 'gutenbee') },
+              { value: POSITIONS.RIGHT, label: __('Right', 'gutenbee') },
+              { value: POSITIONS.BOTTOM, label: __('Bottom', 'gutenbee') },
+              { value: POSITIONS.LEFT, label: __('Left', 'gutenbee') },
             ]}
             __next40pxDefaultSize={true}
             __nextHasNoMarginBottom={true}
           />
         </PanelBody>
         <PanelBody
-          title={__('Text Settings')}
+          title={__('Text Settings', 'gutenbee')}
           initialOpen={false}
           className="blocks-font-size"
         >
           <ResponsiveControl>
             {breakpoint => (
               <FontSizePickerLabel
-                label={__('Content Font Size')}
+                label={__('Content Font Size', 'gutenbee')}
                 value={
                   contentSize[breakpoint] !== ''
                     ? contentSize[breakpoint]
@@ -453,7 +453,7 @@ const TestimonialEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <FontSizePickerLabel
-                label={__('Citation Font Size')}
+                label={__('Citation Font Size', 'gutenbee')}
                 value={
                   citationSize[breakpoint] !== ''
                     ? citationSize[breakpoint]
@@ -473,7 +473,7 @@ const TestimonialEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <FontSizePickerLabel
-                label={__('Info Font Size')}
+                label={__('Info Font Size', 'gutenbee')}
                 value={
                   infoSize[breakpoint] !== '' ? infoSize[breakpoint] : undefined
                 }
@@ -489,11 +489,14 @@ const TestimonialEdit = ({
             )}
           </ResponsiveControl>
         </PanelBody>
-        <PanelBody title={__('Block Appearance')} initialOpen={false}>
+        <PanelBody
+          title={__('Block Appearance', 'gutenbee')}
+          initialOpen={false}
+        >
           <PopoverColorControl
             value={textColor}
             defaultValue={textColor || ''}
-            label={__('Text Color')}
+            label={__('Text Color', 'gutenbee')}
             onChange={value => {
               setAttributes({ textColor: value });
             }}
@@ -501,7 +504,7 @@ const TestimonialEdit = ({
           <PopoverColorControl
             value={backgroundColor}
             defaultValue={backgroundColor || ''}
-            label={__('Background Color')}
+            label={__('Background Color', 'gutenbee')}
             onChange={value => {
               setAttributes({ backgroundColor: value });
             }}
@@ -520,7 +523,7 @@ const TestimonialEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Padding (px)')}
+                label={__('Padding (px)', 'gutenbee')}
                 attributeKey="blockPadding"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -532,7 +535,7 @@ const TestimonialEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Margin (px)')}
+                label={__('Margin (px)', 'gutenbee')}
                 attributeKey="blockMargin"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -541,7 +544,10 @@ const TestimonialEdit = ({
             )}
           </ResponsiveControl>
         </PanelBody>
-        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+        <PanelBody
+          title={__('Visibility Settings', 'gutenbee')}
+          initialOpen={false}
+        >
           <BreakpointVisibilityControl
             values={blockBreakpointVisibility}
             onChange={values => {
@@ -564,7 +570,7 @@ const TestimonialEdit = ({
         {__GUTENBEE_SETTINGS__.plugin.settings['active_animation-controls'] && (
           <PanelBody
             icon={!!attributes.animation?.type && 'saved'}
-            title={__('Animation')}
+            title={__('Animation', 'gutenbee')}
             initialOpen={false}
           >
             <AnimationControls

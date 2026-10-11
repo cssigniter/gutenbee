@@ -99,7 +99,7 @@ const ColumnBlockEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <RangeControl
-                label={__('Width (%)')}
+                label={__('Width (%)', 'gutenbee')}
                 value={width[breakpoint] || ''}
                 onChange={value => updateWidth(value, breakpoint)}
                 min={0}
@@ -117,7 +117,7 @@ const ColumnBlockEdit = ({
             {breakpoint => (
               <Fragment>
                 <RangeControl
-                  label={__('Height (px)')}
+                  label={__('Height (px)', 'gutenbee')}
                   min={-1}
                   max={1200}
                   value={columnHeight?.[breakpoint] ?? ''}
@@ -133,6 +133,7 @@ const ColumnBlockEdit = ({
                   step={1}
                   help={__(
                     'Leave blank for auto height or set to -1 for full viewport height.',
+                    'gutenbee',
                   )}
                   __next40pxDefaultSize
                   __nextHasNoMarginBottom
@@ -144,7 +145,7 @@ const ColumnBlockEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Padding (px)')}
+                label={__('Padding (px)', 'gutenbee')}
                 attributeKey="blockPadding"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -156,7 +157,7 @@ const ColumnBlockEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Margin (px)')}
+                label={__('Margin (px)', 'gutenbee')}
                 attributeKey="blockMargin"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -168,13 +169,13 @@ const ColumnBlockEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <SelectControl
-                label={__('Vertical Content Alignment')}
+                label={__('Vertical Content Alignment', 'gutenbee')}
                 value={verticalContentAlignment[breakpoint]}
                 options={[
-                  { value: '', label: __('') },
-                  { value: 'flex-start', label: __('Top') },
-                  { value: 'center', label: __('Middle') },
-                  { value: 'flex-end', label: __('Bottom') },
+                  { value: '', label: __('', 'gutenbee') },
+                  { value: 'flex-start', label: __('Top', 'gutenbee') },
+                  { value: 'center', label: __('Middle', 'gutenbee') },
+                  { value: 'flex-end', label: __('Bottom', 'gutenbee') },
                 ]}
                 onChange={value =>
                   setAttributes({
@@ -193,13 +194,13 @@ const ColumnBlockEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <SelectControl
-                label={__('Horizontal Content Alignment')}
+                label={__('Horizontal Content Alignment', 'gutenbee')}
                 value={horizontalContentAlignment[breakpoint]}
                 options={[
                   { value: '', label: '' },
-                  { value: 'flex-start', label: __('Left') },
-                  { value: 'center', label: __('Center') },
-                  { value: 'flex-end', label: __('Right') },
+                  { value: 'flex-start', label: __('Left', 'gutenbee') },
+                  { value: 'center', label: __('Center', 'gutenbee') },
+                  { value: 'flex-end', label: __('Right', 'gutenbee') },
                 ]}
                 onChange={value =>
                   setAttributes({
@@ -216,16 +217,16 @@ const ColumnBlockEdit = ({
           </ResponsiveControl>
         </PanelBody>
 
-        <PanelBody title={__('Color Settings')} initialOpen={false}>
+        <PanelBody title={__('Color Settings', 'gutenbee')} initialOpen={false}>
           <PopoverColorControl
-            label={__('Text Color')}
+            label={__('Text Color', 'gutenbee')}
             value={textColor || ''}
             defaultValue={textColor || ''}
             onChange={value => setAttributes({ textColor: value })}
           />
 
           <PopoverColorControl
-            label={__('Background Color')}
+            label={__('Background Color', 'gutenbee')}
             value={backgroundColor || ''}
             defaultValue={backgroundColor || ''}
             onChange={value => setAttributes({ backgroundColor: value })}
@@ -235,7 +236,7 @@ const ColumnBlockEdit = ({
             {breakpoint => {
               return (
                 <BackgroundControls
-                  label={__('Background Image')}
+                  label={__('Background Image', 'gutenbee')}
                   backgroundImageValue={backgroundImage[breakpoint]}
                   onBackgroundImageChange={value =>
                     setAttributes({
@@ -261,7 +262,10 @@ const ColumnBlockEdit = ({
           />
         </PanelBody>
 
-        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+        <PanelBody
+          title={__('Visibility Settings', 'gutenbee')}
+          initialOpen={false}
+        >
           <BreakpointVisibilityControl
             values={blockBreakpointVisibility}
             onChange={values => {
@@ -284,7 +288,7 @@ const ColumnBlockEdit = ({
         {__GUTENBEE_SETTINGS__.plugin.settings['active_animation-controls'] && (
           <PanelBody
             icon={!!attributes.animation?.type && 'saved'}
-            title={__('Animation')}
+            title={__('Animation', 'gutenbee')}
             initialOpen={false}
           >
             <AnimationControls

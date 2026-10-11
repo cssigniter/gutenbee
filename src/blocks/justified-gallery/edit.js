@@ -112,7 +112,7 @@ const JustifiedGalleryEdit = ({
         attributes={attributes}
         isSelected={isSelected}
         setAttributes={setAttributes}
-        label={__('Gallery')}
+        label={__('Gallery', 'gutenbee')}
         style={{
           backgroundColor: backgroundColor || undefined,
           ...getBorderCSSValue({ attributes }),
@@ -121,9 +121,9 @@ const JustifiedGalleryEdit = ({
       >
         <GalleryStyle attributes={attributes} />
         <InspectorControls>
-          <PanelBody title={__('Gallery Settings')}>
+          <PanelBody title={__('Gallery Settings', 'gutenbee')}>
             <SelectControl
-              label={__('Gallery Type')}
+              label={__('Gallery Type', 'gutenbee')}
               value={type}
               options={[
                 {
@@ -143,7 +143,7 @@ const JustifiedGalleryEdit = ({
             {type === GALLERY_TYPE.COLUMNS && (
               <Fragment>
                 <RangeControl
-                  label={__('Columns')}
+                  label={__('Columns', 'gutenbee')}
                   min={1}
                   max={6}
                   value={columns}
@@ -158,7 +158,7 @@ const JustifiedGalleryEdit = ({
             {type === GALLERY_TYPE.JUSTIFIED && (
               <Fragment>
                 <RangeControl
-                  label={__('Row Height')}
+                  label={__('Row Height', 'gutenbee')}
                   min={0}
                   max={600}
                   value={rowHeight}
@@ -169,7 +169,7 @@ const JustifiedGalleryEdit = ({
                 />
 
                 <RangeControl
-                  label={__('Margins')}
+                  label={__('Margins', 'gutenbee')}
                   min={0}
                   max={50}
                   value={margins}
@@ -180,7 +180,7 @@ const JustifiedGalleryEdit = ({
                 />
 
                 <SelectControl
-                  label={__('Last Row')}
+                  label={__('Last Row', 'gutenbee')}
                   value={lastRow}
                   options={Object.keys(LAST_ROW).map(key => ({
                     value: LAST_ROW[key],
@@ -192,7 +192,7 @@ const JustifiedGalleryEdit = ({
                 />
 
                 <ToggleControl
-                  label={__('Randomize')}
+                  label={__('Randomize', 'gutenbee')}
                   checked={randomize}
                   onChange={value => setAttributes({ randomize: value })}
                   __nextHasNoMarginBottom={true}
@@ -201,16 +201,19 @@ const JustifiedGalleryEdit = ({
             )}
 
             <ToggleControl
-              label={__('Show captions')}
+              label={__('Show captions', 'gutenbee')}
               checked={captions}
               onChange={value => setAttributes({ captions: value })}
               __nextHasNoMarginBottom={true}
             />
           </PanelBody>
 
-          <PanelBody title={__('Block Appearance')} initialOpen={false}>
+          <PanelBody
+            title={__('Block Appearance', 'gutenbee')}
+            initialOpen={false}
+          >
             <PopoverColorControl
-              label={__('Background Color')}
+              label={__('Background Color', 'gutenbee')}
               value={backgroundColor || ''}
               defaultValue={backgroundColor || ''}
               onChange={value => setAttributes({ backgroundColor: value })}
@@ -229,7 +232,7 @@ const JustifiedGalleryEdit = ({
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
-                  label={__('Padding (px)')}
+                  label={__('Padding (px)', 'gutenbee')}
                   attributeKey="blockPadding"
                   attributes={attributes}
                   setAttributes={setAttributes}
@@ -241,7 +244,7 @@ const JustifiedGalleryEdit = ({
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
-                  label={__('Margin (px)')}
+                  label={__('Margin (px)', 'gutenbee')}
                   attributeKey="blockMargin"
                   attributes={attributes}
                   setAttributes={setAttributes}
@@ -250,7 +253,10 @@ const JustifiedGalleryEdit = ({
               )}
             </ResponsiveControl>
           </PanelBody>
-          <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+          <PanelBody
+            title={__('Visibility Settings', 'gutenbee')}
+            initialOpen={false}
+          >
             <BreakpointVisibilityControl
               values={blockBreakpointVisibility}
               onChange={values => {
@@ -275,7 +281,7 @@ const JustifiedGalleryEdit = ({
           ] && (
             <PanelBody
               icon={!!attributes.animation?.type && 'saved'}
-              title={__('Animation')}
+              title={__('Animation', 'gutenbee')}
               initialOpen={false}
             >
               <AnimationControls

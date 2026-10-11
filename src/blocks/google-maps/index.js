@@ -34,11 +34,11 @@ import {
 
 registerBlockType('gutenbee/google-maps', {
   apiVersion: 3,
-  title: __('GutenBee Google Maps'),
-  description: __('Create fancy Google Maps'),
+  title: __('GutenBee Google Maps', 'gutenbee'),
+  description: __('Create fancy Google Maps', 'gutenbee'),
   icon: GoogleMapsBlockIcon,
   category: 'gutenbee',
-  keywords: [__('maps'), __('google')],
+  keywords: [__('maps', 'gutenbee'), __('google', 'gutenbee')],
   supports: {
     anchor: false,
   },

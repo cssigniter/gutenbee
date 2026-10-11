@@ -100,11 +100,15 @@ const CountupRender = ({ attributes }) => {
 
 registerBlockType('gutenbee/countup', {
   apiVersion: 3,
-  title: __('GutenBee Countup'),
-  description: __('Animate a numerical value by counting to it.'),
+  title: __('GutenBee Countup', 'gutenbee'),
+  description: __('Animate a numerical value by counting to it.', 'gutenbee'),
   category: 'gutenbee',
   icon: CountupBlockIcon,
-  keywords: [__('counter'), __('numbers'), __('animation')],
+  keywords: [
+    __('counter', 'gutenbee'),
+    __('numbers', 'gutenbee'),
+    __('animation', 'gutenbee'),
+  ],
   supports: {
     anchor: false,
   },

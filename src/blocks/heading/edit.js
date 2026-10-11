@@ -119,7 +119,7 @@ function HeadingEdit({
           onReplace={onReplace}
           onRemove={() => onReplace([])}
           className={className}
-          placeholder={placeholder || __('Write heading…')}
+          placeholder={placeholder || __('Write heading…', 'gutenbee')}
           style={{
             color: textColor ? textColor : undefined,
           }}
@@ -136,7 +136,7 @@ function HeadingEdit({
       </BlockControls>
 
       <InspectorControls>
-        <PanelBody title={__('Heading Settings')}>
+        <PanelBody title={__('Heading Settings', 'gutenbee')}>
           <ResponsiveControl>
             {breakpoint => {
               const currentLineHeight = lineHeight?.[breakpoint];
@@ -200,7 +200,7 @@ function HeadingEdit({
                       },
                     });
                   }}
-                  label={__('Heading Font Size')}
+                  label={__('Heading Font Size', 'gutenbee')}
                 />
               );
             }}
@@ -224,16 +224,19 @@ function HeadingEdit({
           </ResponsiveControl>
         </PanelBody>
 
-        <PanelBody title={__('Block Appearance')} initialOpen={false}>
+        <PanelBody
+          title={__('Block Appearance', 'gutenbee')}
+          initialOpen={false}
+        >
           <PopoverColorControl
-            label={__('Text Color')}
+            label={__('Text Color', 'gutenbee')}
             value={textColor || ''}
             defaultValue={textColor || ''}
             onChange={value => setAttributes({ textColor: value })}
           />
 
           <PopoverColorControl
-            label={__('Background Color')}
+            label={__('Background Color', 'gutenbee')}
             value={backgroundColor || ''}
             defaultValue={backgroundColor || ''}
             onChange={value => setAttributes({ backgroundColor: value })}
@@ -252,7 +255,7 @@ function HeadingEdit({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Padding (px)')}
+                label={__('Padding (px)', 'gutenbee')}
                 attributeKey="blockPadding"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -264,7 +267,7 @@ function HeadingEdit({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Margin (px)')}
+                label={__('Margin (px)', 'gutenbee')}
                 attributeKey="blockMargin"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -274,7 +277,10 @@ function HeadingEdit({
           </ResponsiveControl>
         </PanelBody>
 
-        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+        <PanelBody
+          title={__('Visibility Settings', 'gutenbee')}
+          initialOpen={false}
+        >
           <BreakpointVisibilityControl
             values={blockBreakpointVisibility}
             onChange={values => {
@@ -297,7 +303,7 @@ function HeadingEdit({
         {__GUTENBEE_SETTINGS__.plugin.settings['active_animation-controls'] && (
           <PanelBody
             icon={!!attributes.animation?.type && 'saved'}
-            title={__('Animation')}
+            title={__('Animation', 'gutenbee')}
             initialOpen={false}
           >
             <AnimationControls

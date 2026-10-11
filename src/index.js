@@ -44,11 +44,6 @@ import './blocks/testimonial';
 import './blocks/video-embed';
 import './blocks/review/review-item';
 import './blocks/review';
-// import './blocks/tab-slider';
-// import './blocks/tab-slider/tab-slider-nav-column';
-// import './blocks/tab-slider/tab-slider-nav';
-// import './blocks/tab-slider/tab-slider-content-column';
-// import './blocks/tab-slider/tab-slider-content';
 
 //
 // Misc

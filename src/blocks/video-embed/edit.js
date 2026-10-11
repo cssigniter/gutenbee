@@ -125,10 +125,11 @@ const VideoEmbedEdit = ({
   if (editing) {
     return (
       <Placeholder
-        label={__('GutenBee Video Embed.')}
+        label={__('GutenBee Video Embed.', 'gutenbee')}
         className="wp-block-embed"
         instructions={__(
           'Paste a YouTube or Vimeo video URL to embed on your site.',
+          'gutenbee',
         )}
       >
         <form
@@ -141,13 +142,13 @@ const VideoEmbedEdit = ({
             type="url"
             value={videoUrl || ''}
             className="components-placeholder__input"
-            aria-label={__('embed-url')}
-            placeholder={__('Enter URL to embed here…')}
+            aria-label={__('embed-url', 'gutenbee')}
+            placeholder={__('Enter URL to embed here…', 'gutenbee')}
             onChange={event => handleVideoUrlChange(event.target.value)}
           />
           {videoUrl && 'unsupported' !== videoInfo.provider && (
-            <Button isPrimary type="submit">
-              {_x('Embed', 'button label')}
+            <Button variant="primary" type="submit">
+              {_x('Embed', 'button label', 'gutenbee')}
             </Button>
           )}
 
@@ -156,6 +157,7 @@ const VideoEmbedEdit = ({
               <div className="components-placeholder__instructions">
                 {__(
                   'Embed URL error. Please enter a valid YouTube or Vimeo URL.',
+                  'gutenbee',
                 )}
               </div>
             </div>
@@ -211,7 +213,7 @@ const VideoEmbedEdit = ({
         <ToolbarGroup>
           <ToolbarButton
             className="components-icon-button components-toolbar__control"
-            label={__('Change video URL')}
+            label={__('Change video URL', 'gutenbee')}
             onClick={() => setEditing(true)}
             icon="edit"
           />
@@ -219,18 +221,18 @@ const VideoEmbedEdit = ({
       </BlockControls>
 
       <InspectorControls>
-        <PanelBody title={__('Video Options')}>
+        <PanelBody title={__('Video Options', 'gutenbee')}>
           <MediaUploadCheck>
             <BaseControl
               className="editor-video-coverImage-control"
               __nextHasNoMarginBottom={true}
             >
               <BaseControl.VisualLabel>
-                {__('Cover Image')}
+                {__('Cover Image', 'gutenbee')}
               </BaseControl.VisualLabel>
 
               <MediaUpload
-                title={__('Select Cover Image')}
+                title={__('Select Cover Image', 'gutenbee')}
                 onSelect={onCoverImageSelect}
                 allowedTypes={VIDEO_POSTER_ALLOWED_MEDIA_TYPES}
                 render={({ open }) => (
@@ -241,31 +243,41 @@ const VideoEmbedEdit = ({
                     aria-describedby={videoCoverImageDescription}
                   >
                     {!coverImage
-                      ? __('Select Cover Image')
-                      : __('Replace image')}
+                      ? __('Select Cover Image', 'gutenbee')
+                      : __('Replace image', 'gutenbee')}
                   </Button>
                 )}
               />
               <p id={videoCoverImageDescription} hidden>
                 {coverImage
-                  ? sprintf(__('The current cover image url is %s'), coverImage)
-                  : __('There is no cover image currently selected')}
+                  ? sprintf(
+                      __('The current cover image url is %s', 'gutenbee'),
+                      coverImage,
+                    )
+                  : __(
+                      'There is no cover image currently selected',
+                      'gutenbee',
+                    )}
               </p>
               {!!coverImage && (
-                <Button onClick={onCoverImageRemove} isLink isDestructive>
-                  {__('Remove Cover Image')}
+                <Button
+                  onClick={onCoverImageRemove}
+                  variant="link"
+                  isDestructive
+                >
+                  {__('Remove Cover Image', 'gutenbee')}
                 </Button>
               )}
             </BaseControl>
           </MediaUploadCheck>
           <ToggleControl
-            label={__('Show Controls')}
+            label={__('Show Controls', 'gutenbee')}
             checked={controls}
             onChange={value => setAttributes({ controls: value })}
             __nextHasNoMarginBottom={true}
           />
           <ToggleControl
-            label={__('Enable Autoplay')}
+            label={__('Enable Autoplay', 'gutenbee')}
             checked={autoplay}
             onChange={value => {
               setAttributes({ autoplay: value });
@@ -277,21 +289,21 @@ const VideoEmbedEdit = ({
             __nextHasNoMarginBottom={true}
           />
           <ToggleControl
-            label={__('Mute')}
+            label={__('Mute', 'gutenbee')}
             checked={mute}
             onChange={value => setAttributes({ mute: value })}
             disabled={autoplay}
             __nextHasNoMarginBottom={true}
           />
           <ToggleControl
-            label={__('Loop')}
+            label={__('Loop', 'gutenbee')}
             checked={loop}
             onChange={value => setAttributes({ loop: value })}
             __nextHasNoMarginBottom={true}
           />
           {videoInfo.provider === 'youtube' && (
             <ToggleControl
-              label={__('Modest Branding')}
+              label={__('Modest Branding', 'gutenbee')}
               checked={branding}
               onChange={value => setAttributes({ branding: value })}
               __nextHasNoMarginBottom={true}
@@ -299,20 +311,20 @@ const VideoEmbedEdit = ({
           )}
           {coverImage && !autoplay && (
             <ToggleControl
-              label={__('Lazy Load')}
+              label={__('Lazy Load', 'gutenbee')}
               checked={lazyLoad}
               onChange={value => setAttributes({ lazyLoad: value })}
               __nextHasNoMarginBottom={true}
             />
           )}
           <ToggleControl
-            label={__('Stick to bottom on scroll')}
+            label={__('Stick to bottom on scroll', 'gutenbee')}
             checked={sticky}
             onChange={value => setAttributes({ sticky: value })}
             __nextHasNoMarginBottom={true}
           />
           <TextControl
-            label={__('Start time in seconds.')}
+            label={__('Start time in seconds.', 'gutenbee')}
             onChange={value => setAttributes({ startTime: value })}
             type="number"
             value={startTime || ''}
@@ -321,7 +333,7 @@ const VideoEmbedEdit = ({
           />
           {videoInfo.provider === 'youtube' && (
             <TextControl
-              label={__('End time in seconds.')}
+              label={__('End time in seconds.', 'gutenbee')}
               onChange={value => setAttributes({ endTime: value })}
               type="number"
               value={endTime || ''}
@@ -330,11 +342,14 @@ const VideoEmbedEdit = ({
             />
           )}
         </PanelBody>
-        <PanelBody title={__('Block Appearance')} initialOpen={false}>
+        <PanelBody
+          title={__('Block Appearance', 'gutenbee')}
+          initialOpen={false}
+        >
           <PopoverColorControl
             value={backgroundColor}
             defaultValue={backgroundColor || ''}
-            label={__('Background Color')}
+            label={__('Background Color', 'gutenbee')}
             onChange={value => {
               setAttributes({ backgroundColor: value });
             }}
@@ -352,7 +367,7 @@ const VideoEmbedEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Padding (px)')}
+                label={__('Padding (px)', 'gutenbee')}
                 attributeKey="blockPadding"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -364,7 +379,7 @@ const VideoEmbedEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Margin (px)')}
+                label={__('Margin (px)', 'gutenbee')}
                 attributeKey="blockMargin"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -373,7 +388,10 @@ const VideoEmbedEdit = ({
             )}
           </ResponsiveControl>
         </PanelBody>
-        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+        <PanelBody
+          title={__('Visibility Settings', 'gutenbee')}
+          initialOpen={false}
+        >
           <BreakpointVisibilityControl
             values={blockBreakpointVisibility}
             onChange={values => {
@@ -396,7 +414,7 @@ const VideoEmbedEdit = ({
         {__GUTENBEE_SETTINGS__.plugin.settings['active_animation-controls'] && (
           <PanelBody
             icon={!!attributes.animation?.type && 'saved'}
-            title={__('Animation')}
+            title={__('Animation', 'gutenbee')}
             initialOpen={false}
           >
             <AnimationControls
