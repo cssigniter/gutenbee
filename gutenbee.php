@@ -66,6 +66,8 @@ function gutenbee_enqueue_editor_assets() {
 	wp_set_script_translations( 'gutenbee', 'gutenbee' );
 
 	wp_localize_script( 'gutenbee', '__GUTENBEE_SETTINGS__', array_merge( gutenbee_get_settings(), array(
+		// An empty page that hosts the YouTube embeds inside the block editor's iframe. See getYouTubeEmbedHost() in src/util/video/providers.js
+		'video_embed_frame_url' => untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/assets/video-embed-frame.html',
 		'plugin' => array(
 			'settings' => array(
 				'active_animation-controls' => gutenbee_get_settings()['active_animation-controls'],

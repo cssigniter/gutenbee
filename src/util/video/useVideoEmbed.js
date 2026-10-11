@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from 'wp.element';
 import {
   maybeLoadYouTubeApi,
   maybeLoadVimeoApi,
+  getYouTubeEmbedHost,
   getVideoProviderInfoByUrl,
 } from './providers';
 
@@ -36,7 +37,7 @@ const useVideoEmbed = ({
 
     if (videoInfo.provider === 'youtube' && videoInfo.id && onYouTubeApiReady) {
       await maybeLoadYouTubeApi();
-      onYouTubeApiReady(ref);
+      onYouTubeApiReady(await getYouTubeEmbedHost(ref));
     }
 
     if (videoInfo.provider === 'vimeo' && videoInfo.id && onVimeoApiReady) {

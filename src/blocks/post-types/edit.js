@@ -94,12 +94,12 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
     }
 
     // Reset the post tags if we switch a post type.
-    if (postType !== 'post') {
+    if (postType !== 'post' && postTagSlugs?.length) {
       setAttributes({ postTagSlugs: [] });
     }
 
     // Reset the ignition-event query type if we switch a post type.
-    if (postType !== 'ignition-event') {
+    if (postType !== 'ignition-event' && ignitionEventQueryType) {
       setAttributes({ ignitionEventQueryType: '' });
     }
   }, [postType]);
