@@ -267,6 +267,7 @@ const VideoEdit = ({
               <p id={videoPosterDescription} hidden>
                 {poster
                   ? sprintf(
+                      // translators: %s: The URL of the video's poster image.
                       __('The current poster image url is %s', 'gutenbee'),
                       poster,
                     )

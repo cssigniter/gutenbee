@@ -251,6 +251,7 @@ const VideoEmbedEdit = ({
               <p id={videoCoverImageDescription} hidden>
                 {coverImage
                   ? sprintf(
+                      // translators: %s: The URL of the video's cover image.
                       __('The current cover image url is %s', 'gutenbee'),
                       coverImage,
                     )

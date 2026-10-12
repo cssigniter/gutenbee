@@ -367,7 +367,7 @@ const ImageEdit = ({
               label={__('Image Link', 'gutenbee')}
               value={linkDestination}
               options={[
-                { value: LINK_DESTINATION.NONE, label: 'None' },
+                { value: LINK_DESTINATION.NONE, label: __('None', 'gutenbee') },
                 {
                   value: LINK_DESTINATION.MEDIA,
                   label: __('Media', 'gutenbee'),

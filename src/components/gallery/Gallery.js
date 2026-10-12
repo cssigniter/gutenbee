@@ -161,7 +161,11 @@ const Gallery = ({
             value={images.map(img => img.id)}
             render={({ open }) => (
               <ToolbarButton
-                label={sprintf(__('Edit %s', 'gutenbee'), label)}
+                label={sprintf(
+                  // translators: %s: The name of the gallery, e.g. "Gallery".
+                  __('Edit %s', 'gutenbee'),
+                  label,
+                )}
                 icon="edit"
                 onClick={open}
               />

@@ -107,12 +107,15 @@ const PopoverColorControl = ({
                             }}
                             aria-label={
                               color.name
-                                ? // translators: %s: The name of the color e.g: "vivid red".
-                                  sprintf(__('Color: %s', 'gutenbee'), name)
-                                : // translators: %s: color hex code e.g: "#f00".
-                                  sprintf(
+                                ? sprintf(
+                                    // translators: %s: The name of the color e.g: "vivid red".
+                                    __('Color: %s', 'gutenbee'),
+                                    color.name,
+                                  )
+                                : sprintf(
+                                    // translators: %s: color hex code e.g: "#f00".
                                     __('Color code: %s', 'gutenbee'),
-                                    color,
+                                    color.color,
                                   )
                             }
                             aria-pressed={color.color === value}

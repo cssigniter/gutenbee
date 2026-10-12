@@ -226,10 +226,22 @@ const TabsEdit = ({
                   ? `${activeState.toLowerCase()}TabBackgroundColor`
                   : 'tabBackgroundColor';
 
+                // Full strings for each state, so that they can be translated.
+                const textColorLabel = {
+                  '': __('Tab Text Color', 'gutenbee'),
+                  Hover: __('Tab Hover Text Color', 'gutenbee'),
+                  Active: __('Tab Active Text Color', 'gutenbee'),
+                }[activeState];
+                const backgroundColorLabel = {
+                  '': __('Tab Background Color', 'gutenbee'),
+                  Hover: __('Tab Hover Background Color', 'gutenbee'),
+                  Active: __('Tab Active Background Color', 'gutenbee'),
+                }[activeState];
+
                 return (
                   <Fragment>
                     <PopoverColorControl
-                      label={__(`Tab ${activeState} Text Color`, 'gutenbee')}
+                      label={textColorLabel}
                       value={attributes[textColorKey]}
                       defaultValue={attributes[textColorKey] || ''}
                       onChange={value =>
@@ -240,10 +252,7 @@ const TabsEdit = ({
                     />
 
                     <PopoverColorControl
-                      label={__(
-                        `Tab ${activeState} Background Color`,
-                        'gutenbee',
-                      )}
+                      label={backgroundColorLabel}
                       value={attributes[backgroundColorKey]}
                       defaultValue={attributes[backgroundColorKey] || ''}
                       onChange={value =>

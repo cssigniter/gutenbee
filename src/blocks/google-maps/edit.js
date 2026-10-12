@@ -220,7 +220,7 @@ const GoogleMapsEdit = ({
                     variant="secondary"
                     style={{ width: '100%', display: 'block' }}
                   >
-                    Upload Custom Marker
+                    {__('Upload Custom Marker', 'gutenbee')}
                   </Button>
                 </p>
               )}

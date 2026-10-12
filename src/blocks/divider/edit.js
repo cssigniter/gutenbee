@@ -78,7 +78,11 @@ const DividerEdit = ({
               controls={Object.values(BORDER_STYLES).map(
                 (borderStyle, index) => ({
                   icon: 'admin-appearance',
-                  title: sprintf(__('Style %s', 'gutenbee'), borderStyle),
+                  title: sprintf(
+                    // translators: %s: The divider's border style, e.g. "solid" or "dashed".
+                    __('Style %s', 'gutenbee'),
+                    borderStyle,
+                  ),
                   isActive: style === borderStyle,
                   onClick: () => setAttributes({ style: borderStyle }),
                   subscript: index + 1,

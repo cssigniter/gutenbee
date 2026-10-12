@@ -156,8 +156,8 @@ const SlideshowEdit = ({
                   label={__('Animation Style', 'gutenbee')}
                   selected={animationStyle}
                   options={[
-                    { label: 'Fade', value: 'fade' },
-                    { label: 'Slide', value: 'slide' },
+                    { label: __('Fade', 'gutenbee'), value: 'fade' },
+                    { label: __('Slide', 'gutenbee'), value: 'slide' },
                   ]}
                   onChange={value => {
                     if (value === 'fade') {

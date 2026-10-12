@@ -23,7 +23,7 @@ registerBlockType('gutenbee/food-menu-wrapper', {
         [
           'gutenbee/heading',
           {
-            placeholder: 'Menu item name...',
+            placeholder: __('Menu item name...', 'gutenbee'),
             level: 5,
             fontSize: {
               desktop: '22',
@@ -35,13 +35,18 @@ registerBlockType('gutenbee/food-menu-wrapper', {
         [
           'gutenbee/paragraph',
           {
-            placeholder: 'Price',
+            placeholder: __('Price', 'gutenbee'),
             className: 'wp-block-gutenbee-food-menu-item-price',
           },
         ],
         [
           'gutenbee/paragraph',
-          { placeholder: 'Write a description for your menu item...' },
+          {
+            placeholder: __(
+              'Write a description for your menu item...',
+              'gutenbee',
+            ),
+          },
         ],
       ],
       templateLock: 'all',

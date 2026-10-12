@@ -9,14 +9,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-11T12:23:30+00:00\n"
+"POT-Creation-Date: 2026-10-12T15:54:21+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: gutenbee\n"
 
 #. Plugin Name of the plugin
 #: gutenbee.php
-#: gutenbee.php:162
+#: gutenbee.php:164
 #: inc/options.php:27
 msgid "GutenBee"
 msgstr ""
@@ -41,167 +41,167 @@ msgstr ""
 msgid "https://www.cssigniter.com"
 msgstr ""
 
-#: gutenbee.php:134
+#: gutenbee.php:136
 msgid "Before"
 msgstr ""
 
-#: gutenbee.php:135
+#: gutenbee.php:137
 msgid "After"
 msgstr ""
 
-#: gutenbee.php:178
-#: gutenbee.php:215
+#: gutenbee.php:180
+#: gutenbee.php:217
 msgid "Accordion Block"
 msgstr ""
 
-#: gutenbee.php:179
-#: gutenbee.php:220
+#: gutenbee.php:181
+#: gutenbee.php:222
 msgid "Banner Block"
 msgstr ""
 
-#: gutenbee.php:180
-#: gutenbee.php:225
+#: gutenbee.php:182
+#: gutenbee.php:227
 msgid "Button Block"
 msgstr ""
 
-#: gutenbee.php:181
-#: gutenbee.php:235
+#: gutenbee.php:183
+#: gutenbee.php:237
 msgid "Container Block"
 msgstr ""
 
-#: gutenbee.php:182
-#: gutenbee.php:245
+#: gutenbee.php:184
+#: gutenbee.php:247
 msgid "Countdown Block"
 msgstr ""
 
-#: gutenbee.php:183
-#: gutenbee.php:250
+#: gutenbee.php:185
+#: gutenbee.php:252
 msgid "Countup Block"
 msgstr ""
 
-#: gutenbee.php:184
-#: gutenbee.php:255
+#: gutenbee.php:186
+#: gutenbee.php:257
 msgid "Divider Block"
 msgstr ""
 
-#: gutenbee.php:185
+#: gutenbee.php:187
 msgid "Food Menu Block"
 msgstr ""
 
-#: gutenbee.php:186
-#: gutenbee.php:265
+#: gutenbee.php:188
+#: gutenbee.php:267
 msgid "Heading Block"
 msgstr ""
 
-#: gutenbee.php:187
-#: gutenbee.php:270
+#: gutenbee.php:189
+#: gutenbee.php:272
 msgid "Icon Block"
 msgstr ""
 
-#: gutenbee.php:188
-#: gutenbee.php:275
+#: gutenbee.php:190
+#: gutenbee.php:277
 msgid "Icon Box Block"
 msgstr ""
 
-#: gutenbee.php:189
-#: gutenbee.php:280
+#: gutenbee.php:191
+#: gutenbee.php:282
 msgid "Icon List Block"
 msgstr ""
 
-#: gutenbee.php:190
-#: gutenbee.php:285
+#: gutenbee.php:192
+#: gutenbee.php:287
 msgid "Image Block"
 msgstr ""
 
-#: gutenbee.php:191
-#: gutenbee.php:290
+#: gutenbee.php:193
+#: gutenbee.php:292
 msgid "Image Box Block"
 msgstr ""
 
-#: gutenbee.php:192
-#: gutenbee.php:295
+#: gutenbee.php:194
+#: gutenbee.php:297
 msgid "Image Comparison Block"
 msgstr ""
 
-#: gutenbee.php:193
-#: gutenbee.php:300
+#: gutenbee.php:195
+#: gutenbee.php:302
 msgid "Justified Gallery Block"
 msgstr ""
 
-#: gutenbee.php:194
-#: gutenbee.php:305
+#: gutenbee.php:196
+#: gutenbee.php:307
 msgid "Paragraph Block"
 msgstr ""
 
-#: gutenbee.php:195
-#: gutenbee.php:310
+#: gutenbee.php:197
+#: gutenbee.php:312
 msgid "Post Types Block"
 msgstr ""
 
-#: gutenbee.php:196
+#: gutenbee.php:198
 msgid "Progress Bar Block"
 msgstr ""
 
-#: gutenbee.php:197
-#: gutenbee.php:320
+#: gutenbee.php:199
+#: gutenbee.php:322
 msgid "Review Block"
 msgstr ""
 
-#: gutenbee.php:198
-#: gutenbee.php:330
+#: gutenbee.php:200
+#: gutenbee.php:332
 msgid "Spacer Block"
 msgstr ""
 
-#: gutenbee.php:199
-#: gutenbee.php:325
+#: gutenbee.php:201
+#: gutenbee.php:327
 msgid "Slideshow Block"
 msgstr ""
 
-#: gutenbee.php:200
-#: gutenbee.php:335
+#: gutenbee.php:202
+#: gutenbee.php:337
 msgid "Tabs Block"
 msgstr ""
 
-#: gutenbee.php:201
-#: gutenbee.php:340
+#: gutenbee.php:203
+#: gutenbee.php:342
 msgid "Testimonial Block"
 msgstr ""
 
-#: gutenbee.php:202
-#: gutenbee.php:345
+#: gutenbee.php:204
+#: gutenbee.php:347
 msgid "Video Block"
 msgstr ""
 
-#: gutenbee.php:203
-#: gutenbee.php:350
+#: gutenbee.php:205
+#: gutenbee.php:352
 msgid "Video Embed Block"
 msgstr ""
 
-#: gutenbee.php:230
+#: gutenbee.php:232
 msgid "Buttons Block"
 msgstr ""
 
-#: gutenbee.php:240
+#: gutenbee.php:242
 msgid "Column Block"
 msgstr ""
 
-#: gutenbee.php:260
+#: gutenbee.php:262
 msgid "Google Map Block"
 msgstr ""
 
-#: gutenbee.php:315
+#: gutenbee.php:317
 msgid "Progress Block"
 msgstr ""
 
-#: gutenbee.php:355
+#: gutenbee.php:357
 msgid "Food Menu"
 msgstr ""
 
-#: gutenbee.php:575
+#: gutenbee.php:577
 msgid "View GutenBee settings"
 msgstr ""
 
-#: gutenbee.php:575
+#: gutenbee.php:577
 #: build/gutenbee.build.js:2
 #: src/blocks/countdown/edit.js:234
 #: src/blocks/countup/edit.js:154
@@ -226,7 +226,7 @@ msgstr ""
 #: inc/blocks/post-types/templates/article-default.php:4
 #: inc/blocks/post-types/templates/article-media.php:4
 #: build/gutenbee.build.js:2
-#: src/blocks/post-types/edit.js:412
+#: src/blocks/post-types/edit.js:427
 msgid "Read More"
 msgstr ""
 
@@ -305,7 +305,7 @@ msgid "Change"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/video/edit.js:284
+#: src/blocks/video/edit.js:285
 #: src/components/controls/background-controls/BackgroundControls.js:107
 msgid "Remove"
 msgstr ""
@@ -413,10 +413,10 @@ msgstr ""
 
 #: build/gutenbee.build.js:2
 #: src/blocks/image/edit.js:356
-#: src/blocks/post-types/edit.js:390
+#: src/blocks/post-types/edit.js:405
 #: src/blocks/testimonial/edit.js:399
 #: src/components/controls/background-controls/BackgroundControls.js:167
-#: src/components/gallery/Gallery.js:211
+#: src/components/gallery/Gallery.js:215
 #: src/components/slideshow/Slideshow.js:276
 msgid "Image Size"
 msgstr ""
@@ -469,24 +469,25 @@ msgstr ""
 
 #. translators: %s: The name of the color e.g: "vivid red".
 #: build/gutenbee.build.js:2
-#: src/components/controls/advanced-color-control/PopoverColorControl.js:111
+#: src/components/controls/advanced-color-control/PopoverColorControl.js:112
 #, js-format
 msgid "Color: %s"
 msgstr ""
 
+#. translators: %s: color hex code e.g: "#f00".
 #: build/gutenbee.build.js:2
-#: src/components/controls/advanced-color-control/PopoverColorControl.js:114
+#: src/components/controls/advanced-color-control/PopoverColorControl.js:117
 #, js-format
 msgid "Color code: %s"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/components/controls/advanced-color-control/PopoverColorControl.js:134
+#: src/components/controls/advanced-color-control/PopoverColorControl.js:137
 msgid "Clear"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/components/controls/advanced-color-control/PopoverColorControl.js:141
+#: src/components/controls/advanced-color-control/PopoverColorControl.js:144
 msgid "Select Color"
 msgstr ""
 
@@ -497,11 +498,13 @@ msgstr ""
 
 #: build/gutenbee.build.js:2
 #: src/blocks/countup/edit.js:225
+#: src/blocks/image/edit.js:370
+#: src/blocks/post-types/edit.js:351
 #: src/blocks/video/edit.js:236
 #: src/components/controls/animation-controls/AnimationControls.js:93
 #: src/components/controls/border-controls/BorderControls.js:44
 #: src/components/controls/box-shadow-controls/BoxShadowControls.js:43
-#: src/components/gallery/Gallery.js:202
+#: src/components/gallery/Gallery.js:206
 #: src/components/slideshow/Slideshow.js:267
 msgid "None"
 msgstr ""
@@ -833,7 +836,7 @@ msgstr ""
 #: src/blocks/container/inspector-controls.js:256
 #: src/blocks/countdown/edit.js:268
 #: src/blocks/countup/edit.js:293
-#: src/blocks/divider/edit.js:128
+#: src/blocks/divider/edit.js:132
 #: src/blocks/food-menu/edit.js:135
 #: src/blocks/food-menu/food-menu-item/edit.js:69
 #: src/blocks/google-maps/edit.js:294
@@ -851,8 +854,8 @@ msgstr ""
 #: src/blocks/spacer/edit.js:193
 #: src/blocks/tabs/edit.js:217
 #: src/blocks/testimonial/edit.js:493
-#: src/blocks/video-embed/edit.js:346
-#: src/blocks/video/edit.js:292
+#: src/blocks/video-embed/edit.js:347
+#: src/blocks/video/edit.js:293
 msgid "Block Appearance"
 msgstr ""
 
@@ -876,7 +879,7 @@ msgstr ""
 #: src/blocks/container/column/edit.js:229
 #: src/blocks/container/inspector-controls.js:271
 #: src/blocks/countup/edit.js:311
-#: src/blocks/divider/edit.js:141
+#: src/blocks/divider/edit.js:145
 #: src/blocks/food-menu/edit.js:141
 #: src/blocks/food-menu/food-menu-item/edit.js:98
 #: src/blocks/google-maps/edit.js:298
@@ -890,7 +893,7 @@ msgstr ""
 #: src/blocks/slideshow/edit.js:298
 #: src/blocks/spacer/edit.js:197
 #: src/blocks/testimonial/edit.js:507
-#: src/blocks/video-embed/edit.js:352
+#: src/blocks/video-embed/edit.js:353
 msgid "Background Color"
 msgstr ""
 
@@ -904,7 +907,7 @@ msgstr ""
 #: src/blocks/banner/edit.js:358
 #: src/blocks/container/column/edit.js:239
 #: src/blocks/container/inspector-controls.js:288
-#: src/blocks/divider/edit.js:152
+#: src/blocks/divider/edit.js:156
 #: src/blocks/spacer/edit.js:207
 msgid "Background Image"
 msgstr ""
@@ -934,7 +937,7 @@ msgid "Make sure you set a background image above when using this option. The im
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/accordion/edit.js:318
+#: src/blocks/accordion/edit.js:327
 #: src/blocks/banner/edit.js:455
 #: src/blocks/button/edit.js:225
 #: src/blocks/buttons/edit.js:103
@@ -942,7 +945,7 @@ msgstr ""
 #: src/blocks/container/inspector-controls.js:386
 #: src/blocks/countdown/edit.js:384
 #: src/blocks/countup/edit.js:330
-#: src/blocks/divider/edit.js:180
+#: src/blocks/divider/edit.js:184
 #: src/blocks/food-menu/edit.js:160
 #: src/blocks/food-menu/food-menu-item/edit.js:117
 #: src/blocks/google-maps/edit.js:317
@@ -959,15 +962,15 @@ msgstr ""
 #: src/blocks/progress-bar/edit.js:280
 #: src/blocks/review/edit.js:325
 #: src/blocks/slideshow/edit.js:317
-#: src/blocks/tabs/edit.js:286
+#: src/blocks/tabs/edit.js:295
 #: src/blocks/testimonial/edit.js:526
-#: src/blocks/video-embed/edit.js:370
-#: src/blocks/video/edit.js:308
+#: src/blocks/video-embed/edit.js:371
+#: src/blocks/video/edit.js:309
 msgid "Padding (px)"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/accordion/edit.js:330
+#: src/blocks/accordion/edit.js:339
 #: src/blocks/banner/edit.js:467
 #: src/blocks/button/edit.js:237
 #: src/blocks/buttons/edit.js:115
@@ -975,7 +978,7 @@ msgstr ""
 #: src/blocks/container/inspector-controls.js:398
 #: src/blocks/countdown/edit.js:396
 #: src/blocks/countup/edit.js:342
-#: src/blocks/divider/edit.js:192
+#: src/blocks/divider/edit.js:196
 #: src/blocks/food-menu/edit.js:172
 #: src/blocks/food-menu/food-menu-item/edit.js:129
 #: src/blocks/google-maps/edit.js:329
@@ -994,15 +997,15 @@ msgstr ""
 #: src/blocks/review/edit.js:337
 #: src/blocks/slideshow/edit.js:329
 #: src/blocks/spacer/edit.js:247
-#: src/blocks/tabs/edit.js:298
+#: src/blocks/tabs/edit.js:307
 #: src/blocks/testimonial/edit.js:538
-#: src/blocks/video-embed/edit.js:382
-#: src/blocks/video/edit.js:320
+#: src/blocks/video-embed/edit.js:383
+#: src/blocks/video/edit.js:321
 msgid "Margin (px)"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/accordion/edit.js:341
+#: src/blocks/accordion/edit.js:350
 #: src/blocks/banner/edit.js:478
 #: src/blocks/button/edit.js:311
 #: src/blocks/buttons/edit.js:126
@@ -1010,7 +1013,7 @@ msgstr ""
 #: src/blocks/container/inspector-controls.js:409
 #: src/blocks/countdown/edit.js:407
 #: src/blocks/countup/edit.js:353
-#: src/blocks/divider/edit.js:203
+#: src/blocks/divider/edit.js:207
 #: src/blocks/food-menu/edit.js:183
 #: src/blocks/google-maps/edit.js:340
 #: src/blocks/heading/edit.js:281
@@ -1026,15 +1029,15 @@ msgstr ""
 #: src/blocks/review/edit.js:348
 #: src/blocks/slideshow/edit.js:339
 #: src/blocks/spacer/edit.js:257
-#: src/blocks/tabs/edit.js:308
+#: src/blocks/tabs/edit.js:317
 #: src/blocks/testimonial/edit.js:548
-#: src/blocks/video-embed/edit.js:392
-#: src/blocks/video/edit.js:330
+#: src/blocks/video-embed/edit.js:393
+#: src/blocks/video/edit.js:331
 msgid "Visibility Settings"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/accordion/edit.js:368
+#: src/blocks/accordion/edit.js:377
 #: src/blocks/banner/edit.js:503
 #: src/blocks/button/edit.js:336
 #: src/blocks/buttons/edit.js:151
@@ -1054,14 +1057,14 @@ msgstr ""
 #: src/blocks/image/edit.js:475
 #: src/blocks/justified-gallery/edit.js:284
 #: src/blocks/paragraph/edit.js:307
-#: src/blocks/post-types/edit.js:424
+#: src/blocks/post-types/edit.js:439
 #: src/blocks/progress-bar/edit.js:329
 #: src/blocks/review/edit.js:373
 #: src/blocks/slideshow/edit.js:366
-#: src/blocks/tabs/edit.js:335
+#: src/blocks/tabs/edit.js:344
 #: src/blocks/testimonial/edit.js:573
-#: src/blocks/video-embed/edit.js:417
-#: src/blocks/video/edit.js:355
+#: src/blocks/video-embed/edit.js:418
+#: src/blocks/video/edit.js:356
 msgid "Animation"
 msgstr ""
 
@@ -1090,39 +1093,40 @@ msgstr ""
 msgid "Style"
 msgstr ""
 
+#. translators: %s: The divider's border style, e.g. "solid" or "dashed".
 #: build/gutenbee.build.js:2
-#: src/blocks/divider/edit.js:81
+#: src/blocks/divider/edit.js:83
 #, js-format
 msgid "Style %s"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/divider/edit.js:90
+#: src/blocks/divider/edit.js:94
 msgid "Weight (thickness)"
 msgstr ""
 
 #: build/gutenbee.build.js:2
 #: src/blocks/container/column/edit.js:102
-#: src/blocks/divider/edit.js:100
+#: src/blocks/divider/edit.js:104
 msgid "Width (%)"
 msgstr ""
 
 #: build/gutenbee.build.js:2
 #: src/blocks/container/column/edit.js:120
-#: src/blocks/divider/edit.js:110
+#: src/blocks/divider/edit.js:114
 #: src/blocks/google-maps/edit.js:168
 msgid "Height (px)"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/divider/edit.js:119
+#: src/blocks/divider/edit.js:123
 #: src/blocks/icon-list/edit.js:234
 #: src/blocks/icon/index.js:214
 msgid "Alignment"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/divider/edit.js:132
+#: src/blocks/divider/edit.js:136
 msgid "Color"
 msgstr ""
 
@@ -1138,7 +1142,7 @@ msgid "Slideshow"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/components/gallery/Gallery.js:258
+#: src/components/gallery/Gallery.js:262
 #: src/components/slideshow/Slideshow.js:170
 msgid "Select images or upload new ones from your library."
 msgstr ""
@@ -1147,25 +1151,25 @@ msgstr ""
 #: src/blocks/image-box/edit.js:182
 #: src/blocks/image/edit.js:323
 #: src/blocks/testimonial/edit.js:364
-#: src/components/gallery/Gallery.js:183
+#: src/components/gallery/Gallery.js:187
 #: src/components/slideshow/Slideshow.js:248
 msgid "Image Settings"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/components/gallery/Gallery.js:188
+#: src/components/gallery/Gallery.js:192
 #: src/components/slideshow/Slideshow.js:253
 msgid "Link to"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/components/gallery/Gallery.js:196
+#: src/components/gallery/Gallery.js:200
 #: src/components/slideshow/Slideshow.js:261
 msgid "Attachment Page"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/components/gallery/Gallery.js:200
+#: src/components/gallery/Gallery.js:204
 #: src/components/slideshow/Slideshow.js:265
 msgid "Media File"
 msgstr ""
@@ -1204,6 +1208,16 @@ msgstr ""
 #: build/gutenbee.build.js:2
 #: src/blocks/slideshow/edit.js:156
 msgid "Animation Style"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/slideshow/edit.js:159
+msgid "Fade"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/slideshow/edit.js:160
+msgid "Slide"
 msgstr ""
 
 #: build/gutenbee.build.js:2
@@ -1301,6 +1315,7 @@ msgstr ""
 #: src/blocks/google-maps/edit.js:266
 #: src/blocks/icon-list/edit.js:207
 #: src/blocks/icon/index.js:146
+#: src/components/controls/state-tabs/StateTabs.js:14
 msgid "Default"
 msgstr ""
 
@@ -1459,10 +1474,10 @@ msgid "Title Color"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/accordion/edit.js:295
+#: src/blocks/accordion/edit.js:304
 #: src/blocks/icon-box/index.js:381
 #: src/blocks/image-box/edit.js:336
-#: src/blocks/tabs/edit.js:261
+#: src/blocks/tabs/edit.js:270
 msgid "Content Text Color"
 msgstr ""
 
@@ -1653,20 +1668,21 @@ msgstr ""
 msgid "Remove Image"
 msgstr ""
 
+#. translators: %s: The name of the gallery, e.g. "Gallery".
 #: build/gutenbee.build.js:2
-#: src/components/gallery/Gallery.js:164
+#: src/components/gallery/Gallery.js:166
 #, js-format
 msgid "Edit %s"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/components/gallery/Gallery.js:257
+#: src/components/gallery/Gallery.js:261
 msgid "Edit Gallery"
 msgstr ""
 
 #: build/gutenbee.build.js:2
 #: src/blocks/justified-gallery/edit.js:115
-#: src/components/gallery/Gallery.js:256
+#: src/components/gallery/Gallery.js:260
 msgid "Gallery"
 msgstr ""
 
@@ -1683,9 +1699,15 @@ msgstr ""
 #: build/gutenbee.build.js:2
 #: src/blocks/container/inspector-controls.js:60
 #: src/blocks/food-menu/edit.js:89
+#: src/blocks/justified-gallery/edit.js:131
 #: src/blocks/justified-gallery/edit.js:146
-#: src/blocks/post-types/edit.js:325
+#: src/blocks/post-types/edit.js:337
 msgid "Columns"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/justified-gallery/edit.js:135
+msgid "Justified"
 msgstr ""
 
 #: build/gutenbee.build.js:2
@@ -1787,6 +1809,7 @@ msgid "Bar Height (px)"
 msgstr ""
 
 #: build/gutenbee.build.js:2
+#: src/blocks/accordion/edit.js:260
 #: src/blocks/progress-bar/edit.js:231
 msgid "Title Text Color"
 msgstr ""
@@ -2001,6 +2024,11 @@ msgid "Custom Marker"
 msgstr ""
 
 #: build/gutenbee.build.js:2
+#: src/blocks/google-maps/edit.js:223
+msgid "Upload Custom Marker"
+msgstr ""
+
+#: build/gutenbee.build.js:2
 #: src/blocks/google-maps/edit.js:230
 msgid "Info Window Text"
 msgstr ""
@@ -2151,6 +2179,16 @@ msgid "countdown"
 msgstr ""
 
 #: build/gutenbee.build.js:2
+#: src/components/controls/state-tabs/StateTabs.js:15
+msgid "Hover"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/components/controls/state-tabs/StateTabs.js:16
+msgid "Active"
+msgstr ""
+
+#: build/gutenbee.build.js:2
 #: src/blocks/accordion/edit.js:211
 msgid "Accordion Settings"
 msgstr ""
@@ -2172,13 +2210,38 @@ msgid "Start current tab open"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/accordion/edit.js:301
-#: src/blocks/tabs/edit.js:268
+#: src/blocks/accordion/edit.js:261
+msgid "Title Hover Text Color"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/accordion/edit.js:262
+msgid "Title Active Text Color"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/accordion/edit.js:265
+msgid "Title Background Color"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/accordion/edit.js:266
+msgid "Title Hover Background Color"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/accordion/edit.js:267
+msgid "Title Active Background Color"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/accordion/edit.js:310
+#: src/blocks/tabs/edit.js:277
 msgid "Content Background Color"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/accordion/edit.js:309
+#: src/blocks/accordion/edit.js:318
 msgid "Border Color"
 msgstr ""
 
@@ -2209,7 +2272,37 @@ msgid "Tab Settings"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/tabs/edit.js:277
+#: src/blocks/tabs/edit.js:231
+msgid "Tab Text Color"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/tabs/edit.js:232
+msgid "Tab Hover Text Color"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/tabs/edit.js:233
+msgid "Tab Active Text Color"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/tabs/edit.js:236
+msgid "Tab Background Color"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/tabs/edit.js:237
+msgid "Tab Hover Background Color"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/tabs/edit.js:238
+msgid "Tab Active Background Color"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/tabs/edit.js:286
 msgid "Content Border Color"
 msgstr ""
 
@@ -2269,87 +2362,214 @@ msgid "Events Type"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/post-types/edit.js:178
+#: src/blocks/post-types/edit.js:163
+msgid "All events"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:165
+msgid "Recurring events"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:168
+msgid "Upcoming events"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:169
+msgid "Past events"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:181
 msgid "Base Category"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/post-types/edit.js:202
+#: src/blocks/post-types/edit.js:205
 msgid "Author"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/post-types/edit.js:223
+#: src/blocks/post-types/edit.js:226
 msgid "Tags"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/post-types/edit.js:232
+#: src/blocks/post-types/edit.js:235
 msgid "Excluded Posts"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/post-types/edit.js:239
+#: src/blocks/post-types/edit.js:242
 msgid "Included Posts"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/post-types/edit.js:245
+#: src/blocks/post-types/edit.js:248
 msgid "Posts Per Page"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/post-types/edit.js:255
+#: src/blocks/post-types/edit.js:258
 msgid "Pagination"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/post-types/edit.js:263
+#: src/blocks/post-types/edit.js:266
 msgid "Pagination Type"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/post-types/edit.js:279
+#: src/blocks/button/templates.js:128
+#: src/blocks/container/inspector-controls.js:95
+#: src/blocks/post-types/edit.js:270
+msgid "Normal"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:274
+msgid "Load More Button"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:285
 msgid "Offset"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/post-types/edit.js:290
+#: src/blocks/post-types/edit.js:296
 msgid "Order By"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/post-types/edit.js:310
+#: src/blocks/post-types/edit.js:300
+msgid "Post Id"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:301
+msgid "Post Author"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:302
+msgid "Title"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:303
+msgid "Date"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:305
+msgid "Last Modified Date"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:308
+msgid "Parent Id"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:309
+msgid "Random"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:311
+msgid "Comment Count"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:314
+msgid "Menu Order"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:322
 msgid "Order"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/post-types/edit.js:336
+#: src/blocks/post-types/edit.js:325
+msgid "Ascending"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:326
+msgid "Descending"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:348
 msgid "Grid Effect"
 msgstr ""
 
 #: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:352
+msgid "Fade In"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:353
+msgid "Move Up"
+msgstr ""
+
+#: build/gutenbee.build.js:2
 #: src/blocks/post-types/edit.js:354
+msgid "Scale Up"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:356
+msgid "Fall Perspective"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:359
+msgid "Flip"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:360
+msgid "Pop Up"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:369
 msgid "Grid Spacing"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/post-types/edit.js:367
+#: src/blocks/post-types/edit.js:372
+msgid "With Gutters"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:373
+msgid "No Gutters"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/post-types/edit.js:382
 msgid "Masonry"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/post-types/edit.js:376
+#: src/blocks/post-types/edit.js:391
 msgid "Category Filters"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/post-types/edit.js:378
+#: src/blocks/post-types/edit.js:393
 msgid "When enabled, ignores the \"Items Per Page\" and \"Pagination\" setting."
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/post-types/edit.js:409
+#: src/blocks/post-types/edit.js:424
 msgid "Button Label"
 msgstr ""
 
@@ -2376,11 +2596,6 @@ msgstr ""
 #: build/gutenbee.build.js:2
 #: src/blocks/container/inspector-controls.js:92
 msgid "Column Direction"
-msgstr ""
-
-#: build/gutenbee.build.js:2
-#: src/blocks/container/inspector-controls.js:95
-msgid "Normal"
 msgstr ""
 
 #: build/gutenbee.build.js:2
@@ -2662,7 +2877,7 @@ msgstr ""
 
 #: build/gutenbee.build.js:2
 #: src/blocks/image/edit.js:311
-#: src/blocks/video/edit.js:395
+#: src/blocks/video/edit.js:396
 msgid "Write caption…"
 msgstr ""
 
@@ -2789,7 +3004,7 @@ msgid "Note: Autoplaying videos may cause usability issues for some visitors."
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/video-embed/edit.js:299
+#: src/blocks/video-embed/edit.js:300
 #: src/blocks/video/edit.js:201
 msgid "Loop"
 msgstr ""
@@ -2839,14 +3054,15 @@ msgstr ""
 msgid "Select"
 msgstr ""
 
+#. translators: %s: The URL of the video's poster image.
 #: build/gutenbee.build.js:2
-#: src/blocks/video/edit.js:270
+#: src/blocks/video/edit.js:271
 #, js-format
 msgid "The current poster image url is %s"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/video/edit.js:273
+#: src/blocks/video/edit.js:274
 msgid "There is no poster image currently selected"
 msgstr ""
 
@@ -2865,6 +3081,31 @@ msgstr ""
 #: src/blocks/video-embed/index.js:37
 #: src/blocks/video/index.js:39
 msgid "movie"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/button/templates.js:5
+msgid "Large"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/button/templates.js:35
+msgid "Medium"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/button/templates.js:65
+msgid "Small"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/button/templates.js:95
+msgid "Extra Small"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/button/templates.js:136
+msgid "Outline"
 msgstr ""
 
 #: build/gutenbee.build.js:2
@@ -2994,6 +3235,21 @@ msgstr ""
 #: build/gutenbee.build.js:2
 #: src/blocks/food-menu/food-menu-wrapper/index.js:14
 msgid "Wrapper for the Food Menu block."
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/food-menu/food-menu-wrapper/index.js:26
+msgid "Menu item name..."
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/food-menu/food-menu-wrapper/index.js:38
+msgid "Price"
+msgstr ""
+
+#: build/gutenbee.build.js:2
+#: src/blocks/food-menu/food-menu-wrapper/index.js:45
+msgid "Write a description for your menu item..."
 msgstr ""
 
 #: build/gutenbee.build.js:2
@@ -3268,59 +3524,60 @@ msgstr ""
 msgid "Replace image"
 msgstr ""
 
+#. translators: %s: The URL of the video's cover image.
 #: build/gutenbee.build.js:2
-#: src/blocks/video-embed/edit.js:254
+#: src/blocks/video-embed/edit.js:255
 #, js-format
 msgid "The current cover image url is %s"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/video-embed/edit.js:257
+#: src/blocks/video-embed/edit.js:258
 msgid "There is no cover image currently selected"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/video-embed/edit.js:268
+#: src/blocks/video-embed/edit.js:269
 msgid "Remove Cover Image"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/video-embed/edit.js:274
+#: src/blocks/video-embed/edit.js:275
 msgid "Show Controls"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/video-embed/edit.js:280
+#: src/blocks/video-embed/edit.js:281
 msgid "Enable Autoplay"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/video-embed/edit.js:292
+#: src/blocks/video-embed/edit.js:293
 msgid "Mute"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/video-embed/edit.js:306
+#: src/blocks/video-embed/edit.js:307
 msgid "Modest Branding"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/video-embed/edit.js:314
+#: src/blocks/video-embed/edit.js:315
 msgid "Lazy Load"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/video-embed/edit.js:321
+#: src/blocks/video-embed/edit.js:322
 msgid "Stick to bottom on scroll"
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/video-embed/edit.js:327
+#: src/blocks/video-embed/edit.js:328
 msgid "Start time in seconds."
 msgstr ""
 
 #: build/gutenbee.build.js:2
-#: src/blocks/video-embed/edit.js:336
+#: src/blocks/video-embed/edit.js:337
 msgid "End time in seconds."
 msgstr ""
 

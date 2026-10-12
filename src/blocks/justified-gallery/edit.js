@@ -128,11 +128,11 @@ const JustifiedGalleryEdit = ({
               options={[
                 {
                   value: GALLERY_TYPE.COLUMNS,
-                  label: 'Columns',
+                  label: __('Columns', 'gutenbee'),
                 },
                 {
                   value: GALLERY_TYPE.JUSTIFIED,
-                  label: 'Justified',
+                  label: __('Justified', 'gutenbee'),
                 },
               ]}
               onChange={value => setAttributes({ type: value })}

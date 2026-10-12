@@ -255,10 +255,22 @@ const AccordionsEdit = ({
           >
             <StateTabs>
               {activeState => {
+                // Full strings for each state, so that they can be translated.
+                const textColorLabel = {
+                  '': __('Title Text Color', 'gutenbee'),
+                  Hover: __('Title Hover Text Color', 'gutenbee'),
+                  Active: __('Title Active Text Color', 'gutenbee'),
+                }[activeState];
+                const backgroundColorLabel = {
+                  '': __('Title Background Color', 'gutenbee'),
+                  Hover: __('Title Hover Background Color', 'gutenbee'),
+                  Active: __('Title Active Background Color', 'gutenbee'),
+                }[activeState];
+
                 return (
                   <Fragment>
                     <PopoverColorControl
-                      label={__(`Title ${activeState} Text Color`, 'gutenbee')}
+                      label={textColorLabel}
                       value={attributes[`title${activeState}TextColor`] || ''}
                       defaultValue={
                         attributes[`title${activeState}TextColor`] || ''
@@ -270,10 +282,7 @@ const AccordionsEdit = ({
                       }
                     />
                     <PopoverColorControl
-                      label={__(
-                        `Title ${activeState} Background Color`,
-                        'gutenbee',
-                      )}
+                      label={backgroundColorLabel}
                       value={
                         attributes[`title${activeState}BackgroundColor`] || ''
                       }

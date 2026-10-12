@@ -160,10 +160,13 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
                 label={__('Events Type', 'gutenbee')}
                 value={ignitionEventQueryType}
                 options={[
-                  { label: 'All events', value: '' },
-                  { label: 'Recurring events', value: 'recurring' },
-                  { label: 'Upcoming events', value: 'future' },
-                  { label: 'Past events', value: 'past' },
+                  { label: __('All events', 'gutenbee'), value: '' },
+                  {
+                    label: __('Recurring events', 'gutenbee'),
+                    value: 'recurring',
+                  },
+                  { label: __('Upcoming events', 'gutenbee'), value: 'future' },
+                  { label: __('Past events', 'gutenbee'), value: 'past' },
                 ]}
                 onChange={value =>
                   setAttributes({ ignitionEventQueryType: value })
@@ -263,9 +266,12 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
                 label={__('Pagination Type', 'gutenbee')}
                 value={paginationType}
                 options={[
-                  { label: 'Normal', value: POST_TYPES_PAGINATION_TYPE.NORMAL },
                   {
-                    label: 'Load More Button',
+                    label: __('Normal', 'gutenbee'),
+                    value: POST_TYPES_PAGINATION_TYPE.NORMAL,
+                  },
+                  {
+                    label: __('Load More Button', 'gutenbee'),
                     value: POST_TYPES_PAGINATION_TYPE.LOAD_MORE,
                   },
                 ]}
@@ -291,15 +297,21 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
                 value={orderBy}
                 options={[
                   { label: '', value: '' },
-                  { label: 'Post Id', value: 'ID' },
-                  { label: 'Post Author', value: 'author' },
-                  { label: 'Title', value: 'title' },
-                  { label: 'Date', value: 'date' },
-                  { label: 'Last Modified Date', value: 'modified' },
-                  { label: 'Parent Id', value: 'parent' },
-                  { label: 'Random', value: 'rand' },
-                  { label: 'Comment Count', value: 'comment_count' },
-                  { label: 'Menu Order', value: 'menu_order' },
+                  { label: __('Post Id', 'gutenbee'), value: 'ID' },
+                  { label: __('Post Author', 'gutenbee'), value: 'author' },
+                  { label: __('Title', 'gutenbee'), value: 'title' },
+                  { label: __('Date', 'gutenbee'), value: 'date' },
+                  {
+                    label: __('Last Modified Date', 'gutenbee'),
+                    value: 'modified',
+                  },
+                  { label: __('Parent Id', 'gutenbee'), value: 'parent' },
+                  { label: __('Random', 'gutenbee'), value: 'rand' },
+                  {
+                    label: __('Comment Count', 'gutenbee'),
+                    value: 'comment_count',
+                  },
+                  { label: __('Menu Order', 'gutenbee'), value: 'menu_order' },
                 ]}
                 onChange={value => setAttributes({ orderBy: value })}
                 __next40pxDefaultSize
@@ -310,8 +322,8 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
                 label={__('Order', 'gutenbee')}
                 value={order}
                 options={[
-                  { label: 'Ascending', value: 'asc' },
-                  { label: 'Descending', value: 'desc' },
+                  { label: __('Ascending', 'gutenbee'), value: 'asc' },
+                  { label: __('Descending', 'gutenbee'), value: 'desc' },
                 ]}
                 onChange={value => setAttributes({ order: value })}
                 __next40pxDefaultSize
@@ -336,13 +348,16 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
                 label={__('Grid Effect', 'gutenbee')}
                 value={gridEffect}
                 options={[
-                  { label: 'None', value: 'none' },
-                  { label: 'Fade In', value: 'fade-in' },
-                  { label: 'Move Up', value: 'move-up' },
-                  { label: 'Scale Up', value: 'scale-up' },
-                  { label: 'Fall Perspective', value: 'fall-perspective' },
-                  { label: 'Flip', value: 'flip' },
-                  { label: 'Pop Up', value: 'pop-up' },
+                  { label: __('None', 'gutenbee'), value: 'none' },
+                  { label: __('Fade In', 'gutenbee'), value: 'fade-in' },
+                  { label: __('Move Up', 'gutenbee'), value: 'move-up' },
+                  { label: __('Scale Up', 'gutenbee'), value: 'scale-up' },
+                  {
+                    label: __('Fall Perspective', 'gutenbee'),
+                    value: 'fall-perspective',
+                  },
+                  { label: __('Flip', 'gutenbee'), value: 'flip' },
+                  { label: __('Pop Up', 'gutenbee'), value: 'pop-up' },
                 ]}
                 onChange={value => setAttributes({ gridEffect: value })}
                 __next40pxDefaultSize
@@ -354,8 +369,8 @@ const PostTypesEdit = ({ attributes, setAttributes, isSelected, clientId }) => {
               label={__('Grid Spacing', 'gutenbee')}
               value={gridSpacing}
               options={[
-                { label: 'With Gutters', value: 'gutters' },
-                { label: 'No Gutters', value: 'no-gutters' },
+                { label: __('With Gutters', 'gutenbee'), value: 'gutters' },
+                { label: __('No Gutters', 'gutenbee'), value: 'no-gutters' },
               ]}
               onChange={value => setAttributes({ gridSpacing: value })}
               __next40pxDefaultSize
