@@ -56,10 +56,13 @@ export const maybeLoadYouTubeApi = () => {
  * the place of the given element.
  *
  * @param {HTMLElement} videoElement The element which would host the video embed.
+ * @param {string}      frameTitle   The accessible title of the hosting frame.
+ *                                   Passed in, as this file is also part of the
+ *                                   front end scripts, where wp.i18n isn't loaded.
  *
  * @returns {Promise<HTMLElement>}
  */
-export const getYouTubeEmbedHost = videoElement => {
+export const getYouTubeEmbedHost = (videoElement, frameTitle = '') => {
   const frameUrl = window.__GUTENBEE_SETTINGS__?.video_embed_frame_url;
   const { ownerDocument } = videoElement;
 
@@ -72,6 +75,9 @@ export const getYouTubeEmbedHost = videoElement => {
     frame.className = videoElement.className;
     frame.style.cssText = videoElement.style.cssText;
     Object.assign(frame.dataset, videoElement.dataset);
+    if (frameTitle) {
+      frame.title = frameTitle;
+    }
     frame.src = frameUrl;
 
     frame.addEventListener(
