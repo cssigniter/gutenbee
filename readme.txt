@@ -3,7 +3,7 @@ Contributors: cssigniterteam, silencerius, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 7.0
 Tested up to: 7.1
-Stable tag: 2.20.3
+Stable tag: 2.20.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 7.4
