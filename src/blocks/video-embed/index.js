@@ -28,14 +28,14 @@ import {
 
 registerBlockType('gutenbee/video-embed', {
   apiVersion: 3,
-  title: __('GutenBee Video Embed'),
-  description: __('Embed a video from YouTube or Vimeo.'),
+  title: __('GutenBee Video Embed', 'gutenbee'),
+  description: __('Embed a video from YouTube or Vimeo.', 'gutenbee'),
   icon: VideoEmbedBlockIcon,
   category: 'gutenbee',
   keywords: [
-    __('video'),
-    __('movie'),
-    __('embed'),
+    __('video', 'gutenbee'),
+    __('movie', 'gutenbee'),
+    __('embed', 'gutenbee'),
     'gutenbeevideo',
     'videogutenbee',
   ],

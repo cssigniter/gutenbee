@@ -95,8 +95,8 @@ const CustomSingleValue = ({ data, ...props }) => {
 const IconSelect = ({
   value,
   onChange,
-  label = __('Icon'),
-  placeholder = __('Select an icon...'),
+  label = __('Icon', 'gutenbee'),
+  placeholder = __('Select an icon...', 'gutenbee'),
   isClearable = true,
   className = 'gutenbee-icon-select-control',
   id = 'icon-select',

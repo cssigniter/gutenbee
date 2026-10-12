@@ -3,8 +3,7 @@ import { __ } from 'wp.i18n';
 import {
   InspectorControls,
   useBlockProps,
-  __experimentalUseInnerBlocksProps,
-  useInnerBlocksProps as currentUseInnerBlockProps,
+  useInnerBlocksProps,
 } from 'wp.blockEditor';
 import { PanelBody, SelectControl } from 'wp.components';
 import classNames from 'classnames';
@@ -20,9 +19,6 @@ import BorderControls from '../../../components/controls/border-controls';
 import PopoverColorControl from '../../../components/controls/advanced-color-control/PopoverColorControl';
 import FoodMenuItemEditStyle from './style';
 import AnimationControls from '../../../components/controls/animation-controls/AnimationControls';
-
-const useInnerBlocksProps =
-  __experimentalUseInnerBlocksProps ?? currentUseInnerBlockProps;
 
 const FoodMenuItemEdit = ({
   attributes,
@@ -70,17 +66,17 @@ const FoodMenuItemEdit = ({
       </div>
 
       <InspectorControls>
-        <PanelBody title={__('Block Appearance')} initialOpen>
+        <PanelBody title={__('Block Appearance', 'gutenbee')} initialOpen>
           <ResponsiveControl>
             {breakpoint => (
               <SelectControl
-                label={__('Vertical Content Alignment')}
+                label={__('Vertical Content Alignment', 'gutenbee')}
                 value={verticalContentAlignment[breakpoint]}
                 options={[
-                  { value: '', label: __('Inherit') },
-                  { value: 'flex-start', label: __('Top') },
-                  { value: 'center', label: __('Middle') },
-                  { value: 'flex-end', label: __('Bottom') },
+                  { value: '', label: __('Inherit', 'gutenbee') },
+                  { value: 'flex-start', label: __('Top', 'gutenbee') },
+                  { value: 'center', label: __('Middle', 'gutenbee') },
+                  { value: 'flex-end', label: __('Bottom', 'gutenbee') },
                 ]}
                 onChange={value =>
                   setAttributes({
@@ -99,7 +95,7 @@ const FoodMenuItemEdit = ({
           <PopoverColorControl
             value={backgroundColor}
             defaultValue={backgroundColor || ''}
-            label={__('Background Color')}
+            label={__('Background Color', 'gutenbee')}
             onChange={value => {
               setAttributes({ backgroundColor: value });
             }}
@@ -118,7 +114,7 @@ const FoodMenuItemEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Padding (px)')}
+                label={__('Padding (px)', 'gutenbee')}
                 attributeKey="blockPadding"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -130,7 +126,7 @@ const FoodMenuItemEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Margin (px)')}
+                label={__('Margin (px)', 'gutenbee')}
                 attributeKey="blockMargin"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -143,7 +139,7 @@ const FoodMenuItemEdit = ({
         {__GUTENBEE_SETTINGS__.plugin.settings['active_animation-controls'] && (
           <PanelBody
             icon={!!attributes.animation?.type && 'saved'}
-            title={__('Animation')}
+            title={__('Animation', 'gutenbee')}
             initialOpen={false}
           >
             <AnimationControls

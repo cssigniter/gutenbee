@@ -63,7 +63,11 @@ function gutenbee_enqueue_editor_assets() {
 		'jquery',
 	), GUTENBEE_PLUGIN_VERSION, true );
 
+	wp_set_script_translations( 'gutenbee', 'gutenbee' );
+
 	wp_localize_script( 'gutenbee', '__GUTENBEE_SETTINGS__', array_merge( gutenbee_get_settings(), array(
+		// An empty page that hosts the YouTube embeds inside the block editor's iframe. See getYouTubeEmbedHost() in src/util/video/providers.js
+		'video_embed_frame_url' => untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/assets/video-embed-frame.html',
 		'plugin' => array(
 			'settings' => array(
 				'active_animation-controls' => gutenbee_get_settings()['active_animation-controls'],
@@ -152,14 +156,7 @@ function gutenbee_admin_assets() {
 }
 
 // GutenBee's block category
-global $wp_version;
-
-// TODO: Remove the 'block_categories' filter when WordPress reaches 5.9
-if ( version_compare( $wp_version, '5.8', '<' ) ) {
-	add_filter( 'block_categories', 'gutenbee_block_categories', 10, 2 );
-} else {
-	add_filter( 'block_categories_all', 'gutenbee_block_categories', 10, 2 );
-}
+add_filter( 'block_categories_all', 'gutenbee_block_categories', 10, 2 );
 function gutenbee_block_categories( $categories, $post ) {
 	return array_merge( $categories, array(
 		array(
@@ -202,7 +199,6 @@ function gutenbee_get_setting_block_names() {
 		'review'            => __( 'Review Block', 'gutenbee' ),
 		'spacer'            => __( 'Spacer Block', 'gutenbee' ),
 		'slideshow'         => __( 'Slideshow Block', 'gutenbee' ),
-		'tab-slider'        => __( 'Tab Slider Block', 'gutenbee' ),
 		'tabs'              => __( 'Tabs Block', 'gutenbee' ),
 		'testimonial'       => __( 'Testimonial Block', 'gutenbee' ),
 		'video'             => __( 'Video Block', 'gutenbee' ),
@@ -337,11 +333,6 @@ function gutenbee_get_blocks_info() {
 			'enqueue_js'  => true,
 			'enqueue_css' => true,
 		),
-//		'gutenbee/tab-slider'    => array(
-//			'label'       => __( 'Tab Slider Block', 'gutenbee' ),
-//			'enqueue_js'  => true,
-//			'enqueue_css' => true,
-//		),
 		'gutenbee/tabs'              => array(
 			'label'       => __( 'Tabs Block', 'gutenbee' ),
 			'enqueue_js'  => true,
@@ -541,24 +532,39 @@ function gutenbee_locate_template( $block, $templates, $args ) {
  * @return bool
  */
 function gutenbee_has_block_in_reusable( $block_name, $id = false ) {
+	// This gets called once per GutenBee block, so only parse each post's content once per request.
+	static $reusable_refs = array();
+
 	$id = ( ! $id ) ? get_the_ID() : $id;
-	if ( $id ) {
+	if ( $id instanceof WP_Post ) {
+		$id = $id->ID;
+	}
+
+	if ( ! $id ) {
+		return false;
+	}
+
+	if ( ! isset( $reusable_refs[ $id ] ) ) {
+		$reusable_refs[ $id ] = array();
+
 		if ( has_block( 'core/block', $id ) ) {
 			// Check for reusable blocks
 			$content = get_post_field( 'post_content', $id );
 			$blocks  = parse_blocks( $content );
 
-			if ( ! is_array( $blocks ) || empty( $blocks ) ) {
-				return false;
-			}
-
-			foreach ( $blocks as $block ) {
-				if ( 'core/block' === $block['blockName'] && ! empty( $block['attrs']['ref'] ) ) {
-					if ( has_block( $block_name, $block['attrs']['ref'] ) ) {
-						return true;
+			if ( is_array( $blocks ) ) {
+				foreach ( $blocks as $block ) {
+					if ( 'core/block' === $block['blockName'] && ! empty( $block['attrs']['ref'] ) ) {
+						$reusable_refs[ $id ][] = $block['attrs']['ref'];
 					}
 				}
 			}
+		}
+	}
+
+	foreach ( $reusable_refs[ $id ] as $ref ) {
+		if ( has_block( $block_name, $ref ) ) {
+			return true;
 		}
 	}
 

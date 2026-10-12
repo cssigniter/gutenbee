@@ -1,6 +1,12 @@
 import PropTypes from 'prop-types';
 import { __ } from 'wp.i18n';
-import { __experimentalBoxControl as BoxControl } from 'wp.components';
+import {
+  BoxControl as StableBoxControl,
+  __experimentalBoxControl,
+} from 'wp.components';
+
+// Prefer the stable export, falling back for older WordPress versions.
+const BoxControl = StableBoxControl ?? __experimentalBoxControl;
 
 const propTypes = {
   setAttributes: PropTypes.func.isRequired,
@@ -14,7 +20,7 @@ const MarginControls = ({
   setAttributes,
   attributeKey,
   attributes,
-  label = __('Block Margin'),
+  label = __('Block Margin', 'gutenbee'),
   breakpoint,
 }) => {
   const margins = attributes[attributeKey] || {};

@@ -37,7 +37,7 @@ const BackgroundControls = ({
   parallaxValue = {},
   onParallaxChange,
   backgroundVideoUrlValue,
-  label = __('Background'),
+  label = __('Background', 'gutenbee'),
 }) => {
   const { url, repeat, size, position, attachment } =
     backgroundImageValue ?? {};
@@ -67,7 +67,7 @@ const BackgroundControls = ({
               return (
                 <div className="gutenbee-control-background-image-actions">
                   <Button variant="secondary" onClick={open}>
-                    {__('Choose Image')}
+                    {__('Choose Image', 'gutenbee')}
                   </Button>
                 </div>
               );
@@ -95,7 +95,7 @@ const BackgroundControls = ({
 
                     <div className="gutenbee-control-background-image-actions">
                       <Button variant="secondary" onClick={open}>
-                        {__('Change')}
+                        {__('Change', 'gutenbee')}
                       </Button>
 
                       <Button
@@ -104,7 +104,7 @@ const BackgroundControls = ({
                           onSetBackgroundImageSetting({ url: '', image: null })
                         }
                       >
-                        {__('Remove')}
+                        {__('Remove', 'gutenbee')}
                       </Button>
                     </div>
                   </Fragment>
@@ -117,13 +117,13 @@ const BackgroundControls = ({
 
       <div className="ci-split-field">
         <SelectControl
-          label={__('Image Repeat')}
+          label={__('Image Repeat', 'gutenbee')}
           value={repeat}
           options={[
-            { value: 'no-repeat', label: __('No repeat') },
-            { value: 'repeat', label: __('Tile') },
-            { value: 'repeat-x', label: __('Tile Horizontally') },
-            { value: 'repeat-y', label: __('Tile Vertically') },
+            { value: 'no-repeat', label: __('No repeat', 'gutenbee') },
+            { value: 'repeat', label: __('Tile', 'gutenbee') },
+            { value: 'repeat-x', label: __('Tile Horizontally', 'gutenbee') },
+            { value: 'repeat-y', label: __('Tile Vertically', 'gutenbee') },
           ]}
           onChange={value => onSetBackgroundImageSetting({ repeat: value })}
           __next40pxDefaultSize
@@ -131,18 +131,18 @@ const BackgroundControls = ({
         />
 
         <SelectControl
-          label={__('Image Position')}
+          label={__('Image Position', 'gutenbee')}
           value={position}
           options={[
-            { value: 'left top', label: __('Top left') },
-            { value: 'center top', label: __('Top center') },
-            { value: 'right top', label: __('Top right') },
-            { value: 'left center', label: __('Center left') },
-            { value: 'center center', label: __('Center') },
-            { value: 'right center', label: __('Center right') },
-            { value: 'left bottom', label: __('Bottom left') },
-            { value: 'center bottom', label: __('Bottom center') },
-            { value: 'right bottom', label: __('Bottom right') },
+            { value: 'left top', label: __('Top left', 'gutenbee') },
+            { value: 'center top', label: __('Top center', 'gutenbee') },
+            { value: 'right top', label: __('Top right', 'gutenbee') },
+            { value: 'left center', label: __('Center left', 'gutenbee') },
+            { value: 'center center', label: __('Center', 'gutenbee') },
+            { value: 'right center', label: __('Center right', 'gutenbee') },
+            { value: 'left bottom', label: __('Bottom left', 'gutenbee') },
+            { value: 'center bottom', label: __('Bottom center', 'gutenbee') },
+            { value: 'right bottom', label: __('Bottom right', 'gutenbee') },
           ]}
           onChange={value => onSetBackgroundImageSetting({ position: value })}
           __next40pxDefaultSize
@@ -152,11 +152,11 @@ const BackgroundControls = ({
 
       <div className="ci-split-field">
         <SelectControl
-          label={__('Image Attachment')}
+          label={__('Image Attachment', 'gutenbee')}
           value={attachment}
           options={[
-            { value: 'scroll', label: __('Scroll') },
-            { value: 'fixed', label: __('Fixed') },
+            { value: 'scroll', label: __('Scroll', 'gutenbee') },
+            { value: 'fixed', label: __('Fixed', 'gutenbee') },
           ]}
           onChange={value => onSetBackgroundImageSetting({ attachment: value })}
           __next40pxDefaultSize
@@ -164,12 +164,12 @@ const BackgroundControls = ({
         />
 
         <SelectControl
-          label={__('Image Size')}
+          label={__('Image Size', 'gutenbee')}
           value={size}
           options={[
-            { value: 'cover', label: __('Cover') },
-            { value: 'contain', label: __('Contain') },
-            { value: 'auto', label: __('Auto') },
+            { value: 'cover', label: __('Cover', 'gutenbee') },
+            { value: 'contain', label: __('Contain', 'gutenbee') },
+            { value: 'auto', label: __('Auto', 'gutenbee') },
           ]}
           onChange={value => onSetBackgroundImageSetting({ size: value })}
           __next40pxDefaultSize
@@ -181,16 +181,18 @@ const BackgroundControls = ({
 
       {onZoomChange && !backgroundVideoUrlValue && (
         <ToggleControl
-          label={__('Enable zoom')}
+          label={__('Enable zoom', 'gutenbee')}
           checked={zoomValue}
           onChange={value => onZoomChange(value)}
           help={
             zoomValue
               ? __(
                   'The background image zooms when hovered. Parallax must be disabled.',
+                  'gutenbee',
                 )
               : __(
                   'Toggle to enable background image zoom. Parallax must be disabled.',
+                  'gutenbee',
                 )
           }
           __nextHasNoMarginBottom
@@ -200,7 +202,7 @@ const BackgroundControls = ({
       {onParallaxChange && (
         <Fragment>
           <ToggleControl
-            label={__('Enable Parallax')}
+            label={__('Enable Parallax', 'gutenbee')}
             checked={parallax}
             onChange={value =>
               onParallaxChange({
@@ -212,7 +214,7 @@ const BackgroundControls = ({
           />
 
           <RangeControl
-            label={__('Parallax Speed')}
+            label={__('Parallax Speed', 'gutenbee')}
             value={parallaxSpeed}
             min={0}
             max={1}

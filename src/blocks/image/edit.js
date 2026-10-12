@@ -169,8 +169,8 @@ const ImageEdit = ({
   const toggleIsEditing = () => setIsEditing(prev => !prev);
 
   const labels = {
-    title: !url ? __('Image') : __('Edit image'),
-    instructions: __('Pick an image file from your media library.'),
+    title: !url ? __('Image', 'gutenbee') : __('Edit image', 'gutenbee'),
+    instructions: __('Pick an image file from your media library.', 'gutenbee'),
   };
 
   const onImageSelect = media => {
@@ -250,7 +250,7 @@ const ImageEdit = ({
               'components-icon-button components-toolbar__control',
               { 'is-active': isEditing },
             )}
-            label={__('Edit image')}
+            label={__('Edit image', 'gutenbee')}
             aria-pressed={isEditing}
             onClick={toggleIsEditing}
             icon="format-image"
@@ -262,8 +262,8 @@ const ImageEdit = ({
 
   const mediaPreview = !!url && (
     <img
-      alt={__('Edit image')}
-      title={__('Edit image')}
+      alt={__('Edit image', 'gutenbee')}
+      title={__('Edit image', 'gutenbee')}
       className="edit-image-preview"
       src={url}
     />
@@ -308,7 +308,7 @@ const ImageEdit = ({
       {(!RichText.isEmpty(caption) || isSelected) && (
         <RichText
           tagName="figcaption"
-          placeholder={__('Write caption…')}
+          placeholder={__('Write caption…', 'gutenbee')}
           value={caption}
           onChange={value => setAttributes({ caption: value })}
           isSelected={isSelected}
@@ -320,12 +320,12 @@ const ImageEdit = ({
       {blockControls}
 
       <InspectorControls>
-        <PanelBody title={__('Image Settings')} defaultOpen>
+        <PanelBody title={__('Image Settings', 'gutenbee')} defaultOpen>
           <ResponsiveControl>
             {breakpoint => (
               <RangeControl
                 className="range-control-size"
-                label={__('Image Width')}
+                label={__('Image Width', 'gutenbee')}
                 value={width[breakpoint]}
                 onChange={value => {
                   setAttributes({
@@ -345,7 +345,7 @@ const ImageEdit = ({
           </ResponsiveControl>
 
           <TextareaControl
-            label={__('Alt Text (Alternative Text)')}
+            label={__('Alt Text (Alternative Text)', 'gutenbee')}
             value={alt}
             onChange={value => setAttributes({ alt: value })}
             __nextHasNoMarginBottom
@@ -353,7 +353,7 @@ const ImageEdit = ({
 
           {!isEmpty(imageSizeOptions) && (
             <SelectControl
-              label={__('Image Size')}
+              label={__('Image Size', 'gutenbee')}
               value={sizeSlug}
               options={imageSizeOptions}
               onChange={onImageSizeUpdate}
@@ -364,13 +364,22 @@ const ImageEdit = ({
 
           {image && (
             <SelectControl
-              label={__('Image Link')}
+              label={__('Image Link', 'gutenbee')}
               value={linkDestination}
               options={[
-                { value: LINK_DESTINATION.NONE, label: 'None' },
-                { value: LINK_DESTINATION.MEDIA, label: __('Media') },
-                { value: LINK_DESTINATION.ATTACHMENT, label: __('Attachment') },
-                { value: LINK_DESTINATION.CUSTOM, label: __('Custom URL') },
+                { value: LINK_DESTINATION.NONE, label: __('None', 'gutenbee') },
+                {
+                  value: LINK_DESTINATION.MEDIA,
+                  label: __('Media', 'gutenbee'),
+                },
+                {
+                  value: LINK_DESTINATION.ATTACHMENT,
+                  label: __('Attachment', 'gutenbee'),
+                },
+                {
+                  value: LINK_DESTINATION.CUSTOM,
+                  label: __('Custom URL', 'gutenbee'),
+                },
               ]}
               onChange={onImageLinkDestinationChange}
               __nextHasNoMarginBottom
@@ -381,7 +390,7 @@ const ImageEdit = ({
           {linkDestination === LINK_DESTINATION.CUSTOM && (
             <TextControl
               type="url"
-              label={__('Custom URL')}
+              label={__('Custom URL', 'gutenbee')}
               value={href}
               onChange={value => setAttributes({ href: value })}
               placeholder="https://"
@@ -389,9 +398,12 @@ const ImageEdit = ({
           )}
         </PanelBody>
 
-        <PanelBody title={__('Block Appearance')} initialOpen={false}>
+        <PanelBody
+          title={__('Block Appearance', 'gutenbee')}
+          initialOpen={false}
+        >
           <PopoverColorControl
-            label={__('Background Color')}
+            label={__('Background Color', 'gutenbee')}
             value={backgroundColor || ''}
             defaultValue={backgroundColor || ''}
             onChange={value => setAttributes({ backgroundColor: value })}
@@ -412,7 +424,7 @@ const ImageEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Padding (px)')}
+                label={__('Padding (px)', 'gutenbee')}
                 attributeKey="blockPadding"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -424,7 +436,7 @@ const ImageEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Margin (px)')}
+                label={__('Margin (px)', 'gutenbee')}
                 attributeKey="blockMargin"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -434,7 +446,10 @@ const ImageEdit = ({
           </ResponsiveControl>
         </PanelBody>
 
-        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+        <PanelBody
+          title={__('Visibility Settings', 'gutenbee')}
+          initialOpen={false}
+        >
           <BreakpointVisibilityControl
             values={blockBreakpointVisibility}
             onChange={values => {
@@ -457,7 +472,7 @@ const ImageEdit = ({
         {__GUTENBEE_SETTINGS__.plugin.settings['active_animation-controls'] && (
           <PanelBody
             icon={!!attributes.animation?.type && 'saved'}
-            title={__('Animation')}
+            title={__('Animation', 'gutenbee')}
             initialOpen={false}
           >
             <AnimationControls

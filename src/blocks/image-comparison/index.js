@@ -31,11 +31,15 @@ import {
 
 registerBlockType('gutenbee/image-comparison', {
   apiVersion: 3,
-  title: __('GutenBee Image Comparison'),
-  description: __('Highlight the differences between two images.'),
+  title: __('GutenBee Image Comparison', 'gutenbee'),
+  description: __('Highlight the differences between two images.', 'gutenbee'),
   icon: ImageComparisonBlockIcon,
   category: 'gutenbee',
-  keywords: [__('image comparison'), __('comparison'), __('diff')],
+  keywords: [
+    __('image comparison', 'gutenbee'),
+    __('comparison', 'gutenbee'),
+    __('diff', 'gutenbee'),
+  ],
   supports: {
     anchor: false,
   },

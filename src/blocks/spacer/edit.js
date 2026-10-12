@@ -163,12 +163,12 @@ const SpacerEdit = ({
       </div>
 
       <InspectorControls>
-        <PanelBody title={__('Spacer Settings')}>
+        <PanelBody title={__('Spacer Settings', 'gutenbee')}>
           <ResponsiveControl>
             {breakpoint => (
               <RangeControl
                 id={id}
-                label={__('Height in pixels')}
+                label={__('Height in pixels', 'gutenbee')}
                 onChange={value =>
                   setAttributes({
                     height: {
@@ -189,9 +189,12 @@ const SpacerEdit = ({
           </ResponsiveControl>
         </PanelBody>
 
-        <PanelBody title={__('Block Appearance')} initialOpen={false}>
+        <PanelBody
+          title={__('Block Appearance', 'gutenbee')}
+          initialOpen={false}
+        >
           <PopoverColorControl
-            label={__('Background Color')}
+            label={__('Background Color', 'gutenbee')}
             value={backgroundColor || ''}
             defaultValue={backgroundColor || ''}
             onChange={value => setAttributes({ backgroundColor: value })}
@@ -201,7 +204,7 @@ const SpacerEdit = ({
             {breakpoint => {
               return (
                 <BackgroundControls
-                  label={__('Background Image')}
+                  label={__('Background Image', 'gutenbee')}
                   backgroundImageValue={backgroundImage[breakpoint]}
                   onBackgroundImageChange={value =>
                     setAttributes({
@@ -241,7 +244,7 @@ const SpacerEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Margin (px)')}
+                label={__('Margin (px)', 'gutenbee')}
                 attributeKey="blockMargin"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -250,7 +253,10 @@ const SpacerEdit = ({
             )}
           </ResponsiveControl>
         </PanelBody>
-        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+        <PanelBody
+          title={__('Visibility Settings', 'gutenbee')}
+          initialOpen={false}
+        >
           <BreakpointVisibilityControl
             values={blockBreakpointVisibility}
             onChange={values => {

@@ -9,19 +9,19 @@ import { getDefaultResponsiveValue } from '../responsive-control/default-values'
 const BREAKPOINT_VISIBILITY_CONTROLS = [
   {
     icon: desktop,
-    title: __('Hide on desktop'),
+    title: __('Hide on desktop', 'gutenbee'),
     breakpoint: BREAKPOINT_NAMES.desktop,
     value: 'gutenbee-hidden-desktop',
   },
   {
     icon: tablet,
-    title: __('Hide on tablet'),
+    title: __('Hide on tablet', 'gutenbee'),
     breakpoint: BREAKPOINT_NAMES.tablet,
     value: 'gutenbee-hidden-tablet',
   },
   {
     icon: mobile,
-    title: __('Hide on mobile'),
+    title: __('Hide on mobile', 'gutenbee'),
     breakpoint: BREAKPOINT_NAMES.mobile,
     value: 'gutenbee-hidden-mobile',
   },
@@ -41,7 +41,7 @@ const propTypes = {
 const BreakpointVisibilityControl = ({
   values = getDefaultResponsiveValue(),
   onChange,
-  label = __('Viewport visibility'),
+  label = __('Viewport visibility', 'gutenbee'),
 }) => {
   return (
     <BaseControl

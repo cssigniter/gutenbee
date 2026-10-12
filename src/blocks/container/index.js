@@ -34,11 +34,16 @@ import {
 } from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/container', {
-  title: __('GutenBee Container'),
-  description: __('A versatile container for your blocks.'),
+  title: __('GutenBee Container', 'gutenbee'),
+  description: __('A versatile container for your blocks.', 'gutenbee'),
   icon: ContainerBlockIcon,
   category: 'gutenbee',
-  keywords: [__('container'), __('wrapper'), __('row'), __('section')],
+  keywords: [
+    __('container', 'gutenbee'),
+    __('wrapper', 'gutenbee'),
+    __('row', 'gutenbee'),
+    __('section', 'gutenbee'),
+  ],
   supports: {
     align: ['wide', 'full'],
     anchor: false,

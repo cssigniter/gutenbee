@@ -3,6 +3,7 @@
 .vscode
 node_modules
 ignitefile.user.js
+build/*.map
 
 # OS generated files #
 ######################

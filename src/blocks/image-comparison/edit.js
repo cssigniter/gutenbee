@@ -139,7 +139,7 @@ const ImageComparisonEdit = ({
                 render={({ open }) => (
                   <Button
                     className="components-toolbar__control"
-                    label={__('Edit Image')}
+                    label={__('Edit Image', 'gutenbee')}
                     icon="format-image"
                     onClick={open}
                   />
@@ -149,7 +149,7 @@ const ImageComparisonEdit = ({
           ) : (
             <ImagePlaceholder
               icon="format-image"
-              label={__('Image A')}
+              label={__('Image A', 'gutenbee')}
               onSelectImage={image => {
                 const { id, url } = getImageAttributes(image);
 
@@ -181,7 +181,7 @@ const ImageComparisonEdit = ({
                 render={({ open }) => (
                   <Button
                     className="components-toolbar__control"
-                    label={__('Edit Image')}
+                    label={__('Edit Image', 'gutenbee')}
                     icon="format-image"
                     onClick={open}
                   />
@@ -191,7 +191,7 @@ const ImageComparisonEdit = ({
           ) : (
             <ImagePlaceholder
               icon="format-image"
-              label={__('Image B')}
+              label={__('Image B', 'gutenbee')}
               onSelectImage={image => {
                 const { id, url } = getImageAttributes(image);
 
@@ -207,9 +207,9 @@ const ImageComparisonEdit = ({
 
       {isSelected && (
         <InspectorControls>
-          <PanelBody title={__('Settings')} initialOpen>
+          <PanelBody title={__('Settings', 'gutenbee')} initialOpen>
             <RangeControl
-              label={__('Default Offset')}
+              label={__('Default Offset', 'gutenbee')}
               min={1}
               max={100}
               value={offset}
@@ -221,7 +221,7 @@ const ImageComparisonEdit = ({
 
             {imageA && imageB && availableSizes && (
               <SelectControl
-                label={__('Source Image Size')}
+                label={__('Source Image Size', 'gutenbee')}
                 value={imageSize}
                 options={Object.keys(availableSizes).map(name => {
                   const size = availableSizes[name];
@@ -238,9 +238,12 @@ const ImageComparisonEdit = ({
             )}
           </PanelBody>
 
-          <PanelBody title={__('Block Appearance')} initialOpen={false}>
+          <PanelBody
+            title={__('Block Appearance', 'gutenbee')}
+            initialOpen={false}
+          >
             <PopoverColorControl
-              label={__('Background Color')}
+              label={__('Background Color', 'gutenbee')}
               value={backgroundColor || ''}
               defaultValue={backgroundColor || ''}
               onChange={value => setAttributes({ backgroundColor: value })}
@@ -259,7 +262,7 @@ const ImageComparisonEdit = ({
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
-                  label={__('Padding (px)')}
+                  label={__('Padding (px)', 'gutenbee')}
                   attributeKey="blockPadding"
                   attributes={attributes}
                   setAttributes={setAttributes}
@@ -271,7 +274,7 @@ const ImageComparisonEdit = ({
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
-                  label={__('Margin (px)')}
+                  label={__('Margin (px)', 'gutenbee')}
                   attributeKey="blockMargin"
                   attributes={attributes}
                   setAttributes={setAttributes}
@@ -280,7 +283,10 @@ const ImageComparisonEdit = ({
               )}
             </ResponsiveControl>
           </PanelBody>
-          <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+          <PanelBody
+            title={__('Visibility Settings', 'gutenbee')}
+            initialOpen={false}
+          >
             <BreakpointVisibilityControl
               values={blockBreakpointVisibility}
               onChange={values => {
@@ -305,7 +311,7 @@ const ImageComparisonEdit = ({
           ] && (
             <PanelBody
               icon={!!attributes.animation?.type && 'saved'}
-              title={__('Animation')}
+              title={__('Animation', 'gutenbee')}
               initialOpen={false}
             >
               <AnimationControls

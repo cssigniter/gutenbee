@@ -23,7 +23,6 @@ export const blocks = [
   'review',
   'spacer',
   'slideshow',
-  // 'tab-slider',
   'tabs',
   'testimonial',
   'video',

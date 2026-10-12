@@ -12,8 +12,8 @@ import {
 const variations = [
   {
     name: 'one-column',
-    title: __('100'),
-    description: __('One column'),
+    title: __('100', 'gutenbee'),
+    description: __('One column', 'gutenbee'),
     icon: <OneColumn />,
     template: [
       [
@@ -32,8 +32,8 @@ const variations = [
   },
   {
     name: 'two-columns-half',
-    title: __('50 / 50'),
-    description: __('Two columns; equal split'),
+    title: __('50 / 50', 'gutenbee'),
+    description: __('Two columns; equal split', 'gutenbee'),
     icon: <TwoColumnsEqual />,
     template: [
       ['gutenbee/column', { width: { desktop: 50, tablet: 100, mobile: 100 } }],
@@ -47,8 +47,8 @@ const variations = [
   },
   {
     name: 'two-columns-one-third-two-thirds',
-    title: __('33 / 66'),
-    description: __('Two columns; one-third, two-thirds split'),
+    title: __('33 / 66', 'gutenbee'),
+    description: __('Two columns; one-third, two-thirds split', 'gutenbee'),
     icon: <TwoColumnsOneThirdTwoThirds />,
     template: [
       [
@@ -74,8 +74,8 @@ const variations = [
   },
   {
     name: 'two-columns-two-thirds-one-third',
-    title: __('66 / 33'),
-    description: __('Two columns; two-thirds, one-third split'),
+    title: __('66 / 33', 'gutenbee'),
+    description: __('Two columns; two-thirds, one-third split', 'gutenbee'),
     icon: <TwoColumnsTwoThirdsOneThird />,
     template: [
       [
@@ -101,8 +101,8 @@ const variations = [
   },
   {
     name: 'three-columns-equal',
-    title: __('33 / 33 / 33'),
-    description: __('Three columns; equal split'),
+    title: __('33 / 33 / 33', 'gutenbee'),
+    description: __('Three columns; equal split', 'gutenbee'),
     icon: <ThreeColumnsEqual />,
     template: [['gutenbee/column'], ['gutenbee/column'], ['gutenbee/column']],
     innerBlocks: [
@@ -114,8 +114,8 @@ const variations = [
   },
   {
     name: 'three-columuns-wide-center',
-    title: __('25 / 50 / 25'),
-    description: __('Three columns; wide center column'),
+    title: __('25 / 50 / 25', 'gutenbee'),
+    description: __('Three columns; wide center column', 'gutenbee'),
     icon: <ThreeColumnsWideCenter />,
     template: [
       ['gutenbee/column', { width: { desktop: 25, tablet: 100, mobile: 100 } }],

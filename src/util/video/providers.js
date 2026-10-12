@@ -48,6 +48,67 @@ export const maybeLoadYouTubeApi = () => {
 };
 
 /**
+ * Returns the element that should host a YouTube embed.
+ *
+ * YouTube refuses to play embeds that don't send a referrer (error 153), which is
+ * the case inside the block editor's iframe, as its document is a blob. There,
+ * the embed is hosted in an empty page of the plugin instead, which takes
+ * the place of the given element.
+ *
+ * @param {HTMLElement} videoElement The element which would host the video embed.
+ * @param {string}      frameTitle   The accessible title of the hosting frame.
+ *                                   Passed in, as this file is also part of the
+ *                                   front end scripts, where wp.i18n isn't loaded.
+ *
+ * @returns {Promise<HTMLElement>}
+ */
+export const getYouTubeEmbedHost = (videoElement, frameTitle = '') => {
+  const frameUrl = window.__GUTENBEE_SETTINGS__?.video_embed_frame_url;
+  const { ownerDocument } = videoElement;
+
+  if (!frameUrl || /^https?:$/.test(ownerDocument.location.protocol)) {
+    return Promise.resolve(videoElement);
+  }
+
+  return new Promise(resolve => {
+    const frame = ownerDocument.createElement('iframe');
+    frame.className = videoElement.className;
+    frame.style.cssText = videoElement.style.cssText;
+    Object.assign(frame.dataset, videoElement.dataset);
+    if (frameTitle) {
+      frame.title = frameTitle;
+    }
+    frame.src = frameUrl;
+
+    frame.addEventListener(
+      'load',
+      () => {
+        const frameDocument = frame.contentDocument;
+
+        // Not our page (e.g. it's blocked, or not found), so embed the video as usual.
+        if (
+          !frameDocument?.documentElement?.hasAttribute(
+            'data-gutenbee-video-embed-frame',
+          )
+        ) {
+          frame.replaceWith(videoElement);
+          resolve(videoElement);
+          return;
+        }
+
+        const host = frameDocument.createElement('div');
+        Object.assign(host.dataset, videoElement.dataset);
+        frameDocument.body.appendChild(host);
+        resolve(host);
+      },
+      { once: true },
+    );
+
+    videoElement.replaceWith(frame);
+  });
+};
+
+/**
  * Loads the Vimeo API if it's not already loaded.
  *
  * @returns {Promise<boolean>}

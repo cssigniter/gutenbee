@@ -20,9 +20,10 @@ import {
 } from '../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/buttons', {
-  title: __('GutenBee Button Group'),
+  title: __('GutenBee Button Group', 'gutenbee'),
   description: __(
     'Prompt visitors to take action with a group of button-style links',
+    'gutenbee',
   ),
   supports: {
     anchor: true,
@@ -30,7 +31,11 @@ registerBlockType('gutenbee/buttons', {
   apiVersion: 3,
   icon: ButtonsBlockIcon,
   category: 'gutenbee',
-  keywords: [__('link'), __('button'), __('call to action')],
+  keywords: [
+    __('link', 'gutenbee'),
+    __('button', 'gutenbee'),
+    __('call to action', 'gutenbee'),
+  ],
   attributes: {
     uniqueId: {
       type: 'string',

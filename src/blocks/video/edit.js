@@ -107,6 +107,7 @@ const VideoEdit = ({
     return checked
       ? __(
           'Note: Autoplaying videos may cause usability issues for some visitors.',
+          'gutenbee',
         )
       : null;
   };
@@ -160,8 +161,9 @@ const VideoEdit = ({
         labels={{
           instructions: __(
             'Upload a video file, or pick one from your media library.',
+            'gutenbee',
           ),
-          title: __('GutenBee Video'),
+          title: __('GutenBee Video', 'gutenbee'),
         }}
       />
     );
@@ -173,7 +175,7 @@ const VideoEdit = ({
         <ToolbarGroup>
           <ToolbarButton
             className="components-icon-button components-toolbar__control"
-            label={__('Edit video')}
+            label={__('Edit video', 'gutenbee')}
             onClick={switchToEditing}
             icon="edit"
           />
@@ -181,9 +183,9 @@ const VideoEdit = ({
       </BlockControls>
 
       <InspectorControls>
-        <PanelBody title={__('Video Settings')}>
+        <PanelBody title={__('Video Settings', 'gutenbee')}>
           <ToggleControl
-            label={__('Autoplay')}
+            label={__('Autoplay', 'gutenbee')}
             onChange={value => {
               setAttributes({ autoplay: value });
               if (value) {
@@ -196,14 +198,14 @@ const VideoEdit = ({
           />
 
           <ToggleControl
-            label={__('Loop')}
+            label={__('Loop', 'gutenbee')}
             onChange={toggleAttribute('loop')}
             checked={loop}
             __nextHasNoMarginBottom={true}
           />
 
           <ToggleControl
-            label={__('Muted')}
+            label={__('Muted', 'gutenbee')}
             onChange={toggleAttribute('muted')}
             checked={muted}
             disabled={autoplay}
@@ -211,27 +213,27 @@ const VideoEdit = ({
           />
 
           <ToggleControl
-            label={__('Playback Controls')}
+            label={__('Playback Controls', 'gutenbee')}
             onChange={toggleAttribute('controls')}
             checked={controls}
             __nextHasNoMarginBottom={true}
           />
 
           <ToggleControl
-            label={__('Play inline')}
+            label={__('Play inline', 'gutenbee')}
             onChange={toggleAttribute('playsInline')}
             checked={playsInline}
             __nextHasNoMarginBottom={true}
           />
 
           <SelectControl
-            label={__('Preload')}
+            label={__('Preload', 'gutenbee')}
             value={preload}
             onChange={value => setAttributes({ preload: value })}
             options={[
-              { value: 'auto', label: __('Auto') },
-              { value: 'metadata', label: __('Metadata') },
-              { value: 'none', label: __('None') },
+              { value: 'auto', label: __('Auto', 'gutenbee') },
+              { value: 'metadata', label: __('Metadata', 'gutenbee') },
+              { value: 'none', label: __('None', 'gutenbee') },
             ]}
             __next40pxDefaultSize={true}
             __nextHasNoMarginBottom={true}
@@ -242,39 +244,55 @@ const VideoEdit = ({
               __nextHasNoMarginBottom={true}
             >
               <BaseControl.VisualLabel>
-                {__('Poster Image')}
+                {__('Poster Image', 'gutenbee')}
               </BaseControl.VisualLabel>
 
               <MediaUpload
-                title={__('Select Poster Image')}
+                title={__('Select Poster Image', 'gutenbee')}
                 onSelect={onSelectPoster}
                 allowedTypes={VIDEO_POSTER_ALLOWED_MEDIA_TYPES}
                 render={({ open }) => (
                   <Button
-                    isPrimary
+                    variant="primary"
                     onClick={open}
                     ref={posterImageButtonRef}
                     aria-describedby={videoPosterDescription}
                   >
-                    {!poster ? __('Select') : __('Replace')}
+                    {!poster
+                      ? __('Select', 'gutenbee')
+                      : __('Replace', 'gutenbee')}
                   </Button>
                 )}
               />
               <p id={videoPosterDescription} hidden>
                 {poster
-                  ? sprintf(__('The current poster image url is %s'), poster)
-                  : __('There is no poster image currently selected')}
+                  ? sprintf(
+                      // translators: %s: The URL of the video's poster image.
+                      __('The current poster image url is %s', 'gutenbee'),
+                      poster,
+                    )
+                  : __(
+                      'There is no poster image currently selected',
+                      'gutenbee',
+                    )}
               </p>
               {!!poster && (
-                <Button onClick={onRemovePoster} isDestructive isTertiary>
-                  {__('Remove')}
+                <Button
+                  onClick={onRemovePoster}
+                  isDestructive
+                  variant="tertiary"
+                >
+                  {__('Remove', 'gutenbee')}
                 </Button>
               )}
             </BaseControl>
           </MediaUploadCheck>
         </PanelBody>
 
-        <PanelBody title={__('Block Appearance')} initialOpen={false}>
+        <PanelBody
+          title={__('Block Appearance', 'gutenbee')}
+          initialOpen={false}
+        >
           <BorderControls
             attributes={attributes}
             setAttributes={setAttributes}
@@ -288,7 +306,7 @@ const VideoEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Padding (px)')}
+                label={__('Padding (px)', 'gutenbee')}
                 attributeKey="blockPadding"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -300,7 +318,7 @@ const VideoEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Margin (px)')}
+                label={__('Margin (px)', 'gutenbee')}
                 attributeKey="blockMargin"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -309,7 +327,10 @@ const VideoEdit = ({
             )}
           </ResponsiveControl>
         </PanelBody>
-        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+        <PanelBody
+          title={__('Visibility Settings', 'gutenbee')}
+          initialOpen={false}
+        >
           <BreakpointVisibilityControl
             values={blockBreakpointVisibility}
             onChange={values => {
@@ -332,7 +353,7 @@ const VideoEdit = ({
         {__GUTENBEE_SETTINGS__.plugin.settings['active_animation-controls'] && (
           <PanelBody
             icon={!!attributes.animation?.type && 'saved'}
-            title={__('Animation')}
+            title={__('Animation', 'gutenbee')}
             initialOpen={false}
           >
             <AnimationControls
@@ -372,7 +393,7 @@ const VideoEdit = ({
         {(!RichText.isEmpty(caption) || isSelected) && (
           <RichText
             tagName="figcaption"
-            placeholder={__('Write caption…')}
+            placeholder={__('Write caption…', 'gutenbee')}
             value={caption}
             onChange={value => setAttributes({ caption: value })}
             inlineToolbar

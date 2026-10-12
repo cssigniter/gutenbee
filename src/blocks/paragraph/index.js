@@ -29,11 +29,18 @@ import {
 
 registerBlockType('gutenbee/paragraph', {
   apiVersion: 3,
-  title: __('GutenBee Paragraph'),
-  description: __('Start with the building block of all narrative.'),
+  title: __('GutenBee Paragraph', 'gutenbee'),
+  description: __(
+    'Start with the building block of all narrative.',
+    'gutenbee',
+  ),
   icon: ParagraphBlockIcon,
   category: 'gutenbee',
-  keywords: [__('text'), __('content'), __('paragraph')],
+  keywords: [
+    __('text', 'gutenbee'),
+    __('content', 'gutenbee'),
+    __('paragraph', 'gutenbee'),
+  ],
   supports: {
     className: true,
     anchor: false,
@@ -43,6 +50,7 @@ registerBlockType('gutenbee/paragraph', {
     attributes: {
       content: __(
         'It was a bright cold day in April, and the clocks were striking thirteen.',
+        'gutenbee',
       ),
       fontSize: 16,
       dropCap: false,

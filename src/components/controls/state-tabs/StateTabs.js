@@ -2,11 +2,18 @@ import { useState } from 'wp.element';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Button } from 'wp.components';
+import { __ } from 'wp.i18n';
 
 const propTypes = {
   className: PropTypes.string,
   states: PropTypes.arrayOf(PropTypes.string),
   children: PropTypes.func,
+};
+
+const stateLabels = {
+  '': __('Default', 'gutenbee'),
+  Hover: __('Hover', 'gutenbee'),
+  Active: __('Active', 'gutenbee'),
 };
 
 const StateTabs = ({
@@ -26,12 +33,11 @@ const StateTabs = ({
         {states.map(state => (
           <Button
             key={state}
-            isPrimary={activeState === state}
-            isSecondary={activeState !== state}
+            variant={activeState === state ? 'primary' : 'secondary'}
             onClick={() => setActiveState(state)}
-            isSmall
+            size="small"
           >
-            {state === '' ? 'Default' : state}
+            {stateLabels[state] ?? state}
           </Button>
         ))}
       </div>

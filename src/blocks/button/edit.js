@@ -100,7 +100,7 @@ const ButtonEdit = ({
       <div {...blockProps}>
         <ButtonStyle attributes={attributes} />
         <RichText
-          placeholder={__('Add text…')}
+          placeholder={__('Add text…', 'gutenbee')}
           value={text}
           onChange={value => setAttributes({ text: value })}
           withoutInteractiveFormatting
@@ -142,9 +142,9 @@ const ButtonEdit = ({
 
       <InspectorControls>
         {!canUseURLPickerBool && (
-          <PanelBody title={__('Button Settings')} initialOpen>
+          <PanelBody title={__('Button Settings', 'gutenbee')} initialOpen>
             <TextControl
-              label={__('Button URL')}
+              label={__('Button URL', 'gutenbee')}
               value={url}
               onChange={value => setAttributes({ url: value })}
               type="url"
@@ -153,13 +153,13 @@ const ButtonEdit = ({
               __nextHasNoMarginBottom
             />
             <ToggleControl
-              label={__('Open in new tab')}
+              label={__('Open in new tab', 'gutenbee')}
               onChange={onToggleOpenInNewTab}
               checked={linkTarget === '_blank'}
               __nextHasNoMarginBottom
             />
             <TextControl
-              label={__('Link rel')}
+              label={__('Link rel', 'gutenbee')}
               value={rel || ''}
               onChange={onSetLinkRel}
               __next40pxDefaultSize
@@ -169,13 +169,13 @@ const ButtonEdit = ({
         )}
 
         <PanelBody
-          title={__('Block Appearance')}
+          title={__('Block Appearance', 'gutenbee')}
           initialOpen={canUseURLPickerBool}
         >
           <ResponsiveControl>
             {breakpoint => (
               <FontSizePickerLabel
-                label={__('Button Font Size')}
+                label={__('Button Font Size', 'gutenbee')}
                 value={
                   fontSize[breakpoint] !== undefined &&
                   fontSize[breakpoint] !== ''
@@ -194,14 +194,14 @@ const ButtonEdit = ({
             )}
           </ResponsiveControl>
           <PopoverColorControl
-            label={__('Text Color')}
+            label={__('Text Color', 'gutenbee')}
             value={textColor || ''}
             defaultValue={textColor || ''}
             onChange={value => setAttributes({ textColor: value })}
           />
 
           <PopoverColorControl
-            label={__('Background Color')}
+            label={__('Background Color', 'gutenbee')}
             value={backgroundColor || ''}
             defaultValue={backgroundColor || ''}
             onChange={value => setAttributes({ backgroundColor: value })}
@@ -222,7 +222,7 @@ const ButtonEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Padding (px)')}
+                label={__('Padding (px)', 'gutenbee')}
                 attributeKey="blockPadding"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -234,7 +234,7 @@ const ButtonEdit = ({
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Margin (px)')}
+                label={__('Margin (px)', 'gutenbee')}
                 attributeKey="blockMargin"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -244,9 +244,12 @@ const ButtonEdit = ({
           </ResponsiveControl>
         </PanelBody>
 
-        <PanelBody title={__('Predefined Templates')} initialOpen={false}>
+        <PanelBody
+          title={__('Predefined Templates', 'gutenbee')}
+          initialOpen={false}
+        >
           <SelectControl
-            label={__('Button Size')}
+            label={__('Button Size', 'gutenbee')}
             onChange={value => {
               if (!value) {
                 return;
@@ -275,7 +278,7 @@ const ButtonEdit = ({
           />
 
           <SelectControl
-            label={__('Button Style')}
+            label={__('Button Style', 'gutenbee')}
             onChange={value => {
               if (!value) {
                 return;
@@ -304,7 +307,10 @@ const ButtonEdit = ({
           />
         </PanelBody>
 
-        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+        <PanelBody
+          title={__('Visibility Settings', 'gutenbee')}
+          initialOpen={false}
+        >
           <BreakpointVisibilityControl
             values={blockBreakpointVisibility}
             onChange={values => {
@@ -327,7 +333,7 @@ const ButtonEdit = ({
         {__GUTENBEE_SETTINGS__.plugin.settings['active_animation-controls'] && (
           <PanelBody
             icon={!!attributes.animation?.type && 'saved'}
-            title={__('Animation')}
+            title={__('Animation', 'gutenbee')}
             initialOpen={false}
           >
             <AnimationControls

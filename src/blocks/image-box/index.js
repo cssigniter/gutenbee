@@ -115,14 +115,14 @@ const ImageBox = ({ className, attributes, blockProps = {} }) => {
 
 registerBlockType('gutenbee/imagebox', {
   apiVersion: 3,
-  title: __('GutenBee Image Box'),
-  description: __('An image box with a title and a description.'),
+  title: __('GutenBee Image Box', 'gutenbee'),
+  description: __('An image box with a title and a description.', 'gutenbee'),
   icon: ImageBoxBlockIcon,
   category: 'gutenbee',
   keywords: [
-    __('image'),
-    __('image box'),
-    __('media'),
+    __('image', 'gutenbee'),
+    __('image box', 'gutenbee'),
+    __('media', 'gutenbee'),
     'gutenbeeimage',
     'imagegutenbee',
   ],

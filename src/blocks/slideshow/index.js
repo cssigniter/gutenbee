@@ -34,11 +34,11 @@ import {
 
 registerBlockType('gutenbee/slideshow', {
   apiVersion: 3,
-  title: __('GutenBee Slideshow'),
-  description: __('A slideshow block'),
+  title: __('GutenBee Slideshow', 'gutenbee'),
+  description: __('A slideshow block', 'gutenbee'),
   icon: SlideshowBlockIcon,
   category: 'gutenbee',
-  keywords: [__('slideshow'), __('gallery')],
+  keywords: [__('slideshow', 'gutenbee'), __('gallery', 'gutenbee')],
   supports: {
     anchor: false,
   },

@@ -37,12 +37,12 @@ const BoxShadowControls = ({
   return (
     <Fragment>
       <SelectControl
-        label={__('Box Shadow')}
+        label={__('Box Shadow', 'gutenbee')}
         value={type}
         options={[
-          { value: 'none', label: __('None') },
-          { value: 'outset', label: __('Normal (Outset)') },
-          { value: 'inset', label: __('Inset') },
+          { value: 'none', label: __('None', 'gutenbee') },
+          { value: 'outset', label: __('Normal (Outset)', 'gutenbee') },
+          { value: 'inset', label: __('Inset', 'gutenbee') },
         ]}
         onChange={value => {
           if (attributePrefix) {
@@ -60,7 +60,7 @@ const BoxShadowControls = ({
           <PopoverColorControl
             value={color}
             defaultValue=""
-            label={__('Box Shadow Color')}
+            label={__('Box Shadow Color', 'gutenbee')}
             disableAlpha={false}
             onChange={value => {
               if (attributePrefix) {
@@ -72,7 +72,7 @@ const BoxShadowControls = ({
           />
 
           <RangeControl
-            label={__('Box Shadow Width (px)')}
+            label={__('Box Shadow Width (px)', 'gutenbee')}
             min={0}
             max={100}
             value={width}
@@ -91,7 +91,7 @@ const BoxShadowControls = ({
           />
 
           <RangeControl
-            label={__('Box Shadow Spread (px)')}
+            label={__('Box Shadow Spread (px)', 'gutenbee')}
             min={0}
             max={100}
             value={spread}
@@ -110,7 +110,7 @@ const BoxShadowControls = ({
           />
 
           <RangeControl
-            label={__('Box Shadow Left (px)')}
+            label={__('Box Shadow Left (px)', 'gutenbee')}
             min={-100}
             max={100}
             value={left}
@@ -129,7 +129,7 @@ const BoxShadowControls = ({
           />
 
           <RangeControl
-            label={__('Box Shadow Top (px)')}
+            label={__('Box Shadow Top (px)', 'gutenbee')}
             min={-100}
             max={100}
             value={top}

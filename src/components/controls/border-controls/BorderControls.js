@@ -38,16 +38,16 @@ const BorderControls = ({
   return (
     <Fragment>
       <SelectControl
-        label={__('Border')}
+        label={__('Border', 'gutenbee')}
         value={style}
         options={[
-          { value: 'none', label: __('None') },
-          { value: 'solid', label: __('Solid') },
-          { value: 'dotted', label: __('Dotted') },
-          { value: 'dashed', label: __('Dashed') },
-          { value: 'double', label: __('Double') },
-          { value: 'groove', label: __('Groove') },
-          { value: 'ridge', label: __('Ridge') },
+          { value: 'none', label: __('None', 'gutenbee') },
+          { value: 'solid', label: __('Solid', 'gutenbee') },
+          { value: 'dotted', label: __('Dotted', 'gutenbee') },
+          { value: 'dashed', label: __('Dashed', 'gutenbee') },
+          { value: 'double', label: __('Double', 'gutenbee') },
+          { value: 'groove', label: __('Groove', 'gutenbee') },
+          { value: 'ridge', label: __('Ridge', 'gutenbee') },
         ]}
         onChange={value => {
           const updates = {};
@@ -87,7 +87,7 @@ const BorderControls = ({
           <PopoverColorControl
             value={color || '#000000'}
             defaultValue={defaultValues.color || '#000000'}
-            label={__('Border color')}
+            label={__('Border color', 'gutenbee')}
             disableAlpha={false}
             onChange={value => {
               if (attributePrefix) {
@@ -99,7 +99,7 @@ const BorderControls = ({
           />
 
           <RangeControl
-            label={__('Border Width (px)')}
+            label={__('Border Width (px)', 'gutenbee')}
             min={0}
             max={100}
             value={width}
@@ -120,7 +120,7 @@ const BorderControls = ({
       )}
 
       <RangeControl
-        label={__('Border Radius (px)')}
+        label={__('Border Radius (px)', 'gutenbee')}
         min={0}
         max={100}
         value={radius}

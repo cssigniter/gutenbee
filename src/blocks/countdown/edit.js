@@ -220,7 +220,7 @@ const CountdownEdit = ({
 
       {isSelected && (
         <InspectorControls>
-          <PanelBody title={__('Date & Time')}>
+          <PanelBody title={__('Date & Time', 'gutenbee')}>
             {showDatePicker && (
               <DateTimePicker
                 key={datePickerKey}
@@ -231,49 +231,52 @@ const CountdownEdit = ({
             )}
           </PanelBody>
 
-          <PanelBody title={__('Settings')} initialOpen={false}>
+          <PanelBody title={__('Settings', 'gutenbee')} initialOpen={false}>
             <ToggleControl
-              label={__('Show Days')}
+              label={__('Show Days', 'gutenbee')}
               checked={displayDays}
               onChange={value => setAttributes({ displayDays: value })}
               __nextHasNoMarginBottom
             />
             <ToggleControl
-              label={__('Show Hours')}
+              label={__('Show Hours', 'gutenbee')}
               checked={displayHours}
               onChange={value => setAttributes({ displayHours: value })}
               __nextHasNoMarginBottom
             />
             <ToggleControl
-              label={__('Show Minutes')}
+              label={__('Show Minutes', 'gutenbee')}
               checked={displayMinutes}
               onChange={value => setAttributes({ displayMinutes: value })}
               __nextHasNoMarginBottom
             />
             <ToggleControl
-              label={__('Show Seconds')}
+              label={__('Show Seconds', 'gutenbee')}
               checked={displaySeconds}
               onChange={value => setAttributes({ displaySeconds: value })}
               __nextHasNoMarginBottom
             />
             <ToggleControl
-              label={__('Show Labels')}
+              label={__('Show Labels', 'gutenbee')}
               checked={displayLabels}
               onChange={value => setAttributes({ displayLabels: value })}
               __nextHasNoMarginBottom
             />
           </PanelBody>
 
-          <PanelBody title={__('Block Appearance')} initialOpen={false}>
+          <PanelBody
+            title={__('Block Appearance', 'gutenbee')}
+            initialOpen={false}
+          >
             <PopoverColorControl
-              label={__('Box Text Color')}
+              label={__('Box Text Color', 'gutenbee')}
               value={textColor || ''}
               defaultValue={textColor || ''}
               onChange={value => setAttributes({ textColor: value })}
             />
 
             <PopoverColorControl
-              label={__('Box Background Color')}
+              label={__('Box Background Color', 'gutenbee')}
               value={numberBackgroundColor || ''}
               defaultValue={numberBackgroundColor || ''}
               onChange={value =>
@@ -282,14 +285,14 @@ const CountdownEdit = ({
             />
 
             <PopoverColorControl
-              label={__('Box Label Text Color')}
+              label={__('Box Label Text Color', 'gutenbee')}
               value={labelTextColor || ''}
               defaultValue={labelTextColor || ''}
               onChange={value => setAttributes({ labelTextColor: value })}
             />
 
             <PopoverColorControl
-              label={__('Block Background Color')}
+              label={__('Block Background Color', 'gutenbee')}
               value={backgroundColor || ''}
               defaultValue={backgroundColor || ''}
               onChange={value => setAttributes({ backgroundColor: value })}
@@ -306,7 +309,7 @@ const CountdownEdit = ({
             />
 
             <RangeControl
-              label={__('Box max width (%)')}
+              label={__('Box max width (%)', 'gutenbee')}
               min={0}
               max={100}
               value={maxWidth}
@@ -319,7 +322,7 @@ const CountdownEdit = ({
             <ResponsiveControl>
               {breakpoint => (
                 <FontSizePickerLabel
-                  label={__('Number Font Size')}
+                  label={__('Number Font Size', 'gutenbee')}
                   value={
                     numberFontSize[breakpoint] !== undefined &&
                     numberFontSize[breakpoint] !== ''
@@ -341,7 +344,7 @@ const CountdownEdit = ({
             <ResponsiveControl>
               {breakpoint => (
                 <FontSizePickerLabel
-                  label={__('Label Font Size')}
+                  label={__('Label Font Size', 'gutenbee')}
                   value={
                     labelFontSize[breakpoint] !== undefined &&
                     labelFontSize[breakpoint] !== ''
@@ -361,7 +364,7 @@ const CountdownEdit = ({
             </ResponsiveControl>
 
             <RangeControl
-              label={__('Label Top Margin')}
+              label={__('Label Top Margin', 'gutenbee')}
               value={labelTopMargin}
               allowReset
               onChange={value => {
@@ -378,7 +381,7 @@ const CountdownEdit = ({
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
-                  label={__('Padding (px)')}
+                  label={__('Padding (px)', 'gutenbee')}
                   attributeKey="blockPadding"
                   attributes={attributes}
                   setAttributes={setAttributes}
@@ -390,7 +393,7 @@ const CountdownEdit = ({
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
-                  label={__('Margin (px)')}
+                  label={__('Margin (px)', 'gutenbee')}
                   attributeKey="blockMargin"
                   attributes={attributes}
                   setAttributes={setAttributes}
@@ -400,7 +403,10 @@ const CountdownEdit = ({
             </ResponsiveControl>
           </PanelBody>
 
-          <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+          <PanelBody
+            title={__('Visibility Settings', 'gutenbee')}
+            initialOpen={false}
+          >
             <BreakpointVisibilityControl
               values={blockBreakpointVisibility}
               onChange={values => {
@@ -425,7 +431,7 @@ const CountdownEdit = ({
           ] && (
             <PanelBody
               icon={!!attributes.animation?.type && 'saved'}
-              title={__('Animation')}
+              title={__('Animation', 'gutenbee')}
               initialOpen={false}
             >
               <AnimationControls

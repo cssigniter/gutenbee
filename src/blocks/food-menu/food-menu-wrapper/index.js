@@ -3,19 +3,15 @@ import { __ } from 'wp.i18n';
 import {
   InnerBlocks,
   useBlockProps,
-  __experimentalUseInnerBlocksProps,
-  useInnerBlocksProps as currentUseInnerBlockProps,
+  useInnerBlocksProps,
 } from 'wp.blockEditor';
 
 import FoodMenuItemIcon from '../food-menu-item/block-icon';
 
-const useInnerBlocksProps =
-  __experimentalUseInnerBlocksProps ?? currentUseInnerBlockProps;
-
 registerBlockType('gutenbee/food-menu-wrapper', {
   apiVersion: 3,
-  title: __('GutenBee Food Menu Group'),
-  description: __('Wrapper for the Food Menu block.'),
+  title: __('GutenBee Food Menu Group', 'gutenbee'),
+  description: __('Wrapper for the Food Menu block.', 'gutenbee'),
   icon: FoodMenuItemIcon,
   parent: ['gutenbee/food-menu-item'],
   category: 'gutenbee',
@@ -27,7 +23,7 @@ registerBlockType('gutenbee/food-menu-wrapper', {
         [
           'gutenbee/heading',
           {
-            placeholder: 'Menu item name...',
+            placeholder: __('Menu item name...', 'gutenbee'),
             level: 5,
             fontSize: {
               desktop: '22',
@@ -39,13 +35,18 @@ registerBlockType('gutenbee/food-menu-wrapper', {
         [
           'gutenbee/paragraph',
           {
-            placeholder: 'Price',
+            placeholder: __('Price', 'gutenbee'),
             className: 'wp-block-gutenbee-food-menu-item-price',
           },
         ],
         [
           'gutenbee/paragraph',
-          { placeholder: 'Write a description for your menu item...' },
+          {
+            placeholder: __(
+              'Write a description for your menu item...',
+              'gutenbee',
+            ),
+          },
         ],
       ],
       templateLock: 'all',

@@ -55,23 +55,21 @@ const ButtonsEdit = ({ attributes, setAttributes, className, clientId }) => {
         <InnerBlocks
           allowedBlocks={['gutenbee/button']}
           template={[['gutenbee/button']]}
-          __experimentalUIParts={{ hasSelectedUI: false }}
-          __experimentalMoverDirection="horizontal"
         />
       </div>
 
       <InspectorControls>
-        <PanelBody title={__('Button Group Settings')}>
+        <PanelBody title={__('Button Group Settings', 'gutenbee')}>
           <ResponsiveControl>
             {breakpoint => (
               <SelectControl
-                label={__('Button Alignment')}
+                label={__('Button Alignment', 'gutenbee')}
                 value={align[breakpoint]}
                 options={[
-                  { value: '', label: __('') },
-                  { value: 'flex-start', label: __('Left') },
-                  { value: 'center', label: __('Center') },
-                  { value: 'flex-end', label: __('Right') },
+                  { value: '', label: __('', 'gutenbee') },
+                  { value: 'flex-start', label: __('Left', 'gutenbee') },
+                  { value: 'center', label: __('Center', 'gutenbee') },
+                  { value: 'flex-end', label: __('Right', 'gutenbee') },
                 ]}
                 onChange={value =>
                   setAttributes({
@@ -88,9 +86,12 @@ const ButtonsEdit = ({ attributes, setAttributes, className, clientId }) => {
           </ResponsiveControl>
         </PanelBody>
 
-        <PanelBody title={__('Block Appearance')} initialOpen={false}>
+        <PanelBody
+          title={__('Block Appearance', 'gutenbee')}
+          initialOpen={false}
+        >
           <PopoverColorControl
-            label={__('Background Color')}
+            label={__('Background Color', 'gutenbee')}
             value={backgroundColor || ''}
             defaultValue={backgroundColor || ''}
             onChange={value => setAttributes({ backgroundColor: value })}
@@ -99,7 +100,7 @@ const ButtonsEdit = ({ attributes, setAttributes, className, clientId }) => {
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Padding (px)')}
+                label={__('Padding (px)', 'gutenbee')}
                 attributeKey="blockPadding"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -111,7 +112,7 @@ const ButtonsEdit = ({ attributes, setAttributes, className, clientId }) => {
           <ResponsiveControl>
             {breakpoint => (
               <MarginControls
-                label={__('Margin (px)')}
+                label={__('Margin (px)', 'gutenbee')}
                 attributeKey="blockMargin"
                 attributes={attributes}
                 setAttributes={setAttributes}
@@ -121,7 +122,10 @@ const ButtonsEdit = ({ attributes, setAttributes, className, clientId }) => {
           </ResponsiveControl>
         </PanelBody>
 
-        <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+        <PanelBody
+          title={__('Visibility Settings', 'gutenbee')}
+          initialOpen={false}
+        >
           <BreakpointVisibilityControl
             values={blockBreakpointVisibility}
             onChange={values => {
@@ -144,7 +148,7 @@ const ButtonsEdit = ({ attributes, setAttributes, className, clientId }) => {
         {__GUTENBEE_SETTINGS__.plugin.settings['active_animation-controls'] && (
           <PanelBody
             icon={!!attributes.animation?.type && 'saved'}
-            title={__('Animation')}
+            title={__('Animation', 'gutenbee')}
             initialOpen={false}
           >
             <AnimationControls

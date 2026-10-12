@@ -24,11 +24,18 @@ import { getAuthVisibilityClasses } from '../../components/controls/auth-visibil
 
 registerBlockType('gutenbee/spacer', {
   apiVersion: 3,
-  title: __('GutenBee Spacer'),
-  description: __('Add white space between blocks and customize its height.'),
+  title: __('GutenBee Spacer', 'gutenbee'),
+  description: __(
+    'Add white space between blocks and customize its height.',
+    'gutenbee',
+  ),
   icon: SpacerBlockIcon,
   category: 'gutenbee',
-  keywords: [__('spacer'), __('spacing'), __('distance')],
+  keywords: [
+    __('spacer', 'gutenbee'),
+    __('spacing', 'gutenbee'),
+    __('distance', 'gutenbee'),
+  ],
   supports: {
     anchor: true,
   },

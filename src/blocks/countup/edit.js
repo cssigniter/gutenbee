@@ -132,7 +132,7 @@ const CountupEdit = ({
           value={titleContent}
           onChange={value => setAttributes({ titleContent: value })}
           className="wp-block-gutenbee-countup-title"
-          placeholder={__('Write a title…')}
+          placeholder={__('Write a title…', 'gutenbee')}
           style={{
             color: titleColor || undefined,
             marginTop:
@@ -151,10 +151,10 @@ const CountupEdit = ({
           </BlockControls>
 
           <InspectorControls>
-            <PanelBody title={__('Settings')} initialOpen>
+            <PanelBody title={__('Settings', 'gutenbee')} initialOpen>
               <TextControl
                 type="number"
-                label={__('Start Number')}
+                label={__('Start Number', 'gutenbee')}
                 value={startNumber}
                 onChange={value =>
                   setAttributes({
@@ -167,7 +167,7 @@ const CountupEdit = ({
 
               <TextControl
                 type="number"
-                label={__('End Number')}
+                label={__('End Number', 'gutenbee')}
                 value={endNumber}
                 onChange={value =>
                   setAttributes({
@@ -179,7 +179,7 @@ const CountupEdit = ({
               />
 
               <TextControl
-                label={__('Prefix')}
+                label={__('Prefix', 'gutenbee')}
                 value={prefix}
                 onChange={value => setAttributes({ prefix: value })}
                 __nextHasNoMarginBottom
@@ -187,7 +187,7 @@ const CountupEdit = ({
               />
 
               <TextControl
-                label={__('Suffix')}
+                label={__('Suffix', 'gutenbee')}
                 value={suffix}
                 onChange={value => setAttributes({ suffix: value })}
                 __nextHasNoMarginBottom
@@ -195,7 +195,7 @@ const CountupEdit = ({
               />
 
               <RangeControl
-                label={__('Animation Duration (seconds)')}
+                label={__('Animation Duration (seconds)', 'gutenbee')}
                 value={animationDuration}
                 min={0}
                 max={100}
@@ -206,7 +206,7 @@ const CountupEdit = ({
               />
 
               <CheckboxControl
-                label={__('Start counting when in viewport')}
+                label={__('Start counting when in viewport', 'gutenbee')}
                 value="on"
                 checked={inViewport}
                 onChange={value => {
@@ -216,23 +216,23 @@ const CountupEdit = ({
               />
 
               <SelectControl
-                label={__('Separator')}
+                label={__('Separator', 'gutenbee')}
                 value={separator}
                 onChange={value => setAttributes({ separator: value })}
                 __nextHasNoMarginBottom
                 __next40pxDefaultSize
                 options={[
-                  { value: '', label: __('None') },
-                  { value: ',', label: __('Comma ,') },
-                  { value: '.', label: __('Dot .') },
-                  { value: ' ', label: __('Space') },
+                  { value: '', label: __('None', 'gutenbee') },
+                  { value: ',', label: __('Comma ,', 'gutenbee') },
+                  { value: '.', label: __('Dot .', 'gutenbee') },
+                  { value: ' ', label: __('Space', 'gutenbee') },
                 ]}
               />
 
               <ResponsiveControl>
                 {breakpoint => (
                   <FontSizePickerLabel
-                    label={__('Text Font Size')}
+                    label={__('Text Font Size', 'gutenbee')}
                     value={
                       textFontSize[breakpoint] !== undefined &&
                       textFontSize[breakpoint] !== ''
@@ -252,7 +252,7 @@ const CountupEdit = ({
               </ResponsiveControl>
 
               <RangeControl
-                label={__('Title Top Margin')}
+                label={__('Title Top Margin', 'gutenbee')}
                 value={titleTopMargin}
                 onChange={value => {
                   setAttributes({
@@ -269,7 +269,7 @@ const CountupEdit = ({
               <ResponsiveControl>
                 {breakpoint => (
                   <FontSizePickerLabel
-                    label={__('Title Font Size')}
+                    label={__('Title Font Size', 'gutenbee')}
                     value={
                       titleFontSize[breakpoint] !== undefined &&
                       titleFontSize[breakpoint] !== ''
@@ -289,23 +289,26 @@ const CountupEdit = ({
               </ResponsiveControl>
             </PanelBody>
 
-            <PanelBody title={__('Block Appearance')} initialOpen={false}>
+            <PanelBody
+              title={__('Block Appearance', 'gutenbee')}
+              initialOpen={false}
+            >
               <PopoverColorControl
-                label={__('Text Color')}
+                label={__('Text Color', 'gutenbee')}
                 value={textColor || ''}
                 defaultValue={textColor || ''}
                 onChange={value => setAttributes({ textColor: value })}
               />
 
               <PopoverColorControl
-                label={__('Title Color')}
+                label={__('Title Color', 'gutenbee')}
                 value={titleColor || ''}
                 defaultValue={titleColor || ''}
                 onChange={value => setAttributes({ titleColor: value })}
               />
 
               <PopoverColorControl
-                label={__('Background Color')}
+                label={__('Background Color', 'gutenbee')}
                 value={backgroundColor || ''}
                 defaultValue={backgroundColor || ''}
                 onChange={value => setAttributes({ backgroundColor: value })}
@@ -324,7 +327,7 @@ const CountupEdit = ({
               <ResponsiveControl>
                 {breakpoint => (
                   <MarginControls
-                    label={__('Padding (px)')}
+                    label={__('Padding (px)', 'gutenbee')}
                     attributeKey="blockPadding"
                     attributes={attributes}
                     setAttributes={setAttributes}
@@ -336,7 +339,7 @@ const CountupEdit = ({
               <ResponsiveControl>
                 {breakpoint => (
                   <MarginControls
-                    label={__('Margin (px)')}
+                    label={__('Margin (px)', 'gutenbee')}
                     attributeKey="blockMargin"
                     attributes={attributes}
                     setAttributes={setAttributes}
@@ -346,7 +349,10 @@ const CountupEdit = ({
               </ResponsiveControl>
             </PanelBody>
 
-            <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+            <PanelBody
+              title={__('Visibility Settings', 'gutenbee')}
+              initialOpen={false}
+            >
               <BreakpointVisibilityControl
                 values={blockBreakpointVisibility}
                 onChange={values => {
@@ -371,7 +377,7 @@ const CountupEdit = ({
             ] && (
               <PanelBody
                 icon={!!attributes.animation?.type && 'saved'}
-                title={__('Animation')}
+                title={__('Animation', 'gutenbee')}
                 initialOpen={false}
               >
                 <AnimationControls

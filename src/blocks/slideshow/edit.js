@@ -117,9 +117,9 @@ const SlideshowEdit = ({
           <SlideshowStyle attributes={attributes} />
           {isSelected && (
             <InspectorControls>
-              <PanelBody title={__('Slideshow Settings')}>
+              <PanelBody title={__('Slideshow Settings', 'gutenbee')}>
                 <ToggleControl
-                  label={__('Autoplay')}
+                  label={__('Autoplay', 'gutenbee')}
                   checked={autoplay}
                   onChange={() => {
                     setAttributes({ autoplay: !autoplay });
@@ -127,7 +127,7 @@ const SlideshowEdit = ({
                   __nextHasNoMarginBottom={true}
                 />
                 <ToggleControl
-                  label={__('Infinite Slide')}
+                  label={__('Infinite Slide', 'gutenbee')}
                   checked={infinite}
                   onChange={() => {
                     setAttributes({ infinite: !infinite });
@@ -135,7 +135,7 @@ const SlideshowEdit = ({
                   __nextHasNoMarginBottom={true}
                 />
                 <ToggleControl
-                  label={__('Arrow Navigation')}
+                  label={__('Arrow Navigation', 'gutenbee')}
                   checked={arrowNav}
                   onChange={() => {
                     setAttributes({ arrowNav: !arrowNav });
@@ -143,7 +143,7 @@ const SlideshowEdit = ({
                   __nextHasNoMarginBottom={true}
                 />
                 <ToggleControl
-                  label={__('Dot Navigation')}
+                  label={__('Dot Navigation', 'gutenbee')}
                   checked={dotNav}
                   onChange={() => {
                     setAttributes({ dotNav: !dotNav });
@@ -151,13 +151,13 @@ const SlideshowEdit = ({
                   __nextHasNoMarginBottom={true}
                 />
 
-                <h2>{__('Animation Settings')}</h2>
+                <h2>{__('Animation Settings', 'gutenbee')}</h2>
                 <RadioControl
-                  label={__('Animation Style')}
+                  label={__('Animation Style', 'gutenbee')}
                   selected={animationStyle}
                   options={[
-                    { label: 'Fade', value: 'fade' },
-                    { label: 'Slide', value: 'slide' },
+                    { label: __('Fade', 'gutenbee'), value: 'fade' },
+                    { label: __('Slide', 'gutenbee'), value: 'slide' },
                   ]}
                   onChange={value => {
                     if (value === 'fade') {
@@ -182,6 +182,7 @@ const SlideshowEdit = ({
                     >
                       {__(
                         'The "fade" animation style works correctly only when displaying 1 slide at a time, please check your "Slides to show" and "Slides to scroll settings, they should be 1.',
+                        'gutenbee',
                       )}
                     </Notice>
                   )}
@@ -189,7 +190,7 @@ const SlideshowEdit = ({
                 {animationStyle === 'slide' && (
                   <Fragment>
                     <RangeControl
-                      label={__('Slides to Show')}
+                      label={__('Slides to Show', 'gutenbee')}
                       min={1}
                       max={10}
                       value={slidesToShow}
@@ -203,7 +204,7 @@ const SlideshowEdit = ({
                     />
 
                     <RangeControl
-                      label={__('Slides to Scroll')}
+                      label={__('Slides to Scroll', 'gutenbee')}
                       min={1}
                       max={10}
                       value={slidesToScroll}
@@ -219,7 +220,7 @@ const SlideshowEdit = ({
                 )}
 
                 <RangeControl
-                  label={__('Animation Speed (ms)')}
+                  label={__('Animation Speed (ms)', 'gutenbee')}
                   min={50}
                   max={5000}
                   value={speed}
@@ -231,7 +232,7 @@ const SlideshowEdit = ({
                   __nextHasNoMarginBottom={true}
                 />
                 <RangeControl
-                  label={__('Autoplay Speed (ms)')}
+                  label={__('Autoplay Speed (ms)', 'gutenbee')}
                   min={500}
                   max={10000}
                   value={autoplaySpeed}
@@ -243,7 +244,7 @@ const SlideshowEdit = ({
                   __nextHasNoMarginBottom={true}
                 />
                 <ToggleControl
-                  label={__('Pause on Hover')}
+                  label={__('Pause on Hover', 'gutenbee')}
                   checked={pauseOnHover}
                   onChange={value => {
                     setAttributes({ pauseOnHover: value });
@@ -254,17 +255,17 @@ const SlideshowEdit = ({
 
               <PanelBody
                 initialOpen={false}
-                title={__('Navigation Appearance')}
+                title={__('Navigation Appearance', 'gutenbee')}
               >
                 <PopoverColorControl
-                  label={__('Arrow Navigation Color')}
+                  label={__('Arrow Navigation Color', 'gutenbee')}
                   value={arrowsColor || ''}
                   defaultValue={arrowsColor || ''}
                   onChange={value => setAttributes({ arrowsColor: value })}
                 />
 
                 <PopoverColorControl
-                  label={__('Arrow Background Color')}
+                  label={__('Arrow Background Color', 'gutenbee')}
                   value={arrowsBackgroundColor || ''}
                   defaultValue={arrowsBackgroundColor || ''}
                   onChange={value =>
@@ -273,14 +274,14 @@ const SlideshowEdit = ({
                 />
 
                 <PopoverColorControl
-                  label={__('Dot Navigation Color')}
+                  label={__('Dot Navigation Color', 'gutenbee')}
                   value={dotsColor || ''}
                   defaultValue={dotsColor || ''}
                   onChange={value => setAttributes({ dotsColor: value })}
                 />
 
                 <PopoverColorControl
-                  label={__('Dot Background Color')}
+                  label={__('Dot Background Color', 'gutenbee')}
                   value={dotsBackgroundColor || ''}
                   defaultValue={dotsBackgroundColor || ''}
                   onChange={value =>
@@ -289,9 +290,12 @@ const SlideshowEdit = ({
                 />
               </PanelBody>
 
-              <PanelBody title={__('Block Appearance')} initialOpen={false}>
+              <PanelBody
+                title={__('Block Appearance', 'gutenbee')}
+                initialOpen={false}
+              >
                 <PopoverColorControl
-                  label={__('Background Color')}
+                  label={__('Background Color', 'gutenbee')}
                   value={backgroundColor || ''}
                   defaultValue={backgroundColor || ''}
                   onChange={value => setAttributes({ backgroundColor: value })}
@@ -310,7 +314,7 @@ const SlideshowEdit = ({
                 <ResponsiveControl>
                   {breakpoint => (
                     <MarginControls
-                      label={__('Padding (px)')}
+                      label={__('Padding (px)', 'gutenbee')}
                       attributeKey="blockPadding"
                       attributes={attributes}
                       setAttributes={setAttributes}
@@ -322,7 +326,7 @@ const SlideshowEdit = ({
                 <ResponsiveControl>
                   {breakpoint => (
                     <MarginControls
-                      label={__('Margin (px)')}
+                      label={__('Margin (px)', 'gutenbee')}
                       attributeKey="blockMargin"
                       attributes={attributes}
                       setAttributes={setAttributes}
@@ -331,7 +335,10 @@ const SlideshowEdit = ({
                   )}
                 </ResponsiveControl>
               </PanelBody>
-              <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+              <PanelBody
+                title={__('Visibility Settings', 'gutenbee')}
+                initialOpen={false}
+              >
                 <BreakpointVisibilityControl
                   values={blockBreakpointVisibility}
                   onChange={values => {
@@ -356,7 +363,7 @@ const SlideshowEdit = ({
               ] && (
                 <PanelBody
                   icon={!!attributes.animation?.type && 'saved'}
-                  title={__('Animation')}
+                  title={__('Animation', 'gutenbee')}
                   initialOpen={false}
                 >
                   <AnimationControls

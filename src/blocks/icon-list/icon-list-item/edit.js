@@ -29,14 +29,14 @@ const IconListItemEdit = ({
           className,
         )}
         value={content}
-        aria-label={__('Icon List Item block')}
-        placeholder={__('Start writing…')}
+        aria-label={__('Icon List Item block', 'gutenbee')}
+        placeholder={__('Start writing…', 'gutenbee')}
         disableLineBreaks
         onChange={content => setAttributes({ content })}
         onReplace={onReplace}
         onFocus={() => {
           if (content.length === 0) {
-            setAttributes({ content: __('Start writing…') });
+            setAttributes({ content: __('Start writing…', 'gutenbee') });
             setTimeout(() => {
               setAttributes({ content: '' });
             }, 0);
@@ -87,13 +87,13 @@ const IconListItemEdit = ({
           <IconSelect
             value={icon}
             onChange={value => setAttributes({ icon: value })}
-            label={__('List Item Icon')}
+            label={__('List Item Icon', 'gutenbee')}
           />
 
           {!canUseURLPickerBool && (
             <Fragment>
               <TextControl
-                label={__('List Item URL')}
+                label={__('List Item URL', 'gutenbee')}
                 value={listUrl}
                 onChange={value => setAttributes({ listUrl: value })}
                 type="url"
@@ -102,13 +102,13 @@ const IconListItemEdit = ({
                 __next40pxDefaultSize
               />
               <ToggleControl
-                label={__('Open in new tab')}
+                label={__('Open in new tab', 'gutenbee')}
                 checked={!!newTab}
                 onChange={() => setAttributes({ newTab: !newTab })}
                 help={
                   newTab
-                    ? __('Opens link in new tab.')
-                    : __('Toggle to open link in new tab.')
+                    ? __('Opens link in new tab.', 'gutenbee')
+                    : __('Toggle to open link in new tab.', 'gutenbee')
                 }
                 __nextHasNoMarginBottom
               />

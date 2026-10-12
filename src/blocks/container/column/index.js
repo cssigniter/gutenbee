@@ -32,9 +32,9 @@ import {
 } from '../../../components/controls/animation-controls/helpers';
 
 registerBlockType('gutenbee/column', {
-  title: __('GutenBee Column'),
+  title: __('GutenBee Column', 'gutenbee'),
   category: 'gutenbee',
-  description: __('A single column within a container block.'),
+  description: __('A single column within a container block.', 'gutenbee'),
   icon: ColumnBlockIcon,
   supports: {
     inserter: false,

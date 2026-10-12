@@ -1,6 +1,6 @@
 {
   "name": "gutenbee",
-  "version": "2.20.2",
+  "version": "2.20.3",
   "license": "GPL-2.0-or-later",
   "devDependencies": {
     "@babel/cli": "^7.28.3",
@@ -44,8 +44,8 @@
     "extends @wordpress/browserslist-config"
   ],
   "scripts": {
-    "build": "cross-env BABEL_ENV=default NODE_ENV=production NODE_OPTIONS=--openssl-legacy-provider webpack",
-    "start": "cross-env BABEL_ENV=default NODE_OPTIONS=--openssl-legacy-provider webpack --watch",
+    "build": "cross-env BABEL_ENV=default NODE_ENV=production webpack",
+    "start": "cross-env BABEL_ENV=default webpack --watch",
     "generate-icons": "node ./scripts/generate-icons.js"
   },
   "dependencies": {
@@ -59,7 +59,6 @@
     "lodash.startcase": "4.4.0",
     "lodash.times": "^4.3.2",
     "memize": "^1.0.5",
-    "moment": "2.30.1",
     "querystringify": "2.2.0",
     "react-select": "5.10.2",
     "react-slick": "^0.30.2",

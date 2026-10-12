@@ -27,11 +27,19 @@ import {
 
 registerBlockType('gutenbee/video', {
   apiVersion: 3,
-  title: __('GutenBee Video'),
-  description: __('Embed a video from your media library or upload a new one.'),
+  title: __('GutenBee Video', 'gutenbee'),
+  description: __(
+    'Embed a video from your media library or upload a new one.',
+    'gutenbee',
+  ),
   icon: VideoBlockIcon,
   category: 'gutenbee',
-  keywords: [__('video'), __('movie'), 'gutenbeevideo', 'videogutenbee'],
+  keywords: [
+    __('video', 'gutenbee'),
+    __('movie', 'gutenbee'),
+    'gutenbeevideo',
+    'videogutenbee',
+  ],
   supports: {
     anchor: false,
     align: true,

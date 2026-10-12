@@ -81,9 +81,9 @@ const TermSelect = ({
     <BaseControl label={label} __nextHasNoMarginBottom>
       <div className="entity-select-search-control">
         <TextControl
-          label={__('Search')}
+          label={__('Search', 'gutenbee')}
           hideLabelFromVision
-          placeholder={__('Type to search terms…')}
+          placeholder={__('Type to search terms…', 'gutenbee')}
           className="entity-select-search-control-input"
           value={query}
           onChange={setQuery}
@@ -104,11 +104,11 @@ const TermSelect = ({
         >
           {loading && (
             <div className="entity-select-search-control-results-loading">
-              <Spinner /> {__('Loading...')}
+              <Spinner /> {__('Loading...', 'gutenbee')}
             </div>
           )}
 
-          {resultsEmpty && <p>{__('No results found.')}</p>}
+          {resultsEmpty && <p>{__('No results found.', 'gutenbee')}</p>}
 
           {results?.length > 0 &&
             results.map(result => {
@@ -123,7 +123,7 @@ const TermSelect = ({
                     setQuery('');
                   }}
                 >
-                  {result.name ?? __('(No Title)')}
+                  {result.name ?? __('(No Title)', 'gutenbee')}
                 </a>
               );
             })}

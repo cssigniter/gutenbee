@@ -114,11 +114,11 @@ const ProgressBar = ({ attributes }) => {
 };
 
 registerBlockType('gutenbee/progress-bar', {
-  title: __('GutenBee Progress Bar'),
-  description: __('Create fancy progress bars'),
+  title: __('GutenBee Progress Bar', 'gutenbee'),
+  description: __('Create fancy progress bars', 'gutenbee'),
   icon: ProgressBarBlockIcon,
   category: 'gutenbee',
-  keywords: [__('progress'), __('progress bar')],
+  keywords: [__('progress', 'gutenbee'), __('progress bar', 'gutenbee')],
   apiVersion: 3,
   supports: {
     anchor: false,

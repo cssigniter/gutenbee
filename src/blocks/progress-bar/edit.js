@@ -77,7 +77,7 @@ const ProgressBarEdit = ({
           value={title}
           onChange={value => setAttributes({ title: value })}
           className="wp-block-gutenbee-progress-bar-title"
-          placeholder={__('Write title…')}
+          placeholder={__('Write title…', 'gutenbee')}
           style={{
             color: titleTextColor || undefined,
             marginBottom:
@@ -105,7 +105,7 @@ const ProgressBarEdit = ({
               value={innerTitle}
               onChange={value => setAttributes({ innerTitle: value })}
               className="wp-block-gutenbee-progress-bar-inner-title"
-              placeholder={__('Write inner title…')}
+              placeholder={__('Write inner title…', 'gutenbee')}
             />
 
             {displayPercentage && (
@@ -121,7 +121,7 @@ const ProgressBarEdit = ({
         <InspectorControls>
           <PanelBody>
             <RangeControl
-              label={__('Percentage')}
+              label={__('Percentage', 'gutenbee')}
               min={1}
               max={100}
               value={percentage}
@@ -132,14 +132,14 @@ const ProgressBarEdit = ({
             />
 
             <ToggleControl
-              label={__('Display percentage')}
+              label={__('Display percentage', 'gutenbee')}
               checked={displayPercentage}
               onChange={value => setAttributes({ displayPercentage: value })}
               __nextHasNoMarginBottom
             />
 
             <RangeControl
-              label={__('Title Bottom Margin')}
+              label={__('Title Bottom Margin', 'gutenbee')}
               value={titleBottomMargin}
               onChange={value => {
                 setAttributes({
@@ -156,7 +156,7 @@ const ProgressBarEdit = ({
             <ResponsiveControl>
               {breakpoint => (
                 <FontSizePickerLabel
-                  label={__('Title Font Size')}
+                  label={__('Title Font Size', 'gutenbee')}
                   value={
                     titleFontSize[breakpoint] != null &&
                     titleFontSize[breakpoint] !== ''
@@ -178,7 +178,7 @@ const ProgressBarEdit = ({
             <ResponsiveControl>
               {breakpoint => (
                 <FontSizePickerLabel
-                  label={__('Bar Text Font Size')}
+                  label={__('Bar Text Font Size', 'gutenbee')}
                   value={
                     innerTitleFontSize[breakpoint] != null &&
                     innerTitleFontSize[breakpoint] !== ''
@@ -201,7 +201,7 @@ const ProgressBarEdit = ({
               {breakpoint => (
                 <Fragment>
                   <RangeControl
-                    label={__('Bar Height (px)')}
+                    label={__('Bar Height (px)', 'gutenbee')}
                     min={30}
                     max={200}
                     value={height[breakpoint]}
@@ -223,23 +223,26 @@ const ProgressBarEdit = ({
             </ResponsiveControl>
           </PanelBody>
 
-          <PanelBody title={__('Block Appearance')} initialOpen={false}>
+          <PanelBody
+            title={__('Block Appearance', 'gutenbee')}
+            initialOpen={false}
+          >
             <PopoverColorControl
-              label={__('Title Text Color')}
+              label={__('Title Text Color', 'gutenbee')}
               value={titleTextColor || ''}
               defaultValue={titleTextColor || ''}
               onChange={value => setAttributes({ titleTextColor: value })}
             />
 
             <PopoverColorControl
-              label={__('Bar Text Color')}
+              label={__('Bar Text Color', 'gutenbee')}
               value={textColor || ''}
               defaultValue={textColor || ''}
               onChange={value => setAttributes({ textColor: value })}
             />
 
             <PopoverColorControl
-              label={__('Progress Background Color')}
+              label={__('Progress Background Color', 'gutenbee')}
               value={progressBackgroundColor || ''}
               defaultValue={progressBackgroundColor || ''}
               onChange={value =>
@@ -248,14 +251,14 @@ const ProgressBarEdit = ({
             />
 
             <PopoverColorControl
-              label={__('Bar Background Color')}
+              label={__('Bar Background Color', 'gutenbee')}
               value={barBackgroundColor || ''}
               defaultValue={barBackgroundColor || ''}
               onChange={value => setAttributes({ barBackgroundColor: value })}
             />
 
             <PopoverColorControl
-              label={__('Block Background Color')}
+              label={__('Block Background Color', 'gutenbee')}
               value={backgroundColor || ''}
               defaultValue={backgroundColor || ''}
               onChange={value => setAttributes({ backgroundColor: value })}
@@ -274,7 +277,7 @@ const ProgressBarEdit = ({
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
-                  label={__('Padding (px)')}
+                  label={__('Padding (px)', 'gutenbee')}
                   attributeKey="blockPadding"
                   attributes={attributes}
                   setAttributes={setAttributes}
@@ -286,7 +289,7 @@ const ProgressBarEdit = ({
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
-                  label={__('Margin (px)')}
+                  label={__('Margin (px)', 'gutenbee')}
                   attributeKey="blockMargin"
                   attributes={attributes}
                   setAttributes={setAttributes}
@@ -295,7 +298,10 @@ const ProgressBarEdit = ({
               )}
             </ResponsiveControl>
           </PanelBody>
-          <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+          <PanelBody
+            title={__('Visibility Settings', 'gutenbee')}
+            initialOpen={false}
+          >
             <BreakpointVisibilityControl
               values={blockBreakpointVisibility}
               onChange={values => {
@@ -320,7 +326,7 @@ const ProgressBarEdit = ({
           ] && (
             <PanelBody
               icon={!!attributes.animation?.type && 'saved'}
-              title={__('Animation')}
+              title={__('Animation', 'gutenbee')}
               initialOpen={false}
             >
               <AnimationControls

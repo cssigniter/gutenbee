@@ -124,6 +124,7 @@ const GoogleMapsEdit = ({
           <Notice status="error" isDismissible={false}>
             {__(
               "The Google Maps block requires a valid Google Maps API key, please add one in GutenBee's settings page.",
+              'gutenbee',
             )}
           </Notice>
         )}
@@ -133,7 +134,7 @@ const GoogleMapsEdit = ({
         <InspectorControls>
           <PanelBody>
             <TextControl
-              label={__('Latitude')}
+              label={__('Latitude', 'gutenbee')}
               type="number"
               value={latitude}
               onChange={value => setAttributes({ latitude: value })}
@@ -142,7 +143,7 @@ const GoogleMapsEdit = ({
             />
 
             <TextControl
-              label={__('Longitude')}
+              label={__('Longitude', 'gutenbee')}
               type="number"
               value={longitude}
               onChange={value => setAttributes({ longitude: value })}
@@ -151,7 +152,7 @@ const GoogleMapsEdit = ({
             />
 
             <RangeControl
-              label={__('Zoom')}
+              label={__('Zoom', 'gutenbee')}
               min={0}
               max={20}
               value={zoom}
@@ -164,7 +165,7 @@ const GoogleMapsEdit = ({
             <ResponsiveControl>
               {breakpoint => (
                 <RangeControl
-                  label={__('Height (px)')}
+                  label={__('Height (px)', 'gutenbee')}
                   min={40}
                   max={1440}
                   value={height[breakpoint]}
@@ -184,13 +185,13 @@ const GoogleMapsEdit = ({
             </ResponsiveControl>
 
             <ToggleControl
-              label={__('Prevent Scroll')}
+              label={__('Prevent Scroll', 'gutenbee')}
               checked={preventScroll}
               onChange={value => setAttributes({ preventScroll: value })}
               __nextHasNoMarginBottom
             />
 
-            <p>{__('Custom Marker')}</p>
+            <p>{__('Custom Marker', 'gutenbee')}</p>
             {markerImageUrl && (
               <ImagePreview
                 src={markerImageUrl}
@@ -219,31 +220,38 @@ const GoogleMapsEdit = ({
                     variant="secondary"
                     style={{ width: '100%', display: 'block' }}
                   >
-                    Upload Custom Marker
+                    {__('Upload Custom Marker', 'gutenbee')}
                   </Button>
                 </p>
               )}
             />
 
             <TextareaControl
-              label={__('Info Window Text')}
+              label={__('Info Window Text', 'gutenbee')}
               value={infoWindow}
               onChange={value => setAttributes({ infoWindow: value })}
               help={__(
                 'This text will appear as a popup on the map marker. Accepts basic HTML.',
+                'gutenbee',
               )}
               __nextHasNoMarginBottom
             />
           </PanelBody>
 
-          <PanelBody title={__('Map Appearance')} initialOpen={false}>
+          <PanelBody
+            title={__('Map Appearance', 'gutenbee')}
+            initialOpen={false}
+          >
             <SelectControl
-              label={__('Color Scheme')}
+              label={__('Color Scheme', 'gutenbee')}
               value={attributes.colorScheme}
               options={[
-                { value: 'FOLLOW_SYSTEM', label: __('Follow System') },
-                { value: 'LIGHT', label: __('Light') },
-                { value: 'DARK', label: __('Dark') },
+                {
+                  value: 'FOLLOW_SYSTEM',
+                  label: __('Follow System', 'gutenbee'),
+                },
+                { value: 'LIGHT', label: __('Light', 'gutenbee') },
+                { value: 'DARK', label: __('Dark', 'gutenbee') },
               ]}
               onChange={value => setAttributes({ colorScheme: value })}
               __nextHasNoMarginBottom
@@ -251,11 +259,11 @@ const GoogleMapsEdit = ({
             />
 
             <SelectControl
-              label={__('Map Style')}
+              label={__('Map Style', 'gutenbee')}
               value={styleId}
               onChange={value => setAttributes({ styleId: value })}
               options={[
-                { value: '', label: __('Default') },
+                { value: '', label: __('Default', 'gutenbee') },
                 ...mapStyles.map(style => ({
                   value: style.id,
                   label: style.label,
@@ -263,26 +271,31 @@ const GoogleMapsEdit = ({
               ]}
               help={__(
                 'Select a JSON style for the map. This works alongside Advanced Markers.',
+                'gutenbee',
               )}
               __nextHasNoMarginBottom
               __next40pxDefaultSize
             />
 
             <TextControl
-              label={__('Map ID')}
+              label={__('Map ID', 'gutenbee')}
               value={mapId}
               onChange={value => setAttributes({ mapId: value })}
               help={__(
                 'Enter your Google Maps Map ID from Google Cloud Console.',
+                'gutenbee',
               )}
               __nextHasNoMarginBottom
               __next40pxDefaultSize
             />
           </PanelBody>
 
-          <PanelBody title={__('Block Appearance')} initialOpen={false}>
+          <PanelBody
+            title={__('Block Appearance', 'gutenbee')}
+            initialOpen={false}
+          >
             <PopoverColorControl
-              label={__('Background Color')}
+              label={__('Background Color', 'gutenbee')}
               value={backgroundColor || ''}
               defaultValue={backgroundColor || ''}
               onChange={value => setAttributes({ backgroundColor: value })}
@@ -301,7 +314,7 @@ const GoogleMapsEdit = ({
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
-                  label={__('Padding (px)')}
+                  label={__('Padding (px)', 'gutenbee')}
                   attributeKey="blockPadding"
                   attributes={attributes}
                   setAttributes={setAttributes}
@@ -313,7 +326,7 @@ const GoogleMapsEdit = ({
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
-                  label={__('Margin (px)')}
+                  label={__('Margin (px)', 'gutenbee')}
                   attributeKey="blockMargin"
                   attributes={attributes}
                   setAttributes={setAttributes}
@@ -323,7 +336,10 @@ const GoogleMapsEdit = ({
             </ResponsiveControl>
           </PanelBody>
 
-          <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+          <PanelBody
+            title={__('Visibility Settings', 'gutenbee')}
+            initialOpen={false}
+          >
             <BreakpointVisibilityControl
               values={blockBreakpointVisibility}
               onChange={values => {
@@ -348,7 +364,7 @@ const GoogleMapsEdit = ({
           ] && (
             <PanelBody
               icon={!!attributes.animation?.type && 'saved'}
-              title={__('Animation')}
+              title={__('Animation', 'gutenbee')}
               initialOpen={false}
             >
               <AnimationControls

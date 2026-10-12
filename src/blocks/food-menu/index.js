@@ -27,11 +27,11 @@ import {
 
 registerBlockType('gutenbee/food-menu', {
   apiVersion: 3,
-  title: __('GutenBee Food Menu'),
-  description: __('List your favorite dishes.'),
+  title: __('GutenBee Food Menu', 'gutenbee'),
+  description: __('List your favorite dishes.', 'gutenbee'),
   icon: FoodMenuIcon,
   category: 'gutenbee',
-  keywords: [__('food'), __('menu')],
+  keywords: [__('food', 'gutenbee'), __('menu', 'gutenbee')],
   supports: {
     anchor: false,
   },

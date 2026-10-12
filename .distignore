@@ -3,6 +3,7 @@
 # Project-specific
 README.md
 src
+*.map
 
 # VCS
 .git

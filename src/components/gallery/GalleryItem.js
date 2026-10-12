@@ -65,7 +65,7 @@ const GalleryItem = ({
             icon="trash"
             onClick={onRemove}
             className="gutenbee-gallery-item-remove"
-            label={__('Remove Image')}
+            label={__('Remove Image', 'gutenbee')}
           />
         </div>
       )}

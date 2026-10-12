@@ -170,7 +170,7 @@ const TabsEdit = ({
                 onFocus={() => {
                   setSelectedTabIndex(index);
                 }}
-                placeholder={__('Write title…')}
+                placeholder={__('Write title…', 'gutenbee')}
               />
             </div>
           ))}
@@ -191,7 +191,7 @@ const TabsEdit = ({
                 value={activeTab.content}
                 onChange={content => onTabContentUpdate(content)}
                 className="wp-block-gutenbee-tabs-text"
-                placeholder={__('Write content…')}
+                placeholder={__('Write content…', 'gutenbee')}
               />
             </div>
           </div>
@@ -200,9 +200,9 @@ const TabsEdit = ({
 
       {isSelected && (
         <InspectorControls>
-          <PanelBody title={__('Tab Settings')} initialOpen>
+          <PanelBody title={__('Tab Settings', 'gutenbee')} initialOpen>
             <RangeControl
-              label={__('Number of tabs')}
+              label={__('Number of tabs', 'gutenbee')}
               value={tabs.length}
               min={1}
               max={20}
@@ -213,7 +213,10 @@ const TabsEdit = ({
             />
           </PanelBody>
 
-          <PanelBody title={__('Block Appearance')} initialOpen={false}>
+          <PanelBody
+            title={__('Block Appearance', 'gutenbee')}
+            initialOpen={false}
+          >
             <StateTabs>
               {activeState => {
                 const textColorKey = activeState
@@ -223,10 +226,22 @@ const TabsEdit = ({
                   ? `${activeState.toLowerCase()}TabBackgroundColor`
                   : 'tabBackgroundColor';
 
+                // Full strings for each state, so that they can be translated.
+                const textColorLabel = {
+                  '': __('Tab Text Color', 'gutenbee'),
+                  Hover: __('Tab Hover Text Color', 'gutenbee'),
+                  Active: __('Tab Active Text Color', 'gutenbee'),
+                }[activeState];
+                const backgroundColorLabel = {
+                  '': __('Tab Background Color', 'gutenbee'),
+                  Hover: __('Tab Hover Background Color', 'gutenbee'),
+                  Active: __('Tab Active Background Color', 'gutenbee'),
+                }[activeState];
+
                 return (
                   <Fragment>
                     <PopoverColorControl
-                      label={__(`Tab ${activeState} Text Color`)}
+                      label={textColorLabel}
                       value={attributes[textColorKey]}
                       defaultValue={attributes[textColorKey] || ''}
                       onChange={value =>
@@ -237,7 +252,7 @@ const TabsEdit = ({
                     />
 
                     <PopoverColorControl
-                      label={__(`Tab ${activeState} Background Color`)}
+                      label={backgroundColorLabel}
                       value={attributes[backgroundColorKey]}
                       defaultValue={attributes[backgroundColorKey] || ''}
                       onChange={value =>
@@ -252,14 +267,14 @@ const TabsEdit = ({
             </StateTabs>
 
             <PopoverColorControl
-              label={__('Content Text Color')}
+              label={__('Content Text Color', 'gutenbee')}
               value={tabContentTextColor || ''}
               defaultValue={tabContentTextColor || ''}
               onChange={value => setAttributes({ tabContentTextColor: value })}
             />
 
             <PopoverColorControl
-              label={__('Content Background Color')}
+              label={__('Content Background Color', 'gutenbee')}
               value={tabContentBackgroundColor || ''}
               defaultValue={tabContentBackgroundColor || ''}
               onChange={value =>
@@ -268,7 +283,7 @@ const TabsEdit = ({
             />
 
             <PopoverColorControl
-              label={__('Content Border Color')}
+              label={__('Content Border Color', 'gutenbee')}
               value={borderColor || ''}
               defaultValue={borderColor || ''}
               onChange={value => setAttributes({ borderColor: value })}
@@ -277,7 +292,7 @@ const TabsEdit = ({
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
-                  label={__('Padding (px)')}
+                  label={__('Padding (px)', 'gutenbee')}
                   attributeKey="blockPadding"
                   attributes={attributes}
                   setAttributes={setAttributes}
@@ -289,7 +304,7 @@ const TabsEdit = ({
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
-                  label={__('Margin (px)')}
+                  label={__('Margin (px)', 'gutenbee')}
                   attributeKey="blockMargin"
                   attributes={attributes}
                   setAttributes={setAttributes}
@@ -298,7 +313,10 @@ const TabsEdit = ({
               )}
             </ResponsiveControl>
           </PanelBody>
-          <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+          <PanelBody
+            title={__('Visibility Settings', 'gutenbee')}
+            initialOpen={false}
+          >
             <BreakpointVisibilityControl
               values={blockBreakpointVisibility}
               onChange={values => {
@@ -323,7 +341,7 @@ const TabsEdit = ({
           ] && (
             <PanelBody
               icon={!!attributes.animation?.type && 'saved'}
-              title={__('Animation')}
+              title={__('Animation', 'gutenbee')}
               initialOpen={false}
             >
               <AnimationControls

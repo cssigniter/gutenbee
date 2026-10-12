@@ -90,7 +90,7 @@ const ReviewItemEdit = ({
               disableLineBreaks={true}
               onChange={value => setAttributes({ innerTitle: value })}
               className="wp-block-gutenbee-review-item-inner-title"
-              placeholder={__('Review Category')}
+              placeholder={__('Review Category', 'gutenbee')}
               isSelected={isSelected && editable === 'innerTitle'}
               onFocus={() => setEditable('innerTitle')}
               onRemove={innerBlocks.length > 1 ? onRemove : false}
@@ -110,7 +110,7 @@ const ReviewItemEdit = ({
         <InspectorControls>
           <PanelBody>
             <RangeControl
-              label={__('Rating')}
+              label={__('Rating', 'gutenbee')}
               min={0}
               max={10}
               value={percentage}

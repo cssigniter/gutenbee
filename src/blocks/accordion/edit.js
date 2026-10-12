@@ -177,7 +177,7 @@ const AccordionsEdit = ({
                 onClick={event => {
                   event.stopPropagation();
                 }}
-                placeholder={__('Write title…')}
+                placeholder={__('Write title…', 'gutenbee')}
               />
               <span className="wp-block-gutenbee-accordion-item-title-icon" />
             </div>
@@ -197,7 +197,7 @@ const AccordionsEdit = ({
                     value={tab.content}
                     onChange={content => onTabContentUpdate(index, content)}
                     className="wp-block-gutenbee-accordion-item-text"
-                    placeholder={__('Write content…')}
+                    placeholder={__('Write content…', 'gutenbee')}
                   />
                 </div>
               </div>
@@ -208,9 +208,9 @@ const AccordionsEdit = ({
 
       {isSelected && (
         <InspectorControls>
-          <PanelBody title={__('Accordion Settings')} initialOpen>
+          <PanelBody title={__('Accordion Settings', 'gutenbee')} initialOpen>
             <RangeControl
-              label={__('Number of tabs')}
+              label={__('Number of tabs', 'gutenbee')}
               value={tabs.length}
               min={1}
               max={30}
@@ -221,14 +221,14 @@ const AccordionsEdit = ({
             />
 
             <ToggleControl
-              label={__('Collapse others on click')}
+              label={__('Collapse others on click', 'gutenbee')}
               checked={collapseOthers}
               onChange={value => setAttributes({ collapseOthers: value })}
               __nextHasNoMarginBottom
             />
 
             <ToggleControl
-              label={__('Start current tab open')}
+              label={__('Start current tab open', 'gutenbee')}
               checked={defaultOpenTabs.includes(activeTab)}
               onChange={() => {
                 if (defaultOpenTabs.includes(activeTab)) {
@@ -249,13 +249,28 @@ const AccordionsEdit = ({
             />
           </PanelBody>
 
-          <PanelBody title={__('Block Appearance')} initialOpen={false}>
+          <PanelBody
+            title={__('Block Appearance', 'gutenbee')}
+            initialOpen={false}
+          >
             <StateTabs>
               {activeState => {
+                // Full strings for each state, so that they can be translated.
+                const textColorLabel = {
+                  '': __('Title Text Color', 'gutenbee'),
+                  Hover: __('Title Hover Text Color', 'gutenbee'),
+                  Active: __('Title Active Text Color', 'gutenbee'),
+                }[activeState];
+                const backgroundColorLabel = {
+                  '': __('Title Background Color', 'gutenbee'),
+                  Hover: __('Title Hover Background Color', 'gutenbee'),
+                  Active: __('Title Active Background Color', 'gutenbee'),
+                }[activeState];
+
                 return (
                   <Fragment>
                     <PopoverColorControl
-                      label={__(`Title ${activeState} Text Color`)}
+                      label={textColorLabel}
                       value={attributes[`title${activeState}TextColor`] || ''}
                       defaultValue={
                         attributes[`title${activeState}TextColor`] || ''
@@ -267,7 +282,7 @@ const AccordionsEdit = ({
                       }
                     />
                     <PopoverColorControl
-                      label={__(`Title ${activeState} Background Color`)}
+                      label={backgroundColorLabel}
                       value={
                         attributes[`title${activeState}BackgroundColor`] || ''
                       }
@@ -286,13 +301,13 @@ const AccordionsEdit = ({
             </StateTabs>
 
             <PopoverColorControl
-              label={__('Content Text Color')}
+              label={__('Content Text Color', 'gutenbee')}
               value={tabContentTextColor || ''}
               defaultValue={tabContentTextColor || ''}
               onChange={value => setAttributes({ tabContentTextColor: value })}
             />
             <PopoverColorControl
-              label={__('Content Background Color')}
+              label={__('Content Background Color', 'gutenbee')}
               value={tabContentBackgroundColor || ''}
               defaultValue={tabContentBackgroundColor || ''}
               onChange={value =>
@@ -300,7 +315,7 @@ const AccordionsEdit = ({
               }
             />
             <PopoverColorControl
-              label={__('Border Color')}
+              label={__('Border Color', 'gutenbee')}
               value={borderColor || ''}
               defaultValue={borderColor || ''}
               onChange={value => setAttributes({ borderColor: value })}
@@ -309,7 +324,7 @@ const AccordionsEdit = ({
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
-                  label={__('Padding (px)')}
+                  label={__('Padding (px)', 'gutenbee')}
                   attributeKey="blockPadding"
                   attributes={attributes}
                   setAttributes={setAttributes}
@@ -321,7 +336,7 @@ const AccordionsEdit = ({
             <ResponsiveControl>
               {breakpoint => (
                 <MarginControls
-                  label={__('Margin (px)')}
+                  label={__('Margin (px)', 'gutenbee')}
                   attributeKey="blockMargin"
                   attributes={attributes}
                   setAttributes={setAttributes}
@@ -331,7 +346,10 @@ const AccordionsEdit = ({
             </ResponsiveControl>
           </PanelBody>
 
-          <PanelBody title={__('Visibility Settings')} initialOpen={false}>
+          <PanelBody
+            title={__('Visibility Settings', 'gutenbee')}
+            initialOpen={false}
+          >
             <BreakpointVisibilityControl
               values={blockBreakpointVisibility}
               onChange={values => {
@@ -356,7 +374,7 @@ const AccordionsEdit = ({
           ] && (
             <PanelBody
               icon={!!attributes.animation?.type && 'saved'}
-              title={__('Animation')}
+              title={__('Animation', 'gutenbee')}
               initialOpen={false}
             >
               <AnimationControls

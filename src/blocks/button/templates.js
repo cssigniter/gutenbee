@@ -1,6 +1,8 @@
+import { __ } from 'wp.i18n';
+
 export const buttonSizeTemplates = [
   {
-    name: 'Large',
+    name: __('Large', 'gutenbee'),
     attributes: {
       fontSize: {
         desktop: 16,
@@ -30,7 +32,7 @@ export const buttonSizeTemplates = [
     },
   },
   {
-    name: 'Medium',
+    name: __('Medium', 'gutenbee'),
     attributes: {
       fontSize: {
         desktop: 15,
@@ -60,7 +62,7 @@ export const buttonSizeTemplates = [
     },
   },
   {
-    name: 'Small',
+    name: __('Small', 'gutenbee'),
     attributes: {
       fontSize: {
         desktop: 14,
@@ -90,7 +92,7 @@ export const buttonSizeTemplates = [
     },
   },
   {
-    name: 'Extra Small',
+    name: __('Extra Small', 'gutenbee'),
     attributes: {
       fontSize: {
         desktop: 12,
@@ -123,7 +125,7 @@ export const buttonSizeTemplates = [
 
 export const buttonStyleTemplates = [
   {
-    name: 'Normal',
+    name: __('Normal', 'gutenbee'),
     attributes: {
       borderStyle: 'none',
       backgroundColor: '#000000',
@@ -131,7 +133,7 @@ export const buttonStyleTemplates = [
     },
   },
   {
-    name: 'Outline',
+    name: __('Outline', 'gutenbee'),
     attributes: {
       borderStyle: 'solid',
       borderWidth: 2,
