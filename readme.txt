@@ -83,6 +83,12 @@ Please report security bugs found in the source code of the GutenBee plugin thro
 
 == Changelog ==
 
+= 2.20.4 =
+* WordPress 7.x modernization and block editor fixes.
+* Block editor fixes for the iframed editor.
+* Accessible title for the editor's YouTube frame.
+* Translatable editor labels.
+
 = 2.20.3 =
 * Fixed a minor issue where images would overflow their container in some cases.
 
