@@ -589,6 +589,21 @@ function gutenbee_filter_excerpt_allowed_blocks( $allowed_blocks ) {
 	return $allowed_blocks;
 }
 
+add_filter( 'render_block_gutenbee/paragraph', 'gutenbee_enqueue_paragraph_core_styles' );
+/**
+ * The paragraph block reuses core's paragraph classes (e.g. has-drop-cap), but WordPress
+ * only loads core's paragraph styles when a core paragraph block is rendered.
+ * The handle is only registered when core block styles load separately; otherwise
+ * the full block library stylesheet already includes them.
+ */
+function gutenbee_enqueue_paragraph_core_styles( $block_content ) {
+	if ( wp_style_is( 'wp-block-paragraph', 'registered' ) ) {
+		wp_enqueue_style( 'wp-block-paragraph' );
+	}
+
+	return $block_content;
+}
+
 require_once untrailingslashit( dirname( __FILE__ ) ) . '/inc/options.php';
 require_once untrailingslashit( dirname( __FILE__ ) ) . '/inc/blocks/container/block.php';
 require_once untrailingslashit( dirname( __FILE__ ) ) . '/inc/blocks/post-types/block.php';
