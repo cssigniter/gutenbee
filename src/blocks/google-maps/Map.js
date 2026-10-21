@@ -25,6 +25,7 @@ const loadGoogleMapsLibraries = async () => {
     Map: mapsLib.Map,
     ColorScheme: coreLib.ColorScheme,
     AdvancedMarkerElement: markerLib.AdvancedMarkerElement,
+    Marker: markerLib.Marker,
   };
 
   return cachedLibraries;
@@ -62,6 +63,8 @@ const Map = ({
   const [mapInstance, setMapInstance] = useState(null);
   const [markerInstance, setMarkerInstance] = useState(null);
   const [infoWindowInstance, setInfoWindowInstance] = useState(null);
+  // A map's mapId can't change once it's created, so neither can its marker type.
+  const usesClassicMarkerRef = useRef(false);
   const [apiLoaded, setApiLoaded] = useState(
     typeof window.google !== 'undefined' &&
       typeof window.google.maps !== 'undefined',
@@ -157,6 +160,7 @@ const Map = ({
           Map: GoogleMap,
           ColorScheme,
           AdvancedMarkerElement,
+          Marker,
         } = await loadGoogleMapsLibraries();
 
         const location = {
@@ -166,10 +170,13 @@ const Map = ({
 
         // Google Maps API limitation: mapId and custom styles are mutually exclusive
         // - With mapId: Cannot set custom styles (must use Cloud Console)
-        // - Without mapId: Can set custom styles, but AdvancedMarkerElement has limited features
+        // - Without mapId: Can set custom styles, but AdvancedMarkerElement can't be used
+        //   (Google shows a "can't load Google Maps correctly" error), so use the classic Marker
         // Prioritize custom styles when provided
         const hasCustomStyles =
           styles && Array.isArray(styles) && styles.length > 0;
+
+        usesClassicMarkerRef.current = hasCustomStyles;
 
         // Resolve ColorScheme
         // data-color-scheme attribute values are: FOLLOW_SYSTEM, LIGHT, DARK
@@ -212,31 +219,48 @@ const Map = ({
 
         setInfoWindowInstance(infowindow);
 
-        // Always use AdvancedMarkerElement
-        let content = null;
-        if (icon) {
-          const img = document.createElement('img');
-          img.src = icon;
-          content = img;
-        }
+        let marker;
+        if (hasCustomStyles) {
+          marker = new Marker({
+            map,
+            position: location,
+            icon: icon || null,
+          });
+        } else {
+          let content = null;
+          if (icon) {
+            const img = document.createElement('img');
+            img.src = icon;
+            content = img;
+          }
 
-        const marker = new AdvancedMarkerElement({
-          map,
-          position: location,
-          content,
-        });
+          // gmp-click only fires on markers created as clickable. Always clickable
+          // here, since an info window can be added while editing.
+          marker = new AdvancedMarkerElement({
+            map,
+            position: location,
+            content,
+            gmpClickable: true,
+          });
+        }
 
         setMarkerInstance(marker);
 
         // Add Click Listener
-        marker.addEventListener('gmp-click', () => {
+        const openInfoWindow = () => {
           if (infowindow.getContent()) {
             infowindow.open({
               anchor: marker,
               map,
             });
           }
-        });
+        };
+
+        if (hasCustomStyles) {
+          marker.addListener('click', openInfoWindow);
+        } else {
+          marker.addEventListener('gmp-click', openInfoWindow);
+        }
       } catch (error) {
         console.error('Error inside initMap:', error);
       }
@@ -259,7 +283,7 @@ const Map = ({
 
       // Google Maps API limitation: mapId and custom styles are mutually exclusive
       // - With mapId: Cannot set custom styles (must use Cloud Console)
-      // - Without mapId: Can set custom styles, but AdvancedMarkerElement has limited features
+      // - Without mapId: Can set custom styles, but AdvancedMarkerElement can't be used
       // Prioritize custom styles when provided
       const hasCustomStyles =
         styles && Array.isArray(styles) && styles.length > 0;
@@ -315,7 +339,13 @@ const Map = ({
     }
     const location = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
 
-    // Always using AdvancedMarkerElement - use properties
+    if (usesClassicMarkerRef.current) {
+      markerInstance.setPosition(location);
+      markerInstance.setIcon(icon || null);
+      return;
+    }
+
+    // AdvancedMarkerElement - use properties
     markerInstance.position = location;
 
     if (icon) {

@@ -10,7 +10,9 @@ jQuery(async $ => {
 
   const { Map } = await google.maps.importLibrary('maps');
   const { ColorScheme } = await google.maps.importLibrary('core');
-  const { AdvancedMarkerElement } = await google.maps.importLibrary('marker');
+  const { AdvancedMarkerElement, Marker } = await google.maps.importLibrary(
+    'marker',
+  );
 
   const $maps = $(
     '.wp-block-gutenbee-google-maps > div, .wp-block-gutenbee-google-maps',
@@ -33,7 +35,8 @@ jQuery(async $ => {
 
     // Google Maps API limitation: mapId and custom styles are mutually exclusive
     // - With mapId: Cannot set custom styles (must use Cloud Console)
-    // - Without mapId: Can set custom styles, but AdvancedMarkerElement has limited features
+    // - Without mapId: Can set custom styles, but AdvancedMarkerElement can't be used
+    //   (Google shows a "can't load Google Maps correctly" error), so use the classic Marker
     // Prioritize custom styles when provided
     const hasCustomStyles =
       stylesAttr && Array.isArray(stylesAttr) && stylesAttr.length > 0;
@@ -65,21 +68,32 @@ jQuery(async $ => {
 
     const map = new Map($this.get(0), mapOptions);
 
-    // Always use AdvancedMarkerElement
     const iconUrl = $this.data('marker-icon');
-    let content = null;
+    let marker;
 
-    if (iconUrl) {
-      const img = document.createElement('img');
-      img.src = iconUrl;
-      content = img;
+    if (hasCustomStyles) {
+      marker = new Marker({
+        position: location,
+        map,
+        icon: iconUrl || null,
+      });
+    } else {
+      let content = null;
+
+      if (iconUrl) {
+        const img = document.createElement('img');
+        img.src = iconUrl;
+        content = img;
+      }
+
+      // gmp-click only fires on markers created as clickable.
+      marker = new AdvancedMarkerElement({
+        position: location,
+        map,
+        content,
+        gmpClickable: !!info,
+      });
     }
-
-    const marker = new AdvancedMarkerElement({
-      position: location,
-      map,
-      content,
-    });
 
     const infoWindow = new google.maps.InfoWindow({
       content:
@@ -90,12 +104,18 @@ jQuery(async $ => {
     });
 
     if (info) {
-      marker.addEventListener('gmp-click', () => {
+      const openInfoWindow = () => {
         infoWindow.open({
           anchor: marker,
           map,
         });
-      });
+      };
+
+      if (hasCustomStyles) {
+        marker.addListener('click', openInfoWindow);
+      } else {
+        marker.addEventListener('gmp-click', openInfoWindow);
+      }
     }
   });
 });
