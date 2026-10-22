@@ -3,7 +3,7 @@ Contributors: cssigniterteam, silencerius, tsiger, anastis
 Tags: gutenberg, blocks
 Requires at least: 7.0
 Tested up to: 7.1
-Stable tag: 2.20.4
+Stable tag: 2.20.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 7.4
@@ -82,6 +82,11 @@ Note that if you want to use the Google Maps block you will also need a Google M
 Please report security bugs found in the source code of the GutenBee plugin through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/8a647308-ead3-4797-9190-671ddae30dfa). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
 
 == Changelog ==
+
+= 2.20.5 =
+* Google maps block: Maps would show an "can't load Google Maps correctly" error when no mapId was provided.
+* Google maps block: Info window wouldn't open when a marker was clicked.
+* Paragraph block: Drop caps wouldn't align vertically properly.
 
 = 2.20.4 =
 * WordPress 7.x modernization and block editor fixes.

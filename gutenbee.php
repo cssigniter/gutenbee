@@ -6,7 +6,7 @@
  * Author: The CSSIgniter Team
  * Author URI: https://www.cssigniter.com
  * License: GPLv2 or later
- * Version: 2.20.4
+ * Version: 2.20.5
  * Requires at least: 7.0
  * Requires PHP: 7.4
  * Text Domain: gutenbee
@@ -28,7 +28,7 @@
  */
 
 if ( ! defined( 'GUTENBEE_PLUGIN_VERSION' ) ) {
-	define( 'GUTENBEE_PLUGIN_VERSION', '2.20.4' );
+	define( 'GUTENBEE_PLUGIN_VERSION', '2.20.5' );
 }
 
 if ( ! defined( 'GUTENBEE_PLUGIN_DIR' ) ) {
@@ -44,7 +44,6 @@ function gutenbee_enqueue_editor_assets() {
 	if ( ! is_admin() ) {
 		return;
 	}
-
 
 	wp_enqueue_script( 'gutenbee', untrailingslashit( GUTENBEE_PLUGIN_DIR_URL ) . '/build/gutenbee.build.js', array(
 		'wp-components',
